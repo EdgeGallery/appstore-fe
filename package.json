@@ -1,0 +1,71 @@
+{
+  "name": "appstore-fe",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "eslint": "eslint -f checkstyle --ext .js,.vue src -o eslint_result.xml",
+    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
+  },
+  "dependencies": {
+    "acorn": "^7.2.0",
+    "axios": "^0.19.0",
+    "core-js": "^2.6.5",
+    "dot-prop": "^4.2.1",
+    "echarts": "^4.4.0",
+    "element-ui": "^2.12.0",
+    "elliptic": "^6.5.3",
+    "http-proxy": "^1.18.1",
+    "http-proxy-agent": "^4.0.1",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "mavon-editor": "^2.8.2",
+    "showdown": "^1.9.1",
+    "v-charts": "^1.19.0",
+    "vue": "^2.6.11",
+    "vue-cookies": "^1.7.0",
+    "vue-i18n": "^8.15.0",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.11.0",
+    "@vue/cli-plugin-eslint": "^3.11.0",
+    "@vue/cli-service": "^3.11.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "sass": "^1.18.0",
+    "sass-loader": "^7.1.0",
+    "vue-cli-plugin-i18n": "^0.6.0",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/base",
+      "plugin:vue/essential",
+      "plugin:vue/strongly-recommended",
+      "@vue/standard"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
