@@ -84,7 +84,7 @@ const en = {
     fileNotContent: 'The file format does not support  or empty content!',
     canOnlyUpload: 'Can only upload .',
     files: ' files.',
-    uploadPicture: 'Can only upload .png files.',
+    uploadPicture: 'Can only upload .jpg and .png files.',
     uploadPackageFile: 'You need to upload package file first!',
     uploadIconFile: 'You need to upload icon file or select icon first!',
     industryEmpty: 'Industry cannot be empty',
@@ -115,7 +115,9 @@ const en = {
     getCaptchaFail: 'Failed to obtain captcha.',
     confirmLogout: 'Are you sure to log out?',
     subCommentFailReason: 'Rating and content are required',
-    contrastTime: 'The submission time cannot be earlier than the test end time!'
+    contrastTime: 'The submission time cannot be earlier than the test end time!',
+    cannotComment: 'You cannot comment twice',
+    onlyOneFile: 'Only one file is allowed, please remove the file first!'
   },
   store: {
     advancedSearch: 'Advanced Search',
@@ -136,9 +138,9 @@ const en = {
     appPackage: 'App Package',
     dragPackage: 'Drag App package files here orclick to upload',
     onlyCsar: 'Can only upload .csar files.',
-    packageSizeLimit: 'no more than 200M',
+    packageSizeLimit: 'no more than 10M',
     appIcon: 'App Icon',
-    onlyImg: 'Can only upload .png file, or select the default App icon.',
+    onlyImg: 'Can only upload .jpg and .png files ,or select the default App icon.',
     iconSizeLimit: 'no more than 2M.',
     userName: 'Commentator',
     time: 'Time',

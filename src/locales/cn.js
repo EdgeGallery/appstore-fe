@@ -86,7 +86,7 @@ const cn = {
     fileNotContent: '文件格式不支持或内容为空!',
     canOnlyUpload: '只能上传 .',
     files: ' 类型文件.',
-    uploadPicture: '请上传.png格式文件.',
+    uploadPicture: '请上传.jpg或.png格式文件.',
     uploadPackageFile: '请添加需要上传的安装包文件!',
     uploadIconFile: '请上传图标文件或者选择图标!',
     industryEmpty: '行业不能为空',
@@ -117,7 +117,9 @@ const cn = {
     getCaptchaFail: '获取验证码失败。',
     confirmLogout: '您确定要退出吗?',
     contrastTime: '提交时间不能早于测试结束时间！',
-    subCommentFailReason: '评分和评论内容是必须的'
+    subCommentFailReason: '评分和评论内容是必须的',
+    cannotComment: '您不能评论两次',
+    onlyOneFile: '仅支持一个文件，请先移除已有文件！'
   },
   store: {
     advancedSearch: '高级搜索',
@@ -138,9 +140,9 @@ const cn = {
     appPackage: '应用程序',
     dragPackage: '拖动应用程序包文件到这里或点击上传',
     onlyCsar: '只能上传 .csar 文件.',
-    packageSizeLimit: '文件大小不超过200M',
+    packageSizeLimit: '文件大小不超过10M',
     appIcon: '应用图标',
-    onlyImg: '只能上传 .png 文件,或者选择默认图标',
+    onlyImg: '请上传.jpg或.png格式文件,或者选择默认图标',
     iconSizeLimit: '文件大小不超过2M',
     userName: '用户',
     time: '时间',

@@ -370,6 +370,16 @@ export default {
     },
     changepostComment () {
       this.postComment = !this.postComment
+      this.historyComentsList.forEach((item) => {
+        if (item.user.userName === this.userName) {
+          this.postComment = false
+          this.$message({
+            duration: 2000,
+            type: 'warning',
+            message: this.$t('promptMessage.cannotComment')
+          })
+        }
+      })
     },
     submitComment () {
       if (this.comments.score && this.comments.message) {

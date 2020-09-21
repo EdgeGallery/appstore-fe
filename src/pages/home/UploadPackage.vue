@@ -36,6 +36,7 @@
             ref="upload"
             action=""
             :limit="1"
+            :on-exceed="handleExceed"
             :on-change="handleChange"
             :on-remove="handleDelte"
             :file-list="packageForm.fileList"
@@ -68,11 +69,12 @@
             ref="upload"
             action=""
             :limit="1"
+            :on-exceed="handleExceed"
             :on-change="handleChangeAppIcon"
             :on-remove="handleDelteAppIcon"
             :file-list="packageForm.appIcon"
             :auto-upload="false"
-            accept=".png"
+            accept=".jpg,.png"
           >
             <el-button
               slot="trigger"
@@ -123,7 +125,6 @@
             id="upload_select_industry"
             v-model="packageForm.industry"
             :placeholder="$t('common.industry')"
-            multiple
             @change="checkProjectData"
           >
             <el-option
@@ -159,7 +160,6 @@
           <el-select
             id="upload_select_affinity"
             v-model="packageForm.affinity"
-            multiple
             :placeholder="$t('common.affinity')"
           >
             <el-option
@@ -180,6 +180,8 @@
               type="textarea"
               :rows="4"
               v-model="packageForm.shortDesc"
+              maxlength="1024"
+              show-word-limit
             />
           </div>
         </el-form-item>
@@ -233,9 +235,9 @@ export default {
         appIcon: [],
         shortDesc: '',
         // mepType: '',
-        industry: ['Smart Park'],
+        industry: 'Smart Park',
         types: 'Video Application',
-        affinity: ['GPU']
+        affinity: 'GPU'
       },
       types: TYPES,
       affinity: AFFINITY,
@@ -282,7 +284,7 @@ export default {
           message: this.$t('promptMessage.canOnlyUpload') + fileType + this.$t('promptMessage.files')
         })
       }
-      if (fileSize > 200) {
+      if (fileSize > 10) {
         this.packageForm[packageFormKey] = []
         this.$message({
           duration: 2000,
@@ -297,10 +299,18 @@ export default {
     handleChangeApi (file, fileList) {
       this.checkFileType(file, 'apiFileList', 'json')
     },
+    handleExceed (file, fileList) {
+      if (fileList.length === 1) {
+        this.$message.warning(this.$t('promptMessage.onlyOneFile'))
+      }
+    },
     handleChangeAppIcon (file, fileList) {
-      let type = file.raw.type
+      this.packageForm.appIcon = []
+      this.defaultIconFile = []
+      this.defaultActive = ''
+      let type = file.raw.type.split('/')[0]
       let fileSize = file.size / 1024 / 1024
-      if (type === 'image/png') {
+      if (type === 'image') {
         this.packageForm.appIcon.push(file.raw)
       } else {
         this.packageForm.appIcon = []
@@ -364,6 +374,7 @@ export default {
     },
     // default icon
     chooseDefaultIcon (file, index) {
+      this.packageForm.appIcon = []
       if (this.defaultActive === index) {
         this.defaultActive = ''
       } else {

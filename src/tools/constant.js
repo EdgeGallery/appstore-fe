@@ -158,19 +158,19 @@ const AFFINITY = [
     value: 'ARM32',
     selected: false,
     type: 'affinity'
-  },
-  {
-    label: 'GPU',
-    value: 'GPU',
-    selected: false,
-    type: 'affinity'
-  },
-  {
-    label: 'NPU',
-    value: 'NPU',
-    selected: false,
-    type: 'affinity'
   }
+  // {
+  //   label: 'GPU',
+  //   value: 'GPU',
+  //   selected: false,
+  //   type: 'affinity'
+  // },
+  // {
+  //   label: 'NPU',
+  //   value: 'NPU',
+  //   selected: false,
+  //   type: 'affinity'
+  // }
 ]
 
 const SORT_BY = [
