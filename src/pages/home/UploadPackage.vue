@@ -237,7 +237,7 @@ export default {
         // mepType: '',
         industry: 'Smart Park',
         types: 'Video Application',
-        affinity: 'GPU'
+        affinity: 'x86'
       },
       types: TYPES,
       affinity: AFFINITY,
