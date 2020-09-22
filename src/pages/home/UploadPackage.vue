@@ -84,7 +84,10 @@
             >
               {{ $t('store.uploadLogo') }}
             </el-button>
-            <div slot="tip">
+            <div
+              class="el-upload__tip"
+              slot="tip"
+            >
               <em class="el-icon-warning" />
               {{ $t('store.onlyImg') }}
               {{ $t('store.iconSizeLimit') }}
