@@ -370,8 +370,9 @@ export default {
     },
     changepostComment () {
       this.postComment = !this.postComment
+      let userName = sessionStorage.getItem('userName')
       this.historyComentsList.forEach((item) => {
-        if (item.user.userName === this.userName) {
+        if (item.user.userName === userName) {
           this.postComment = false
           this.$message({
             duration: 2000,
