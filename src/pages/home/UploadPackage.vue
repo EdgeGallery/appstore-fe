@@ -22,6 +22,7 @@
       width="45%"
       :before-close="handleClose"
       :close-on-click-modal="false"
+      @close="clearForm"
     >
       <el-form
         :model="packageForm"
@@ -272,6 +273,11 @@ export default {
   methods: {
     handleClose () {
       this.$emit('input', false)
+    },
+    clearForm () {
+      this.packageForm.fileList = []
+      this.packageForm.appIcon = []
+      this.packageForm.shortDesc = ''
     },
     checkFileType (file, packageFormKey, fileType) {
       let type = file.raw.name.split('.')
