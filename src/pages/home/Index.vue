@@ -364,7 +364,7 @@ export default {
       this.findAppData = this.appData
       this.findAppData = this.findAppData.filter((item) => {
         let itemName = item.name.toLowerCase()
-        return itemName.match(this.nameQuery)
+        return itemName.match(this.nameQuery.toLowerCase())
       })
       if (!this.nameQuery) this.findAppData = this.appData
     },
