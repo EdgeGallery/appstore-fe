@@ -278,6 +278,9 @@ export default {
       this.packageForm.fileList = []
       this.packageForm.appIcon = []
       this.packageForm.shortDesc = ''
+      this.packageForm.industry = 'Smart Park'
+      this.packageForm.types = 'Video Application'
+      this.packageForm.affinity = 'x86'
     },
     checkFileType (file, packageFormKey, fileType) {
       let type = file.raw.name.split('.')
