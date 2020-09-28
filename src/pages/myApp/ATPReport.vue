@@ -152,6 +152,7 @@ export default {
     }
     .app-table {
       padding-left: 0 !important;
+      margin-left: 25px;
     }
     .title {
       margin: 15px 0;
@@ -167,9 +168,6 @@ export default {
     }
     .report-chart {
       margin-top: 25px;
-    }
-    .app-table {
-      margin-left: 25px;
     }
   }
 }
