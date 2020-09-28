@@ -104,51 +104,40 @@
         <el-table
           v-loading="dataLoading"
           :data="currentData"
-          style="width: 100%;"
+          style="width: 100%"
           border
         >
           <el-table-column
             prop="task.taskNo"
             :label="$t('myApp.taskNumber')"
-          >
-            <template slot-scope="scope">
-              <el-button
-                id="checkReportProess"
-                @click="handleClickTaskNo(scope.row)"
-                type="text"
-                size="small"
-              >
-                {{ scope.row.task.taskNo }}
-              </el-button>
-            </template>
-          </el-table-column>
+          />
           <el-table-column
-            prop="task.appName"
+            prop="appName"
             :label="$t('common.appName')"
+          />
+          <el-table-column
+            prop="appVersion"
+            :label="$t('common.version')"
+            width="90"
           />
           <el-table-column :label="$t('myApp.testStatus')">
             <template slot-scope="scope">
               <span
                 class="el-icon-loading primary"
-                v-if="scope.row.task.status!=='Success' && scope.row.task.status!=='Fail'"
+                v-if="scope.row.task.status!=='COMPLETED'"
                 title="In Progress"
-              />
-              <span
-                v-else-if="scope.row.task.status=='Fail'"
-                class="el-icon-error error"
-                title="Failed"
               />
               <span
                 v-else
                 class="el-icon-success success"
-                title="Success"
+                title="Completed"
               />
               <el-button
                 id="statusBtn"
-                style="margin-left:20px;"
+                style="margin-left:15px;"
                 type="text"
                 size="small"
-                @click="handleClickTaskNo(scope.row)"
+                @click="getData(scope.row.task.taskNo,scope.row.appId,scope.row.task.taskId,scope.row.step)"
               >
                 {{ scope.row.task.status }}
               </el-button>
@@ -165,14 +154,14 @@
           <el-table-column
             fixed="right"
             :label="$t('myApp.operation')"
-            width="200"
+            width="150"
           >
             <template slot-scope="scope">
               <el-button
                 id="checkReportBtn"
-                @click="handleClickReport(scope.row)"
+                @click="handleClick(scope.row)"
                 type="text"
-                :disabled="(scope.row.task.status==='Success' || scope.row.task.status==='Fail')?false:true"
+                :disabled="scope.row.task.status==='COMPLETED'?false:true"
                 size="small"
               >
                 {{ $t('myApp.checkReport') }}
@@ -181,8 +170,7 @@
                 id="uploadBtn"
                 type="text"
                 size="small"
-                style="margin-left:30px;"
-                :disabled="scope.row.task.status==='Success'?false:true"
+                :disabled="scope.row.task.status==='COMPLETED'?false:true"
                 @click="uploadTask(scope.row)"
               >
                 {{ $t('myApp.upload') }}
@@ -201,6 +189,91 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      :visible.sync="dialogVisible23"
+      :title="dialogTitle"
+    >
+      <el-table
+        :data="caseList"
+        style="width: 100%"
+      >
+        <el-table-column
+          prop="testcaseid"
+          label="Case Id"
+          width="80"
+        />
+        <el-table-column
+          prop="name"
+          label="Name"
+          sortable
+        />
+        <el-table-column label="Progress">
+          <template slot-scope="scope">
+            <div>
+              <el-progress
+                :percentage="scope.row.percentage"
+                :color="customColors"
+              />
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="status"
+          label="Status"
+          width="160"
+        >
+          <template slot-scope="scope">
+            <span :class="scope.row.status==='IN_PROGRESS'?'red':'green'">{{ scope.row.status }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
+
+    <el-dialog
+      :visible.sync="dialogVisible1"
+      title="Environmental Preparation"
+    >
+      <div class="step1">
+        <el-row :gutter="20">
+          <el-col
+            :span="8"
+            class="chartPie"
+          >
+            <ve-pie
+              :extend="chartExtend"
+              :settings="chartSettings"
+              :data="chartData"
+              height="165px"
+            />
+            <p>Chart1-1:CPU Usage Info</p>
+          </el-col>
+          <el-col
+            :span="8"
+            class="chartLine"
+          >
+            <ve-pie
+              :extend="chartExtend"
+              :settings="chartSettings"
+              :data="chartData1"
+              height="165px"
+            />
+            <p>Chart1-2:GPU Usage Info</p>
+          </el-col>
+          <el-col
+            :span="8"
+            class="chartLine"
+          >
+            <ve-pie
+              :extend="chartExtend"
+              :settings="chartSettings"
+              :data="chartData2"
+              height="165px"
+            />
+            <p>Chart1-3:Memory Usage Info</p>
+          </el-col>
+        </el-row>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -208,6 +281,7 @@
 import {
   getTaskListApi,
   // taskListApp,
+  getSubTasksApi,
   uploadAppTaskApi
 } from '../../tools/api.js'
 import pagination from '../../components/common/Pagination.vue'
@@ -221,38 +295,75 @@ export default {
           return date.getTime() > Date.now()
         }
       },
+      chartData: {
+        columns: ['type', 'total'],
+        rows: [
+          { type: 'Occupyed', total: 2 },
+          { type: 'Usable', total: 6 }
+        ]
+      },
+      chartData1: {
+        columns: ['type', 'total'],
+        rows: [
+          { type: 'Occupyed', total: 4 },
+          { type: 'Usable', total: 2 }
+        ]
+      },
+      chartData2: {
+        columns: ['type', 'total'],
+        rows: [
+          { type: 'Occupyed', total: 265 },
+          { type: 'Usable', total: 850 }
+        ]
+      },
+      chartSettings: {
+        radius: 50,
+        offsetY: 70
+      },
+      chartExtend: {
+        color: ['#fa6e86', '#19d4ae'],
+        legend: {
+          bottom: 100,
+          left: 'bottom'
+        }
+      },
       form: {
         appName: '',
         status: '',
         beginTime: '',
         endTime: ''
       },
+      customColors: [
+        { color: '#f56c6c', percentage: 20 },
+        { color: '#e6a23c', percentage: 40 },
+        { color: '#6f7ad3', percentage: 60 },
+        { color: '#1989fa', percentage: 80 },
+        { color: '#5cb87a', percentage: 100 }
+      ],
+      dialogVisible23: false,
+      dialogVisible1: false,
       pageData: [],
       caseList: [],
       options: [
         {
           value: 1,
-          label: 'Virus Scan'
+          label: 'Environmental preparation'
         },
         {
           value: 2,
-          label: 'Compliance Test'
+          label: 'Test preparation'
         },
         {
           value: 3,
-          label: 'Sandbox Test'
+          label: 'Test execution'
         },
         {
           value: 4,
-          label: 'Review'
+          label: 'IN_PROGRESS'
         },
         {
           value: 5,
-          label: 'Success'
-        },
-        {
-          value: 6,
-          label: 'Fail'
+          label: 'COMPLETED'
         }
       ],
       value: '',
@@ -290,12 +401,9 @@ export default {
       clearTimeout(this.interval)
       this.interval = null
     },
-    handleClickReport (val) {
+    handleClick (val) {
       sessionStorage.setItem('taskData', JSON.stringify(val))
       this.$router.push('/atpreport')
-    },
-    handleClickTaskNo (val) {
-      this.$router.push('/atpprocess')
     },
     contrastTime () {
       if (this.form.endTime && this.form.beginTime > this.form.endTime) {
@@ -314,7 +422,6 @@ export default {
       }
       let userId = sessionStorage.getItem('userId')
       getTaskListApi(this.form, userId).then(
-      // taskListApp(this.form, userId).then(
         res => {
           let data = res.data.tasks
           data.forEach((item, index) => {
@@ -322,12 +429,12 @@ export default {
             item.task.beginTime = newDateBegin
             let newDateEnd = this.dateChange(item.task.endTime)
             item.task.endTime = newDateEnd
-            if (item.task.status === 'Success' || item.task.status === 'Fail') {
+            if (item.task.status === 'COMPLETED') {
               item.step = 4
-            } else if (item.task.status === 'Virus Scan') {
+            } else if (item.task.status === 'Environmental preparation') {
               item.endTime = ''
               item.step = 1
-            } else if (item.task.status === 'Compliance Test') {
+            } else if (item.task.status === 'Test preparation') {
               item.endTime = ''
               item.step = 2
             } else {
@@ -349,6 +456,44 @@ export default {
           this.clearInterval()
         }
       )
+    },
+    getData (num, appId, taskId, step) {
+      if (step === 2 || step === 3) {
+        this.dialogTitle = 'Test Execution'
+        getSubTasksApi(appId, taskId).then(res => {
+          let data = res.data.subTasks
+          data.forEach((item, index) => {
+            item.testcaseid = index + 1
+            const crypto = window.crypto || window.msCrypto
+            let randomArr = crypto.getRandomValues(new Uint8Array(1) * 0.001)
+            item.name =
+              'csar-validate-r13390' +
+              'mectest' +
+              Math.floor(randomArr * 10 + 1)
+            if (step === 2) {
+              this.dialogTitle = 'Test Preparation'
+              item.percentage = 0
+              item.status = 'IN_PROGRESS'
+            } else {
+              if (item.status === 'COMPLETED') {
+                item.percentage = 100
+              } else {
+                item.percentage = Math.floor(randomArr * 99 + 1)
+              }
+            }
+          })
+          this.caseList = data
+        })
+        this.dialogVisible23 = true
+      } else if (step === 1) {
+        this.dialogVisible1 = true
+      } else {
+        this.$message({
+          duration: 2000,
+          message: this.$t('promptMessage.completedTest'),
+          type: 'success'
+        })
+      }
     },
     resetForm () {
       this.form = {

@@ -18,16 +18,16 @@
   <div class="report padding56">
     <div class="report-content padding20">
       <div class="report-tap">
-        <h3>ATP report</h3>
-        <p>{{ $t('atp.ticketNumber') }}: {{ taskNo }}</p>
+        <h3>VR1.0.2test report</h3>
+        <p>{{ $t('report.ticketNumber') }}: {{ taskNo }}</p>
       </div>
       <div class="title">
-        {{ $t('atp.baseInfo') }}
+        {{ $t('report.baseInfo') }}
       </div>
       <div class="report-app--info">
         <el-row :gutter="20">
           <el-col
-            :span="23"
+            :span="22"
             class="app-table"
           >
             <el-table
@@ -39,30 +39,34 @@
                 fixed
                 prop="appName"
                 :label="$t('common.applicationName')"
+                width="200"
               />
               <el-table-column
                 prop="appVersion"
                 :label="$t('common.version')"
+                width="120"
               />
               <el-table-column
                 prop="appName"
-                :label="$t('common.userName')"
+                :label="$t('report.packageName')"
               />
               <el-table-column
                 prop="task.beginTime"
-                :label="$t('atp.startTime')"
+                :label="$t('report.startTime')"
+                width="180"
               />
               <el-table-column
                 prop="task.endTime"
-                :label="$t('atp.endTime')"
+                :label="$t('report.endTime')"
+                width="180"
               />
               <el-table-column
-                :label="$t('atp.result')"
+                :label="$t('report.status')"
                 width="180"
               >
                 <template slot-scope="scope">
                   <span
-                    :class="scope.row.task.status==='Success'?'success':'failed'"
+                    :class="scope.row.task.status==='COMPLETED'?'success':'failed'"
                   >{{ scope.row.task.status }}</span>
                 </template>
               </el-table-column>
@@ -71,86 +75,21 @@
         </el-row>
       </div>
       <div class="title">
-        {{ $t('atp.detail') }}
+        {{ $t('report.detail') }}
       </div>
       <div class="report-chart">
         <el-row :gutter="20">
           <el-col
-            :span="23"
-            class="app-table"
+            :span="12"
+            class="chartPie"
           >
-            <el-tabs type="card">
-              <el-tab-pane :label="$t('atp.testReport')">
-                <template>
-                  <ve-pie
-                    :data="chartData1"
-                  />
-                </template>
-              </el-tab-pane>
-              <el-tab-pane :label="$t('atp.step1')">
-                <template>
-                  <el-table
-                    :data="VirusScanDate"
-                    border
-                  >
-                    <el-table-column
-                      prop="caseName"
-                      :label="$t('atp.caseName')"
-                    />
-                    <el-table-column
-                      prop="caseDetail"
-                      :label="$t('atp.caseDetail')"
-                    />
-                    <el-table-column
-                      prop="testResult"
-                      :label="$t('atp.result')"
-                    />
-                  </el-table>
-                </template>
-              </el-tab-pane>
-              <el-tab-pane :label="$t('atp.step2')">
-                <template>
-                  <el-table
-                    :data="ComplianceTestDate"
-                    border
-                  >
-                    <el-table-column
-                      prop="caseName"
-                      :label="$t('atp.caseName')"
-                    />
-                    <el-table-column
-                      prop="caseDetail"
-                      :label="$t('atp.caseDetail')"
-                    />
-                    <el-table-column
-                      prop="testResult"
-                      :label="$t('atp.result')"
-                    />
-                  </el-table>
-                </template>
-              </el-tab-pane>
-              <el-tab-pane :label="$t('atp.step3')">
-                <template>
-                  <el-table
-                    :data="SandboxTestDate"
-                    border
-                  >
-                    <el-table-column
-                      prop="caseName"
-                      :label="$t('atp.caseName')"
-                    />
-                    <el-table-column
-                      prop="caseDetail"
-                      :label="$t('atp.caseDetail')"
-                    />
-                    <el-table-column
-                      prop="testResult"
-                      :label="$t('atp.result')"
-                    />
-                  </el-table>
-                </template>
-              </el-tab-pane>
-            </el-tabs>
+            <ve-pie :data="chartData1" />
+          </el-col>
+          <el-col
+            :span="12"
+            class="chartLine"
+          >
+            <ve-line :data="chartData2" />
           </el-col>
         </el-row>
       </div>
@@ -164,13 +103,18 @@ export default {
   data () {
     return {
       tableData: [],
-      SandboxTestDate: [],
-      ComplianceTestDate: [],
-      VirusScanDate: [],
       taskNo: '',
       chartData1: {
         columns: ['status', 'case'],
-        rows: [{ status: 'Virus Scan', case: 4 }, { status: 'Compliance Test', case: 1 }, { status: 'Sandbox Test', case: 1 }]
+        rows: [{ status: 'pass', case: 4 }, { status: 'failed', case: 1 }]
+      },
+      chartData2: {
+        columns: ['CPU', 'storage', 'GPU'],
+        rows: [
+          { CPU: '2', storage: 1393, GPU: 3 },
+          { CPU: '4', storage: 1393, GPU: 4 },
+          { CPU: '3', storage: 1393, GPU: 5 }
+        ]
       }
     }
   },
@@ -208,7 +152,6 @@ export default {
     }
     .app-table {
       padding-left: 0 !important;
-      margin-left: 25px;
     }
     .title {
       margin: 15px 0;
@@ -224,6 +167,9 @@ export default {
     }
     .report-chart {
       margin-top: 25px;
+    }
+    .app-table {
+      margin-left: 25px;
     }
   }
 }
