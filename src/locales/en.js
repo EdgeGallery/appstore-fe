@@ -47,7 +47,7 @@ const en = {
     MEN: 'MEM',
     CPU: 'CPU',
     AI: 'AI',
-    industry: 'INDUTRY',
+    industry: 'Industry',
     Smartpark: 'Smart Park',
     supermarket: 'Supermarket',
     industrialManufacturing: 'Industrial Manufacturing',

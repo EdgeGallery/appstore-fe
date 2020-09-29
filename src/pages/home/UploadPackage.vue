@@ -26,7 +26,7 @@
     >
       <el-form
         :model="packageForm"
-        label-width="100px"
+        label-width="110px"
         :rules="rules"
       >
         <el-form-item

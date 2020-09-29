@@ -22,14 +22,6 @@
         class="btn"
       >
         <span class="lt">{{ $t('docs.docs') }}</span>
-        <span class="rt">
-          <span class="el-icon-edit curp">
-            <a
-              target="_blank"
-              :href="updateMdUrl"
-            >{{ $t('docs.modify') }}</a>
-          </span>
-        </span>
         <p class="clearfix" />
       </div>
     </div>
