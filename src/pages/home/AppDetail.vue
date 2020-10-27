@@ -454,7 +454,7 @@ export default {
         this.filePath.reverse().splice(0, 1)
         let truePath = this.filePath.join(':')
         let fd = new FormData()
-        fd.append('filepath', truePath)
+        fd.append('filePath', truePath)
         getAppFileContentApi(this.appId, this.packageId, fd).then(res => {
           let data = res.data
           let blankWin = window.open('')
