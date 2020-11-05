@@ -444,10 +444,10 @@ export default {
         })
         this.uploadBtnLoading = false
         this.$emit('getAppData')
-      }).catch(() => {
+      }).catch(error => {
         this.$message({
           duration: 2000,
-          message: this.$t('promptMessage.operationFailed'),
+          message: error.message,
           type: 'warning'
         })
         this.uploadBtnLoading = false
