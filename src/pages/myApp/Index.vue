@@ -31,7 +31,6 @@
       </el-row>
       <appList
         :app-data="currentPageData"
-        :delete-btn="true"
         @getAppData="getAppData"
         :data-loading="dataLoading"
       />
