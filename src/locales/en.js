@@ -22,6 +22,7 @@ const en = {
     myApp: 'My App',
     about: 'About',
     logout: 'Logout',
+    login: 'Login',
     appstore: 'Appstore'
   },
   common: {
