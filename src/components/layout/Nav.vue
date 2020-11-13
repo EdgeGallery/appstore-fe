@@ -222,7 +222,7 @@ export default {
       sessionStorage.setItem('userId', res.data.userId)
       sessionStorage.setItem('userName', res.data.userName)
       this.loginPage = res.data.loginPage
-      if (res.data.userName === 'Guest') {
+      if (res.data.userName === 'guest') {
         this.ifGuest = true
       } else {
         this.ifGuest = false
