@@ -77,6 +77,15 @@
               >
                 {{ $t('common.detail') }}
               </el-button>
+              <el-button
+                id="appdetail_delete"
+                :disabled="isDisabled(scope.row)"
+                @click="getDelete(scope.row)"
+                type="text"
+                size="small"
+              >
+                {{ $t('common.delete') }}
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -303,7 +312,8 @@ import {
   modifyAppPackageDetailApi,
   submitAppCommentApi,
   getAppFileContentApi,
-  downloadAppPakageApi
+  downloadAppPakageApi,
+  deleteAppPackageApi
 } from '../../tools/api.js'
 
 export default {
@@ -438,9 +448,11 @@ export default {
           this.tableData.push(item)
         }, () => {
         })
-        this.editDetails = this.source = data[0].details
-        this.appDetailFileList = [JSON.parse(data[0].format)]
-        this.packageId = data[0].csarId
+        if (data.length !== 0) {
+          this.editDetails = this.source = data[0].details
+          this.appDetailFileList = [JSON.parse(data[0].format)]
+          this.packageId = data[0].csarId
+        }
       })
     },
     getParent (nodes) {
@@ -482,6 +494,41 @@ export default {
       this.editDetails = this.source = row.details
       this.appDetailFileList = [JSON.parse(row.format)]
       this.packageId = row.csarId
+    },
+    getDelete (row) {
+      this.$confirm(this.$t('promptMessage.deletePrompt'), this.$t('promptMessage.prompt'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning'
+      }).then(() => {
+        let userId = sessionStorage.getItem('userId')
+        let userName = sessionStorage.getItem('userName')
+        deleteAppPackageApi(row.appId, row.csarId, userId, userName).then(res => {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.deleteSuccess'),
+            type: 'success'
+          })
+          this.dataReload()
+        }).catch(() => {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.operationFailed'),
+            type: 'warning'
+          })
+        })
+      }).catch(() => {
+      })
+    },
+    dataReload () {
+      this.tableData = []
+      this.editDetails = ''
+      this.appDetailFileList = []
+      this.editorStatus = true
+      this.source = ''
+      this.historyComentsList = []
+      this.getTableData()
+      this.getComments()
     }
   },
   mounted () {
