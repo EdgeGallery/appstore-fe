@@ -24,6 +24,7 @@ const cn = {
     myApp: '我的应用',
     about: '关于',
     logout: '注销',
+    login: '登录',
     appstore: '应用商店'
   },
   common: {

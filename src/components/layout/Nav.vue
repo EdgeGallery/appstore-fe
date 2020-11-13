@@ -52,9 +52,14 @@
       <div class="nav-tabs">
         <span
           class="curp"
+          @click="logout()"
+          v-if="ifGuest"
+        >{{ $t('nav.login') }}</span>
+        <span
+          class="curp"
           @click="beforeLogout"
+          v-else
         >{{ $t('nav.logout') }}</span>
-
         <span
           @click="changeLanguage"
           class="curp"
@@ -110,7 +115,8 @@ export default {
       ],
       isActive: 0,
       userName: '',
-      loginPage: ''
+      loginPage: '',
+      ifGuest: true
     }
   },
   watch: {
@@ -216,6 +222,11 @@ export default {
       sessionStorage.setItem('userId', res.data.userId)
       sessionStorage.setItem('userName', res.data.userName)
       this.loginPage = res.data.loginPage
+      if (res.data.userName === 'Guest') {
+        this.ifGuest = true
+      } else {
+        this.ifGuest = false
+      }
     })
     let historyRoute = sessionStorage.getItem('historyRoute')
     if (historyRoute) {
