@@ -57,11 +57,12 @@
           </el-table-column>
           <el-table-column
             :label="$t('common.operation')"
-            width="120"
+            width="200"
           >
             <template slot-scope="scope">
               <el-button
                 id="appdetail_download"
+                :disabled="isDisabled(scope.row)"
                 @click="download(scope.row)"
                 type="text"
                 size="small"
@@ -334,6 +335,12 @@ export default {
     }
   },
   methods: {
+    isDisabled (row) {
+      if (sessionStorage.userId === row.userId) {
+        return false
+      }
+      return true
+    },
     editInfo (title, index) {
       this.editorStatus = false
       this.showEdit = false
