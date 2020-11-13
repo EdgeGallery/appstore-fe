@@ -103,6 +103,11 @@ function deleteAppApi (appId, userId, userName) {
   return DELETE(url)
 }
 
+function deleteAppPackageApi (appId, csarId, userId, userName) {
+  let url = 'apps/' + appId + '/packages/' + csarId + '?userId=' + userId + '&userName=' + userName
+  return DELETE(url)
+}
+
 function getDocsApi (language) {
   let url = './APPSTOREDOCSEN.md'
   if (language === 'cn') {
@@ -177,6 +182,7 @@ export {
   uploadAppPackageApi,
   uploadAppTaskApi,
   deleteAppApi,
+  deleteAppPackageApi,
   getDocsApi,
   getAppFileContentApi,
   downloadAppPakageApi,
