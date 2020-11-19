@@ -44,7 +44,7 @@ function GET (url, params, type = 'store') {
       }
     }).then(res => {
       resolve(res)
-    }, (error) => {
+    }).catch(error => {
       reject(error)
     })
   })
@@ -62,7 +62,7 @@ function DELETE (url, params) {
       }
     }).then(res => {
       resolve(res)
-    }, (error) => {
+    }).catch(error => {
       reject(error)
     })
   })
@@ -82,7 +82,7 @@ function POST (url, params, type = 'store') {
       }
     }).then((res) => {
       resolve(res)
-    }, (error) => {
+    }).catch(error => {
       reject(error)
     })
   })

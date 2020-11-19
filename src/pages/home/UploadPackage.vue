@@ -447,7 +447,7 @@ export default {
       }).catch(error => {
         this.$message({
           duration: 2000,
-          message: error.message,
+          message: error.response.data.message,
           type: 'warning'
         })
         this.uploadBtnLoading = false
