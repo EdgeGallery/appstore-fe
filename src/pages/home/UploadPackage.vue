@@ -445,12 +445,21 @@ export default {
         this.uploadBtnLoading = false
         this.$emit('getAppData')
       }).catch(error => {
-        this.$message({
-          duration: 2000,
-          message: error.response.data.message,
-          type: 'warning'
-        })
-        this.uploadBtnLoading = false
+        if (error.response.data.code === 403) {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.guestUser'),
+            type: 'warning'
+          })
+          this.uploadBtnLoading = false
+        } else {
+          this.$message({
+            duration: 2000,
+            message: error.response.data.message,
+            type: 'warning'
+          })
+          this.uploadBtnLoading = false
+        }
       })
     },
     // confirm to submit

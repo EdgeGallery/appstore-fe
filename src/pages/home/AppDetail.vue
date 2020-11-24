@@ -415,12 +415,20 @@ export default {
         submitAppCommentApi(this.appId, params, userId, userName).then(res => {
           this.changepostComment()
           this.getComments()
-        }, () => {
-          this.$message({
-            duration: 2000,
-            type: 'warning',
-            message: this.$t('promptMessage.subCommentFail')
-          })
+        }).catch(error => {
+          if (error.response.data.code === 403) {
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.guestUser'),
+              type: 'warning'
+            })
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.subCommentFail'),
+              type: 'warning'
+            })
+          }
         })
       } else {
         this.$message({
@@ -478,12 +486,20 @@ export default {
           let data = res.data
           let blankWin = window.open('')
           blankWin.document.write(data)
-        }).catch(() => {
-          this.$message({
-            duration: 2000,
-            type: 'warning',
-            message: this.$t('promptMessage.fileNotSupport')
-          })
+        }).catch(error => {
+          if (error.response.data.code === 403) {
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.guestUser'),
+              type: 'warning'
+            })
+          } else {
+            this.$message({
+              duration: 2000,
+              type: 'warning',
+              message: this.$t('promptMessage.fileNotSupport')
+            })
+          }
         })
       }
     },

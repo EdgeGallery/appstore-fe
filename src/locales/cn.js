@@ -79,6 +79,7 @@ const cn = {
     choose: '请选择'
   },
   promptMessage: {
+    guestUser: 'guest用户无权操作! 请登录',
     operationFailed: '操作失败!',
     modifySuccess: '修改成功!',
     modifyFail: '修改失败!',

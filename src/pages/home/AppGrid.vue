@@ -145,8 +145,8 @@ export default {
         box-sizing: border-box;
         text-align: center;
         img {
-          height: 120px;
-          width: 120px;
+          height: 65%;
+          width: 65%;
         }
       }
       .intr {
