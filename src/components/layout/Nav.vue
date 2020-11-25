@@ -15,60 +15,101 @@
   -->
 
 <template>
-  <el-row id="headerComp">
-    <el-col
-      class="logo"
-      :span="6"
+  <div class="headerComp">
+    <el-row
+      :gutter="10"
     >
-      <div>
-        <img
-          src="../../assets/images/logo.png"
-          class="curp"
-          @click="jumpTo('/index')"
-          alt
+      <el-col
+        :lg="6"
+        :md="6"
+        :sm="14"
+        :xs="13"
+      >
+        <div class="logo">
+          <img
+            src="../../assets/images/logo.png"
+            class="curp"
+            @click="jumpTo('/index')"
+            alt
+          >
+          <span
+            @click="jumpTo('/index')"
+            class="curp"
+          > {{ $t('nav.appstore') }} V0.5</span>
+        </div>
+      </el-col>
+      <el-col
+        :lg="12"
+        :md="13"
+        class="navList"
+      >
+        <div>
+          <span
+            class="curp"
+            v-for="(item, index) in list"
+            :class="{ active: isActive === index, isUse: !item.display }"
+            :key="item.label"
+            @click="jumpTo(item.route, index, item.link, item.display)"
+          >{{ language === 'cn' ? item.labelCn : item.labelEn }}</span>
+        </div>
+      </el-col>
+      <el-col
+        :lg="6"
+        :md="5"
+        :sm="10"
+        :xs="11"
+      >
+        <div class="nav-tabs">
+          <div class="menu">
+            <em
+              class="el-icon-menu"
+              @click="clickSmallMenu"
+            />
+          </div>
+          <span
+            class="curp"
+            @click="logout()"
+            v-if="ifGuest"
+          >{{ $t('nav.login') }}</span>
+          <span
+            class="curp"
+            @click="beforeLogout"
+            v-else
+          >{{ $t('nav.logout') }}</span>
+          <span
+            @click="changeLanguage"
+            class="curp"
+          >
+            {{ getLanguage }}
+          </span>
+        </div>
+      </el-col>
+    </el-row>
+    <el-collapse-transition>
+      <div
+        v-show="menu_small"
+        id="menu-div"
+        class="main-sidebar-small"
+      >
+        <el-menu
+          @select="handleSelect"
+          text-color="#fff"
+          background-color="rgba(0,0,0,0.4)"
+          active-text-color="#6c92fa"
+          active-color="#6c92fa"
         >
-        <span
-          @click="jumpTo('/index')"
-          class="curp"
-        > {{ $t('nav.appstore') }} V0.5</span>
+          <el-menu-item
+            v-for="(item, index) in list"
+            :key="item.label"
+            @click="jumpTo(item.route, index, item.link, item.display)"
+            :index="item.route"
+          >
+            {{ language === 'cn' ? item.labelCn : item.labelEn }}
+          </el-menu-item>
+        </el-menu>
       </div>
-    </el-col>
-    <el-col
-      :span="12"
-      class="navList"
-      style="text-align: center;"
-    >
-      <div>
-        <span
-          class="curp"
-          v-for="(item, index) in list"
-          :class="{ active: isActive === index, isUse: !item.display }"
-          :key="item.label"
-          @click="jumpTo(item.route, index, item.link, item.display)"
-        >{{ language === 'cn' ? item.labelCn : item.labelEn }}</span>
-      </div>
-    </el-col>
-    <el-col :span="6">
-      <div class="nav-tabs">
-        <span
-          class="curp"
-          @click="logout()"
-          v-if="ifGuest"
-        >{{ $t('nav.login') }}</span>
-        <span
-          class="curp"
-          @click="beforeLogout"
-          v-else
-        >{{ $t('nav.logout') }}</span>
-        <span
-          @click="changeLanguage"
-          class="curp"
-        >
-          {{ getLanguage }}
-        </span>
-      </div>
-    </el-col>
-  </el-row>
+    </el-collapse-transition>
+  </div>
 </template>
 
 <script>
@@ -116,7 +157,8 @@ export default {
       isActive: 0,
       userName: '',
       loginPage: '',
-      ifGuest: true
+      ifGuest: true,
+      menu_small: false
     }
   },
   watch: {
@@ -144,6 +186,16 @@ export default {
     }
   },
   methods: {
+    clickSmallMenu () {
+      this.menu_small = !this.menu_small
+    },
+    closeMenu (data) {
+      this.menu_small = data
+    },
+    handleSelect (path) {
+      console.log(path)
+      this.closeMenu()
+    },
     changeLanguage () {
       if (this.language === 'cn') {
         this.language = 'en'
@@ -162,6 +214,7 @@ export default {
       } else {
         window.open(link, '_blank')
       }
+      // this.closeMenu()
     },
 
     getpermissions () {
@@ -241,14 +294,15 @@ export default {
 </script>
 
 <style lang='less' >
-#headerComp {
+.headerComp {
   height: 65px;
   color: white;
   background: #282b33;
-  padding-left: 25px;
+
   .logo {
     height: 65px;
     line-height: 65px;
+    padding-left: 25px;
     img {
       height: 65px;
     }
@@ -257,8 +311,8 @@ export default {
       vertical-align: text-bottom;
     }
   }
-
   .navList {
+    text-align: center;
     span {
       font-size: 20px;
       line-height: 65px;
@@ -279,15 +333,95 @@ export default {
       color: #ddd;
     }
   }
-
   .nav-tabs {
     padding-right: 20px;
     height: 65px;
     line-height: 65px;
-    float: right;
+    display: flex;
+    justify-content: flex-end;
     box-sizing: border-box;
     span{
+      display: inline-block;
       padding: 0 10px;
+    }
+    .menu{
+      display: none;
+    }
+  }
+  .main-sidebar-small{
+    position: relative;
+    overflow-y: auto;
+    z-index: 9999;
+    .el-menu{
+      background: rgba(0, 0, 0, 0.6);
+      border-right: none;
+    .el-submenu.is-active, .el-menu-item.is-active{
+      background: rgba(0, 0, 0, 0.3);
+      .first-menu{
+        color: #6c92fa;
+      }
+    }
+    .el-submenu__title{
+      background-color: rgba(0, 0, 0, 0.4) !important;
+    }
+    .el-icon-arrow-down:before{
+      color: #fff;
+      font-size: 16px;
+    }
+  }
+}
+  @media only screen and (max-width: 991px){
+    .nav-tabs{
+      font-size: 14px;
+      .menu{
+      display: inline-block;
+        .el-icon-menu{
+          color: #fff;
+          font-size: 25px;
+          margin-top: 20px;
+        }
+      }
+    }
+    .navList{
+      display: none;
+    }
+    .logo{
+      img{
+      height: 50px;
+      margin: 5px 0 0 0;
+    }
+      span{
+        font-size: 14px;
+        margin: 5px 0 0 0;
+      }
+    }
+  }
+  @media screen and (max-width: 767px){
+    .logo{
+      img{
+      height: 35px;
+      margin: 15px 0 0 0;
+      padding-bottom: 15px;
+      }
+      span{
+        font-size: 13px;
+      }
+    }
+    .nav-tabs{
+      font-size: 12px;
+    }
+  }
+  @media screen and (max-width: 385px) {
+    .logo{
+      img{
+      height: 30px;
+      }
+      span{
+        font-size: 13px;
+      }
+    }
+    .nav-tabs{
+      padding-right: 1px;
     }
   }
 }
