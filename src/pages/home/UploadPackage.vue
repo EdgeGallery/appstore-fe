@@ -452,10 +452,17 @@ export default {
             type: 'warning'
           })
           this.uploadBtnLoading = false
-        } else {
+        } else if (error.response.data.code === 400) {
           this.$message({
             duration: 2000,
             message: error.response.data.message,
+            type: 'warning'
+          })
+          this.uploadBtnLoading = false
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.uploadFailed'),
             type: 'warning'
           })
           this.uploadBtnLoading = false
