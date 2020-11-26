@@ -442,7 +442,7 @@ export default {
           message: this.$t('promptMessage.uploadSuccess'),
           type: 'success'
         })
-        this.uploadBtnLoading = false
+        this.handleClose()
         this.$emit('getAppData')
       }).catch(error => {
         if (error.response.data.code === 403) {
@@ -451,27 +451,27 @@ export default {
             message: this.$t('promptMessage.guestUser'),
             type: 'warning'
           })
-          this.uploadBtnLoading = false
-        } else if (error.response.data.code === 400) {
+          this.handleClose()
+        } else if (error.response.data.message) {
           this.$message({
             duration: 2000,
             message: error.response.data.message,
             type: 'warning'
           })
-          this.uploadBtnLoading = false
+          this.handleClose()
         } else {
           this.$message({
             duration: 2000,
             message: this.$t('promptMessage.uploadFailed'),
             type: 'warning'
           })
-          this.uploadBtnLoading = false
+          this.handleClose()
         }
       })
     },
     // confirm to submit
     submitPackage () {
-      this.uploadBtnLoading = true
+      // this.uploadBtnLoading = true
       // judgement of if file is exist
       let appFileIcon = (this.packageForm.appIcon.length || this.defaultIconFile)
       let appFilePackage = (this.packageForm.fileList.length)
@@ -485,42 +485,42 @@ export default {
           type: 'warning',
           message: this.$t('promptMessage.uploadPackageFile')
         })
-        this.uploadBtnLoading = false
+        // this.uploadBtnLoading = false
       } else if (!appFileIcon) {
         this.$message({
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.uploadIconFile')
         })
-        this.uploadBtnLoading = false
+        // this.uploadBtnLoading = false
       } else if (!industry) {
         this.$message({
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.industryEmpty')
         })
-        this.uploadBtnLoading = false
+        // this.uploadBtnLoading = false
       } else if (!affinity) {
         this.$message({
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.affinityEmpty')
         })
-        this.uploadBtnLoading = false
+        // this.uploadBtnLoading = false
       } else if (!types) {
         this.$message({
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.typeEmpty')
         })
-        this.uploadBtnLoading = false
+        // this.uploadBtnLoading = false
       } else if (!shortDesc) {
         this.$message({
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.shortDescEmpty')
         })
-        this.uploadBtnLoading = false
+        // this.uploadBtnLoading = false
       } else {
         this.upload()
       }
