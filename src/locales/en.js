@@ -77,7 +77,7 @@ const en = {
     choose: 'Please Choose'
   },
   promptMessage: {
-    guestUser: 'The guest user has no right to operate!',
+    guestUser: 'The guest user has no right to operate. please log in first!',
     operationFailed: 'The operation failure!',
     modifySuccess: 'Modify the success!',
     modifyFail: 'Modify the failure',
