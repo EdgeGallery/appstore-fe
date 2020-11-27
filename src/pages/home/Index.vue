@@ -41,7 +41,7 @@
           class="search"
         >
           <el-row>
-            <el-col :span="20">
+            <el-col :span="10">
               <div class="left">
                 <img
                   src="../../assets/images/home_search.png"
@@ -50,7 +50,7 @@
                 <span class="search-title">{{ $t('store.screening') }}</span>
               </div>
             </el-col>
-            <el-col :span="4">
+            <el-col :span="14">
               <div
                 class="right"
                 id="home_namequery"
@@ -494,7 +494,7 @@ export default {
           }
         }
         .right {
-          width: 250px;
+          // width: 250px;
           float: right;
         }
       }
