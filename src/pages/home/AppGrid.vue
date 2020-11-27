@@ -141,7 +141,7 @@ export default {
       justify-content: space-around;
       transition: transform 0.3s ease-in;
       .img-box {
-        padding: 50px 0;
+        // padding: 50px 0;
         box-sizing: border-box;
         text-align: center;
         img {
