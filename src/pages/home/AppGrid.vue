@@ -144,6 +144,7 @@ export default {
         // padding: 50px 0;
         box-sizing: border-box;
         text-align: center;
+        width: 45%;
         img {
           height: 65%;
           width: 65%;
@@ -163,9 +164,6 @@ export default {
         display: inline-block;
         height: 28px;
       }
-      /* .provider {
-        text-align: left;
-      } */
       .name {
         text-align: left;
         .app-name {
