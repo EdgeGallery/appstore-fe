@@ -449,7 +449,7 @@ export default {
         })
       })
     },
-    getTableData () {
+    getTableData (callback) {
       getAppDetailTableApi(this.appId).then(res => {
         let data = res.data
         data.forEach(item => {
@@ -461,6 +461,7 @@ export default {
           this.appDetailFileList = [JSON.parse(data[0].format)]
           this.packageId = data[0].csarId
         }
+        callback()
       })
     },
     getParent (nodes) {
@@ -543,8 +544,13 @@ export default {
       this.editorStatus = true
       this.source = ''
       this.historyComentsList = []
-      this.getTableData()
-      this.getComments()
+      this.getTableData(function clearData () {
+        if (this.tableData.length > 0) {
+          this.getComments()
+        } else {
+          this.$router.push({ name: 'appstorename' })
+        }
+      }.bind(this))
     }
   },
   mounted () {
@@ -553,7 +559,7 @@ export default {
       : JSON.parse(sessionStorage.getItem('appstordetail'))
     this.details = params
     this.appId = this.details.appId
-    this.getTableData()
+    this.getTableData(function clearData () {})
     this.getComments()
     this.userName = params.username
   }
