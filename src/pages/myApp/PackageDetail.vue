@@ -326,6 +326,7 @@ export default {
             type: 'success'
           })
           this.dataReload()
+          this.$router.push('/myapp')
         }).catch(() => {
           this.$message({
             duration: 2000,

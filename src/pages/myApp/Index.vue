@@ -137,6 +137,7 @@ export default {
   },
   methods: {
     getAppData () {
+      this.appPackageData = []
       myApp.getMyAppApi(this.userId)
         .then(res => {
           this.appData = res.data
@@ -195,13 +196,13 @@ export default {
           // this.$router.push({ name: 'atptestcase', params: { taskId: this.taskId } })
           this.testPackage(row.appId, row.packageId)
         })
-      } else if (row.status === 'Test create failed') {
+      } else if (row.status === 'Test_create_failed') {
         this.$message({
           duration: 2000,
           type: 'warning',
           message: this.$t('测试任务检查失败')
         })
-      } else if (row.status === 'Test failed') {
+      } else if (row.status === 'Test_failed') {
         this.$confirm('测试任务失败，请前往查看测试报告', this.$t('promptMessage.prompt'), {
           confirmButtonText: '确定',
           cancelButtonText: '再次测试',
@@ -213,7 +214,7 @@ export default {
           // 再次测试// 跳转测试任务列表
           this.testPackage(row.appId, row.packageId)
         })
-      } else if (row.status === 'Test success') {
+      } else if (row.status === 'Test_success') {
         this.$confirm('测试任务成功，请前往查看测试报告', this.$t('promptMessage.prompt'), {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -222,7 +223,7 @@ export default {
           // 跳转测试任务列表  或者测试报告
           this.$router.push('/app/test/task')
         })
-      } else if (row.status === 'Test running') {
+      } else if (row.status === 'Test_running') {
         this.$confirm('测试任务正在运行，请前往查看测试进展', this.$t('promptMessage.prompt'), {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -231,7 +232,7 @@ export default {
           // 跳转测试进展页面，—+taskId
           this.$router.push({ name: 'atpprocess', params: { taskId: this.taskId } })
         })
-      } else if (row.status === 'Test waiting') {
+      } else if (row.status === 'Test_waiting') {
         this.$confirm('测试任务正在等待运行，请前往查看测试进展', this.$t('promptMessage.prompt'), {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -240,7 +241,7 @@ export default {
           // 跳转测试进展页面，—+taskId
           this.$router.push({ name: 'atpprocess', params: { taskId: this.taskId } })
         })
-      } else if (row.status === 'Test created') {
+      } else if (row.status === 'Test_created') {
         this.$confirm('测试任务已创建，请前往运行测试任务', this.$t('promptMessage.prompt'), {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
