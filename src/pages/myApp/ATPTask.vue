@@ -32,16 +32,9 @@ export default {
   name: 'Task',
   data () {
     return {
-      srcUrl: 'https://119.8.63.144:30094/#/app/test/task'
-      // srcUrl: 'https://www.baidu.com/'
+      srcUrl: ''
     }
   },
-  // beforeRouteEnter (to, from, next) {
-  //   if (from.path.indexOf('/test/report') === -1) {
-  //     sessionStorage.removeItem('currentPage')
-  //   }
-  //   next()
-  // },
   methods: {
     getAtpUrl () {
       let currUrl = window.location.href
@@ -49,6 +42,7 @@ export default {
         this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/app/test/task'
       } else {
         this.srcUrl = currUrl.replace('appstore', 'atp')
+        this.srcUrl = this.srcUrl + '/#/app/test/task'
       }
     }
   },

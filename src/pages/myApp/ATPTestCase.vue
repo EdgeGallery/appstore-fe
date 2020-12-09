@@ -31,26 +31,23 @@ export default {
   name: 'Task',
   data () {
     return {
-      srcUrl: ''
+      srcUrl: '',
+      taskId: ''
     }
   },
-  // beforeRouteEnter (to, from, next) {
-  //   if (from.path.indexOf('/test/report') === -1) {
-  //     sessionStorage.removeItem('currentPage')
-  //   }
-  //   next()
-  // },
   methods: {
     getAtpUrl () {
       let currUrl = window.location.href
       if (currUrl.indexOf('30091') !== -1) {
-        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094'
+        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/atptestcase' + '?taskid=' + this.taskId
       } else {
         this.srcUrl = currUrl.replace('appstore', 'atp')
+        this.srcUrl = this.srcUrl + '/#/atptestcase' + '?taskid=' + this.taskId
       }
     }
   },
   mounted () {
+    this.taskId = this.$route.params.taskId
     this.getAtpUrl()
   }
 }
