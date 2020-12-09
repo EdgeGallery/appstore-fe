@@ -130,8 +130,47 @@ export default {
       appData: [],
       appPackageData: [],
       dataLoading: true,
-      currentPageData: [],
-      taskId: '',
+      currentPageData: [
+        {
+          'name': 'postition',
+          'provider': 'edgegalery',
+          'version': '1.0',
+          'type': 'video',
+          'affinity': 'GPU',
+          'shortDesc': 'shortDesc##应用包详情页',
+          'status': 'Upload',
+          'appId': 'ffft565g5g54',
+          'packageId': 'desf34r534t53',
+          'userId': 'f435f54t',
+          'userName': 'baizhenzhen',
+          'testTaskId': ''
+        }, {
+          'name': 'postition',
+          'provider': 'edgegalery',
+          'version': '1.0',
+          'type': 'video',
+          'affinity': 'GPU',
+          'shortDesc': 'shortDesc##应用包详情页',
+          'status': 'Test running',
+          'appId': 'ffft565g5g54',
+          'userId': 'f435f54t',
+          'userName': 'baizhenzhen',
+          'testTaskId': ''
+        }, {
+          'name': 'postition',
+          'provider': 'edgegalery',
+          'version': '1.0',
+          'type': 'video',
+          'affinity': 'GPU',
+          'shortDesc': 'shortDesc##应用包详情页',
+          'status': 'Test created',
+          'appId': 'ffft565g5g54',
+          'userId': 'f435f54t',
+          'userName': 'baizhenzhen',
+          'testTaskId': ''
+        }
+      ],
+      taskId: 'eee',
       interval: ''
     }
   },
@@ -140,8 +179,8 @@ export default {
       myApp.getMyAppApi(this.userId)
         .then(res => {
           this.appData = res.data
-          // this.getAppPackageData()
-          this.dataLoading = false
+          this.getAppPackageData()
+          // this.dataLoading = false
         }, () => {
           this.dataLoading = false
           this.$message({
@@ -152,10 +191,18 @@ export default {
         })
     },
     getAppPackageData () {
+      this.appPackageData = []
       this.appData.forEach(item => {
         let appId = item.appId
         myApp.getMyAppPackageApi(appId, this.userId).then(res => {
-          this.appPackageData.push(res.data)
+          let data = res.data
+          if (data.length === 1) {
+            this.appPackageData.push(data[0])
+          } else {
+            data.forEach(csaritem => {
+              this.appPackageData.push(csaritem)
+            })
+          }
           this.dataLoading = false
         }).catch(() => {
           this.dataLoading = false
@@ -181,12 +228,8 @@ export default {
         }).then(() => {
           // 跳转atp首页加参数taskId,
           // 暂时跳转，先调接口，成功后跳转
-          this.$router.push('atptestcase')
+          // this.$router.push({ name: 'atptestcase', params: { taskId: this.taskId } })
           this.testPackage(row.appId, row.packageId)
-          this.$message({
-            type: 'success',
-            message: '创建成功!'
-          })
         })
       } else if (row.status === 'Test create failed') {
         this.$message({
@@ -200,17 +243,11 @@ export default {
           cancelButtonText: '再次测试',
           type: 'warning'
         }).then(() => {
+          this.$router.push('/app/test/task')
           // 跳转测试任务列表  或者测试报告+taskId
-          this.$message({
-            type: 'success',
-            message: '成功!'
-          })
         }).catch(() => {
           // 再次测试// 跳转测试任务列表
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          })
+          this.testPackage(row.appId, row.packageId)
         })
       } else if (row.status === 'Test success') {
         this.$confirm('测试任务成功，请前往查看测试报告', this.$t('promptMessage.prompt'), {
@@ -219,10 +256,7 @@ export default {
           type: 'warning'
         }).then(() => {
           // 跳转测试任务列表  或者测试报告
-          this.$message({
-            type: 'success',
-            message: '成功!'
-          })
+          this.$router.push('/app/test/task')
         })
       } else if (row.status === 'Test running') {
         this.$confirm('测试任务正在运行，请前往查看测试进展', this.$t('promptMessage.prompt'), {
@@ -231,10 +265,7 @@ export default {
           type: 'warning'
         }).then(() => {
           // 跳转测试进展页面，—+taskId
-          this.$message({
-            type: 'success',
-            message: '成功!'
-          })
+          this.$router.push({ name: 'atpprocess', params: { taskId: this.taskId } })
         })
       } else if (row.status === 'Test waiting') {
         this.$confirm('测试任务正在等待运行，请前往查看测试进展', this.$t('promptMessage.prompt'), {
@@ -243,10 +274,7 @@ export default {
           type: 'warning'
         }).then(() => {
           // 跳转测试进展页面，—+taskId
-          this.$message({
-            type: 'success',
-            message: '成功!'
-          })
+          this.$router.push({ name: 'atpprocess', params: { taskId: this.taskId } })
         })
       } else if (row.status === 'Test created') {
         this.$confirm('测试任务已创建，请前往运行测试任务', this.$t('promptMessage.prompt'), {
@@ -255,18 +283,14 @@ export default {
           type: 'warning'
         }).then(() => {
           // 跳转测试进展页面，—+taskId
-          this.$message({
-            type: 'success',
-            message: '成功!'
-          })
+          this.testPackage(row.appId, row.packageId)
         })
       }
     },
     testPackage (appId, packageId) {
-      // this.$router.push('atptestcase')
       myApp.testPackageApi(appId, packageId).then(res => {
         this.taskId = res.data.atpTaskId
-        this.$router.push('atptestcase')
+        this.$router.push({ name: 'atptestcase', params: { taskId: this.taskId } })
       })
     },
     publishPackage (row) {
@@ -302,7 +326,7 @@ export default {
           })
           // 刷新页面
           this.getAppData()
-          this.getAppPackageData()
+          // this.getAppPackageData()
         }).catch(() => {
           this.$message({
             duration: 2000,
@@ -327,9 +351,10 @@ export default {
   mounted () {
     this.userId = sessionStorage.getItem('userId')
     this.getAppData()
-    this.getAppPackageData()
+    // this.getAppPackageData()
     this.interval = setInterval(() => {
-      this.getAppPackageData()
+      this.getAppData()
+      // this.getAppPackageData()
     }, 30000)
   },
   beforeDestroy () {
