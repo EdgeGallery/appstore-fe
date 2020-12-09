@@ -15,7 +15,10 @@
   -->
 
 <template>
-  <div id="app">
+  <div
+    id="app"
+    style="overflow-x:hidden"
+  >
     <Navcomp />
     <router-view />
   </div>

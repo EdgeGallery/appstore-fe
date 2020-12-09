@@ -62,10 +62,10 @@ function getSubTasksApi (appId, taskId) {
   return GET(url, '', 'developer')
 }
 
-function getMyAppApi (userId) {
-  let url = 'apps?userId=' + userId
-  return GET(url)
-}
+// function getMyAppApi (userId) {
+//   let url = 'apps?userId=' + userId
+//   return GET(url)
+// }
 
 function modifyAppPackageDetailApi (csarId, params) {
   let url = 'csars/' + csarId + '/modifymd'
@@ -82,10 +82,10 @@ function incAppDownloadTimesApi (appId, csarId) {
   return GET(url)
 }
 
-function uploadAppPackageApi (params) {
-  let url = 'mec/developer/v1/apps/'
-  return POST(url, params, 'developer')
-}
+// function uploadAppPackageApi (params) {
+//   let url = 'mec/developer/v1/apps/'
+//   return POST(url, params, 'developer')
+// }
 function uploadAppApi (params) {
   let userId = sessionStorage.getItem('userId')
   let userName = sessionStorage.getItem('userName')
@@ -122,7 +122,7 @@ function getAppFileContentApi (appId, packageId, params) {
 }
 
 function downloadAppPakageApi (appId, row) {
-  let url = 'apps/' + appId + '/packages/' + row.csarId + '/action/download'
+  let url = 'apps/' + appId + '/packages/' + row.packageId + '/action/download'
   let URL = URL_PREFIX + url
   window.open(URL)
 /*   let url = 'apps/' + appId + '/packages/' + row.csarId + '/action/download'
@@ -167,6 +167,38 @@ function logoutApi () {
   })
 }
 
+let myApp = {
+  // 首页上传接口
+  uploadAppPackageApi: function (params) {
+    let url = 'apps'
+    return POST(url, params)
+  },
+  // 获取我的应用
+  getMyAppApi: function (userId) {
+    let url = 'apps?userId=' + userId
+    return GET(url)
+  },
+  // 获取我的应用包
+  getMyAppPackageApi: function (appId, userId) {
+    let url = 'apps/' + appId + '/packages?userId=' + userId
+    return GET(url)
+  },
+  // 测试应用
+  testPackageApi: function (appId, packageId) {
+    let url = 'app/' + appId + '/packages/' + packageId + '/action/test'
+    return POST(url)
+  },
+  // 发布应用
+  publishAppApi: function (appId, packageId) {
+    let url = 'app/' + appId + '/packages/' + packageId + '/action/publish'
+    return POST(url)
+  },
+  // 包的详情
+  getPackageDetailApi: function (appId, packageId) {
+    let url = 'apps/' + appId + '/packages/' + packageId
+    return GET(url)
+  }
+}
 export {
   getCommentsApi,
   getAppDetailTableApi,
@@ -175,11 +207,9 @@ export {
   startTestApi,
   getTaskListApi,
   getSubTasksApi,
-  getMyAppApi,
   modifyAppPackageDetailApi,
   submitAppCommentApi,
   incAppDownloadTimesApi,
-  uploadAppPackageApi,
   uploadAppTaskApi,
   deleteAppApi,
   deleteAppPackageApi,
@@ -190,5 +220,6 @@ export {
   TEST_URL_PREFIX,
   getUserInfo,
   logoutApi,
-  uploadAppApi
+  uploadAppApi,
+  myApp
 }

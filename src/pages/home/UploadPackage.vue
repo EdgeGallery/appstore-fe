@@ -195,10 +195,6 @@
         class="dialog-footer"
       >
         <el-button
-          id="upload_package_detect"
-          disabled
-        >{{ $t('common.detect') }}</el-button>
-        <el-button
           id="upload_package_close"
           @click="handleClose"
         >{{ $t('common.cancel') }}</el-button>
@@ -215,7 +211,7 @@
 
 <script>
 import { TYPES, AFFINITY, INDUSTRY } from '../../tools/constant.js'
-import { startTestApi, uploadAppApi } from '../../tools/api.js'
+import { myApp } from '../../tools/api.js'
 export default {
   props: {
     value: {
@@ -399,29 +395,9 @@ export default {
         this.defaultIconFile = this.getFileStream(image)
       }
     },
-    // apply for testing
-    startTest (appId) {
-      // call developer
-      let userId = sessionStorage.getItem('userId')
-      startTestApi(appId, userId).then(res => {
-        this.uploadBtnLoading = false
-        this.$confirm(this.$t('promptMessage.checkUploadProgress'), this.$t('promptMessage.prompt'), {
-          confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('common.cancel'),
-          type: 'success'
-        }).then(() => {
-          this.$router.push('/app/test/task')
-        }).catch(() => {
-        })
-        this.handleClose()
-      }).catch(() => {
-        this.$message.error(this.$t('promptMessage.operationFailed'))
-        this.handleClose()
-        this.uploadBtnLoading = false
-      })
-    },
-    // update test package
     upload () {
+      let userId = sessionStorage.getItem('userId')
+      let userName = sessionStorage.getItem('userName')
       let fd = new FormData()
       let packageForm = this.packageForm
       fd.append('file', packageForm.fileList[0])
@@ -430,20 +406,17 @@ export default {
       fd.append('type', packageForm.types)
       fd.append('affinity', packageForm.affinity)
       fd.append('shortDesc', packageForm.shortDesc ? packageForm.shortDesc : '')
-      let userId = sessionStorage.getItem('userId')
-      let userName = sessionStorage.getItem('userName')
       fd.append('userId', userId)
       fd.append('userName', userName)
-      // interface of developer
-      uploadAppApi(fd).then(res => {
-        // this.startTest(res.data.appId)
+      myApp.uploadAppPackageApi(fd).then(res => {
         this.$message({
           duration: 2000,
           message: this.$t('promptMessage.uploadSuccess'),
           type: 'success'
         })
         this.handleClose()
-        this.$emit('getAppData')
+        // this.$emit('getAppData')
+        this.$router.push('/myapp')
       }).catch(error => {
         if (error.response.data.code === 403) {
           this.$message({

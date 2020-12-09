@@ -121,7 +121,8 @@ const cn = {
     contrastTime: '提交时间不能早于测试结束时间！',
     subCommentFailReason: '评分和评论内容是必须的',
     cannotComment: '您不能评论两次',
-    onlyOneFile: '仅支持一个文件，请先移除已有文件！'
+    onlyOneFile: '仅支持一个文件，请先移除已有文件！',
+    publishSuccess: '发布成功'
   },
   store: {
     advancedSearch: '高级搜索',
@@ -177,8 +178,7 @@ const cn = {
     docs: '文档'
   },
   myApp: {
-    checkTest: '检查测试',
-    testStatus: '测试状态',
+    checkTest: '查看历史测试任务',
     startTime: '提交时间',
     reset: '重置',
     inquire: '查询',
@@ -187,7 +187,10 @@ const cn = {
     operation: '操作',
     taskNumber: '任务序号',
     checkReport: '查看报告',
-    upload: '上传'
+    upload: '上传',
+    status: '状态',
+    test: '测试',
+    publish: '发布'
   },
   report: {
     version: '版本',
