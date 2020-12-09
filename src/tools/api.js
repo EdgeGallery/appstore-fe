@@ -185,12 +185,12 @@ let myApp = {
   },
   // 测试应用
   testPackageApi: function (appId, packageId) {
-    let url = 'app/' + appId + '/packages/' + packageId + '/action/test'
+    let url = 'apps/' + appId + '/packages/' + packageId + '/action/test'
     return POST(url)
   },
   // 发布应用
   publishAppApi: function (appId, packageId) {
-    let url = 'app/' + appId + '/packages/' + packageId + '/action/publish'
+    let url = 'apps/' + appId + '/packages/' + packageId + '/action/publish'
     return POST(url)
   },
   // 包的详情

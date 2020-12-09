@@ -259,11 +259,8 @@ export default {
     getTableData (callback) {
       myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
         let data = res.data
-        data.forEach(item => {
-          this.tableData.push(item)
-        }, () => {
-        })
-        if (data.length !== 0) {
+        this.tableData.push(data)
+        if (data) {
           this.editDetails = this.source = data[0].details
           this.appDetailFileList = [JSON.parse(data[0].format)]
           // this.packageId = data[0].packageId
