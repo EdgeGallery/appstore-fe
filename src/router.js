@@ -81,8 +81,20 @@ export default new Router({
           }
         },
         {
+          path: 'myappdetail',
+          name: 'myappdetail',
+          component: () => import('./pages/myApp/PackageDetail.vue'),
+          meta: {
+            id: '2.4.1',
+            breadcrumb: [
+              { nameEn: 'Myapp', path: '/myapp', nameCn: '我的应用' },
+              { nameEn: 'Detail', nameCn: '详情' }
+            ]
+          }
+        },
+        {
           path: 'app/test/task',
-          name: 'apttask',
+          name: 'atptask',
           component: () => import('./pages/myApp/ATPTask.vue'),
           meta: {
             id: '2.4.1',
@@ -126,7 +138,7 @@ export default new Router({
             id: '2.4.1',
             breadcrumb: [
               { nameEn: 'Myapp', path: '/myapp', nameCn: '我的应用' },
-              { nameEn: 'Test Task', path: 'app/test/task', nameCn: '测试任务' },
+              // { nameEn: 'Test Task', path: 'app/test/task', nameCn: '测试任务' },
               { nameEn: 'ATPTestCase', nameCn: '测试用例' }
             ]
           }

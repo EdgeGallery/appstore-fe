@@ -119,7 +119,8 @@ const en = {
     subCommentFailReason: 'Rating and content are required',
     contrastTime: 'The submission time cannot be earlier than the test end time!',
     cannotComment: 'You cannot comment twice',
-    onlyOneFile: 'Only one file is allowed, please remove the file first!'
+    onlyOneFile: 'Only one file is allowed, please remove the file first!',
+    publishSuccess: 'Publish Success'
   },
   store: {
     advancedSearch: 'Advanced Search',
@@ -175,8 +176,7 @@ const en = {
     docs: 'Docs'
   },
   myApp: {
-    checkTest: 'Check Test',
-    testStatus: 'Test Status',
+    checkTest: 'View historical test tasks',
     startTime: 'Starting Time',
     reset: 'Reset',
     inquire: 'Inquire',
@@ -187,7 +187,9 @@ const en = {
     checkReport: 'Check Report',
     upload: 'Upload',
     appName: 'Application Name',
-    status: 'Status'
+    status: 'Status',
+    test: 'Test',
+    publish: 'Publish'
   },
   report: {
     version: 'Version',

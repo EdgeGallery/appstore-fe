@@ -15,197 +15,43 @@
   -->
 
 <template>
-  <div class="report padding56">
-    <el-tabs
-      :tab-position="tabPosition"
-      style="height: 500px;width: 1500px;"
-    >
-      <el-tab-pane label="测试任务">
-        <div
-          class="title"
-          style="line-height: 20px; margin-top: 70px;"
-        >
-          测试进展
-        </div>
-        <div>
-          <el-steps
-            :active="3"
-            align-center
-            finish-status="success"
-            style="width: 1200px; margin-bottom: 80px; margin-left: 120px; margin-top: 50px;"
-          >
-            <el-step
-              title="Step 1"
-              :description="$t('atp.step1')"
-            />
-            <el-step
-              title="Step 2"
-              :description="$t('atp.step2')"
-            />
-            <el-step
-              title="Step 3"
-              :description="$t('atp.step3')"
-            />
-            <el-step
-              title="Step 4"
-              :description="$t('atp.step4')"
-            />
-          </el-steps>
-        </div>
-        <div style="display: flex; margin-left: 200px;">
-          <div
-            class="block"
-            style="width: 300px;"
-          >
-            <el-timeline>
-              <el-timeline-item
-                v-for="(activity, index) in activities1"
-                :key="index"
-                :icon="activity.icon"
-                :type="activity.type"
-                :color="activity.color"
-                :size="activity.size"
-                :timestamp="activity.timestamp"
-              >
-                {{ activity.content }}
-              </el-timeline-item>
-            </el-timeline>
-          </div>
-          <div
-            class="block"
-            style="width: 300px;"
-          >
-            <el-timeline>
-              <el-timeline-item
-                v-for="(activity, index) in activities2"
-                :key="index"
-                :icon="activity.icon"
-                :type="activity.type"
-                :color="activity.color"
-                :size="activity.size"
-                :timestamp="activity.timestamp"
-              >
-                {{ activity.content }}
-              </el-timeline-item>
-            </el-timeline>
-          </div>
-          <div
-            class="block"
-            style="width: 300px;"
-          >
-            <el-timeline>
-              <el-timeline-item
-                v-for="(activity, index) in activities3"
-                :key="index"
-                :icon="activity.icon"
-                :type="activity.type"
-                :color="activity.color"
-                :size="activity.size"
-                :timestamp="activity.timestamp"
-              >
-                {{ activity.content }}
-              </el-timeline-item>
-            </el-timeline>
-          </div>
-          <div
-            class="block"
-            style="width: 300px;"
-          >
-            <el-timeline>
-              <el-timeline-item
-                v-for="(activity, index) in activities4"
-                :key="index"
-                :icon="activity.icon"
-                :type="activity.type"
-                :color="activity.color"
-                :size="activity.size"
-                :timestamp="activity.timestamp"
-              >
-                {{ activity.content }}
-              </el-timeline-item>
-            </el-timeline>
-          </div>
-        </div>
-      </el-tab-pane>
-    </el-tabs>
-    <div
-      style="margin-top: 50px;"
-    >
-      <el-button
-        id="myapp_checktest"
-        type="primary"
-        @click="jumpTo"
-      >
-        测试详情
-      </el-button>
-    </div>
+  <div class="padding56">
+    <iframe
+      title="atp"
+      :src="srcUrl"
+      name="atp"
+      width="100%"
+      height="1200"
+    />
   </div>
 </template>
+
 <script>
 export default {
+  name: 'Task',
   data () {
     return {
-      tabPosition: 'left',
-      activities1: [{
-        content: 'Custom icon',
-        size: 'large',
-        type: 'primary'
-      }, {
-        content: 'Custom color',
-        color: '#0bbd87'
-      }, {
-        content: 'Custom size',
-        size: 'large'
-      }, {
-        content: 'Default node'
-      }],
-      activities2: [{
-        content: 'Custom icon',
-        size: 'large',
-        type: 'primary',
-        icon: 'el-icon-more'
-      }, {
-        content: 'Custom color',
-        color: '#0bbd87'
-      }, {
-        content: 'Custom size',
-        size: 'large'
-      }, {
-        content: 'Default node'
-      }],
-      activities3: [{
-        content: 'Custom icon',
-        size: 'large',
-        type: 'primary',
-        icon: 'el-icon-more'
-      }, {
-        content: 'Custom color',
-        color: '#0bbd87'
-      }, {
-        content: 'Custom size',
-        size: 'large'
-      }, {
-        content: 'Default node'
-      }],
-      activities4: [{
-        content: 'Custom icon',
-        size: 'large',
-        type: 'primary',
-        icon: 'el-icon-more'
-      }, {
-        content: 'Custom color',
-        color: '#0bbd87'
-      }, {
-        content: 'Custom size',
-        size: 'large'
-      }, {
-        content: 'Default node'
-      }]
+      srcUrl: 'https://www.baidu.com/'
+    }
+  },
+  // beforeRouteEnter (to, from, next) {
+  //   if (from.path.indexOf('/test/report') === -1) {
+  //     sessionStorage.removeItem('currentPage')
+  //   }
+  //   next()
+  // },
+  methods: {
+    getAtpUrl () {
+      let currUrl = window.location.href
+      if (currUrl.indexOf('30091') !== -1) {
+        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094'
+      } else {
+        this.srcUrl = currUrl.replace('appstore', 'atp')
+      }
     }
   },
   mounted () {
-  },
-  methods: {
+    this.getAtpUrl()
   }
 }
 </script>

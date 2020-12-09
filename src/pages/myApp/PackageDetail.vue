@@ -62,7 +62,6 @@
             <template slot-scope="scope">
               <el-button
                 id="appdetail_download"
-                :disabled="isDisabled(scope.row)"
                 @click="download(scope.row)"
                 type="text"
                 size="small"
@@ -70,16 +69,7 @@
                 {{ $t('store.download') }}
               </el-button>
               <el-button
-                id="appdetail_detail"
-                @click="getDetail(scope.row)"
-                type="text"
-                size="small"
-              >
-                {{ $t('common.detail') }}
-              </el-button>
-              <el-button
                 id="appdetail_delete"
-                :disabled="isDisabled(scope.row)"
                 @click="getDelete(scope.row)"
                 type="text"
                 size="small"
@@ -195,111 +185,6 @@
               style="overflow-x: auto;"
             />
           </div>
-          <div class="box comments">
-            <h4>{{ $t('store.comments') }}</h4>
-            <div
-              class="commnet-list"
-              v-if="!postComment"
-            >
-              <div
-                class="commnet-list-content"
-                v-for="item in historyComentsList"
-                :key="item.commentTime"
-              >
-                <div class="flex">
-                  <p style="margin-right: 5px;">
-                    {{ $t('store.userName') }}:
-                  </p>
-                  <p>{{ item.user.userName }}</p>
-                </div>
-                <div class="flex">
-                  <p style="margin-right: 5px;">
-                    {{ $t('store.score') }}:
-                  </p>
-                  <p>
-                    <el-rate
-                      v-model="item.score"
-                      disabled
-                      show-score
-                      text-color="#ff9900"
-                      score-template="{value}"
-                    />
-                  </p>
-                </div>
-                <div class="flex">
-                  <p style="margin-right: 5px;">
-                    {{ $t('store.time') }}:
-                  </p>
-                  <p>{{ item.commentTime.split(' ')[0] }}</p>
-                </div>
-                <div class="flex">
-                  <p style="margin-right: 5px;">
-                    {{ $t('store.comments') }}:
-                  </p>
-                  <p>{{ item.body }}</p>
-                </div>
-              </div>
-              <div
-                class="rt clearfix"
-                style="margin-top: 10px"
-              >
-                <el-button
-                  id="appdetail_post_comment"
-                  type="primary"
-                  size="mini"
-                  @click="changepostComment"
-                >
-                  {{ $t('store.comments') }}
-                </el-button>
-              </div>
-              <div class="clearfix" />
-            </div>
-            <div
-              class="submit-comment"
-              v-if="postComment"
-            >
-              <p class="flex">
-                <span style="margin-right: 5px;">{{ $t('store.score') }}:</span>
-                <el-rate
-                  v-model="comments.score"
-                  allow-half
-                  show-score
-                />
-              </p>
-              <p id="appdetail_comment">
-                <span style="margin-bottom: 5px;">{{ $t('store.comments') }}:</span>
-                <el-input
-                  type="textarea"
-                  v-model="comments.message"
-                  rows="5"
-                  maxlength="200"
-                  show-word-limit
-                />
-              </p>
-              <p class="clearfix">
-                <el-button
-                  id="appdetail_submit_comment"
-                  type="primary"
-                  size="mini"
-                  class="rt"
-                  @click="submitComment"
-                >
-                  {{ $t('store.postComment') }}
-                </el-button>
-                <el-button
-                  id="appdetail_commen_cancel"
-                  type="success"
-                  size="mini"
-                  class="rt"
-                  @click="changepostComment"
-                  style="margin-right: 5px;"
-                >
-                  {{ $t('common.cancel') }}
-                </el-button>
-              </p>
-              <div class="clearfix" />
-            </div>
-          </div>
         </div>
       </el-col>
     </el-row>
@@ -307,13 +192,11 @@
 </template>
 <script>
 import {
-  getCommentsApi,
-  getAppDetailTableApi,
   modifyAppPackageDetailApi,
-  submitAppCommentApi,
   getAppFileContentApi,
   downloadAppPakageApi,
-  deleteAppPackageApi
+  deleteAppPackageApi,
+  myApp
 } from '../../tools/api.js'
 
 export default {
@@ -333,24 +216,12 @@ export default {
         label: 'name'
       },
       editDetails: '',
-      postComment: false,
-      comments: {
-        score: 0,
-        message: ''
-      },
-      historyComentsList: [],
       source: '',
       showEdit: true,
       filePath: []
     }
   },
   methods: {
-    isDisabled (row) {
-      if (sessionStorage.userId === row.userId) {
-        return false
-      }
-      return true
-    },
     editInfo (title, index) {
       this.editorStatus = false
       this.showEdit = false
@@ -385,72 +256,8 @@ export default {
           })
         })
     },
-    changepostComment () {
-      this.postComment = !this.postComment
-      let userName = sessionStorage.getItem('userName')
-      this.historyComentsList.forEach((item) => {
-        if (item.user.userName === userName) {
-          this.postComment = false
-          this.$message({
-            duration: 2000,
-            type: 'warning',
-            message: this.$t('promptMessage.cannotComment')
-          })
-        }
-      })
-    },
-    submitComment () {
-      if (this.comments.score && this.comments.message) {
-        let params = {
-          score: this.comments.score,
-          body: this.comments.message
-        }
-        params = JSON.stringify(params)
-        /*         let fd = new FormData()
-        Object.keys(params).forEach(item => {
-          fd.append(item, params[item])
-        }) */
-        let userId = sessionStorage.getItem('userId')
-        let userName = sessionStorage.getItem('userName')
-        submitAppCommentApi(this.appId, params, userId, userName).then(res => {
-          this.changepostComment()
-          this.getComments()
-        }).catch(error => {
-          if (error.response.data.code === 403) {
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.guestUser'),
-              type: 'warning'
-            })
-          } else {
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.subCommentFail'),
-              type: 'warning'
-            })
-          }
-        })
-      } else {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.subCommentFailReason')
-        })
-      }
-    },
-    getComments () {
-      getCommentsApi(this.appId).then(res => {
-        this.historyComentsList = res.data
-      }, () => {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.getCommentFail')
-        })
-      })
-    },
     getTableData (callback) {
-      getAppDetailTableApi(this.appId).then(res => {
+      myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
         let data = res.data
         data.forEach(item => {
           this.tableData.push(item)
@@ -459,7 +266,7 @@ export default {
         if (data.length !== 0) {
           this.editDetails = this.source = data[0].details
           this.appDetailFileList = [JSON.parse(data[0].format)]
-          this.packageId = data[0].packageId
+          // this.packageId = data[0].packageId
         }
         callback()
       })
@@ -507,11 +314,6 @@ export default {
     download (row) {
       downloadAppPakageApi(this.appId, row)
     },
-    getDetail (row) {
-      this.editDetails = this.source = row.details
-      this.appDetailFileList = [JSON.parse(row.format)]
-      this.packageId = row.packageId
-    },
     getDelete (row) {
       this.$confirm(this.$t('promptMessage.deletePrompt'), this.$t('promptMessage.prompt'), {
         confirmButtonText: this.$t('common.confirm'),
@@ -543,24 +345,19 @@ export default {
       this.appDetailFileList = []
       this.editorStatus = true
       this.source = ''
-      this.historyComentsList = []
       this.getTableData(function clearData () {
-        if (this.tableData.length > 0) {
-          this.getComments()
-        } else {
-          this.$router.push({ name: 'appstorename' })
-        }
+        this.$router.push({ name: 'appstoremyapp' })
       }.bind(this))
     }
   },
   mounted () {
     let params = this.$route.params.item
       ? this.$route.params.item
-      : JSON.parse(sessionStorage.getItem('appstordetail'))
+      : JSON.parse(sessionStorage.getItem('myappdetail'))
     this.details = params
     this.appId = this.details.appId
+    this.packageId = this.details.packageId
     this.getTableData(function clearData () {})
-    this.getComments()
     this.userName = params.username
   }
 }
@@ -625,20 +422,6 @@ export default {
       }
       .name {
         margin-left: 10px;
-      }
-    }
-    .comments {
-      p {
-        margin-top: 10px;
-        padding-left: 10px;
-      }
-      .commnet-list {
-        padding-top: 10px;
-        padding-left: 10px;
-        .commnet-list-content {
-          padding-bottom: 10px;
-          border-bottom: 1px solid #eee;
-        }
       }
     }
     .appDetailFileList {
