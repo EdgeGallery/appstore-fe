@@ -261,8 +261,8 @@ export default {
         let data = res.data
         this.tableData.push(data)
         if (data) {
-          this.editDetails = this.source = data[0].details
-          this.appDetailFileList = [JSON.parse(data[0].format)]
+          this.editDetails = this.source = data.details
+          this.appDetailFileList = [JSON.parse(data.format)]
           // this.packageId = data[0].packageId
         }
         callback()
