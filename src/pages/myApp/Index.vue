@@ -130,46 +130,7 @@ export default {
       appData: [],
       appPackageData: [],
       dataLoading: true,
-      currentPageData: [
-        {
-          'name': 'postition',
-          'provider': 'edgegalery',
-          'version': '1.0',
-          'type': 'video',
-          'affinity': 'GPU',
-          'shortDesc': 'shortDesc##应用包详情页',
-          'status': 'Upload',
-          'appId': 'ffft565g5g54',
-          'packageId': 'desf34r534t53',
-          'userId': 'f435f54t',
-          'userName': 'baizhenzhen',
-          'testTaskId': ''
-        }, {
-          'name': 'postition',
-          'provider': 'edgegalery',
-          'version': '1.0',
-          'type': 'video',
-          'affinity': 'GPU',
-          'shortDesc': 'shortDesc##应用包详情页',
-          'status': 'Test running',
-          'appId': 'ffft565g5g54',
-          'userId': 'f435f54t',
-          'userName': 'baizhenzhen',
-          'testTaskId': ''
-        }, {
-          'name': 'postition',
-          'provider': 'edgegalery',
-          'version': '1.0',
-          'type': 'video',
-          'affinity': 'GPU',
-          'shortDesc': 'shortDesc##应用包详情页',
-          'status': 'Test created',
-          'appId': 'ffft565g5g54',
-          'userId': 'f435f54t',
-          'userName': 'baizhenzhen',
-          'testTaskId': ''
-        }
-      ],
+      currentPageData: [],
       taskId: 'eee',
       interval: ''
     }
@@ -179,8 +140,11 @@ export default {
       myApp.getMyAppApi(this.userId)
         .then(res => {
           this.appData = res.data
-          this.getAppPackageData()
-          // this.dataLoading = false
+          if (this.appData.length === 0) {
+            this.dataLoading = false
+          } else {
+            this.getAppPackageData()
+          }
         }, () => {
           this.dataLoading = false
           this.$message({
