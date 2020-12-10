@@ -87,7 +87,7 @@
                 {{ $t('myApp.test') }}
               </el-button>
               <el-button
-                :disabled="scope.row.status !== 'Test success'"
+                :disabled="scope.row.status !== 'Test_success'"
                 type="text"
                 size="small"
                 @click="publishPackage(scope.row)"
@@ -96,7 +96,7 @@
               </el-button>
               <el-button
                 id="appdetail_delete"
-                :disabled="scope.row.status == 'Test running' || scope.row.status == 'Test waiting'"
+                :disabled="scope.row.status == 'Test_running' || scope.row.status == 'Test_waiting'"
                 @click="getDelete(scope.row)"
                 type="text"
                 size="small"
@@ -200,51 +200,51 @@ export default {
         this.$message({
           duration: 2000,
           type: 'warning',
-          message: this.$t('测试任务检查失败')
+          message: this.$t('promptMessage.createFail')
         })
       } else if (row.status === 'Test_failed') {
-        this.$confirm('测试任务失败，请前往查看测试报告', this.$t('promptMessage.prompt'), {
-          confirmButtonText: '确定',
-          cancelButtonText: '再次测试',
+        this.$confirm(this.$t('promptMessage.testFail'), this.$t('promptMessage.prompt'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.testAgain'),
           type: 'warning'
         }).then(() => {
+          // 跳转测试报告+taskId
           this.$router.push({ name: 'atpreport', params: { taskId: testTaskId } })
-          // 跳转测试任务列表  或者测试报告+taskId
         }).catch(() => {
-          // 再次测试// 跳转测试任务列表
+          // 再次测试,首页+taskId，
           this.testPackage(row.appId, row.packageId)
         })
       } else if (row.status === 'Test_success') {
-        this.$confirm('测试任务成功，请前往查看测试报告', this.$t('promptMessage.prompt'), {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('promptMessage.testSuccess'), this.$t('promptMessage.prompt'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
           type: 'warning'
         }).then(() => {
           // 跳转测试任务列表  或者测试报告
           this.$router.push({ name: 'atpreport', params: { taskId: testTaskId } })
         })
       } else if (row.status === 'Test_running') {
-        this.$confirm('测试任务正在运行，请前往查看测试进展', this.$t('promptMessage.prompt'), {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('promptMessage.testRunning'), this.$t('promptMessage.prompt'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
           type: 'warning'
         }).then(() => {
           // 跳转测试进展页面，—+taskId
           this.$router.push({ name: 'atpprocess', params: { taskId: testTaskId } })
         })
       } else if (row.status === 'Test_waiting') {
-        this.$confirm('测试任务正在等待运行，请前往查看测试进展', this.$t('promptMessage.prompt'), {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('promptMessage.testWaiting'), this.$t('promptMessage.prompt'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
           type: 'warning'
         }).then(() => {
           // 跳转测试进展页面，—+taskId
           this.$router.push({ name: 'atpprocess', params: { taskId: testTaskId } })
         })
       } else if (row.status === 'Test_created') {
-        this.$confirm('测试任务已创建，请前往运行测试任务', this.$t('promptMessage.prompt'), {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('promptMessage.testCreated'), this.$t('promptMessage.prompt'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
           type: 'warning'
         }).then(() => {
           // 跳转首页页面，—+taskId+直接运行；

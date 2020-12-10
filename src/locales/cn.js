@@ -123,7 +123,14 @@ const cn = {
     cannotComment: '您不能评论两次',
     onlyOneFile: '仅支持一个文件，请先移除已有文件！',
     publishSuccess: '发布成功',
-    createtask: '是否创建测试任务？'
+    createtask: '是否创建测试任务？',
+    createFail: '测试任务检查失败',
+    testFail: '测试任务失败，请前往查看测试报告!',
+    testAgain: '再次测试',
+    testSuccess: '测试任务成功，请前往查看测试报告!',
+    testRunning: '测试任务正在运行，请前往查看测试进展!',
+    testWaiting: '测试任务正在等待运行，请前往查看测试进展!',
+    testCreated: '测试任务已创建，请前往运行测试任务!'
   },
   store: {
     advancedSearch: '高级搜索',
