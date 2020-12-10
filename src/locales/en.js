@@ -121,7 +121,14 @@ const en = {
     cannotComment: 'You cannot comment twice',
     onlyOneFile: 'Only one file is allowed, please remove the file first!',
     publishSuccess: 'Publish Success',
-    createtask: 'Whether to create a test task?'
+    createtask: 'Whether to create a test task?',
+    createFail: 'Test task check failed',
+    testFail: 'The test task failed, please go to view the test report!',
+    testAgain: 'Test again',
+    testSuccess: 'The test task is successful, please go to view the test report!',
+    testRunning: 'The test task is running, please go to check the test progress!',
+    testWaiting: 'The test task is waiting to run, please go to check the test progress!',
+    testCreated: 'The test task has been created, please go to run the test task!'
   },
   store: {
     advancedSearch: 'Advanced Search',
