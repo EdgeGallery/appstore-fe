@@ -122,7 +122,8 @@ const cn = {
     subCommentFailReason: '评分和评论内容是必须的',
     cannotComment: '您不能评论两次',
     onlyOneFile: '仅支持一个文件，请先移除已有文件！',
-    publishSuccess: '发布成功'
+    publishSuccess: '发布成功',
+    createtask: '是否创建测试任务？'
   },
   store: {
     advancedSearch: '高级搜索',
