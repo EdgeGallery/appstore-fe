@@ -67,6 +67,7 @@
           <el-table-column
             fixed="right"
             :label="$t('myApp.operation')"
+            width="200"
           >
             <template slot-scope="scope">
               <el-button
@@ -131,7 +132,7 @@ export default {
       appPackageData: [],
       dataLoading: true,
       currentPageData: [],
-      taskId: 'eee',
+      taskId: '',
       interval: ''
     }
   },
@@ -185,11 +186,11 @@ export default {
       sessionStorage.setItem('myappdetail', JSON.stringify(item))
     },
     testMessage (row) {
-      let taskId = row.testtaskId
+      let testTaskId = row.testTaskId
       if (row.status === 'Upload') {
-        this.$confirm('是否创建测试任务?', this.$t('promptMessage.prompt'), {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('promptMessage.createtask'), this.$t('promptMessage.prompt'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
           type: 'warning'
         }).then(() => {
           // 跳转atp首页加参数taskId,
@@ -207,7 +208,7 @@ export default {
           cancelButtonText: '再次测试',
           type: 'warning'
         }).then(() => {
-          this.$router.push('/app/test/task')
+          this.$router.push({ name: 'atpreport', params: { taskId: testTaskId } })
           // 跳转测试任务列表  或者测试报告+taskId
         }).catch(() => {
           // 再次测试// 跳转测试任务列表
@@ -220,7 +221,7 @@ export default {
           type: 'warning'
         }).then(() => {
           // 跳转测试任务列表  或者测试报告
-          this.$router.push('/app/test/task')
+          this.$router.push({ name: 'atpreport', params: { taskId: testTaskId } })
         })
       } else if (row.status === 'Test_running') {
         this.$confirm('测试任务正在运行，请前往查看测试进展', this.$t('promptMessage.prompt'), {
@@ -229,7 +230,7 @@ export default {
           type: 'warning'
         }).then(() => {
           // 跳转测试进展页面，—+taskId
-          this.$router.push({ name: 'atpprocess', params: { taskId: taskId } })
+          this.$router.push({ name: 'atpprocess', params: { taskId: testTaskId } })
         })
       } else if (row.status === 'Test_waiting') {
         this.$confirm('测试任务正在等待运行，请前往查看测试进展', this.$t('promptMessage.prompt'), {
@@ -238,7 +239,7 @@ export default {
           type: 'warning'
         }).then(() => {
           // 跳转测试进展页面，—+taskId
-          this.$router.push({ name: 'atpprocess', params: { taskId: taskId } })
+          this.$router.push({ name: 'atpprocess', params: { taskId: testTaskId } })
         })
       } else if (row.status === 'Test_created') {
         this.$confirm('测试任务已创建，请前往运行测试任务', this.$t('promptMessage.prompt'), {
@@ -247,7 +248,7 @@ export default {
           type: 'warning'
         }).then(() => {
           // 跳转首页页面，—+taskId+直接运行；
-          this.$router.push({ name: 'atptestcase', params: { taskId: taskId } })
+          this.$router.push({ name: 'atptestcase', params: { taskId: testTaskId } })
         })
       }
     },

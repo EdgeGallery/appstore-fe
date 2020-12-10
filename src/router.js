@@ -139,7 +139,7 @@ export default new Router({
             breadcrumb: [
               { nameEn: 'Myapp', path: '/myapp', nameCn: '我的应用' },
               // { nameEn: 'Test Task', path: 'app/test/task', nameCn: '测试任务' },
-              { nameEn: 'ATPTestCase', nameCn: '测试用例' }
+              { nameEn: 'ATPTest', nameCn: '测试' }
             ]
           }
         }

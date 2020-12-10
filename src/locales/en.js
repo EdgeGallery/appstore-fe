@@ -120,7 +120,8 @@ const en = {
     contrastTime: 'The submission time cannot be earlier than the test end time!',
     cannotComment: 'You cannot comment twice',
     onlyOneFile: 'Only one file is allowed, please remove the file first!',
-    publishSuccess: 'Publish Success'
+    publishSuccess: 'Publish Success',
+    createtask: 'Whether to create a test task?'
   },
   store: {
     advancedSearch: 'Advanced Search',
