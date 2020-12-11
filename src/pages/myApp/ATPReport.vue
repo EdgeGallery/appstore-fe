@@ -21,7 +21,7 @@
       :src="srcUrl"
       name="atp"
       width="100%"
-      height="100%"
+      height="1450"
     />
   </div>
 </template>
