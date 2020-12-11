@@ -204,15 +204,18 @@ export default {
         })
       } else if (row.status === 'Test_failed') {
         this.$confirm(this.$t('promptMessage.testFail'), this.$t('promptMessage.prompt'), {
+          distinguishCancelAndClose: true,
           confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('common.testAgain'),
+          cancelButtonText: this.$t('promptMessage.testAgain'),
           type: 'warning'
         }).then(() => {
           // 跳转测试报告+taskId
           this.$router.push({ name: 'atpreport', params: { taskId: testTaskId } })
-        }).catch(() => {
+        }).catch(action => {
           // 再次测试,首页+taskId，
-          this.testPackage(row.appId, row.packageId)
+          if (action === 'cancel') {
+            this.testPackage(row.appId, row.packageId)
+          }
         })
       } else if (row.status === 'Test_success') {
         this.$confirm(this.$t('promptMessage.testSuccess'), this.$t('promptMessage.prompt'), {
@@ -256,6 +259,12 @@ export default {
       myApp.testPackageApi(appId, packageId).then(res => {
         this.taskId = res.data.atpTaskId
         this.$router.push({ name: 'atptestcase', params: { taskId: this.taskId } })
+      }).catch(() => {
+        this.$message({
+          duration: 2000,
+          type: 'warning',
+          message: this.$t('promptMessage.createFail')
+        })
       })
     },
     publishPackage (row) {
@@ -316,10 +325,8 @@ export default {
   mounted () {
     this.userId = sessionStorage.getItem('userId')
     this.getAppData()
-    // this.getAppPackageData()
     this.interval = setInterval(() => {
       this.getAppData()
-      // this.getAppPackageData()
     }, 30000)
   },
   beforeDestroy () {
