@@ -39,15 +39,58 @@
         :md="13"
         class="navList"
       >
-        <div>
+        <el-menu
+          @select="handleSelect"
+          mode="horizontal"
+          :unique-opened="true"
+          router
+          text-color="#fff"
+          background-color="#282b33"
+          active-text-color="#6c92fa"
+        >
+          <template
+            v-for="item in list"
+          >
+            <el-submenu
+              v-if="item.children && item.children.length"
+              :disabled="!item.display"
+              :index="item.route"
+              :key="item.label"
+            >
+              <template
+                slot="title"
+              >
+                <span>{{ language === 'cn' ? item.labelCn : item.labelEn }}</span>
+              </template>
+              <el-menu-item
+                v-for="(itemChild, indexin) in item.children"
+                :indexin="itemChild.route"
+                :key="itemChild.label"
+                @click="jumpTo(itemChild.route, indexin, itemChild.link, itemChild.display)"
+              >
+                {{ language === 'cn' ? itemChild.labelCn : itemChild.labelEn }}
+              </el-menu-item>
+            </el-submenu>
+            <el-menu-item
+              v-else
+              :disabled="!item.display"
+              :index="item.route"
+              :key="item.label"
+              @click="jumpTo(item.route, index, item.link, item.display)"
+            >
+              {{ language === 'cn' ? item.labelCn : item.labelEn }}
+            </el-menu-item>
+          </template>
+        </el-menu>
+        <!-- <div>
           <span
+          v-for="(item, index) in list"
             class="curp"
-            v-for="(item, index) in list"
             :class="{ active: isActive === index, isUse: !item.display }"
             :key="item.label"
             @click="jumpTo(item.route, index, item.link, item.display)"
           >{{ language === 'cn' ? item.labelCn : item.labelEn }}</span>
-        </div>
+        </div> -->
       </el-col>
       <el-col
         :lg="6"
@@ -118,8 +161,8 @@ export default {
       language: 'cn',
       list: [
         {
-          labelEn: 'Store',
-          labelCn: '商店',
+          labelEn: 'Warehouse',
+          labelCn: '应用仓库',
           route: '/index',
           pageId: '2.1.1',
           display: true,
@@ -155,7 +198,31 @@ export default {
           route: '/apppromote',
           pageId: '2.1.6',
           display: true,
-          link: ''
+          link: '',
+          children: [
+            {
+              labelEn: '外部应用商店',
+              labelCn: '外部应用商店',
+              route: '/apppromote',
+              pageId: '2.1.6',
+              display: true,
+              link: ''
+            }, {
+              labelEn: '外部应用商店',
+              labelCn: '应用共享',
+              route: '/apppromote',
+              pageId: '2.1.6',
+              display: true,
+              link: ''
+            }, {
+              labelEn: '外部应用商店',
+              labelCn: '消息中心',
+              route: '/apppromote',
+              pageId: '2.1.6',
+              display: true,
+              link: ''
+            }
+          ]
         }
       ],
       isActive: 0,
@@ -321,6 +388,14 @@ export default {
   }
   .navList {
     text-align: center;
+    .el-menu.el-menu--horizontal{
+    height: 65px;
+    border-bottom: none;
+    .el-menu-item{
+      height: 65px;
+      line-height: 65px;
+    }
+  }
     span {
       font-size: 20px;
       line-height: 65px;
