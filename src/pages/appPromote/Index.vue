@@ -17,7 +17,11 @@
 <template>
   <div class="my-app padding56">
     <div class="stars-wrapper">
-      <img ref="conf0" src="../../assets/images/logo.png">
+      <img
+        ref="conf0"
+        src="../../assets/images/logo.png"
+        alt
+      >
     </div>
     <!-- <div class="starry-sky">
       <canvas id="cvs" ref="canvas"></canvas>
