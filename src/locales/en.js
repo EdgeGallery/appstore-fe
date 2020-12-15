@@ -23,7 +23,8 @@ const en = {
     about: 'About',
     logout: 'Logout',
     login: 'Login',
-    appstore: 'Appstore'
+    appstore: 'Appstore',
+    appMgmt: 'appMgmt'
   },
   common: {
     bannerTitle: 'One-step shop for developers',
@@ -198,7 +199,8 @@ const en = {
     appName: 'Application Name',
     status: 'Status',
     test: 'Test',
-    publish: 'Publish'
+    publish: 'Publish',
+    addApp: 'addApp'
   },
   report: {
     version: 'Version',

@@ -167,6 +167,28 @@ function logoutApi () {
   })
 }
 
+let myAppStore = {
+  // 新增appstore接口
+  addAppStoreApi: function (params) {
+    let url = 'apps'
+    return POST(url, params)
+  },
+  // 编辑appstore接口
+  modifyAppStoreApi: function (params, plateformName) {
+    let url = 'apps' + '/appstore?plateformName=' + plateformName
+    return POST(url, params)
+  },
+  // 获取我的appstore
+  getMyAppApi: function (userId) {
+    let url = 'apps?userId=' + userId
+    return GET(url)
+  },
+  deleteAppStoreApi: function (appId, csarId, userId, userName) {
+    let url = 'apps/' + appId + '/packages/' + csarId + '?userId=' + userId + '&userName=' + userName
+    return DELETE(url)
+  }
+}
+
 let myApp = {
   // 首页上传接口
   uploadAppPackageApi: function (params) {
@@ -221,5 +243,6 @@ export {
   getUserInfo,
   logoutApi,
   uploadAppApi,
-  myApp
+  myApp,
+  myAppStore
 }

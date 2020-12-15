@@ -140,6 +140,21 @@ const TYPES = [
   }
 ]
 
+const TTYPES = [
+  {
+    label: ['转换器', 'transferTool'],
+    value: 'transferTool',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['转换器2', 'transferTool2'],
+    value: 'transferTool2',
+    selected: false,
+    type: 'types'
+  }
+]
+
 const AFFINITY = [
   {
     label: 'x86',
@@ -195,5 +210,5 @@ const SORT_BY = [
 ]
 
 export {
-  TYPES, AFFINITY, SORT_BY, INDUSTRY
+  TYPES, AFFINITY, SORT_BY, INDUSTRY, TTYPES
 }

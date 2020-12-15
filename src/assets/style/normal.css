@@ -104,3 +104,7 @@ a{
   padding: 20px;
   box-sizing: border-box;
 }
+
+.el-dialog__header{
+  background-color: #5abdc7 ;
+}

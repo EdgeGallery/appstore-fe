@@ -25,7 +25,8 @@ const cn = {
     about: '关于',
     logout: '注销',
     login: '登录',
-    appstore: '应用商店'
+    appstore: '应用商店',
+    appMgmt: '应用管理'
   },
   common: {
     bannerTitle: '为开发人员提供一站式服务',
@@ -76,7 +77,14 @@ const cn = {
     userName: '上传人',
     getCaptcha: '获取验证码',
     inputCaptcha: '请输入验证码',
-    choose: '请选择'
+    choose: '请选择',
+    number: '序号',
+    plateformName: '平台名称',
+    plateformVersion: '平台版本',
+    IPOrUrl: 'IP or URL',
+    transferTool: '转换器',
+    modifyApp: '编辑'
+
   },
   promptMessage: {
     guestUser: 'guest用户无权操作! 请登录',
@@ -131,7 +139,12 @@ const cn = {
     testSuccess: '测试任务成功，请前往查看测试报告!',
     testRunning: '测试任务正在运行，请前往查看测试进展!',
     testWaiting: '测试任务正在等待运行，请前往查看测试进展!',
-    testCreated: '测试任务已创建，请前往运行测试任务!'
+    testCreated: '测试任务已创建，请前往运行测试任务!',
+    plateformNameEmpty: '平台名称不能为空',
+    plateformVersionEmpty: '平台版本不能为空',
+    IPOrUrlEmpty: 'IP or URL不能为空',
+    transferToolEmpty: '转换器不能为空'
+
   },
   store: {
     advancedSearch: '高级搜索',
@@ -199,7 +212,9 @@ const cn = {
     upload: '上传',
     status: '状态',
     test: '测试',
-    publish: '发布'
+    publish: '发布',
+    addApp: '添加 AppStore',
+    modifyAppStore: '编辑 AppStore'
   },
   report: {
     version: '版本',
