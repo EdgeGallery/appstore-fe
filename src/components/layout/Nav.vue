@@ -32,10 +32,6 @@
             @click="jumpTo('/index')"
             alt
           >
-          <span
-            @click="jumpTo('/index')"
-            class="curp"
-          > {{ $t('nav.appstore') }} V0.5</span>
         </div>
       </el-col>
       <el-col
