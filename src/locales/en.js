@@ -234,6 +234,17 @@ const en = {
     baseInfo: 'Basic Information',
     uploadUser: 'Upload User'
   },
+  apppromotion: {
+    number: '序号',
+    appName: '应用名称',
+    provider: '厂商',
+    version: '版本',
+    tesResult: 'ATP测试结果',
+    testRepo: '测试报告',
+    lastProTime: '最后推广时间',
+    proTimes: '推广次数',
+    operation: '操作'
+  },
   about: {
   },
   ...enLocale

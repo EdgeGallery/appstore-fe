@@ -37,6 +37,16 @@ function getAppDetailTableApi (appId) {
   return GET(url)
 }
 
+function getAppPromTableApi (appId) {
+  let url = 'apps/' + appId + '/packages/'
+  return GET(url)
+}
+
+function getAppdownAnaApi (appId) {
+  let url = 'apps/' + appId + '/packages/'
+  return GET(url)
+}
+
 function getAppDetailFileApi (path, id) {
   let url = 'csars/' + id + '/' + path
   return GET(url)
@@ -94,6 +104,11 @@ function uploadAppApi (params) {
 }
 
 function uploadAppTaskApi (appId, userId, userName) {
+  let url = 'mec/developer/v1/apps/' + appId + '/action/upload?userId=' + userId + '&' + 'userName=' + userName
+  return POST(url, '', 'developer')
+}
+
+function promTaskApi (appId, userId, userName) {
   let url = 'mec/developer/v1/apps/' + appId + '/action/upload?userId=' + userId + '&' + 'userName=' + userName
   return POST(url, '', 'developer')
 }
@@ -168,17 +183,17 @@ function logoutApi () {
 }
 
 let myAppStore = {
-  // æ–°å¢appstoreæ¥å£
+  // ĞÂÔöappstore½Ó¿Ú
   addAppStoreApi: function (params) {
     let url = 'apps'
     return POST(url, params)
   },
-  // ç¼–è¾‘appstoreæ¥å£
+  // ±à¼­appstore½Ó¿Ú
   modifyAppStoreApi: function (params, plateformName) {
     let url = 'apps' + '/appstore?plateformName=' + plateformName
     return POST(url, params)
   },
-  // è·å–æˆ‘çš„appstore
+  // »ñÈ¡ÎÒµÄappstore
   getMyAppApi: function (userId) {
     let url = 'apps?userId=' + userId
     return GET(url)
@@ -190,32 +205,32 @@ let myAppStore = {
 }
 
 let myApp = {
-  // é¦–é¡µä¸Šä¼ æ¥å£
+  // Ê×Ò³ÉÏ´«½Ó¿Ú
   uploadAppPackageApi: function (params) {
     let url = 'apps'
     return POST(url, params)
   },
-  // è·å–æˆ‘çš„åº”ç”¨
+  // »ñÈ¡ÎÒµÄÓ¦ÓÃ
   getMyAppApi: function (userId) {
     let url = 'apps?userId=' + userId
     return GET(url)
   },
-  // è·å–æˆ‘çš„åº”ç”¨åŒ…
+  // »ñÈ¡ÎÒµÄÓ¦ÓÃ°ü
   getMyAppPackageApi: function (appId, userId) {
     let url = 'apps/' + appId + '/packages?userId=' + userId
     return GET(url)
   },
-  // æµ‹è¯•åº”ç”¨
+  // ²âÊÔÓ¦ÓÃ
   testPackageApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId + '/action/test'
     return POST(url)
   },
-  // å‘å¸ƒåº”ç”¨
+  // ·¢²¼Ó¦ÓÃ
   publishAppApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId + '/action/publish'
     return POST(url)
   },
-  // åŒ…çš„è¯¦æƒ…
+  // °üµÄÏêÇé
   getPackageDetailApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId
     return GET(url)
