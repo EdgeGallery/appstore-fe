@@ -142,6 +142,15 @@ export default new Router({
               { nameEn: 'ATPTest', nameCn: '测试' }
             ]
           }
+        },
+        {
+          path: 'apppromote',
+          name: 'apppromote',
+          component: () => import('./pages/appPromote/Index.vue'),
+          meta: {
+            id: '2.5',
+            breadcrumb: [{ nameEn: 'appMgmt', nameCn: '应用管理' }]
+          }
         }
       ]
     }

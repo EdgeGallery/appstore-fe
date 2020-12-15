@@ -148,6 +148,14 @@ export default {
           pageId: '2.1.5',
           display: true,
           link: 'https://gitee.com/edgegallery'
+        },
+        {
+          labelEn: 'AppPromote',
+          labelCn: '应用共享',
+          route: '/apppromote',
+          pageId: '2.1.6',
+          display: true,
+          link: ''
         }
       ],
       isActive: 0,
@@ -169,6 +177,8 @@ export default {
         this.isActive = 2
       } else if (path === '/about') {
         this.isActive = 3
+      } else if (path === '/apppromote') {
+        this.isActive = 4
       } else {
         this.isActive = 0
       }
@@ -266,6 +276,8 @@ export default {
       this.isActive = 2
     } else if (path === '/about') {
       this.isActive = 3
+    } else if (path === '/apppromote') {
+      this.isActive = 4
     }
     getUserInfo().then(res => {
       sessionStorage.setItem('userId', res.data.userId)

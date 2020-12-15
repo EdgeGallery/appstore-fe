@@ -26,8 +26,9 @@ import i18n from './locales/i18n.js'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import VueCookies from 'vue-cookies'
+import VueParticles from 'vue-particles'
 Vue.use(VueCookies)
-
+Vue.use(VueParticles)
 Vue.use(mavonEditor)
 Vue.use(ElementUI)
 Vue.use(VCharts)
