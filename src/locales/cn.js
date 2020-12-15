@@ -248,6 +248,27 @@ const cn = {
     baseInfo: '基础信息',
     uploadUser: '上传人'
   },
+  apppromotion: {
+    number: '序号',
+    appName: '应用名称',
+    provider: '厂商',
+    version: '版本',
+    tesResult: 'ATP测试结果',
+    testRepo: '测试报告',
+    lastProTime: '最后推广时间',
+    proTimes: '推广次数',
+    batchPro: '批量推广',
+    operationType: '类型',
+    dateTime: '时间',
+    appStore: '3rd AdppStore',
+    appPromotion: '应用推送',
+    downloadAna: '操作分析',
+    execute: '执行',
+    closePanel: '关闭',
+    yidong: '移动',
+    liantong: '联通',
+    dianxin: '电信'
+  },
   about: {},
   ...zhLocale
 }
