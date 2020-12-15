@@ -183,17 +183,17 @@ function logoutApi () {
 }
 
 let myAppStore = {
-  // ĞÂÔöappstore½Ó¿Ú
+  // æ–°å¢appstoreæ¥å£
   addAppStoreApi: function (params) {
     let url = 'apps'
     return POST(url, params)
   },
-  // ±à¼­appstore½Ó¿Ú
+  // ç¼–è¾‘appstoreæ¥å£
   modifyAppStoreApi: function (params, plateformName) {
     let url = 'apps' + '/appstore?plateformName=' + plateformName
     return POST(url, params)
   },
-  // »ñÈ¡ÎÒµÄappstore
+  // è·å–æˆ‘çš„appstore
   getMyAppApi: function (userId) {
     let url = 'apps?userId=' + userId
     return GET(url)
@@ -205,32 +205,32 @@ let myAppStore = {
 }
 
 let myApp = {
-  // Ê×Ò³ÉÏ´«½Ó¿Ú
+  // é¦–é¡µä¸Šä¼ æ¥å£
   uploadAppPackageApi: function (params) {
     let url = 'apps'
     return POST(url, params)
   },
-  // »ñÈ¡ÎÒµÄÓ¦ÓÃ
+  // è·å–æˆ‘çš„åº”ç”¨
   getMyAppApi: function (userId) {
     let url = 'apps?userId=' + userId
     return GET(url)
   },
-  // »ñÈ¡ÎÒµÄÓ¦ÓÃ°ü
+  // è·å–æˆ‘çš„åº”ç”¨åŒ…
   getMyAppPackageApi: function (appId, userId) {
     let url = 'apps/' + appId + '/packages?userId=' + userId
     return GET(url)
   },
-  // ²âÊÔÓ¦ÓÃ
+  // æµ‹è¯•åº”ç”¨
   testPackageApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId + '/action/test'
     return POST(url)
   },
-  // ·¢²¼Ó¦ÓÃ
+  // å‘å¸ƒåº”ç”¨
   publishAppApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId + '/action/publish'
     return POST(url)
   },
-  // °üµÄÏêÇé
+  // åŒ…çš„è¯¦æƒ…
   getPackageDetailApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId
     return GET(url)
@@ -259,5 +259,8 @@ export {
   logoutApi,
   uploadAppApi,
   myApp,
-  myAppStore
+  myAppStore,
+  getAppPromTableApi,
+  getAppdownAnaApi,
+  promTaskApi
 }
