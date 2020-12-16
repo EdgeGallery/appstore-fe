@@ -17,8 +17,15 @@
 <template>
   <div class="my-app padding56">
     <div class="my-app-content">
-      <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick" >
-        <el-tab-pane :label="$t('apppromotion.appPromotion')" name="prom">
+      <el-tabs
+        type="border-card"
+        v-model="activeName"
+        @tab-click="handleClick"
+      >
+        <el-tab-pane
+          :label="$t('apppromotion.appPromotion')"
+          name="prom"
+        >
           <!-- <el-row class="batchProm">
             <el-col :span="24">
               <el-button
@@ -32,15 +39,18 @@
             </el-col>
           </el-row> -->
           <appList
-            v-if="activeName == 'prom'" ref="prom"
-          >
-          </appList>
+            v-if="activeName == 'prom'"
+            ref="prom"
+          />
         </el-tab-pane>
-        <el-tab-pane :label="$t('apppromotion.downloadAna')" name="down">
+        <el-tab-pane
+          :label="$t('apppromotion.downloadAna')"
+          name="down"
+        >
           <downloadAna
-            v-if="activeName == 'down'" ref="down"
-          >
-          </downloadAna>
+            v-if="activeName == 'down'"
+            ref="down"
+          />
         </el-tab-pane>
         <pagination
           :table-data="appData"
@@ -55,7 +65,6 @@
 <script>
 import downloadAna from './DownloadAna.vue'
 import appList from './AppList.vue'
-import promTask from './PromTask.vue'
 import { getMyAppApi } from '../../tools/api.js'
 import pagination from '../../components/common/Pagination.vue'
 export default {
@@ -64,12 +73,11 @@ export default {
     downloadAna,
     pagination
   },
-  props:['table-data'],
   data () {
     return {
       activeName: 'prom',
-      appData:[]
-    };
+      appData: []
+    }
   },
   methods: {
     getAppData () {
@@ -95,12 +103,12 @@ export default {
     getCurrentPageData (data) {
       this.currentPageData = data
     },
-    handleClick(tab, event) {
-        this.activeName = tab.name;
-        var that = this;
-        setTimeout(function(){
-            that.onQuery();
-        },500);
+    handleClick (tab, event) {
+      this.activeName = tab.name
+      var that = this
+      setTimeout(function () {
+        that.onQuery()
+      }, 500)
     }
   },
   mounted () {

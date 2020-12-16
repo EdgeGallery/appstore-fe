@@ -35,7 +35,10 @@
       style="width: 100%"
       :header-cell-style="{ background: '#A0A5A7', color: '#fff' }"
     >
-      <el-table-column type="selection" width="70"> </el-table-column>
+      <el-table-column
+        type="selection"
+        width="70"
+      />
       <el-table-column
         prop="number"
         :label="$t('apppromotion.number')"
@@ -85,86 +88,86 @@
 </template>
 
 <script>
-import { deleteAppApi, getAppPromTableApi } from "../../tools/api.js";
-import promTask from "./PromTask.vue";
+import { getAppPromTableApi } from '../../tools/api.js'
+import promTask from './PromTask.vue'
 export default {
   components: {
-    promTask,
+    promTask
   },
-  data() {
+  data () {
     return {
       dataonLineListSelections: [],
       uploadDiaVis: false,
       // appData: []
       appData: [
         {
-          number: "1",
-          appName: "虚拟人生22",
-          provider: "中国移动",
-          version: "V1.0",
-          tesResult: "Success",
+          number: '1',
+          appName: '虚拟人生b',
+          provider: '中国移动',
+          version: 'V1.0',
+          tesResult: 'Success',
           // testRepo: <a href="require('@/assets/images/202012150314.png')">202012150314</a>,
           testRepo: <a href="../../assets/images/202012150314.png" target="_blank">202012150314</a>,
-          lastProTime: "2020-12-08 13:55:12",
-          proTimes: "30",
+          lastProTime: '2020-12-08 13:55:12',
+          proTimes: '30'
         },
         {
-          number: "2",
-          appName: "梦幻生活",
-          provider: "中国电信",
-          version: "V2.0",
-          tesResult: "Failed11",
-          testRepo: "xxxrepo",
-          lastProTime: "2021-11-08 13:55:12",
-          proTimes: "50",
+          number: '2',
+          appName: '梦幻生活c',
+          provider: '中国电信',
+          version: 'V2.0',
+          tesResult: 'Failed11',
+          testRepo: 'xxxrepo',
+          lastProTime: '2021-11-08 13:55:12',
+          proTimes: '50'
         },
         {
-          number: "3",
-          appName: "极限挑战",
-          provider: "中国联通",
-          version: "V3.0",
-          tesResult: "Success",
-          testRepo: "xxxrepo",
-          lastProTime: "2021-11-08 13:55:12",
-          proTimes: "1000",
-        },
-      ],
-    };
+          number: '3',
+          appName: '极限挑战',
+          provider: '中国联通',
+          version: 'V3.0',
+          tesResult: 'Success',
+          testRepo: 'xxxrepo',
+          lastProTime: '2021-11-08 13:55:12',
+          proTimes: '1000'
+        }
+      ]
+    }
   },
   methods: {
-    toggleSelection(rows) {
+    toggleSelection (rows) {
       if (rows) {
         rows.forEach((row) => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
+          this.$refs.multipleTable.toggleRowSelection(row)
+        })
       } else {
-        this.$refs.multipleTable.clearSelection();
+        this.$refs.multipleTable.clearSelection()
       }
     },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
+    handleSelectionChange (val) {
+      this.multipleSelection = val
     },
-    selectionLineChangeHandle(val) {
-      this.dataonLineListSelections = val;
+    selectionLineChangeHandle (val) {
+      this.dataonLineListSelections = val
     },
-    getAppData() {
-      this.uploadDiaVis = false;
+    getAppData () {
+      this.uploadDiaVis = false
     },
     // jumpTo() {
     //   console.log(this.dataonLineListSelections);
     //   this.$router.push("/app/prom/task");
     //   sessionStorage.setItem('appstordetail', JSON.stringify(this.dataonLineListSelections))
     // },
-    uploadPackage() {
-      this.uploadDiaVis = true;
+    uploadPackage () {
+      this.uploadDiaVis = true
       sessionStorage.setItem(
-        "appstordetail",
+        'appstordetail',
         JSON.stringify(this.dataonLineListSelections)
-      );
+      )
     },
-    getTableData() {
-      // this.uploadDiaVis = false;
-      // getAppPromTableApi(this.appId).then((res) => {
+    getTableData () {
+      this.uploadDiaVis = false
+      getAppPromTableApi(this.appId).then((res) => {
       //   let data = res.data;
       //   data.forEach(
       //     (item) => {
@@ -173,19 +176,19 @@ export default {
       //     () => {}
       //   );
       //   if (data.length !== 0) {
-      //this.editDetails = this.source = data[0].details
-      //this.appDetailFileList = [JSON.parse(data[0].format)]
-      //this.packageId = data[0].csarId
+      // this.editDetails = this.source = data[0].details
+      // this.appDetailFileList = [JSON.parse(data[0].format)]
+      // this.packageId = data[0].csarId
       //   }
-      // });
-    },
+      })
+    }
   },
-  mounted() {
-    this.getAppData();
-    console.log(this.$refs.multipleTable.selection);
+  mounted () {
+    this.getAppData()
+    console.log(this.$refs.multipleTable.selection)
     // this.getTableData();
-  },
-};
+  }
+}
 </script>
 <style lang="less" scoped>
 .app-list {

@@ -27,8 +27,11 @@
             :label="$t('apppromotion.dianxin')"
             width="170"
           >
-            <template slot-scope="scope">
-              <img :src="imageUrl" class="execute_style" />
+            <template>
+              <img
+                :src="imageUrl"
+                class="execute_style"
+              >
             </template>
           </el-table-column>
           <el-table-column
@@ -36,8 +39,11 @@
             :label="$t('apppromotion.liantong')"
             width="170"
           >
-            <template slot-scope="scope">
-              <img :src="imageUrl" class="execute_style" />
+            <template>
+              <img
+                :src="imageUrl"
+                class="execute_style"
+              >
             </template>
           </el-table-column>
           <el-table-column
@@ -45,17 +51,29 @@
             :label="$t('apppromotion.yidong')"
             width="170"
           >
-            <template slot-scope="scope">
-              <img :src="imageUrl" class="execute_style" />
+            <template>
+              <img
+                :src="imageUrl"
+                class="execute_style"
+              >
             </template>
           </el-table-column>
         </el-table>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button id="app_prom_execute" @click="handleExecute">{{
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          id="app_prom_execute"
+          @click="handleExecute"
+        >{{
           $t("apppromotion.execute")
         }}</el-button>
-        <el-button id="app_prom_close" @click="dialogVisible = false">{{
+        <el-button
+          id="app_prom_close"
+          @click="dialogVisible = false"
+        >{{
           $t("apppromotion.closePanel")
         }}</el-button>
       </span>
@@ -64,7 +82,7 @@
 </template>
 
 <script>
-import { promTask, getAppdownAnaApi } from "../../tools/api.js";
+import { promTaskApi, getAppdownAnaApi } from '../../tools/api.js'
 export default {
   // props: {
   //   value: {
@@ -72,32 +90,29 @@ export default {
   //     default: false
   //   }
   // },
-  data() {
+  data () {
     return {
       // dialogVisible: this.value,
       dialogVisible: true,
       // imageUrl:require("@/assets/images/execute_success.png"),
-      imageUrl: require("@/assets/images/waiting.gif"),
-      appData: [],
-    };
+      imageUrl: require('@/assets/images/waiting.gif'),
+      appData: []
+    }
   },
   methods: {
-    handleClose(done) {
-      this.$confirm("确认关闭？")
-        .then((_) => {
-          (this.dialogVisible = false), done();
+    handleClose (done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
         })
-        .catch((_) => {});
-      this.$emit("getAppData");
+        .catch(_ => {})
+      this.$emit('getAppData')
     },
-    handleExecute() {
-      this.imageUrl = require("@/assets/images/execute_failed.png");
-      // this.$refs.imageT.src = this.imageUrl;
-      // this.$refs.imageT.class="execute_style";
-      // this.imageUrl = require("@/assets/images/execute_failed.png");
+    handleExecute () {
+      this.imageUrl = require('@/assets/images/execute_failed.png')
     },
-    getTableData() {
-      // getAppdownAnaApi(this.appId).then(res => {
+    getTableData () {
+      getAppdownAnaApi(this.appId).then(res => {
       //   let data = res.data
       //   data.forEach(item => {
       //     this.tableData.push(item)
@@ -108,40 +123,40 @@ export default {
       //     this.appDetailFileList = [JSON.parse(data[0].format)]
       //     this.packageId = data[0].csarId
       //   }
-      // })
+      })
     },
-    promTask(val) {
-      let userId = sessionStorage.getItem("userId");
-      let userName = sessionStorage.getItem("userName");
+    promTask (val) {
+      let userId = sessionStorage.getItem('userId')
+      let userName = sessionStorage.getItem('userName')
       promTaskApi(val.appId, userId, userName)
         .then((res) => {
           this.$message({
             duration: 2000,
-            message: this.$t("promptMessage.uploadSuccess"),
-            type: "success",
-          });
+            message: this.$t('promptMessage.uploadSuccess'),
+            type: 'success'
+          })
         })
         .catch((err) => {
-          this.$message.error(this.$t("promptMessage.operationFailed"));
-          console.log(err);
-        });
-    },
+          this.$message.error(this.$t('promptMessage.operationFailed'))
+          console.log(err)
+        })
+    }
   },
   watch: {
     value: function (newVal) {
       this.dialogVisible = newVal
     }
   },
-  mounted() {
+  mounted () {
     // alert('dd');
     // this.$refs.imageT.src = "../../assets/images/execute_failed.png";
 
-    //this.getTableData()
-    this.appData = JSON.parse(sessionStorage.getItem("appstordetail"));
+    // this.getTableData()
+    this.appData = JSON.parse(sessionStorage.getItem('appstordetail'))
     // this.getAppData()
     // this.tableData.push(JSON.parse(sessionStorage.getItem('taskData')))
-  },
-};
+  }
+}
 </script>
 <style lang="less">
 .promTask {
