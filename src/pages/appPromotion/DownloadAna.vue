@@ -62,118 +62,118 @@
 </template>
 
 <script>
-import { deleteAppApi, getAppdownAnaApi } from "../../tools/api.js";
+import { deleteAppApi, getAppdownAnaApi } from '../../tools/api.js'
 export default {
-  data() {
+  data () {
     return {
       appData: [
         {
-          number: "1",
-          appName: "人脸识别",
-          provider: "华为",
-          version: "V1.0",
-          operationType: "拉取",
-          dateTime: "2020-12-08 13:55:12",
-          appStore: "电信AppStore",
+          number: '1',
+          appName: '人脸识别',
+          provider: '华为',
+          version: 'V1.0',
+          operationType: '拉取',
+          dateTime: '2020-12-08 13:55:12',
+          appStore: '电信AppStore'
         },
         {
-          number: "2",
-          appName: "人脸识别",
-          provider: "华为",
-          version: "V1.0",
-          operationType: "通知",
-          dateTime: "2020-12-08 13:55:12",
-          appStore: "电信AppStore",
+          number: '2',
+          appName: '人脸识别',
+          provider: '华为',
+          version: 'V1.0',
+          operationType: '通知',
+          dateTime: '2020-12-08 13:55:12',
+          appStore: '电信AppStore'
         },
         {
-          number: "3",
-          appName: "人脸识别",
-          provider: "华为",
-          version: "V1.0",
-          operationType: "拉取",
-          dateTime: "2020-12-08 13:55:12",
-          appStore: "电信AppStore",
-        },
-      ],
-    };
+          number: '3',
+          appName: '人脸识别',
+          provider: '华为',
+          version: 'V1.0',
+          operationType: '拉取',
+          dateTime: '2020-12-08 13:55:12',
+          appStore: '电信AppStore'
+        }
+      ]
+    }
   },
   methods: {
-    toggleSelection(rows) {
+    toggleSelection (rows) {
       if (rows) {
         rows.forEach((row) => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
+          this.$refs.multipleTable.toggleRowSelection(row)
+        })
       } else {
-        this.$refs.multipleTable.clearSelection();
+        this.$refs.multipleTable.clearSelection()
       }
     },
-    getTableData() {
+    getTableData () {
       getAppdownAnaApi(this.appId).then((res) => {
-        let data = res.data;
+        let data = res.data
         data.forEach(
           (item) => {
-            this.tableData.push(item);
+            this.tableData.push(item)
           },
           () => {}
-        );
+        )
         if (data.length !== 0) {
-          //this.editDetails = this.source = data[0].details
-          //this.appDetailFileList = [JSON.parse(data[0].format)]
-          //this.packageId = data[0].csarId
+          // this.editDetails = this.source = data[0].details
+          // this.appDetailFileList = [JSON.parse(data[0].format)]
+          // this.packageId = data[0].csarId
         }
-      });
+      })
     },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
+    handleSelectionChange (val) {
+      this.multipleSelection = val
     },
-    isDisabled(deleteRow) {
-      if (deleteRow.userId === sessionStorage.getItem("userId")) {
-        return false;
+    isDisabled (deleteRow) {
+      if (deleteRow.userId === sessionStorage.getItem('userId')) {
+        return false
       } else {
-        return true;
+        return true
       }
     },
-    detail(item) {
-      this.$router.push({ name: "appstordetail", params: { item } });
-      sessionStorage.setItem("appstordetail", JSON.stringify(item));
+    detail (item) {
+      this.$router.push({ name: 'appstordetail', params: { item } })
+      sessionStorage.setItem('appstordetail', JSON.stringify(item))
     },
-    deleteRow(row) {
+    deleteRow (row) {
       this.$confirm(
-        this.$t("promptMessage.deletePrompt"),
-        this.$t("promptMessage.prompt"),
+        this.$t('promptMessage.deletePrompt'),
+        this.$t('promptMessage.prompt'),
         {
-          confirmButtonText: this.$t("common.confirm"),
-          cancelButtonText: this.$t("common.cancel"),
-          type: "warning",
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
+          type: 'warning'
         }
       )
         .then(() => {
-          let userId = sessionStorage.getItem("userId");
-          let userName = sessionStorage.getItem("userName");
+          let userId = sessionStorage.getItem('userId')
+          let userName = sessionStorage.getItem('userName')
           deleteAppApi(row.appId, userId, userName)
             .then((res) => {
-              this.$emit("getAppData");
+              this.$emit('getAppData')
               this.$message({
                 duration: 2000,
-                message: this.$t("promptMessage.deleteSuccess"),
-                type: "success",
-              });
+                message: this.$t('promptMessage.deleteSuccess'),
+                type: 'success'
+              })
             })
             .catch(() => {
               this.$message({
                 duration: 2000,
-                message: this.$t("promptMessage.operationFailed"),
-                type: "warning",
-              });
-            });
+                message: this.$t('promptMessage.operationFailed'),
+                type: 'warning'
+              })
+            })
         })
-        .catch(() => {});
-    },
+        .catch(() => {})
+    }
   },
-  mounted() {
-    this.getTableData();
-  },
-};
+  mounted () {
+    this.getTableData()
+  }
+}
 </script>
 <style lang="less" scoped>
 .app-list {
