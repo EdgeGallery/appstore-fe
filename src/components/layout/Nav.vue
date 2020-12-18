@@ -68,7 +68,7 @@
                 :key="itemChild.label"
                 @click="jumpTo(itemChild.route, indexin, itemChild.link, itemChild.display)"
               >
-                {{ language === 'cn' ? itemChild.labelCn : itemChild.labelEn }}
+                <span>{{ language === 'cn' ? itemChild.labelCn : itemChild.labelEn }}</span>
               </el-menu-item>
             </el-submenu>
             <el-menu-item
@@ -78,7 +78,7 @@
               :key="item.label"
               @click="jumpTo(item.route, index, item.link, item.display)"
             >
-              {{ language === 'cn' ? item.labelCn : item.labelEn }}
+              <span>{{ language === 'cn' ? item.labelCn : item.labelEn }}</span>
             </el-menu-item>
           </template>
         </el-menu>
@@ -202,23 +202,23 @@ export default {
           children: [
             {
               labelEn: '外部应用商店',
-              labelCn: '外部应用商店',
+              labelCn: '外部应用商店共享',
               route: '/apppromote',
-              pageId: '2.1.6',
+              pageId: '2.1.6.1',
               display: true,
               link: ''
             }, {
-              labelEn: '外部应用商店',
-              labelCn: '应用共享',
+              labelEn: '外部仓库商店',
+              labelCn: '外部应用仓库管理',
               route: '/apppromote',
-              pageId: '2.1.6',
+              pageId: '2.1.6.2',
               display: true,
               link: ''
             }, {
               labelEn: '外部应用商店',
               labelCn: '消息中心',
               route: '/apppromote',
-              pageId: '2.1.6',
+              pageId: '2.1.6.3',
               display: true,
               link: ''
             }
@@ -388,18 +388,24 @@ export default {
   }
   .navList {
     text-align: center;
-    .el-menu.el-menu--horizontal{
+    // .el-menu.el-menu--horizontal{
     height: 65px;
     border-bottom: none;
     .el-menu-item{
+      font-size: 20px;
       height: 65px;
       line-height: 65px;
     }
-  }
+
+  // }
+    .el-menu-item:hover{
+      color: #6c92fa;
+      border-bottom: 2px solid #6c92fa;
+    }
     span {
       font-size: 20px;
       line-height: 65px;
-      margin-right: 65px;
+      margin-right: 0px;
       padding-bottom: 17px;
     }
     span:hover {
@@ -407,14 +413,14 @@ export default {
       border-bottom: 2px solid #6c92fa;
     }
 
-    .active {
-      color: #6c92fa;
-      border-bottom: 2px solid #6c92fa;
-    }
-    .isUse{
-      cursor: not-allowed;
-      color: #ddd;
-    }
+    // .active {
+    //   color: #6c92fa;
+    //   border-bottom: 2px solid #6c92fa;
+    // }
+    // .isUse{
+    //   cursor: not-allowed;
+    //   color: #ddd;
+    // }
   }
   .nav-tabs {
     padding-right: 20px;

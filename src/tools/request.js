@@ -88,9 +88,30 @@ function POST (url, params, type = 'store') {
   })
 }
 
+function PUT (url, params, type = 'store') {
+  let baseUrl = URL_PREFIX + url
+  if (type !== 'store') {
+    baseUrl = TEST_URL_PREFIX + url
+  }
+  return new Promise((resolve, reject) => {
+    axios.put(baseUrl, params, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+      }
+    }).then((res) => {
+      resolve(res)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
+
 export {
   GET,
   POST,
+  PUT,
   DELETE,
   getCookie
 }

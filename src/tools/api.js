@@ -17,6 +17,7 @@
 import {
   GET,
   POST,
+  PUT,
   DELETE,
   getCookie
 } from './request.js'
@@ -185,21 +186,21 @@ function logoutApi () {
 let myAppStore = {
   // 新增appstore接口
   addAppStoreApi: function (params) {
-    let url = 'apps'
+    let url = 'appstores'
     return POST(url, params)
   },
   // 编辑appstore接口
-  modifyAppStoreApi: function (params, plateformName) {
-    let url = 'apps' + '/appstore?plateformName=' + plateformName
-    return POST(url, params)
+  modifyAppStoreApi: function (params, appStoreId) {
+    let url = 'appstores/' + appStoreId
+    return PUT(url, params)
   },
   // 获取我的appstore
-  getMyAppApi: function (userId) {
-    let url = 'apps?userId=' + userId
+  getMyAppApi: function () {
+    let url = 'appstores'
     return GET(url)
   },
-  deleteAppStoreApi: function (appId, csarId, userId, userName) {
-    let url = 'apps/' + appId + '/packages/' + csarId + '?userId=' + userId + '&userName=' + userName
+  deleteAppStoreApi: function (appStoreId) {
+    let url = 'appstores/' + appStoreId
     return DELETE(url)
   }
 }

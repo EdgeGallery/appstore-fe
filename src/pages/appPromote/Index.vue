@@ -17,15 +17,14 @@
 <template>
   <div class="my-app padding56">
     <div class="stars-wrapper">
-      <img
-        ref="conf0"
-        src="../../assets/images/logo.png"
-        alt
-      >
+      <!-- <img ref="conf0" src="../../assets/images/logo.png"> -->
     </div>
-    <!-- <div class="starry-sky">
-      <canvas id="cvs" ref="canvas"></canvas>
-    </div> -->
+    <div class="starry-sky">
+      <canvas
+        id="cvs"
+        ref="canvas"
+      />
+    </div>
     <div class="my-app-content">
       <el-row>
         <el-col :span="24">
@@ -50,26 +49,27 @@
             :label="$t('common.number')"
           />
           <el-table-column
-            prop="plateformName"
-            :label="$t('common.plateformName')"
+            prop="appStoreName"
+            :label="$t('common.appStoreName')"
           />
           <el-table-column
-            prop="plateformVersion"
-            :label="$t('common.plateformVersion')"
+            prop="appStoreVersion"
+            :label="$t('common.appStoreVersion')"
           />
           <el-table-column
             prop="IPOrUrl"
             :label="$t('common.IPOrUrl')"
           />
           <el-table-column
-            prop="transferTool"
-            :label="$t('common.transferTool')"
+            prop="appdTransId"
+            :label="$t('common.appdTransId')"
           />
           <el-table-column
             prop="description"
             :label="$t('common.description')"
           />
           <el-table-column
+            prop="operation"
             fixed="right"
             :label="$t('myApp.operation')"
             width="200"
@@ -82,7 +82,7 @@
                 size="small"
               >
                 {{ $t('common.modifyApp') }}
-              </el-button>>
+              </el-button>
               <el-button
                 id="deleteBtn"
                 type="text"
@@ -116,22 +116,22 @@
             label-width="110px"
           >
             <el-form-item
-              :label="$t('common.plateformName')"
-              prop="plateformName"
+              :label="$t('common.appStoreName')"
+              prop="appStoreName"
             >
               <el-input
-                id="plateformName"
+                id="appStoreName"
                 maxlength="20"
-                v-model="form.plateformName"
+                v-model="form.appStoreName"
               />
             </el-form-item>
             <el-form-item
-              :label="$t('common.plateformVersion')"
-              prop="plateformVersion"
+              :label="$t('common.appStoreVersion')"
+              prop="appStoreVersion"
             >
               <el-input
-                id="plateformVersion"
-                v-model="form.plateformVersion"
+                id="appStoreVersion"
+                v-model="form.appStoreVersion"
               />
             </el-form-item><el-form-item
               :label="$t('common.IPOrUrl')"
@@ -143,13 +143,13 @@
               />
             </el-form-item>
             <el-form-item
-              :label="$t('common.transferTool')"
+              :label="$t('common.appdTransId')"
               prop="types"
             >
               <el-select
                 id="add_select_types"
                 v-model="form.types"
-                :placeholder="$t('common.transferTool')"
+                :placeholder="$t('common.appdTransId')"
               >
                 <el-option
                   v-for="(item,index) in types"
@@ -191,7 +191,7 @@
 <script>
 // import appList from '../home/AppList.vue'
 import { TTYPES } from '../../tools/constant.js'
-import { myApp, myAppStore } from '../../tools/api.js'
+import { myAppStore } from '../../tools/api.js'
 import pagination from '../../components/common/Pagination.vue'
 export default {
   components: {
@@ -214,36 +214,64 @@ export default {
   },
   data () {
     return {
+      currentPageData: [
+        {
+          appStoreId: '4c49a6f3-863b-5deb-bfc4-12ecd03502d8',
+          number: '1',
+          appStoreName: '中国移动',
+          appStoreVersion: 'V1.0',
+          IPOrUrl: 'https://1.1.1.1',
+          appdTransId: '4c49a6f3-863b-5deb-bfc4-12ecd03502d8',
+          description: 'this is test'
+        },
+        {
+          appStoreId: '5c49a6f3-863b-5dtb-bfc4-12ecd03502d8',
+          number: '2',
+          appStoreName: '中国电信',
+          appStoreVersion: 'V1.0',
+          IPOrUrl: '1.1.1.2',
+          appdTransId: '4c49a6f3-863b-5deb-bfc4-12ecd03502d8',
+          description: 'this is test'
+        },
+        {
+          appStoreId: '6c49a6f3-863b-5deb-bfc4-12ecd03502d8',
+          number: '33',
+          appStoreName: '中国聯通',
+          appStoreVersion: 'V1.0',
+          IPOrUrl: '1.1.1.3',
+          appdTransId: 'transfer3',
+          description: 'this is test'
+        }
+      ],
       pointNum: 5,
       tableData: [],
       userId: '',
       appData: [],
       appPackageData: [],
-      dataLoading: true,
-      currentPageData: [],
-      taskId: '',
+      dataLoading: false,
       interval: '',
       title: this.$t('myApp.addApp'),
       dialogVisible: false,
       form: {
-        plateformName: '中国联通',
-        plateformVersion: 'v1.0',
+        appStoreName: '中国联通',
+        appStoreVersion: 'v1.0',
         IPOrUrl: 'https:liantong.com',
-        transferTool: '转换器1',
+        appdTransId: '转换器1',
         description: 'this is test',
         types: '转换器'
       },
       editType: 1,
       types: TTYPES,
       rules: {
-        plateformName: [
+        appStoreName: [
           { required: true, message: '平台名称不能为空', trigger: 'blur' }
         ],
-        plateformVersion: [
+        appStoreVersion: [
           { required: true, message: '平台版本不能为空', trigger: 'blur' }
         ],
         IPOrUrl: [
-          { required: true, message: 'IP or URL不能为空', trigger: 'blur' }
+          { required: true, message: 'IP or URL不能为空', trigger: 'blur' },
+          { pattern: /(https?|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/, message: this.$t('promptMessage.normalVerify') }
         ],
         types: [
           { required: true }
@@ -285,32 +313,27 @@ export default {
     },
     getAppPackageData () {
       this.appPackageData = []
-      this.appData.forEach(item => {
-        let appId = item.appId
-        myApp.getMyAppPackageApi(appId, this.userId).then(res => {
-          let data = res.data
-          if (data.length === 1) {
-            this.appPackageData.push(data[0])
-          } else {
-            data.forEach(csaritem => {
-              this.appPackageData.push(csaritem)
-            })
-          }
-          this.dataLoading = false
-        }).catch(() => {
-          this.dataLoading = false
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.getMyAppFail'),
-            type: 'warning'
+      myAppStore.getMyAppApi(this.userId).then(res => {
+        let data = res.data
+        if (data.length === 1) {
+          this.appPackageData.push(data[0])
+        } else {
+          data.forEach(csaritem => {
+            this.appPackageData.push(csaritem)
           })
-          this.clearInterval()
+        }
+        this.dataLoading = false
+      }).catch(() => {
+        this.dataLoading = false
+        this.$message({
+          duration: 2000,
+          message: this.$t('promptMessage.getMyAppFail'),
+          type: 'warning'
         })
+        this.clearInterval()
       })
     },
     register () {
-      this.pointNum++
-      console.log(this.pointNum)
       this.createCircleArr()
       this.cycleDraw()
       this.editType = 1
@@ -318,22 +341,34 @@ export default {
       this.isDisable = false
       this.dialogVisible = true
       this.form = {
-        plateformName: '',
-        plateformVersion: '',
+        appStoreId: '',
+        appStoreName: '',
+        appStoreVersion: '',
         IPOrUrl: '',
-        transferTool: '',
+        appdTransId: '',
         description: ''
       }
       this.dialogVisible = true
     },
     confirmToRegister (form) {
+      console.log('&&&&&&&= ' + this.form.appStoreId + ' ' + this.form.appStoreName + '****=' + this.form)
       this.dialogVisible = false
+      let fd = new FormData()
+      fd.append('appStoreId', this.form.appStoreId)
+      fd.append('appStoreName', this.form.appStoreName)
+      fd.append('appStoreVersion', this.form.appStoreVersion)
+      fd.append('IPOrUrl', this.form.IPOrUrl)
+      // fd.append('appdTransId', this.form.appdTransId)
+      fd.append('appdTransId', '4c49a6f3-863b-5deb-bfc4-12ecd03502d8')
+      fd.append('description', this.form.description)
+      // myAppStore.addAppStoreApi(fd).then(res => {
+      //   this.$message({
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.editType === 1) {
-            myAppStore.addAppStoreApi(1, this.form).then(res => {
+            myAppStore.addAppStoreApi(fd).then(res => {
               this.$message.success(this.$t('promptMessage.addAppStoreSuccess'))
-              this.getAppData()
+              this.getAppPackageData()
               this.dialogVisible = false
             }, error => {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
@@ -343,9 +378,9 @@ export default {
               }
             })
           } else {
-            myAppStore.modifyAppStoreApi(1, this.form, this.form.plateformName).then(res => {
+            myAppStore.modifyAppStoreApi(fd, '4c49a6f3-863b-5deb-bfc4-12ecd03502d8').then(res => {
               this.$message.success(this.$t('promptMessage.addAppStoreSuccess'))
-              this.getAppData()
+              this.getAppPackageData()
               this.dialogVisible = false
             }, error => {
               this.$message.error(error.message)
@@ -363,22 +398,20 @@ export default {
       this.dialogVisible = true
     },
     getDelete (row) {
+      console.log('*******appStoreId***********= ' + row.appStoreId)
       this.$confirm(this.$t('promptMessage.deletePrompt'), this.$t('promptMessage.prompt'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
       }).then(() => {
-        let userId = sessionStorage.getItem('userId')
-        let userName = sessionStorage.getItem('userName')
-        myAppStore.deleteAppStoreApi(row.appId, row.packageId, userId, userName).then(res => {
+        myAppStore.deleteAppStoreApi(row.appStoreId).then(res => {
           this.$message({
             duration: 2000,
             message: this.$t('promptMessage.deleteSuccess'),
             type: 'success'
           })
           // 刷新页面
-          this.getAppData()
-          // this.getAppPackageData()
+          this.getAppPackageData()
         }).catch(() => {
           this.$message({
             duration: 2000,
@@ -510,10 +543,10 @@ export default {
     this.userId = sessionStorage.getItem('userId')
     this.getAppData()
     // this.getAppPackageData()
-    this.interval = setInterval(() => {
-      this.getAppData()
-      // this.getAppPackageData()
-    }, 30000)
+    // this.interval = setInterval(() => {
+    //   // this.getAppPackageData()
+    // }, 30000)
+    this.appPackageData = this.currentPageData
     const canvasDom = this.$refs.canvas
 
     // 取画布的高宽来设置显示分辨率
@@ -543,13 +576,18 @@ export default {
   }
 }
 </script>
-<style lang='less' scoped>
+<style lang='less'>
 .my-app {
   .my-app-content {
     background:#fff;
     padding: 20px;
     .packageTable{
       margin: 20px 0;
+      .el-table thead{
+        th {
+          background-color: #eee;
+        }
+      }
     }
   }
   .space>div{
