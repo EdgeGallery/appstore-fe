@@ -79,11 +79,12 @@ const cn = {
     inputCaptcha: '请输入验证码',
     choose: '请选择',
     number: '序号',
-    plateformName: '平台名称',
-    plateformVersion: '平台版本',
-    IPOrUrl: 'IP or URL',
-    transferTool: '转换器',
-    modifyApp: '编辑'
+    appStoreName: '平台名称',
+    appStoreVersion: '平台版本',
+    url: 'IP or URL',
+    appdTransId: '转换器',
+    modifyApp: '编辑',
+    company: '公司'
 
   },
   promptMessage: {
@@ -140,10 +141,11 @@ const cn = {
     testRunning: '测试任务正在运行，请前往查看测试进展!',
     testWaiting: '测试任务正在等待运行，请前往查看测试进展!',
     testCreated: '测试任务已创建，请前往运行测试任务!',
-    plateformNameEmpty: '平台名称不能为空',
-    plateformVersionEmpty: '平台版本不能为空',
-    IPOrUrlEmpty: 'IP or URL不能为空',
-    transferToolEmpty: '转换器不能为空'
+    appStoreNameEmpty: '平台名称不能为空',
+    appStoreVersionEmpty: '平台版本不能为空',
+    urlEmpty: 'IP or URL不能为空',
+    appdTransIdEmpty: '转换器不能为空',
+    normalVerify: '输入的内容格式不正确'
 
   },
   store: {
@@ -213,8 +215,8 @@ const cn = {
     status: '状态',
     test: '测试',
     publish: '发布',
-    addApp: '添加 AppStore',
-    modifyAppStore: '编辑 AppStore'
+    addApp: '添加外部仓库',
+    modifyAppStore: '编辑外部仓库'
   },
   report: {
     version: '版本',

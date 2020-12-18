@@ -45,8 +45,9 @@
           border
         >
           <el-table-column
-            prop="number"
+            type="index"
             :label="$t('common.number')"
+            width="50"
           />
           <el-table-column
             prop="appStoreName"
@@ -57,8 +58,12 @@
             :label="$t('common.appStoreVersion')"
           />
           <el-table-column
-            prop="IPOrUrl"
-            :label="$t('common.IPOrUrl')"
+            prop="company"
+            :label="$t('common.company')"
+          />
+          <el-table-column
+            prop="url"
+            :label="$t('common.url')"
           />
           <el-table-column
             prop="appdTransId"
@@ -133,13 +138,23 @@
                 id="appStoreVersion"
                 v-model="form.appStoreVersion"
               />
-            </el-form-item><el-form-item
-              :label="$t('common.IPOrUrl')"
-              prop="IPOrUrl"
+            </el-form-item>
+            <el-form-item
+              :label="$t('common.company')"
+              prop="company"
             >
               <el-input
-                id="IPOrUrl"
-                v-model="form.IPOrUrl"
+                id="company"
+                v-model="form.company"
+              />
+            </el-form-item>
+            <el-form-item
+              :label="$t('common.url')"
+              prop="url"
+            >
+              <el-input
+                id="url"
+                v-model="form.url"
               />
             </el-form-item>
             <el-form-item
@@ -214,35 +229,7 @@ export default {
   },
   data () {
     return {
-      currentPageData: [
-        {
-          appStoreId: '4c49a6f3-863b-5deb-bfc4-12ecd03502d8',
-          number: '1',
-          appStoreName: '中国移动',
-          appStoreVersion: 'V1.0',
-          IPOrUrl: 'https://1.1.1.1',
-          appdTransId: '4c49a6f3-863b-5deb-bfc4-12ecd03502d8',
-          description: 'this is test'
-        },
-        {
-          appStoreId: '5c49a6f3-863b-5dtb-bfc4-12ecd03502d8',
-          number: '2',
-          appStoreName: '中国电信',
-          appStoreVersion: 'V1.0',
-          IPOrUrl: '1.1.1.2',
-          appdTransId: '4c49a6f3-863b-5deb-bfc4-12ecd03502d8',
-          description: 'this is test'
-        },
-        {
-          appStoreId: '6c49a6f3-863b-5deb-bfc4-12ecd03502d8',
-          number: '33',
-          appStoreName: '中国聯通',
-          appStoreVersion: 'V1.0',
-          IPOrUrl: '1.1.1.3',
-          appdTransId: 'transfer3',
-          description: 'this is test'
-        }
-      ],
+      currentPageData: [],
       pointNum: 5,
       tableData: [],
       userId: '',
@@ -253,12 +240,13 @@ export default {
       title: this.$t('myApp.addApp'),
       dialogVisible: false,
       form: {
-        appStoreName: '中国联通',
-        appStoreVersion: 'v1.0',
-        IPOrUrl: 'https:liantong.com',
-        appdTransId: '转换器1',
-        description: 'this is test',
-        types: '转换器'
+        appStoreName: '',
+        appStoreVersion: '',
+        company: '',
+        url: '',
+        appdTransId: '',
+        description: '',
+        types: ''
       },
       editType: 1,
       types: TTYPES,
@@ -269,7 +257,10 @@ export default {
         appStoreVersion: [
           { required: true, message: '平台版本不能为空', trigger: 'blur' }
         ],
-        IPOrUrl: [
+        company: [
+          { required: true, message: '公司不能为空', trigger: 'blur' }
+        ],
+        url: [
           { required: true, message: 'IP or URL不能为空', trigger: 'blur' },
           { pattern: /(https?|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/, message: this.$t('promptMessage.normalVerify') }
         ],
@@ -344,7 +335,8 @@ export default {
         appStoreId: '',
         appStoreName: '',
         appStoreVersion: '',
-        IPOrUrl: '',
+        company: '',
+        url: '',
         appdTransId: '',
         description: ''
       }
@@ -357,12 +349,11 @@ export default {
       fd.append('appStoreId', this.form.appStoreId)
       fd.append('appStoreName', this.form.appStoreName)
       fd.append('appStoreVersion', this.form.appStoreVersion)
-      fd.append('IPOrUrl', this.form.IPOrUrl)
+      fd.append('company', this.form.company)
+      fd.append('url', this.form.url)
       // fd.append('appdTransId', this.form.appdTransId)
       fd.append('appdTransId', '4c49a6f3-863b-5deb-bfc4-12ecd03502d8')
       fd.append('description', this.form.description)
-      // myAppStore.addAppStoreApi(fd).then(res => {
-      //   this.$message({
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.editType === 1) {
@@ -617,8 +608,8 @@ export default {
   }
   #cancelBtn{
     color: #fff;
-    background-color: #738fea;
-    border-color: #738fea;
+    background-color: #688ef3;
+    border-color: #688ef3;
   }
 }
 </style>
