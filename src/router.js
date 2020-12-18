@@ -149,7 +149,7 @@ export default new Router({
           component: () => import('./pages/appPromote/Index.vue'),
           meta: {
             id: '2.5',
-            breadcrumb: [{ nameEn: 'appMgmt', nameCn: '应用管理' }]
+            breadcrumb: [{ nameEn: 'appMgmt', nameCn: '外部仓库管理' }]
           }
         }
       ]

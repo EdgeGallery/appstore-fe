@@ -142,14 +142,14 @@ const TYPES = [
 
 const TTYPES = [
   {
-    label: ['转换器', 'transferTool'],
-    value: 'transferTool',
+    label: ['转换器', 'appdTransId'],
+    value: 'appdTransId',
     selected: false,
     type: 'types'
   },
   {
-    label: ['转换器2', 'transferTool2'],
-    value: 'transferTool2',
+    label: ['转换器2', 'appdTransId2'],
+    value: 'appdTransId2',
     selected: false,
     type: 'types'
   }
