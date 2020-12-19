@@ -102,6 +102,9 @@
       :title="title"
       :visible.sync="dialogVisible"
       width="45%"
+      :before-close="handleClose"
+      :close-on-click-modal="false"
+      @close="clearForm"
     >
       <el-row>
         <el-col>
@@ -147,15 +150,16 @@
               <el-input
                 id="url"
                 v-model="form.url"
+                placeholder="例如：http://127.0.0.1:8080"
               />
             </el-form-item>
             <el-form-item
               :label="$t('common.appdTransId')"
-              prop="types"
+              prop="appdTransId"
             >
               <el-select
                 id="add_select_types"
-                v-model="form.types"
+                v-model="form.appdTransId"
                 :placeholder="$t('common.appdTransId')"
               >
                 <el-option
@@ -183,7 +187,7 @@
       >
         <el-button
           id="cancelBtn"
-          @click="dialogVisible = false"
+          @click="handleClose"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
           id="confirmBtn"
@@ -223,8 +227,7 @@ export default {
         company: '',
         url: '',
         appdTransId: '',
-        description: '',
-        types: ''
+        description: ''
       },
       editType: 1,
       types: TTYPES,
@@ -242,8 +245,8 @@ export default {
           { required: true, message: 'IP or URL不能为空', trigger: 'blur' },
           { pattern: /(https?|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/, message: this.$t('promptMessage.normalVerify') }
         ],
-        types: [
-          { required: true }
+        appdTransId: [
+          { required: true, message: '转换器不能为空', trigger: 'change' }
         ],
         shortDesc: [
           { required: true, message: '描述不能为空', trigger: 'blur' }
@@ -254,6 +257,7 @@ export default {
   methods: {
     handleClose () {
       this.$emit('input', false)
+      this.$refs.form.resetFields()
       this.dialogVisible = false
     },
     getAppData () {
@@ -297,35 +301,30 @@ export default {
         this.clearInterval()
       })
     },
+    clearForm () {
+      this.form.appStoreId = ''
+      this.form.appStoreName = ''
+      this.form.appStoreVersion = ''
+      this.form.company = ''
+      this.form.url = ''
+      this.form.appdTransId = ''
+      this.form.description = ''
+    },
     register () {
-      this.createCircleArr()
-      this.cycleDraw()
       this.editType = 1
       this.title = this.$t('myApp.addApp')
       this.isDisable = false
-      this.dialogVisible = true
-      this.form = {
-        appStoreId: '',
-        appStoreName: '',
-        appStoreVersion: '',
-        company: '',
-        url: '',
-        appdTransId: '',
-        description: ''
-      }
+      this.clearForm()
       this.dialogVisible = true
     },
     confirmToRegister (form) {
-      console.log('&&&&&&&= ' + this.form.appStoreId + ' ' + this.form.appStoreName + '****=' + this.form)
-      this.dialogVisible = false
       let fd = new FormData()
       fd.append('appStoreId', this.form.appStoreId)
       fd.append('appStoreName', this.form.appStoreName)
       fd.append('appStoreVersion', this.form.appStoreVersion)
       fd.append('company', this.form.company)
       fd.append('url', this.form.url)
-      // fd.append('appdTransId', this.form.appdTransId)
-      fd.append('appdTransId', '4c49a6f3-863b-5deb-bfc4-12ecd03502d8')
+      fd.append('appdTransId', this.form.appdTransId)
       fd.append('description', this.form.description)
       this.$refs[form].validate((valid) => {
         if (valid) {
@@ -350,6 +349,8 @@ export default {
               this.$message.error(error.message)
             })
           }
+          this.$refs.form.resetFields()
+          this.dialogVisible = false
         }
       })
     },
