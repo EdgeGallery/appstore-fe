@@ -26,7 +26,7 @@ import axios from 'axios'
 
 const URL_PREFIX = '/mec-appstore/mec/appstore/v1/'
 
-const TEST_URL_PREFIX = '/mec-developer/'
+const APPSTORE_URL_PREFIX = '/mec-appstore/mec/appstore/poke/'
 
 function getCommentsApi (appId) {
   let url = 'apps/' + appId + '/comments'
@@ -187,21 +187,21 @@ let myAppStore = {
   // 新增appstore接口
   addAppStoreApi: function (params) {
     let url = 'appstores'
-    return POST(url, params)
+    return POST(url, params, 'appstore')
   },
   // 编辑appstore接口
   modifyAppStoreApi: function (params, appStoreId) {
     let url = 'appstores/' + appStoreId
-    return PUT(url, params)
+    return PUT(url, params, 'appstore')
   },
   // 获取我的appstore
   getMyAppApi: function () {
     let url = 'appstores'
-    return GET(url)
+    return GET(url, '', 'appstore')
   },
   deleteAppStoreApi: function (appStoreId) {
     let url = 'appstores/' + appStoreId
-    return DELETE(url)
+    return DELETE(url, '', 'appstore')
   }
 }
 
@@ -255,7 +255,7 @@ export {
   getAppFileContentApi,
   downloadAppPakageApi,
   URL_PREFIX,
-  TEST_URL_PREFIX,
+  APPSTORE_URL_PREFIX,
   getUserInfo,
   logoutApi,
   uploadAppApi,
