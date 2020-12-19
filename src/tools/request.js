@@ -50,8 +50,11 @@ function GET (url, params, type = 'store') {
   })
 }
 
-function DELETE (url, params) {
+function DELETE (url, params, type = 'store') {
   let baseUrl = URL_PREFIX + url
+  if (type !== 'store') {
+    baseUrl = APPSTORE_URL_PREFIX + url
+  }
   return new Promise((resolve, reject) => {
     axios.delete(baseUrl, {
       params: params,
