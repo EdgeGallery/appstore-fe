@@ -475,8 +475,6 @@ export default {
     draw () {
       const circleArr = this.circleArr
       this.context.clearRect(0, 0, this.docWidth, this.docHeight)
-      var imgObj = new Image()
-      imgObj.src = '../../assets/logo.png'
       // 循环绘制点
       for (let i = 0; i < this.pointNum; i++) {
         this.drawCircle(this.context, circleArr[i].x, circleArr[i].y, 10)
