@@ -16,7 +16,7 @@
  */
 
 import axios from 'axios'
-import { URL_PREFIX, TEST_URL_PREFIX } from './api'
+import { URL_PREFIX, APPSTORE_URL_PREFIX } from './api'
 
 function getCookie (name) {
   let arr = []
@@ -32,7 +32,7 @@ function getCookie (name) {
 function GET (url, params, type = 'store') {
   let baseUrl = URL_PREFIX + url
   if (type !== 'store') {
-    baseUrl = TEST_URL_PREFIX + url
+    baseUrl = APPSTORE_URL_PREFIX + url
   }
   return new Promise((resolve, reject) => {
     axios.get(baseUrl, {
@@ -71,7 +71,7 @@ function DELETE (url, params) {
 function POST (url, params, type = 'store') {
   let baseUrl = URL_PREFIX + url
   if (type !== 'store') {
-    baseUrl = TEST_URL_PREFIX + url
+    baseUrl = APPSTORE_URL_PREFIX + url
   }
   return new Promise((resolve, reject) => {
     axios.post(baseUrl, params, {
@@ -91,7 +91,7 @@ function POST (url, params, type = 'store') {
 function PUT (url, params, type = 'store') {
   let baseUrl = URL_PREFIX + url
   if (type !== 'store') {
-    baseUrl = TEST_URL_PREFIX + url
+    baseUrl = APPSTORE_URL_PREFIX + url
   }
   return new Promise((resolve, reject) => {
     axios.put(baseUrl, params, {
