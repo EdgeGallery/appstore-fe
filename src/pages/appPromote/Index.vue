@@ -342,7 +342,7 @@ export default {
             })
           } else {
             myAppStore.modifyAppStoreApi(fd, '4c49a6f3-863b-5deb-bfc4-12ecd03502d8').then(res => {
-              this.$message.success(this.$t('promptMessage.addAppStoreSuccess'))
+              this.$message.success(this.$t('promptMessage.editAppStoreSuccess'))
               this.getAppPackageData()
               this.dialogVisible = false
             }, error => {
@@ -364,7 +364,7 @@ export default {
     },
     getDelete (row) {
       console.log('*******appStoreId***********= ' + row.appStoreId)
-      this.$confirm(this.$t('promptMessage.deletePrompt'), this.$t('promptMessage.prompt'), {
+      this.$confirm(this.$t('promptMessage.deleteAppStore'), this.$t('promptMessage.prompt'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
