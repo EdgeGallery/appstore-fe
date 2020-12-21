@@ -9,8 +9,9 @@
       <div class="app-prom">
         <el-table
           :data="appData"
+          border
           style="width: 100%"
-          :header-cell-style="{ background: '#A0A5A7', color: '#fff' }"
+          :header-cell-style="{ background: '#FFFFFF', color: '#909399' }"
         >
           <el-table-column
             prop="number"
@@ -18,44 +19,32 @@
             width="125"
           />
           <el-table-column
-            prop="appName"
+            prop="name"
             :label="$t('apppromotion.appName')"
             width="280"
           />
           <el-table-column
-            prop="appName1"
-            :label="$t('apppromotion.dianxin')"
-            width="170"
+            v-for="item in providers"
+            :key="item.number"
+            :label="item.provider"
+            :property="item.provider"
           >
-            <template>
-              <img
-                :src="imageUrl"
-                class="execute_style"
-              >
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="appName2"
-            :label="$t('apppromotion.liantong')"
-            width="170"
-          >
-            <template>
-              <img
-                :src="imageUrl"
-                class="execute_style"
-              >
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="appName3"
-            :label="$t('apppromotion.yidong')"
-            width="170"
-          >
-            <template>
-              <img
-                :src="imageUrl"
-                class="execute_style"
-              >
+            <template slot-scope="scope">
+              <span
+                v-if="scope.row[scope.column.property] === false"
+                class="el-icon-close"
+                title="false"
+              />
+              <!-- <span
+                class="el-icon-loading primary"
+                v-if="scope.row[scope.column.property] ==='undefined'"
+                title="In Progress"
+              /> -->
+              <span
+                v-if="scope.row[scope.column.property] === true"
+                class="el-icon-check"
+                title="Succeed"
+              />
             </template>
           </el-table-column>
         </el-table>
@@ -82,21 +71,16 @@
 </template>
 
 <script>
-import { promTaskApi, getAppdownAnaApi } from '../../tools/api.js'
+import { promTaskApi, promProviderInfo } from '../../tools/api.js'
 export default {
-  // props: {
-  //   value: {
-  //     type: Boolean,
-  //     default: false
-  //   }
-  // },
   data () {
     return {
-      // dialogVisible: this.value,
       dialogVisible: true,
-      // imageUrl:require("@/assets/images/execute_success.png"),
-      imageUrl: require('@/assets/images/waiting.gif'),
-      appData: []
+      appPromStatus: 'ready',
+      appData: [],
+      providers: [],
+      plateformName: [],
+      packageIds: []
     }
   },
   methods: {
@@ -109,37 +93,68 @@ export default {
       this.$emit('getAppData')
     },
     handleExecute () {
-      this.imageUrl = require('@/assets/images/execute_failed.png')
+      this.promTask(this.packageIds, this.plateformName)
     },
-    getTableData () {
-      getAppdownAnaApi(this.appId).then(res => {
-      //   let data = res.data
-      //   data.forEach(item => {
-      //     this.tableData.push(item)
-      //   }, () => {
-      //   })
-      //   if (data.length !== 0) {
-      //     this.editDetails = this.source = data[0].details
-      //     this.appDetailFileList = [JSON.parse(data[0].format)]
-      //     this.packageId = data[0].csarId
-      //   }
+    getProviders () {
+      promProviderInfo().then((res) => {
+        console.log('zhaolongfei' + res)
+        let data = res.data
+        let index = 1
+        data.forEach(
+          (item) => {
+            let providerItem = {
+              number: index,
+              provider: item.appStoreName
+            }
+            this.plateformName.push(providerItem.provider)
+            this.providers.push(providerItem)
+            index++
+          }
+        )
+      }).catch(() => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('apppromotion.promoteFailed'),
+          type: 'warning'
+        })
       })
     },
-    promTask (val) {
-      let userId = sessionStorage.getItem('userId')
-      let userName = sessionStorage.getItem('userName')
-      promTaskApi(val.appId, userId, userName)
-        .then((res) => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.uploadSuccess'),
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          this.$message.error(this.$t('promptMessage.operationFailed'))
-          console.log(err)
-        })
+    getPackageIds (data) {
+      this.packageIds = []
+      data.forEach(
+        (item) => {
+          this.packageIds.push(item.packageId)
+        }
+      )
+    },
+    promTask (packageIds, targetPlatform) {
+      let param = {
+        targetPlatform: targetPlatform
+      }
+      let tempDataArr = []
+      this.appData.forEach(
+        (data) => {
+          promTaskApi(data.packageId, param)
+            .then((res) => {
+              let resData = res.data
+              let tempData = data
+              for (let i = 0; i < targetPlatform.length; i++) {
+                let attr = targetPlatform[i]
+                tempData[attr] = resData[i]
+              }
+              tempDataArr.push(tempData)
+            })
+            .catch((err) => {
+              this.$message.error(this.$t('promptMessage.operationFailed'))
+              console.log(err)
+            })
+        }
+      )
+      setTimeout(() => {
+        this.appData = []
+        this.appData = tempDataArr
+        console.log('long' + this.appData.length)
+      }, 500)
     }
   },
   watch: {
@@ -148,13 +163,13 @@ export default {
     }
   },
   mounted () {
-    // alert('dd');
-    // this.$refs.imageT.src = "../../assets/images/execute_failed.png";
+    this.getStatus = function () {
+      this.appPromStatus = 'success'
+    }
 
-    // this.getTableData()
+    this.getProviders()
     this.appData = JSON.parse(sessionStorage.getItem('appstordetail'))
-    // this.getAppData()
-    // this.tableData.push(JSON.parse(sessionStorage.getItem('taskData')))
+    this.getPackageIds(this.appData)
   }
 }
 </script>
@@ -162,24 +177,34 @@ export default {
 .promTask {
   .app-prom {
     height: 400px;
+    overflow:auto;
   }
   .el-dialog__footer {
     text-align: center;
   }
+  .el-icon-loading {
+    color: #607B36;
+    font-size: 25px;
+  }
+  .el-icon-check {
+    color: #40BF90;
+    font-size: 25px;
+  }
   #app_prom_close {
     color: #fff;
-    background-color: #738fea;
-    border-color: #738fea;
+    background-color: #5D5F64;
+    border-color: #5D5F64;
   }
   #app_prom_execute {
     color: #fff;
-    background-color: #fea712;
-    border-color: #fea712;
+    background-color: #409EFF;
+    border-color: #409EFF;
   }
   .execute_style {
     display: inline-block;
     height: auto;
     max-width: 100%;
   }
+  .el-dialog__header{background-color: #F0F2F5}
 }
 </style>

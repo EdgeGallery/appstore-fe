@@ -15,123 +15,101 @@
   -->
 
 <template>
-  <div class="app-list">
-    <el-row class="batchProm">
-      <el-col :span="24">
-        <el-button
-          id="myapp_checktest"
-          type="primary"
-          class="rt"
-          @click="uploadPackage"
-        >
-          {{ $t("apppromotion.batchPro") }}
-        </el-button>
-      </el-col>
-    </el-row>
-    <el-table
-      :data="appData"
-      @selection-change="selectionLineChangeHandle"
-      ref="multipleTable"
-      style="width: 100%"
-      :header-cell-style="{ background: '#A0A5A7', color: '#fff' }"
-    >
-      <el-table-column
-        type="selection"
-        width="70"
-      />
-      <el-table-column
-        prop="number"
-        :label="$t('apppromotion.number')"
-        width="155"
-      />
-      <el-table-column
-        prop="appName"
-        :label="$t('apppromotion.appName')"
-        width="200"
-      />
-      <el-table-column
-        prop="provider"
-        :label="$t('apppromotion.provider')"
-        width="200"
-      />
-      <el-table-column
-        prop="version"
-        :label="$t('apppromotion.version')"
-        width="200"
-      />
-      <el-table-column
-        prop="tesResult"
-        :label="$t('apppromotion.tesResult')"
-        width="230"
-      />
-      <el-table-column
-        prop="testRepo"
-        :label="$t('apppromotion.testRepo')"
-        width="250"
-      />
-      <el-table-column
-        prop="lastProTime"
-        :label="$t('apppromotion.lastProTime')"
-        width="270"
-      />
-      <el-table-column
-        prop="proTimes"
-        :label="$t('apppromotion.proTimes')"
-        width="150"
-      />
-    </el-table>
-    <!-- 组件 -->
-    <div v-if="uploadDiaVis">
-      <promTask @getAppData="getAppData" />
+  <div>
+    <div class="app-list">
+      <el-row class="batchProm">
+        <el-col :span="24">
+          <el-button
+            id="myapp_checktest"
+            type="primary"
+            class="rt"
+            @click="uploadPackage"
+          >
+            {{ $t("apppromotion.batchPro") }}
+          </el-button>
+        </el-col>
+      </el-row>
+      <el-table
+        :data="currentPageData"
+        @selection-change="selectionLineChangeHandle"
+        border
+        ref="multipleTable"
+        style="width: 100%"
+        :header-cell-style="{ background: '#FFFFFF', color: '#909399' }"
+      >
+        <el-table-column
+          type="selection"
+          width="70"
+        />
+        <el-table-column
+          prop="number"
+          :label="$t('apppromotion.number')"
+          width="155"
+        />
+        <el-table-column
+          prop="name"
+          :label="$t('apppromotion.appName')"
+          width="200"
+        />
+        <el-table-column
+          prop="provider"
+          :label="$t('apppromotion.provider')"
+          width="200"
+        />
+        <el-table-column
+          prop="version"
+          :label="$t('apppromotion.version')"
+          width="200"
+        />
+        <el-table-column
+          prop="atpTestStatus"
+          :label="$t('apppromotion.tesResult')"
+          width="230"
+        />
+        <el-table-column
+          prop="atpTestReportUrl"
+          :label="$t('apppromotion.testRepo')"
+          width="250"
+        />
+        <el-table-column
+          prop="latestPushTime"
+          :label="$t('apppromotion.lastProTime')"
+          width="260"
+        />
+        <el-table-column
+          prop="pushTimes"
+          :label="$t('apppromotion.proTimes')"
+          width="150"
+        />
+      </el-table>
+      <!-- 组件 -->
+      <div v-if="uploadDiaVis">
+        <promTask @getAppData="getAppData" />
+      </div>
     </div>
+    <pagination
+      :table-data="appPackageData"
+      @getCurrentPageData="getCurrentPageData"
+    />
   </div>
 </template>
 
 <script>
 import { getAppPromTableApi } from '../../tools/api.js'
 import promTask from './PromTask.vue'
+import pagination from '../../components/common/Pagination.vue'
 export default {
   components: {
-    promTask
+    promTask,
+    pagination
   },
   data () {
     return {
       dataonLineListSelections: [],
       uploadDiaVis: false,
-      // appData: []
-      appData: [
-        {
-          number: '1',
-          appName: '虚拟人生b',
-          provider: '中国移动',
-          version: 'V1.0',
-          tesResult: 'Success',
-          // testRepo: <a href="require('@/assets/images/202012150314.png')">202012150314</a>,
-          testRepo: <a href="../../assets/images/202012150314.png" target="_blank">202012150314</a>,
-          lastProTime: '2020-12-08 13:55:12',
-          proTimes: '30'
-        },
-        {
-          number: '2',
-          appName: '梦幻生活c',
-          provider: '中国电信',
-          version: 'V2.0',
-          tesResult: 'Failed11',
-          testRepo: 'xxxrepo',
-          lastProTime: '2021-11-08 13:55:12',
-          proTimes: '50'
-        },
-        {
-          number: '3',
-          appName: '极限挑战',
-          provider: '中国联通',
-          version: 'V3.0',
-          tesResult: 'Success',
-          testRepo: 'xxxrepo',
-          lastProTime: '2021-11-08 13:55:12',
-          proTimes: '1000'
-        }
-      ]
+      appData: [],
+      appPackageData: [],
+      currentPageData: []
     }
   },
   methods: {
@@ -153,11 +131,9 @@ export default {
     getAppData () {
       this.uploadDiaVis = false
     },
-    // jumpTo() {
-    //   console.log(this.dataonLineListSelections);
-    //   this.$router.push("/app/prom/task");
-    //   sessionStorage.setItem('appstordetail', JSON.stringify(this.dataonLineListSelections))
-    // },
+    getCurrentPageData (data) {
+      this.currentPageData = data
+    },
     uploadPackage () {
       this.uploadDiaVis = true
       sessionStorage.setItem(
@@ -166,27 +142,43 @@ export default {
       )
     },
     getTableData () {
+      this.appPackageData = []
       this.uploadDiaVis = false
-      getAppPromTableApi(this.appId).then((res) => {
-      //   let data = res.data;
-      //   data.forEach(
-      //     (item) => {
-      //       this.tableData.push(item);
-      //     },
-      //     () => {}
-      //   );
-      //   if (data.length !== 0) {
-      // this.editDetails = this.source = data[0].details
-      // this.appDetailFileList = [JSON.parse(data[0].format)]
-      // this.packageId = data[0].csarId
-      //   }
+      getAppPromTableApi().then((res) => {
+        console.log('zhaolongfei' + res)
+        let data = res.data
+        let index = 1
+        data.forEach(
+          (item) => {
+            let appDataItem = {
+              number: index,
+              name: item.name,
+              provider: item.provider,
+              version: item.version,
+              atpTestStatus: item.atpTestStatus,
+              atpTestReportUrl: item.atpTestReportUrl,
+              latestPushTime: item.latestPushTime,
+              pushTimes: item.pushTimes,
+              packageId: item.packageId
+            }
+            this.appData.push(appDataItem)
+            this.appPackageData.push(appDataItem)
+            index++
+          }
+        )
+      }).catch(() => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('apppromotion.getPromInfoFailed'),
+          type: 'warning'
+        })
       })
     }
   },
   mounted () {
     this.getAppData()
     console.log(this.$refs.multipleTable.selection)
-    // this.getTableData();
+    this.getTableData()
   }
 }
 </script>

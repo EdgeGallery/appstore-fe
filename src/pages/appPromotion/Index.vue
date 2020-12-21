@@ -52,10 +52,6 @@
             ref="down"
           />
         </el-tab-pane>
-        <pagination
-          :table-data="appData"
-          @getCurrentPageData="getCurrentPageData"
-        />
       </el-tabs>
       <div class="clearfix" />
     </div>
@@ -65,13 +61,11 @@
 <script>
 import downloadAna from './DownloadAna.vue'
 import appList from './AppList.vue'
-import { getMyAppApi } from '../../tools/api.js'
-import pagination from '../../components/common/Pagination.vue'
+
 export default {
   components: {
     appList,
-    downloadAna,
-    pagination
+    downloadAna
   },
   data () {
     return {
@@ -80,26 +74,6 @@ export default {
     }
   },
   methods: {
-    getAppData () {
-      getMyAppApi(this.userId)
-        .then(res => {
-          this.appData = res.data
-          this.dataLoading = false
-        }, () => {
-          this.dataLoading = false
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.getMyAppFail'),
-            type: 'warning'
-          })
-        })
-    },
-    // jumpTo () {
-    //   this.$router.push('/app/prom/task')
-    // },
-    // uploadPackage () {
-    //   this.uploadDiaVis = true
-    // },
     getCurrentPageData (data) {
       this.currentPageData = data
     },
@@ -112,9 +86,6 @@ export default {
     }
   },
   mounted () {
-    // this.userId = sessionStorage.getItem('userId')
-    // this.getAppData()
-    // this.tableData.push(JSON.parse(sessionStorage.getItem('taskData')))
   }
 }
 </script>

@@ -151,6 +151,51 @@ export default new Router({
             id: '2.5',
             breadcrumb: [{ nameEn: 'appMgmt', nameCn: '外部仓库管理' }]
           }
+        },
+        {
+          path: 'apppromotion',
+          name: 'appstoreapppromotion',
+          component: () => import('./pages/appPromotion/Index.vue'),
+          meta: {
+            id: '2.5',
+            breadcrumb: [{ nameEn: 'Apppromotion', nameCn: '应用推广' }]
+          }
+        },
+        {
+          path: 'app/prom/task',
+          name: 'promTask',
+          component: () => import('./pages/appPromotion/PromTask.vue'),
+          meta: {
+            id: '2.5.1',
+            breadcrumb: [
+              { nameEn: 'appProm', path: '/appProm', nameCn: '应用推广' },
+              { nameEn: 'Batch Promot', nameCn: '批量推广' }
+            ]
+          }
+        },
+        {
+          path: 'msgCenter',
+          name: 'msgCenter',
+          component: () => import('./pages/msgCenter/Msg_template.vue'),
+          meta: {
+            id: '2.6',
+            breadcrumb: [
+              { nameEn: 'appProm', path: '/appProm', nameCn: '消息中心' }
+            ]
+          },
+          children: [
+            {
+              path: '/right_panel',
+              name: 'right_panel',
+              component: () => import('./pages/msgCenter/Right_template.vue'),
+              meta: {
+                id: '2.6.1',
+                breadcrumb: [
+                  { nameEn: 'appProm', path: '/appProm', nameCn: '消息中心' }
+                ]
+              }
+            }
+          ]
         }
       ]
     }
