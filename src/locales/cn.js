@@ -113,6 +113,7 @@ const cn = {
     userResistedSuccess: '用户注册成功!!',
     userResistedFaile: '注册用户失败',
     deletePrompt: '该操作将永久删除应用程序。你想继续吗?',
+    deleteAppStore: '该操作将永久删除外部仓库。你想继续吗?',
     prompt: '提示',
     checkUploadProgress: '立即检查上传进度?',
     browserAdvise: '为了部分功能正常使用，我们建议使用Chrom浏览器！',
@@ -145,7 +146,9 @@ const cn = {
     appStoreVersionEmpty: '平台版本不能为空',
     urlEmpty: 'IP or URL不能为空',
     appdTransIdEmpty: '转换器不能为空',
-    normalVerify: '输入的内容格式不正确'
+    normalVerify: '输入的内容格式不正确',
+    addAppStoreSuccess: '添加AppStore成功',
+    editAppStoreSuccess: '编辑AppStore成功'
 
   },
   store: {
