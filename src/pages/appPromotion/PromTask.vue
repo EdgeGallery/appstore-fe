@@ -104,9 +104,10 @@ export default {
           (item) => {
             let providerItem = {
               number: index,
-              provider: item.appStoreName
+              provider: item.appStoreName,
+              appStoreId: item.appStoreId
             }
-            this.plateformName.push(providerItem.provider)
+            this.plateformName.push(providerItem.appStoreId)
             this.providers.push(providerItem)
             index++
           }
