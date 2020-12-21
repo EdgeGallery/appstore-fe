@@ -395,6 +395,8 @@ export default {
       font-size: 20px;
       height: 65px;
       line-height: 65px;
+      padding-bottom: 17px;
+      vertical-align: text-bottom;
     }
 
   // }
@@ -407,6 +409,7 @@ export default {
       line-height: 65px;
       margin-right: 0px;
       padding-bottom: 17px;
+      vertical-align: bottom;
     }
     span:hover {
       color: #6c92fa;
@@ -461,7 +464,7 @@ export default {
 }
   @media only screen and (max-width: 991px){
     .nav-tabs{
-      font-size: 14px;
+      font-size: 16px;
       .menu{
       display: inline-block;
         .el-icon-menu{
