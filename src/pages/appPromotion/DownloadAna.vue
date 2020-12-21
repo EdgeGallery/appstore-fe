@@ -15,86 +15,87 @@
   -->
 
 <template>
-  <div class="app-list">
-    <el-table
-      :data="appData"
-      border
-      style="width: 100%"
-      :header-cell-style="{ background: '#A0A5A7', color: '#fff' }"
-    >
-      <el-table-column
-        prop="number"
-        :label="$t('apppromotion.number')"
-        width="150"
-      />
-      <el-table-column
-        prop="appName"
-        :label="$t('apppromotion.appName')"
-        width="250"
-      />
-      <el-table-column
-        prop="provider"
-        :label="$t('apppromotion.provider')"
-        width="250"
-      />
-      <el-table-column
-        prop="version"
-        :label="$t('apppromotion.version')"
-        width="250"
-      />
-      <el-table-column
-        prop="operationType"
-        :label="$t('apppromotion.operationType')"
-        width="250"
-      />
-      <el-table-column
-        prop="dateTime"
-        :label="$t('apppromotion.dateTime')"
-        width="250"
-      />
-      <el-table-column
-        prop="appStore"
-        :label="$t('apppromotion.appStore')"
-        width="325"
-      />
-    </el-table>
+  <div>
+    <div class="app-list">
+      <div class="analyseAna">
+        <div
+          class="mychart"
+          id="myCharts1"
+          ref="myCharts1"
+        />
+        <div
+          class="mychart"
+          id="myCharts2"
+          ref="myCharts2"
+        />
+        <div
+          class="mychart2"
+          id="myCharts3"
+          ref="myCharts3"
+        />
+      </div>
+      <el-table
+        :data="currentPageData"
+        border
+        style="width: 100%"
+        :header-cell-style="{ background: '#FFFFFF', color: '#909399' }"
+      >
+        <el-table-column
+          prop="number"
+          :label="$t('apppromotion.number')"
+          width="150"
+        />
+        <el-table-column
+          prop="name"
+          :label="$t('apppromotion.appName')"
+          width="250"
+        />
+        <el-table-column
+          prop="provider"
+          :label="$t('apppromotion.provider')"
+          width="250"
+        />
+        <el-table-column
+          prop="version"
+          :label="$t('apppromotion.version')"
+          width="250"
+        />
+        <el-table-column
+          prop="messageType"
+          :label="$t('apppromotion.operationType')"
+          width="250"
+        />
+        <el-table-column
+          prop="time"
+          :label="$t('apppromotion.dateTime')"
+          width="250"
+        />
+        <el-table-column
+          prop="sourceAppStore"
+          :label="$t('apppromotion.appStore')"
+          width="325"
+        />
+      </el-table>
+    </div>
+    <pagination
+      :table-data="appPackageData"
+      @getCurrentPageData="getCurrentPageData"
+    />
   </div>
 </template>
 
 <script>
 import { deleteAppApi, getAppdownAnaApi } from '../../tools/api.js'
+import pagination from '../../components/common/Pagination.vue'
 export default {
+  components: {
+    pagination
+  },
   data () {
     return {
-      appData: [
-        {
-          number: '1',
-          appName: '人脸识别',
-          provider: '华为',
-          version: 'V1.0',
-          operationType: '拉取',
-          dateTime: '2020-12-08 13:55:12',
-          appStore: '电信AppStore'
-        },
-        {
-          number: '2',
-          appName: '人脸识别',
-          provider: '华为',
-          version: 'V1.0',
-          operationType: '通知',
-          dateTime: '2020-12-08 13:55:12',
-          appStore: '电信AppStore'
-        },
-        {
-          number: '3',
-          appName: '人脸识别',
-          provider: '华为',
-          version: 'V1.0',
-          operationType: '拉取',
-          dateTime: '2020-12-08 13:55:12',
-          appStore: '电信AppStore'
-        }
-      ]
+      appData: [],
+      appPackageData: [],
+      currentPageData: []
     }
   },
   methods: {
@@ -107,20 +108,38 @@ export default {
         this.$refs.multipleTable.clearSelection()
       }
     },
+    getCurrentPageData (data) {
+      this.currentPageData = data
+    },
     getTableData () {
-      getAppdownAnaApi(this.appId).then((res) => {
+      this.appPackageData = []
+      getAppdownAnaApi().then((res) => {
         let data = res.data
+        let index = 1
         data.forEach(
           (item) => {
-            this.tableData.push(item)
-          },
-          () => {}
+            let appDataItem = {
+              number: index,
+              name: item.basicInfo.name,
+              provider: item.basicInfo.provider,
+              version: item.basicInfo.version,
+              messageType: item.messageType,
+              time: item.time,
+              sourceAppStore: item.sourceAppStore
+            }
+            this.appData.push(appDataItem)
+            this.appPackageData.push(appDataItem)
+            index++
+          }
         )
         if (data.length !== 0) {
-          // this.editDetails = this.source = data[0].details
-          // this.appDetailFileList = [JSON.parse(data[0].format)]
-          // this.packageId = data[0].csarId
         }
+      }).catch(() => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('apppromotion.getOperatorInfoFailed'),
+          type: 'warning'
+        })
       })
     },
     handleSelectionChange (val) {
@@ -171,6 +190,128 @@ export default {
     }
   },
   mounted () {
+    const myCharts1 = this.$echarts.init(this.$refs.myCharts1)
+    const myCharts2 = this.$echarts.init(this.$refs.myCharts2)
+    const myCharts3 = this.$echarts.init(this.$refs.myCharts3)
+    let options1 = {
+      title: {
+        text: '最受欢迎的边缘应用行业分布',
+        subtext: '仅供参考',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: ['APP1', 'APP2', 'APP3', 'APP4', 'APP5']
+      },
+      series: [
+        {
+          name: '访问来源',
+          type: 'pie',
+          radius: '55%',
+          center: ['50%', '60%'],
+          data: [
+            { value: 335, name: 'APP1' },
+            { value: 310, name: 'APP2' },
+            { value: 234, name: 'APP3' },
+            { value: 135, name: 'APP4' },
+            { value: 1548, name: 'APP5' }
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+    }
+
+    // options2
+    let options2 = {
+      title: {
+        text: '应用推广次数'
+      },
+      legend: {},
+      tooltip: {},
+      dataset: {
+        source: [
+          ['product', '对外推广', '收到推广'],
+          ['移动', 43, 85],
+          ['联通', 83, 73],
+          ['电信', 86, 65]
+        ]
+      },
+      xAxis: { type: 'category' },
+      yAxis: {},
+      // Declare several bar series, each will be mapped
+      // to a column of dataset.source by default.
+      series: [
+        { type: 'bar' },
+        { type: 'bar' },
+        { type: 'bar' }
+      ]
+    }
+
+    // APP下载趋势图
+    let options3 = {
+      title: {
+        text: 'APP下载趋势图'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['联通', '移动', '电信']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['第一季度', '第二季度', '第三季度', '第四季度']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '联通',
+          type: 'line',
+          stack: '总量',
+          data: [120, 132, 101, 134]
+        },
+        {
+          name: '移动',
+          type: 'line',
+          stack: '总量',
+          data: [220, 182, 191, 234]
+        },
+        {
+          name: '电信',
+          type: 'line',
+          stack: '总量',
+          data: [150, 232, 201, 154]
+        }
+      ]
+    }
+    myCharts1.setOption(options1)
+    myCharts2.setOption(options2)
+    myCharts3.setOption(options3)
     this.getTableData()
   }
 }
@@ -184,5 +325,21 @@ export default {
   .pagination {
     margin: 20px;
   }
+}
+.mychart{
+  width:30%;
+  height:300px;
+  float:left;
+  margin-left:30px;
+}
+.mychart2{
+  width:30%;
+  height:260px;
+  float:left;
+  margin-left:30px;
+}
+.analyseAna{
+  width:100%;
+  height:300px;
 }
 </style>

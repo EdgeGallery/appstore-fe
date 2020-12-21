@@ -26,10 +26,12 @@ import i18n from './locales/i18n.js'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import VueCookies from 'vue-cookies'
+import echarts from 'echarts'
 Vue.use(VueCookies)
 Vue.use(mavonEditor)
 Vue.use(ElementUI)
 Vue.use(VCharts)
+Vue.prototype.$echarts = echarts
 function isChromeBrowser () {
   let userAgent = navigator.userAgent
   if (userAgent.indexOf('Chrome') > -1) {

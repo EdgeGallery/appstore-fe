@@ -267,9 +267,12 @@ const cn = {
     downloadAna: '操作分析',
     execute: '执行',
     closePanel: '关闭',
-    yidong: '移动',
-    liantong: '联通',
-    dianxin: '电信'
+    accept: '接收',
+    acceptFailed: '消息接收失败!',
+    getNoticeFailed: '获取消息失败!',
+    getPromInfoFailed: '获取推送信息失败!',
+    getOperatorInfoFailed: '获取操作信息失败!',
+    promoteFailed: '推送app失败!'
   },
   about: {},
   ...zhLocale

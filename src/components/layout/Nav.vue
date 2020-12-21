@@ -201,9 +201,9 @@ export default {
           link: '',
           children: [
             {
-              labelEn: '外部应用商店',
-              labelCn: '外部应用商店共享',
-              route: '/apppromote',
+              labelEn: '应用推广',
+              labelCn: '应用推广',
+              route: '/apppromotion',
               pageId: '2.1.6.1',
               display: true,
               link: ''
@@ -215,9 +215,9 @@ export default {
               display: true,
               link: ''
             }, {
-              labelEn: '外部应用商店',
+              labelEn: '消息中心',
               labelCn: '消息中心',
-              route: '/apppromote',
+              route: '/msgCenter',
               pageId: '2.1.6.3',
               display: true,
               link: ''

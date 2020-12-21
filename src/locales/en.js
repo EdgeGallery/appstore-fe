@@ -251,9 +251,12 @@ const en = {
     downloadAna: 'Operation Analyse',
     execute: 'Execute',
     closePanel: 'Close',
-    yidong: 'yidong',
-    liantong: 'liantong',
-    dianxin: 'dianxin'
+    accept: 'accept',
+    acceptFailed: 'failed to accept message!',
+    getNoticeFailed: 'failedto get Notices!',
+    getPromInfoFailed: 'failed to get promote information!',
+    getOperatorInfoFailed: 'failed to get operator information!',
+    promoteFailed: 'failed to promote app!'
   },
   about: {
   },

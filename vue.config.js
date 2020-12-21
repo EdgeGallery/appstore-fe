@@ -19,6 +19,14 @@ module.exports = {
   devServer: {
     host: '0.0.0.0',
     proxy: {
+      '/appstore': {
+        target: 'http://159.138.36.16:8099',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/appstore': ''
+        }
+      },
       '/api': {
         target: 'http://159.138.5.142:8099/mec/appstore/v1/',
         ws: true,

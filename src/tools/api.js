@@ -38,14 +38,45 @@ function getAppDetailTableApi (appId) {
   return GET(url)
 }
 
-function getAppPromTableApi (appId) {
-  let url = 'apps/' + appId + '/packages/'
-  return GET(url)
+// 查询所有可推广的应用
+function getAppPromTableApi () {
+  let url = 'pushable/packages'
+  return GET(url, '', 'appstore')
 }
 
-function getAppdownAnaApi (appId) {
-  let url = 'apps/' + appId + '/packages/'
-  return GET(url)
+// 获取操作信息
+function getAppdownAnaApi () {
+  let url = 'messages'
+  return GET(url, '', 'appstore')
+}
+
+// 获取可以推送的平台信息
+function promProviderInfo () {
+  let url = 'appstores'
+  return GET(url, '', 'appstore')
+}
+
+// 推送任务
+function promTaskApi (packageId, param) {
+  let url = 'pushable/packages/' + packageId + '/action/push'
+  return POST(url, param, 'appstore')
+}
+
+// 接收app信息
+function acceptMsg (messageId) {
+  let url = 'messages/' + messageId + '/action/download'
+  return GET(url, '', 'appstore')
+}
+
+// 获取类型为notice的消息
+function getAppdownAnaApiByType () {
+  let url = 'messages' + '?messageType=NOTICE'
+  return GET(url, '', 'appstore')
+}
+// 更新msg读取状态
+function updateStatus (messageId) {
+  let url = 'messages/' + messageId + '/action/readed'
+  return PUT(url, '', 'appstore')
 }
 
 function getAppDetailFileApi (path, id) {
@@ -105,11 +136,6 @@ function uploadAppApi (params) {
 }
 
 function uploadAppTaskApi (appId, userId, userName) {
-  let url = 'mec/developer/v1/apps/' + appId + '/action/upload?userId=' + userId + '&' + 'userName=' + userName
-  return POST(url, '', 'developer')
-}
-
-function promTaskApi (appId, userId, userName) {
   let url = 'mec/developer/v1/apps/' + appId + '/action/upload?userId=' + userId + '&' + 'userName=' + userName
   return POST(url, '', 'developer')
 }
@@ -263,5 +289,9 @@ export {
   myAppStore,
   getAppPromTableApi,
   getAppdownAnaApi,
-  promTaskApi
+  promTaskApi,
+  getAppdownAnaApiByType,
+  promProviderInfo,
+  acceptMsg,
+  updateStatus
 }
