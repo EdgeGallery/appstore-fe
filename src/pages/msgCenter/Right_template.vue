@@ -42,7 +42,7 @@
       <hr class="linestyle">
       <div class="appdiv_0_3">
         <div class="appdiv_0_3_1">
-          <span>测试平台: {{ this.$route.query.detailData.testplatform }}</span>
+          <span>测试平台: ATP测试平台</span>
         </div>
         <div class="appdiv_0_3_1">
           <span>测试结果: {{ this.$route.query.detailData.testresult }}</span>
@@ -71,7 +71,6 @@ export default {
   methods: {
     handleAccept () {
       acceptMsg(this.$route.query.detailData.messageId).then((res) => {
-        console.log('zhaolongfei' + res)
       }).catch(() => {
         this.$message({
           duration: 2000,

@@ -35,15 +35,15 @@
                 class="el-icon-close"
                 title="false"
               />
-              <!-- <span
-                class="el-icon-loading primary"
-                v-if="scope.row[scope.column.property] ==='undefined'"
-                title="In Progress"
-              /> -->
               <span
-                v-if="scope.row[scope.column.property] === true"
+                v-else-if="scope.row[scope.column.property] === true"
                 class="el-icon-check"
                 title="Succeed"
+              />
+              <span
+                class="el-icon-loading primary"
+                v-else
+                title="In Progress"
               />
             </template>
           </el-table-column>
@@ -79,8 +79,9 @@ export default {
       appPromStatus: 'ready',
       appData: [],
       providers: [],
-      plateformName: [],
-      packageIds: []
+      appStoreIds: [],
+      packageIds: [],
+      targetPlatformTitles: []
     }
   },
   methods: {
@@ -93,11 +94,10 @@ export default {
       this.$emit('getAppData')
     },
     handleExecute () {
-      this.promTask(this.packageIds, this.plateformName)
+      this.promTask(this.packageIds, this.targetPlatformTitles, this.appStoreIds)
     },
     getProviders () {
       promProviderInfo().then((res) => {
-        console.log('zhaolongfei' + res)
         let data = res.data
         let index = 1
         data.forEach(
@@ -107,7 +107,8 @@ export default {
               provider: item.appStoreName,
               appStoreId: item.appStoreId
             }
-            this.plateformName.push(providerItem.appStoreId)
+            this.targetPlatformTitles.push(providerItem.provider)
+            this.appStoreIds.push(providerItem.appStoreId)
             this.providers.push(providerItem)
             index++
           }
@@ -128,9 +129,9 @@ export default {
         }
       )
     },
-    promTask (packageIds, targetPlatform) {
+    promTask (packageIds, targetPlatformTitles, appstoreIds) {
       let param = {
-        targetPlatform: targetPlatform
+        targetPlatform: appstoreIds
       }
       let tempDataArr = []
       this.appData.forEach(
@@ -139,8 +140,8 @@ export default {
             .then((res) => {
               let resData = res.data
               let tempData = data
-              for (let i = 0; i < targetPlatform.length; i++) {
-                let attr = targetPlatform[i]
+              for (let i = 0; i < targetPlatformTitles.length; i++) {
+                let attr = targetPlatformTitles[i]
                 tempData[attr] = resData[i]
               }
               tempDataArr.push(tempData)
@@ -154,7 +155,7 @@ export default {
       setTimeout(() => {
         this.appData = []
         this.appData = tempDataArr
-        console.log('long' + this.appData.length)
+        console.log('promote data length' + this.appData.length)
       }, 500)
     }
   },
@@ -189,6 +190,12 @@ export default {
   }
   .el-icon-check {
     color: #40BF90;
+    font-size: 25px;
+  }
+  .el-icon-close{
+    font-size: 25px;
+  }
+  .el-icon-loading{
     font-size: 25px;
   }
   #app_prom_close {

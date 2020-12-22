@@ -145,7 +145,6 @@ export default {
       this.appPackageData = []
       this.uploadDiaVis = false
       getAppPromTableApi().then((res) => {
-        console.log('zhaolongfei' + res)
         let data = res.data
         let index = 1
         data.forEach(
