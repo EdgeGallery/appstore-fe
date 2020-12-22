@@ -64,6 +64,7 @@ export default {
     showdetail (path, msg, index) {
       this.selected = index
       console.log('selected的值' + this.selected)
+      this.updateMsgStatus(msg.messageId)
       let detailData = {
         messageId: msg.messageId,
         name: msg.name,
@@ -124,7 +125,6 @@ export default {
     getAppData () {
       this.uploadDiaVis = false
       getAppdownAnaApiByType().then((res) => {
-        console.log('zhaolongfei' + res)
         let data = res.data
         data.forEach(
           (item) => {
@@ -144,7 +144,6 @@ export default {
               readed: item.readed
             }
             this.msgs.push(appDataItem)
-            this.updateMsgStatus(appDataItem.messageId)
           }
         )
       }).catch(() => {
@@ -157,7 +156,6 @@ export default {
     },
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
-        console.log('zhaolongfei' + res)
       }).catch(() => {
         this.$message({
           duration: 2000,
