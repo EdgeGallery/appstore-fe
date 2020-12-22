@@ -61,7 +61,7 @@
         }}</el-button>
         <el-button
           id="app_prom_close"
-          @click="dialogVisible = false"
+          @click="handleCloseDirect"
         >{{
           $t("apppromotion.closePanel")
         }}</el-button>
@@ -88,10 +88,14 @@ export default {
     handleClose (done) {
       this.$confirm('确认关闭？')
         .then(_ => {
+          this.$emit('input', false)
           done()
         })
         .catch(_ => {})
-      this.$emit('getAppData')
+    },
+    handleCloseDirect () {
+      this.dialogVisible = false
+      this.$emit('input', false)
     },
     handleExecute () {
       this.promTask(this.packageIds, this.targetPlatformTitles, this.appStoreIds)

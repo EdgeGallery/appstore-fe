@@ -43,37 +43,52 @@
         <el-table-column
           prop="number"
           :label="$t('apppromotion.number')"
-          width="150"
+          width="120"
         />
         <el-table-column
           prop="name"
           :label="$t('apppromotion.appName')"
-          width="250"
+          width="200"
         />
         <el-table-column
           prop="provider"
           :label="$t('apppromotion.provider')"
-          width="250"
+          width="185"
         />
         <el-table-column
           prop="version"
           :label="$t('apppromotion.version')"
-          width="250"
+          width="110"
         />
         <el-table-column
           prop="messageType"
-          :label="$t('apppromotion.operationType')"
-          width="250"
+          :label="$t('apppromotion.messageType')"
+          width="110"
+        />
+        <el-table-column
+          prop="sourceAppStore"
+          :label="$t('apppromotion.sourceAppStore')"
+          width="200"
+        />
+        <el-table-column
+          prop="targetAppStore"
+          :label="$t('apppromotion.targetAppStore')"
+          width="200"
         />
         <el-table-column
           prop="time"
           :label="$t('apppromotion.dateTime')"
-          width="250"
+          width="200"
         />
         <el-table-column
-          prop="sourceAppStore"
-          :label="$t('apppromotion.appStore')"
-          width="325"
+          prop="description"
+          :label="$t('apppromotion.description')"
+          width="200"
+        />
+        <el-table-column
+          prop="detailInfo"
+          :label="$t('apppromotion.mesOperation')"
+          width="200"
         />
       </el-table>
     </div>
@@ -124,8 +139,11 @@ export default {
               provider: item.basicInfo.provider,
               version: item.basicInfo.version,
               messageType: item.messageType,
+              sourceAppStore: item.sourceAppStore,
+              targetAppStore: item.targetAppStore,
               time: item.time,
-              sourceAppStore: item.sourceAppStore
+              description: item.description,
+              detailInfo: this.$t('apppromotion.checkDetail')
             }
             this.appData.push(appDataItem)
             this.appPackageData.push(appDataItem)

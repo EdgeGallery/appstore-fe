@@ -132,7 +132,6 @@ export default {
               messageId: item.messageId,
               title: item.description,
               type: item.messageType,
-              detailData: item.basicInfo.shortDesc,
               name: item.basicInfo.name,
               provider: item.basicInfo.provider,
               version: item.basicInfo.version,

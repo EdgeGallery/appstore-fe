@@ -84,7 +84,9 @@
       </el-table>
       <!-- 组件 -->
       <div v-if="uploadDiaVis">
-        <promTask @getAppData="getAppData" />
+        <promTask
+          v-model="uploadDiaVis"
+        />
       </div>
     </div>
     <pagination
@@ -128,9 +130,6 @@ export default {
     selectionLineChangeHandle (val) {
       this.dataonLineListSelections = val
     },
-    getAppData () {
-      this.uploadDiaVis = false
-    },
     getCurrentPageData (data) {
       this.currentPageData = data
     },
@@ -143,7 +142,6 @@ export default {
     },
     getTableData () {
       this.appPackageData = []
-      this.uploadDiaVis = false
       getAppPromTableApi().then((res) => {
         let data = res.data
         let index = 1
@@ -175,7 +173,6 @@ export default {
     }
   },
   mounted () {
-    this.getAppData()
     console.log(this.$refs.multipleTable.selection)
     this.getTableData()
   }
