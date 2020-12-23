@@ -29,59 +29,54 @@
           </el-button>
         </el-col>
       </el-row>
-      <el-table
-        :data="currentPageData"
-        @selection-change="selectionLineChangeHandle"
-        border
-        ref="multipleTable"
-        style="width: 100%"
-        :header-cell-style="{ background: '#FFFFFF', color: '#909399' }"
-      >
-        <el-table-column
-          type="selection"
-          width="70"
-        />
-        <el-table-column
-          prop="number"
-          :label="$t('apppromotion.number')"
-          width="155"
-        />
-        <el-table-column
-          prop="name"
-          :label="$t('apppromotion.appName')"
-          width="200"
-        />
-        <el-table-column
-          prop="provider"
-          :label="$t('apppromotion.provider')"
-          width="200"
-        />
-        <el-table-column
-          prop="version"
-          :label="$t('apppromotion.version')"
-          width="200"
-        />
-        <el-table-column
-          prop="atpTestStatus"
-          :label="$t('apppromotion.tesResult')"
-          width="230"
-        />
-        <el-table-column
-          prop="atpTestReportUrl"
-          :label="$t('apppromotion.testRepo')"
-          width="250"
-        />
-        <el-table-column
-          prop="latestPushTime"
-          :label="$t('apppromotion.lastProTime')"
-          width="260"
-        />
-        <el-table-column
-          prop="pushTimes"
-          :label="$t('apppromotion.proTimes')"
-          width="150"
-        />
-      </el-table>
+      <div class="packageTable">
+        <el-table
+          :data="currentPageData"
+          @selection-change="selectionLineChangeHandle"
+          border
+          ref="multipleTable"
+          stripe="true"
+          style="width: 100%"
+          :header-cell-style="{ background: '#eeeeee'}"
+        >
+          <el-table-column
+            type="selection"
+            width="70"
+          />
+          <el-table-column
+            prop="number"
+            :label="$t('apppromotion.number')"
+          />
+          <el-table-column
+            prop="name"
+            :label="$t('apppromotion.appName')"
+          />
+          <el-table-column
+            prop="provider"
+            :label="$t('apppromotion.provider')"
+          />
+          <el-table-column
+            prop="version"
+            :label="$t('apppromotion.version')"
+          />
+          <el-table-column
+            prop="atpTestStatus"
+            :label="$t('apppromotion.tesResult')"
+          />
+          <el-table-column
+            prop="atpTestReportUrl"
+            :label="$t('apppromotion.testRepo')"
+          />
+          <el-table-column
+            prop="latestPushTime"
+            :label="$t('apppromotion.lastProTime')"
+          />
+          <el-table-column
+            prop="pushTimes"
+            :label="$t('apppromotion.proTimes')"
+          />
+        </el-table>
+      </div>
       <!-- 组件 -->
       <div v-if="uploadDiaVis">
         <promTask
@@ -180,8 +175,10 @@ export default {
 </script>
 <style lang="less" scoped>
 .app-list {
+  background:#fff;
+  padding: 20px;
   .el-table {
-    font-size: 17px;
+    font-size: 14px;
   }
   padding: 20px 0;
   .pagination {
@@ -192,5 +189,13 @@ export default {
     margin-bottom: 5px;
     margin-top: 5px;
   }
+  .packageTable{
+      margin: 20px 0;
+      .el-table thead{
+        th {
+          background-color: #eee;
+        }
+      }
+    }
 }
 </style>
