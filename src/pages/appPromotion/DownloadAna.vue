@@ -127,209 +127,295 @@ export default {
     getCurrentPageData (data) {
       this.currentPageData = data
     },
-    getTableData () {
-      this.appPackageData = []
-      getAppdownAnaApi().then((res) => {
-        let data = res.data
-        let index = 1
-        data.forEach(
-          (item) => {
-            let appDataItem = {
-              number: index,
-              name: item.basicInfo.name,
-              provider: item.basicInfo.provider,
-              version: item.basicInfo.version,
-              messageType: item.messageType,
-              sourceAppStore: item.sourceAppStore,
-              targetAppStore: item.targetAppStore,
-              time: item.time,
-              description: item.description,
-              detailInfo: this.$t('apppromotion.checkDetail')
+
+    getTableEx () {
+      return new Promise((resolve, reject) => {
+        this.appPackageData = []
+        getAppdownAnaApi().then((res) => {
+          let data = res.data
+          let index = 1
+          data.forEach(
+            (item) => {
+              let appDataItem = {
+                number: index,
+                name: item.basicInfo.name,
+                provider: item.basicInfo.provider,
+                version: item.basicInfo.version,
+                messageType: item.messageType,
+                sourceAppStore: item.sourceAppStore,
+                targetAppStore: item.targetAppStore,
+                time: item.time,
+                description: item.description,
+                industry: item.basicInfo.industry,
+                detailInfo: this.$t('apppromotion.checkDetail')
+              }
+              this.appData.push(appDataItem)
+              this.appPackageData.push(appDataItem)
+              index++
             }
-            this.appData.push(appDataItem)
-            this.appPackageData.push(appDataItem)
-            index++
-          }
-        )
-        if (data.length !== 0) {
-        }
-      }).catch(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('apppromotion.getOperatorInfoFailed'),
-          type: 'warning'
+          )
+          resolve(res)
+        }).catch(() => {
+          this.$message({
+            duration: 2000,
+            message: this.$t('apppromotion.getOperatorInfoFailed'),
+            type: 'warning'
+          })
         })
       })
     },
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
-    isDisabled (deleteRow) {
-      if (deleteRow.userId === sessionStorage.getItem('userId')) {
-        return false
-      }
-    },
     detail (item) {
       this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
     },
-    deleteRow (row) {
-      this.$confirm(
-        this.$t('promptMessage.deletePrompt'),
-        this.$t('promptMessage.prompt'),
-        {
-          confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('common.cancel'),
-          type: 'warning'
+    getProviderNames (appPackageData) {
+      let set = new Set()
+      this.appPackageData.forEach(
+        (item) => {
+          set.add(item.provider)
+        })
+      return set
+    },
+    getPushNum (name, appPackageData) {
+      let number = 0
+      appPackageData.forEach(
+        (item) => {
+          if (name === item.provider && item.messageType === 'PUSH') {
+            number++
+          }
         }
       )
-        .then(() => {
-          let userId = sessionStorage.getItem('userId')
-          let userName = sessionStorage.getItem('userName')
-          deleteAppApi(row.appId, userId, userName)
-            .then((res) => {
-              this.$emit('getAppData')
-              this.$message({
-                duration: 2000,
-                message: this.$t('promptMessage.deleteSuccess'),
-                type: 'success'
-              })
-            })
-            .catch(() => {
-              this.$message({
-                duration: 2000,
-                message: this.$t('promptMessage.operationFailed'),
-                type: 'warning'
-              })
-            })
+      return number
+    },
+    getNoticeNum (name, appPackageData) {
+      let number = 0
+      appPackageData.forEach(
+        (item) => {
+          if (name === item.provider && item.messageType === 'NOTICE') {
+            number++
+          }
+        }
+      )
+      return number
+    },
+    getIndustryNames (appPackageData) {
+      let industryNameSet = new Set()
+      this.appPackageData.forEach(
+        (item) => {
+          industryNameSet.add(item.industry)
         })
-        .catch(() => {})
-    }
-  },
-  mounted () {
-    const myCharts1 = this.$echarts.init(this.$refs.myCharts1)
-    const myCharts2 = this.$echarts.init(this.$refs.myCharts2)
-    const myCharts3 = this.$echarts.init(this.$refs.myCharts3)
-    let options1 = {
-      title: {
-        text: '最受欢迎的边缘应用行业分布',
-        subtext: '仅供参考',
-        left: 'center'
-      },
-      tooltip: {
-        trigger: 'item',
-        formatter: '{a} <br/>{b} : {c} ({d}%)'
-      },
-      legend: {
-        orient: 'vertical',
-        left: 'left',
-        data: ['APP1', 'APP2', 'APP3', 'APP4', 'APP5']
-      },
-      series: [
-        {
-          name: '访问来源',
-          type: 'pie',
-          radius: '55%',
-          center: ['50%', '60%'],
-          data: [
-            { value: 335, name: 'APP1' },
-            { value: 310, name: 'APP2' },
-            { value: 234, name: 'APP3' },
-            { value: 135, name: 'APP4' },
-            { value: 1548, name: 'APP5' }
-          ],
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
+      return industryNameSet
+    },
+    getIndustryPullNum (name, appPackageData) {
+      let number = 0
+      appPackageData.forEach(
+        (item) => {
+          if (name === item.industry && item.messageType === 'BE_DOWNLOADED') {
+            number++
+          }
+        }
+      )
+      return number
+    },
+
+    getQuarter (datestr) {
+      let month = new Date(datestr).getMonth()
+      let m = month + 1
+      if (m >= 1 && m <= 3) {
+        return 1
+      }
+      if (m > 3 && m <= 6) {
+        return 2
+      }
+      if (m > 6 && m <= 9) {
+        return 3
+      }
+      if (m > 9 && m <= 12) {
+        return 4
+      }
+    },
+    // 获取四个季度的pull app数量
+    getPullAppNum (name, appPackageData) {
+      let quarter1 = 0
+      let quarter2 = 0
+      let quarter3 = 0
+      let quarter4 = 0
+      appPackageData.forEach(
+        (item) => {
+          if (name === item.provider && item.messageType === 'PULL') {
+            // let date = item.time.split(' ')[0]
+            let quarter = this.getQuarter(item.time.split(' ')[0])
+            if (quarter === 1) {
+              quarter1++
+            }
+            if (quarter === 2) {
+              quarter2++
+            }
+            if (quarter === 3) {
+              quarter3++
+            }
+            if (quarter === 4) {
+              quarter4++
             }
           }
         }
-      ]
+      )
+      let pullArr = [quarter1, quarter2, quarter3, quarter4]
+      return pullArr
     }
+  },
+  mounted () {
+    // this.getTableData()
+    this.getTableEx().then((res) => {
+      const myCharts1 = this.$echarts.init(this.$refs.myCharts1)
+      const myCharts2 = this.$echarts.init(this.$refs.myCharts2)
+      const myCharts3 = this.$echarts.init(this.$refs.myCharts3)
 
-    // options2
-    let options2 = {
-      title: {
-        text: '应用推广次数'
-      },
-      legend: {},
-      tooltip: {},
-      dataset: {
-        source: [
-          ['product', '对外推广', '收到推广'],
-          ['移动', 43, 85],
-          ['联通', 83, 73],
-          ['电信', 86, 65]
+      // echart1
+      let industryArr = []
+      let nameArr = []
+      let industryNames = this.getIndustryNames(this.appPackageData)
+      industryNames.forEach(
+        (item) => {
+          nameArr.push(item)
+          let industryPullNum = this.getIndustryPullNum(item, this.appPackageData)
+          let providerInfo = {
+            value: industryPullNum,
+            name: item
+          }
+          industryArr.push(providerInfo)
+        }
+      )
+
+      let options1 = {
+        title: {
+          text: '最受欢迎的边缘应用行业分布',
+          subtext: '仅供参考',
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left',
+          data: nameArr
+        },
+        series: [
+          {
+            name: '行业',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            data: industryArr,
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
         ]
-      },
-      xAxis: { type: 'category' },
-      yAxis: {},
-      // Declare several bar series, each will be mapped
-      // to a column of dataset.source by default.
-      series: [
-        { type: 'bar' },
-        { type: 'bar' },
-        { type: 'bar' }
-      ]
-    }
+      }
 
-    // APP下载趋势图
-    let options3 = {
-      title: {
-        text: 'APP下载趋势图'
-      },
-      tooltip: {
-        trigger: 'axis'
-      },
-      legend: {
-        data: ['联通', '移动', '电信']
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      toolbox: {
-        feature: {
-          saveAsImage: {}
+      // echart2
+      let providerArr = []
+      let providerNameArr = []
+      let providerNames = this.getProviderNames(this.appPackageData)
+      providerNames.forEach(
+        (item) => {
+          providerNameArr.push(item)
+          let pushNum = this.getPushNum(item, this.appPackageData)
+          let noticeNum = this.getNoticeNum(item, this.appPackageData)
+          let providerInfo = {
+            provider: item,
+            '对外推广': pushNum,
+            '收到推广': noticeNum
+          }
+          providerArr.push(providerInfo)
         }
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: ['第一季度', '第二季度', '第三季度', '第四季度']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          name: '联通',
-          type: 'line',
-          stack: '总量',
-          data: [120, 132, 101, 134]
+      )
+
+      let options2 = {
+        legend: {},
+        tooltip: {},
+        dataset: {
+          dimensions: ['provider', '对外推广', '收到推广'],
+          source: providerArr
         },
-        {
-          name: '移动',
-          type: 'line',
-          stack: '总量',
-          data: [220, 182, 191, 234]
-        },
-        {
-          name: '电信',
-          type: 'line',
-          stack: '总量',
-          data: [150, 232, 201, 154]
+        xAxis: { type: 'category' },
+        yAxis: {},
+        // Declare several bar series, each will be mapped
+        // to a column of dataset.source by default.
+        series: [
+          { type: 'bar' },
+          { type: 'bar' }
+        ]
+      }
+
+      // echart3
+      let providerAppPullArr = []
+      // let providerNames = this.getProviderNames(this.appPackageData)
+      providerNames.forEach(
+        (item) => {
+          providerNameArr.push(item)
+          let pullAppNum = this.getPullAppNum(item, this.appPackageData)
+          let providerPullInfo = {
+            name: item,
+            type: 'line',
+            stack: '总量',
+            data: pullAppNum
+          }
+          providerAppPullArr.push(providerPullInfo)
         }
-      ]
-    }
-    myCharts1.setOption(options1)
-    myCharts2.setOption(options2)
-    myCharts3.setOption(options3)
-    this.getTableData()
+      )
+
+      let options3 = {
+        title: {
+          text: 'APP下载趋势图'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: providerNameArr
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['第一季度', '第二季度', '第三季度', '第四季度']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: providerAppPullArr
+      }
+      myCharts1.setOption(options1)
+      myCharts2.setOption(options2)
+      myCharts3.setOption(options3)
+    }).catch(() => {
+      this.$message({
+        duration: 2000,
+        message: this.$t('apppromotion.getPromInfoFailed'),
+        type: 'warning'
+      })
+    })
   }
 }
 </script>
