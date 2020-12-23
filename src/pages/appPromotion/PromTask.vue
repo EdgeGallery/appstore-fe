@@ -10,8 +10,9 @@
         <el-table
           :data="appData"
           border
+          stripe="true"
           style="width: 100%"
-          :header-cell-style="{ background: '#FFFFFF', color: '#909399' }"
+          :header-cell-style="{ background: '#eeeeee'}"
         >
           <el-table-column
             prop="number"
@@ -21,7 +22,6 @@
           <el-table-column
             prop="name"
             :label="$t('apppromotion.appName')"
-            width="280"
           />
           <el-table-column
             v-for="item in providers"
@@ -41,7 +41,7 @@
                 title="Succeed"
               />
               <span
-                class="el-icon-loading primary"
+                class="el-icon-finished"
                 v-else
                 title="In Progress"
               />
@@ -199,8 +199,9 @@ export default {
   .el-icon-close{
     font-size: 25px;
   }
-  .el-icon-loading{
+  .el-icon-finished{
     font-size: 25px;
+    color: darkgrey;
   }
   #app_prom_close {
     color: #fff;
