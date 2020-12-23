@@ -258,8 +258,8 @@ const cn = {
     appName: '应用名称',
     provider: '厂商',
     version: '版本',
-    tesResult: 'ATP测试结果',
-    testRepo: '测试报告',
+    tesResult: '认证测试结果',
+    testRepo: '认证测试报告',
     lastProTime: '最后推广时间',
     proTimes: '推广次数',
     batchPro: '批量推广',
@@ -280,7 +280,7 @@ const cn = {
     getPromInfoFailed: '获取推送信息失败!',
     getOperatorInfoFailed: '获取操作信息失败!',
     promoteFailed: '推送app失败!',
-    viewTestRepo: '查看测试报告'
+    viewTestRepo: '查看报告'
   },
   about: {},
   ...zhLocale
