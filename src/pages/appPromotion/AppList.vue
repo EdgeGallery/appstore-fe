@@ -64,10 +64,6 @@
             :label="$t('apppromotion.tesResult')"
           />
           <el-table-column
-            prop="atpTestReportUrl"
-            :label="$t('apppromotion.testRepo')"
-          />
-          <el-table-column
             prop="latestPushTime"
             :label="$t('apppromotion.lastProTime')"
           />
@@ -75,6 +71,17 @@
             prop="pushTimes"
             :label="$t('apppromotion.proTimes')"
           />
+          <el-table-column
+            :label="$t('apppromotion.mesOperation')"
+          >
+            <template slot-scope="scope">
+              <a
+                :href="scope.row.atpTestReportUrl"
+                target="_blank"
+                class="buttonText"
+              >{{ $t('apppromotion.viewTestRepo') }}</a>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
       <!-- 组件 -->
