@@ -279,7 +279,8 @@ const cn = {
     getNoticeFailed: '获取消息失败!',
     getPromInfoFailed: '获取推送信息失败!',
     getOperatorInfoFailed: '获取操作信息失败!',
-    promoteFailed: '推送app失败!'
+    promoteFailed: '推送app失败!',
+    viewTestRepo: '查看测试报告'
   },
   about: {},
   ...zhLocale
