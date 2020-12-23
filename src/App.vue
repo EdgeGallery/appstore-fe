@@ -20,7 +20,7 @@
     style="overflow-x:hidden"
   >
     <Navcomp />
-    <router-view />
+    <router-view class="view" />
   </div>
 </template>
 
@@ -50,5 +50,8 @@ export default {
   min-width: 320px;
   background: #F0F2F5;
   overflow: auto;
+}
+.view{
+  height:calc(100% - 105px);
 }
 </style>
