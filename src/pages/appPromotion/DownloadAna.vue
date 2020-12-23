@@ -37,8 +37,9 @@
       <el-table
         :data="currentPageData"
         border
+        stripe="true"
         style="width: 100%"
-        :header-cell-style="{ background: '#FFFFFF', color: '#909399' }"
+        :header-cell-style="{ background: '#eeeeee'}"
       >
         <el-table-column
           prop="number"
@@ -166,8 +167,6 @@ export default {
     isDisabled (deleteRow) {
       if (deleteRow.userId === sessionStorage.getItem('userId')) {
         return false
-      } else {
-        return true
       }
     },
     detail (item) {
@@ -337,7 +336,7 @@ export default {
 <style lang="less" scoped>
 .app-list {
   .el-table {
-    font-size: 17px;
+    font-size: 14px;
   }
   padding: 20px 0;
   .pagination {
