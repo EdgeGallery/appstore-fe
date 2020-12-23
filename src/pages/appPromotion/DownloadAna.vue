@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { deleteAppApi, getAppdownAnaApi } from '../../tools/api.js'
+import { getAppdownAnaApi } from '../../tools/api.js'
 import pagination from '../../components/common/Pagination.vue'
 export default {
   components: {
