@@ -2,10 +2,11 @@
   <div id="content">
     <div class="detailcContent">
       <div class="detailTitle">
-        <span class="lt">FROM:{{ data.targetAppStore }}</span>
+        <span class="lt">FROM:{{ data.sourceAppStore }}</span>
         <el-button
           type="primary"
           class="rt"
+          @click="handleAccept"
         >
           接受
         </el-button>
@@ -21,7 +22,7 @@
                 {{ data.basicInfo.name }}
               </el-form-item>
               <el-form-item label="应用描述：">
-                {{ data.description }}
+                {{ data.basicInfo.shortDesc }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -65,6 +66,12 @@
       <div class="detailReport">
         <p class="title">
           报告详情
+          <el-button
+            type="text"
+            @click="checkReport"
+          >
+            查看
+          </el-button>
         </p>
         <iframe
           id="iframeReport"
@@ -93,8 +100,8 @@ export default {
   },
   methods: {
     handleAccept () {
-      acceptMsg(this.$route.query.detailData.messageId).then((res) => {
-        console.log('zhaolongfei' + res)
+      acceptMsg(this.data.messageId).then((res) => {
+        this.$message.success('已成功接收！')
       }).catch(() => {
         this.$message({
           duration: 2000,
@@ -102,6 +109,9 @@ export default {
           type: 'warning'
         })
       })
+    },
+    checkReport () {
+      window.open(this.data.atpTestReportUrl)
     }
   }
 }

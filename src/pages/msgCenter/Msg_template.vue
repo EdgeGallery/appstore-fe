@@ -14,8 +14,8 @@
           <div
             v-for="(item,index) in msgs"
             :key="index"
-            v-show="item.timeResult<4"
             class="msgBody"
+            v-show="item.timeResult<4"
             @click="showdetail(item)"
           >
             <div
@@ -163,13 +163,17 @@ export default {
     },
     getAppData () {
       getAppdownAnaApiByType().then((res) => {
-        this.msgs = res.data
+        let data = res.data
+        data.forEach(item => {
+          item.timeResult = this.timeCompute(item.time)
+        })
+        this.msgs = data
         this.msgDetail = this.msgs[0]
       })
     },
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
-        console.log('zhaolongfei' + res)
+
       }).catch(() => {
         this.$message({
           duration: 2000,
