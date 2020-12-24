@@ -209,7 +209,6 @@ export default {
   height: 100%;
   background: #FFFFFF;
   padding:25px 35px;
-  overflow-y: auto;
 }
 .el-collapse{
   border-top:none!important;
