@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'Task',
+  name: 'Atpreport',
   data () {
     return {
       srcUrl: '',
@@ -47,7 +47,7 @@ export default {
     }
   },
   mounted () {
-    this.taskId = this.$route.params.taskId
+    this.taskId = this.$route.query.taskId
     this.getAtpUrl()
   }
 }
