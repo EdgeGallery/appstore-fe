@@ -4,153 +4,171 @@
     ref="box"
   >
     <div class="left">
-      <ul id="msgList">
-        <br>
-        <li
-          v-for="(msg, index) in msgs"
-          :key="index"
-          :class="(index==selected || msg.readed===true)?&quot;selected&quot;:&quot;&quot;"
-          onmouseover="this.style.background='#C1D6EA'"
-          onmouseout="this.style.background='#F0F2F5'"
-          @click="showdetail('/right_panel', msg, index)"
-        >
-          <br>
-          <h4>
-            {{ msg.type }}
-          </h4>
-          <h5>
-            <span
-              class="el-icon-chat-dot-round"
-            />
-            {{ msg.title }}
-          </h5>
-          <hr class="linestyle">
-        </li>
-      </ul>
+      <el-collapse
+        v-model="activeNames"
+      >
+        <el-collapse-item name="1">
+          <template slot="title">
+            最近
+          </template>
+          <div
+            v-for="(item,index) in msgs"
+            :key="index"
+            class="msgBody"
+            v-show="item.timeResult<4"
+            @click="showdetail(item)"
+          >
+            <div
+              class="tipTitle"
+              :class="!item.readed?'tipTitleNo':''"
+            >
+              {{ item.sourceAppStore }}
+              <span
+                class="msgTime"
+                :class="!item.readed?'msgTimeNo':''"
+              >
+                {{ item.time.split(' ')[1] }}
+              </span>
+            </div>
+            <div
+              class="tipDesc"
+              :class="!item.readed?'tipDescNo':''"
+            >
+              {{ item.description }}
+            </div>
+          </div>
+        </el-collapse-item>
+        <el-collapse-item name="2">
+          <template slot="title">
+            上个周
+          </template>
+          <div
+            v-for="(item,index) in msgs"
+            :key="index"
+            v-show="item.timeResult>3&&item.timeResult<8"
+          >
+            <div
+              class="tipTitle"
+              :class="!item.readed?'tipTitleNo':''"
+            >
+              {{ item.targetAppStore }}
+              <span
+                class="msgTime"
+                :class="!item.readed?'msgTimeNo':''"
+              >
+                {{ item.time }}
+              </span>
+            </div>
+            <div
+              class="tipDesc"
+              :class="!item.readed?'tipDescNo':''"
+            >
+              {{ item.description }}
+            </div>
+          </div>
+        </el-collapse-item>
+        <el-collapse-item name="3">
+          <template slot="title">
+            上个月
+          </template>
+          <div
+            v-for="(item,index) in msgs"
+            :key="index"
+            v-show="item.timeResult>7&&item.timeResult<32"
+          >
+            <div
+              class="tipTitle"
+              :class="!item.readed?'tipTitleNo':''"
+            >
+              {{ item.targetAppStore }}
+              <span
+                class="msgTime"
+                :class="!item.readed?'msgTimeNo':''"
+              >
+                {{ item.time }}
+              </span>
+            </div>
+            <div
+              class="tipDesc"
+              :class="!item.readed?'tipDescNo':''"
+            >
+              {{ item.description }}
+            </div>
+          </div>
+        </el-collapse-item>
+        <el-collapse-item name="4">
+          <template slot="title">
+            更早
+          </template>
+          <div
+            v-for="(item,index) in msgs"
+            :key="index"
+            v-show="item.timeResult>31"
+          >
+            <div
+              class="tipTitle"
+              :class="!item.readed?'tipTitleNo':''"
+            >
+              {{ item.targetAppStore }}
+              <span
+                class="msgTime"
+                :class="!item.readed?'msgTimeNo':''"
+              >
+                {{ item.time }}
+              </span>
+            </div>
+            <div
+              class="tipDesc"
+              :class="!item.readed?'tipDescNo':''"
+            >
+              {{ item.description }}
+            </div>
+          </div>
+        </el-collapse-item>
+      </el-collapse>
     </div>
-    <div
-      class="resize"
-      title="收缩侧边栏"
-    />
-    <div class="mid">
-      <router-view />
+    <div class="right">
+      <RightContent :data="msgDetail" />
     </div>
   </div>
 </template>
 
 <script>
+import RightContent from './Right_template'
 import { getAppdownAnaApiByType, updateStatus } from '../../tools/api.js'
 export default {
   components: {
-
+    RightContent
   },
   data () {
     return {
-      selected: -1,
-      msgs: []
+      msgs: [],
+      activeNames: ['1'],
+      msgDetail: {}
     }
   },
-
   methods: {
-    handleOpen (key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClose (key, keyPath) {
-      console.log(key, keyPath)
-    },
-    goTo (path) {
-      this.$router.replace(path)
-    },
-    showdetail (path, msg, index) {
-      this.selected = index
-      console.log('selected的值' + this.selected)
-      this.updateMsgStatus(msg.messageId)
-      let detailData = {
-        messageId: msg.messageId,
-        name: msg.name,
-        provider: msg.provider,
-        version: msg.version,
-        struct: msg.struct,
-        releation: msg.type,
-        affinity: msg.affinity,
-        direction: msg.industry,
-        description: msg.shortDesc,
-        testplatform: msg.testplatform,
-        testresult: msg.atpTestStatus
+    showdetail (item) {
+      this.msgDetail = item
+      if (!item.readed) {
+        item.readed = true
+        this.updateMsgStatus(item.messageId)
       }
-      this.$router.push({ path: '/right_panel', query: { detailData } }).catch(data => { })
-      // 更新message的可读状态
     },
-    dragControllerDiv: function () {
-      var resize = document.getElementsByClassName('resize')
-      var left = document.getElementsByClassName('left')
-      var mid = document.getElementsByClassName('mid')
-      var box = document.getElementsByClassName('box')
-      for (let i = 0; i < resize.length; i++) {
-        // 鼠标按下事件
-        resize[i].onmousedown = function (e) {
-          // 颜色改变提醒
-          resize[i].style.background = '#818181'
-          var startX = e.clientX
-          resize[i].left = resize[i].offsetLeft
-          // 鼠标拖动事件
-          document.onmousemove = function (e) {
-            var endX = e.clientX
-            var moveLen = resize[i].left + (endX - startX)
-            var maxT = box[i].clientWidth - resize[i].offsetWidth
-
-            if (moveLen < 32) moveLen = 32
-            if (moveLen > maxT - 150) moveLen = maxT - 150
-
-            resize[i].style.left = moveLen
-
-            for (let j = 0; j < left.length; j++) {
-              left[j].style.width = moveLen + 'px'
-              mid[j].style.width = (box[i].clientWidth - moveLen - 10) + 'px'
-            }
-          }
-          // 鼠标松开事件
-          document.onmouseup = function (evt) {
-            // 颜色恢复
-            resize[i].style.background = '#d6d6d6'
-            document.onmousemove = null
-            document.onmouseup = null
-            resize[i].releaseCapture && resize[i].releaseCapture()
-          }
-          resize[i].setCapture && resize[i].setCapture()
-          return false
-        }
-      }
+    timeCompute (time) {
+      var dateBegin = new Date(time.replace(/-/g, '/'))
+      var dateEnd = new Date()
+      var dateDiff = dateEnd.getTime() - dateBegin.getTime()
+      return Math.floor(dateDiff / (24 * 3600 * 1000))
     },
     getAppData () {
-      this.uploadDiaVis = false
       getAppdownAnaApiByType().then((res) => {
         let data = res.data
-        data.forEach(
-          (item) => {
-            let appDataItem = {
-              messageId: item.messageId,
-              title: item.description,
-              type: item.messageType,
-              name: item.basicInfo.name,
-              provider: item.basicInfo.provider,
-              version: item.basicInfo.version,
-              affinity: item.basicInfo.affinity,
-              industry: item.basicInfo.industry,
-              shortDesc: item.basicInfo.shortDesc,
-              testplatform: item.targetAppStore,
-              atpTestStatus: item.atpTestStatus,
-              readed: item.readed
-            }
-            this.msgs.push(appDataItem)
-          }
-        )
-      }).catch(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('apppromotion.getNoticeFailed'),
-          type: 'warning'
+        data.forEach(item => {
+          item.timeResult = this.timeCompute(item.time)
         })
+        this.msgs = data
+        this.msgDetail = this.msgs[0]
       })
     },
     updateMsgStatus (messageId) {
@@ -166,137 +184,72 @@ export default {
   },
   mounted () {
     this.getAppData()
-    this.dragControllerDiv()
   }
 }
 </script>
 
-<style scoped>
-.el-col-12{
-  width: 15%;
-}
-/* .msg_left{
-  float: left; */
-  /* border: groove #89B5E9 4px;
-   */
-  /* border: solid #89B5E9 2px; */
-  /* border: solid #CBCED3 2px;
-  border-top:none;
-  border-bottom:none;
-  border-left:none;
-  width: 500px;
-  height: 596px;
-  background-color: #F0F2F5; */
-/* } */
-/* .msg_right{ */
-  /* border: groove #89B5E9 4px; */
-  /* border: solid #89B5E9 2px; */
-
-  /* width: 1230px;
-  height: 600px;
-  margin-left: 0px;
-  float: left;
-  background: #CEDBE8; */
-
-  /* background-color: #525A58; */
-/* } */
-/* .msg_template{
-  width: 1750px;
-  height: 600px;
-  margin: 40px auto;
-  border: solid #CBCED3 2px;
-  background: #CEDBE8; */
-
-  /* background: #CBCED3; */
-  /* background-color: #89BFAA; */
-/* } */
-.msg_left  ul li{
-    width: 100%;
-    font-size: 15px;
-    margin-top: 0px;
-    margin-left: 10px;
-    border-bottom:1px solid #ccc;
-    width: 70%;
-    display: block;
-    /* border: dotted; */
-}
-/* .msg_left  ul li:first-child {
-    width: 100%;
-    background-color: #C1D6EA;
-} */
-.currentli {
-  color:#186ecc;
-  background-color:#fff;
-}
-.selected {
-  color: #ADC6DE;
-  background: #ADC6DE;
-  background-color:#F0F2F5;
-}
-/* .unselected {
-  color: #ADC6DE;
-  background: #ADC6DE;
-  background-color:red;
-} */
-/* .el-icon-paperclip {
-    color: #438BD3;
-    font-size: 18px;
-} */
-.el-icon-chat-dot-round {
-    color: #438BD3;
-    font-size: 18px;
-}
-.linestyle{
-  margin: 1px 20px;
-}
-/* 拖拽相关样式 */
-    /*包围div样式*/
+<style lang="less" scoped>
 .box {
-  width: 1650px;
-  height: 100%;
-  margin: 1% 150px;
+  height: calc(100% - 60px);
+  margin: 0 56px;
   overflow: hidden;
-  box-shadow: -1px 9px 10px 3px rgba(0, 0, 0, 0.11);
-  position: relative;
-  border: solid #CBCED3 4px;
-  /* background: #FFFFFF; */
+  background:#fff;
 }
-/*左侧div样式*/
 .left {
-  width: calc(20% - 10px);  /*左侧初始化宽度*/
+  width: 18%;
+  height:100%;
+  background: #fff;
+  float: left;
+  padding:0 12px;
+  border-right:1px solid #eadfdf,
+}
+.right {
+  margin-left:18%;
+  width: 82%;
   height: 100%;
-  background: #F0F2F5;
-  float: left;
-  /* margin-left: 5px; */
-}
-/*拖拽区div样式*/
-.resize {
-  cursor: col-resize;
-  float: left;
-  position: relative;
-  top: 45%;
-  background-color: #d6d6d6;
-  border-radius: 5px;
-  margin-top: -10px;
-  width: 7px;
-  height: 590px;
-  background-size: cover;
-  background-position: center;
-  /*z-index: 99999;*/
-  font-size: 32px;
-  color: white;
-}
-/*拖拽区鼠标悬停样式*/
-.resize:hover {
-  color: #444444;
-}
-/*右侧div'样式*/
-.mid {
-  float: left;
-  width: 80%;   /*右侧初始化宽度*/
-  height: 100%;
-  /* background: #fff; */
   background: #FFFFFF;
-  box-shadow: -1px 4px 5px 3px rgba(0, 0, 0, 0.11);
+  padding:25px 35px;
+  overflow-y: auto;
+}
+.el-collapse{
+  border-top:none!important;
+}
+.msgBody{
+  border-bottom: 1px solid #f5f5f5;
+  margin-top:3px;
+  padding-left:10px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.msgBody:hover{
+ background:#cedbe8;
+}
+.tipTitle{
+  font-size:13px;
+  color:#686b73;
+}
+.tipDesc{
+  font-size: 11px;
+  color:#b6b8bd;
+}
+.msgTime{
+  font-size: 11px;
+  color:#b6b8bd;
+  margin-left:15px;
+  float:right;
+  padding-right:10px;
+}
+.msgBody{
+  .tipTitleNo{
+    font-weight:bold;
+    color:#000;
+  }
+  .tipDescNo{
+    font-weight: bold;
+    color:#6089f5;
+  }
+ .msgTime{
+   color:#000;
+ }
 }
 </style>

@@ -1,58 +1,83 @@
 <template>
   <div id="content">
-    <div class="accept_div">
-      <el-button
-        class="accept_button"
-        type="primary"
-        @click="handleAccept"
-      >
-        接收
-      </el-button>
-    </div>
-    <div>
-      <h2 class="detail_title">
-        From: 联通AppStore
-      </h2>
-    </div>
-    <div>
-      <h4 class="detail_base">
-        应用基本信息
-      </h4>
-      <hr class="linestyle">
-      <div class="appdiv_0_1">
-        <div class="appdiv_1">
-          <span>名称: {{ this.$route.query.detailData.name }}</span><br><br>
-          <span>架构: {{ this.$route.query.detailData.affinity }}</span>
-        </div>
-        <div class="appdiv_1">
-          <span>厂商: {{ this.$route.query.detailData.provider }}</span><br><br>
-          <span>亲和性: {{ this.$route.query.detailData.releation }}</span>
-        </div>
-        <div class="appdiv_1">
-          <span>版本: {{ this.$route.query.detailData.version }}</span><br><br>
-          <span>行业: {{ this.$route.query.detailData.direction }}</span>
-        </div>
-      </div>
-      <div class="appdiv_0_2">
-        <span>应用描述: {{ this.$route.query.detailData.description }}</span>
-      </div>
-      <h4 class="detail_base">
-        应用测试报告
-      </h4>
-      <hr class="linestyle">
-      <div class="appdiv_0_3">
-        <div class="appdiv_0_3_1">
-          <span>测试平台: ATP测试平台</span>
-        </div>
-        <div class="appdiv_0_3_1">
-          <span>测试结果: {{ this.$route.query.detailData.testresult }}</span>
-        </div>
-      </div>
-      <div class="testrepo">
-        <img
-          :src="imageUrl"
-          class="execute_style"
+    <div class="detailcContent">
+      <div class="detailTitle">
+        <span class="lt">FROM:{{ data.sourceAppStore }}</span>
+        <el-button
+          type="primary"
+          class="rt"
+          @click="handleAccept"
         >
+          接受
+        </el-button>
+      </div>
+      <div class="detailInfo">
+        <p class="title">
+          应用基本信息
+        </p>
+        <el-form label-width="100px">
+          <el-row :gutter="24">
+            <el-col :span="8">
+              <el-form-item label="应用名称：">
+                {{ data.basicInfo.name }}
+              </el-form-item>
+              <el-form-item label="应用描述：">
+                {{ data.basicInfo.shortDesc }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="厂商：">
+                {{ data.basicInfo.provider }}
+              </el-form-item>
+              <el-form-item label="架构：">
+                {{ data.basicInfo.affinity }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="版本：">
+                {{ data.basicInfo.version }}
+              </el-form-item>
+              <el-form-item label="行业：">
+                {{ data.basicInfo.industry }}
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+      </div>
+      <div class="testDetail">
+        <p class="title">
+          应用测试报告
+        </p>
+        <el-form label-width="100px">
+          <el-row :gutter="10">
+            <el-col :span="12">
+              <el-form-item label="测试平台：">
+                ATP测试平台
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="测试结果：">
+                {{ data.atpTestStatus }}
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+      </div>
+      <div class="detailReport">
+        <p class="title">
+          报告详情
+          <el-button
+            type="text"
+            @click="checkReport"
+          >
+            查看
+          </el-button>
+        </p>
+        <iframe
+          id="iframeReport"
+          :src="data.atpTestReportUrl"
+          title=""
+        />
       </div>
     </div>
   </div>
@@ -62,15 +87,21 @@
 import { acceptMsg } from '../../tools/api.js'
 export default {
   components: {},
+  props: {
+    data: {
+      required: true,
+      type: Object
+    }
+  },
   data () {
     return {
-      msgDetail: '',
       imageUrl: require('@/assets/images/testRepo1.png')
     }
   },
   methods: {
     handleAccept () {
-      acceptMsg(this.$route.query.detailData.messageId).then((res) => {
+      acceptMsg(this.data.messageId).then((res) => {
+        this.$message.success('已成功接收！')
       }).catch(() => {
         this.$message({
           duration: 2000,
@@ -78,73 +109,59 @@ export default {
           type: 'warning'
         })
       })
+    },
+    checkReport () {
+      window.open(this.data.atpTestReportUrl)
     }
   }
 }
 </script>
 <style lang="less" scoped>
-#content{
-  background: white;
-  height: 570px;
-  margin: 10px 10px 0px 20px;
-  overflow-y: auto;
+#content,.detailcContent{
+  height:100%;
 }
-.detail_title {
-  width: 30%;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 20px;
-  background: #CEDBE8;
-  background-size: 50% auto;
+.detailTitle{
+  height:36px;
+  .lt{
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .rt{
+    position: relative;
+    top: -10px;
+    left: 25px;
+  }
 }
-.detail_base {
-  margin-left: 30px;
-  margin-top: 30px;
+.title{
+  height: 36px;
+  line-height: 36px;
+  color: #000;
+  margin-top: 25px;
 }
-.appdiv_1 {
-  float: left;
-  margin: 5px 5px;
-  width: 300px;
-  height: 40px;
-}
-.appdiv_0_1 {
+.title::before{
+  content:'';
+  display:inline-block;
+  width:3px;
+  height:18px;
   position: relative;
-  margin: 10px 30px;
-  width: 1000px;
-  height: 40px;
+  top:4px;
+  background:#409EFF;
 }
-.appdiv_0_2 {
-  position: relative;
-  margin-top: 35px;
-  margin-left: 35px;
+.el-form-item{
+  margin:0;
 }
-.appdiv_0_3{
-  position: relative;
-  margin-top: 35px;
-  margin-left: 35px;
+.detailInfo{
+  height:110px;
 }
-.appdiv_0_3_1{
-  float: left;
-  margin: 5px 5px;
-  width: 450px;
-  height: 40px;
+.testDetail{
+  height:70px;
 }
-.testrepo{
-  width: 1100px;
+.detailReport{
+  height:100%;
 }
-.linestyle{
-  margin: 2px 20px;
-}
-.accept_button{
-  background: #606266;
-  border-color: #606266;
-  float: right;
-  margin-top: 3px;
-}
-.accept_div{
-  height: 30px;
-  margin-right: 8px;
-  margin-left: 1175px;
-  position:fixed;
+#iframeReport{
+  height:100%;
+  width:100%;
+  border:none;
 }
 </style>
