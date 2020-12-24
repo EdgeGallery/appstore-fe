@@ -22,7 +22,7 @@
               class="tipTitle"
               :class="!item.readed?'tipTitleNo':''"
             >
-              {{ item.targetAppStore }}
+              {{ item.sourceAppStore }}
               <span
                 class="msgTime"
                 :class="!item.readed?'msgTimeNo':''"
@@ -149,9 +149,9 @@ export default {
   },
   methods: {
     showdetail (item) {
-      console.log(item)
       this.msgDetail = item
       if (!item.readed) {
+        item.readed = true
         this.updateMsgStatus(item.messageId)
       }
     },
