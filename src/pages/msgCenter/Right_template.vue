@@ -94,7 +94,6 @@ export default {
   methods: {
     handleAccept () {
       acceptMsg(this.$route.query.detailData.messageId).then((res) => {
-        console.log('zhaolongfei' + res)
       }).catch(() => {
         this.$message({
           duration: 2000,

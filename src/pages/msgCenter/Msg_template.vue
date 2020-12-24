@@ -169,7 +169,6 @@ export default {
     },
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
-        console.log('zhaolongfei' + res)
       }).catch(() => {
         this.$message({
           duration: 2000,
