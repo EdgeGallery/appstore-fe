@@ -10,8 +10,9 @@
         <el-table
           :data="appData"
           border
+          stripe="true"
           style="width: 100%"
-          :header-cell-style="{ background: '#FFFFFF', color: '#909399' }"
+          :header-cell-style="{ background: '#eeeeee'}"
         >
           <el-table-column
             prop="number"
@@ -21,7 +22,6 @@
           <el-table-column
             prop="name"
             :label="$t('apppromotion.appName')"
-            width="280"
           />
           <el-table-column
             v-for="item in providers"
@@ -35,15 +35,15 @@
                 class="el-icon-close"
                 title="false"
               />
-              <!-- <span
-                class="el-icon-loading primary"
-                v-if="scope.row[scope.column.property] ==='undefined'"
-                title="In Progress"
-              /> -->
               <span
-                v-if="scope.row[scope.column.property] === true"
+                v-else-if="scope.row[scope.column.property] === true"
                 class="el-icon-check"
                 title="Succeed"
+              />
+              <span
+                class="el-icon-finished"
+                v-else
+                title="In Progress"
               />
             </template>
           </el-table-column>
@@ -61,7 +61,7 @@
         }}</el-button>
         <el-button
           id="app_prom_close"
-          @click="dialogVisible = false"
+          @click="handleCloseDirect"
         >{{
           $t("apppromotion.closePanel")
         }}</el-button>
@@ -79,25 +79,29 @@ export default {
       appPromStatus: 'ready',
       appData: [],
       providers: [],
-      plateformName: [],
-      packageIds: []
+      appStoreIds: [],
+      packageIds: [],
+      targetPlatformTitles: []
     }
   },
   methods: {
     handleClose (done) {
       this.$confirm('确认关闭？')
         .then(_ => {
+          this.$emit('input', false)
           done()
         })
         .catch(_ => {})
-      this.$emit('getAppData')
+    },
+    handleCloseDirect () {
+      this.dialogVisible = false
+      this.$emit('input', false)
     },
     handleExecute () {
-      this.promTask(this.packageIds, this.plateformName)
+      this.promTask(this.packageIds, this.targetPlatformTitles, this.appStoreIds)
     },
     getProviders () {
       promProviderInfo().then((res) => {
-        console.log('zhaolongfei' + res)
         let data = res.data
         let index = 1
         data.forEach(
@@ -107,7 +111,8 @@ export default {
               provider: item.appStoreName,
               appStoreId: item.appStoreId
             }
-            this.plateformName.push(providerItem.appStoreId)
+            this.targetPlatformTitles.push(providerItem.provider)
+            this.appStoreIds.push(providerItem.appStoreId)
             this.providers.push(providerItem)
             index++
           }
@@ -128,9 +133,9 @@ export default {
         }
       )
     },
-    promTask (packageIds, targetPlatform) {
+    promTask (packageIds, targetPlatformTitles, appstoreIds) {
       let param = {
-        targetPlatform: targetPlatform
+        targetPlatform: appstoreIds
       }
       let tempDataArr = []
       this.appData.forEach(
@@ -139,8 +144,8 @@ export default {
             .then((res) => {
               let resData = res.data
               let tempData = data
-              for (let i = 0; i < targetPlatform.length; i++) {
-                let attr = targetPlatform[i]
+              for (let i = 0; i < targetPlatformTitles.length; i++) {
+                let attr = targetPlatformTitles[i]
                 tempData[attr] = resData[i]
               }
               tempDataArr.push(tempData)
@@ -154,7 +159,7 @@ export default {
       setTimeout(() => {
         this.appData = []
         this.appData = tempDataArr
-        console.log('long' + this.appData.length)
+        console.log('promote data length' + this.appData.length)
       }, 500)
     }
   },
@@ -190,6 +195,13 @@ export default {
   .el-icon-check {
     color: #40BF90;
     font-size: 25px;
+  }
+  .el-icon-close{
+    font-size: 25px;
+  }
+  .el-icon-finished{
+    font-size: 25px;
+    color: darkgrey;
   }
   #app_prom_close {
     color: #fff;

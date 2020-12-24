@@ -173,7 +173,6 @@ export default {
     },
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
-
       }).catch(() => {
         this.$message({
           duration: 2000,
