@@ -210,7 +210,9 @@ export default {
           type: 'warning'
         }).then(() => {
           // 跳转测试报告+taskId
-          this.$router.push({ name: 'atpreport', params: { taskId: testTaskId } })
+          // this.$router.push({ name: 'atpreport', params: { taskId: testTaskId } })
+          let routeData = this.$router.resolve({ name: 'atpreport', query: { taskId: testTaskId } })
+          window.open(routeData.href, '_blank')
         }).catch(action => {
           // 再次测试,首页+taskId，
           if (action === 'cancel') {
@@ -223,8 +225,10 @@ export default {
           cancelButtonText: this.$t('common.cancel'),
           type: 'warning'
         }).then(() => {
-          // 跳转测试任务列表  或者测试报告
-          this.$router.push({ name: 'atpreport', params: { taskId: testTaskId } })
+          // 跳转测试报告
+          // this.$router.push({ name: 'atpreport', params: { taskId: testTaskId } })
+          let routeData = this.$router.resolve({ name: 'atpreport', query: { taskId: testTaskId } })
+          window.open(routeData.href, '_blank')
         })
       } else if (row.status === 'Test_running') {
         this.$confirm(this.$t('promptMessage.testRunning'), this.$t('promptMessage.prompt'), {
@@ -274,8 +278,7 @@ export default {
           message: this.$t('promptMessage.publishSuccess'),
           type: 'success'
         })
-        // 回到首页
-        // this.$router.push('/index')
+        this.getAppData()
       }).catch(() => {
         this.$message({
           duration: 2000,
