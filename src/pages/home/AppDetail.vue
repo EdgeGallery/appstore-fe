@@ -527,9 +527,9 @@ export default {
         let fd = new FormData()
         fd.append('filePath', truePath)
         getAppFileContentApi(this.appId, this.packageId, fd).then(res => {
-          this.dialogVisible = true
           let data = res.data
           if (data) {
+            this.dialogVisible = true
             if (nodeObj.name.indexOf('.md') >= 0) {
               this.markdownSource = res.data
             } else if (nodeObj.name.indexOf('.tgz') >= 0) {
@@ -538,6 +538,7 @@ export default {
               this.markdownSource = '```yaml\r\n' + res.data + '\r\n```'
             }
           } else {
+            this.markdownSource = ''
             this.$message({
               duration: 2000,
               type: 'warning',

@@ -23,7 +23,7 @@ const en = {
     about: 'About',
     logout: 'Logout',
     login: 'Login',
-    appstore: 'Appstore',
+    appstore: 'APP Warehouse',
     appMgmt: 'appMgmt'
   },
   common: {
@@ -80,6 +80,7 @@ const en = {
   promptMessage: {
     guestUser: 'The guest user has no right to operate. please log in first!',
     operationFailed: 'The operation failure!',
+    getfail: 'Get Failed!',
     modifySuccess: 'Modify the success!',
     modifyFail: 'Modify the failure',
     fileNotSupport: 'The file format does not support!',
