@@ -142,38 +142,26 @@ const TYPES = [
 
 const TTYPES = [
   {
-    label: ['转换器1', 'EdgeGallery_APPD_1.0 -> 联通_APPD_1.0'],
-    value: 'EdgeGallery_APPD_1.0 -> 联通_APPD_1.0',
+    label: ['转换器1', '联通_APPD_2.0'],
+    value: '联通_APPD_2.0',
     selected: false,
     type: 'types'
   },
   {
-    label: ['转换器2', 'EdgeGallery_APPD_1.0 -> 移动_APPD_1.0'],
-    value: 'EdgeGallery_APPD_1.0 -> 移动_APPD_1.0',
+    label: ['转换器2', '移动_APPD_2.0'],
+    value: '移动_APPD_2.0',
     selected: false,
     type: 'types'
   },
   {
-    label: ['转换器3', 'EdgeGallery_APPD_1.0 -> 电信_APPD_1.0'],
-    value: 'EdgeGallery_APPD_1.0 -> 电信_APPD_1.0',
+    label: ['转换器3', '电信_APPD_2.0'],
+    value: '电信_APPD_2.0',
     selected: false,
     type: 'types'
   },
   {
-    label: ['转换器4', '联通_APPD_1.0 -> EdgeGallery_APPD_1.0'],
-    value: '联通_APPD_1.0 -> EdgeGallery_APPD_1.0',
-    selected: false,
-    type: 'types'
-  },
-  {
-    label: ['转换器5', '移动_APPD_1.0 -> EdgeGallery_APPD_1.0'],
-    value: '移动_APPD_1.0 -> EdgeGallery_APPD_1.0',
-    selected: false,
-    type: 'types'
-  },
-  {
-    label: ['转换器6', '电信_APPD_1.0 -> EdgeGallery_APPD_1.0'],
-    value: '电信_APPD_1.0 -> EdgeGallery_APPD_1.0',
+    label: ['转换器4', '社区_APPD_2.0'],
+    value: '社区_APPD_2.0',
     selected: false,
     type: 'types'
   }

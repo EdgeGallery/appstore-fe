@@ -82,7 +82,7 @@ const cn = {
     appStoreName: '平台名称',
     appStoreVersion: '平台版本',
     url: 'IP or URL',
-    appdTransId: '转换器',
+    appdTransId: 'APPD版本',
     modifyApp: '编辑',
     company: '公司'
 
