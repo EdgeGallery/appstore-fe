@@ -7,15 +7,19 @@
       <el-collapse
         v-model="activeNames"
       >
-        <el-collapse-item name="1">
+        <el-collapse-item
+          v-for="(msg) in timeTable"
+          :key="msg.index"
+          :name="msg.index"
+        >
           <template slot="title">
-            最近
+            {{ msg.value }}
           </template>
           <div
             v-for="(item,index) in msgs"
             :key="index"
             class="msgBody"
-            v-show="item.timeResult<4"
+            v-show="(msg.index==='1'&&item.timeResult<4) || (msg.index==='2'&&item.timeResult>3&&item.timeResult<8) || (msg.index==='3'&&item.timeResult>7&&item.timeResult<32) ||(msg.index==='4'&&item.timeResult>31)"
             @click="showdetail(item)"
           >
             <div
@@ -28,93 +32,6 @@
                 :class="!item.readed?'msgTimeNo':''"
               >
                 {{ item.time.split(' ')[1] }}
-              </span>
-            </div>
-            <div
-              class="tipDesc"
-              :class="!item.readed?'tipDescNo':''"
-            >
-              {{ item.description }}
-            </div>
-          </div>
-        </el-collapse-item>
-        <el-collapse-item name="2">
-          <template slot="title">
-            上个周
-          </template>
-          <div
-            v-for="(item,index) in msgs"
-            :key="index"
-            v-show="item.timeResult>3&&item.timeResult<8"
-          >
-            <div
-              class="tipTitle"
-              :class="!item.readed?'tipTitleNo':''"
-            >
-              {{ item.targetAppStore }}
-              <span
-                class="msgTime"
-                :class="!item.readed?'msgTimeNo':''"
-              >
-                {{ item.time }}
-              </span>
-            </div>
-            <div
-              class="tipDesc"
-              :class="!item.readed?'tipDescNo':''"
-            >
-              {{ item.description }}
-            </div>
-          </div>
-        </el-collapse-item>
-        <el-collapse-item name="3">
-          <template slot="title">
-            上个月
-          </template>
-          <div
-            v-for="(item,index) in msgs"
-            :key="index"
-            v-show="item.timeResult>7&&item.timeResult<32"
-          >
-            <div
-              class="tipTitle"
-              :class="!item.readed?'tipTitleNo':''"
-            >
-              {{ item.targetAppStore }}
-              <span
-                class="msgTime"
-                :class="!item.readed?'msgTimeNo':''"
-              >
-                {{ item.time }}
-              </span>
-            </div>
-            <div
-              class="tipDesc"
-              :class="!item.readed?'tipDescNo':''"
-            >
-              {{ item.description }}
-            </div>
-          </div>
-        </el-collapse-item>
-        <el-collapse-item name="4">
-          <template slot="title">
-            更早
-          </template>
-          <div
-            v-for="(item,index) in msgs"
-            :key="index"
-            v-show="item.timeResult>31"
-          >
-            <div
-              class="tipTitle"
-              :class="!item.readed?'tipTitleNo':''"
-            >
-              {{ item.targetAppStore }}
-              <span
-                class="msgTime"
-                :class="!item.readed?'msgTimeNo':''"
-              >
-                {{ item.time }}
               </span>
             </div>
             <div
@@ -144,7 +61,25 @@ export default {
     return {
       msgs: [],
       activeNames: ['1'],
-      msgDetail: {}
+      msgDetail: {},
+      timeTable: [
+        {
+          value: '最近',
+          index: '1'
+        },
+        {
+          value: '一周内',
+          index: '2'
+        },
+        {
+          value: '一个月前',
+          index: '3'
+        },
+        {
+          value: '更早',
+          index: '4'
+        }
+      ]
     }
   },
   methods: {
