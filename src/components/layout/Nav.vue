@@ -96,6 +96,16 @@
               @click="clickSmallMenu"
             />
           </div>
+          <div
+            class="el-icon-bell"
+            @click="jumperToMsgDialog"
+            @mouseenter="enter"
+            @mouseleave="leave"
+          >
+            <div
+              class="el-icon-chat-dot-round"
+            />
+          </div>
           <span
             class="curp"
             @click="logout()"
@@ -112,6 +122,14 @@
           >
             {{ getLanguage }}
           </span>
+        </div>
+        <div
+          class="popUp"
+          v-show="seen"
+          @mouseenter="enter"
+          @mouseleave="leave"
+        >
+          <messageDialog />
         </div>
       </el-col>
     </el-row>
@@ -144,9 +162,13 @@
 
 <script>
 import { getUserInfo, logoutApi } from '../../tools/api.js'
+import messageDialog from '../../pages/msgCenter/MessageDialog.vue'
 // import axios from 'axios'
 export default {
   name: 'HeaderComp',
+  components: {
+    messageDialog
+  },
   data () {
     return {
       language: 'cn',
@@ -220,7 +242,8 @@ export default {
       userName: '',
       loginPage: '',
       ifGuest: true,
-      menu_small: false
+      menu_small: false,
+      seen: false
     }
   },
   watch: {
@@ -320,6 +343,15 @@ export default {
         this.logout()
       }).catch(() => {
       })
+    },
+    enter () {
+      this.seen = true
+    },
+    leave () {
+      this.seen = false
+    },
+    jumperToMsgDialog () {
+      this.$router.push({ name: 'msgCenter' })
     }
   },
 
@@ -427,6 +459,28 @@ export default {
     .menu{
       display: none;
     }
+    .el-icon-bell{
+      font-size: 22px;
+      margin-top: 22px;
+      right: 15px;
+      position: relative;
+    }
+    .el-icon-chat-dot-round{
+      color: red;
+      position: absolute;
+      font-size: 15px;
+      margin-top: -7px;
+      margin-left: -10px;
+    }
+  }
+  .popUp{
+    width: 350px;
+    height: 300px;
+    background-color: #404348;
+    z-index: 999999;
+    right: 10px;
+    float: right;
+    position:absolute;
   }
   .main-sidebar-small{
     position: relative;

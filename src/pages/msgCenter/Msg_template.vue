@@ -112,14 +112,19 @@ export default {
       var dateDiff = dateEnd.getTime() - dateBegin.getTime()
       return Math.floor(dateDiff / (24 * 3600 * 1000))
     },
-    getAppData () {
+    getAppData (param) {
       getAppdownAnaApiByType().then((res) => {
         let data = res.data
         data.forEach(item => {
           item.timeResult = this.timeCompute(item.time)
         })
         this.msgs = data
-        this.msgDetail = this.msgs[0]
+        // 跳转到定位的item
+        if (!param) {
+          this.msgDetail = this.msgs[0]
+        } else {
+          this.msgDetail = param
+        }
       })
     },
     updateMsgStatus (messageId) {
@@ -134,7 +139,8 @@ export default {
     }
   },
   mounted () {
-    this.getAppData()
+    let param = this.$route.params.item
+    this.getAppData(param)
   }
 }
 </script>

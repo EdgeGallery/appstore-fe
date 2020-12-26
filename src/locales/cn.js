@@ -263,8 +263,13 @@ const cn = {
     testRepo: '认证测试报告',
     lastProTime: '最后推广时间',
     proTimes: '推广次数',
-    batchPro: '批量推广',
+    batchPro: '批量推送',
     messageType: '消息类型',
+    messagePull: '拉取',
+    messagePush: '推送',
+    messageNotice: '通知',
+    messageBeDownload: '下载',
+    messageUnknow: '未知',
     sourceAppStore: '源AppStore',
     targetAppStore: '目标AppStore',
     dateTime: '时间',
@@ -281,7 +286,9 @@ const cn = {
     getPromInfoFailed: '获取推送信息失败!',
     getOperatorInfoFailed: '获取操作信息失败!',
     promoteFailed: '推送app失败!',
-    viewTestRepo: '查看报告'
+    viewTestRepo: '查看报告',
+    msgNum: '未读消息',
+    checkAllMsg: '查看全部'
   },
   about: {},
   ...zhLocale

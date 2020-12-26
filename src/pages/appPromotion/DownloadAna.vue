@@ -37,7 +37,6 @@
       <el-table
         :data="currentPageData"
         border
-        stripe="true"
         style="width: 100%"
         :header-cell-style="{ background: '#eeeeee'}"
       >
@@ -127,6 +126,20 @@ export default {
     getCurrentPageData (data) {
       this.currentPageData = data
     },
+    getMessageType (messageType) {
+      switch (messageType) {
+        case 'PULL':
+          return this.$t('apppromotion.messagePull')
+        case 'PUSH':
+          return this.$t('apppromotion.messagePush')
+        case 'NOTICE':
+          return this.$t('apppromotion.messageNotice')
+        case 'BE_DOWNLOADED':
+          return this.$t('apppromotion.messageBeDownload')
+        default:
+          return this.$t('apppromotion.messageUnknow')
+      }
+    },
 
     getTableEx () {
       return new Promise((resolve, reject) => {
@@ -141,7 +154,7 @@ export default {
                 name: item.basicInfo.name,
                 provider: item.basicInfo.provider,
                 version: item.basicInfo.version,
-                messageType: item.messageType,
+                messageType: this.getMessageType(item.messageType),
                 sourceAppStore: item.sourceAppStore,
                 targetAppStore: item.targetAppStore,
                 time: item.time,

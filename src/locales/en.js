@@ -246,6 +246,11 @@ const en = {
     proTimes: 'Promote Times',
     batchPro: 'Batch Promote',
     messageType: 'message Type',
+    messagePull: 'pull',
+    messagePush: 'push',
+    messageNotice: 'notice',
+    messageBeDownload: 'download',
+    messageUnknow: 'unknow',
     sourceAppStore: 'Source AppStore',
     targetAppStore: 'Target AppStore',
     dateTime: 'Time',
@@ -261,7 +266,9 @@ const en = {
     getNoticeFailed: 'failedto get Notices!',
     getPromInfoFailed: 'failed to get promote information!',
     getOperatorInfoFailed: 'failed to get operator information!',
-    promoteFailed: 'failed to promote app!'
+    promoteFailed: 'failed to promote app!',
+    msgNum: 'Unread Messages',
+    checkAllMsg: 'Check All'
   },
   about: {
   },
