@@ -148,13 +148,6 @@ export default {
 .el-collapse{
   border-top:none!important;
 }
-.msgBody{
-  border-bottom: 1px solid #f5f5f5;
-  margin-top:3px;
-  padding-left:10px;
-  cursor: pointer;
-  border-radius: 2px;
-}
 .msgBody:hover{
  background:#cedbe8;
 }
@@ -174,6 +167,11 @@ export default {
   padding-right:10px;
 }
 .msgBody{
+  border-bottom: 1px solid #f5f5f5;
+  margin-top:3px;
+  padding-left:10px;
+  cursor: pointer;
+  border-radius: 2px;
   .tipTitleNo{
     font-weight:bold;
     color:#000;
