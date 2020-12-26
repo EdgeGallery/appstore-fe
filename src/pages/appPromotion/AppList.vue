@@ -35,7 +35,6 @@
           @selection-change="selectionLineChangeHandle"
           border
           ref="multipleTable"
-          stripe="true"
           style="width: 100%"
           :header-cell-style="{ background: '#eeeeee'}"
         >

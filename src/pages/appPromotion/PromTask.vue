@@ -26,7 +26,6 @@
         <el-table
           :data="appData"
           border
-          stripe="true"
           style="width: 100%"
           :header-cell-style="{ background: '#eeeeee'}"
         >
