@@ -625,6 +625,7 @@ export default {
       }
     }
     .provider {
+      padding: 10px;
       .name-margin{
         margin-top: 10px;
       }
