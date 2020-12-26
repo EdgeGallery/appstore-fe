@@ -303,6 +303,21 @@
         </div>
       </el-col>
     </el-row>
+    <el-dialog
+      :visible.sync="dialogVisible"
+      :title="$t('common.detail')"
+      class="dialogdetail"
+    >
+      <mavon-editor
+        v-model="markdownSource"
+        :toolbars-flag="false"
+        :editable="false"
+        :subfield="false"
+        default-open="preview"
+        :box-shadow="false"
+        preview-background="#ffffff"
+      />
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -341,7 +356,9 @@ export default {
       historyComentsList: [],
       source: '',
       showEdit: true,
-      filePath: []
+      filePath: [],
+      markdownSource: '',
+      dialogVisible: false
     }
   },
   methods: {
@@ -453,6 +470,8 @@ export default {
       getAppDetailTableApi(this.appId).then(res => {
         let data = res.data
         data.forEach(item => {
+          let newDateBegin = this.dateChange(item.createTime)
+          item.createTime = newDateBegin
           this.tableData.push(item)
         }, () => {
         })
@@ -463,6 +482,30 @@ export default {
         }
         callback()
       })
+    },
+    dateChange (dateStr) {
+      if (dateStr) {
+        let date = new Date(Date.parse(dateStr))
+        let Y = date.getFullYear()
+        let M = date.getMonth() + 1
+        let D = date.getDate()
+        let H = date.getHours()
+        let m = date.getMinutes()
+        let s = date.getSeconds()
+        let changeDate =
+          Y +
+          '-' +
+          (M > 9 ? M : '0' + M) +
+          '-' +
+          (D > 9 ? D : '0' + D) +
+          ' ' +
+          (H > 9 ? H : '0' + H) +
+          ':' +
+          (m > 9 ? m : '0' + m) +
+          ':' +
+          (s > 9 ? s : '0' + s)
+        return changeDate
+      }
     },
     getParent (nodes) {
       let name = nodes.data.name
@@ -485,9 +528,25 @@ export default {
         fd.append('filePath', truePath)
         getAppFileContentApi(this.appId, this.packageId, fd).then(res => {
           let data = res.data
-          let blankWin = window.open('')
-          blankWin.document.write(data)
+          if (data) {
+            this.dialogVisible = true
+            if (nodeObj.name.indexOf('.md') >= 0) {
+              this.markdownSource = res.data
+            } else if (nodeObj.name.indexOf('.tgz') >= 0) {
+              this.markdownSource = this.$t('promptMessage.fileNotSupport')
+            } else {
+              this.markdownSource = '```yaml\r\n' + res.data + '\r\n```'
+            }
+          } else {
+            this.markdownSource = ''
+            this.$message({
+              duration: 2000,
+              type: 'warning',
+              message: this.$t('promptMessage.fileEmpty')
+            })
+          }
         }).catch(error => {
+          this.dialogVisible = false
           if (error.response.data.code === 403) {
             this.$message({
               duration: 2000,
@@ -498,7 +557,7 @@ export default {
             this.$message({
               duration: 2000,
               type: 'warning',
-              message: this.$t('promptMessage.fileNotSupport')
+              message: this.$t('promptMessage.getfail')
             })
           }
         })
@@ -665,6 +724,11 @@ export default {
           text-indent: 2rem;
         }
       }
+    }
+  }
+  .dialogdetail{
+    .el-dialog__close {
+      color: #fff;
     }
   }
 }

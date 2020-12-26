@@ -21,7 +21,7 @@
     >
       <el-col
         :lg="6"
-        :md="6"
+        :md="7"
         :sm="14"
         :xs="13"
       >
@@ -36,20 +36,20 @@
       </el-col>
       <el-col
         :lg="12"
-        :md="13"
+        :md="12"
         class="navList"
       >
         <el-menu
+
           @select="handleSelect"
           mode="horizontal"
           :unique-opened="true"
           router
           text-color="#fff"
           background-color="#282b33"
-          active-text-color="#6c92fa"
         >
           <template
-            v-for="item in list"
+            v-for="(item,index) in list"
           >
             <el-submenu
               v-if="item.children && item.children.length"
@@ -60,15 +60,15 @@
               <template
                 slot="title"
               >
-                <span>{{ language === 'cn' ? item.labelCn : item.labelEn }}</span>
+                <span :class="{ active: isActive === index,}">{{ language === 'cn' ? item.labelCn : item.labelEn }}</span>
               </template>
               <el-menu-item
                 v-for="(itemChild, indexin) in item.children"
-                :indexin="itemChild.route"
+                :index="itemChild.route"
                 :key="itemChild.label"
-                @click="jumpTo(itemChild.route, indexin, itemChild.link, itemChild.display)"
+                @click="jumpTo(itemChild.route, index, itemChild.link, itemChild.display)"
               >
-                <span>{{ language === 'cn' ? itemChild.labelCn : itemChild.labelEn }}</span>
+                <span :class="{ active: isActive === indexin,}">{{ language === 'cn' ? itemChild.labelCn : itemChild.labelEn }}</span>
               </el-menu-item>
             </el-submenu>
             <el-menu-item
@@ -78,19 +78,10 @@
               :key="item.label"
               @click="jumpTo(item.route, index, item.link, item.display)"
             >
-              <span>{{ language === 'cn' ? item.labelCn : item.labelEn }}</span>
+              <span :class="{ active: isActive === index,}"> {{ language === 'cn' ? item.labelCn : item.labelEn }}</span>
             </el-menu-item>
           </template>
         </el-menu>
-        <!-- <div>
-          <span
-          v-for="(item, index) in list"
-            class="curp"
-            :class="{ active: isActive === index, isUse: !item.display }"
-            :key="item.label"
-            @click="jumpTo(item.route, index, item.link, item.display)"
-          >{{ language === 'cn' ? item.labelCn : item.labelEn }}</span>
-        </div> -->
       </el-col>
       <el-col
         :lg="6"
@@ -201,21 +192,21 @@ export default {
           link: '',
           children: [
             {
-              labelEn: '应用推广',
+              labelEn: 'App promotion',
               labelCn: '应用推广',
               route: '/apppromotion',
               pageId: '2.1.6.1',
               display: true,
               link: ''
             }, {
-              labelEn: '外部仓库商店',
+              labelEn: 'External App  Management',
               labelCn: '外部应用仓库管理',
               route: '/apppromote',
               pageId: '2.1.6.2',
               display: true,
               link: ''
             }, {
-              labelEn: '消息中心',
+              labelEn: 'Message Center',
               labelCn: '消息中心',
               route: '/msgCenter',
               pageId: '2.1.6.3',
@@ -240,11 +231,11 @@ export default {
         this.isActive = 0
       } else if (path === '/docs') {
         this.isActive = 1
-      } else if (path === '/myapp' || path === '/app/test/task' || path === '/report') {
+      } else if (path === '/myapp' || path === '/app/test/task' || path === '/report' || path === '/myappdetail' || path === '/atpprocess' || path === '/atptestcase') {
         this.isActive = 2
       } else if (path === '/about') {
-        this.isActive = 3
-      } else if (path === '/apppromote') {
+        this.isActive = 0
+      } else if (path === '/apppromote' || path === '/apppromotion' || path === '/msgCenter' || path === '/right_panel' || path === 'app/prom/task') {
         this.isActive = 4
       } else {
         this.isActive = 0
@@ -266,7 +257,6 @@ export default {
       this.menu_small = data
     },
     handleSelect (path) {
-      console.log(path)
       this.closeMenu()
     },
     changeLanguage () {
@@ -285,6 +275,8 @@ export default {
         this.$router.push(route)
         this.isActive = index || 0
       } else {
+        this.isActive = 0
+        this.$router.push('/index')
         window.open(link, '_blank')
       }
       // this.closeMenu()
@@ -387,22 +379,19 @@ export default {
     }
   }
   .navList {
-    text-align: center;
-    // .el-menu.el-menu--horizontal{
-    height: 65px;
-    border-bottom: none;
-    .el-menu-item{
-      font-size: 20px;
-      height: 65px;
-      line-height: 65px;
-      padding-bottom: 17px;
-      vertical-align: text-bottom;
+    .el-menu--horizontal {
+      border: none;
     }
-
-  // }
-    .el-menu-item:hover{
-      color: #6c92fa;
-      border-bottom: 2px solid #6c92fa;
+    .el-menu--horizontal>.el-menu-item.is-active {
+      border: none;
+      color: #fff;
+    }
+    .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
+        border: none;
+        color: #fff;
+    }
+    .el-menu--horizontal .el-menu .el-menu-item.is-active, .el-menu--horizontal .el-menu .el-submenu.is-active>.el-submenu__title{
+        color: #6c92fa;
     }
     span {
       font-size: 20px;
@@ -415,15 +404,14 @@ export default {
       color: #6c92fa;
       border-bottom: 2px solid #6c92fa;
     }
-
-    // .active {
-    //   color: #6c92fa;
-    //   border-bottom: 2px solid #6c92fa;
-    // }
-    // .isUse{
-    //   cursor: not-allowed;
-    //   color: #ddd;
-    // }
+    .active {
+      color: #6c92fa;
+      border-bottom: 2px solid #6c92fa;
+    }
+    .isUse{
+      cursor: not-allowed;
+      color: #ddd;
+    }
   }
   .nav-tabs {
     padding-right: 20px;

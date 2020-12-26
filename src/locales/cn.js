@@ -25,7 +25,7 @@ const cn = {
     about: '关于',
     logout: '注销',
     login: '登录',
-    appstore: '应用商店',
+    appstore: '应用仓库',
     appMgmt: '应用管理'
   },
   common: {
@@ -82,7 +82,7 @@ const cn = {
     appStoreName: '平台名称',
     appStoreVersion: '平台版本',
     url: 'IP or URL',
-    appdTransId: '转换器',
+    appdTransId: 'APPD版本',
     modifyApp: '编辑',
     company: '公司'
 
@@ -90,6 +90,7 @@ const cn = {
   promptMessage: {
     guestUser: 'guest用户无权操作! 请登录',
     operationFailed: '操作失败!',
+    getfail: '获取失败!',
     modifySuccess: '修改成功!',
     modifyFail: '修改失败!',
     fileNotSupport: '文件格式不支持!',
