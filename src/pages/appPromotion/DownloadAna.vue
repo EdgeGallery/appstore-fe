@@ -196,7 +196,7 @@ export default {
       let number = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.provider && item.messageType === 'PUSH') {
+          if (name === item.provider && item.messageType === this.getMessageType('PUSH')) {
             number++
           }
         }
@@ -207,7 +207,7 @@ export default {
       let number = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.provider && item.messageType === 'NOTICE') {
+          if (name === item.provider && item.messageType === this.getMessageType('NOTICE')) {
             number++
           }
         }
@@ -226,7 +226,7 @@ export default {
       let number = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.industry && item.messageType === 'BE_DOWNLOADED') {
+          if (name === item.industry && item.messageType === this.getMessageType('BE_DOWNLOADED')) {
             number++
           }
         }
@@ -258,7 +258,7 @@ export default {
       let quarter4 = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.provider && item.messageType === 'PULL') {
+          if (name === item.provider && item.messageType === this.getMessageType('PULL')) {
             // let date = item.time.split(' ')[0]
             let quarter = this.getQuarter(item.time.split(' ')[0])
             if (quarter === 1) {
