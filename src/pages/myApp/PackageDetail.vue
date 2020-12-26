@@ -471,8 +471,15 @@ export default {
     .box {
       margin-top: 15px;
       background-color: white;
+      padding: 10px;
+      .name-margin{
+        margin-top: 10px;
+      }
+      .name {
+        margin-left: 10px;
+      }
     }
-    .box {
+    .provider{
       padding: 10px;
       .name-margin{
         margin-top: 10px;

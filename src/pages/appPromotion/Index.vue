@@ -26,18 +26,6 @@
           :label="$t('apppromotion.appPromotion')"
           name="prom"
         >
-          <!-- <el-row class="batchProm">
-            <el-col :span="24">
-              <el-button
-                id="myapp_checktest"
-                type="primary"
-                class="rt"
-                @click="jumpTo"
-              >
-                {{ $t('apppromotion.batchPro') }}
-              </el-button>
-            </el-col>
-          </el-row> -->
           <appList
             v-if="activeName == 'prom'"
             ref="prom"

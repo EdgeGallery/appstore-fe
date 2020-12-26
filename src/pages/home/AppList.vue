@@ -68,7 +68,7 @@
           </el-button>
           <el-button
             id="applist_delete"
-            :disabled="isDisabled(scope.row)"
+            :disabled="scope.row.userId !== sessionStorage.getItem('userId')"
             @click="deleteRow(scope.row)"
             type="text"
             size="small"
@@ -95,13 +95,6 @@ export default {
     }
   },
   methods: {
-    isDisabled (deleteRow) {
-      if (deleteRow.userId === sessionStorage.getItem('userId')) {
-        return false
-      } else {
-        return true
-      }
-    },
     detail (item) {
       this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
