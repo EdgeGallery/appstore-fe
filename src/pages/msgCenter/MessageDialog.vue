@@ -88,11 +88,8 @@ export default {
           sessionStorage.setItem('existUnreadMsg', false)
         }
       }).catch(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('apppromotion.getNoticeFailed'),
-          type: 'warning'
-        })
+        // no need to show the message in the interface when can not 
+
       })
     },
     jumpToMsgDialog (item) {
