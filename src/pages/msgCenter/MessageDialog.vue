@@ -121,15 +121,7 @@ export default {
   height: 300px;
   background-color: #404348;
 }
-.msgBody{
-  margin-top:18px;
-  padding-left:10px;
-  cursor: pointer;
-  border-radius: 2px;
-}
-.msgBody:hover{
- background:#282B33;
-}
+
 .msgTime{
   font-size: 12px;
   color:#FFFFFF;
@@ -138,6 +130,10 @@ export default {
   padding-right:10px;
 }
 .msgBody{
+    margin-top:18px;
+    padding-left:10px;
+    cursor: pointer;
+    border-radius: 2px;
   .tipTitleNo{
     font-weight:solid;
     color:#FFFFFF;
@@ -153,6 +149,9 @@ export default {
     color:#A0A0A0;
   }
 }
+  .msgBody:hover{
+    background:#282B33;
+  }
 .msgStatis{
   height: 20px;
   font-size: 15px;
