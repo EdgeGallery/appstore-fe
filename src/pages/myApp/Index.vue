@@ -330,7 +330,7 @@ export default {
     this.getAppData()
     this.interval = setInterval(() => {
       this.getAppData()
-    }, 30000)
+    }, 20000)
   },
   beforeDestroy () {
     this.clearInterval()
