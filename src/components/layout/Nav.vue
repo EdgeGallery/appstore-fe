@@ -99,6 +99,7 @@
           <div
             class="el-icon-bell"
             @click="jumperToMsgDialog"
+            v-if="!ifGuest"
             @mouseenter="enter"
             @mouseleave="leave"
           >
@@ -129,7 +130,7 @@
           @mouseenter="enter"
           @mouseleave="leave"
         >
-          <messageDialog />
+          <messageDialog v-if="!ifGuest" />
         </div>
       </el-col>
     </el-row>
