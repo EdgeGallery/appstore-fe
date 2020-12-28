@@ -196,10 +196,20 @@ export default {
 </script>
 <style lang="less">
 .promTask {
+  .el-dialog__header{
+    background-color: #688ef3 ;
+    .el-dialog__title {
+      color: #fff;
+    }
+    .el-dialog__close {
+      color: #fff;
+    }
+  }
   .app-prom {
     height: 400px;
     overflow:auto;
   }
+
   .el-dialog__footer {
     text-align: center;
   }
@@ -233,6 +243,5 @@ export default {
     height: auto;
     max-width: 100%;
   }
-  .el-dialog__header{background-color: #F0F2F5}
 }
 </style>
