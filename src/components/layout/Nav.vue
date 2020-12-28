@@ -40,13 +40,14 @@
         class="navList"
       >
         <el-menu
-
           @select="handleSelect"
           mode="horizontal"
           :unique-opened="true"
           router
           text-color="#fff"
           background-color="#282b33"
+          active-text-color="#6c92fa"
+          :default-active="activeIndex"
         >
           <template
             v-for="(item,index) in list"
@@ -54,31 +55,31 @@
             <el-submenu
               v-if="item.children && item.children.length"
               :disabled="!item.display"
-              :index="item.route"
+              :index="item.index"
               :key="item.label"
             >
               <template
                 slot="title"
               >
-                <span :class="{ active: isActive === index,}">{{ language === 'cn' ? item.labelCn : item.labelEn }}</span>
+                {{ language === 'cn' ? item.labelCn : item.labelEn }}
               </template>
               <el-menu-item
-                v-for="(itemChild, indexin) in item.children"
-                :index="itemChild.route"
+                v-for="itemChild in item.children"
+                :index="itemChild.index"
                 :key="itemChild.label"
                 @click="jumpTo(itemChild.route, index, itemChild.link, itemChild.display)"
               >
-                <span :class="{ active: isActive === indexin,}">{{ language === 'cn' ? itemChild.labelCn : itemChild.labelEn }}</span>
+                {{ language === 'cn' ? itemChild.labelCn : itemChild.labelEn }}
               </el-menu-item>
             </el-submenu>
             <el-menu-item
               v-else
               :disabled="!item.display"
-              :index="item.route"
+              :index="item.index"
               :key="item.label"
               @click="jumpTo(item.route, index, item.link, item.display)"
             >
-              <span :class="{ active: isActive === index,}"> {{ language === 'cn' ? item.labelCn : item.labelEn }}</span>
+              {{ language === 'cn' ? item.labelCn : item.labelEn }}
             </el-menu-item>
           </template>
         </el-menu>
@@ -180,7 +181,8 @@ export default {
           route: '/index',
           pageId: '2.1.1',
           display: true,
-          link: ''
+          link: '',
+          index: '1'
         },
         {
           labelEn: 'Docs',
@@ -188,7 +190,8 @@ export default {
           route: '/docs',
           pageId: '2.1.2',
           display: true,
-          link: ''
+          link: '',
+          index: '2'
         },
         {
           labelEn: 'My App',
@@ -196,7 +199,8 @@ export default {
           route: '/myapp',
           pageId: '2.1.4',
           display: true,
-          link: ''
+          link: '',
+          index: '3'
         },
         {
           labelEn: 'About',
@@ -204,7 +208,8 @@ export default {
           route: '/about',
           pageId: '2.1.5',
           display: true,
-          link: 'https://gitee.com/edgegallery'
+          link: 'https://gitee.com/edgegallery',
+          index: '4'
         },
         {
           labelEn: 'AppPromote',
@@ -213,6 +218,7 @@ export default {
           pageId: '2.1.6',
           display: true,
           link: '',
+          index: '5',
           children: [
             {
               labelEn: 'App promotion',
@@ -220,26 +226,30 @@ export default {
               route: '/apppromotion',
               pageId: '2.1.6.1',
               display: true,
-              link: ''
+              link: '',
+              index: '5.1'
             }, {
               labelEn: 'External App  Management',
               labelCn: '外部应用仓库管理',
               route: '/apppromote',
               pageId: '2.1.6.2',
               display: true,
-              link: ''
+              link: '',
+              index: '5.2'
             }, {
               labelEn: 'Message Center',
               labelCn: '消息中心',
               route: '/msgCenter',
               pageId: '2.1.6.3',
               display: true,
-              link: ''
+              link: '',
+              index: '5.3'
             }
           ]
         }
       ],
       isActive: 0,
+      activeIndex: '1',
       userName: '',
       loginPage: '',
       ifGuest: true,
@@ -252,6 +262,7 @@ export default {
       // this.getpermissions()
       let path = this.$route.path
       if (path === '/index') {
+        this.activeIndex = '1'
         this.isActive = 0
       } else if (path === '/docs') {
         this.isActive = 1
@@ -299,8 +310,8 @@ export default {
         this.$router.push(route)
         this.isActive = index || 0
       } else {
-        this.isActive = 0
         this.$router.push('/index')
+        this.activeIndex = '1'
         window.open(link, '_blank')
       }
       // this.closeMenu()
@@ -411,41 +422,59 @@ export default {
       vertical-align: text-bottom;
     }
   }
-  .navList {
-    .el-menu--horizontal {
-      border: none;
-    }
-    .el-menu--horizontal>.el-menu-item.is-active {
-      border: none;
-      color: #fff;
-    }
-    .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
+    .navList {
+      .el-menu--horizontal {
         border: none;
-        color: #fff;
+      }
+      .el-menu--horizontal>.el-menu-item {
+        height: 65px;
+        line-height: 65px;
+        font-size: 20px;
+        margin-right: 0px;
+        padding-bottom: 17px;
+        vertical-align: bottom;
+      }
+      .el-submenu__title {
+        font-size: 20px;
+        height: 65px;
+        line-height: 65px;
+      }
     }
-    .el-menu--horizontal .el-menu .el-menu-item.is-active, .el-menu--horizontal .el-menu .el-submenu.is-active>.el-submenu__title{
-        color: #6c92fa;
-    }
-    span {
-      font-size: 20px;
-      line-height: 65px;
-      margin-right: 0px;
-      padding-bottom: 17px;
-      vertical-align: bottom;
-    }
-    span:hover {
-      color: #6c92fa;
-      border-bottom: 2px solid #6c92fa;
-    }
-    .active {
-      color: #6c92fa;
-      border-bottom: 2px solid #6c92fa;
-    }
-    .isUse{
-      cursor: not-allowed;
-      color: #ddd;
-    }
-  }
+  // .navList {
+  //   .el-menu--horizontal {
+  //     border: none;
+  //   }
+  //   .el-menu--horizontal>.el-menu-item.is-active {
+  //     border: none;
+  //     color: #fff;
+  //   }
+  //   .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
+  //       border: none;
+  //       color: #fff;
+  //   }
+  //   .el-menu--horizontal .el-menu .el-menu-item.is-active, .el-menu--horizontal .el-menu .el-submenu.is-active>.el-submenu__title{
+  //       color: #6c92fa;
+  //   }
+  //   span {
+  //     font-size: 20px;
+  //     line-height: 65px;
+  //     margin-right: 0px;
+  //     padding-bottom: 17px;
+  //     vertical-align: bottom;
+  //   }
+  //   span:hover {
+  //     color: #6c92fa;
+  //     border-bottom: 2px solid #6c92fa;
+  //   }
+  //   .active {
+  //     color: #6c92fa;
+  //     border-bottom: 2px solid #6c92fa;
+  //   }
+  //   .isUse{
+  //     cursor: not-allowed;
+  //     color: #ddd;
+  //   }
+  // }
   .nav-tabs {
     padding-right: 20px;
     height: 65px;
