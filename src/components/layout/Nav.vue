@@ -255,7 +255,7 @@ export default {
         this.isActive = 0
       } else if (path === '/docs') {
         this.isActive = 1
-      } else if (path === '/myapp' || path === '/app/test/task' || path === '/report' || path === '/myappdetail' || path === '/atpprocess' || path === '/atptestcase') {
+      } else if (path === '/myapp' || path === '/app/test/task' || path === '/atpreport' || path === '/myappdetail' || path === '/atpprocess' || path === '/atptestcase') {
         this.isActive = 2
       } else if (path === '/about') {
         this.isActive = 0
