@@ -37,7 +37,6 @@
       <el-table
         :data="currentPageData"
         border
-        stripe="true"
         style="width: 100%"
         :header-cell-style="{ background: '#eeeeee'}"
       >
@@ -127,6 +126,20 @@ export default {
     getCurrentPageData (data) {
       this.currentPageData = data
     },
+    getMessageType (messageType) {
+      switch (messageType) {
+        case 'PULL':
+          return this.$t('apppromotion.messagePull')
+        case 'PUSH':
+          return this.$t('apppromotion.messagePush')
+        case 'NOTICE':
+          return this.$t('apppromotion.messageNotice')
+        case 'BE_DOWNLOADED':
+          return this.$t('apppromotion.messageBeDownload')
+        default:
+          return this.$t('apppromotion.messageUnknow')
+      }
+    },
 
     getTableEx () {
       return new Promise((resolve, reject) => {
@@ -141,7 +154,7 @@ export default {
                 name: item.basicInfo.name,
                 provider: item.basicInfo.provider,
                 version: item.basicInfo.version,
-                messageType: item.messageType,
+                messageType: this.getMessageType(item.messageType),
                 sourceAppStore: item.sourceAppStore,
                 targetAppStore: item.targetAppStore,
                 time: item.time,
@@ -183,7 +196,7 @@ export default {
       let number = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.provider && item.messageType === 'PUSH') {
+          if (name === item.provider && item.messageType === this.getMessageType('PUSH')) {
             number++
           }
         }
@@ -194,7 +207,7 @@ export default {
       let number = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.provider && item.messageType === 'NOTICE') {
+          if (name === item.provider && item.messageType === this.getMessageType('NOTICE')) {
             number++
           }
         }
@@ -213,7 +226,7 @@ export default {
       let number = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.industry && item.messageType === 'BE_DOWNLOADED') {
+          if (name === item.industry && item.messageType === this.getMessageType('BE_DOWNLOADED')) {
             number++
           }
         }
@@ -245,7 +258,7 @@ export default {
       let quarter4 = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.provider && item.messageType === 'PULL') {
+          if (name === item.provider && item.messageType === this.getMessageType('PULL')) {
             // let date = item.time.split(' ')[0]
             let quarter = this.getQuarter(item.time.split(' ')[0])
             if (quarter === 1) {

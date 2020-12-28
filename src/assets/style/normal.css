@@ -42,6 +42,18 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
     display: block;
 }
 
+.el-dialog__title {
+  color: #fff;
+}
+
+.el-icon-close:before {
+  color: #fff;
+}
+
+/* .el-menu--horizontal .el-menu .el-menu-item, .el-menu--horizontal .el-menu .el-submenu__title{
+  color:#fff!important;
+} */
+
 ol,ul {
     list-style: none;
 }
