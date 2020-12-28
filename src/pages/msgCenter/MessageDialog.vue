@@ -88,8 +88,7 @@ export default {
           sessionStorage.setItem('existUnreadMsg', false)
         }
       }).catch(() => {
-        // no need to show the message in the interface when can not 
-
+        console.log('get messages error')
       })
     },
     jumpToMsgDialog (item) {
