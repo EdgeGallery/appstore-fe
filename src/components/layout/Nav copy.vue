@@ -55,8 +55,8 @@
             <el-submenu
               v-if="item.children && item.children.length"
               :disabled="!item.display"
-              :index="item.route"
-              :key="item.pageId"
+              :index="item.index"
+              :key="item.label"
             >
               <template
                 slot="title"
@@ -65,8 +65,8 @@
               </template>
               <el-menu-item
                 v-for="itemChild in item.children"
-                :index="itemChild.route"
-                :key="itemChild.pageId"
+                :index="itemChild.index"
+                :key="itemChild.label"
                 @click="jumpTo(itemChild.route, index, itemChild.link, itemChild.display)"
               >
                 {{ language === 'cn' ? itemChild.labelCn : itemChild.labelEn }}
@@ -75,8 +75,8 @@
             <el-menu-item
               v-else
               :disabled="!item.display"
-              :index="item.route"
-              :key="item.pageId"
+              :index="item.index"
+              :key="item.label"
               @click="jumpTo(item.route, index, item.link, item.display)"
             >
               {{ language === 'cn' ? item.labelCn : item.labelEn }}
@@ -143,15 +143,14 @@
       >
         <el-menu
           @select="handleSelect"
-          router
           text-color="#fff"
-          background-color="#282b33"
+          background-color="rgba(0,0,0,0.4)"
           active-text-color="#6c92fa"
-          :default-active="activeIndex"
+          active-color="#6c92fa"
         >
           <el-menu-item
             v-for="(item, index) in list"
-            :key="item.pageId"
+            :key="item.label"
             @click="jumpTo(item.route, index, item.link, item.display)"
             :index="item.route"
           >
@@ -206,6 +205,7 @@ export default {
         {
           labelEn: 'About',
           labelCn: '关于我们',
+          route: '/about',
           pageId: '2.1.5',
           display: true,
           link: 'https://gitee.com/edgegallery',
@@ -249,8 +249,7 @@ export default {
         }
       ],
       isActive: 0,
-      activeIndex: '',
-      fromPath: '',
+      activeIndex: '1',
       userName: '',
       loginPage: '',
       ifGuest: true,
@@ -259,11 +258,11 @@ export default {
     }
   },
   watch: {
-    $route (to, from) {
-      this.activeIndex = to.path
-      this.fromPath = from.path
+    $route () {
+      // this.getpermissions()
       let path = this.$route.path
       if (path === '/index') {
+        this.activeIndex = '1'
         this.isActive = 0
       } else if (path === '/docs') {
         this.isActive = 1
@@ -292,13 +291,7 @@ export default {
     closeMenu (data) {
       this.menu_small = data
     },
-    handleSelect (index, path, item) {
-      if (index) {
-        this.activeIndex = index
-        this.$router.push(this.activeIndex)
-      } else if (item.$vnode.data.key === '2.1.5') {
-        window.open('https://gitee.com/edgegallery', '_blank')
-      }
+    handleSelect (path) {
       this.closeMenu()
     },
     changeLanguage () {
@@ -314,7 +307,14 @@ export default {
     jumpTo (route, index, link, isUse = true) {
       if (!link) {
         if (!isUse) return ''
+        this.$router.push(route)
+        this.isActive = index || 0
+      } else {
+        this.$router.push('/index')
+        this.activeIndex = '1'
+        window.open(link, '_blank')
       }
+      // this.closeMenu()
     },
 
     getpermissions () {
@@ -369,6 +369,7 @@ export default {
 
   mounted () {
     localStorage.setItem('language', 'cn')
+    // this.getpermissions()
     let path = this.$route.path
     if (path === '/') {
       this.isActive = 0
@@ -439,6 +440,41 @@ export default {
         line-height: 65px;
       }
     }
+  // .navList {
+  //   .el-menu--horizontal {
+  //     border: none;
+  //   }
+  //   .el-menu--horizontal>.el-menu-item.is-active {
+  //     border: none;
+  //     color: #fff;
+  //   }
+  //   .el-menu--horizontal>.el-submenu.is-active .el-submenu__title {
+  //       border: none;
+  //       color: #fff;
+  //   }
+  //   .el-menu--horizontal .el-menu .el-menu-item.is-active, .el-menu--horizontal .el-menu .el-submenu.is-active>.el-submenu__title{
+  //       color: #6c92fa;
+  //   }
+  //   span {
+  //     font-size: 20px;
+  //     line-height: 65px;
+  //     margin-right: 0px;
+  //     padding-bottom: 17px;
+  //     vertical-align: bottom;
+  //   }
+  //   span:hover {
+  //     color: #6c92fa;
+  //     border-bottom: 2px solid #6c92fa;
+  //   }
+  //   .active {
+  //     color: #6c92fa;
+  //     border-bottom: 2px solid #6c92fa;
+  //   }
+  //   .isUse{
+  //     cursor: not-allowed;
+  //     color: #ddd;
+  //   }
+  // }
   .nav-tabs {
     padding-right: 20px;
     height: 65px;
