@@ -55,8 +55,8 @@
             <el-submenu
               v-if="item.children && item.children.length"
               :disabled="!item.display"
-              :index="item.index"
-              :key="item.label"
+              :index="item.route"
+              :key="item.pageId"
             >
               <template
                 slot="title"
@@ -65,8 +65,8 @@
               </template>
               <el-menu-item
                 v-for="itemChild in item.children"
-                :index="itemChild.index"
-                :key="itemChild.label"
+                :index="itemChild.route"
+                :key="itemChild.pageId"
                 @click="jumpTo(itemChild.route, index, itemChild.link, itemChild.display)"
               >
                 {{ language === 'cn' ? itemChild.labelCn : itemChild.labelEn }}
@@ -75,8 +75,8 @@
             <el-menu-item
               v-else
               :disabled="!item.display"
-              :index="item.index"
-              :key="item.label"
+              :index="item.route"
+              :key="item.pageId"
               @click="jumpTo(item.route, index, item.link, item.display)"
             >
               {{ language === 'cn' ? item.labelCn : item.labelEn }}
@@ -143,14 +143,15 @@
       >
         <el-menu
           @select="handleSelect"
+          router
           text-color="#fff"
-          background-color="rgba(0,0,0,0.4)"
+          background-color="#282b33"
           active-text-color="#6c92fa"
-          active-color="#6c92fa"
+          :default-active="activeIndex"
         >
           <el-menu-item
             v-for="(item, index) in list"
-            :key="item.label"
+            :key="item.pageId"
             @click="jumpTo(item.route, index, item.link, item.display)"
             :index="item.route"
           >
@@ -205,7 +206,6 @@ export default {
         {
           labelEn: 'About',
           labelCn: '关于我们',
-          route: '/about',
           pageId: '2.1.5',
           display: true,
           link: 'https://gitee.com/edgegallery',
@@ -249,7 +249,8 @@ export default {
         }
       ],
       isActive: 0,
-      activeIndex: '1',
+      activeIndex: '',
+      fromPath: '',
       userName: '',
       loginPage: '',
       ifGuest: true,
@@ -258,11 +259,13 @@ export default {
     }
   },
   watch: {
-    $route () {
+    $route (to, from) {
+      this.activeIndex = to.path
+      this.fromPath = from.path
       // this.getpermissions()
       let path = this.$route.path
       if (path === '/index') {
-        this.activeIndex = '1'
+        // this.activeIndex = '1'
         this.isActive = 0
       } else if (path === '/docs') {
         this.isActive = 1
@@ -291,7 +294,13 @@ export default {
     closeMenu (data) {
       this.menu_small = data
     },
-    handleSelect (path) {
+    handleSelect (index, path, item) {
+      if (index) {
+        this.activeIndex = index
+        this.$router.push(this.activeIndex)
+      } else if (item.$vnode.data.key === '2.1.5') {
+        window.open('https://gitee.com/edgegallery', '_blank')
+      }
       this.closeMenu()
     },
     changeLanguage () {
@@ -307,12 +316,12 @@ export default {
     jumpTo (route, index, link, isUse = true) {
       if (!link) {
         if (!isUse) return ''
-        this.$router.push(route)
-        this.isActive = index || 0
+        // this.$router.push(route)
+        // this.isActive = index || 0
       } else {
-        this.$router.push('/index')
-        this.activeIndex = '1'
-        window.open(link, '_blank')
+        /* this.$router.push(this.activeIndex)
+        // this.activeIndex = '1'
+        window.open(link, '_blank') */
       }
       // this.closeMenu()
     },
