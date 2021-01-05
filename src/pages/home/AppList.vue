@@ -68,7 +68,7 @@
           </el-button>
           <el-button
             id="applist_delete"
-            :disabled="scope.row.userId !== sessionStorage.getItem('userId')"
+            :disabled="scope.row.userId !== userId"
             @click="deleteRow(scope.row)"
             type="text"
             size="small"
@@ -92,6 +92,7 @@ export default {
   },
   data () {
     return {
+      userId: sessionStorage.getItem('userId')
     }
   },
   methods: {

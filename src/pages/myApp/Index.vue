@@ -137,40 +137,14 @@ export default {
     }
   },
   methods: {
+    // 只调用一个接口
     getAppData () {
       this.appPackageData = []
-      myApp.getMyAppApi(this.userId)
+      myApp.getMyAppPackageApi(this.userId)
         .then(res => {
-          this.appData = res.data
-          if (this.appData.length === 0) {
-            this.dataLoading = false
-          } else {
-            this.getAppPackageData()
-          }
+          this.appPackageData = res.data
+          this.dataLoading = false
         }, () => {
-          this.dataLoading = false
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.getMyAppFail'),
-            type: 'warning'
-          })
-        })
-    },
-    getAppPackageData () {
-      this.appPackageData = []
-      this.appData.forEach(item => {
-        let appId = item.appId
-        myApp.getMyAppPackageApi(appId, this.userId).then(res => {
-          let data = res.data
-          if (data.length === 1) {
-            this.appPackageData.push(data[0])
-          } else {
-            data.forEach(csaritem => {
-              this.appPackageData.push(csaritem)
-            })
-          }
-          this.dataLoading = false
-        }).catch(() => {
           this.dataLoading = false
           this.$message({
             duration: 2000,
@@ -179,6 +153,17 @@ export default {
           })
           this.clearInterval()
         })
+    },
+    getAppStatus () {
+      this.appPackageData.forEach((item, index) => {
+        let appId = item.appId
+        let packageId = item.packageId
+        if (item.status !== 'Published') {
+          myApp.getPackageDetailApi(appId, packageId).then(res => {
+            let data = res.data
+            this.appPackageData.splice(index, 1, data)
+          })
+        }
       })
     },
     getDetail (item) {
@@ -301,9 +286,8 @@ export default {
             message: this.$t('promptMessage.deleteSuccess'),
             type: 'success'
           })
-          // 刷新页面
+          // 刷新数据
           this.getAppData()
-          // this.getAppPackageData()
         }).catch(() => {
           this.$message({
             duration: 2000,
@@ -329,8 +313,9 @@ export default {
     this.userId = sessionStorage.getItem('userId')
     this.getAppData()
     this.interval = setInterval(() => {
-      this.getAppData()
-    }, 20000)
+      // this.getAppData()
+      this.getAppStatus()
+    }, 10000)
   },
   beforeDestroy () {
     this.clearInterval()

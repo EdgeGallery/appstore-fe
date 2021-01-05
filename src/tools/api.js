@@ -238,13 +238,13 @@ let myApp = {
     return POST(url, params)
   },
   // 获取我的应用
-  getMyAppApi: function (userId) {
-    let url = 'apps?userId=' + userId
-    return GET(url)
-  },
+  // getMyAppApi: function (userId) {
+  //   let url = 'apps?userId=' + userId
+  //   return GET(url)
+  // },
   // 获取我的应用包
-  getMyAppPackageApi: function (appId, userId) {
-    let url = 'apps/' + appId + '/packages?userId=' + userId
+  getMyAppPackageApi: function (userId) {
+    let url = 'packages/?userId=' + userId
     return GET(url)
   },
   // 测试应用
