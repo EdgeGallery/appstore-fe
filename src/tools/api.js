@@ -244,7 +244,7 @@ let myApp = {
   // },
   // 获取我的应用包
   getMyAppPackageApi: function (userId) {
-    let url = 'packages/?userId=' + userId
+    let url = 'packages?userId=' + userId
     return GET(url)
   },
   // 测试应用
