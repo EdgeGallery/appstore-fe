@@ -258,7 +258,7 @@ const en = {
     mesOperation: 'Operation',
     checkDetail: 'detail',
     appPromotion: 'APP Promote',
-    downloadAna: 'Operation Analyse',
+    operationAna: 'Operation Analyse',
     execute: 'Execute',
     closePanel: 'Close',
     accept: 'accept',
@@ -268,7 +268,16 @@ const en = {
     getOperatorInfoFailed: 'failed to get operator information!',
     promoteFailed: 'failed to promote app!',
     msgNum: 'Unread Messages',
-    checkAllMsg: 'Check All'
+    checkAllMsg: 'Check All',
+    hotIndustry: 'Popular edge application industry distribution',
+    pushApp: 'PUSH',
+    noticeApp: 'NOTICE',
+    totalNum: 'total',
+    appDownloadTrend: 'APP download trend chart',
+    quarterly1: 'First season',
+    quarterly2: 'Second quarter',
+    quarterly3: 'Third quarter',
+    quarterly4: 'Fourth quarter'
   },
   about: {
   },

@@ -277,7 +277,7 @@ const cn = {
     mesOperation: '操作',
     checkDetail: '查看',
     appPromotion: '应用推送',
-    downloadAna: '操作分析',
+    operationAna: '操作分析',
     execute: '执行',
     closePanel: '关闭',
     accept: '接收',
@@ -288,7 +288,16 @@ const cn = {
     promoteFailed: '推送app失败!',
     viewTestRepo: '查看报告',
     msgNum: '未读消息',
-    checkAllMsg: '查看全部'
+    checkAllMsg: '查看全部',
+    hotIndustry: '热门边缘应用行业分布',
+    pushApp: '对外推送',
+    noticeApp: '收到推送',
+    totalNum: '总量',
+    appDownloadTrend: 'APP下载趋势图',
+    quarterly1: '第一季度',
+    quarterly2: '第二季度',
+    quarterly3: '第三季度',
+    quarterly4: '第四季度'
   },
   about: {},
   ...zhLocale

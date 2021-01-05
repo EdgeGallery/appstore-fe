@@ -15,86 +15,89 @@
   -->
 
 <template>
-  <div>
-    <div class="app-list">
-      <el-row class="batchProm">
-        <el-col :span="24">
-          <el-button
-            id="myapp_checktest"
-            type="primary"
-            class="rt"
-            @click="uploadPackage"
+  <div class="my-app padding56">
+    <div class="my-app-content">
+      <div class="app-list">
+        <el-row class="batchProm">
+          <el-col :span="24">
+            <el-button
+              id="myapp_checktest"
+              type="primary"
+              class="rt"
+              @click="uploadPackage"
+            >
+              {{ $t("apppromotion.batchPro") }}
+            </el-button>
+          </el-col>
+        </el-row>
+        <div class="packageTable">
+          <el-table
+            :data="currentPageData"
+            @selection-change="selectionLineChangeHandle"
+            border
+            ref="multipleTable"
+            style="width: 100%"
+            :header-cell-style="{ background: '#eeeeee'}"
           >
-            {{ $t("apppromotion.batchPro") }}
-          </el-button>
-        </el-col>
-      </el-row>
-      <div class="packageTable">
-        <el-table
-          :data="currentPageData"
-          @selection-change="selectionLineChangeHandle"
-          border
-          ref="multipleTable"
-          style="width: 100%"
-          :header-cell-style="{ background: '#eeeeee'}"
-        >
-          <el-table-column
-            type="selection"
-            width="70"
+            <el-table-column
+              type="selection"
+              width="70"
+            />
+            <el-table-column
+              prop="number"
+              :label="$t('apppromotion.number')"
+            />
+            <el-table-column
+              prop="name"
+              :label="$t('apppromotion.appName')"
+            />
+            <el-table-column
+              prop="provider"
+              :label="$t('apppromotion.provider')"
+            />
+            <el-table-column
+              prop="version"
+              :label="$t('apppromotion.version')"
+            />
+            <el-table-column
+              prop="atpTestStatus"
+              :label="$t('apppromotion.tesResult')"
+            />
+            <el-table-column
+              :label="$t('apppromotion.testRepo')"
+            >
+              <template slot-scope="scope">
+                <a
+                  style="color:#409eff"
+                  :href="scope.row.atpTestReportUrl"
+                  target="_blank"
+                  class="buttonText"
+                >{{ $t('apppromotion.viewTestRepo') }}</a>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="latestPushTime"
+              :label="$t('apppromotion.lastProTime')"
+            />
+            <el-table-column
+              prop="pushTimes"
+              :label="$t('apppromotion.proTimes')"
+            />
+          </el-table>
+        </div>
+        <!-- 组件 -->
+        <div v-if="uploadDiaVis">
+          <promTask
+            v-model="uploadDiaVis"
           />
-          <el-table-column
-            prop="number"
-            :label="$t('apppromotion.number')"
-          />
-          <el-table-column
-            prop="name"
-            :label="$t('apppromotion.appName')"
-          />
-          <el-table-column
-            prop="provider"
-            :label="$t('apppromotion.provider')"
-          />
-          <el-table-column
-            prop="version"
-            :label="$t('apppromotion.version')"
-          />
-          <el-table-column
-            prop="atpTestStatus"
-            :label="$t('apppromotion.tesResult')"
-          />
-          <el-table-column
-            :label="$t('apppromotion.testRepo')"
-          >
-            <template slot-scope="scope">
-              <a
-                style="color:#409eff"
-                :href="scope.row.atpTestReportUrl"
-                target="_blank"
-                class="buttonText"
-              >{{ $t('apppromotion.viewTestRepo') }}</a>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="latestPushTime"
-            :label="$t('apppromotion.lastProTime')"
-          />
-          <el-table-column
-            prop="pushTimes"
-            :label="$t('apppromotion.proTimes')"
-          />
-        </el-table>
+        </div>
       </div>
-      <!-- 组件 -->
-      <div v-if="uploadDiaVis">
-        <promTask
-          v-model="uploadDiaVis"
-        />
-      </div>
+      <pagination
+        style="margin-bottom: 20px;"
+        :table-data="appPackageData"
+        @getCurrentPageData="getCurrentPageData"
+      />
     </div>
-    <pagination
-      :table-data="appPackageData"
-      @getCurrentPageData="getCurrentPageData"
-    />
   </div>
 </template>
 
@@ -181,6 +184,12 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.my-app {
+  .my-app-content {
+    background: white;
+    padding: 20px;
+  }
+}
 .app-list {
   background:#fff;
   padding: 20px;
@@ -188,9 +197,6 @@ export default {
     font-size: 14px;
   }
   padding: 20px 0;
-  .pagination {
-    margin: 20px;
-  }
   .batchProm {
     float: right;
     margin-bottom: 5px;

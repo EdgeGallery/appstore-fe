@@ -15,87 +15,90 @@
   -->
 
 <template>
-  <div>
-    <div class="app-list">
-      <div class="analyseAna">
-        <div
-          class="mychart"
-          id="myCharts1"
-          ref="myCharts1"
-        />
-        <div
-          class="mychart"
-          id="myCharts2"
-          ref="myCharts2"
-        />
-        <div
-          class="mychart2"
-          id="myCharts3"
-          ref="myCharts3"
-        />
+  <div class="my-app padding56">
+    <div class="my-app-content">
+      <div class="app-list">
+        <div class="analyseAna">
+          <div
+            class="mychart"
+            id="myCharts1"
+            ref="myCharts1"
+          />
+          <div
+            class="mychart"
+            id="myCharts2"
+            ref="myCharts2"
+          />
+          <div
+            class="mychart2"
+            id="myCharts3"
+            ref="myCharts3"
+          />
+        </div>
+        <el-table
+          :data="currentPageData"
+          border
+          style="width: 100%"
+          :header-cell-style="{ background: '#eeeeee'}"
+        >
+          <el-table-column
+            prop="number"
+            :label="$t('apppromotion.number')"
+            width="120"
+          />
+          <el-table-column
+            prop="name"
+            :label="$t('apppromotion.appName')"
+            width="200"
+          />
+          <el-table-column
+            prop="provider"
+            :label="$t('apppromotion.provider')"
+            width="185"
+          />
+          <el-table-column
+            prop="version"
+            :label="$t('apppromotion.version')"
+            width="120"
+          />
+          <el-table-column
+            prop="messageType"
+            :label="$t('apppromotion.messageType')"
+            width="120"
+          />
+          <el-table-column
+            prop="sourceAppStore"
+            :label="$t('apppromotion.sourceAppStore')"
+            width="210"
+          />
+          <el-table-column
+            prop="targetAppStore"
+            :label="$t('apppromotion.targetAppStore')"
+            width="210"
+          />
+          <el-table-column
+            prop="time"
+            :label="$t('apppromotion.dateTime')"
+            width="200"
+          />
+          <el-table-column
+            prop="description"
+            :label="$t('apppromotion.description')"
+            width="200"
+          />
+          <el-table-column
+            prop="detailInfo"
+            :label="$t('apppromotion.mesOperation')"
+            width="190"
+          />
+        </el-table>
       </div>
-      <el-table
-        :data="currentPageData"
-        border
-        style="width: 100%"
-        :header-cell-style="{ background: '#eeeeee'}"
-      >
-        <el-table-column
-          prop="number"
-          :label="$t('apppromotion.number')"
-          width="120"
-        />
-        <el-table-column
-          prop="name"
-          :label="$t('apppromotion.appName')"
-          width="200"
-        />
-        <el-table-column
-          prop="provider"
-          :label="$t('apppromotion.provider')"
-          width="185"
-        />
-        <el-table-column
-          prop="version"
-          :label="$t('apppromotion.version')"
-          width="110"
-        />
-        <el-table-column
-          prop="messageType"
-          :label="$t('apppromotion.messageType')"
-          width="110"
-        />
-        <el-table-column
-          prop="sourceAppStore"
-          :label="$t('apppromotion.sourceAppStore')"
-          width="200"
-        />
-        <el-table-column
-          prop="targetAppStore"
-          :label="$t('apppromotion.targetAppStore')"
-          width="200"
-        />
-        <el-table-column
-          prop="time"
-          :label="$t('apppromotion.dateTime')"
-          width="200"
-        />
-        <el-table-column
-          prop="description"
-          :label="$t('apppromotion.description')"
-          width="200"
-        />
-        <el-table-column
-          prop="detailInfo"
-          :label="$t('apppromotion.mesOperation')"
-          width="200"
-        />
-      </el-table>
+      <pagination
+        style="margin-bottom: 20px;"
+        :table-data="appPackageData"
+        @getCurrentPageData="getCurrentPageData"
+      />
     </div>
-    <pagination
-      :table-data="appPackageData"
-      @getCurrentPageData="getCurrentPageData"
-    />
   </div>
 </template>
 
@@ -184,11 +187,20 @@ export default {
       this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
     },
-    getProviderNames (appPackageData) {
+    getAppStoreNames (appPackageData) {
       let set = new Set()
       this.appPackageData.forEach(
         (item) => {
-          set.add(item.provider)
+          set.add(item.sourceAppStore)
+          set.add(item.targetAppStore)
+        })
+      return set
+    },
+    getTargetAppStoreSet (appPackageData) {
+      let set = new Set()
+      this.appPackageData.forEach(
+        (item) => {
+          set.add(item.targetAppStore)
         })
       return set
     },
@@ -196,7 +208,7 @@ export default {
       let number = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.provider && item.messageType === this.getMessageType('PUSH')) {
+          if (name === item.targetAppStore && item.messageType === this.getMessageType('PUSH')) {
             number++
           }
         }
@@ -207,7 +219,7 @@ export default {
       let number = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.provider && item.messageType === this.getMessageType('NOTICE')) {
+          if (name === item.sourceAppStore && item.messageType === this.getMessageType('NOTICE')) {
             number++
           }
         }
@@ -258,7 +270,7 @@ export default {
       let quarter4 = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.provider && item.messageType === this.getMessageType('PULL')) {
+          if (name === item.targetAppStore && item.messageType === this.getMessageType('PULL')) {
             // let date = item.time.split(' ')[0]
             let quarter = this.getQuarter(item.time.split(' ')[0])
             if (quarter === 1) {
@@ -305,98 +317,67 @@ export default {
 
       let options1 = {
         title: {
-          text: '最受欢迎的边缘应用行业分布',
-          subtext: '仅供参考',
+          text: this.$t('apppromotion.hotIndustry'),
           left: 'center'
         },
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
+          formatter: '{a} <br/>{b}: {c} ({d}%)'
         },
         legend: {
           orient: 'vertical',
-          left: 'left',
+          left: 10,
           data: nameArr
         },
         series: [
           {
-            name: '行业',
+            name: this.$t('apppromotion.hotIndustry'),
             type: 'pie',
-            radius: '55%',
-            center: ['50%', '60%'],
-            data: industryArr,
+            radius: ['50%', '70%'],
+            avoidLabelOverlap: false,
+            label: {
+              show: false,
+              position: 'center'
+            },
             emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              label: {
+                show: true,
+                fontSize: '30',
+                fontWeight: 'bold'
               }
-            }
+            },
+            labelLine: {
+              show: false
+            },
+            data: industryArr
           }
         ]
       }
 
       // echart2
-      let providerArr = []
-      let providerNameArr = []
-      let providerNames = this.getProviderNames(this.appPackageData)
-      providerNames.forEach(
+      let appStorePushArr = []
+      let appStoreNoticeArr = []
+      let allAppStoreArr = []
+      let appStoreNames = this.getAppStoreNames(this.appPackageData)
+      appStoreNames.forEach(
         (item) => {
-          providerNameArr.push(item)
+          allAppStoreArr.push(item)
           let pushNum = this.getPushNum(item, this.appPackageData)
           let noticeNum = this.getNoticeNum(item, this.appPackageData)
-          let providerInfo = {
-            provider: item,
-            '对外推广': pushNum,
-            '收到推广': noticeNum
-          }
-          providerArr.push(providerInfo)
+          appStorePushArr.push(pushNum)
+          appStoreNoticeArr.push(noticeNum)
         }
       )
 
       let options2 = {
-        legend: {},
-        tooltip: {},
-        dataset: {
-          dimensions: ['provider', '对外推广', '收到推广'],
-          source: providerArr
-        },
-        xAxis: { type: 'category' },
-        yAxis: {},
-        // Declare several bar series, each will be mapped
-        // to a column of dataset.source by default.
-        series: [
-          { type: 'bar' },
-          { type: 'bar' }
-        ]
-      }
-
-      // echart3
-      let providerAppPullArr = []
-      // let providerNames = this.getProviderNames(this.appPackageData)
-      providerNames.forEach(
-        (item) => {
-          providerNameArr.push(item)
-          let pullAppNum = this.getPullAppNum(item, this.appPackageData)
-          let providerPullInfo = {
-            name: item,
-            type: 'line',
-            stack: '总量',
-            data: pullAppNum
-          }
-          providerAppPullArr.push(providerPullInfo)
-        }
-      )
-
-      let options3 = {
-        title: {
-          text: 'APP下载趋势图'
-        },
         tooltip: {
-          trigger: 'axis'
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
         },
         legend: {
-          data: providerNameArr
+          data: [this.$t('apppromotion.pushApp'), this.$t('apppromotion.noticeApp')]
         },
         grid: {
           left: '3%',
@@ -404,20 +385,77 @@ export default {
           bottom: '3%',
           containLabel: true
         },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
+        xAxis: [
+          {
+            type: 'category',
+            data: allAppStoreArr
           }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
+          {
+            name: this.$t('apppromotion.pushApp'),
+            type: 'bar',
+            stack: 'name',
+            data: appStorePushArr
+          },
+          {
+            name: this.$t('apppromotion.noticeApp'),
+            type: 'bar',
+            stack: 'name',
+            data: appStoreNoticeArr
+          }
+        ]
+      }
+
+      // echart3
+      let targetAppStorePullArr = []
+      let targetAppStoreArr = []
+      let targetAppStoreSet = this.getTargetAppStoreSet(this.appPackageData)
+      targetAppStoreSet.forEach(
+        (item) => {
+          targetAppStoreArr.push(item)
+          let pullAppNum = this.getPullAppNum(item, this.appPackageData)
+          let pullInfo = {
+            name: item,
+            type: 'line',
+            stack: this.$t('apppromotion.totalNum'),
+            data: pullAppNum
+          }
+          targetAppStorePullArr.push(pullInfo)
+        }
+      )
+
+      let options3 = {
+        title: {
+          text: this.$t('apppromotion.appDownloadTrend')
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: targetAppStoreArr,
+          right: 30
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ['第一季度', '第二季度', '第三季度', '第四季度']
+          data: [this.$t('apppromotion.quarterly1'), this.$t('apppromotion.quarterly2'), this.$t('apppromotion.quarterly3'), this.$t('apppromotion.quarterly4')]
         },
         yAxis: {
           type: 'value'
         },
-        series: providerAppPullArr
+        series: targetAppStorePullArr
       }
       myCharts1.setOption(options1)
       myCharts2.setOption(options2)
@@ -433,6 +471,12 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.my-app {
+  .my-app-content {
+    background: white;
+    padding: 20px;
+  }
+}
 .app-list {
   .el-table {
     font-size: 14px;

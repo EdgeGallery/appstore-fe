@@ -154,11 +154,20 @@ export default new Router({
         },
         {
           path: 'apppromotion',
-          name: 'appstoreapppromotion',
-          component: () => import('./pages/appPromotion/Index.vue'),
+          name: 'apppromotion',
+          component: () => import('./pages/appPromotion/AppList.vue'),
           meta: {
             id: '2.5',
-            breadcrumb: [{ nameEn: 'Apppromotion', nameCn: '应用推广' }]
+            breadcrumb: [{ nameEn: 'App Promot', nameCn: '应用推送' }]
+          }
+        },
+        {
+          path: 'operationAnalyse',
+          name: 'operationAnalyse',
+          component: () => import('./pages/appPromotion/OperationAna.vue'),
+          meta: {
+            id: '2.5',
+            breadcrumb: [{ nameEn: 'Operation Analyse', nameCn: '操作分析' }]
           }
         },
         {
@@ -168,8 +177,8 @@ export default new Router({
           meta: {
             id: '2.5.1',
             breadcrumb: [
-              { nameEn: 'appProm', path: '/appProm', nameCn: '应用推广' },
-              { nameEn: 'Batch Promot', nameCn: '批量推广' }
+              { nameEn: 'appProm', path: '/appProm', nameCn: '应用推送' },
+              { nameEn: 'Batch Promot', nameCn: '批量推送' }
             ]
           }
         },
