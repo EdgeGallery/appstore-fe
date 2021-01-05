@@ -109,8 +109,8 @@ const TYPES = [
     type: 'types'
   },
   {
-    label: ['大数据', 'BigData'],
-    value: 'BigData',
+    label: ['大数据', 'Big Data'],
+    value: 'Big Data',
     selected: false,
     type: 'types'
   },
@@ -186,18 +186,6 @@ const AFFINITY = [
     selected: false,
     type: 'affinity'
   }
-  // {
-  //   label: 'GPU',
-  //   value: 'GPU',
-  //   selected: false,
-  //   type: 'affinity'
-  // },
-  // {
-  //   label: 'NPU',
-  //   value: 'NPU',
-  //   selected: false,
-  //   type: 'affinity'
-  // }
 ]
 
 const SORT_BY = [

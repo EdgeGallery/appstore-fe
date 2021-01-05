@@ -62,7 +62,7 @@
             <template slot-scope="scope">
               <el-button
                 id="appdetail_download"
-                :disabled="isDisabled(scope.row)"
+                :disabled="scope.row.userId===userId ? false : true"
                 @click="download(scope.row)"
                 type="text"
                 size="small"
@@ -79,7 +79,7 @@
               </el-button>
               <el-button
                 id="appdetail_delete"
-                :disabled="isDisabled(scope.row)"
+                :disabled="scope.row.userId===userId ? false : true"
                 @click="getDelete(scope.row)"
                 type="text"
                 size="small"
@@ -336,6 +336,7 @@ export default {
   },
   data () {
     return {
+      userId: sessionStorage.getItem('userId'),
       userName: '',
       editorStatus: true,
       details: '',
@@ -362,12 +363,6 @@ export default {
     }
   },
   methods: {
-    isDisabled (row) {
-      if (sessionStorage.userId === row.userId) {
-        return false
-      }
-      return true
-    },
     editInfo (title, index) {
       this.editorStatus = false
       this.showEdit = false
