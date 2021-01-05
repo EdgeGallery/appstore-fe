@@ -45,9 +45,17 @@
               {{ item.sourceAppStore }}
               <span
                 class="msgTime"
+                v-if="msg.index==='1'"
                 :class="!item.readed?'msgTimeNo':''"
               >
                 {{ item.time.split(' ')[1] }}
+              </span>
+              <span
+                class="msgTime"
+                v-else
+                :class="!item.readed?'msgTimeNo':''"
+              >
+                {{ item.time }}
               </span>
             </div>
             <div
@@ -80,7 +88,7 @@ export default {
       msgDetail: {},
       timeTable: [
         {
-          value: '最近',
+          value: '今天',
           index: '1'
         },
         {
