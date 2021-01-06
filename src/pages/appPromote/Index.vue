@@ -39,7 +39,7 @@
           <el-table-column
             type="index"
             :label="$t('common.number')"
-            width="50"
+            width="110"
           />
           <el-table-column
             prop="appStoreName"

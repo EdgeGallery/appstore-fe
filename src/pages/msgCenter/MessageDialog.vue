@@ -97,6 +97,7 @@ export default {
         this.$router.push({ name: 'msgCenter', params: { item } })
       } else {
         this.$router.push({ name: 'msgCenter' })
+        this.$emit('msgCheckAllEvent', true)
       }
     },
     clearInterval () {
