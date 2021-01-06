@@ -29,7 +29,7 @@
           <img
             src="../../assets/images/logo.png"
             class="curp"
-            @click="jumpTo('/index')"
+            @click="jumpToEdge"
             alt
           >
         </div>
@@ -128,13 +128,14 @@
         </div>
         <div
           class="popUp"
-          v-show="seen"
+          v-show="seen && !isCheckAllMsg"
           @mouseenter="enter"
           @mouseleave="leave"
         >
           <messageDialog
             v-if="!ifGuest"
             @msgEvent="getMsg"
+            @msgCheckAllEvent="checkAllMsg"
           />
         </div>
       </el-col>
@@ -208,15 +209,7 @@ export default {
           index: '3'
         },
         {
-          labelEn: 'About',
-          labelCn: '关于我们',
-          pageId: '2.1.5',
-          display: true,
-          link: 'https://gitee.com/edgegallery',
-          index: '4'
-        },
-        {
-          labelEn: 'AppPromote',
+          labelEn: 'App Share',
           labelCn: '应用共享',
           route: '/apppromote',
           pageId: '2.1.6',
@@ -225,7 +218,7 @@ export default {
           index: '5',
           children: [
             {
-              labelEn: 'App promotion',
+              labelEn: 'App promote',
               labelCn: '应用推送',
               route: '/apppromotion',
               pageId: '2.1.6.1',
@@ -268,7 +261,8 @@ export default {
       ifGuest: true,
       menu_small: false,
       seen: false,
-      isShowMsgIcon: false
+      isShowMsgIcon: false,
+      isCheckAllMsg: false
     }
   },
   watch: {
@@ -309,8 +303,6 @@ export default {
       if (index) {
         this.activeIndex = index
         this.$router.push(this.activeIndex)
-      } else if (item.$vnode.data.key === '2.1.5') {
-        window.open('https://gitee.com/edgegallery', '_blank')
       }
       this.closeMenu()
     },
@@ -371,6 +363,7 @@ export default {
     },
     enter () {
       this.seen = true
+      this.isCheckAllMsg = false
     },
     leave () {
       this.seen = false
@@ -378,8 +371,14 @@ export default {
     getMsg (value) {
       this.isShowMsgIcon = value
     },
+    checkAllMsg (value) {
+      this.isCheckAllMsg = value
+    },
     jumperToMsgDialog () {
       this.$router.push({ name: 'msgCenter' })
+    },
+    jumpToEdge () {
+      window.open('https://gitee.com/edgegallery', '_blank')
     }
   },
 
