@@ -29,7 +29,6 @@
         v-for="(item,index) in msgs.slice(0, 4)"
         :key="index"
         class="msgBody"
-        v-show="item.timeResult<4"
         @click="jumpToMsgDialog(item)"
       >
         <div
@@ -82,10 +81,11 @@ export default {
             this.msgs.push(item)
           }
         })
+
         if (this.msgs.length > 0) {
-          sessionStorage.setItem('existUnreadMsg', true)
+          this.$emit('msgEvent', true)
         } else {
-          sessionStorage.setItem('existUnreadMsg', false)
+          this.$emit('msgEvent', false)
         }
       }).catch(() => {
         console.log('get messages error')
