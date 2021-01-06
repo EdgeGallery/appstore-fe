@@ -75,7 +75,15 @@ const en = {
     userName: 'Uploder',
     getCaptcha: ' Get Captcha ',
     inputCaptcha: 'Please enter the Captcha code',
-    choose: 'Please Choose'
+    choose: 'Please Choose',
+    number: 'number',
+    appStoreName: 'appStore name',
+    appStoreVersion: 'appStore version',
+    company: 'company',
+    url: 'url',
+    appdTransId: 'appTranslate id',
+    modifyApp: 'modify',
+    deleteAppStore: 'This operation will permanently delete the external warehouse. Do you want to continue?'
   },
   promptMessage: {
     guestUser: 'The guest user has no right to operate. please log in first!',
@@ -277,7 +285,8 @@ const en = {
     quarterly1: 'First season',
     quarterly2: 'Second quarter',
     quarterly3: 'Third quarter',
-    quarterly4: 'Fourth quarter'
+    quarterly4: 'Fourth quarter',
+    viewTestRepo: 'view report'
   },
   about: {
   },

@@ -153,7 +153,7 @@ export default new Router({
           component: () => import('./pages/appPromote/Index.vue'),
           meta: {
             id: '2.5',
-            breadcrumb: [{ nameEn: 'appMgmt', nameCn: '外部仓库管理' }]
+            breadcrumb: [{ nameEn: 'External App Management', nameCn: '外部仓库管理' }]
           }
         },
         {
@@ -162,7 +162,7 @@ export default new Router({
           component: () => import('./pages/appPromotion/AppList.vue'),
           meta: {
             id: '2.5',
-            breadcrumb: [{ nameEn: 'App Promot', nameCn: '应用推送' }]
+            breadcrumb: [{ nameEn: 'App Promote', nameCn: '应用推送' }]
           }
         },
         {
@@ -193,7 +193,7 @@ export default new Router({
           meta: {
             id: '2.6',
             breadcrumb: [
-              { nameEn: 'appProm', path: '/appProm', nameCn: '消息中心' }
+              { nameEn: 'Message Center', path: '/appProm', nameCn: '消息中心' }
             ]
           },
           children: [

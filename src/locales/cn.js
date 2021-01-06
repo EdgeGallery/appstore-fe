@@ -85,7 +85,6 @@ const cn = {
     appdTransId: 'APPD版本',
     modifyApp: '编辑',
     company: '公司'
-
   },
   promptMessage: {
     guestUser: 'guest用户无权操作! 请登录',
