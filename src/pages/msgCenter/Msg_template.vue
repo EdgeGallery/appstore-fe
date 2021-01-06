@@ -132,6 +132,8 @@ export default {
           this.msgDetail = this.msgs[0]
         } else {
           this.msgDetail = param
+          this.msgDetail.readed = true
+          this.updateMsgStatus(param.messageId)
         }
       })
     },
@@ -166,6 +168,7 @@ export default {
   background: #fff;
   float: left;
   padding:0 12px;
+  overflow-y: auto;
   border-right:1px solid #eadfdf,
 }
 .right {
