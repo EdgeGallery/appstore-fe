@@ -105,6 +105,7 @@
             @mouseleave="leave"
           >
             <div
+              v-show="isShowMsgIcon"
               class="el-icon-chat-dot-round"
             />
           </div>
@@ -131,7 +132,10 @@
           @mouseenter="enter"
           @mouseleave="leave"
         >
-          <messageDialog v-if="!ifGuest" />
+          <messageDialog
+            v-if="!ifGuest"
+            @msgEvent="getMsg"
+          />
         </div>
       </el-col>
     </el-row>
@@ -263,7 +267,8 @@ export default {
       loginPage: '',
       ifGuest: true,
       menu_small: false,
-      seen: false
+      seen: false,
+      isShowMsgIcon: false
     }
   },
   watch: {
@@ -369,6 +374,9 @@ export default {
     },
     leave () {
       this.seen = false
+    },
+    getMsg (value) {
+      this.isShowMsgIcon = value
     },
     jumperToMsgDialog () {
       this.$router.push({ name: 'msgCenter' })
