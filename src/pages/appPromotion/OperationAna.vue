@@ -18,7 +18,20 @@
   <div class="my-app padding56">
     <div class="my-app-content">
       <div class="app-list">
-        <div class="analyseAna">
+        <div
+          class="analyseAnaNoData"
+          v-if="appPackageData.length < 1"
+        >
+          <p>暂无操作分析数据</p>
+          <img
+            src="../../assets/images/construct.png"
+            alt="a"
+          >
+        </div>
+        <div
+          class="analyseAna"
+          v-else
+        >
           <div
             class="mychart"
             id="myCharts1"
@@ -501,5 +514,11 @@ export default {
 .analyseAna{
   width:100%;
   height:300px;
+}
+.analyseAnaNoData{
+  width:100%;
+  height:400px;
+  text-align: center;
+  line-height: 25px;
 }
 </style>
