@@ -120,3 +120,8 @@ a{
 .el-dialog__header{
   background-color: #688ef3 ;
 }
+
+.el-message {
+  top:80px !important;
+  z-index: 99999 !important;
+}
