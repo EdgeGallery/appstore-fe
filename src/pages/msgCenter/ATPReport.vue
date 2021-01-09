@@ -281,14 +281,14 @@ export default {
     }
   },
   mounted () {
-    this.getTaskId()
+    // this.getTaskId()
     this.getReport()
   },
   methods: {
     // 待修改，截取taskid
-    getTaskId () {
-      this.taskId = this.dataurl.split('=')[1]
-    },
+    // getTaskId () {
+    //   this.taskId = this.dataurl.split('=')[1]
+    // },
     getReport () {
       processApi(this.dataurl).then(res => {
         this.tableData.push(res.data)

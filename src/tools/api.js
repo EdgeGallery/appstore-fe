@@ -80,15 +80,9 @@ function updateStatus (messageId) {
 }
 
 // 获取测试报告信息
-function processApi (url) {
-  let apiUrl = url.split('#')[0] + 'mec-atp/edgegallery/atp/v1/tasks/' + url.split('=')[1]
-  return new Promise((resolve, reject) => {
-    axios.get(apiUrl).then(res => {
-      resolve(res)
-    }).catch(error => {
-      reject(error)
-    })
-  })
+function processApi (messageId) {
+  let url = 'messages/' + messageId + '/report-data'
+  return GET(url, '', 'appstore')
 }
 
 function getAppDetailFileApi (path, id) {
