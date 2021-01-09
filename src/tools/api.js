@@ -81,7 +81,7 @@ function updateStatus (messageId) {
 
 // 获取测试报告信息
 function processApi (messageId) {
-  let url = messageId + '/report-data'
+  let url = 'messages/' + messageId + '/report-data'
   return GET(url, '', 'appstore')
 }
 
