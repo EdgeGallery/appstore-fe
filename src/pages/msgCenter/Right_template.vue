@@ -89,20 +89,21 @@
             查看
           </el-button>
         </p>
-        <iframe
-          id="iframeReport"
-          :src="data.atpTestReportUrl"
-          title=""
-        />
+        <div class="iframeReport">
+          <ATPReport :dataurl="data.atpTestReportUrl" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import ATPReport from './ATPReport'
 import { acceptMsg } from '../../tools/api.js'
 export default {
-  components: {},
+  components: {
+    ATPReport
+  },
   props: {
     data: {
       required: true,
@@ -111,7 +112,6 @@ export default {
   },
   data () {
     return {
-      imageUrl: require('@/assets/images/testRepo1.png')
     }
   },
   methods: {
@@ -177,7 +177,7 @@ export default {
 .detailReport{
   height:100%;
 }
-#iframeReport{
+.iframeReport{
   height:100%;
   width:100%;
   border:none;
