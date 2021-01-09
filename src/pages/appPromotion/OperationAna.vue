@@ -43,7 +43,7 @@
             ref="myCharts2"
           />
           <div
-            class="mychart2"
+            class="mychart"
             id="myCharts3"
             ref="myCharts3"
           />
@@ -587,12 +587,6 @@ export default {
 .mychart{
   width:30%;
   height:300px;
-  float:left;
-  margin-left:30px;
-}
-.mychart2{
-  width:30%;
-  height:260px;
   float:left;
   margin-left:30px;
 }
