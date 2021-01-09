@@ -67,7 +67,6 @@
           <el-table-column
             prop="provider"
             :label="$t('apppromotion.provider')"
-            width="185"
           />
           <el-table-column
             prop="version"
@@ -82,12 +81,10 @@
           <el-table-column
             prop="sourceAppStore"
             :label="$t('apppromotion.sourceAppStore')"
-            width="210"
           />
           <el-table-column
             prop="targetAppStore"
             :label="$t('apppromotion.targetAppStore')"
-            width="210"
           />
           <el-table-column
             prop="time"
@@ -97,7 +94,6 @@
           <el-table-column
             prop="description"
             :label="$t('apppromotion.description')"
-            width="200"
           />
           <el-table-column
             prop="detailInfo"
