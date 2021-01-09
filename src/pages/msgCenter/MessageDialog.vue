@@ -155,6 +155,7 @@ export default {
   }
 .msgStatis{
   height: 20px;
+  margin-top: 5px;
   font-size: 15px;
   text-align: center;
 }
@@ -163,6 +164,7 @@ export default {
 }
 .checkAll{
   text-align: center;
+  line-height: 50px;
   font-size: 15px;
   cursor: pointer;
 }
