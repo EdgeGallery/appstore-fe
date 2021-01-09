@@ -286,7 +286,8 @@ const en = {
     quarterly2: 'Second quarter',
     quarterly3: 'Third quarter',
     quarterly4: 'Fourth quarter',
-    viewTestRepo: 'view report'
+    viewTestRepo: 'view report',
+    intentionAppstore: 'Intention platform'
   },
   about: {
   },

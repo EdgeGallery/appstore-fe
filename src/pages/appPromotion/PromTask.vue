@@ -21,6 +21,7 @@
       :visible.sync="dialogVisible"
       width="50%"
       :before-close="handleClose"
+      :close-on-click-modal="false"
     >
       <div class="app-prom">
         <el-table
@@ -41,22 +42,37 @@
           <el-table-column
             v-for="item in providers"
             :key="item.number"
-            :label="item.provider"
-            :property="item.provider"
+            :label="item.label"
+            :prop="item.label"
           >
             <template slot-scope="scope">
               <span
-                v-if="scope.row[scope.column.property] === false"
+                v-if="scope.row[scope.column.property] === 'false'"
                 class="el-icon-close"
                 title="false"
               />
               <span
-                v-else-if="scope.row[scope.column.property] === true"
+                v-else-if="scope.row[scope.column.property] === 'true' "
                 class="el-icon-check"
                 title="Succeed"
               />
               <span
+                v-else-if="scope.row[scope.column.property] === 'start'"
                 class="el-icon-finished"
+                title="start"
+              />
+              <span
+                v-else-if="scope.row[scope.column.property] === 'empty'"
+                class="el-icon-minus"
+                title="empty"
+              />
+              <span
+                v-else-if="scope.row[scope.column.property] === 'inProgress'"
+                class="el-icon-loading"
+                title="aaa"
+              />
+              <span
+                class="el-icon-loading"
                 v-else
                 title="In Progress"
               />
@@ -86,8 +102,14 @@
 </template>
 
 <script>
-import { promTaskApi, promProviderInfo } from '../../tools/api.js'
+import { promTaskApi } from '../../tools/api.js'
 export default {
+  props: {
+    appStoreListProp: {
+      required: true,
+      type: Array
+    }
+  },
   data () {
     return {
       dialogVisible: true,
@@ -96,49 +118,49 @@ export default {
       providers: [],
       appStoreIds: [],
       packageIds: [],
-      targetPlatformTitles: []
+      targetPlatformTitles: [],
+      promoteAppStore: [],
+      empty: 'empty',
+      start: 'start',
+      isTrue: 'true',
+      iFalse: 'false',
+      InProgress: 'inProgress',
+      platformData: [],
+      selectData: []
     }
   },
   methods: {
-    handleClose (done) {
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          this.$emit('input', false)
-          done()
+    getTableData () {
+      this.selectData = JSON.parse(sessionStorage.getItem('appstordetail'))
+      // 获取appstoreid和apstoreName
+
+      this.platformData = this.appStoreListProp
+      console.log(this.platformData)
+      this.selectData.forEach(selectItem => {
+        this.platformData.forEach(platformItem => {
+          // 全部赋值成empty
+          let attr = platformItem.label
+          selectItem[attr] = this.empty
+          // 修改value成已经选的appstore
+          if (selectItem.targetPlatform.indexOf(platformItem.value) !== -1) {
+            selectItem[attr] = this.start
+          }
         })
-        .catch(_ => {})
+      })
+      console.log(this.selectData)
+      this.appData = this.selectData
+      console.log(this.appData)
+    },
+    handleClose () {
+      this.$emit('input', false)
+      this.dialogVisible = false
     },
     handleCloseDirect () {
       this.dialogVisible = false
       this.$emit('input', false)
     },
     handleExecute () {
-      this.promTask(this.packageIds, this.targetPlatformTitles, this.appStoreIds)
-    },
-    getProviders () {
-      promProviderInfo().then((res) => {
-        let data = res.data
-        let index = 1
-        data.forEach(
-          (item) => {
-            let providerItem = {
-              number: index,
-              provider: item.appStoreName,
-              appStoreId: item.appStoreId
-            }
-            this.targetPlatformTitles.push(providerItem.provider)
-            this.appStoreIds.push(providerItem.appStoreId)
-            this.providers.push(providerItem)
-            index++
-          }
-        )
-      }).catch(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('apppromotion.promoteFailed'),
-          type: 'warning'
-        })
-      })
+      this.promTask(this.packageIds, this.platformData, this.appStoreIds)
     },
     getPackageIds (data) {
       this.packageIds = []
@@ -148,22 +170,43 @@ export default {
         }
       )
     },
-    promTask (packageIds, targetPlatformTitles, appstoreIds) {
-      let param = {
-        targetPlatform: appstoreIds
-      }
-      let tempDataArr = []
-      this.appData.forEach(
-        (data) => {
-          promTaskApi(data.packageId, param)
-            .then((res) => {
-              let resData = res.data
-              let tempData = data
-              for (let i = 0; i < targetPlatformTitles.length; i++) {
-                let attr = targetPlatformTitles[i]
-                tempData[attr] = resData[i]
+    promTask (packageIds, platformData, appstoreIds) {
+      console.log(this.appData)
+
+      // 延迟2秒调用后台
+      let data = JSON.parse(JSON.stringify(this.appData))
+      data.forEach(
+        (appDataItem) => {
+          let param = {
+            targetPlatform: appDataItem.targetPlatform
+          }
+          for (let i = 0; i < appDataItem.targetPlatform.length; i++) {
+            this.platformData.forEach(platformItem => {
+              if (appDataItem.targetPlatform[i] === platformItem.value) {
+                let attr = platformItem.label
+                appDataItem[attr] = this.InProgress
               }
-              tempDataArr.push(tempData)
+            })
+          }
+          this.appData = data
+          promTaskApi(appDataItem.packageId, param)
+            .then((res) => {
+              if (res.data) {
+                // [true,false]
+                let reData = res.data
+                console.log(reData)
+                let resData = reData.join(',').split(',')
+                console.log(resData)
+                for (let i = 0; i < appDataItem.targetPlatform.length; i++) {
+                  this.platformData.forEach(platformItem => {
+                    if (appDataItem.targetPlatform[i] === platformItem.value) {
+                      let attr = platformItem.label
+                      appDataItem[attr] = resData[i]
+                    }
+                  })
+                }
+                console.log(this.appData)
+              }
             })
             .catch((err) => {
               this.$message.error(this.$t('promptMessage.operationFailed'))
@@ -171,11 +214,25 @@ export default {
             })
         }
       )
-      setTimeout(() => {
-        this.appData = []
-        this.appData = tempDataArr
-        console.log('promote data length' + this.appData.length)
-      }, 500)
+      // setTimeout(() => {
+      //   console.log(this.appData)
+      // }, 500)
+    },
+    getPromoteAppStore (data) {
+      this.promoteAppStore = []
+      data.forEach(
+        (item) => {
+          let appstore = {
+            packageId: '',
+            appStoreIds: []
+          }
+          appstore.appStoreIds = item.targetPlatform
+          appstore.packageId = item.packageId
+          this.promoteAppStore.push(appstore)
+          console.log('appstore:')
+          console.log(this.promoteAppStore)
+        }
+      )
     }
   },
   watch: {
@@ -184,12 +241,14 @@ export default {
     }
   },
   mounted () {
+    console.log(this.appStoreListProp)
+    this.providers = this.appStoreListProp
     this.getStatus = function () {
       this.appPromStatus = 'success'
     }
-
-    this.getProviders()
-    this.appData = JSON.parse(sessionStorage.getItem('appstordetail'))
+    this.getTableData()
+    // this.appData = JSON.parse(sessionStorage.getItem('appstordetail'))
+    this.getPromoteAppStore(this.appData)
     this.getPackageIds(this.appData)
   }
 }
@@ -208,6 +267,10 @@ export default {
   .app-prom {
     height: 400px;
     overflow:auto;
+    .el-icon-close:before{
+      font-size: 25px;
+      color: #d8363e;
+  }
   }
 
   .el-dialog__footer {
@@ -219,9 +282,6 @@ export default {
   }
   .el-icon-check {
     color: #40BF90;
-    font-size: 25px;
-  }
-  .el-icon-close{
     font-size: 25px;
   }
   .el-icon-finished{
