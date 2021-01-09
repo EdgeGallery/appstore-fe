@@ -103,9 +103,70 @@
             prop="detailInfo"
             :label="$t('apppromotion.mesOperation')"
             width="190"
-          />
+          >
+            <template slot-scope="scope">
+              <el-button
+                @click="showDrawer(scope.row)"
+                type="text"
+                size="small"
+              >
+                {{ $t('apppromotion.checkDetail') }}
+              </el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
+      <el-drawer
+        :size="width"
+        :with-header="false"
+        :closable="false"
+        :visible="visible"
+        :after-visible-change="afterVisibleChange"
+        @close="onClose"
+      >
+        <div class="detailInfo">
+          <p class="title">
+            应用基本信息
+          </p>
+          <div />
+          <p class="basic_p">
+            <span>应用名称：</span>{{ middleData.name }}
+          </p>
+          <p class="basic_p">
+            <span>版本：</span>{{ middleData.version }}
+          </p>
+          <p class="basic_p">
+            <span>厂商：</span>{{ middleData.provider }}
+          </p>
+          <p class="basic_p">
+            <span>架构：</span>{{ middleData.affinity }}
+          </p>
+          <p class="basic_p">
+            <span>行业：</span>{{ middleData.industry }}
+          </p>
+          <p class="basic_p">
+            <span>类型：</span>{{ middleData.type }}
+          </p>
+          <p class="basic_p desc clearfix">
+            <span>描述：</span><span>{{ middleData.shortDesc }}</span>
+          </p>
+          <p class="title">
+            其他基本信息
+          </p>
+          <p class="basic_p">
+            <span>源AppStore：</span>{{ middleData.sourceAppStore }}
+          </p>
+          <p class="basic_p">
+            <span>目标AppStore：</span>{{ middleData.targetAppStore }}
+          </p>
+          <p class="basic_p">
+            <span>apt测试状态：</span>{{ middleData.atpTestStatus }}
+          </p>
+          <p class="basic_p">
+            <span>应用描述：</span>{{ middleData.description }}
+          </p>
+        </div>
+      </el-drawer>
       <pagination
         style="margin-bottom: 20px;"
         :table-data="appPackageData"
@@ -124,12 +185,26 @@ export default {
   },
   data () {
     return {
+      width: '500px',
+      visible: false,
       appData: [],
       appPackageData: [],
-      currentPageData: []
+      currentPageData: [],
+      middleData: []
     }
   },
   methods: {
+    afterVisibleChange (val) {
+      console.log('visible', val)
+    },
+    showDrawer (row) {
+      console.log(row)
+      this.middleData = JSON.parse(JSON.stringify(row))
+      this.visible = true
+    },
+    onClose () {
+      this.visible = false
+    },
     toggleSelection (rows) {
       if (rows) {
         rows.forEach((row) => {
@@ -170,13 +245,18 @@ export default {
                 name: item.basicInfo.name,
                 provider: item.basicInfo.provider,
                 version: item.basicInfo.version,
+                affinity: item.basicInfo.affinity,
+                type: item.basicInfo.type,
+                shortDesc: item.basicInfo.shortDesc,
                 messageType: this.getMessageType(item.messageType),
                 sourceAppStore: item.sourceAppStore,
                 targetAppStore: item.targetAppStore,
                 time: item.time,
+                atpTestStatus: item.atpTestStatus,
                 description: item.description,
                 industry: item.basicInfo.industry,
-                detailInfo: this.$t('apppromotion.checkDetail')
+                detailInfo: this.$t('apppromotion.checkDetail'),
+                messageId: item.messageId
               }
               this.appData.push(appDataItem)
               this.appPackageData.push(appDataItem)
@@ -307,6 +387,7 @@ export default {
   },
   mounted () {
     // this.getTableData()
+    console.log(this.appData)
     this.getTableEx().then((res) => {
       const myCharts1 = this.$echarts.init(this.$refs.myCharts1)
       const myCharts2 = this.$echarts.init(this.$refs.myCharts2)
@@ -483,11 +564,15 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .my-app {
   .my-app-content {
     background: white;
     padding: 20px;
+  }
+  padding: 20px 0;
+  .pagination {
+    margin: 20px;
   }
 }
 .app-list {
@@ -520,5 +605,54 @@ export default {
   height:400px;
   text-align: center;
   line-height: 25px;
+}
+.detailInfo{
+  height:110px;
+}
+.el-drawer__header{
+  display: none;
+}
+.el-drawer__body{
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.title{
+  height: 36px;
+  line-height: 36px;
+  margin: 25px 0 15px;
+  position:relative;
+  z-index: 888;
+  padding-left: 15px;
+  border-bottom: 1px solid #e7ebf5;
+}
+.title::before{
+  content:'';
+  display:inline-block;
+  width:3px;
+  height:18px;
+  position: relative;
+  top:4px;
+  background:#409EFF;
+}
+.basic_p{
+  padding: 2px;
+  font-size: 13px;
+  margin-bottom: 5px;
+  span{
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    line-height: 25px;
+  }
+}
+.basic_p.desc{
+  span{
+    float: left;
+  }
+  span:last-child{
+    width: calc(100% - 100px);
+    text-align: left;
+    padding-right: 10px;
+  }
 }
 </style>
