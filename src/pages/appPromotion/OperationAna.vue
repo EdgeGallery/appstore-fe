@@ -512,8 +512,13 @@ export default {
       let targetAppStoreSet = this.getTargetAppStoreSet(this.appPackageData)
       targetAppStoreSet.forEach(
         (item) => {
-          targetAppStoreArr.push(item)
           let pullAppNum = this.getPullAppNum(item, this.appPackageData)
+          for (let i = 0; i < pullAppNum.length; i++) {
+            if (pullAppNum[i] > 0) {
+              targetAppStoreArr.push(item)
+              continue
+            }
+          }
           let pullInfo = {
             name: item,
             type: 'line',
@@ -533,7 +538,8 @@ export default {
         },
         legend: {
           data: targetAppStoreArr,
-          right: 30
+          right: 30,
+          top: 30
         },
         grid: {
           left: '3%',

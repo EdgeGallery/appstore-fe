@@ -90,7 +90,7 @@
           </el-button>
         </p>
         <div class="iframeReport">
-          <ATPReport :dataurl="data.atpTestReportUrl" />
+          <ATPReport :dataurl="data.messageId" />
         </div>
       </div>
     </div>
