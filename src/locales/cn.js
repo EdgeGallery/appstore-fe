@@ -296,7 +296,8 @@ const cn = {
     quarterly1: '第一季度',
     quarterly2: '第二季度',
     quarterly3: '第三季度',
-    quarterly4: '第四季度'
+    quarterly4: '第四季度',
+    intentionAppstore: '意向平台'
   },
   about: {},
   ...zhLocale

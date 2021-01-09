@@ -83,12 +83,32 @@
               prop="pushTimes"
               :label="$t('apppromotion.proTimes')"
             />
+            <el-table-column
+              :label="$t('apppromotion.intentionAppstore')"
+            >
+              <template slot-scope="scope">
+                <el-select
+                  v-model="scope.row.targetPlatform"
+                  multiple
+                  placeholder="请选择意向平台"
+                  :class="scope.row.packageId"
+                >
+                  <el-option
+                    v-for="item in appStoreList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
+              </template>
+            </el-table-column>
           </el-table>
         </div>
         <!-- 组件 -->
         <div v-if="uploadDiaVis">
           <promTask
             v-model="uploadDiaVis"
+            :app-store-list-prop="appStoreList"
           />
         </div>
       </div>
@@ -102,7 +122,7 @@
 </template>
 
 <script>
-import { getAppPromTableApi } from '../../tools/api.js'
+import { getAppPromTableApi, promProviderInfo } from '../../tools/api.js'
 import promTask from './PromTask.vue'
 import pagination from '../../components/common/Pagination.vue'
 export default {
@@ -116,7 +136,11 @@ export default {
       uploadDiaVis: false,
       appData: [],
       appPackageData: [],
-      currentPageData: []
+      currentPageData: [],
+      appStoreData: [],
+      dataLoading: false,
+      appStoreList: [],
+      value: ''
     }
   },
   methods: {
@@ -137,6 +161,30 @@ export default {
     },
     getCurrentPageData (data) {
       this.currentPageData = data
+    },
+    getProviders () {
+      promProviderInfo().then((res) => {
+        let data = res.data
+        let index = 1
+        data.forEach(item => {
+          let providerItem = {
+            number: index,
+            value: '',
+            label: ''
+          }
+          providerItem.value = item.appStoreId
+          providerItem.label = item.appStoreName
+          console.log(providerItem)
+          this.appStoreList.push(providerItem)
+          index++
+        })
+      }).catch(() => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('apppromotion.promoteFailed'),
+          type: 'warning'
+        })
+      })
     },
     uploadPackage () {
       this.uploadDiaVis = true
@@ -161,7 +209,8 @@ export default {
               atpTestReportUrl: item.atpTestReportUrl,
               latestPushTime: item.latestPushTime,
               pushTimes: item.pushTimes,
-              packageId: item.packageId
+              packageId: item.packageId,
+              targetPlatform: item.targetPlatform
             }
             this.appData.push(appDataItem)
             this.appPackageData.push(appDataItem)
@@ -180,6 +229,12 @@ export default {
   mounted () {
     console.log(this.$refs.multipleTable.selection)
     this.getTableData()
+    this.getProviders()
+    console.log(this.dataonLineListSelections)
+    sessionStorage.setItem(
+      'appstordetail',
+      JSON.stringify(this.dataonLineListSelections)
+    )
   }
 }
 </script>
