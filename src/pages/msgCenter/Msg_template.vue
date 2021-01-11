@@ -34,9 +34,9 @@
           <div
             v-for="(item,index) in msgs"
             :key="index"
-            class="msgBody"
-            v-show="(msg.index==='1'&&item.timeResult<4) || (msg.index==='2'&&item.timeResult>3&&item.timeResult<8) || (msg.index==='3'&&item.timeResult>7&&item.timeResult<32) ||(msg.index==='4'&&item.timeResult>31)"
-            @click="showdetail(item)"
+            :class="index===isActive?'selectMsgBody':'msgBody'"
+            v-show="(msg.index==='1'&&item.timeResult<2) || (msg.index==='2'&&item.timeResult>1&&item.timeResult<8) || (msg.index==='3'&&item.timeResult>7&&item.timeResult<32) ||(msg.index==='4'&&item.timeResult>31)"
+            @click="showdetail(item, index)"
           >
             <div
               class="tipTitle"
@@ -69,7 +69,10 @@
       </el-collapse>
     </div>
     <div class="right">
-      <RightContent :data="msgDetail" />
+      <RightContent
+        v-if="hackReset"
+        :data="msgDetail"
+      />
     </div>
   </div>
 </template>
@@ -86,6 +89,8 @@ export default {
       msgs: [],
       activeNames: ['1'],
       msgDetail: {},
+      isActive: 0,
+      hackReset: true,
       timeTable: [
         {
           value: '今天',
@@ -107,12 +112,14 @@ export default {
     }
   },
   methods: {
-    showdetail (item) {
+    showdetail (item, index) {
       this.msgDetail = item
+      this.isActive = index
       if (!item.readed) {
         item.readed = true
         this.updateMsgStatus(item.messageId)
       }
+      this.rebuileComponents()
     },
     timeCompute (time) {
       var dateBegin = new Date(time.replace(/-/g, '/'))
@@ -146,11 +153,28 @@ export default {
           type: 'warning'
         })
       })
+    },
+    locateMessage (messageId) {
+
+    },
+    rebuileComponents () {
+      // 销毁子标签
+      this.hackReset = false
+      // 重新创建子标签
+      this.$nextTick(() => {
+        this.hackReset = true
+      })
     }
   },
   mounted () {
-    let param = this.$route.params.item
+    let param = this.$route.query.item
     this.getAppData(param)
+  },
+  watch: {
+    '$route': function (to, from) {
+      console.log(to.query.item.messageId)
+      this.locateMessage(to.query.item.messageId)
+    }
   }
 }
 </script>
@@ -177,6 +201,7 @@ export default {
   height: 100%;
   background: #FFFFFF;
   padding:25px 35px;
+  overflow-y: auto;
 }
 .el-collapse{
   border-top:none!important;
@@ -199,6 +224,25 @@ export default {
   float:right;
   padding-right:10px;
 }
+.selectMsgBody{
+  background:#cedbe8;
+  border-bottom: 1px solid #f5f5f5;
+  margin-top:3px;
+  padding-left:10px;
+  cursor: pointer;
+  border-radius: 2px;
+  .tipTitleNo{
+    font-weight:bold;
+    color:#000;
+  }
+  .tipDescNo{
+    font-weight: bold;
+    color:#6089f5;
+  }
+  .msgTime{
+    color:#000;
+  }
+}
 .msgBody{
   border-bottom: 1px solid #f5f5f5;
   margin-top:3px;
@@ -213,8 +257,8 @@ export default {
     font-weight: bold;
     color:#6089f5;
   }
- .msgTime{
-   color:#000;
- }
+  .msgTime{
+    color:#000;
+  }
 }
 </style>

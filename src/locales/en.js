@@ -209,7 +209,8 @@ const en = {
     status: 'Status',
     test: 'Test',
     publish: 'Publish',
-    addApp: 'addApp'
+    addApp: 'addApp',
+    provider: 'Provider'
   },
   report: {
     version: 'Version',
@@ -220,7 +221,14 @@ const en = {
     detail: 'Details',
     ticketNumber: 'Mission ticket number',
     baseInfo: 'Basic Information',
-    uploadUser: 'Upload User'
+    uploadUser: 'Upload User',
+    testReport: 'EdgeGallery test certification report',
+    downloadReport: 'Download Report',
+    reportanalysis: 'Test report analysis',
+    failReason: 'Fail Reason',
+    rate: 'Pass rate',
+    model: 'Certification template',
+    reportDetail: 'Test case details'
   },
   atp: {
     step1: 'Virus Scan',
@@ -241,7 +249,28 @@ const en = {
     status: 'Status',
     ticketNumber: 'Mission ticket number',
     baseInfo: 'Basic Information',
-    uploadUser: 'Upload User'
+    uploadUser: 'Upload User',
+    success: 'success',
+    failed: 'failed',
+    dependencyDetail: 'Dependency Details',
+    versionDependency: 'Version Dependency',
+    testTask: 'Test task description',
+    testItems: 'Test Items',
+    caseNumber: 'Number of use cases',
+    cancel: 'Cancel',
+    confirm: 'Confirm',
+    returnList: 'Return to task list',
+    security: 'security',
+    complianceTest: 'Compliance Test',
+    sandboxTest: 'Sandbox Test',
+    review: 'Review',
+    testCaseManagement: 'Test Case Management',
+    fileSize: 'File Size',
+    applicationName: 'applicationName',
+    appPackage: 'appPackage',
+    uploadApp: 'uploadApp',
+    onlyCsar: 'Can only upload .csar files.',
+    packageSizeLimit: 'no more than 10M'
   },
   apppromotion: {
     number: 'number',
