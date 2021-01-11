@@ -17,17 +17,6 @@
 <template>
   <div class="report padding56">
     <div class="report-content padding20">
-      <div class="download">
-        <el-button
-          size="large"
-          type="primary"
-          icon="el-icon-download"
-          plain
-          @click="downLoadReport()"
-        >
-          {{ $t('report.downloadReport') }}
-        </el-button>
-      </div>
       <div class="report-tap">
         <h3> {{ $t('report.testReport') }}</h3>
       </div>
@@ -491,21 +480,6 @@ export default {
         this.TestDataSum[1].name = TESTNAME[1].label[0]
         this.TestDataSum[2].name = TESTNAME[2].label[0]
       }
-    },
-    downLoadReport () {
-      // Atp.downLoadReportApi(this.taskId).then(res => {
-      //   this.$message({
-      //     duration: 2000,
-      //     message: this.$t('promptMessage.downloadSuccess'),
-      //     type: 'success'
-      //   })
-      // }).catch(() => {
-      //   this.$message({
-      //     duration: 2000,
-      //     message: this.$t('promptMessage.downloadFail'),
-      //     type: 'warning'
-      //   })
-      // })
     }
   },
   watch: {
@@ -523,14 +497,9 @@ export default {
   .report-content {
     background: white;
     background-image: url('../../assets/images/edgegallery.png');
-    .download{
-      text-align: right;
-      margin-right: 30px;
-    }
     .report-tap {
       h3 {
         text-align: center;
-        // margin: 25px 0;
         font-size: 25px;
         color: #55565df2;
       }

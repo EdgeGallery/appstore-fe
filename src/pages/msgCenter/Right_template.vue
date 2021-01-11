@@ -89,8 +89,12 @@
             查看
           </el-button>
         </p>
-        <div class="iframeReport">
-          <ATPReport :dataurl="data.messageId" />
+        <div
+          class="iframeReport"
+        >
+          <ATPReport
+            :dataurl="data.messageId"
+          />
         </div>
       </div>
     </div>
@@ -129,6 +133,8 @@ export default {
     checkReport () {
       window.open(this.data.atpTestReportUrl)
     }
+  },
+  mounted () {
   }
 }
 </script>

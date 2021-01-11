@@ -451,9 +451,11 @@ export default {
       let appStoreNames = this.getAppStoreNames(this.appPackageData)
       appStoreNames.forEach(
         (item) => {
-          allAppStoreArr.push(item)
           let pushNum = this.getPushNum(item, this.appPackageData)
           let noticeNum = this.getNoticeNum(item, this.appPackageData)
+          if (pushNum > 0 || noticeNum > 0) {
+            allAppStoreArr.push(item)
+          }
           appStorePushArr.push(pushNum)
           appStoreNoticeArr.push(noticeNum)
         }

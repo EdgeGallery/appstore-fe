@@ -219,7 +219,8 @@ const cn = {
     test: '测试',
     publish: '发布',
     addApp: '添加外部仓库',
-    modifyAppStore: '编辑外部仓库'
+    modifyAppStore: '编辑外部仓库',
+    provider: '供应商'
   },
   report: {
     version: '版本',
@@ -230,7 +231,14 @@ const cn = {
     detail: '详情',
     ticketNumber: '任务号',
     baseInfo: '基础信息',
-    uploadUser: '上传人'
+    uploadUser: '上传人',
+    testReport: 'EdgeGallery测试认证报告',
+    downloadReport: '下载报告',
+    reportanalysis: '测试报告分析',
+    failReason: '失败原因',
+    rate: '通过率',
+    model: '认证模板',
+    reportDetail: '测试用例详情'
   },
   atp: {
     step1: '病毒扫描',
@@ -251,7 +259,28 @@ const cn = {
     status: '状态',
     ticketNumber: '任务号',
     baseInfo: '基础信息',
-    uploadUser: '上传人'
+    uploadUser: '上传人',
+    success: '成功数量',
+    failed: '失败数量',
+    dependencyDetail: '依赖详情',
+    versionDependency: '版本依赖',
+    testTask: '测试任务描述',
+    testItems: '测试项',
+    caseNumber: '用例个数',
+    cancel: '取消',
+    confirm: '确定',
+    returnList: '返回任务列表',
+    security: '安全测试',
+    complianceTest: '遵从性测试',
+    sandboxTest: '沙箱测试',
+    review: '审核',
+    testCaseManagement: '测试用例管理',
+    fileSize: '文件大小',
+    applicationName: '应用名称',
+    appPackage: '应用包',
+    uploadApp: '上传应用',
+    onlyCsar: '只能上传 .csar 文件.',
+    packageSizeLimit: '文件大小不超过10M'
   },
   apppromotion: {
     number: '序号',

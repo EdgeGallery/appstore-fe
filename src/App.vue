@@ -20,7 +20,10 @@
     style="overflow-x:hidden"
   >
     <Navcomp />
-    <router-view class="view" />
+    <router-view
+      class="view"
+      :key="$route.fullPath"
+    />
   </div>
 </template>
 
