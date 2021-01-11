@@ -137,7 +137,18 @@ export default {
         // 跳转到定位的item
         if (!param) {
           this.msgDetail = this.msgs[0]
+          if (this.msgs[0].readed === false) {
+            this.msgDetail.readed = true
+            this.updateMsgStatus(this.msgs[0].messageId)
+          }
         } else {
+          // 根据messge获取index并激活该index
+          for (let i = 0; i < this.msgs.length; i++) {
+            if (param.messageId === this.msgs[i].messageId) {
+              this.isActive = i
+              break
+            }
+          }
           this.msgDetail = param
           this.msgDetail.readed = true
           this.updateMsgStatus(param.messageId)
@@ -154,8 +165,17 @@ export default {
         })
       })
     },
-    locateMessage (messageId) {
-
+    locateMessage (message) {
+      // 根据messge获取index并激活该index
+      for (let i = 0; i < this.msgs.length; i++) {
+        if (message.messageId === this.msgs[i].messageId) {
+          this.isActive = i
+          break
+        }
+      }
+      this.msgDetail = message
+      this.msgDetail.readed = true
+      this.updateMsgStatus(message.messageId)
     },
     rebuileComponents () {
       // 销毁子标签
@@ -173,7 +193,7 @@ export default {
   watch: {
     '$route': function (to, from) {
       console.log(to.query.item.messageId)
-      this.locateMessage(to.query.item.messageId)
+      this.locateMessage(to.query.item)
     }
   }
 }
