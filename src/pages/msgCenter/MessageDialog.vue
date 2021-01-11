@@ -83,9 +83,9 @@ export default {
         })
 
         if (this.msgs.length > 0) {
-          this.$emit('msgEvent', true)
+          this.$emit('msgEvent', this.msgs.length)
         } else {
-          this.$emit('msgEvent', false)
+          this.$emit('msgEvent', 0)
         }
       }).catch(() => {
         console.log('get messages error')
@@ -94,7 +94,7 @@ export default {
     jumpToMsgDialog (item) {
       console.log('jump item:' + item)
       if (item) {
-        this.$router.push({ name: 'msgCenter', params: { item } })
+        this.$router.push({ name: 'msgCenter', query: { item } })
       } else {
         this.$router.push({ name: 'msgCenter' })
         this.$emit('msgCheckAllEvent', true)

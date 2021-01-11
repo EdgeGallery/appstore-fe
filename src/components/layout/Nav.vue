@@ -105,9 +105,22 @@
             @mouseleave="leave"
           >
             <div
-              v-show="isShowMsgIcon"
-              class="el-icon-chat-dot-round"
-            />
+              v-show="unReadMsgCount > 0"
+              class="el-icon-chat-round"
+            >
+              <span
+                class="countStyle"
+                v-if="unReadMsgCount<100"
+              >
+                {{ unReadMsgCount }}
+              </span>
+              <span
+                class="countStyleBig"
+                v-else
+              >
+                ...
+              </span>
+            </div>
           </div>
           <span
             class="curp"
@@ -261,7 +274,7 @@ export default {
       ifGuest: true,
       menu_small: false,
       seen: false,
-      isShowMsgIcon: false,
+      unReadMsgCount: 0,
       isCheckAllMsg: false
     }
   },
@@ -369,7 +382,7 @@ export default {
       this.seen = false
     },
     getMsg (value) {
-      this.isShowMsgIcon = value
+      this.unReadMsgCount = value
     },
     checkAllMsg (value) {
       this.isCheckAllMsg = value
@@ -474,12 +487,23 @@ export default {
       right: 15px;
       position: relative;
     }
-    .el-icon-chat-dot-round{
+    .el-icon-chat-round{
       color: red;
       position: absolute;
-      font-size: 15px;
+      font-size: 16px;
       margin-top: -7px;
-      margin-left: -10px;
+      margin-left: -13px;
+      text-align: center;
+    }
+    .countStyle{
+      color: #FFFFF2;
+      font-size: 10px;
+      transform: translateY(-140%)
+    }
+    .countStyleBig{
+      color: #FFFFF2;
+      font-size: 10px;
+      transform: translateY(-170%)
     }
   }
   .popUp{
