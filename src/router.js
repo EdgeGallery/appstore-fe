@@ -193,7 +193,7 @@ export default new Router({
           meta: {
             id: '2.6',
             breadcrumb: [
-              { nameEn: 'Message Center', path: '/appProm', nameCn: '消息中心' }
+              { nameEn: 'Message Center', nameCn: '消息中心' }
             ]
           },
           children: [
