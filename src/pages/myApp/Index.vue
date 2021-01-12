@@ -34,6 +34,7 @@
           v-loading="dataLoading"
           :data="currentPageData"
           border
+          :header-cell-style="{ background: '#eeeeee'}"
         >
           <el-table-column
             prop="name"

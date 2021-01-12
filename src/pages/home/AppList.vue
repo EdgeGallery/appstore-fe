@@ -20,6 +20,7 @@
       :data="appData"
       border
       style="width: 100%"
+      :header-cell-style="{ background: '#eeeeee'}"
     >
       <el-table-column
         prop="name"

@@ -19,9 +19,9 @@
     class="bread-crumb"
     v-if="isShow"
   >
-    <el-breadcrumb separator="/">
+    <el-breadcrumb separator="">
       <el-breadcrumb-item :to="{ path: '/index' }">
-        {{ $t('nav.appstore') }}
+        {{ }}
       </el-breadcrumb-item>
       <el-breadcrumb-item
         v-for="item in breadCrumbData"
