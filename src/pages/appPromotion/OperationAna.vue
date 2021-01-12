@@ -395,8 +395,10 @@ export default {
       let industryNames = this.getIndustryNames(this.appPackageData)
       industryNames.forEach(
         (item) => {
-          nameArr.push(item)
           let industryPullNum = this.getIndustryPullNum(item, this.appPackageData)
+          if (industryPullNum > 0) {
+            nameArr.push(item)
+          }
           let providerInfo = {
             value: industryPullNum,
             name: item
