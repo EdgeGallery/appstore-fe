@@ -82,12 +82,6 @@
       <div class="detailReport">
         <p class="title">
           报告详情
-          <el-button
-            type="text"
-            @click="checkReport"
-          >
-            查看
-          </el-button>
         </p>
         <div
           class="iframeReport"
@@ -129,9 +123,6 @@ export default {
           type: 'warning'
         })
       })
-    },
-    checkReport () {
-      window.open(this.data.atpTestReportUrl)
     }
   },
   mounted () {

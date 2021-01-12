@@ -35,7 +35,7 @@
             v-for="(item,index) in msgs"
             :key="index"
             :class="index===isActive?'selectMsgBody':'msgBody'"
-            v-show="(msg.index==='1'&&item.timeResult<2) || (msg.index==='2'&&item.timeResult>1&&item.timeResult<8) || (msg.index==='3'&&item.timeResult>7&&item.timeResult<32) ||(msg.index==='4'&&item.timeResult>31)"
+            v-show="(msg.index==='1'&&item.timeResult===1) || (msg.index==='2'&&item.timeResult===2) || (msg.index==='3'&&item.timeResult===3) ||(msg.index==='4'&&item.timeResult===4)"
             @click="showdetail(item, index)"
           >
             <div
@@ -122,11 +122,21 @@ export default {
       this.rebuileComponents()
     },
     timeCompute (time) {
-      var dateBegin = new Date(time.replace(/-/g, '/'))
-      var dateEnd = new Date()
-      var dateDiff = dateEnd.getTime() - dateBegin.getTime()
-      return Math.floor(dateDiff / (24 * 3600 * 1000))
+      var today = new Date()
+      var todayTime = today.getTime() % (1000 * 60 * 60 * 24)
+      var offset = new Date(time).getTime() - today.getTime()
+      var dateTime = offset + todayTime
+      if (dateTime >= 0 && dateTime < 1000 * 60 * 60 * 24) {
+        return 1
+      } else if (dateTime < 0 && dateTime / (1000 * 60 * 60 * 24) >= -7) {
+        return 2
+      } else if (dateTime / (1000 * 60 * 60 * 24) < -7 && dateTime / (1000 * 60 * 60 * 24) >= -30) {
+        return 3
+      } else {
+        return 4
+      }
     },
+
     getAppData (param) {
       getAppdownAnaApiByType().then((res) => {
         let data = res.data
