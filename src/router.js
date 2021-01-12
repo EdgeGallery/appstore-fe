@@ -183,7 +183,7 @@ export default new Router({
             id: '2.5.1',
             breadcrumb: [
               { nameEn: 'appProm', path: '/appProm', nameCn: '应用推送' },
-              { nameEn: 'Batch Promot', nameCn: '批量推送' }
+              { nameEn: 'Batch Promot', nameCn: '推送' }
             ]
           }
         },
