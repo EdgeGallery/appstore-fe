@@ -41,16 +41,10 @@
           class="search"
         >
           <el-row>
-            <el-col :span="10">
-              <div class="left">
-                <img
-                  src="../../assets/images/home_search.png"
-                  alt
-                >
-                <span class="search-title">{{ $t('store.screening') }}</span>
-              </div>
-            </el-col>
-            <el-col :span="14">
+            <el-col
+              :span="14"
+              :offset="10"
+            >
               <div
                 class="right"
                 id="home_namequery"
@@ -364,7 +358,8 @@ export default {
       this.findAppData = this.appData
       this.findAppData = this.findAppData.filter((item) => {
         let itemName = item.name.toLowerCase()
-        return itemName.match(this.nameQuery.toLowerCase())
+        // return itemName.match(this.nameQuery.toLowerCase())
+        return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
       })
       if (!this.nameQuery) this.findAppData = this.appData
     },
@@ -521,6 +516,7 @@ export default {
             display: inline-block;
             background-color: #688ef3;
             margin-right: 10px;
+            border-radius: 50%;
           }
           .box {
             display: inline-block;

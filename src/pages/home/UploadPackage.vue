@@ -225,9 +225,9 @@ export default {
       defaultActive: '',
       defaultIconFile: '',
       defaultIcon: [
-        require('../../assets/images/appicon1.png'),
-        require('../../assets/images/appicon2.png'),
-        require('../../assets/images/appicon3.png')
+        require('../../assets/images/project_smartdevice.png'),
+        require('../../assets/images/project_security.png'),
+        require('../../assets/images/project_video.png')
       ],
       dialogVisible: this.value,
       packageForm: {
@@ -560,6 +560,7 @@ export default {
       width: 68px;
       height: 68px;
       margin-bottom: 10px;
+      border-radius: 50%;
       img{
         width: 68px;
         height: 68px;
@@ -567,8 +568,8 @@ export default {
       em{
         display: inline-block;
         position: absolute;
-        bottom: 0;
-        right: 0;
+        bottom: -5px;
+        right: -5px;
       }
       .active{
         color: #03a9f4;
