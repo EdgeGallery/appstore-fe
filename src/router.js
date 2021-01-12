@@ -45,7 +45,8 @@ export default new Router({
           name: 'appstorename',
           component: () => import('./pages/home/Index.vue'),
           meta: {
-            id: '2.0'
+            id: '2.0',
+            breadcrumb: [{ nameEn: 'appstore', nameCn: '应用仓库' }]
           }
         },
         {
