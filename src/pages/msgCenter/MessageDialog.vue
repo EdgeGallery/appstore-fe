@@ -164,7 +164,6 @@ export default {
 }
 .checkAll{
   text-align: center;
-  line-height: 50px;
   font-size: 15px;
   cursor: pointer;
 }
