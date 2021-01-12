@@ -291,7 +291,7 @@ const cn = {
     testRepo: '认证测试报告',
     lastProTime: '最后推广时间',
     proTimes: '推广次数',
-    batchPro: '批量推送',
+    batchPro: '推送',
     messageType: '消息类型',
     messagePull: '拉取',
     messagePush: '推送',
