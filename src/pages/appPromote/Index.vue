@@ -15,9 +15,9 @@
   -->
 
 <template>
-  <div class="my-app padding56">
+  <div class="my-app">
     <div class="stars-wrapper" />
-    <div class="my-app-content">
+    <div class="my-app-content padding56">
       <el-row>
         <el-col :span="24">
           <el-button

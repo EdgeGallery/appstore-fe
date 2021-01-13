@@ -62,8 +62,7 @@ export default new Router({
           name: 'appstordocs',
           component: () => import('./pages/docs/Index.vue'),
           meta: {
-            id: '2.2',
-            breadcrumb: [{ nameEn: 'Docs', nameCn: '文档' }]
+            id: '2.2'
           }
         },
         {
@@ -152,8 +151,7 @@ export default new Router({
           name: 'apppromote',
           component: () => import('./pages/appPromote/Index.vue'),
           meta: {
-            id: '2.5',
-            breadcrumb: [{ nameEn: 'External App Management', nameCn: '外部应用仓库管理' }]
+            id: '2.5'
           }
         },
         {
@@ -161,8 +159,7 @@ export default new Router({
           name: 'apppromotion',
           component: () => import('./pages/appPromotion/AppList.vue'),
           meta: {
-            id: '2.5',
-            breadcrumb: [{ nameEn: 'App Promote', nameCn: '应用推送' }]
+            id: '2.5'
           }
         },
         {
@@ -170,8 +167,7 @@ export default new Router({
           name: 'operationAnalyse',
           component: () => import('./pages/appPromotion/OperationAna.vue'),
           meta: {
-            id: '2.5',
-            breadcrumb: [{ nameEn: 'Operation Analyse', nameCn: '操作分析' }]
+            id: '2.5'
           }
         },
         {
@@ -191,10 +187,7 @@ export default new Router({
           name: 'msgCenter',
           component: () => import('./pages/msgCenter/Msg_template.vue'),
           meta: {
-            id: '2.6',
-            breadcrumb: [
-              { nameEn: 'Message Center', nameCn: '消息中心' }
-            ]
+            id: '2.6'
           },
           children: [
             {
@@ -202,10 +195,7 @@ export default new Router({
               name: 'right_panel',
               component: () => import('./pages/msgCenter/Right_template.vue'),
               meta: {
-                id: '2.6.1',
-                breadcrumb: [
-                  { nameEn: 'appProm', path: '/appProm', nameCn: '消息中心' }
-                ]
+                id: '2.6.1'
               }
             }
           ]

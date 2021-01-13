@@ -576,7 +576,7 @@ export default {
     background: white;
     padding: 20px;
   }
-  padding: 20px 0;
+  //padding: 30px 0;
   .pagination {
     margin: 20px;
   }
