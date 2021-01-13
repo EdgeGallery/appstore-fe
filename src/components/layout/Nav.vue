@@ -456,13 +456,13 @@ export default {
       .el-menu--horizontal>.el-menu-item {
         height: 65px;
         line-height: 65px;
-        font-size: 20px;
+        font-size: 18px;
         margin-right: 0px;
         padding-bottom: 17px;
         vertical-align: bottom;
       }
       .el-submenu__title {
-        font-size: 20px;
+        font-size: 18px;
         height: 65px;
         line-height: 65px;
       }
@@ -476,7 +476,8 @@ export default {
     box-sizing: border-box;
     span{
       display: inline-block;
-      padding: 0 10px;
+      padding: 0 6px;
+      font-size: 14px;
     }
     .menu{
       display: none;
