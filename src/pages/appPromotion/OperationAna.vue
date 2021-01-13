@@ -297,7 +297,7 @@ export default {
       let number = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.targetAppStore && item.messageType === this.getMessageType('PUSH')) {
+          if (name === item.sourceAppStore && item.messageType === this.getMessageType('PUSH')) {
             number++
           }
         }
@@ -308,7 +308,7 @@ export default {
       let number = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.sourceAppStore && item.messageType === this.getMessageType('NOTICE')) {
+          if (name === item.targetAppStore && item.messageType === this.getMessageType('NOTICE')) {
             number++
           }
         }
