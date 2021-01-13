@@ -425,8 +425,10 @@ export default {
 
 <style lang="less" >
 .home {
+  position: relative;
+  float: left;
+  top: -61px;
   .fun-list {
-    background: #eee;
     .el-form-item {
       margin-bottom: 0;
     }
