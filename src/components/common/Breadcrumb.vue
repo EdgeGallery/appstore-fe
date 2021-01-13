@@ -19,10 +19,7 @@
     class="bread-crumb"
     v-if="isShow"
   >
-    <el-breadcrumb separator="">
-      <el-breadcrumb-item :to="{ path: '/index' }">
-        {{ }}
-      </el-breadcrumb-item>
+    <el-breadcrumb separator="/">
       <el-breadcrumb-item
         v-for="item in breadCrumbData"
         :key="item.name"
@@ -56,6 +53,16 @@ export default {
   methods: {},
   mounted () {
     this.breadCrumbData = this.$route.meta.breadcrumb
+    let detailData = JSON.parse(sessionStorage.getItem('myappdetail'))
+    let nameObj = {
+      nameCn: '',
+      nameEn: ''
+    }
+    nameObj.nameCn = detailData.name
+    nameObj.nameEn = detailData.name
+    if (this.$route.fullPath === '/myappdetail' || this.$route.fullPath === '/detail') {
+      this.breadCrumbData.splice(1, 1, nameObj)
+    }
     if (this.breadCrumbData && this.breadCrumbData.length > 0) this.isShow = true
   }
 }
