@@ -457,9 +457,9 @@ export default {
           let noticeNum = this.getNoticeNum(item, this.appPackageData)
           if (pushNum > 0 || noticeNum > 0) {
             allAppStoreArr.push(item)
+            appStorePushArr.push(pushNum)
+            appStoreNoticeArr.push(noticeNum)
           }
-          appStorePushArr.push(pushNum)
-          appStoreNoticeArr.push(noticeNum)
         }
       )
 
