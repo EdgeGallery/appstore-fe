@@ -316,7 +316,8 @@ const en = {
     quarterly3: 'Third quarter',
     quarterly4: 'Fourth quarter',
     viewTestRepo: 'view report',
-    intentionAppstore: 'Intention platform'
+    intentionAppstore: 'Intention platform',
+    acceptSuccess: 'App received successfully, please check or publish in "My App"'
   },
   about: {
   },
