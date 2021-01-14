@@ -116,10 +116,10 @@ export default {
     handleAccept () {
       acceptMsg(this.data.messageId).then((res) => {
         this.$message.success('已成功接收！')
-      }).catch(() => {
+      }).catch((error) => {
         this.$message({
           duration: 2000,
-          message: this.$t('apppromotion.acceptFailed'),
+          message: this.$t('apppromotion.acceptFailed') + error.response.data.message,
           type: 'warning'
         })
       })

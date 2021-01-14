@@ -495,12 +495,14 @@ export default {
             name: this.$t('apppromotion.pushApp'),
             type: 'bar',
             stack: 'name',
+            barWidth: 40,
             data: appStorePushArr
           },
           {
             name: this.$t('apppromotion.noticeApp'),
             type: 'bar',
             stack: 'name',
+            barWidth: 40,
             data: appStoreNoticeArr
           }
         ]
