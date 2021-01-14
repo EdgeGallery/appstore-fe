@@ -40,14 +40,6 @@
         class="swiper-pagination"
         slot="pagination"
       />
-      <!-- <div
-        class="swiper-button-prev"
-        slot="button-prev"
-      />
-      <div
-        class="swiper-button-next"
-        slot="button-next"
-      /> -->
     </swiper>
   </div>
 </template>
@@ -69,17 +61,13 @@ export default {
       SwiperList: [{
         id: '0001',
         imgUrl: require('../../assets/images/chocolate.png'),
-        url: 'http://www.edgegallery.org/'
+        url: 'http://www.edgegallery.org/577.html'
       }, {
         id: '0002',
         imgUrl: require('../../assets/images/missPic.png')
 
       }]
     }
-  },
-  mounted () {
-    console.log('this is swiper')
-    console.log(this.SwiperList)
   }
 }
 </script>
