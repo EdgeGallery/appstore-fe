@@ -16,6 +16,9 @@
 
 <template>
   <div class="home">
+    <div>
+      <home-swiper />
+    </div>
     <el-row class="fun-list">
       <el-col
         :span="24"
@@ -154,6 +157,7 @@ import appList from './AppList.vue'
 import pagination from '../../components/common/Pagination.vue'
 import bannerImage from '../../components/common/BannerImage.vue'
 import uploadAppLogo from '@/assets/images/upload.png'
+import HomeSwiper from '../../components/common/Swiper.vue'
 export default {
   name: 'Home',
   components: {
@@ -161,7 +165,8 @@ export default {
     appGrid,
     appList,
     pagination,
-    bannerImage
+    bannerImage,
+    HomeSwiper
   },
   data () {
     return {
@@ -428,6 +433,7 @@ export default {
 
 <style lang="less" >
 .home {
+  margin-top: 65px;
   .fun-list {
     background: #eee;
     .el-form-item {

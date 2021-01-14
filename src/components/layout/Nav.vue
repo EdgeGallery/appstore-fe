@@ -436,6 +436,9 @@ export default {
   height: 65px;
   color: white;
   background: #282b33;
+  position: fixed;
+  z-index: 500;
+  width: 100%;
 
   .logo {
     height: 65px;

@@ -412,6 +412,7 @@ export default {
 </script>
 <style lang='less'>
 .my-app {
+  margin-top: 65px;
   .my-app-content {
     background:#fff;
     padding: 20px;

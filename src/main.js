@@ -27,6 +27,10 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import VueCookies from 'vue-cookies'
 import echarts from 'echarts'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+// import 'swiper/swiper-bundle.css'
+import 'swiper/css/swiper.css'
+Vue.use(VueAwesomeSwiper)
 Vue.use(VueCookies)
 Vue.use(mavonEditor)
 Vue.use(ElementUI)

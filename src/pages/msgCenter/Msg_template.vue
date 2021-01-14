@@ -217,6 +217,7 @@ export default {
   background:#fff;
 }
 .left {
+  margin-top: 65px;
   width: 18%;
   height:100%;
   background: #fff;
