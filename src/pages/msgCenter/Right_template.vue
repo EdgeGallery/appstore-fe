@@ -115,7 +115,7 @@ export default {
   methods: {
     handleAccept () {
       acceptMsg(this.data.messageId).then((res) => {
-        this.$message.success('已成功接收！')
+        this.$message.success(this.$t('apppromotion.acceptSuccess'))
       }).catch((error) => {
         this.$message({
           duration: 2000,

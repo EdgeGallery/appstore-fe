@@ -326,7 +326,8 @@ const cn = {
     quarterly2: '第二季度',
     quarterly3: '第三季度',
     quarterly4: '第四季度',
-    intentionAppstore: '意向平台'
+    intentionAppstore: '意向平台',
+    acceptSuccess: '应用接收成功，请到“我的应用”中查看或发布'
   },
   about: {},
   ...zhLocale
