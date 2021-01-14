@@ -53,14 +53,19 @@ export default {
   methods: {},
   mounted () {
     this.breadCrumbData = this.$route.meta.breadcrumb
-    let detailData = JSON.parse(sessionStorage.getItem('myappdetail'))
     let nameObj = {
       nameCn: '',
       nameEn: ''
     }
-    nameObj.nameCn = detailData.name
-    nameObj.nameEn = detailData.name
-    if (this.$route.fullPath === '/myappdetail' || this.$route.fullPath === '/detail') {
+    if (this.$route.fullPath === '/myappdetail') {
+      let detailData = JSON.parse(sessionStorage.getItem('myappdetail'))
+      nameObj.nameCn = detailData.name
+      nameObj.nameEn = detailData.name
+      this.breadCrumbData.splice(1, 1, nameObj)
+    } else if (this.$route.fullPath === '/detail') {
+      let detailData = JSON.parse(sessionStorage.getItem('appstordetail'))
+      nameObj.nameCn = detailData.name
+      nameObj.nameEn = detailData.name
       this.breadCrumbData.splice(1, 1, nameObj)
     }
     if (this.breadCrumbData && this.breadCrumbData.length > 0) this.isShow = true
