@@ -574,6 +574,7 @@ export default {
 </script>
 <style lang="less">
 .my-app {
+  margin-top: 65px;
   .my-app-content {
     background: white;
     padding: 20px;

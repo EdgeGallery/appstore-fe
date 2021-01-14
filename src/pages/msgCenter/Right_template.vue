@@ -131,6 +131,7 @@ export default {
 </script>
 <style lang="less" scoped>
 #content,.detailcContent{
+  margin-top: 65px;
   height:100%;
 }
 .detailTitle{
