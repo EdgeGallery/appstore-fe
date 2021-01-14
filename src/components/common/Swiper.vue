@@ -25,10 +25,16 @@
         v-for="item of SwiperList"
         :key="item.id"
       >
-        <img
-          class="swiper-image"
-          :src="item.imgUrl"
+        <a
+          :href="item.url"
+          target="_blank"
         >
+          <img
+            class="swiper-image"
+            :src="item.imgUrl"
+            alt=""
+          >
+        </a>
       </swiper-slide>
       <div
         class="swiper-pagination"
@@ -62,7 +68,8 @@ export default {
       },
       SwiperList: [{
         id: '0001',
-        imgUrl: require('../../assets/images/chocolate.png')
+        imgUrl: require('../../assets/images/chocolate.png'),
+        url: 'http://www.edgegallery.org/'
       }, {
         id: '0002',
         imgUrl: require('../../assets/images/missPic.png')

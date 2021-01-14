@@ -29,6 +29,7 @@
             :src="uploadAppLogo"
             class="uploadAppLogo"
             @click="uploadPackage"
+            alt=""
           >
           <em
             class="curp iconAactive"
