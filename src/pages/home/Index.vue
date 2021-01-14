@@ -22,10 +22,11 @@
         class="icon-group"
       >
         <div class="rt">
-          <em
-            class="el-icon-upload curp"
+          <img
+            :src="uploadAppLogo"
+            class="uploadAppLogo"
             @click="uploadPackage"
-          />
+          >
           <em
             class="curp iconAactive"
             :class="{'el-icon-s-grid': iconAactive, 'el-icon-tickets': !iconAactive}"
@@ -152,6 +153,7 @@ import appGrid from './AppGrid.vue'
 import appList from './AppList.vue'
 import pagination from '../../components/common/Pagination.vue'
 import bannerImage from '../../components/common/BannerImage.vue'
+import uploadAppLogo from '@/assets/images/upload.png'
 export default {
   name: 'Home',
   components: {
@@ -176,7 +178,8 @@ export default {
       currentComponent: 'appGrid',
       currentPageData: [],
       appData: [],
-      findAppData: []
+      findAppData: [],
+      uploadAppLogo: uploadAppLogo
     }
   },
   methods: {
@@ -439,9 +442,15 @@ export default {
       }
       .iconAactive {
         color: #f66f6a;
+        font-size: 30px;
       }
       em:last-child {
         margin-right: 0;
+      }
+      .uploadAppLogo {
+        width: 31px;
+        height: 25px;
+        margin-right: 20px;
       }
     }
   }
