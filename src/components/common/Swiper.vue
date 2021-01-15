@@ -40,6 +40,14 @@
         class="swiper-pagination"
         slot="pagination"
       />
+      <!-- <div
+        class="swiper-button-prev"
+        slot="button-prev"
+      />
+      <div
+        class="swiper-button-next"
+        slot="button-next"
+      /> -->
     </swiper>
   </div>
 </template>
@@ -51,7 +59,9 @@ export default {
     return {
       swiperOptions: {
         pagination: {
-          el: '.swiper-pagination' },
+          el: '.swiper-pagination'
+        },
+        paginationClickable: true,
         loop: true,
         autoplay: {
           disableOnInteraction: false,
@@ -64,10 +74,13 @@ export default {
         url: 'http://www.edgegallery.org/577.html'
       }, {
         id: '0002',
-        imgUrl: require('../../assets/images/missPic.png')
-
+        imgUrl: require('../../assets/images/advertising.png')
       }]
     }
+  },
+  mounted () {
+    console.log('this is swiper')
+    console.log(this.SwiperList)
   }
 }
 </script>
