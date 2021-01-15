@@ -211,13 +211,13 @@ export default {
 
 <style lang="less" scoped>
 .box {
-  height: calc(100% - 60px);
-  margin: 0 56px;
-  overflow: hidden;
+  // height: calc(100% - 60px);
+  height: 100%;
+  margin: 65px 56px 0;
+  // overflow: hidden;
   background:#fff;
 }
 .left {
-  margin-top: 65px;
   width: 18%;
   height:100%;
   background: #fff;
