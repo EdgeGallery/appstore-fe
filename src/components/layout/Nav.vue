@@ -437,7 +437,7 @@ export default {
   color: white;
   background: #282b33;
   position: fixed;
-  z-index: 500;
+  z-index: 9999;
   width: 100%;
 
   .logo {
