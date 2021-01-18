@@ -460,15 +460,20 @@ export default {
         height: 65px;
         line-height: 65px;
         font-size: 18px;
+        font-weight: 700;
         margin-right: 0px;
-        padding-bottom: 17px;
+        font-family: Microsoft YaHei;
         vertical-align: bottom;
       }
       .el-submenu__title {
         font-size: 18px;
+        font-weight: 700;
+        font-family: Microsoft YaHei;
+      }
+      .el-menu--horizontal>.el-submenu .el-submenu__title {
         height: 65px;
         line-height: 65px;
-      }
+    }
     }
   .nav-tabs {
     padding-right: 20px;
