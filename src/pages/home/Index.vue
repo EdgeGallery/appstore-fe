@@ -19,37 +19,31 @@
     <div>
       <home-swiper />
     </div>
-    <el-row class="fun-list">
-      <el-col
-        :span="24"
-        class="icon-group"
-      >
-        <div class="rt">
-          <img
-            :src="uploadAppLogo"
-            class="uploadAppLogo"
-            @click="uploadPackage"
-            alt=""
-          >
-          <em
-            class="curp iconAactive"
-            :class="{'el-icon-s-grid': iconAactive, 'el-icon-tickets': !iconAactive}"
-            @click="changeAppList"
-          />
-        </div>
-      </el-col>
-    </el-row>
     <div class="app">
       <el-row class="app-content">
         <el-col
           :span="24"
           class="search"
         >
-          <el-row>
+          <el-row class="searchAndButton">
             <el-col
-              :span="14"
-              :offset="10"
+              class="icon-group"
             >
+              <div class="rt">
+                <img
+                  :src="uploadAppLogo"
+                  class="uploadAppLogo"
+                  @click="uploadPackage"
+                  alt=""
+                >
+                <em
+                  class="curp iconAactive"
+                  :class="{'el-icon-s-grid': iconAactive, 'el-icon-tickets': !iconAactive}"
+                  @click="changeAppList"
+                />
+              </div>
+            </el-col>
+            <el-col class="searchBox">
               <div
                 class="right"
                 id="home_namequery"
@@ -432,33 +426,43 @@ export default {
 }
 </script>
 
-<style lang="less" >
+<style lang="less" scoped>
 .home {
   margin-top: 65px;
-  .fun-list {
-    background: #eee;
-    .el-form-item {
-      margin-bottom: 0;
+  background: #eee;
+  .el-form-item {
+    margin-bottom: 0;
+  }
+  .searchAndButton {
+    float: right;
+    width: 500px;
+  }
+  .searchBox {
+    float: right;
+    width: 300px;
+    margin-top: 5px;
+  }
+  .icon-group {
+    float: right;
+    width: 200px;
+    padding-right: 56px;
+    em {
+      line-height: 55px;
+      margin-right: 36px;
+      font-size: 24px;
     }
-    .icon-group {
-      padding-right: 56px;
-      em {
-        line-height: 55px;
-        margin-right: 36px;
-        font-size: 24px;
-      }
-      .iconAactive {
-        color: #f66f6a;
-        font-size: 30px;
-      }
-      em:last-child {
-        margin-right: 0;
-      }
-      .uploadAppLogo {
-        width: 31px;
-        height: 25px;
-        margin-right: 20px;
-      }
+    .iconAactive {
+      color: #f66f6a;
+      font-size: 30px;
+    }
+    em:last-child {
+      margin-right: 0;
+    }
+    .uploadAppLogo {
+      width: 31px;
+      height: 25px;
+      margin-right: 20px;
+      cursor: pointer;
     }
   }
   .app {
