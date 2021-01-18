@@ -534,7 +534,7 @@ export default {
 }
 
 </script>
-<style lang='less'>
+<style lang='less' scoped>
 .upload-package{
   .el-dialog__header{
   background-color: #5abdc7 ;

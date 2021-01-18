@@ -43,7 +43,7 @@
             ref="myCharts2"
           />
           <div
-            class="mychart"
+            class="mychart3"
             id="myCharts3"
             ref="myCharts3"
           />
@@ -334,50 +334,90 @@ export default {
       )
       return number
     },
-
-    getQuarter (datestr) {
-      let month = new Date(datestr).getMonth()
-      let m = month + 1
-      if (m >= 1 && m <= 3) {
-        return 1
-      }
-      if (m > 3 && m <= 6) {
-        return 2
-      }
-      if (m > 6 && m <= 9) {
-        return 3
-      }
-      if (m > 9 && m <= 12) {
-        return 4
-      }
+    dateDiff (startDateString, endDateString) {
+      var separator = '-'
+      var startDates = startDateString.split(separator)
+      var endDates = endDateString.split(separator)
+      var startDate = new Date(startDates[0], startDates[1] - 1, startDates[2])
+      var endDate = new Date(endDates[0], endDates[1] - 1, endDates[2])
+      return parseInt(Math.abs(endDate - startDate) / 1000 / 60 / 60 / 24) + 1
     },
-    // 获取四个季度的pull app数量
+    getCurrentTime (date) {
+      // let date = new Date()
+      let Y = date.getFullYear()
+      let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
+      let D = date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate()
+      let hours = date.getHours()
+      let minutes = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+      let seconds = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+      date = Y + '-' + M + '-' + D + ' ' + hours + ':' + minutes + ':' + seconds
+      console.log(date)
+      return date
+    },
+    getDateValue (datestr) {
+      let dayValue = this.dateDiff(this.getCurrentTime(new Date()).split(' ')[0], datestr)
+      console.log(dayValue)
+      return dayValue
+    },
+    getRecent7days () {
+      // xxxx-xx-xx --> xx/xx
+      let recent7daysStr = []
+      let now = new Date()
+      let day1 = this.getCurrentTime(now).split(' ')[0]
+      let temp1 = day1.split('-')
+      let temp2 = temp1.splice(1, 3)
+      day1 = temp2[0] + '/' + temp2[1]
+
+      for (let i = 6; i > 0; i--) {
+        let preday = new Date(now.getTime() - i * 24 * 60 * 60 * 1000)
+        let daytime = this.getCurrentTime(preday).split(' ')[0]
+        let tp1 = daytime.split('-')
+        let tp2 = tp1.splice(1, 3)
+        daytime = tp2[0] + '/' + tp2[1]
+        recent7daysStr.push(daytime)
+      }
+      recent7daysStr.push(day1)
+      console.log(recent7daysStr)
+      return recent7daysStr
+    },
+    // 获取最近七天的pull app数量
     getPullAppNum (name, appPackageData) {
-      let quarter1 = 0
-      let quarter2 = 0
-      let quarter3 = 0
-      let quarter4 = 0
+      let day1 = 0
+      let day2 = 0
+      let day3 = 0
+      let day4 = 0
+      let day5 = 0
+      let day6 = 0
+      let day7 = 0
       appPackageData.forEach(
         (item) => {
           if (name === item.targetAppStore && item.messageType === this.getMessageType('PULL')) {
-            // let date = item.time.split(' ')[0]
-            let quarter = this.getQuarter(item.time.split(' ')[0])
-            if (quarter === 1) {
-              quarter1++
+            let days = this.getDateValue(item.time.split(' ')[0])
+            if (days === 1) {
+              day1++
             }
-            if (quarter === 2) {
-              quarter2++
+            if (days === 2) {
+              day2++
             }
-            if (quarter === 3) {
-              quarter3++
+            if (days === 3) {
+              day3++
             }
-            if (quarter === 4) {
-              quarter4++
+            if (days === 4) {
+              day4++
+            }
+            if (days === 5) {
+              day5++
+            }
+            if (days === 6) {
+              day6++
+            }
+            if (days === 7) {
+              day7++
             }
           }
         }
       )
-      let pullArr = [quarter1, quarter2, quarter3, quarter4]
+      let pullArr = [day7, day6, day5, day4, day3, day2, day1]
       return pullArr
     }
   },
@@ -512,22 +552,23 @@ export default {
       let targetAppStorePullArr = []
       let targetAppStoreArr = []
       let targetAppStoreSet = this.getTargetAppStoreSet(this.appPackageData)
+      let recent7days = this.getRecent7days()
       targetAppStoreSet.forEach(
         (item) => {
           let pullAppNum = this.getPullAppNum(item, this.appPackageData)
           for (let i = 0; i < pullAppNum.length; i++) {
             if (pullAppNum[i] > 0) {
               targetAppStoreArr.push(item)
-              continue
+              let pullInfo = {
+                name: item,
+                type: 'line',
+                stack: this.$t('apppromotion.totalNum'),
+                data: pullAppNum
+              }
+              targetAppStorePullArr.push(pullInfo)
+              break
             }
           }
-          let pullInfo = {
-            name: item,
-            type: 'line',
-            stack: this.$t('apppromotion.totalNum'),
-            data: pullAppNum
-          }
-          targetAppStorePullArr.push(pullInfo)
         }
       )
 
@@ -545,14 +586,14 @@ export default {
         },
         grid: {
           left: '3%',
-          right: '4%',
+          right: '2%',
           bottom: '3%',
           containLabel: true
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [this.$t('apppromotion.quarterly1'), this.$t('apppromotion.quarterly2'), this.$t('apppromotion.quarterly3'), this.$t('apppromotion.quarterly4')]
+          data: recent7days
         },
         yAxis: {
           type: 'value'
@@ -594,10 +635,16 @@ export default {
   }
 }
 .mychart{
+  width:32%;
+  height:300px;
+  float:left;
+  margin-left:23px;
+}
+.mychart3{
   width:30%;
   height:300px;
   float:left;
-  margin-left:30px;
+  margin-left:23px;
 }
 .analyseAna{
   width:100%;
