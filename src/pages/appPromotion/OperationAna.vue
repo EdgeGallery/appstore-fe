@@ -635,13 +635,13 @@ export default {
   }
 }
 .mychart{
-  width:32%;
+  width:30%;
   height:300px;
   float:left;
   margin-left:23px;
 }
 .mychart3{
-  width:30%;
+  width:35%;
   height:300px;
   float:left;
   margin-left:23px;
