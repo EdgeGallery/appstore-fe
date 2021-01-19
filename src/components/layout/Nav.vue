@@ -21,7 +21,7 @@
     >
       <el-col
         :lg="6"
-        :md="7"
+        :md="6"
         :sm="14"
         :xs="13"
       >
@@ -86,7 +86,7 @@
       </el-col>
       <el-col
         :lg="6"
-        :md="5"
+        :md="6"
         :sm="10"
         :xs="11"
       >
@@ -122,6 +122,12 @@
               </span>
             </div>
           </div>
+          <span
+            v-if="!ifGuest"
+          >{{ userName }}</span>
+          <span
+            v-if="!ifGuest"
+          >|</span>
           <span
             class="curp"
             @click="logout()"
@@ -412,6 +418,7 @@ export default {
     getUserInfo().then(res => {
       sessionStorage.setItem('userId', res.data.userId)
       sessionStorage.setItem('userName', res.data.userName)
+      this.userName = res.data.userName
       this.loginPage = res.data.loginPage
       if (res.data.userName === 'guest') {
         this.ifGuest = true
