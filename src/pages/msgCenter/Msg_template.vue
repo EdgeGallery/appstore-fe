@@ -163,6 +163,21 @@ export default {
           this.msgDetail.readed = true
           this.updateMsgStatus(param.messageId)
         }
+      }).catch((err) => {
+        if (err.response.data.code === 403) {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.guestUser'),
+            type: 'warning'
+          })
+          this.handleClose()
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('apppromotion.getNoticeFailed'),
+            type: 'warning'
+          })
+        }
       })
     },
     updateMsgStatus (messageId) {
