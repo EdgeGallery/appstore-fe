@@ -227,7 +227,7 @@ export default {
       defaultIcon: [
         require('../../assets/images/project_smartdevice.png'),
         require('../../assets/images/project_security.png'),
-        require('../../assets/images/project_video.png')
+        require('../../assets/images/project_videosur.png')
       ],
       dialogVisible: this.value,
       packageForm: {
