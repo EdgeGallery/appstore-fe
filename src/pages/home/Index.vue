@@ -429,7 +429,7 @@ export default {
 <style lang="less" scoped>
 .home {
   margin-top: 65px;
-  background: #eee;
+  background: white;
   .el-form-item {
     margin-bottom: 0;
   }
