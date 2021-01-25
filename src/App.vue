@@ -56,6 +56,6 @@ export default {
 }
 .view{
   height:calc(100% - 65px);
-  background: white;
+  // background: white;
 }
 </style>

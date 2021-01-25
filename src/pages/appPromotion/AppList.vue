@@ -19,10 +19,8 @@
     <el-breadcrumb
       separator="/"
       class="bread-crumb"
+      :class="{ enLan: isEnLan, cnLan: !isEnLan }"
     >
-      <el-breadcrumb-item :to="{ path: '/index' }">
-        {{ $t('nav.appstore') }}
-      </el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/apppromote' }">
         {{ $t('nav.appShare') }}
       </el-breadcrumb-item>
@@ -154,7 +152,8 @@ export default {
       appStoreData: [],
       dataLoading: false,
       appStoreList: [],
-      value: ''
+      value: '',
+      isEnLan: true
     }
   },
   methods: {
@@ -240,6 +239,12 @@ export default {
       })
     }
   },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.isEnLan = language === 'en'
+    }
+  },
   mounted () {
     console.log(this.$refs.multipleTable.selection)
     this.getTableData()
@@ -249,16 +254,13 @@ export default {
       'appstordetail',
       JSON.stringify(this.dataonLineListSelections)
     )
+    let language = localStorage.getItem('language')
+    this.isEnLan = language === 'en'
   }
 }
 </script>
+
 <style lang="less" scoped>
-.bread-crumb{
-  height: 3rem;
-  line-height: 3rem !important;
-  font-size: 14px;
-  padding: 0rem !important;
-}
 .my-app {
   margin-top: 65px;
   .my-app-content {
