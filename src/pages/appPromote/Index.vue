@@ -430,7 +430,7 @@ export default {
   }
   .stars-wrapper{
     width: 100%;
-    height: 200px;
+    height: 300px;
     background: url("../../assets/images/appstore.png") no-repeat center center #1e7388;
     background-size: cover;
   }

@@ -26,7 +26,9 @@ const cn = {
     logout: '注销',
     login: '登录',
     appstore: '应用仓库',
-    appMgmt: '应用管理'
+    appMgmt: '应用管理',
+    appShare: '应用共享',
+    appPush: '应用推送'
   },
   common: {
     bannerTitle: '为开发人员提供一站式服务',
