@@ -24,7 +24,9 @@ const en = {
     logout: 'Logout',
     login: 'Login',
     appstore: 'APP Warehouse',
-    appMgmt: 'appMgmt'
+    appMgmt: 'appMgmt',
+    appShare: 'App Share',
+    appPush: 'App Promote'
   },
   common: {
     bannerTitle: 'One-step shop for developers',

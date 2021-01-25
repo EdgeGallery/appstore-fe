@@ -201,7 +201,7 @@ export default {
       language: 'cn',
       list: [
         {
-          labelEn: 'Warehouse',
+          labelEn: 'App Warehouse',
           labelCn: '应用仓库',
           route: '/index',
           pageId: '2.1.1',

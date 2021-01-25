@@ -16,6 +16,20 @@
 
 <template>
   <div class="my-app padding56">
+    <el-breadcrumb
+      separator="/"
+      class="bread-crumb"
+    >
+      <el-breadcrumb-item :to="{ path: '/index' }">
+        {{ $t('nav.appstore') }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/apppromote' }">
+        {{ $t('nav.appShare') }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        {{ $t('nav.appPush') }}
+      </el-breadcrumb-item>
+    </el-breadcrumb>
     <div class="my-app-content">
       <div class="app-list">
         <el-row class="batchProm">
@@ -239,6 +253,12 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.bread-crumb{
+  height: 3rem;
+  line-height: 3rem !important;
+  font-size: 14px;
+  padding: 0rem !important;
+}
 .my-app {
   margin-top: 65px;
   .my-app-content {
