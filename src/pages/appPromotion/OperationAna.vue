@@ -121,7 +121,7 @@
         @close="onClose"
       >
         <div class="detailInfo">
-          <p class="title">
+          <p class="title1">
             应用基本信息
           </p>
           <div />
@@ -143,11 +143,11 @@
           <p class="basic_p">
             <span>类型：</span>{{ middleData.type }}
           </p>
-          <p class="basic_p desc clearfix">
-            <span>描述：</span><span>{{ middleData.shortDesc }}</span>
+          <p class="basic_p">
+            <span>描述：</span>{{ middleData.shortDesc }}
           </p>
-          <p class="title">
-            其他基本信息
+          <p class="title2">
+            其他信息
           </p>
           <p class="basic_p">
             <span>源AppStore：</span>{{ middleData.sourceAppStore }}
@@ -666,7 +666,25 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
 }
-.title{
+.title1{
+  height: 36px;
+  line-height: 36px;
+  margin: 75px 0 15px;
+  position:relative;
+  z-index: 888;
+  padding-left: 15px;
+  border-bottom: 1px solid #e7ebf5;
+}
+.title1::before{
+  content:'';
+  display:inline-block;
+  width:3px;
+  height:18px;
+  position: relative;
+  top:4px;
+  background:#409EFF;
+}
+.title2{
   height: 36px;
   line-height: 36px;
   margin: 25px 0 15px;
@@ -675,7 +693,7 @@ export default {
   padding-left: 15px;
   border-bottom: 1px solid #e7ebf5;
 }
-.title::before{
+.title2::before{
   content:'';
   display:inline-block;
   width:3px;
@@ -690,19 +708,9 @@ export default {
   margin-bottom: 5px;
   span{
     display: inline-block;
-    width: 100px;
-    text-align: right;
-    line-height: 25px;
-  }
-}
-.basic_p.desc{
-  span{
-    float: left;
-  }
-  span:last-child{
-    width: calc(100% - 100px);
+    margin-left: 30px;
     text-align: left;
-    padding-right: 10px;
+    line-height: 25px;
   }
 }
 </style>

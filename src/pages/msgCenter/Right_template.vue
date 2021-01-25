@@ -31,22 +31,30 @@
         <p class="title">
           应用基本信息
         </p>
-        <el-form label-width="100px">
+        <hr class="linestyle">
+        <el-form
+          label-width="100px"
+          size="mini"
+          id="appForm1"
+        >
           <el-row :gutter="24">
             <el-col :span="8">
-              <el-form-item label="应用名称：">
+              <el-form-item label="名称：">
                 {{ data.basicInfo.name }}
               </el-form-item>
-              <el-form-item label="应用描述：">
-                {{ data.basicInfo.shortDesc }}
+              <el-form-item label="架构：">
+                {{ data.basicInfo.affinity }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="厂商：">
                 {{ data.basicInfo.provider }}
               </el-form-item>
-              <el-form-item label="架构：">
-                {{ data.basicInfo.affinity }}
+              <el-form-item
+                class="appType"
+                label="亲和性："
+              >
+                {{ data.basicInfo.type }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -58,15 +66,31 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <el-row :gutter="24">
+            <el-col :span="24">
+              <el-form-item
+                class="appShortDes"
+                label="应用描述："
+              >
+                {{ data.basicInfo.shortDesc }}
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
       </div>
       <div class="testDetail">
         <p class="title">
           应用测试报告
         </p>
-        <el-form label-width="100px">
-          <el-row :gutter="10">
-            <el-col :span="12">
+        <hr class="linestyle2">
+        <el-form
+          class="testInfo"
+          label-width="100px"
+          size="mini"
+          id="appForm2"
+        >
+          <el-row :gutter="24">
+            <el-col :span="8">
               <el-form-item label="测试平台：">
                 ATP测试平台
               </el-form-item>
@@ -80,7 +104,7 @@
         </el-form>
       </div>
       <div class="detailReport">
-        <p class="title">
+        <p class="titleTestRepo">
           报告详情
         </p>
         <div
@@ -129,14 +153,14 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 #content,.detailcContent{
   height:100%;
 }
 .detailTitle{
   height:36px;
   .lt{
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
   }
   .rt{
@@ -146,10 +170,22 @@ export default {
   }
 }
 .title{
+  font-size: 20px;
   height: 36px;
   line-height: 36px;
   color: #000;
   margin-top: 25px;
+  margin-left: 20px;
+  position:relative;
+  z-index: 888;
+}
+.titleTestRepo{
+  font-size: 20px;
+  height: 36px;
+  line-height: 36px;
+  color: #000;
+  margin-top: 65px;
+  margin-left: 20px;
   position:relative;
   z-index: 888;
 }
@@ -157,13 +193,28 @@ export default {
   content:'';
   display:inline-block;
   width:3px;
-  height:18px;
+  height:20px;
+  position: relative;
+  top:4px;
+  background:#409EFF;
+}
+.titleTestRepo::before{
+  content:'';
+  display:inline-block;
+  width:3px;
+  height:20px;
   position: relative;
   top:4px;
   background:#409EFF;
 }
 .el-form-item{
   margin:0;
+}
+.el-form-item__label{
+  font-size: 17px;
+}
+.el-form-item__content{
+  font-size: 17px;
 }
 .detailInfo{
   height:110px;
@@ -178,5 +229,27 @@ export default {
   height:100%;
   width:100%;
   border:none;
+}
+.linestyle{
+  margin: 2px 20px;
+}
+.linestyle2{
+  margin: 49px 20px 0px;
+}
+.appType{
+  margin-left: 14px;
+}
+.appShortDes{
+  margin-left: 28px;
+  // font-size: 17px;
+}
+.testInfo{
+  margin-left: 30px;
+}
+#appForm1 .el-form-item__label {
+  font-size: 17px;
+}
+#appForm2 .el-form-item__label {
+  font-size: 17px;
 }
 </style>

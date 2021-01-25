@@ -24,9 +24,11 @@
       :current-page="currentPage"
       :page-sizes="pageSizeArr"
       :page-size="pageSize"
-      layout="total, sizes, prev, pager, next, jumper"
+      layout="slot, sizes, prev, pager, next, jumper"
       :total="totalNum"
-    />
+    >
+      <span class="page-total">{{ $t('common.pageTotalNum') }} : {{ totalNum }}</span>
+    </el-pagination>
   </div>
 </template>
 
@@ -91,3 +93,9 @@ export default {
 }
 
 </script>
+<style lang="less" scoped>
+.page-total{
+  color: #606266;
+  font-weight: normal;
+}
+</style>

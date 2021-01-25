@@ -83,7 +83,8 @@ const en = {
     url: 'url',
     appdTransId: 'appTranslate id',
     modifyApp: 'modify',
-    deleteAppStore: 'This operation will permanently delete the external warehouse. Do you want to continue?'
+    deleteAppStore: 'This operation will permanently delete the external warehouse. Do you want to continue?',
+    pageTotalNum: 'Total'
   },
   promptMessage: {
     guestUser: 'The guest user has no right to operate. please log in first!',

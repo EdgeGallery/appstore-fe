@@ -84,7 +84,8 @@ const cn = {
     url: 'IP or URL',
     appdTransId: 'APPD版本',
     modifyApp: '编辑',
-    company: '公司'
+    company: '公司',
+    pageTotalNum: '总条数'
   },
   promptMessage: {
     guestUser: 'guest用户无权操作! 请登录',
