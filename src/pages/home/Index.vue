@@ -152,7 +152,7 @@ import appList from './AppList.vue'
 import pagination from '../../components/common/Pagination.vue'
 import bannerImage from '../../components/common/BannerImage.vue'
 import uploadAppLogo from '@/assets/images/upload.png'
-import HomeSwiper from '../../components/common/Swiper.vue'
+import HomeSwiper from '../../components/common/Swipers.vue'
 export default {
   name: 'Home',
   components: {
