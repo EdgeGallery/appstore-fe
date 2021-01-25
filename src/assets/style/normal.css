@@ -125,3 +125,27 @@ a{
   top:80px !important;
   z-index: 99999 !important;
 }
+
+
+/* 弹框组件归一化 */
+
+.el-dialog__header{
+  background:#fff !important;
+}
+.el-dialog__title {
+  color: #000 !important;
+}
+.el-dialog__close {
+  color: #000 !important;
+}
+.el-icon-close:before{
+  color:#000 !important;
+}
+.dialog-footer{
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+}
+
+
+/* 导航栏归一化 */
