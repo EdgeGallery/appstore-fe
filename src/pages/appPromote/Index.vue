@@ -109,7 +109,6 @@
       <el-row>
         <el-col>
           <el-form
-
             :model="form"
             ref="form"
             :rules="rules"
