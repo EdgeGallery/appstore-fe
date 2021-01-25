@@ -173,6 +173,7 @@ export default {
   .how-it-works {
     padding: 35px 55px;
     box-sizing: border-box;
+    background: #eee;
     .steps {
       background: white;
       padding: 40px 30px 75px;
