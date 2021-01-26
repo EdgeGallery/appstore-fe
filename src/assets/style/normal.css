@@ -179,3 +179,29 @@ a{
   font-size: 14px;
   padding: 0rem !important;
 }
+
+/* 搜索框、按钮组件归一化 */
+.el-input__inner{
+  height: 32px;
+  line-height: 32px;
+}
+.el-input__icon{
+  line-height: 32px;
+}
+.el-button{
+  padding: 8px 24px;
+}
+.el-button.featureBtn {
+  color: #fff;
+  background-color: #688ef3;
+  border-color: #688ef3;
+}
+.el-button.featureBtn:hover{
+  background-color: #86a5f5;
+  border-color: #86a5f5;
+}
+.el-button.standardBtn:hover{
+  background-color: #fff;
+  border-color: #a6bcf6;
+  color: #86a5f5;
+}
