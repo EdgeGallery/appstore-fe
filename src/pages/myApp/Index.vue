@@ -15,14 +15,14 @@
   -->
 
 <template>
-  <div class="my-app padding56">
-    <div class="my-app-content">
+  <div class="my-app padding56 h100">
+    <div class="my-app-content h100">
       <el-row>
         <el-col :span="24">
           <el-button
             id="myapp_checktest"
-            type="primary"
-            class="rt"
+            type="button"
+            class="rt checkTestStyle"
             @click="jumpTo"
           >
             {{ $t('myApp.checkTest') }}
@@ -33,12 +33,13 @@
         <el-table
           v-loading="dataLoading"
           :data="currentPageData"
-          border
-          :header-cell-style="{ background: '#eeeeee'}"
+          header-cell-class-name="headerStyle"
+          :cell-style="columnStyle"
         >
           <el-table-column
             prop="name"
             :label="$t('common.appName')"
+            :render-header="renderHeadeName"
           />
           <el-table-column
             prop="provider"
@@ -48,7 +49,6 @@
             prop="version"
             :label="$t('common.version')"
           />
-
           <el-table-column
             prop="type"
             :label="$t('common.type')"
@@ -60,6 +60,7 @@
           <el-table-column
             prop="shortDesc"
             :label="$t('common.description')"
+            :render-header="renderHeadeDesc"
           />
           <el-table-column
             prop="status"
@@ -68,44 +69,62 @@
           <el-table-column
             fixed="right"
             :label="$t('myApp.operation')"
-            width="200"
+            width="400"
+            :render-header="renderHeadeOperation"
           >
             <template slot-scope="scope">
               <el-button
                 id="appdetail_detail"
                 @click="getDetail(scope.row)"
-                type="text"
+                type="button"
                 size="small"
+                class="tableButton detailButton"
               >
                 {{ $t('common.detail') }}
               </el-button>
+              <span class="buttonRight" />
               <el-button
                 :disabled="scope.row.status == 'Published'"
-                type="text"
+                type="button"
                 size="small"
                 @click="testMessage(scope.row)"
+                class="tableButton testButton"
               >
                 {{ $t('myApp.test') }}
               </el-button>
+              <span class="buttonRight" />
               <el-button
                 :disabled="scope.row.status !== 'Test_success'"
-                type="text"
+                type="button"
                 size="small"
                 @click="publishPackage(scope.row)"
+                class="tableButton publishButton"
               >
                 {{ $t('myApp.publish') }}
               </el-button>
+              <span class="buttonRight" />
               <el-button
                 id="appdetail_delete"
                 :disabled="scope.row.status == 'Test_running' || scope.row.status == 'Test_waiting'"
                 @click="getDelete(scope.row)"
-                type="text"
+                type="button"
                 size="small"
+                class="tableButton deleteButton"
               >
                 {{ $t('common.delete') }}
               </el-button>
             </template>
           </el-table-column>
+          <template slot="empty">
+            <div>
+              <img
+                src="../../assets/images/empty.png"
+                alt=""
+                style="padding: 10px;"
+              >
+              <p>暂无数据</p>
+            </div>
+          </template>
         </el-table>
       </div>
       <pagination
@@ -308,6 +327,48 @@ export default {
     clearInterval () {
       clearTimeout(this.interval)
       this.interval = null
+    },
+    // table渲染
+    columnStyle ({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 0 || columnIndex === 6 || columnIndex === 2) {
+        return 'color: #526ecc'
+      }
+    },
+    // tableRowStyle ({ row, rowIndex }) {
+    //   return 'height:70px'
+    // }
+    renderHeadeName (h, { column, $index }) {
+      return h(
+        'div', { style: 'padding-top: 7px;' }, [
+          h('span', column.label),
+          h('i', {
+            class: 'el-icon-menu',
+            style: 'margin-left: 5px;'
+          })
+        ]
+      )
+    },
+    renderHeadeOperation (h, { column, $index }) {
+      return h(
+        'div', { style: 'padding-top: 7px;' }, [
+          h('span', column.label),
+          h('i', {
+            class: 'el-icon-s-operation',
+            style: 'margin-left: 5px;'
+          })
+        ]
+      )
+    },
+    renderHeadeDesc (h, { column, $index }) {
+      return h(
+        'div', { style: 'padding-top: 7px;' }, [
+          h('span', column.label),
+          h('i', {
+            class: 'el-icon-document',
+            style: 'margin-left: 5px;'
+          })
+        ]
+      )
     }
   },
   mounted () {
@@ -323,13 +384,53 @@ export default {
   }
 }
 </script>
-<style lang='less' scoped>
+<style lang='less'>
 .my-app {
   .my-app-content {
     background: white;
     padding: 20px;
+    // height: calc(100% - 10px);
+    .checkTestStyle{
+      background-color: #89a6e6 ;
+      color: #fff;
+    }
     .packageTable{
       margin: 20px 0;
+      .headerStyle{
+        background: #e1e7f5;
+        color: #575d6c;
+        border-right: 2px solid #fff;
+        padding: 0;
+        height: 30px;
+        line-height: 30px;
+        // font-size: 16px;
+      }
+      .el-table__row{
+        height: 70px;
+      }
+      .tableButton{
+        // color: #526ecc;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 14px;
+      }
+      .detailButton{
+        background-color: #89a6e6;
+      }
+      .testButton{
+        background-color: #a8d89b;
+      }
+      .publishButton{
+        background-color: #9ed0c9;
+      }
+      .deleteButton{
+        background-color: #baa3d4;
+      }
+      .buttonRight{
+        padding: 0 1px;
+        margin: 0 5px;
+        background: #dfe1e6;
+      }
     }
   }
 }

@@ -110,6 +110,7 @@ a{
 }
 .padding56{
   padding: 0 56px;
+  padding-bottom: 25px;
   box-sizing: border-box;
 }
 .padding20{
