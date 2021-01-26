@@ -55,11 +55,6 @@
           :header-cell-style="{ background: '#eeeeee'}"
         >
           <el-table-column
-            prop="number"
-            :label="$t('apppromotion.number')"
-            width="120"
-          />
-          <el-table-column
             prop="name"
             :label="$t('apppromotion.appName')"
             width="200"
@@ -71,12 +66,12 @@
           <el-table-column
             prop="version"
             :label="$t('apppromotion.version')"
-            width="120"
+            width="180"
           />
           <el-table-column
             prop="messageType"
             :label="$t('apppromotion.messageType')"
-            width="120"
+            width="180"
           />
           <el-table-column
             prop="sourceAppStore"
@@ -144,7 +139,7 @@
             <span>类型：</span>{{ middleData.type }}
           </p>
           <p class="basic_p">
-            <span>描述：</span>{{ middleData.shortDesc }}
+            <span>应用描述：</span>{{ middleData.shortDesc }}
           </p>
           <p class="title2">
             其他信息
@@ -159,7 +154,7 @@
             <span>apt测试状态：</span>{{ middleData.atpTestStatus }}
           </p>
           <p class="basic_p">
-            <span>应用描述：</span>{{ middleData.description }}
+            <span>操作描述：</span>{{ middleData.description }}
           </p>
         </div>
       </el-drawer>
@@ -233,11 +228,9 @@ export default {
         this.appPackageData = []
         getAppdownAnaApi().then((res) => {
           let data = res.data
-          let index = 1
           data.forEach(
             (item) => {
               let appDataItem = {
-                number: index,
                 name: item.basicInfo.name,
                 provider: item.basicInfo.provider,
                 version: item.basicInfo.version,
@@ -256,7 +249,6 @@ export default {
               }
               this.appData.push(appDataItem)
               this.appPackageData.push(appDataItem)
-              index++
             }
           )
           resolve(res)
@@ -522,6 +514,9 @@ export default {
         xAxis: [
           {
             type: 'category',
+            axisLabel: {
+              interval: 0
+            },
             data: allAppStoreArr
           }
         ],
@@ -586,17 +581,21 @@ export default {
         },
         grid: {
           left: '3%',
-          right: '2%',
+          right: '5%',
           bottom: '3%',
           containLabel: true
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
+          axisLabel: {
+            interval: 0
+          },
           data: recent7days
         },
         yAxis: {
-          type: 'value'
+          type: 'value',
+          minInterval: 1
         },
         series: targetAppStorePullArr
       }

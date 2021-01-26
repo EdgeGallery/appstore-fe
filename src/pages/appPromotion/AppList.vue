@@ -35,7 +35,7 @@
             <el-button
               id="myapp_checktest"
               type="primary"
-              class="rt"
+              :disabled="btnChangeEnable"
               @click="uploadPackage"
             >
               {{ $t("apppromotion.batchPro") }}
@@ -153,7 +153,8 @@ export default {
       dataLoading: false,
       appStoreList: [],
       value: '',
-      isEnLan: true
+      isEnLan: true,
+      btnChangeEnable: true
     }
   },
   methods: {
@@ -171,6 +172,11 @@ export default {
     },
     selectionLineChangeHandle (val) {
       this.dataonLineListSelections = val
+      if (this.dataonLineListSelections.length === 0) {
+        this.btnChangeEnable = true
+      } else {
+        this.btnChangeEnable = false
+      }
     },
     getCurrentPageData (data) {
       this.currentPageData = data
