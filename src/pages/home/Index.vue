@@ -440,11 +440,11 @@ export default {
   .searchBox {
     float: right;
     width: 300px;
-    margin-top: 5px;
+    margin-top: 10px;
   }
   .icon-group {
     float: right;
-    width: 200px;
+    width: 160px;
     padding-right: 56px;
     em {
       line-height: 55px;

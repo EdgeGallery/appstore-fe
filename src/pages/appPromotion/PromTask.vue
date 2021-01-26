@@ -85,16 +85,16 @@
         class="dialog-footer"
       >
         <el-button
-          id="app_prom_execute"
-          @click="handleExecute"
-        >{{
-          $t("apppromotion.execute")
-        }}</el-button>
-        <el-button
-          id="app_prom_close"
+          class="standardBtn"
           @click="handleCloseDirect"
         >{{
           $t("apppromotion.closePanel")
+        }}</el-button>
+        <el-button
+          class="featureBtn"
+          @click="handleExecute"
+        >{{
+          $t("apppromotion.execute")
         }}</el-button>
       </span>
     </el-dialog>
@@ -287,16 +287,6 @@ export default {
   .el-icon-finished{
     font-size: 25px;
     color: darkgrey;
-  }
-  #app_prom_close {
-    color: #fff;
-    background-color: #5D5F64;
-    border-color: #5D5F64;
-  }
-  #app_prom_execute {
-    color: #fff;
-    background-color: #409EFF;
-    border-color: #409EFF;
   }
   .execute_style {
     display: inline-block;
