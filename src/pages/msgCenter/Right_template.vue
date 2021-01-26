@@ -240,8 +240,7 @@ export default {
   margin-left: 14px;
 }
 .appShortDes{
-  margin-left: 28px;
-  // font-size: 17px;
+  margin-left: 33px;
 }
 .testInfo{
   margin-left: 30px;
