@@ -470,7 +470,7 @@ export default {
     box-sizing: border-box;
     .app-content {
       background: white;
-      padding: 30px;
+      padding: 0px;
       box-sizing: border-box;
       .search {
         font-size: 16px;
