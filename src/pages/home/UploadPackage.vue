@@ -237,7 +237,7 @@ export default {
         // mepType: '',
         industry: 'Smart Park',
         types: 'Video Application',
-        affinity: 'x86'
+        affinity: 'X86'
       },
       types: TYPES,
       affinity: AFFINITY,
@@ -276,7 +276,7 @@ export default {
       this.packageForm.shortDesc = ''
       this.packageForm.industry = 'Smart Park'
       this.packageForm.types = 'Video Application'
-      this.packageForm.affinity = 'x86'
+      this.packageForm.affinity = 'X86'
     },
     checkFileType (file, packageFormKey, fileType) {
       let type = file.raw.name.split('.')
