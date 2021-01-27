@@ -90,7 +90,7 @@
           </div>
           <div class="sort-type">
             <span class="icon" />
-            <strong>{{ $t('common.affinity') }}</strong>
+            <strong>{{ $t('common.architecture') }}</strong>
             <div
               v-for="(item, index) in affinity"
               :key="index"
