@@ -17,11 +17,13 @@
 <template>
   <div class="my-app padding56">
     <el-breadcrumb
-      separator="/"
+      separator=">"
       class="bread-crumb"
-      :class="{ enLan: isEnLan, cnLan: !isEnLan }"
     >
-      <el-breadcrumb-item :to="{ path: '/apppromote' }">
+      <el-breadcrumb-item :to="{ path: '/' }">
+        {{ $t('nav.home') }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
         {{ $t('nav.appShare') }}
       </el-breadcrumb-item>
       <el-breadcrumb-item>
@@ -153,7 +155,6 @@ export default {
       dataLoading: false,
       appStoreList: [],
       value: '',
-      isEnLan: true,
       btnChangeEnable: true
     }
   },
@@ -245,12 +246,6 @@ export default {
       })
     }
   },
-  watch: {
-    '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.isEnLan = language === 'en'
-    }
-  },
   mounted () {
     console.log(this.$refs.multipleTable.selection)
     this.getTableData()
@@ -268,7 +263,7 @@ export default {
 
 <style lang="less" scoped>
 .my-app {
-  margin-top: 65px;
+  // margin-top: 65px;
   .my-app-content {
     background: white;
     padding: 20px;

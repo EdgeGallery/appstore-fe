@@ -13,50 +13,62 @@
   -  See the License for the specific language governing permissions and
   -  limitations under the License.
   -->
-
 <template>
   <div
-    id="app"
-    style="overflow-x:hidden"
+    class="topBar"
+    :style="styles"
   >
-    <Navcomp />
-    <router-view
-      class="view"
-      :key="$route.fullPath"
-    />
+    <img
+      :src="require(`@/assets/${imageUrl}`)"
+      alt=""
+    >
   </div>
 </template>
 
 <script>
-import Navcomp from './components/layout/Nav.vue'
+
 export default {
-  name: 'App',
-  components: {
-    Navcomp
+  components: {},
+  props: {
+    imageUrl: {
+      type: String,
+      default: null
+    },
+    height: {
+      type: String,
+      default: '300'
+    }
   },
   data () {
     return {
     }
   },
+  computed: {
+    styles () {
+      return {
+        'height': this.height + 'px'
+      }
+    }
+  },
+  watch: {},
+  methods: {
+  },
+  created () {
+  },
   mounted () {
   },
-  methods: {}
+  beforeCreate () {},
+  beforeMount () {},
+  beforeUpdate () {},
+  updated () {},
+  beforeDestroy () {},
+  destroyed () {},
+  activated () {}
 }
 </script>
-
-<style lang="scss" scoped>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  min-width: 320px;
-  background: #F0F2F5;
-  overflow: auto;
-}
-.view{
-  margin-top: 65px;
-  height:calc(100% - 65px);
-  // background: white;
-}
+<style lang='less' scoped>
+img {
+    width: 100%;
+    height: 100%;
+  }
 </style>

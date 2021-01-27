@@ -17,6 +17,7 @@
 import enLocale from 'element-ui/lib/locale/lang/en'
 const en = {
   nav: {
+    home: 'Home Page',
     store: 'Store',
     docs: 'Docs',
     myApp: 'My App',
@@ -26,7 +27,9 @@ const en = {
     appstore: 'APP Warehouse',
     appMgmt: 'appMgmt',
     appShare: 'App Share',
-    appPush: 'App Promote'
+    appPush: 'App Promote',
+    externalAppManagement: 'External App Management',
+    msgCenter: 'Message Center'
   },
   common: {
     bannerTitle: 'One-step shop for developers',

@@ -16,6 +16,20 @@
 
 <template>
   <div class="my-app padding56">
+    <el-breadcrumb
+      separator=">"
+      class="bread-crumb"
+    >
+      <el-breadcrumb-item :to="{ path: '/' }">
+        {{ $t('nav.home') }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        {{ $t('nav.appShare') }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        {{ $t('nav.appPush') }}
+      </el-breadcrumb-item>
+    </el-breadcrumb>
     <div class="my-app-content">
       <div class="app-list">
         <div
@@ -614,7 +628,7 @@ export default {
 </script>
 <style lang="less">
 .my-app {
-  margin-top: 65px;
+  // margin-top: 65px;
   .my-app-content {
     background: white;
     padding: 20px;
