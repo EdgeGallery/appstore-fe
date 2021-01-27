@@ -45,7 +45,7 @@
           />
           <el-table-column
             prop="affinity"
-            :label="$t('common.affinity')"
+            :label="$t('common.architecture')"
           />
           <el-table-column
             :label="$t('store.createTime')"

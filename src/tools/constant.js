@@ -169,8 +169,8 @@ const TTYPES = [
 
 const AFFINITY = [
   {
-    label: 'x86',
-    value: 'x86',
+    label: 'X86',
+    value: 'X86',
     selected: false,
     type: 'affinity'
   },
