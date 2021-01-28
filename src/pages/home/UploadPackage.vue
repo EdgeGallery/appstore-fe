@@ -571,7 +571,7 @@ export default {
     margin-top: 12px;
     .box{
       position: relative;
-      border: 1px solid #eee;
+      // border: 1px solid #eee;
       margin-right: 15px;
       width: 30px;
       height: 30px;
@@ -588,7 +588,8 @@ export default {
         right: -5px;
       }
       .active{
-        color: #03a9f4;
+        // color: #03a9f4;
+        color: blue;
         font-weight: 800;
       }
     }
