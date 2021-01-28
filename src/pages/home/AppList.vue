@@ -37,7 +37,7 @@
       />
       <el-table-column
         prop="affinity"
-        :label="$t('common.affinity')"
+        :label="$t('common.architecture')"
         width="180"
       />
       <el-table-column
