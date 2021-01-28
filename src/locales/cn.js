@@ -326,6 +326,7 @@ const cn = {
     noticeApp: '收到推送',
     totalNum: '总量',
     appDownloadTrend: 'APP下载趋势图',
+    appPushAndNoticeStatistic: 'APP推送统计',
     quarterly1: '第一季度',
     quarterly2: '第二季度',
     quarterly3: '第三季度',
