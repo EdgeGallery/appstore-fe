@@ -19,15 +19,16 @@
     <el-dialog
       :title="$t('store.uploadApp')"
       :visible.sync="dialogVisible"
-      width="45%"
+      width="30%"
       :before-close="handleClose"
       :close-on-click-modal="false"
       @close="clearForm"
     >
       <el-form
         :model="packageForm"
-        label-width="110px"
         :rules="rules"
+        inline-message="true"
+        label-position="top"
       >
         <el-form-item
           :label="$t('store.appPackage')"
@@ -55,6 +56,7 @@
             <div
               class="el-upload__tip"
               slot="tip"
+              style="display:inline-block;"
             >
               <em class="el-icon-warning" />
               {{ $t('store.onlyCsar') }}
@@ -88,6 +90,7 @@
             <div
               class="el-upload__tip"
               slot="tip"
+              style="display:inline-block;"
             >
               <em class="el-icon-warning" />
               {{ $t('store.onlyImg') }}
@@ -121,60 +124,70 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item
-          :label="$t('common.industry')"
-          prop="industry"
-        >
-          <el-select
-            id="upload_select_industry"
-            v-model="packageForm.industry"
-            :placeholder="$t('common.industry')"
-            @change="checkProjectData"
-          >
-            <el-option
-              v-for="(item,index) in industry"
-              :key="index"
-              :label="language === 'cn'?item.label[0]:item.label[1]"
-              :value="item.value"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          :label="$t('common.type')"
-          prop="types"
-        >
-          <el-select
-            id="upload_select_types"
-            v-model="packageForm.types"
-            :placeholder="$t('common.type')"
-            @change="checkProjectData"
-          >
-            <el-option
-              v-for="(item,index) in types"
-              :key="index"
-              :label="language === 'cn'?item.label[0]:item.label[1]"
-              :value="item.value"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          :label="$t('common.affinity')"
-          prop="affinity"
-        >
-          <el-select
-            id="upload_select_affinity"
-            v-model="packageForm.affinity"
-            :placeholder="$t('common.affinity')"
-          >
-            <el-option
-              v-for="(item,index) in affinity"
-              :key="index"
-              :label="item.label"
-              :value="item.value"
-              @click="key(item)"
-            />
-          </el-select>
-        </el-form-item>
+        <el-row :gutter="10">
+          <el-col :span="12">
+            <el-form-item
+              :label="$t('common.industry')"
+              prop="industry"
+            >
+              <el-select
+                id="upload_select_industry"
+                v-model="packageForm.industry"
+                :placeholder="$t('common.industry')"
+                @change="checkProjectData"
+              >
+                <el-option
+                  v-for="(item,index) in industry"
+                  :key="index"
+                  :label="language === 'cn'?item.label[0]:item.label[1]"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              :label="$t('common.type')"
+              prop="types"
+            >
+              <el-select
+                id="upload_select_types"
+                v-model="packageForm.types"
+                :placeholder="$t('common.type')"
+                @change="checkProjectData"
+              >
+                <el-option
+                  v-for="(item,index) in types"
+                  :key="index"
+                  :label="language === 'cn'?item.label[0]:item.label[1]"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              :label="$t('common.affinity')"
+              prop="affinity"
+            >
+              <el-select
+                id="upload_select_affinity"
+                v-model="packageForm.affinity"
+                :placeholder="$t('common.affinity')"
+              >
+                <el-option
+                  v-for="(item,index) in affinity"
+                  :key="index"
+                  :label="item.label"
+                  :value="item.value"
+                  @click="key(item)"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12" />
+        </el-row>
+
         <el-form-item
           :label="$t('common.description')"
           prop="shortDesc"
@@ -196,11 +209,13 @@
       >
         <el-button
           id="upload_package_close"
+          size="medium"
           @click="handleClose"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
           id="upload_package_ipload"
           type="primary"
+          size="medium"
           :loading="uploadBtnLoading"
           @click="submitPackage"
         >{{ $t('common.confirm') }}</el-button>
@@ -553,17 +568,18 @@ export default {
   .default-icon{
     display: flex;
     flex-wrap: wrap;
+    margin-top: 12px;
     .box{
       position: relative;
       border: 1px solid #eee;
       margin-right: 15px;
-      width: 68px;
-      height: 68px;
+      width: 30px;
+      height: 30px;
       margin-bottom: 10px;
       border-radius: 50%;
       img{
-        width: 68px;
-        height: 68px;
+        width: 30px;
+        height: 30px;
       }
       em{
         display: inline-block;
@@ -583,20 +599,20 @@ export default {
   .el-button{
     margin-right: 35px  ;
   }
-  #upload_package_ipload{
-    color: #fff;
-    background-color: #5abdc7;
-    border-color: #5abdc7;
-  }
-  #upload_package_close{
-    color: #fff;
-    background-color: #738fea;
-    border-color: #738fea;
-  }
-  #upload_package_detect{
-    color: #fff;
-    background-color: #fea712;
-    border-color: #fea712;
-  }
+  // #upload_package_ipload{
+  //   color: #fff;
+  //   background-color: #5abdc7;
+  //   border-color: #5abdc7;
+  // }
+  // #upload_package_close{
+  //   color: #fff;
+  //   background-color: #738fea;
+  //   border-color: #738fea;
+  // }
+  // #upload_package_detect{
+  //   color: #fff;
+  //   background-color: #fea712;
+  //   border-color: #fea712;
+  // }
 }
 </style>
