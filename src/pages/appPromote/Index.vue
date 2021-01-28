@@ -187,11 +187,11 @@
         class="dialog-footer"
       >
         <el-button
-          id="cancelBtn"
+          id="standardBtn"
           @click="handleClose"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
-          id="confirmBtn"
+          id="featureBtn"
           type="primary"
           @click="confirmToRegister('form')"
         >{{ $t('common.confirm') }}</el-button>
@@ -433,21 +433,8 @@ export default {
     background: #000;
     height: 300px;
   }
-  // .stars-wrapper{
-  //   width: 100%;
-  //   height: 300px;
-  //   background: url("../../assets/images/appstore.png") no-repeat center center #1e7388;
-  //   background-size: cover;
-  // }
-  #confirmBtn{
-    color: #fff;
-    background-color: #5abdc7;
-    border-color: #5abdc7;
-  }
-  #cancelBtn{
-    color: #fff;
-    background-color: #688ef3;
-    border-color: #688ef3;
+  .el-dialog__footer {
+    text-align: center;
   }
 }
 </style>
