@@ -226,7 +226,7 @@ export default {
     },
     showPushAppDialog (row) {
       this.uploadDiaVis = true
-      if (row) {
+      if (!(row instanceof MouseEvent)) {
         sessionStorage.setItem(
           'appstordetail',
           JSON.stringify(row)

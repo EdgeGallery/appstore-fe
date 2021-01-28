@@ -31,11 +31,6 @@
           :header-cell-style="{ background: '#eeeeee'}"
         >
           <el-table-column
-            prop="number"
-            :label="$t('apppromotion.number')"
-            width="125"
-          />
-          <el-table-column
             prop="name"
             :label="$t('apppromotion.appName')"
           />
@@ -131,9 +126,13 @@ export default {
   },
   methods: {
     getTableData () {
-      this.selectData = JSON.parse(sessionStorage.getItem('appstordetail'))
+      let tempData = JSON.parse(sessionStorage.getItem('appstordetail'))
+      if (tempData instanceof Array) {
+        this.selectData = tempData
+      } else {
+        this.selectData.push(tempData)
+      }
       // 获取appstoreid和apstoreName
-
       this.platformData = this.appStoreListProp
       console.log(this.platformData)
       this.selectData.forEach(selectItem => {
