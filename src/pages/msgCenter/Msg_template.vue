@@ -48,21 +48,21 @@
                 v-if="msg.index==='1'"
                 :class="!item.readed?'msgTimeNo':''"
               >
-                {{ item.time.split(' ')[1] }}
+                {{ item.time.split(' ')[1].substring(0, item.time.split(' ')[1].length-3) }}
               </span>
               <span
                 class="msgTime"
                 v-else
                 :class="!item.readed?'msgTimeNo':''"
               >
-                {{ item.time }}
+                {{ item.time.split(' ')[0] }}
               </span>
-            </div>
-            <div
-              class="tipDesc"
-              :class="!item.readed?'tipDescNo':''"
-            >
-              {{ item.description }}
+              <div
+                class="el-icon-document-delete"
+              />
+              <div
+                class="el-icon-document-checked"
+              />
             </div>
           </div>
         </el-collapse-item>
@@ -226,10 +226,8 @@ export default {
 
 <style lang="less" scoped>
 .box {
-  // height: calc(100% - 60px);
   height: 100%;
   margin: 65px 0px 0px;
-  // overflow: hidden;
   background:#fff;
 }
 .left {
@@ -256,17 +254,26 @@ export default {
  background:#cedbe8;
 }
 .tipTitle{
-  font-size:13px;
+  font-size:15px;
   color:#686b73;
-}
-.tipDesc{
-  font-size: 11px;
-  color:#b6b8bd;
+  .el-icon-document-checked{
+    font-size: 16px;
+    color: #409EFF;
+    margin-right: 3px;
+    margin-top: 3px;
+    float:right;
+  }
+  .el-icon-document-delete{
+    font-size: 16px;
+    color: #409EFF;
+    float:right;
+    margin-top: 3px;
+  }
 }
 .msgTime{
-  font-size: 11px;
+  font-size: 13px;
   color:#b6b8bd;
-  margin-left:15px;
+  margin-left:3px;
   float:right;
   padding-right:10px;
 }
@@ -281,10 +288,6 @@ export default {
     font-weight:bold;
     color:#000;
   }
-  .tipDescNo{
-    font-weight: bold;
-    color:#6089f5;
-  }
   .msgTime{
     color:#000;
   }
@@ -298,10 +301,6 @@ export default {
   .tipTitleNo{
     font-weight:bold;
     color:#000;
-  }
-  .tipDescNo{
-    font-weight: bold;
-    color:#6089f5;
   }
   .msgTime{
     color:#000;
