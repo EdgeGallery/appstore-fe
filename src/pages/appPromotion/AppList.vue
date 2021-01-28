@@ -18,13 +18,32 @@
   <div class="my-app padding56">
     <div class="my-app-content">
       <div class="app-list">
-        <el-row class="batchProm">
-          <el-col :span="24">
+        <el-row
+          class="batchProm"
+          :gutter="24"
+          type="flex"
+        >
+          <el-col
+            :span="8"
+          >
+            <div>
+              <el-input
+                suffix-icon="el-icon-search"
+                v-model="nameQuery"
+                @change="handleNameQuery"
+                :placeholder="$t('common.appName')"
+              />
+            </div>
+          </el-col>
+          <el-col
+            :span="8"
+            :offset="16"
+          >
             <el-button
-              id="myapp_checktest"
+              class="batchProButton"
               type="primary"
               :disabled="btnChangeEnable"
-              @click="uploadPackage"
+              @click="showPushAppDialog"
             >
               {{ $t("apppromotion.batchPro") }}
             </el-button>
@@ -44,10 +63,6 @@
               width="70"
             />
             <el-table-column
-              prop="number"
-              :label="$t('apppromotion.number')"
-            />
-            <el-table-column
               prop="name"
               :label="$t('apppromotion.appName')"
             />
@@ -58,10 +73,6 @@
             <el-table-column
               prop="version"
               :label="$t('apppromotion.version')"
-            />
-            <el-table-column
-              prop="atpTestStatus"
-              :label="$t('apppromotion.tesResult')"
             />
             <el-table-column
               :label="$t('apppromotion.testRepo')"
@@ -102,6 +113,24 @@
                 </el-select>
               </template>
             </el-table-column>
+            <el-table-column
+              prop="operation"
+              fixed="right"
+              header-align="center"
+              :label="$t('apppromotion.mesOperation')"
+              width="100"
+            >
+              <template slot-scope="scope">
+                <el-button
+                  id="pushBtn"
+                  @click="showPushAppDialog(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  {{ $t('apppromotion.messagePush') }}
+                </el-button>
+              </template>
+            </el-table-column>
           </el-table>
         </div>
         <!-- 组件 -->
@@ -114,7 +143,7 @@
       </div>
       <pagination
         style="margin-bottom: 20px;"
-        :table-data="appPackageData"
+        :table-data="findAppData"
         @getCurrentPageData="getCurrentPageData"
       />
     </div>
@@ -141,7 +170,10 @@ export default {
       dataLoading: false,
       appStoreList: [],
       value: '',
-      btnChangeEnable: true
+      isEnLan: true,
+      btnChangeEnable: true,
+      nameQuery: '',
+      findAppData: []
     }
   },
   methods: {
@@ -192,22 +224,28 @@ export default {
         })
       })
     },
-    uploadPackage () {
+    showPushAppDialog (row) {
       this.uploadDiaVis = true
-      sessionStorage.setItem(
-        'appstordetail',
-        JSON.stringify(this.dataonLineListSelections)
-      )
+      if (row) {
+        sessionStorage.setItem(
+          'appstordetail',
+          JSON.stringify(row)
+        )
+        console.log('button select push')
+      } else {
+        sessionStorage.setItem(
+          'appstordetail',
+          JSON.stringify(this.dataonLineListSelections)
+        )
+      }
     },
     getTableData () {
       this.appPackageData = []
       getAppPromTableApi().then((res) => {
         let data = res.data
-        let index = 1
         data.forEach(
           (item) => {
             let appDataItem = {
-              number: index,
               name: item.name,
               provider: item.provider,
               version: item.version,
@@ -220,9 +258,9 @@ export default {
             }
             this.appData.push(appDataItem)
             this.appPackageData.push(appDataItem)
-            index++
           }
         )
+        this.findAppData = this.appPackageData
       }).catch(() => {
         this.$message({
           duration: 2000,
@@ -230,6 +268,14 @@ export default {
           type: 'warning'
         })
       })
+    },
+    handleNameQuery () {
+      this.findAppData = this.appPackageData
+      this.findAppData = this.findAppData.filter((item) => {
+        let itemName = item.name.toLowerCase()
+        return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
+      })
+      if (!this.nameQuery) this.findAppData = this.appPackageData
     }
   },
   mounted () {
@@ -249,7 +295,6 @@ export default {
 
 <style lang="less" scoped>
 .my-app {
-  // margin-top: 65px;
   .my-app-content {
     background: white;
     padding: 20px;
@@ -263,9 +308,11 @@ export default {
   }
   padding: 20px 0;
   .batchProm {
-    float: right;
     margin-bottom: 5px;
     margin-top: 5px;
+    .batchProButton{
+      float: right;
+    }
   }
   .packageTable{
       margin: 20px 0;

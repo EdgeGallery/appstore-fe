@@ -323,6 +323,7 @@ const en = {
     noticeApp: 'NOTICE',
     totalNum: 'total',
     appDownloadTrend: 'APP download trend chart',
+    appPushAndNoticeStatistic: 'APP push and notice statistic',
     quarterly1: 'First season',
     quarterly2: 'Second quarter',
     quarterly3: 'Third quarter',
