@@ -100,7 +100,7 @@ export default new Router({
             breadcrumb: [{
               nameEn: en.nav.home,
               path: '/',
-              nameCn: en.nav.home
+              nameCn: cn.nav.home
             }, {
               nameEn: en.nav.myApp,
               path: '/myapp',
@@ -120,7 +120,7 @@ export default new Router({
             breadcrumb: [{
               nameEn: en.nav.home,
               path: '/',
-              nameCn: en.nav.home
+              nameCn: cn.nav.home
             }, {
               nameEn: en.nav.myApp,
               path: '/myapp',
@@ -140,7 +140,7 @@ export default new Router({
             breadcrumb: [{
               nameEn: en.nav.home,
               path: '/',
-              nameCn: en.nav.home
+              nameCn: cn.nav.home
             }, {
               nameEn: en.nav.myApp,
               path: '/myapp',
@@ -164,7 +164,7 @@ export default new Router({
             breadcrumb: [{
               nameEn: en.nav.home,
               path: '/',
-              nameCn: en.nav.home
+              nameCn: cn.nav.home
             }, {
               nameEn: en.nav.myApp,
               path: '/myapp',
@@ -188,7 +188,7 @@ export default new Router({
             breadcrumb: [{
               nameEn: en.nav.home,
               path: '/',
-              nameCn: en.nav.home
+              nameCn: cn.nav.home
             }, {
               nameEn: en.nav.myApp,
               path: '/myapp',

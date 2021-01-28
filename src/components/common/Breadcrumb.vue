@@ -61,7 +61,7 @@ export default {
       let detailData = JSON.parse(sessionStorage.getItem('myappdetail'))
       nameObj.nameCn = detailData.name
       nameObj.nameEn = detailData.name
-      this.breadCrumbData.splice(1, 1, nameObj)
+      this.breadCrumbData.splice(2, 1, nameObj)
     } else if (this.$route.fullPath === '/detail') {
       let detailData = JSON.parse(sessionStorage.getItem('appstordetail'))
       nameObj.nameCn = detailData.name
