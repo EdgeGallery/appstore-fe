@@ -16,7 +16,9 @@
 
 <template>
   <div class="my-app">
-    <div class="stars-wrapper" />
+    <top-bar
+      :bg-img="bannerImg"
+    />
     <div class="my-app-content padding56">
       <el-row>
         <el-col
@@ -213,13 +215,16 @@
 import { TTYPES } from '../../tools/constant.js'
 import { myAppStore } from '../../tools/api.js'
 import pagination from '../../components/common/Pagination.vue'
+import topBar from '../../components/common/TopBar'
 export default {
   components: {
     // appList,
-    pagination
+    pagination,
+    topBar
   },
   data () {
     return {
+      bannerImg: '../../assets/images/appstore.png',
       currentPageData: [],
       pointNum: 5,
       tableData: [],
@@ -448,12 +453,6 @@ export default {
   .space>div{
     background: #000;
     height: 300px;
-  }
-  .stars-wrapper{
-    width: 100%;
-    height: 300px;
-    background: url("../../assets/images/appstore.png") no-repeat center center #1e7388;
-    background-size: cover;
   }
   .el-dialog__footer {
     text-align: center;

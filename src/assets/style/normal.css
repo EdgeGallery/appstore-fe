@@ -166,13 +166,9 @@ a{
 .el-breadcrumb__inner a,  .el-breadcrumb__inner.is-link:hover{
   color: #2E94FF !important;
 }
-.enLan .el-breadcrumb__separator{
+.el-breadcrumb__separator{
   margin-left: 0.25rem !important;
-   margin-right: 0.25rem !important;
-}
-.cnLan .el-breadcrumb__separator{
-  margin-left: 0.25rem !important;
-  margin-right: 0.5rem !important;
+  margin-right: 0.25rem !important;
 }
 .el-breadcrumb{
   height: 3rem;

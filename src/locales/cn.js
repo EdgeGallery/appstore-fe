@@ -17,6 +17,7 @@
 import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 const cn = {
   nav: {
+    home: '首页',
     store: '商店',
     works: '运行原理',
     docs: '文档',
@@ -28,7 +29,15 @@ const cn = {
     appstore: '应用仓库',
     appMgmt: '应用管理',
     appShare: '应用共享',
-    appPush: '应用推送'
+    appPush: '应用推送',
+    externalAppManagement: '外部应用仓库管理',
+    msgCenter: '消息中心',
+    operAna: '操作分析',
+    detail: '详情',
+    testTask: '测试任务',
+    atpReport: '测试报告',
+    atpProcess: '测试进展',
+    atpTest: '测试'
   },
   common: {
     bannerTitle: '为开发人员提供一站式服务',

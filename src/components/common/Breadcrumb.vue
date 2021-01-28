@@ -19,7 +19,7 @@
     class="bread-crumb"
     v-if="isShow"
   >
-    <el-breadcrumb separator="/">
+    <el-breadcrumb separator=">">
       <el-breadcrumb-item
         v-for="item in breadCrumbData"
         :key="item.name"
