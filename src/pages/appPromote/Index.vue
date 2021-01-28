@@ -187,11 +187,11 @@
         class="dialog-footer"
       >
         <el-button
-          id="standardBtn"
+          class="standardBtn"
           @click="handleClose"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
-          id="featureBtn"
+          class="featureBtn"
           type="primary"
           @click="confirmToRegister('form')"
         >{{ $t('common.confirm') }}</el-button>
