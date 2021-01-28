@@ -48,17 +48,30 @@
             ref="myCharts3"
           />
         </div>
+        <el-row
+          :gutter="8"
+          type="flex"
+          class="searchRow"
+        >
+          <el-col
+            :span="4"
+          >
+            <div>
+              <el-input
+                suffix-icon="el-icon-search"
+                v-model="nameQuery"
+                @change="handleNameQuery"
+                :placeholder="$t('common.appName')"
+              />
+            </div>
+          </el-col>
+        </el-row>
         <el-table
           :data="currentPageData"
           border
           style="width: 100%"
           :header-cell-style="{ background: '#eeeeee'}"
         >
-          <el-table-column
-            prop="number"
-            :label="$t('apppromotion.number')"
-            width="120"
-          />
           <el-table-column
             prop="name"
             :label="$t('apppromotion.appName')"
@@ -71,12 +84,12 @@
           <el-table-column
             prop="version"
             :label="$t('apppromotion.version')"
-            width="120"
+            width="180"
           />
           <el-table-column
             prop="messageType"
             :label="$t('apppromotion.messageType')"
-            width="120"
+            width="180"
           />
           <el-table-column
             prop="sourceAppStore"
@@ -121,7 +134,7 @@
         @close="onClose"
       >
         <div class="detailInfo">
-          <p class="title">
+          <p class="title1">
             应用基本信息
           </p>
           <div />
@@ -143,11 +156,11 @@
           <p class="basic_p">
             <span>类型：</span>{{ middleData.type }}
           </p>
-          <p class="basic_p desc clearfix">
-            <span>描述：</span><span>{{ middleData.shortDesc }}</span>
+          <p class="basic_p">
+            <span>应用描述：</span>{{ middleData.shortDesc }}
           </p>
-          <p class="title">
-            其他基本信息
+          <p class="title2">
+            其他信息
           </p>
           <p class="basic_p">
             <span>源AppStore：</span>{{ middleData.sourceAppStore }}
@@ -159,13 +172,13 @@
             <span>apt测试状态：</span>{{ middleData.atpTestStatus }}
           </p>
           <p class="basic_p">
-            <span>应用描述：</span>{{ middleData.description }}
+            <span>操作描述：</span>{{ middleData.description }}
           </p>
         </div>
       </el-drawer>
       <pagination
         style="margin-bottom: 20px;"
-        :table-data="appPackageData"
+        :table-data="findAppData"
         @getCurrentPageData="getCurrentPageData"
       />
     </div>
@@ -186,7 +199,9 @@ export default {
       appData: [],
       appPackageData: [],
       currentPageData: [],
-      middleData: []
+      middleData: [],
+      nameQuery: '',
+      findAppData: []
     }
   },
   methods: {
@@ -233,11 +248,9 @@ export default {
         this.appPackageData = []
         getAppdownAnaApi().then((res) => {
           let data = res.data
-          let index = 1
           data.forEach(
             (item) => {
               let appDataItem = {
-                number: index,
                 name: item.basicInfo.name,
                 provider: item.basicInfo.provider,
                 version: item.basicInfo.version,
@@ -256,9 +269,9 @@ export default {
               }
               this.appData.push(appDataItem)
               this.appPackageData.push(appDataItem)
-              index++
             }
           )
+          this.findAppData = this.appPackageData
           resolve(res)
         }).catch(() => {
           this.$message({
@@ -419,6 +432,14 @@ export default {
       )
       let pullArr = [day7, day6, day5, day4, day3, day2, day1]
       return pullArr
+    },
+    handleNameQuery () {
+      this.findAppData = this.appPackageData
+      this.findAppData = this.findAppData.filter((item) => {
+        let itemName = item.name.toLowerCase()
+        return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
+      })
+      if (!this.nameQuery) this.findAppData = this.appPackageData
     }
   },
   mounted () {
@@ -504,6 +525,9 @@ export default {
       )
 
       let options2 = {
+        title: {
+          text: this.$t('apppromotion.appPushAndNoticeStatistic')
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -511,7 +535,9 @@ export default {
           }
         },
         legend: {
-          data: [this.$t('apppromotion.pushApp'), this.$t('apppromotion.noticeApp')]
+          data: [this.$t('apppromotion.pushApp'), this.$t('apppromotion.noticeApp')],
+          right: 30,
+          top: 30
         },
         grid: {
           left: '3%',
@@ -522,6 +548,9 @@ export default {
         xAxis: [
           {
             type: 'category',
+            axisLabel: {
+              interval: 0
+            },
             data: allAppStoreArr
           }
         ],
@@ -586,17 +615,21 @@ export default {
         },
         grid: {
           left: '3%',
-          right: '2%',
+          right: '5%',
           bottom: '3%',
           containLabel: true
         },
         xAxis: {
           type: 'category',
           boundaryGap: false,
+          axisLabel: {
+            interval: 0
+          },
           data: recent7days
         },
         yAxis: {
-          type: 'value'
+          type: 'value',
+          minInterval: 1
         },
         series: targetAppStorePullArr
       }
@@ -633,6 +666,9 @@ export default {
   .pagination {
     margin: 20px;
   }
+  .searchRow {
+    margin-bottom: 15px;
+  }
 }
 .mychart{
   width:30%;
@@ -666,7 +702,25 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
 }
-.title{
+.title1{
+  height: 36px;
+  line-height: 36px;
+  margin: 75px 0 15px;
+  position:relative;
+  z-index: 888;
+  padding-left: 15px;
+  border-bottom: 1px solid #e7ebf5;
+}
+.title1::before{
+  content:'';
+  display:inline-block;
+  width:3px;
+  height:18px;
+  position: relative;
+  top:4px;
+  background:#409EFF;
+}
+.title2{
   height: 36px;
   line-height: 36px;
   margin: 25px 0 15px;
@@ -675,7 +729,7 @@ export default {
   padding-left: 15px;
   border-bottom: 1px solid #e7ebf5;
 }
-.title::before{
+.title2::before{
   content:'';
   display:inline-block;
   width:3px;
@@ -690,19 +744,9 @@ export default {
   margin-bottom: 5px;
   span{
     display: inline-block;
-    width: 100px;
-    text-align: right;
-    line-height: 25px;
-  }
-}
-.basic_p.desc{
-  span{
-    float: left;
-  }
-  span:last-child{
-    width: calc(100% - 100px);
+    margin-left: 30px;
     text-align: left;
-    padding-right: 10px;
+    line-height: 25px;
   }
 }
 </style>

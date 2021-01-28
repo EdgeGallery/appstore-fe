@@ -24,7 +24,9 @@ const en = {
     logout: 'Logout',
     login: 'Login',
     appstore: 'APP Warehouse',
-    appMgmt: 'appMgmt'
+    appMgmt: 'appMgmt',
+    appShare: 'App Share',
+    appPush: 'App Promote'
   },
   common: {
     bannerTitle: 'One-step shop for developers',
@@ -44,7 +46,7 @@ const en = {
     bigdata: 'BigData',
     calculate: 'Calculate',
     all: 'All',
-    affinity: 'Affinity',
+    architecture: 'Architecture',
     GPU: 'GPU',
     MEN: 'MEM',
     CPU: 'CPU',
@@ -83,7 +85,8 @@ const en = {
     url: 'url',
     appdTransId: 'appTranslate id',
     modifyApp: 'modify',
-    deleteAppStore: 'This operation will permanently delete the external warehouse. Do you want to continue?'
+    deleteAppStore: 'This operation will permanently delete the external warehouse. Do you want to continue?',
+    pageTotalNum: 'Total'
   },
   promptMessage: {
     guestUser: 'The guest user has no right to operate. please log in first!',
@@ -102,7 +105,7 @@ const en = {
     uploadIconFile: 'You need to upload icon file or select icon first!',
     industryEmpty: 'Industry cannot be empty',
     typeEmpty: 'Type cannot be empty',
-    affinityEmpty: 'Affinity cannot be empty',
+    architectureEmpty: 'Architecture cannot be empty',
     shortDescEmpty: 'Description cannot be empty',
     completedTest: 'You have completed the test, please click to view the report',
     uploadSuccess: 'Upload success!',
@@ -311,6 +314,7 @@ const en = {
     noticeApp: 'NOTICE',
     totalNum: 'total',
     appDownloadTrend: 'APP download trend chart',
+    appPushAndNoticeStatistic: 'APP push and notice statistic',
     quarterly1: 'First season',
     quarterly2: 'Second quarter',
     quarterly3: 'Third quarter',

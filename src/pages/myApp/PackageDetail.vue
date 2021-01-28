@@ -45,7 +45,7 @@
           />
           <el-table-column
             prop="affinity"
-            :label="$t('common.affinity')"
+            :label="$t('common.architecture')"
           />
           <el-table-column
             :label="$t('store.createTime')"
@@ -57,7 +57,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('common.operation')"
-            width="200"
+            width="270"
           >
             <template slot-scope="scope">
               <el-button

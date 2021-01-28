@@ -110,6 +110,7 @@ a{
 }
 .padding56{
   padding: 0 56px;
+  padding-bottom: 25px;
   box-sizing: border-box;
 }
 .padding20{
@@ -172,3 +173,59 @@ a{
 
 
 /* 导航栏归一化 */
+
+/* 面包屑归一化 */
+.el-breadcrumb__item:last-child .el-breadcrumb__inner,  .el-breadcrumb__item:last-child .el-breadcrumb__inner a,  .el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover,  .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover{
+  font-weight: normal !important;
+  color: #1c1c1c !important;
+}
+.el-breadcrumb__inner{
+  font-weight: normal !important;
+  color: #707070 !important;
+}
+.el-breadcrumb__separator{
+  color: #707070 !important;
+}
+.el-breadcrumb__inner a,  .el-breadcrumb__inner.is-link:hover{
+  color: #2E94FF !important;
+}
+.enLan .el-breadcrumb__separator{
+  margin-left: 0.25rem !important;
+   margin-right: 0.25rem !important;
+}
+.cnLan .el-breadcrumb__separator{
+  margin-left: 0.25rem !important;
+  margin-right: 0.5rem !important;
+}
+.el-breadcrumb{
+  height: 3rem;
+  line-height: 3rem !important;
+  font-size: 14px;
+  padding: 0rem !important;
+}
+
+/* 搜索框、按钮组件归一化 */
+.el-input__inner{
+  height: 32px;
+  line-height: 32px;
+}
+.el-input__icon{
+  line-height: 32px;
+}
+.el-button{
+  padding: 8px 24px;
+}
+.el-button.featureBtn {
+  color: #fff;
+  background-color: #688ef3;
+  border-color: #688ef3;
+}
+.el-button.featureBtn:hover{
+  background-color: #86a5f5;
+  border-color: #86a5f5;
+}
+.el-button.standardBtn:hover{
+  background-color: #fff;
+  border-color: #a6bcf6;
+  color: #86a5f5;
+}

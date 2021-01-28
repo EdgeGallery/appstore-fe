@@ -90,7 +90,7 @@
           </div>
           <div class="sort-type">
             <span class="icon" />
-            <strong>{{ $t('common.affinity') }}</strong>
+            <strong>{{ $t('common.architecture') }}</strong>
             <div
               v-for="(item, index) in affinity"
               :key="index"
@@ -152,7 +152,7 @@ import appList from './AppList.vue'
 import pagination from '../../components/common/Pagination.vue'
 import bannerImage from '../../components/common/BannerImage.vue'
 import uploadAppLogo from '@/assets/images/upload.png'
-import HomeSwiper from '../../components/common/Swiper.vue'
+import HomeSwiper from '../../components/common/Swipers.vue'
 export default {
   name: 'Home',
   components: {
@@ -429,7 +429,7 @@ export default {
 <style lang="less" scoped>
 .home {
   margin-top: 65px;
-  background: #eee;
+  background: white;
   .el-form-item {
     margin-bottom: 0;
   }
@@ -440,11 +440,11 @@ export default {
   .searchBox {
     float: right;
     width: 300px;
-    margin-top: 5px;
+    margin-top: 10px;
   }
   .icon-group {
     float: right;
-    width: 200px;
+    width: 160px;
     padding-right: 56px;
     em {
       line-height: 55px;
@@ -470,7 +470,7 @@ export default {
     box-sizing: border-box;
     .app-content {
       background: white;
-      padding: 30px;
+      padding: 0px;
       box-sizing: border-box;
       .search {
         font-size: 16px;

@@ -167,13 +167,13 @@
           </el-col>
           <el-col :span="12">
             <el-form-item
-              :label="$t('common.affinity')"
+              :label="$t('common.architecture')"
               prop="affinity"
             >
               <el-select
                 id="upload_select_affinity"
                 v-model="packageForm.affinity"
-                :placeholder="$t('common.affinity')"
+                :placeholder="$t('common.architecture')"
               >
                 <el-option
                   v-for="(item,index) in affinity"
@@ -252,7 +252,7 @@ export default {
         // mepType: '',
         industry: 'Smart Park',
         types: 'Video Application',
-        affinity: 'x86'
+        affinity: 'X86'
       },
       types: TYPES,
       affinity: AFFINITY,
@@ -291,7 +291,7 @@ export default {
       this.packageForm.shortDesc = ''
       this.packageForm.industry = 'Smart Park'
       this.packageForm.types = 'Video Application'
-      this.packageForm.affinity = 'x86'
+      this.packageForm.affinity = 'X86'
     },
     checkFileType (file, packageFormKey, fileType) {
       let type = file.raw.name.split('.')
@@ -492,7 +492,7 @@ export default {
         this.$message({
           duration: 2000,
           type: 'warning',
-          message: this.$t('promptMessage.affinityEmpty')
+          message: this.$t('promptMessage.architectureEmpty')
         })
         // this.uploadBtnLoading = false
       } else if (!types) {

@@ -26,7 +26,9 @@ const cn = {
     logout: '注销',
     login: '登录',
     appstore: '应用仓库',
-    appMgmt: '应用管理'
+    appMgmt: '应用管理',
+    appShare: '应用共享',
+    appPush: '应用推送'
   },
   common: {
     bannerTitle: '为开发人员提供一站式服务',
@@ -46,7 +48,8 @@ const cn = {
     bigdata: '大数据',
     calculate: '计算',
     all: 'All',
-    affinity: '架构',
+    // affinity: '架构',
+    architecture: '架构',
     GPU: 'GPU',
     MEN: 'MEM',
     CPU: 'CPU',
@@ -84,7 +87,8 @@ const cn = {
     url: 'IP or URL',
     appdTransId: 'APPD版本',
     modifyApp: '编辑',
-    company: '公司'
+    company: '公司',
+    pageTotalNum: '总条数'
   },
   promptMessage: {
     guestUser: 'guest用户无权操作! 请登录',
@@ -102,7 +106,7 @@ const cn = {
     uploadPackageFile: '请添加需要上传的安装包文件!',
     uploadIconFile: '请上传图标文件或者选择图标!',
     industryEmpty: '行业不能为空',
-    affinityEmpty: '架构不能为空',
+    architectureEmpty: '架构不能为空',
     typeEmpty: '类型不能为空',
     shortDescEmpty: '描述不能为空',
     completedTest: '您已经完成了测试，请点击查看报告',
@@ -322,6 +326,7 @@ const cn = {
     noticeApp: '收到推送',
     totalNum: '总量',
     appDownloadTrend: 'APP下载趋势图',
+    appPushAndNoticeStatistic: 'APP推送统计',
     quarterly1: '第一季度',
     quarterly2: '第二季度',
     quarterly3: '第三季度',
