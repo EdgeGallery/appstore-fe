@@ -17,104 +17,88 @@
 <template>
   <div class="my-app">
     <top-bar
-      :image-url="bannerImg"
-      :height="300"
+      :bg-img="bannerImg"
     />
-    <div class="padding56">
-      <el-breadcrumb
-        separator=">"
-      >
-        <el-breadcrumb-item :to="{ path: '/' }">
-          {{ $t('nav.home') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
-          {{ $t('nav.appShare') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
-          {{ $t('nav.externalAppManagement') }}
-        </el-breadcrumb-item>
-      </el-breadcrumb>
-      <div class="my-app-content">
-        <el-row>
-          <el-col :span="24">
-            <el-button
-              id="addAppBtn"
-              type="primary"
-              class="rt"
-              @click="register"
-            >
-              {{ $t('myApp.addApp') }}
-            </el-button>
-          </el-col>
-        </el-row>
-        <div class="packageTable">
-          <el-table
-            v-loading="dataLoading"
-            :data="currentPageData"
-            border
+    <div class="my-app-content padding56">
+      <el-row>
+        <el-col :span="24">
+          <el-button
+            id="addAppBtn"
+            type="primary"
+            class="rt"
+            @click="register"
           >
-            <el-table-column
-              type="index"
-              :label="$t('common.number')"
-              width="110"
-            />
-            <el-table-column
-              prop="appStoreName"
-              :label="$t('common.appStoreName')"
-            />
-            <el-table-column
-              prop="appStoreVersion"
-              :label="$t('common.appStoreVersion')"
-            />
-            <el-table-column
-              prop="company"
-              :label="$t('common.company')"
-            />
-            <el-table-column
-              prop="url"
-              :label="$t('common.url')"
-            />
-            <el-table-column
-              prop="appdTransId"
-              :label="$t('common.appdTransId')"
-            />
-            <el-table-column
-              prop="description"
-              :label="$t('common.description')"
-            />
-            <el-table-column
-              prop="operation"
-              fixed="right"
-              :label="$t('myApp.operation')"
-              width="200"
-            >
-              <template slot-scope="scope">
-                <el-button
-                  id="modifyBtn"
-                  @click="modifyApp(scope.row)"
-                  type="text"
-                  size="small"
-                >
-                  {{ $t('common.modifyApp') }}
-                </el-button>
-                <el-button
-                  id="deleteBtn"
-                  type="text"
-                  size="small"
-                  @click="getDelete(scope.row)"
-                >
-                  {{ $t('common.delete') }}
-                </el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
-        <pagination
-          :table-data="appPackageData"
-          @getCurrentPageData="getCurrentPageData"
-        />
-        <div class="clearfix" />
+            {{ $t('myApp.addApp') }}
+          </el-button>
+        </el-col>
+      </el-row>
+      <div class="packageTable">
+        <el-table
+          v-loading="dataLoading"
+          :data="currentPageData"
+          border
+        >
+          <el-table-column
+            type="index"
+            :label="$t('common.number')"
+            width="110"
+          />
+          <el-table-column
+            prop="appStoreName"
+            :label="$t('common.appStoreName')"
+          />
+          <el-table-column
+            prop="appStoreVersion"
+            :label="$t('common.appStoreVersion')"
+          />
+          <el-table-column
+            prop="company"
+            :label="$t('common.company')"
+          />
+          <el-table-column
+            prop="url"
+            :label="$t('common.url')"
+          />
+          <el-table-column
+            prop="appdTransId"
+            :label="$t('common.appdTransId')"
+          />
+          <el-table-column
+            prop="description"
+            :label="$t('common.description')"
+          />
+          <el-table-column
+            prop="operation"
+            fixed="right"
+            :label="$t('myApp.operation')"
+            width="200"
+          >
+            <template slot-scope="scope">
+              <el-button
+                id="modifyBtn"
+                @click="modifyApp(scope.row)"
+                type="text"
+                size="small"
+              >
+                {{ $t('common.modifyApp') }}
+              </el-button>
+              <el-button
+                id="deleteBtn"
+                type="text"
+                size="small"
+                @click="getDelete(scope.row)"
+              >
+                {{ $t('common.delete') }}
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
+      <pagination
+        :table-data="appPackageData"
+        @getCurrentPageData="getCurrentPageData"
+      />
+      <div class="clearfix" />
     </div>
     <el-dialog
       :title="title"
@@ -203,11 +187,11 @@
         class="dialog-footer"
       >
         <el-button
-          class="standardBtn"
+          id="cancelBtn"
           @click="handleClose"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
-          class="featureBtn"
+          id="confirmBtn"
           type="primary"
           @click="confirmToRegister('form')"
         >{{ $t('common.confirm') }}</el-button>
@@ -217,19 +201,20 @@
 </template>
 
 <script>
+// import appList from '../home/AppList.vue'
 import { TTYPES } from '../../tools/constant.js'
 import { myAppStore } from '../../tools/api.js'
 import pagination from '../../components/common/Pagination.vue'
 import topBar from '../../components/common/TopBar'
-
 export default {
   components: {
+    // appList,
     pagination,
     topBar
   },
   data () {
     return {
-      bannerImg: 'images/appstore.png',
+      bannerImg: '../../assets/images/appstore.png',
       currentPageData: [],
       pointNum: 5,
       tableData: [],
@@ -431,7 +416,7 @@ export default {
 </script>
 <style lang='less'>
 .my-app {
-  // margin-top: 65px;
+  margin-top: 65px;
   .my-app-content {
     background:#fff;
     padding: 20px;
@@ -448,14 +433,21 @@ export default {
     background: #000;
     height: 300px;
   }
-  .stars-wrapper{
-    width: 100%;
-    height: 300px;
-    background: url("../../assets/images/appstore.png") no-repeat center center #1e7388;
-    background-size: cover;
+  // .stars-wrapper{
+  //   width: 100%;
+  //   height: 300px;
+  //   background: url("../../assets/images/appstore.png") no-repeat center center #1e7388;
+  //   background-size: cover;
+  // }
+  #confirmBtn{
+    color: #fff;
+    background-color: #5abdc7;
+    border-color: #5abdc7;
   }
-  .el-dialog__footer {
-    text-align: center;
+  #cancelBtn{
+    color: #fff;
+    background-color: #688ef3;
+    border-color: #688ef3;
   }
 }
 </style>

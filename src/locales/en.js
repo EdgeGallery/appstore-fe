@@ -29,7 +29,13 @@ const en = {
     appShare: 'App Share',
     appPush: 'App Promote',
     externalAppManagement: 'External App Management',
-    msgCenter: 'Message Center'
+    msgCenter: 'Message Center',
+    operAna: 'Operation Analyse',
+    detail: 'Detail',
+    testTask: 'Test Task',
+    atpReport: 'ATPReport',
+    atpProcess: 'ATPProcess',
+    atpTest: 'ATPTest'
   },
   common: {
     bannerTitle: 'One-step shop for developers',

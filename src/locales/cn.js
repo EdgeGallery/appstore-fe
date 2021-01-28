@@ -31,7 +31,13 @@ const cn = {
     appShare: '应用共享',
     appPush: '应用推送',
     externalAppManagement: '外部应用仓库管理',
-    msgCenter: '消息中心'
+    msgCenter: '消息中心',
+    operAna: '操作分析',
+    detail: '详情',
+    testTask: '测试任务',
+    atpReport: '测试报告',
+    atpProcess: '测试进展',
+    atpTest: '测试'
   },
   common: {
     bannerTitle: '为开发人员提供一站式服务',

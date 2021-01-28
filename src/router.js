@@ -16,6 +16,9 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
+import en from './locales/en.js'
+import cn from './locales/cn.js'
+
 const routerPush = Router.prototype.push
 Router.prototype.push = function push (location) {
   return routerPush.call(this, location).catch(error => error)
@@ -54,7 +57,14 @@ export default new Router({
           component: () => import('./pages/home/AppDetail.vue'),
           meta: {
             id: '2.0.1',
-            breadcrumb: [{ nameEn: 'Detail', nameCn: '详情' }]
+            breadcrumb: [{
+              nameEn: en.nav.home,
+              path: '/',
+              nameCn: cn.nav.home
+            }, {
+              nameEn: en.nav.detail,
+              nameCn: cn.nav.detail
+            }]
           }
         },
         {
@@ -66,21 +76,19 @@ export default new Router({
           }
         },
         {
-          path: 'discourse',
-          name: 'appstordiscourse',
-          component: () => import('./components/common/Developing.vue'),
-          meta: {
-            id: '2.3',
-            breadcrumb: [{ nameEn: 'Discourse', nameCn: '社区' }]
-          }
-        },
-        {
           path: 'myapp',
           name: 'appstoremyapp',
           component: () => import('./pages/myApp/Index.vue'),
           meta: {
             id: '2.4',
-            breadcrumb: [{ nameEn: 'Myapp', nameCn: '我的应用' }]
+            breadcrumb: [{
+              nameEn: en.nav.home,
+              path: '/',
+              nameCn: cn.nav.home
+            }, {
+              nameEn: en.nav.myApp,
+              nameCn: cn.nav.myApp
+            }]
           }
         },
         {
@@ -89,10 +97,18 @@ export default new Router({
           component: () => import('./pages/myApp/PackageDetail.vue'),
           meta: {
             id: '2.4.1',
-            breadcrumb: [
-              { nameEn: 'Myapp', path: '/myapp', nameCn: '我的应用' },
-              { nameEn: 'Detail', nameCn: '详情' }
-            ]
+            breadcrumb: [{
+              nameEn: en.nav.home,
+              path: '/',
+              nameCn: en.nav.home
+            }, {
+              nameEn: en.nav.myApp,
+              path: '/myapp',
+              nameCn: cn.nav.myApp
+            }, {
+              nameEn: en.nav.detail,
+              nameCn: cn.nav.detail
+            }]
           }
         },
         {
@@ -101,10 +117,18 @@ export default new Router({
           component: () => import('./pages/myApp/ATPTask.vue'),
           meta: {
             id: '2.4.1',
-            breadcrumb: [
-              { nameEn: 'Myapp', path: '/myapp', nameCn: '我的应用' },
-              { nameEn: 'Test Task', nameCn: '测试任务' }
-            ]
+            breadcrumb: [{
+              nameEn: en.nav.home,
+              path: '/',
+              nameCn: en.nav.home
+            }, {
+              nameEn: en.nav.myApp,
+              path: '/myapp',
+              nameCn: cn.nav.myApp
+            }, {
+              nameEn: en.nav.testTask,
+              nameCn: cn.nav.testTask
+            }]
           }
         },
         {
@@ -113,11 +137,22 @@ export default new Router({
           component: () => import('./pages/myApp/ATPReport.vue'),
           meta: {
             id: '2.4.1',
-            breadcrumb: [
-              { nameEn: 'Myapp', path: '/myapp', nameCn: '我的应用' },
-              { nameEn: 'Test Task', path: 'app/test/task', nameCn: '测试任务' },
-              { nameEn: 'ATPReport', nameCn: '测试报告' }
-            ]
+            breadcrumb: [{
+              nameEn: en.nav.home,
+              path: '/',
+              nameCn: en.nav.home
+            }, {
+              nameEn: en.nav.myApp,
+              path: '/myapp',
+              nameCn: cn.nav.myApp
+            }, {
+              nameEn: en.nav.testTask,
+              path: 'app/test/task',
+              nameCn: cn.nav.testTask
+            }, {
+              nameEn: en.nav.atpReport,
+              nameCn: cn.nav.atpReport
+            }]
           }
         },
         {
@@ -126,11 +161,22 @@ export default new Router({
           component: () => import('./pages/myApp/ATPProcess.vue'),
           meta: {
             id: '2.4.1',
-            breadcrumb: [
-              { nameEn: 'Myapp', path: '/myapp', nameCn: '我的应用' },
-              { nameEn: 'Test Task', path: 'app/test/task', nameCn: '测试任务' },
-              { nameEn: 'ATPProcess', nameCn: '测试进展' }
-            ]
+            breadcrumb: [{
+              nameEn: en.nav.home,
+              path: '/',
+              nameCn: en.nav.home
+            }, {
+              nameEn: en.nav.myApp,
+              path: '/myapp',
+              nameCn: cn.nav.myApp
+            }, {
+              nameEn: en.nav.testTask,
+              path: 'app/test/task',
+              nameCn: cn.nav.testTask
+            }, {
+              nameEn: en.nav.atpProcess,
+              nameCn: cn.nav.atpProcess
+            }]
           }
         },
         {
@@ -139,11 +185,18 @@ export default new Router({
           component: () => import('./pages/myApp/ATPTestCase.vue'),
           meta: {
             id: '2.4.1',
-            breadcrumb: [
-              { nameEn: 'Myapp', path: '/myapp', nameCn: '我的应用' },
-              // { nameEn: 'Test Task', path: 'app/test/task', nameCn: '测试任务' },
-              { nameEn: 'ATPTest', nameCn: '测试' }
-            ]
+            breadcrumb: [{
+              nameEn: en.nav.home,
+              path: '/',
+              nameCn: en.nav.home
+            }, {
+              nameEn: en.nav.myApp,
+              path: '/myapp',
+              nameCn: cn.nav.myApp
+            }, {
+              nameEn: en.nav.atpTest,
+              nameCn: cn.nav.atpTest
+            }]
           }
         },
         {
@@ -159,7 +212,21 @@ export default new Router({
           name: 'apppromotion',
           component: () => import('./pages/appPromotion/AppList.vue'),
           meta: {
-            id: '2.5'
+            id: '2.5',
+            breadcrumb: [
+              {
+                nameEn: en.nav.home,
+                path: '/',
+                nameCn: cn.nav.home
+              }, {
+                nameEn: en.nav.appShare,
+                nameCn: cn.nav.appShare
+              }, {
+                nameEn: en.nav.appPush,
+                path: '/apppromotion',
+                nameCn: cn.nav.appPush
+              }
+            ]
           }
         },
         {
@@ -167,7 +234,21 @@ export default new Router({
           name: 'operationAnalyse',
           component: () => import('./pages/appPromotion/OperationAna.vue'),
           meta: {
-            id: '2.5'
+            id: '2.5',
+            breadcrumb: [
+              {
+                nameEn: en.nav.home,
+                path: '/',
+                nameCn: cn.nav.home
+              }, {
+                nameEn: en.nav.appShare,
+                nameCn: cn.nav.appShare
+              }, {
+                nameEn: en.nav.operAna,
+                path: '/operationAnalyse',
+                nameCn: cn.nav.operAna
+              }
+            ]
           }
         },
         {
