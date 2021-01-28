@@ -19,7 +19,22 @@
     <div class="stars-wrapper" />
     <div class="my-app-content padding56">
       <el-row>
-        <el-col :span="24">
+        <el-col
+          :span="4"
+        >
+          <div>
+            <el-input
+              suffix-icon="el-icon-search"
+              v-model="nameQuery"
+              @change="handleNameQuery"
+              :placeholder="$t('common.appStoreName')"
+            />
+          </div>
+        </el-col>
+        <el-col
+          :span="4"
+          :offset="16"
+        >
           <el-button
             id="addAppBtn"
             type="primary"
@@ -36,11 +51,6 @@
           :data="currentPageData"
           border
         >
-          <el-table-column
-            type="index"
-            :label="$t('common.number')"
-            width="110"
-          />
           <el-table-column
             prop="appStoreName"
             :label="$t('common.appStoreName')"
@@ -93,7 +103,7 @@
         </el-table>
       </div>
       <pagination
-        :table-data="appPackageData"
+        :table-data="findAppStoreData"
         @getCurrentPageData="getCurrentPageData"
       />
       <div class="clearfix" />
@@ -250,7 +260,9 @@ export default {
         shortDesc: [
           { required: true, message: '描述不能为空', trigger: 'blur' }
         ]
-      }
+      },
+      nameQuery: '',
+      findAppStoreData: []
     }
   },
   methods: {
@@ -289,6 +301,7 @@ export default {
             this.appPackageData.push(csaritem)
           })
         }
+        this.findAppStoreData = this.appPackageData
         this.dataLoading = false
       }).catch(() => {
         this.dataLoading = false
@@ -392,6 +405,14 @@ export default {
     clearInterval () {
       clearTimeout(this.interval)
       this.interval = null
+    },
+    handleNameQuery () {
+      this.findAppStoreData = this.appPackageData
+      this.findAppStoreData = this.findAppStoreData.filter((item) => {
+        let itemName = item.appStoreName.toLowerCase()
+        return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
+      })
+      if (!this.nameQuery) this.findAppStoreData = this.appPackageData
     }
   },
   mounted () {

@@ -48,6 +48,24 @@
             ref="myCharts3"
           />
         </div>
+        <el-row
+          :gutter="8"
+          type="flex"
+          class="searchRow"
+        >
+          <el-col
+            :span="4"
+          >
+            <div>
+              <el-input
+                suffix-icon="el-icon-search"
+                v-model="nameQuery"
+                @change="handleNameQuery"
+                :placeholder="$t('common.appName')"
+              />
+            </div>
+          </el-col>
+        </el-row>
         <el-table
           :data="currentPageData"
           border
@@ -160,7 +178,7 @@
       </el-drawer>
       <pagination
         style="margin-bottom: 20px;"
-        :table-data="appPackageData"
+        :table-data="findAppData"
         @getCurrentPageData="getCurrentPageData"
       />
     </div>
@@ -181,7 +199,9 @@ export default {
       appData: [],
       appPackageData: [],
       currentPageData: [],
-      middleData: []
+      middleData: [],
+      nameQuery: '',
+      findAppData: []
     }
   },
   methods: {
@@ -251,6 +271,7 @@ export default {
               this.appPackageData.push(appDataItem)
             }
           )
+          this.findAppData = this.appPackageData
           resolve(res)
         }).catch(() => {
           this.$message({
@@ -411,6 +432,14 @@ export default {
       )
       let pullArr = [day7, day6, day5, day4, day3, day2, day1]
       return pullArr
+    },
+    handleNameQuery () {
+      this.findAppData = this.appPackageData
+      this.findAppData = this.findAppData.filter((item) => {
+        let itemName = item.name.toLowerCase()
+        return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
+      })
+      if (!this.nameQuery) this.findAppData = this.appPackageData
     }
   },
   mounted () {
@@ -496,6 +525,9 @@ export default {
       )
 
       let options2 = {
+        title: {
+          text: this.$t('apppromotion.appPushAndNoticeStatistic')
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -503,7 +535,9 @@ export default {
           }
         },
         legend: {
-          data: [this.$t('apppromotion.pushApp'), this.$t('apppromotion.noticeApp')]
+          data: [this.$t('apppromotion.pushApp'), this.$t('apppromotion.noticeApp')],
+          right: 30,
+          top: 30
         },
         grid: {
           left: '3%',
@@ -631,6 +665,9 @@ export default {
   padding: 20px 0;
   .pagination {
     margin: 20px;
+  }
+  .searchRow {
+    margin-bottom: 15px;
   }
 }
 .mychart{
