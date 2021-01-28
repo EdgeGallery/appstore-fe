@@ -111,7 +111,7 @@
     <el-dialog
       :title="title"
       :visible.sync="dialogVisible"
-      width="45%"
+      width="30%"
       :before-close="handleClose"
       :close-on-click-modal="false"
       @close="clearForm"
@@ -122,71 +122,85 @@
             :model="form"
             ref="form"
             :rules="rules"
-            label-width="110px"
           >
-            <el-form-item
-              :label="$t('common.appStoreName')"
-              prop="appStoreName"
-            >
-              <el-input
-                id="appStoreName"
-                maxlength="20"
-                v-model="form.appStoreName"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('common.appStoreVersion')"
-              prop="appStoreVersion"
-            >
-              <el-input
-                id="appStoreVersion"
-                v-model="form.appStoreVersion"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('common.company')"
-              prop="company"
-            >
-              <el-input
-                id="company"
-                v-model="form.company"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('common.url')"
-              prop="url"
-            >
-              <el-input
-                id="url"
-                v-model="form.url"
-                placeholder="例如：http://127.0.0.1:8080"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('common.appdTransId')"
-              prop="appdTransId"
-            >
-              <el-select
-                id="add_select_types"
-                v-model="form.appdTransId"
-                :placeholder="$t('common.appdTransId')"
-              >
-                <el-option
-                  v-for="(item,index) in types"
-                  :key="index"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
-            <el-form-item
-              :label="$t('common.description')"
-              prop="description"
-            >
-              <el-input
-                id="port"
-                v-model="form.description"
-              />
-            </el-form-item>
+            <el-row :gutter="10">
+              <el-col :span="12">
+                <el-form-item
+                  :label="$t('common.appStoreName')"
+                  prop="appStoreName"
+                >
+                  <el-input
+                    id="appStoreName"
+                    maxlength="20"
+                    v-model="form.appStoreName"
+                  />
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="12">
+                <el-form-item
+                  :label="$t('common.appStoreVersion')"
+                  prop="appStoreVersion"
+                >
+                  <el-input
+                    id="appStoreVersion"
+                    v-model="form.appStoreVersion"
+                  />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item
+                  :label="$t('common.company')"
+                  prop="company"
+                >
+                  <el-input
+                    id="company"
+                    v-model="form.company"
+                  />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item
+                  :label="$t('common.url')"
+                  prop="url"
+                >
+                  <el-input
+                    id="url"
+                    v-model="form.url"
+                    placeholder="例如：http://127.0.0.1:8080"
+                  />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item
+                  :label="$t('common.appdTransId')"
+                  prop="appdTransId"
+                >
+                  <el-select
+                    id="add_select_types"
+                    v-model="form.appdTransId"
+                    :placeholder="$t('common.appdTransId')"
+                  >
+                    <el-option
+                      v-for="(item,index) in types"
+                      :key="index"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item
+                  :label="$t('common.description')"
+                  prop="description"
+                >
+                  <el-input
+                    id="port"
+                    v-model="form.description"
+                  />
+                </el-form-item>
+              </el-col>
+            </el-row>
           </el-form>
         </el-col>
       </el-row>
