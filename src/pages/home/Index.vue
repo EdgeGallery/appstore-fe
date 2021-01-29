@@ -30,12 +30,21 @@
               class="icon-group"
             >
               <div class="rt">
-                <img
-                  :src="uploadAppLogo"
-                  class="uploadAppLogo"
-                  @click="uploadPackage"
-                  alt=""
+                <el-tooltip
+                  class="item"
+                  effect="light"
+                  content="上传应用"
+                  placement="bottom-start"
+                  :visible-arrow="false"
                 >
+                  >
+                  <img
+                    :src="uploadAppLogo"
+                    class="uploadAppLogo"
+                    @click="uploadPackage"
+                    alt=""
+                  >
+                </el-tooltip>
                 <em
                   class="curp iconAactive"
                   :class="{'el-icon-s-grid': iconAactive, 'el-icon-tickets': !iconAactive}"
