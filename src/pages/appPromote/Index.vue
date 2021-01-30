@@ -272,7 +272,7 @@ export default {
         ],
         url: [
           { required: true, message: 'IP or URL不能为空', trigger: 'blur' },
-          { pattern: /(https?|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/, message: this.$t('promptMessage.normalVerify') }
+          { pattern: /^((http:\/\/|https:\/\/)?([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(:\d{0,5})?(\/.*)?$/, message: this.$t('promptMessage.normalVerify') }
         ],
         appdTransId: [
           { required: true, message: '转换器不能为空', trigger: 'change' }
