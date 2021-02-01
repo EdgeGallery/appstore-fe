@@ -248,7 +248,7 @@ export default {
     testPackage (appId, packageId) {
       myApp.testPackageApi(appId, packageId).then(res => {
         this.taskId = res.data.atpTaskId
-        this.$router.push({ name: 'atptestcase', params: { taskId: this.taskId } })
+        this.$router.push({ name: 'atpprocess', params: { taskId: this.taskId } })
       }).catch(() => {
         this.$message({
           duration: 2000,

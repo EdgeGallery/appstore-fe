@@ -42,7 +42,7 @@ export default {
         this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/atpprocess' + '?taskid=' + this.taskId
       } else {
         this.srcUrl = currUrl.replace('appstore', 'atp')
-        this.srcUrl = this.srcUrl + '/#/atpprocess' + '?taskid=' + this.taskId
+        this.srcUrl = this.srcUrl + '?taskid=' + this.taskId
       }
     }
   },
