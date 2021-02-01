@@ -63,65 +63,6 @@
           </el-upload>
         </el-form-item>
         <el-form-item
-          :label="$t('store.appIcon')"
-          prop="appIcon"
-        >
-          <el-upload
-            ref="upload"
-            action=""
-            :limit="1"
-            :on-exceed="handleExceed"
-            :on-change="handleChangeAppIcon"
-            :on-remove="handleDelteAppIcon"
-            :file-list="packageForm.appIcon"
-            :auto-upload="false"
-            accept=".jpg,.png"
-          >
-            <el-button
-              slot="trigger"
-              size="small"
-              type="primary"
-              plain
-            >
-              {{ $t('store.uploadLogo') }}
-            </el-button>
-            <div
-              class="el-upload__tip"
-              slot="tip"
-            >
-              <em class="el-icon-warning" />
-              {{ $t('store.onlyImg') }}
-              {{ $t('store.iconSizeLimit') }}
-            </div>
-          </el-upload>
-          <div class="default-icon">
-            <div
-              id="iconbox"
-              style="display: none;"
-            >
-              <img
-                :src="defaultUrl"
-                alt=""
-              >
-            </div>
-            <div
-              class="box"
-              v-for="(item, index) in defaultIcon"
-              @click="chooseDefaultIcon(item, index)"
-              :key="index"
-            >
-              <img
-                :src="item"
-                alt=""
-              >
-              <em
-                class="el-icon-circle-check"
-                :class="{ active: defaultActive === index }"
-              />
-            </div>
-          </div>
-        </el-form-item>
-        <el-form-item
           :label="$t('common.industry')"
           prop="industry"
         >
@@ -147,15 +88,76 @@
             id="upload_select_types"
             v-model="packageForm.types"
             :placeholder="$t('common.type')"
-            @change="checkProjectData"
+            @change="changeIcon"
           >
             <el-option
               v-for="(item,index) in types"
               :key="index"
               :label="language === 'cn'?item.label[0]:item.label[1]"
               :value="item.value"
+              :id="item.value"
             />
           </el-select>
+        </el-form-item>
+        <el-form-item
+          :label="$t('store.appIcon')"
+          :label-width="formLabelWidth"
+          prop="logoFileList"
+          class="icon"
+        >
+          <div class="default-icon">
+            <div
+              class="box"
+              v-for="(item, index) in defaultIcon"
+              @click="chooseDefaultIcon(item, index)"
+              :key="item"
+            >
+              <img
+                :src="item"
+                alt=""
+              >
+              <em
+                class="el-icon-success"
+                :class="{ active: packageForm.defaultActive === index }"
+              />
+            </div>
+          </div>
+          <em
+            class="upIcon el-icon-success"
+            :class="{ active: uploadIcon }"
+            v-if="uploadIcon"
+          />
+          <el-upload
+            id="projectLogo"
+            class="upload-demo clear"
+            ref="upload"
+            action=""
+            list-type="picture-card"
+            :limit="1"
+            :file-list="logoFileList"
+            :on-change="handleChangeLogo"
+            :on-exceed="handleExceed"
+            :auto-upload="false"
+            :on-remove="removeUploadLogo"
+            accept=".jpg,.png"
+            name="file"
+          >
+            <em class="el-icon-plus" />
+          </el-upload>
+          <el-tooltip
+            class="item"
+            effect="dark"
+            :content="this.$t('store.limitition')"
+            placement="right"
+          >
+            <em class="el-icon-question" />
+          </el-tooltip>
+          <div
+            class="el-form-error"
+            v-if="showErr"
+          >
+            {{ $t('store.iconRequired') }}
+          </div>
         </el-form-item>
         <el-form-item
           :label="$t('common.architecture')"
@@ -224,9 +226,21 @@ export default {
       language: localStorage.getItem('language'),
       defaultActive: '',
       defaultIconFile: '',
-      defaultIcon: [
-        require('../../assets/images/project_smartdevice.png'),
+      defaultIconData: [
+        require('../../assets/images/project_videoapp.png'),
+        require('../../assets/images/project_game.png'),
+        require('../../assets/images/project_videosur.png'),
         require('../../assets/images/project_security.png'),
+        require('../../assets/images/project_blockchain.png'),
+        require('../../assets/images/project_smartdevice.png'),
+        require('../../assets/images/project_iot.png'),
+        require('../../assets/images/project_data.png'),
+        require('../../assets/images/project_vr.png'),
+        require('../../assets/images/project_api.png'),
+        require('../../assets/images/project_sdk.png'),
+        require('../../assets/images/project_mep.png')
+      ],
+      defaultIcon: [
         require('../../assets/images/project_videosur.png')
       ],
       dialogVisible: this.value,
@@ -237,13 +251,20 @@ export default {
         // mepType: '',
         industry: 'Smart Park',
         types: 'Video Application',
-        affinity: 'X86'
+        affinity: 'X86',
+        base64Session: false,
+        defaultActive: ''
       },
+      // logoFileList: '',
+      logoFileList: [],
       types: TYPES,
       affinity: AFFINITY,
       industry: INDUSTRY,
       uploadBtnLoading: false,
       defaultUrl: '',
+      uploadIcon: false,
+      showErr: false,
+      formLabelWidth: '110px',
       rules: {
         fileList: [
           { required: true }
@@ -259,6 +280,9 @@ export default {
         ],
         affinity: [
           { required: true, message: '架构不能为空' }
+        ],
+        logoFileList: [
+          { required: true, message: 'Icon is required', trigger: 'change' }
         ],
         shortDesc: [
           { required: true, message: '描述不能为空', trigger: 'blur' }
@@ -307,10 +331,48 @@ export default {
     handleChangeApi (file, fileList) {
       this.checkFileType(file, 'apiFileList', 'json')
     },
+    removeUploadLogo (file) {
+      this.uploadIcon = false
+      this.logoFileList = []
+      this.showErr = this.logoFileList
+      this.chooseDefaultIcon(this.defaultIcon[0], 0)
+    },
     handleExceed (file, fileList) {
       if (fileList.length === 1) {
         this.$message.warning(this.$t('promptMessage.onlyOneFile'))
       }
+    },
+
+    // 上传图标
+    handleChangeLogo (file) {
+      console.log(1)
+      let listTemp = []
+      this.packageForm.base64Session = true
+      this.packageForm.appIcon = []
+      this.defaultIconFile = []
+      this.packageForm.defaultActive = ''
+      if (file) {
+        if (file.raw.name.indexOf(' ') !== -1) {
+          this.$message.warning(this.$t('promptMessage.fileNameType'))
+          this.logoFileList = []
+        } else {
+          this.logoFileList.push(file)
+          listTemp.push(file.raw)
+          this.packageForm.appIcon = listTemp
+          this.uploadIcon = true
+        }
+        if (file.size / 1024 / 1024 > 2) {
+          this.$message.warning(this.$t('promptMessage.moreThan2'))
+          this.logoFileList = []
+        }
+        let fileTypeArr = ['jpg', 'png']
+        this.fileType = file.name.substring(file.name.lastIndexOf('.') + 1)
+        if (fileTypeArr.indexOf(this.fileType.toLowerCase()) === -1) {
+          this.$message.warning(this.$t('promptMessage.checkFileType'))
+          this.logoFileList = []
+        }
+      }
+      this.showErr = !this.logoFileList
     },
     handleChangeAppIcon (file, fileList) {
       this.packageForm.appIcon = []
@@ -380,8 +442,75 @@ export default {
       let dataURL = canvas.toDataURL('image/' + ext)
       return this.base64toFile(dataURL)
     },
-    // default icon
+    changeIcon (val) {
+      console.log('this is first')
+      console.log(val)
+      console.log('this is end')
+      this.packageForm.base64Session = true
+      this.defaultIconFile = []
+      this.packageForm.defaultActive = 0
+
+      console.log(this.defaultIcon)
+      switch (val) {
+        case 'Video Application':
+          this.defaultIcon.splice(0, 1, this.defaultIconData[0])
+          break
+        case 'Game':
+          this.defaultIcon.splice(0, 1, this.defaultIconData[1])
+          console.log(this.defaultIcon)
+          break
+        case 'Video Surveillance':
+          this.defaultIcon.splice(0, 1, this.defaultIconData[2])
+          break
+        case 'Safety':
+          this.defaultIcon.splice(0, 1, this.defaultIconData[3])
+          break
+        case 'Blockchain':
+          this.defaultIcon.splice(0, 1, this.defaultIconData[4])
+          break
+        case 'Smart Device':
+          this.defaultIcon.splice(0, 1, this.defaultIconData[5])
+          break
+        case 'Internet of Things':
+          this.defaultIcon.splice(0, 1, this.defaultIconData[6])
+          break
+        case 'Big Data':
+          this.defaultIcon.splice(0, 1, this.defaultIconData[7])
+          break
+        case 'AR/VR':
+          this.defaultIcon.splice(0, 1, this.defaultIconData[8])
+          break
+        case 'API':
+          this.defaultIcon.splice(0, 1, this.defaultIconData[9])
+          break
+        case 'SDK':
+          this.defaultIcon.splice(0, 1, this.defaultIconData[10])
+          break
+        case 'MEP':
+          this.defaultIcon.splice(0, 1, this.defaultIconData[11])
+          break
+      }
+      // this.conversionIcon(this.defaultIcon[0])
+      // this.checkProjectData()
+    },
+    // 选择默认图标
     chooseDefaultIcon (file, index) {
+      console.log(2)
+      this.logoFileList = []
+      this.uploadIcon = false
+      this.packageForm.base64Session = true
+      this.defaultIconFile = []
+      if (this.packageForm.defaultActive === index) {
+        this.packageForm.defaultActive = ''
+        this.packageForm.appIcon = []
+        this.showErr = !this.defaultIconFile.length
+      } else {
+        this.packageForm.defaultActive = index
+        this.conversionIcon(file)
+      }
+    },
+    // default icon
+    chooseDefaultIcons (file, index) {
       this.packageForm.appIcon = []
       if (this.defaultActive === index) {
         this.defaultActive = ''
@@ -524,17 +653,16 @@ export default {
     },
     value: function (newVal) {
       this.dialogVisible = newVal
-    },
-    fileList (val) {
-      console.log(val)
     }
   },
   mounted () {
+    this.showErr = this.logoFileList
+    this.chooseDefaultIcon(this.defaultIcon[0], 0)
   }
 }
 
 </script>
-<style lang='less' scoped>
+<style lang='less' >
 .upload-package{
   .el-dialog__header{
   background-color: #5abdc7 ;
@@ -550,32 +678,114 @@ export default {
     height: auto !important;
     width: 100%;
   }
+  .list-select input{
+    height: 35px;
+    line-height: 35px;
+  }
+  .upload-demo{
+    float: left;
+    .el-button--primary{
+      background-color: #fff;
+      border-color: #688ef3;
+      color: #688ef3;
+      padding: 6px 20px;
+      margin-top: 8px;
+    }
+    .el-icon-warning{
+      color: #688ef3;
+      margin-right: 5px;
+      font-size: 14px;
+    }
+    .el-upload{
+      // float: left;
+      width: 34px;
+      height: 34px;
+      line-height: 34px;
+      margin: 3px 15px 0 0;
+      text-align: center;
+    }
+    .el-upload-list__item-preview{
+      opacity: 0;
+    }
+    .el-icon-plus:before {
+        content: "\e6d9";
+}
+  }
+  .el-icon-question{
+      float: left;
+      margin-top: 12px;
+  }
+  .el-icon-question:before {
+    color: #688ef3;
+    font-size: 16px;
+  }
   .default-icon{
+    float: left;
     display: flex;
     flex-wrap: wrap;
     .box{
       position: relative;
-      border: 1px solid #eee;
-      margin-right: 15px;
-      width: 68px;
-      height: 68px;
-      margin-bottom: 10px;
-      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      margin: 0 15px 0 0;
       img{
-        width: 68px;
-        height: 68px;
+        width: 40px;
+        height: 40px;
       }
       em{
         display: inline-block;
         position: absolute;
-        bottom: -5px;
-        right: -5px;
+        bottom: 0;
+        right: 0;
       }
       .active{
-        color: #03a9f4;
-        font-weight: 800;
+        color: #409EFF;
       }
     }
+  }
+  .upIcon.el-icon-success{
+    position: absolute;
+    top: 30px;
+    left: 88px;
+    z-index: 99;
+  }
+  .upIcon.active{
+    color: #409EFF;
+  }
+  .el-form-item{
+    margin-bottom: 15px;
+  }
+  .el-form-item.icon{
+    content: '';
+    display: block;
+    clear: both;
+  }
+  .f50{
+    float: left;
+    width: 50%;
+    .el-form-item__content{
+      width: calc(100% - 110px);
+    }
+    .el-select{
+      width: 100%;
+    }
+  }
+  .el-upload-list{
+    width: auto;
+  }
+  // .el-upload-list--picture-card .el-upload-list__item-thumbnail{
+  //   width: 40px;
+  //   height: 40px;
+  //   min-width: 40px;
+  //   border: none;
+  //   margin: 0 15px 0 0;
+  // }
+  .el-upload-list--picture-card .el-upload-list__item{
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border: none;
+    margin: 0 15px 0 0;
   }
   .el-dialog__footer{
     text-align: center;
