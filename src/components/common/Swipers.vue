@@ -21,7 +21,6 @@
     <el-carousel
       indicator-position="outside"
       direction="horizontal"
-      loop="true"
     >
       <el-carousel-item
         v-for="item in SwiperList"

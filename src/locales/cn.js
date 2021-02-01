@@ -109,6 +109,9 @@ const cn = {
     fileEmpty: '文件内容为空!',
     deleteSuccess: '删除成功!',
     fileNotContent: '文件格式不支持或内容为空!',
+    fileNameType: '文件名称不能包含空格！',
+    moreThan2: '只能上传不超过2MB的文件！',
+    checkFileType: '请上传符合格式的文件',
     canOnlyUpload: '只能上传 .',
     files: ' 类型文件.',
     uploadPicture: '请上传.jpg或.png格式文件.',
@@ -189,7 +192,9 @@ const cn = {
     iconSizeLimit: '文件大小不超过2M',
     userName: '用户',
     time: '时间',
-    toBeAdded: '待补充'
+    toBeAdded: '待补充',
+    iconRequired: '请上传图标',
+    limitition: '请上传.jpg或.png格式文件，或选择默认应用图标，且大小不超过2M'
   },
   docs: {
     step1: '开源MEP平台',
