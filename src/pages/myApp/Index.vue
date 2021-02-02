@@ -15,8 +15,8 @@
   -->
 
 <template>
-  <div class="myApp padding56 h100">
-    <div class="myApp-content h100">
+  <div class="myApp padding56">
+    <div class="myApp-content">
       <el-row>
         <el-col :span="24">
           <el-button
@@ -34,12 +34,10 @@
           v-loading="dataLoading"
           :data="currentPageData"
           header-cell-class-name="headerStyle"
-          :cell-style="columnStyle"
         >
           <el-table-column
             prop="name"
             :label="$t('common.appName')"
-            :render-header="renderHeadeName"
           />
           <el-table-column
             prop="provider"
@@ -60,8 +58,25 @@
           <el-table-column
             prop="shortDesc"
             :label="$t('common.description')"
-            :render-header="renderHeadeDesc"
-          />
+            width="300"
+          >
+            <template slot-scope="scope">
+              <el-popover
+                placement="bottom"
+                width="300"
+                trigger="hover"
+                v-if="scope.row.shortDesc.length>30"
+              >
+                <div>{{ scope.row.shortDesc }}</div>
+                <div slot="reference">
+                  {{ scope.row.shortDesc }}
+                </div>
+              </el-popover>
+              <div v-else>
+                {{ scope.row.shortDesc }}
+              </div>
+            </template>
+          </el-table-column>
           <el-table-column
             prop="status"
             :label="$t('myApp.status')"
@@ -70,7 +85,6 @@
             fixed="right"
             :label="$t('myApp.operation')"
             width="260"
-            :render-header="renderHeadeOperation"
           >
             <template slot-scope="scope">
               <el-link
@@ -101,6 +115,7 @@
               <span class="buttonRight" />
               <el-link
                 :disabled="scope.row.status == 'Test_running' || scope.row.status == 'Test_waiting'"
+                @click="getDelete(scope.row)"
                 class="deleteTextBtn"
                 :underline="false"
               >
@@ -320,48 +335,6 @@ export default {
     clearInterval () {
       clearTimeout(this.interval)
       this.interval = null
-    },
-    // table渲染
-    columnStyle ({ row, column, rowIndex, columnIndex }) {
-      if (columnIndex === 0 || columnIndex === 6 || columnIndex === 2) {
-        return 'color: #526ecc'
-      }
-    },
-    // tableRowStyle ({ row, rowIndex }) {
-    //   return 'height:70px'
-    // }
-    renderHeadeName (h, { column, $index }) {
-      return h(
-        'div', { style: 'padding-top: 7px;' }, [
-          h('span', column.label),
-          h('i', {
-            class: 'el-icon-menu',
-            style: 'margin-left: 5px;'
-          })
-        ]
-      )
-    },
-    renderHeadeOperation (h, { column, $index }) {
-      return h(
-        'div', { style: 'padding-top: 7px;' }, [
-          h('span', column.label),
-          h('i', {
-            class: 'el-icon-s-operation',
-            style: 'margin-left: 5px;'
-          })
-        ]
-      )
-    },
-    renderHeadeDesc (h, { column, $index }) {
-      return h(
-        'div', { style: 'padding-top: 7px;' }, [
-          h('span', column.label),
-          h('i', {
-            class: 'el-icon-document',
-            style: 'margin-left: 5px;'
-          })
-        ]
-      )
     }
   },
   mounted () {
@@ -396,18 +369,19 @@ export default {
         color: #575d6c;
         border-right: 2px solid #fff;
         padding: 0;
-        height: 30px;
-        line-height: 30px;
-        // font-size: 16px;
+        height: 40px;
+        line-height: 40px;
       }
-      .el-table__row{
-        height: 70px;
+      .el-table td{
+        padding: 0;
+        height: 60px;
+        max-height: 60px;
+        line-height: 60px;
       }
-      .tableButton{
-        // color: #526ecc;
-        border-radius: 5px;
-        color: #fff;
-        font-size: 14px;
+      .el-popover__reference{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .buttonRight{
         padding: 0 1px;

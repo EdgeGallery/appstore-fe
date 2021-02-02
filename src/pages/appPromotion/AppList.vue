@@ -39,10 +39,9 @@
           <el-table
             :data="currentPageData"
             @selection-change="selectionLineChangeHandle"
-            border
             ref="multipleTable"
             style="width: 100%"
-            :header-cell-style="{ background: '#eeeeee'}"
+            header-cell-class-name="headerStyle"
           >
             <el-table-column
               type="selection"
