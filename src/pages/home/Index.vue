@@ -42,14 +42,30 @@
                     :src="uploadAppLogo"
                     class="uploadAppLogo"
                     @click="uploadPackage"
+                  >
+                </el-tooltip>
+                <el-tooltip
+                  class="item"
+                  effect="light"
+                  content="展示切换"
+                  placement="bottom-start"
+                  :visible-arrow="false"
+                >
+                  <img
+                    class="header_img"
+                    v-if="!iconAactive"
+                    src="../../assets/images/applist.png"
+                    @click="changeAppList"
+                    alt=""
+                  >
+                  <img
+                    class="header_img"
+                    v-if="iconAactive"
+                    src="../../assets/images/appgrid.png"
+                    @click="changeAppList"
                     alt=""
                   >
                 </el-tooltip>
-                <em
-                  class="curp iconAactive"
-                  :class="{'el-icon-s-grid': iconAactive, 'el-icon-tickets': !iconAactive}"
-                  @click="changeAppList"
-                />
               </div>
             </el-col>
             <el-col class="searchBox">
@@ -162,6 +178,8 @@ import appList from './AppList.vue'
 import pagination from '../../components/common/Pagination.vue'
 import bannerImage from '../../components/common/BannerImage.vue'
 import uploadAppLogo from '@/assets/images/upload.png'
+import appgridLogo from '@/assets/images/appgrid.png'
+import applistLogo from '@/assets/images/applist.png'
 import HomeSwiper from '../../components/common/Swipers.vue'
 export default {
   name: 'Home',
@@ -189,7 +207,9 @@ export default {
       currentPageData: [],
       appData: [],
       findAppData: [],
-      uploadAppLogo: uploadAppLogo
+      uploadAppLogo: uploadAppLogo,
+      appgridLogo: appgridLogo,
+      applistLogo: applistLogo
     }
   },
   methods: {
@@ -472,6 +492,12 @@ export default {
       width: 31px;
       height: 25px;
       margin-right: 20px;
+      cursor: pointer;
+    }
+    .header_img {
+      width: 25px;
+      height: 25px;
+      // margin-right: 20px;
       cursor: pointer;
     }
   }
