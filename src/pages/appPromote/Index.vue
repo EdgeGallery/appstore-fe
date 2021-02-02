@@ -55,7 +55,7 @@
           <el-table
             v-loading="dataLoading"
             :data="currentPageData"
-            border
+            header-cell-class-name="headerStyle"
           >
             <el-table-column
               prop="appStoreName"

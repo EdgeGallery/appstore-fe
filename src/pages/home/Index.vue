@@ -42,6 +42,7 @@
                     :src="uploadAppLogo"
                     class="uploadAppLogo"
                     @click="uploadPackage"
+                    alt
                   >
                 </el-tooltip>
                 <el-tooltip
