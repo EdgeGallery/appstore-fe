@@ -471,7 +471,7 @@ export default {
   .searchBox {
     float: right;
     width: 300px;
-    margin-top: 10px;
+    margin-top: -2px;
   }
   .icon-group {
     float: right;

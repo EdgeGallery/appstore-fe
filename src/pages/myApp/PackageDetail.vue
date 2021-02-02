@@ -57,7 +57,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('common.operation')"
-            width="270"
+            width="125"
           >
             <template slot-scope="scope">
               <el-button

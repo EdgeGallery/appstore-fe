@@ -87,40 +87,36 @@
             width="260"
           >
             <template slot-scope="scope">
-              <el-link
+              <el-button
                 @click="getDetail(scope.row)"
-                class="detailTextBtn"
-                :underline="false"
+                type="text"
               >
                 {{ $t('common.detail') }}
-              </el-link>
+              </el-button>
               <span class="buttonRight" />
-              <el-link
+              <el-button
                 :disabled="scope.row.status == 'Published'"
                 @click="testMessage(scope.row)"
-                class="testTextBtn"
-                :underline="false"
+                type="text"
               >
                 {{ $t('myApp.test') }}
-              </el-link>
+              </el-button>
               <span class="buttonRight" />
-              <el-link
+              <el-button
                 :disabled="scope.row.status !== 'Test_success'"
                 @click="publishPackage(scope.row)"
-                class="publishTextBtn"
-                :underline="false"
+                type="text"
               >
                 {{ $t('myApp.publish') }}
-              </el-link>
+              </el-button>
               <span class="buttonRight" />
-              <el-link
+              <el-button
                 :disabled="scope.row.status == 'Test_running' || scope.row.status == 'Test_waiting'"
                 @click="getDelete(scope.row)"
-                class="deleteTextBtn"
-                :underline="false"
+                type="text"
               >
                 {{ $t('common.delete') }}
-              </el-link>
+              </el-button>
             </template>
           </el-table-column>
           <template slot="empty">
@@ -358,12 +354,6 @@ export default {
     // height: calc(100% - 10px);
     .packageTable{
       margin: 20px 0;
-      .el-link{
-        margin: 0 5px;
-        height: 16px;
-        line-height: 16px;
-        margin-top: -2px;
-      }
       .headerStyle{
         background: #e1e7f5;
         color: #575d6c;

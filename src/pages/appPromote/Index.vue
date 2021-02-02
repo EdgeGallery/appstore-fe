@@ -454,14 +454,9 @@ export default {
     .batchProm {
       margin-bottom: 5px;
       margin-top: 5px;
-      text-align: right;
       .search_input{
         width: 200px;
-        display: inline-block;
-        margin-right: 8px;
-      }
-      .batchProButton{
-        display: inline-block;
+        float: right;
       }
     }
   }

@@ -656,7 +656,7 @@ export default {
     margin: 20px;
   }
   .searchRow {
-    margin-bottom: 15px;
+    margin: 15px 0;
     .search_input{
       float: right;
       width: 200px;
