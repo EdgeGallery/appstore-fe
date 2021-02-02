@@ -15,14 +15,14 @@
   -->
 
 <template>
-  <div class="my-app padding56 h100">
-    <div class="my-app-content h100">
+  <div class="myApp padding56 h100">
+    <div class="myApp-content h100">
       <el-row>
         <el-col :span="24">
           <el-button
             id="myapp_checktest"
-            type="button"
-            class="rt checkTestStyle"
+            type="primary"
+            class="rt"
             @click="jumpTo"
           >
             {{ $t('myApp.checkTest') }}
@@ -69,50 +69,43 @@
           <el-table-column
             fixed="right"
             :label="$t('myApp.operation')"
-            width="400"
+            width="260"
             :render-header="renderHeadeOperation"
           >
             <template slot-scope="scope">
-              <el-button
-                id="appdetail_detail"
+              <el-link
                 @click="getDetail(scope.row)"
-                type="button"
-                size="small"
-                class="tableButton detailButton"
+                class="detailTextBtn"
+                :underline="false"
               >
                 {{ $t('common.detail') }}
-              </el-button>
+              </el-link>
               <span class="buttonRight" />
-              <el-button
+              <el-link
                 :disabled="scope.row.status == 'Published'"
-                type="button"
-                size="small"
                 @click="testMessage(scope.row)"
-                class="tableButton testButton"
+                class="testTextBtn"
+                :underline="false"
               >
                 {{ $t('myApp.test') }}
-              </el-button>
+              </el-link>
               <span class="buttonRight" />
-              <el-button
+              <el-link
                 :disabled="scope.row.status !== 'Test_success'"
-                type="button"
-                size="small"
                 @click="publishPackage(scope.row)"
-                class="tableButton publishButton"
+                class="publishTextBtn"
+                :underline="false"
               >
                 {{ $t('myApp.publish') }}
-              </el-button>
+              </el-link>
               <span class="buttonRight" />
-              <el-button
-                id="appdetail_delete"
+              <el-link
                 :disabled="scope.row.status == 'Test_running' || scope.row.status == 'Test_waiting'"
-                @click="getDelete(scope.row)"
-                type="button"
-                size="small"
-                class="tableButton deleteButton"
+                class="deleteTextBtn"
+                :underline="false"
               >
                 {{ $t('common.delete') }}
-              </el-button>
+              </el-link>
             </template>
           </el-table-column>
           <template slot="empty">
@@ -385,17 +378,19 @@ export default {
 }
 </script>
 <style lang='less'>
-.my-app {
-  .my-app-content {
+.myApp {
+  .myApp-content {
     background: white;
     padding: 20px;
     // height: calc(100% - 10px);
-    .checkTestStyle{
-      background-color: #89a6e6 ;
-      color: #fff;
-    }
     .packageTable{
       margin: 20px 0;
+      .el-link{
+        margin: 0 5px;
+        height: 16px;
+        line-height: 16px;
+        margin-top: -2px;
+      }
       .headerStyle{
         background: #e1e7f5;
         color: #575d6c;
@@ -413,18 +408,6 @@ export default {
         border-radius: 5px;
         color: #fff;
         font-size: 14px;
-      }
-      .detailButton{
-        background-color: #89a6e6;
-      }
-      .testButton{
-        background-color: #a8d89b;
-      }
-      .publishButton{
-        background-color: #9ed0c9;
-      }
-      .deleteButton{
-        background-color: #baa3d4;
       }
       .buttonRight{
         padding: 0 1px;

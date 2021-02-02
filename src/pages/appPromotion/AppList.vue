@@ -18,37 +18,23 @@
   <div class="my-app padding56">
     <div class="my-app-content">
       <div class="app-list">
-        <el-row
-          class="batchProm"
-          :gutter="24"
-          type="flex"
-        >
-          <el-col
-            :span="8"
+        <div class="batchProm">
+          <el-input
+            suffix-icon="el-icon-search"
+            v-model="nameQuery"
+            @change="handleNameQuery"
+            :placeholder="$t('common.appName')"
+            class="search_input"
+          />
+          <el-button
+            class="batchProButton"
+            type="primary"
+            :disabled="btnChangeEnable"
+            @click="showPushAppDialog"
           >
-            <div>
-              <el-input
-                suffix-icon="el-icon-search"
-                v-model="nameQuery"
-                @change="handleNameQuery"
-                :placeholder="$t('common.appName')"
-              />
-            </div>
-          </el-col>
-          <el-col
-            :span="8"
-            :offset="16"
-          >
-            <el-button
-              class="batchProButton"
-              type="primary"
-              :disabled="btnChangeEnable"
-              @click="showPushAppDialog"
-            >
-              {{ $t("apppromotion.batchPro") }}
-            </el-button>
-          </el-col>
-        </el-row>
+            {{ $t("apppromotion.batchPro") }}
+          </el-button>
+        </div>
         <div class="packageTable">
           <el-table
             :data="currentPageData"
@@ -310,8 +296,14 @@ export default {
   .batchProm {
     margin-bottom: 5px;
     margin-top: 5px;
+    text-align: right;
+    .search_input{
+      width: 200px;
+      display: inline-block;
+      margin-right: 8px;
+    }
     .batchProButton{
-      float: right;
+      display: inline-block;
     }
   }
   .packageTable{

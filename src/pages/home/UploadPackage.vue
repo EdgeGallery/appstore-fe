@@ -197,11 +197,9 @@
         class="dialog-footer"
       >
         <el-button
-          id="upload_package_close"
           @click="handleClose"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
-          id="upload_package_ipload"
           type="primary"
           :loading="uploadBtnLoading"
           @click="submitPackage"
@@ -789,19 +787,6 @@ export default {
   }
   .el-dialog__footer{
     text-align: center;
-  }
-  .el-button{
-    margin-right: 35px  ;
-  }
-  #upload_package_ipload{
-    color: #fff;
-    background-color: #5abdc7;
-    border-color: #5abdc7;
-  }
-  #upload_package_close{
-    color: #fff;
-    background-color: #738fea;
-    border-color: #738fea;
   }
   #upload_package_detect{
     color: #fff;

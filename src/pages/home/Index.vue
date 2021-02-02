@@ -62,6 +62,7 @@
                   v-model="nameQuery"
                   @change="handleNameQuery"
                   :placeholder="$t('common.appName')"
+                  class="search_input"
                 />
               </div>
             </el-col>
@@ -453,7 +454,7 @@ export default {
   }
   .icon-group {
     float: right;
-    width: 160px;
+    width: 158px;
     padding-right: 56px;
     em {
       line-height: 55px;

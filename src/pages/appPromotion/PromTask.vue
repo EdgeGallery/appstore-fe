@@ -80,13 +80,12 @@
         class="dialog-footer"
       >
         <el-button
-          class="standardBtn"
           @click="handleCloseDirect"
         >{{
           $t("apppromotion.closePanel")
         }}</el-button>
         <el-button
-          class="featureBtn"
+          type="primary"
           @click="handleExecute"
         >{{
           $t("apppromotion.execute")
