@@ -178,27 +178,63 @@ a{
 }
 
 /* 搜索框、按钮组件归一化 */
-.el-input__inner{
+  /* 搜索框input添加类名search_input */
+.search_input .el-input__inner{
   height: 32px;
   line-height: 32px;
+  min-width: 200px;
 }
-.el-input__icon{
+.search_input .el-input__icon{
   line-height: 32px;
 }
 .el-button{
   padding: 8px 24px;
 }
-.el-button.featureBtn {
-  color: #fff;
-  background-color: #688ef3;
-  border-color: #688ef3;
+  /* 默认的一般按钮样式，不带背景色 */
+.el-button--default:hover{
+  /* #7d9fe7 */
+  background-color: rgba(125, 159, 231, 0.2);
+  border-color:  rgba(125, 159, 231, 0.2);
 }
-.el-button.featureBtn:hover{
-  background-color: #86a5f5;
-  border-color: #86a5f5;
+  /* 重要按钮样式，带背景色 */
+.el-button--primary{
+  background-color: #5480DE;
+  border-color: #5480DE;
 }
-.el-button.standardBtn:hover{
-  background-color: #fff;
-  border-color: #a6bcf6;
-  color: #86a5f5;
+.el-button--primary:hover{
+  background-color: #7D9FE7;
+  border-color: #7D9FE7;
+}
+  /* 文本链接样式 */
+.el-link.detailTextBtn{
+  color: #7D9FE7;
+}
+.el-link.detailTextBtn:hover{
+  color: #5480DE;
+  border-bottom: 1px solid #5480DE;
+}
+.el-link.testTextBtn{
+  color: #9593E3;
+}
+.el-link.testTextBtn:hover{
+  color: #4F4CB9;
+  border-bottom: 1px solid #4F4CB9;
+}
+.el-link.publishTextBtn{
+  color: #1ECEC7;
+}
+.el-link.publishTextBtn:hover{
+  color: #008A85;
+  border-bottom: 1px solid #008A85;
+}
+.el-link.deleteTextBtn{
+  color: #FE7C80;
+}
+.el-link.deleteTextBtn:hover{
+  color: #FE252B;
+  border-bottom: 1px solid #FE7C80;
+}
+.el-link.is-disabled:hover{
+  color: #C0C4CC;
+  border-bottom: none;
 }

@@ -34,33 +34,23 @@
         </el-breadcrumb-item>
       </el-breadcrumb>
       <div class="my-app-content">
-        <el-row>
-          <el-col
-            :span="4"
+        <div class="batchProm">
+          <el-input
+            suffix-icon="el-icon-search"
+            v-model="nameQuery"
+            @change="handleNameQuery"
+            :placeholder="$t('common.appStoreName')"
+            class="search_input"
+          />
+          <el-button
+            id="addAppBtn"
+            type="primary"
+            class="batchProButton"
+            @click="register"
           >
-            <div>
-              <el-input
-                suffix-icon="el-icon-search"
-                v-model="nameQuery"
-                @change="handleNameQuery"
-                :placeholder="$t('common.appStoreName')"
-              />
-            </div>
-          </el-col>
-          <el-col
-            :span="4"
-            :offset="16"
-          >
-            <el-button
-              id="addAppBtn"
-              type="primary"
-              class="rt"
-              @click="register"
-            >
-              {{ $t('myApp.addApp') }}
-            </el-button>
-          </el-col>
-        </el-row>
+            {{ $t('myApp.addApp') }}
+          </el-button>
+        </div>
         <div class="packageTable">
           <el-table
             v-loading="dataLoading"
@@ -211,11 +201,9 @@
           class="dialog-footer"
         >
           <el-button
-            class="standardBtn"
             @click="handleClose"
           >{{ $t('common.cancel') }}</el-button>
           <el-button
-            class="featureBtn"
             type="primary"
             @click="confirmToRegister('form')"
           >{{ $t('common.confirm') }}</el-button>
@@ -461,6 +449,19 @@ export default {
         th {
           background-color: #eee;
         }
+      }
+    }
+    .batchProm {
+      margin-bottom: 5px;
+      margin-top: 5px;
+      text-align: right;
+      .search_input{
+        width: 200px;
+        display: inline-block;
+        margin-right: 8px;
+      }
+      .batchProButton{
+        display: inline-block;
       }
     }
   }

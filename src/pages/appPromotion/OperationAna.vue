@@ -48,24 +48,15 @@
             ref="myCharts3"
           />
         </div>
-        <el-row
-          :gutter="8"
-          type="flex"
-          class="searchRow"
-        >
-          <el-col
-            :span="4"
-          >
-            <div>
-              <el-input
-                suffix-icon="el-icon-search"
-                v-model="nameQuery"
-                @change="handleNameQuery"
-                :placeholder="$t('common.appName')"
-              />
-            </div>
-          </el-col>
-        </el-row>
+        <div class="searchRow clearfix">
+          <el-input
+            suffix-icon="el-icon-search"
+            v-model="nameQuery"
+            @change="handleNameQuery"
+            :placeholder="$t('common.appName')"
+            class="search_input"
+          />
+        </div>
         <el-table
           :data="currentPageData"
           border
@@ -667,6 +658,10 @@ export default {
   }
   .searchRow {
     margin-bottom: 15px;
+    .search_input{
+      float: right;
+      width: 200px;
+    }
   }
 }
 .mychart{
