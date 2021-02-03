@@ -97,7 +97,8 @@ const cn = {
     appdTransId: 'APPD版本',
     modifyApp: '编辑',
     company: '公司',
-    pageTotalNum: '总条数'
+    pageTotalNum: '总条数',
+    noData: '暂无数据'
   },
   promptMessage: {
     guestUser: 'guest用户无权操作! 请登录',
