@@ -30,17 +30,42 @@
               class="icon-group"
             >
               <div class="rt">
-                <img
-                  :src="uploadAppLogo"
-                  class="uploadAppLogo"
-                  @click="uploadPackage"
-                  alt=""
+                <el-tooltip
+                  class="item"
+                  effect="light"
+                  content="上传应用"
+                  placement="bottom-start"
+                  :visible-arrow="false"
                 >
-                <em
-                  class="curp iconAactive"
-                  :class="{'el-icon-s-grid': iconAactive, 'el-icon-tickets': !iconAactive}"
-                  @click="changeAppList"
-                />
+                  <img
+                    :src="uploadAppLogo"
+                    class="uploadAppLogo"
+                    @click="uploadPackage"
+                    alt=""
+                  >
+                </el-tooltip>
+                <el-tooltip
+                  class="item"
+                  effect="light"
+                  content="展示切换"
+                  placement="bottom-start"
+                  :visible-arrow="false"
+                >
+                  <img
+                    class="header_img"
+                    v-if="!iconAactive"
+                    src="../../assets/images/applist.png"
+                    @click="changeAppList"
+                    alt=""
+                  >
+                  <img
+                    class="header_img"
+                    v-if="iconAactive"
+                    src="../../assets/images/appgrid.png"
+                    @click="changeAppList"
+                    alt=""
+                  >
+                </el-tooltip>
               </div>
             </el-col>
             <el-col class="searchBox">
@@ -90,7 +115,7 @@
           </div>
           <div class="sort-type">
             <span class="icon" />
-            <strong>{{ $t('common.affinity') }}</strong>
+            <strong>{{ $t('common.architecture') }}</strong>
             <div
               v-for="(item, index) in affinity"
               :key="index"
@@ -152,7 +177,9 @@ import appList from './AppList.vue'
 import pagination from '../../components/common/Pagination.vue'
 import bannerImage from '../../components/common/BannerImage.vue'
 import uploadAppLogo from '@/assets/images/upload.png'
-import HomeSwiper from '../../components/common/Swiper.vue'
+import appgridLogo from '@/assets/images/appgrid.png'
+import applistLogo from '@/assets/images/applist.png'
+import HomeSwiper from '../../components/common/Swipers.vue'
 export default {
   name: 'Home',
   components: {
@@ -179,7 +206,9 @@ export default {
       currentPageData: [],
       appData: [],
       findAppData: [],
-      uploadAppLogo: uploadAppLogo
+      uploadAppLogo: uploadAppLogo,
+      appgridLogo: appgridLogo,
+      applistLogo: applistLogo
     }
   },
   methods: {
@@ -429,7 +458,7 @@ export default {
 <style lang="less" scoped>
 .home {
   margin-top: 65px;
-  background: #eee;
+  background: white;
   .el-form-item {
     margin-bottom: 0;
   }
@@ -440,12 +469,13 @@ export default {
   .searchBox {
     float: right;
     width: 300px;
-    margin-top: 5px;
+    margin-top: -2px;
   }
   .icon-group {
     float: right;
-    width: 200px;
+    width: 158px;
     padding-right: 56px;
+    margin-top: 4px;
     em {
       line-height: 55px;
       margin-right: 36px;
@@ -464,13 +494,19 @@ export default {
       margin-right: 20px;
       cursor: pointer;
     }
+    .header_img {
+      width: 25px;
+      height: 25px;
+      // margin-right: 20px;
+      cursor: pointer;
+    }
   }
   .app {
     padding: 0 56px;
     box-sizing: border-box;
     .app-content {
       background: white;
-      padding: 30px;
+      padding: 0px;
       box-sizing: border-box;
       .search {
         font-size: 16px;

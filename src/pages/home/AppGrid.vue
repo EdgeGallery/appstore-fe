@@ -140,6 +140,7 @@ export default {
       align-items: center;
       justify-content: space-around;
       transition: transform 0.3s ease-in;
+      background: #fafafa;
       .img-box {
         // padding: 50px 0;
         box-sizing: border-box;
@@ -201,7 +202,7 @@ export default {
     .application:hover{
       transform: translate3d(0,-10px,0);
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      background-color: #f7f7f7;
+      background-color: #fff;
     }
   }
 }
