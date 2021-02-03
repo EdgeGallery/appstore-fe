@@ -196,9 +196,14 @@ export default {
           type: 'warning'
         }).then(() => {
           // 跳转测试报告+taskId
-          // this.$router.push({ name: 'atpreport', params: { taskId: testTaskId } })
-          let routeData = this.$router.resolve({ name: 'atpreport', query: { taskId: testTaskId } })
-          window.open(routeData.href, '_blank')
+          let currUrl = window.location.host
+          if (currUrl.indexOf('30091') !== -1) {
+            currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId
+          } else {
+            currUrl = currUrl.replace('appstore', 'atp')
+            currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId
+          }
+          window.open(currUrl, '_blank')
         }).catch(action => {
           // 再次测试,首页+taskId，
           if (action === 'cancel') {
@@ -212,9 +217,14 @@ export default {
           type: 'warning'
         }).then(() => {
           // 跳转测试报告
-          // this.$router.push({ name: 'atpreport', params: { taskId: testTaskId } })
-          let routeData = this.$router.resolve({ name: 'atpreport', query: { taskId: testTaskId } })
-          window.open(routeData.href, '_blank')
+          let currUrl = window.location.host
+          if (currUrl.indexOf('30091') !== -1) {
+            currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId
+          } else {
+            currUrl = currUrl.replace('appstore', 'atp')
+            currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId
+          }
+          window.open(currUrl, '_blank')
         })
       } else if (row.status === 'Test_running') {
         this.$confirm(this.$t('promptMessage.testRunning'), this.$t('promptMessage.prompt'), {
