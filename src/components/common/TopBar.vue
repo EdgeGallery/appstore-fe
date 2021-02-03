@@ -13,42 +13,62 @@
   -  See the License for the specific language governing permissions and
   -  limitations under the License.
   -->
-
 <template>
-  <div class="padding56">
-    <iframe
-      title="atp"
-      :src="srcUrl"
-      name="atp"
-      width="100%"
-      height="800"
-    />
+  <div
+    class="topBar"
+    :style="styles"
+  >
+    <img
+      :src="require(`@/assets/${imageUrl}`)"
+      alt=""
+    >
   </div>
 </template>
 
 <script>
+
 export default {
-  name: 'Task',
-  data () {
-    return {
-      srcUrl: '',
-      taskId: ''
+  components: {},
+  props: {
+    imageUrl: {
+      type: String,
+      default: null
+    },
+    height: {
+      type: String,
+      default: '300'
     }
   },
-  methods: {
-    getAtpUrl () {
-      let currUrl = window.location.href
-      if (currUrl.indexOf('30091') !== -1) {
-        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/atpprocess' + '?taskid=' + this.taskId
-      } else {
-        this.srcUrl = currUrl.replace('appstore', 'atp')
-        this.srcUrl = this.srcUrl + '?taskid=' + this.taskId
+  data () {
+    return {
+    }
+  },
+  computed: {
+    styles () {
+      return {
+        'height': this.height + 'px'
       }
     }
   },
+  watch: {},
+  methods: {
+  },
+  created () {
+  },
   mounted () {
-    this.taskId = this.$route.params.taskId
-    this.getAtpUrl()
-  }
+  },
+  beforeCreate () {},
+  beforeMount () {},
+  beforeUpdate () {},
+  updated () {},
+  beforeDestroy () {},
+  destroyed () {},
+  activated () {}
 }
 </script>
+<style lang='less' scoped>
+img {
+    width: 100%;
+    height: 100%;
+  }
+</style>

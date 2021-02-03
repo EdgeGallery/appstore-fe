@@ -43,7 +43,21 @@
       <el-table-column
         prop="shortDesc"
         :label="$t('common.description')"
-      />
+        width="255"
+      >
+        <template slot-scope="scope">
+          <el-popover
+            placement="right-start"
+            width="300"
+            trigger="hover"
+          >
+            <div>{{ scope.row.shortDesc }}</div>
+            <span slot="reference">{{
+              scope.row.shortDesc.substr(0, 30) + "..."
+            }}</span>
+          </el-popover>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="downloadCount"
         :label="$t('store.most')"

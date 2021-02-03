@@ -16,51 +16,25 @@
 
 <template>
   <div class="my-app padding56">
-    <el-breadcrumb
-      separator="/"
-      class="bread-crumb"
-      :class="{ enLan: isEnLan, cnLan: !isEnLan }"
-    >
-      <el-breadcrumb-item :to="{ path: '/apppromote' }">
-        {{ $t('nav.appShare') }}
-      </el-breadcrumb-item>
-      <el-breadcrumb-item>
-        {{ $t('nav.appPush') }}
-      </el-breadcrumb-item>
-    </el-breadcrumb>
     <div class="my-app-content">
       <div class="app-list">
-        <el-row
-          class="batchProm"
-          :gutter="24"
-          type="flex"
-        >
-          <el-col
-            :span="8"
+        <div class="batchProm">
+          <el-input
+            suffix-icon="el-icon-search"
+            v-model="nameQuery"
+            @change="handleNameQuery"
+            :placeholder="$t('common.appName')"
+            class="search_input"
+          />
+          <el-button
+            class="batchProButton"
+            type="primary"
+            :disabled="btnChangeEnable"
+            @click="showPushAppDialog"
           >
-            <div>
-              <el-input
-                suffix-icon="el-icon-search"
-                v-model="nameQuery"
-                @change="handleNameQuery"
-                :placeholder="$t('common.appName')"
-              />
-            </div>
-          </el-col>
-          <el-col
-            :span="8"
-            :offset="16"
-          >
-            <el-button
-              class="batchProButton"
-              type="primary"
-              :disabled="btnChangeEnable"
-              @click="showPushAppDialog"
-            >
-              {{ $t("apppromotion.batchPro") }}
-            </el-button>
-          </el-col>
-        </el-row>
+            {{ $t("apppromotion.batchPro") }}
+          </el-button>
+        </div>
         <div class="packageTable">
           <el-table
             :data="currentPageData"
@@ -238,7 +212,7 @@ export default {
     },
     showPushAppDialog (row) {
       this.uploadDiaVis = true
-      if (row) {
+      if (!(row instanceof MouseEvent)) {
         sessionStorage.setItem(
           'appstordetail',
           JSON.stringify(row)
@@ -290,12 +264,6 @@ export default {
       if (!this.nameQuery) this.findAppData = this.appPackageData
     }
   },
-  watch: {
-    '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.isEnLan = language === 'en'
-    }
-  },
   mounted () {
     console.log(this.$refs.multipleTable.selection)
     this.getTableData()
@@ -313,7 +281,6 @@ export default {
 
 <style lang="less" scoped>
 .my-app {
-  margin-top: 65px;
   .my-app-content {
     background: white;
     padding: 20px;
@@ -329,8 +296,14 @@ export default {
   .batchProm {
     margin-bottom: 5px;
     margin-top: 5px;
+    text-align: right;
+    .search_input{
+      width: 200px;
+      display: inline-block;
+      margin-right: 8px;
+    }
     .batchProButton{
-      float: right;
+      display: inline-block;
     }
   }
   .packageTable{

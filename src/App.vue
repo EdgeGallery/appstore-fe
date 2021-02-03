@@ -55,6 +55,7 @@ export default {
   overflow: auto;
 }
 .view{
+  margin-top: 65px;
   height:calc(100% - 65px);
   // background: white;
 }

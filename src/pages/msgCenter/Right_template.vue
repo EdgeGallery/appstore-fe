@@ -31,7 +31,6 @@
         <p class="title">
           应用基本信息
         </p>
-        <hr class="linestyle">
         <el-form
           label-width="100px"
           size="mini"
@@ -39,29 +38,28 @@
         >
           <el-row :gutter="24">
             <el-col :span="8">
-              <el-form-item label="名称：">
+              <el-form-item label="名称">
                 {{ data.basicInfo.name }}
               </el-form-item>
-              <el-form-item label="架构：">
+              <el-form-item label="架构">
                 {{ data.basicInfo.affinity }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="厂商：">
+              <el-form-item label="厂商">
                 {{ data.basicInfo.provider }}
               </el-form-item>
               <el-form-item
-                class="appType"
-                label="亲和性："
+                label="亲和性"
               >
                 {{ data.basicInfo.type }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="版本：">
+              <el-form-item label="版本">
                 {{ data.basicInfo.version }}
               </el-form-item>
-              <el-form-item label="行业：">
+              <el-form-item label="行业">
                 {{ data.basicInfo.industry }}
               </el-form-item>
             </el-col>
@@ -70,7 +68,7 @@
             <el-col :span="24">
               <el-form-item
                 class="appShortDes"
-                label="应用描述："
+                label="应用描述"
               >
                 {{ data.basicInfo.shortDesc }}
               </el-form-item>
@@ -82,21 +80,18 @@
         <p class="title">
           应用测试报告
         </p>
-        <hr class="linestyle2">
         <el-form
-          class="testInfo"
           label-width="100px"
-          size="mini"
           id="appForm2"
         >
           <el-row :gutter="24">
             <el-col :span="8">
-              <el-form-item label="测试平台：">
+              <el-form-item label="测试平台">
                 ATP测试平台
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="测试结果：">
+              <el-form-item label="测试结果">
                 {{ data.atpTestStatus }}
               </el-form-item>
             </el-col>
@@ -105,7 +100,7 @@
       </div>
       <div class="detailReport">
         <p class="titleTestRepo">
-          报告详情
+          报告详情如下
         </p>
         <div
           class="iframeReport"
@@ -160,7 +155,7 @@ export default {
 .detailTitle{
   height:36px;
   .lt{
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 600;
   }
   .rt{
@@ -170,23 +165,18 @@ export default {
   }
 }
 .title{
-  font-size: 20px;
-  height: 36px;
+  font-size: 17px;
   line-height: 36px;
   color: #000;
-  margin-top: 25px;
   margin-left: 20px;
   position:relative;
   z-index: 888;
 }
 .titleTestRepo{
-  font-size: 20px;
-  height: 36px;
-  line-height: 36px;
-  color: #000;
-  margin-top: 65px;
-  margin-left: 20px;
-  position:relative;
+  font-size: 15px;
+  margin-top: 85px;
+  margin-left: 18px;
+  color: #999;
   z-index: 888;
 }
 .title::before{
@@ -198,23 +188,18 @@ export default {
   top:4px;
   background:#409EFF;
 }
-.titleTestRepo::before{
-  content:'';
-  display:inline-block;
-  width:3px;
-  height:20px;
-  position: relative;
-  top:4px;
-  background:#409EFF;
-}
 .el-form-item{
   margin:0;
+  margin-left: 33px;
+
 }
 .el-form-item__label{
-  font-size: 17px;
+  font-size: 16px;
+  text-align: left;
+
 }
 .el-form-item__content{
-  font-size: 17px;
+  font-size: 16px;
 }
 .detailInfo{
   height:110px;
@@ -224,31 +209,23 @@ export default {
 }
 .detailReport{
   height:100%;
+  margin-left: 15px;
 }
 .iframeReport{
   height:100%;
   width:100%;
+  margin-left: 15px;
   border:none;
-}
-.linestyle{
-  margin: 2px 20px;
-}
-.linestyle2{
-  margin: 49px 20px 0px;
-}
-.appType{
-  margin-left: 14px;
 }
 .appShortDes{
   margin-left: 33px;
 }
-.testInfo{
-  margin-left: 30px;
-}
 #appForm1 .el-form-item__label {
-  font-size: 17px;
+  font-size: 15px;
+  color: #999;
 }
 #appForm2 .el-form-item__label {
-  font-size: 17px;
+  font-size: 15px;
+  color: #999;
 }
 </style>

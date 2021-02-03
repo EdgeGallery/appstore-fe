@@ -31,11 +31,6 @@
           :header-cell-style="{ background: '#eeeeee'}"
         >
           <el-table-column
-            prop="number"
-            :label="$t('apppromotion.number')"
-            width="125"
-          />
-          <el-table-column
             prop="name"
             :label="$t('apppromotion.appName')"
           />
@@ -85,13 +80,12 @@
         class="dialog-footer"
       >
         <el-button
-          class="standardBtn"
           @click="handleCloseDirect"
         >{{
           $t("apppromotion.closePanel")
         }}</el-button>
         <el-button
-          class="featureBtn"
+          type="primary"
           @click="handleExecute"
         >{{
           $t("apppromotion.execute")
@@ -131,9 +125,13 @@ export default {
   },
   methods: {
     getTableData () {
-      this.selectData = JSON.parse(sessionStorage.getItem('appstordetail'))
+      let tempData = JSON.parse(sessionStorage.getItem('appstordetail'))
+      if (tempData instanceof Array) {
+        this.selectData = tempData
+      } else {
+        this.selectData.push(tempData)
+      }
       // 获取appstoreid和apstoreName
-
       this.platformData = this.appStoreListProp
       console.log(this.platformData)
       this.selectData.forEach(selectItem => {

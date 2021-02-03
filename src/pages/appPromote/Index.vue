@@ -16,209 +16,200 @@
 
 <template>
   <div class="my-app">
-    <div class="stars-wrapper" />
-    <div class="my-app-content padding56">
-      <el-row>
-        <el-col
-          :span="4"
-        >
-          <div>
-            <el-input
-              suffix-icon="el-icon-search"
-              v-model="nameQuery"
-              @change="handleNameQuery"
-              :placeholder="$t('common.appStoreName')"
-            />
-          </div>
-        </el-col>
-        <el-col
-          :span="4"
-          :offset="16"
-        >
+    <top-bar
+      :image-url="bannerImg"
+    />
+    <div class="padding56">
+      <el-breadcrumb
+        separator=">"
+      >
+        <el-breadcrumb-item :to="{ path: '/' }">
+          {{ $t('nav.home') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>
+          {{ $t('nav.appShare') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>
+          {{ $t('nav.externalAppManagement') }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+      <div class="my-app-content">
+        <div class="batchProm">
+          <el-input
+            suffix-icon="el-icon-search"
+            v-model="nameQuery"
+            @change="handleNameQuery"
+            :placeholder="$t('common.appStoreName')"
+            class="search_input"
+          />
           <el-button
             id="addAppBtn"
             type="primary"
-            class="rt"
+            class="batchProButton"
             @click="register"
           >
             {{ $t('myApp.addApp') }}
           </el-button>
-        </el-col>
-      </el-row>
-      <div class="packageTable">
-        <el-table
-          v-loading="dataLoading"
-          :data="currentPageData"
-          border
-        >
-          <el-table-column
-            prop="appStoreName"
-            :label="$t('common.appStoreName')"
-          />
-          <el-table-column
-            prop="appStoreVersion"
-            :label="$t('common.appStoreVersion')"
-          />
-          <el-table-column
-            prop="company"
-            :label="$t('common.company')"
-          />
-          <el-table-column
-            prop="url"
-            :label="$t('common.url')"
-          />
-          <el-table-column
-            prop="appdTransId"
-            :label="$t('common.appdTransId')"
-          />
-          <el-table-column
-            prop="description"
-            :label="$t('common.description')"
-          />
-          <el-table-column
-            prop="operation"
-            fixed="right"
-            :label="$t('myApp.operation')"
-            width="200"
+        </div>
+        <div class="packageTable">
+          <el-table
+            v-loading="dataLoading"
+            :data="currentPageData"
+            header-cell-class-name="headerStyle"
           >
-            <template slot-scope="scope">
-              <el-button
-                id="modifyBtn"
-                @click="modifyApp(scope.row)"
-                type="text"
-                size="small"
-              >
-                {{ $t('common.modifyApp') }}
-              </el-button>
-              <el-button
-                id="deleteBtn"
-                type="text"
-                size="small"
-                @click="getDelete(scope.row)"
-              >
-                {{ $t('common.delete') }}
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+            <el-table-column
+              prop="appStoreName"
+              :label="$t('common.appStoreName')"
+            />
+            <el-table-column
+              prop="appStoreVersion"
+              :label="$t('common.appStoreVersion')"
+            />
+            <el-table-column
+              prop="company"
+              :label="$t('common.company')"
+            />
+            <el-table-column
+              prop="url"
+              :label="$t('common.url')"
+            />
+            <el-table-column
+              prop="appdTransId"
+              :label="$t('common.appdTransId')"
+            />
+            <el-table-column
+              prop="description"
+              :label="$t('common.description')"
+            />
+            <el-table-column
+              prop="operation"
+              fixed="right"
+              :label="$t('myApp.operation')"
+              width="200"
+            >
+              <template slot-scope="scope">
+                <el-button
+                  id="modifyBtn"
+                  @click="modifyApp(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  {{ $t('common.modifyApp') }}
+                </el-button>
+                <el-button
+                  id="deleteBtn"
+                  type="text"
+                  size="small"
+                  @click="getDelete(scope.row)"
+                >
+                  {{ $t('common.delete') }}
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+        <pagination
+          :table-data="findAppStoreData"
+          @getCurrentPageData="getCurrentPageData"
+        />
+        <div class="clearfix" />
       </div>
-      <pagination
-        :table-data="findAppStoreData"
-        @getCurrentPageData="getCurrentPageData"
-      />
-      <div class="clearfix" />
-    </div>
-    <el-dialog
-      :title="title"
-      :visible.sync="dialogVisible"
-      width="30%"
-      :before-close="handleClose"
-      :close-on-click-modal="false"
-      @close="clearForm"
-    >
-      <el-row>
-        <el-col>
-          <el-form
-            :model="form"
-            ref="form"
-            :rules="rules"
-          >
-            <el-row :gutter="10">
-              <el-col :span="12">
-                <el-form-item
-                  :label="$t('common.appStoreName')"
-                  prop="appStoreName"
-                >
-                  <el-input
-                    id="appStoreName"
-                    maxlength="20"
-                    v-model="form.appStoreName"
-                  />
-                </el-form-item>
-              </el-col>
-
-              <el-col :span="12">
-                <el-form-item
-                  :label="$t('common.appStoreVersion')"
-                  prop="appStoreVersion"
-                >
-                  <el-input
-                    id="appStoreVersion"
-                    v-model="form.appStoreVersion"
-                  />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item
-                  :label="$t('common.company')"
-                  prop="company"
-                >
-                  <el-input
-                    id="company"
-                    v-model="form.company"
-                  />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item
-                  :label="$t('common.url')"
-                  prop="url"
-                >
-                  <el-input
-                    id="url"
-                    v-model="form.url"
-                    placeholder="例如：http://127.0.0.1:8080"
-                  />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item
-                  :label="$t('common.appdTransId')"
-                  prop="appdTransId"
-                >
-                  <el-select
-                    id="add_select_types"
-                    v-model="form.appdTransId"
-                    :placeholder="$t('common.appdTransId')"
-                  >
-                    <el-option
-                      v-for="(item,index) in types"
-                      :key="index"
-                      :value="item.value"
-                    />
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item
-                  :label="$t('common.description')"
-                  prop="description"
-                >
-                  <el-input
-                    id="port"
-                    v-model="form.description"
-                  />
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-        </el-col>
-      </el-row>
-      <span
-        slot="footer"
-        class="dialog-footer"
+      <el-dialog
+        :title="title"
+        :visible.sync="dialogVisible"
+        width="45%"
+        :before-close="handleClose"
+        :close-on-click-modal="false"
+        @close="clearForm"
       >
-        <el-button
-          class="standardBtn"
-          @click="handleClose"
-        >{{ $t('common.cancel') }}</el-button>
-        <el-button
-          class="featureBtn"
-          type="primary"
-          @click="confirmToRegister('form')"
-        >{{ $t('common.confirm') }}</el-button>
-      </span>
-    </el-dialog>
+        <el-row>
+          <el-col>
+            <el-form
+              :model="form"
+              ref="form"
+              :rules="rules"
+              label-width="110px"
+            >
+              <el-form-item
+                :label="$t('common.appStoreName')"
+                prop="appStoreName"
+              >
+                <el-input
+                  id="appStoreName"
+                  maxlength="20"
+                  v-model="form.appStoreName"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('common.appStoreVersion')"
+                prop="appStoreVersion"
+              >
+                <el-input
+                  id="appStoreVersion"
+                  v-model="form.appStoreVersion"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('common.company')"
+                prop="company"
+              >
+                <el-input
+                  id="company"
+                  v-model="form.company"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('common.url')"
+                prop="url"
+              >
+                <el-input
+                  id="url"
+                  v-model="form.url"
+                  placeholder="例如：http://127.0.0.1:8080"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('common.appdTransId')"
+                prop="appdTransId"
+              >
+                <el-select
+                  id="add_select_types"
+                  v-model="form.appdTransId"
+                  :placeholder="$t('common.appdTransId')"
+                >
+                  <el-option
+                    v-for="(item,index) in types"
+                    :key="index"
+                    :value="item.value"
+                  />
+                </el-select>
+              </el-form-item>
+              <el-form-item
+                :label="$t('common.description')"
+                prop="description"
+              >
+                <el-input
+                  id="port"
+                  v-model="form.description"
+                />
+              </el-form-item>
+            </el-form>
+          </el-col>
+        </el-row>
+        <span
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-button
+            @click="handleClose"
+          >{{ $t('common.cancel') }}</el-button>
+          <el-button
+            type="primary"
+            @click="confirmToRegister('form')"
+          >{{ $t('common.confirm') }}</el-button>
+        </span>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -227,13 +218,16 @@
 import { TTYPES } from '../../tools/constant.js'
 import { myAppStore } from '../../tools/api.js'
 import pagination from '../../components/common/Pagination.vue'
+import topBar from '../../components/common/TopBar'
 export default {
   components: {
     // appList,
-    pagination
+    pagination,
+    topBar
   },
   data () {
     return {
+      bannerImg: 'images/appstore.png',
       currentPageData: [],
       pointNum: 5,
       tableData: [],
@@ -266,7 +260,7 @@ export default {
         ],
         url: [
           { required: true, message: 'IP or URL不能为空', trigger: 'blur' },
-          { pattern: /(https?|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]/, message: this.$t('promptMessage.normalVerify') }
+          { pattern: /^((http:\/\/|https:\/\/)?([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(:\d{0,5})?(\/.*)?$/, message: this.$t('promptMessage.normalVerify') }
         ],
         appdTransId: [
           { required: true, message: '转换器不能为空', trigger: 'change' }
@@ -446,7 +440,6 @@ export default {
 </script>
 <style lang='less'>
 .my-app {
-  margin-top: 65px;
   .my-app-content {
     background:#fff;
     padding: 20px;
@@ -458,16 +451,18 @@ export default {
         }
       }
     }
+    .batchProm {
+      margin-bottom: 5px;
+      margin-top: 5px;
+      .search_input{
+        width: 200px;
+        float: right;
+      }
+    }
   }
   .space>div{
     background: #000;
     height: 300px;
-  }
-  .stars-wrapper{
-    width: 100%;
-    height: 300px;
-    background: url("../../assets/images/appstore.png") no-repeat center center #1e7388;
-    background-size: cover;
   }
   .el-dialog__footer {
     text-align: center;

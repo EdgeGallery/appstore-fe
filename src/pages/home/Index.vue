@@ -30,12 +30,21 @@
               class="icon-group"
             >
               <div class="rt">
-                <img
-                  :src="uploadAppLogo"
-                  class="uploadAppLogo"
-                  @click="uploadPackage"
-                  alt=""
+                <el-tooltip
+                  class="item"
+                  effect="light"
+                  content="上传应用"
+                  placement="bottom-start"
+                  :visible-arrow="false"
                 >
+                  >
+                  <img
+                    :src="uploadAppLogo"
+                    class="uploadAppLogo"
+                    @click="uploadPackage"
+                    alt=""
+                  >
+                </el-tooltip>
                 <em
                   class="curp iconAactive"
                   :class="{'el-icon-s-grid': iconAactive, 'el-icon-tickets': !iconAactive}"
@@ -53,6 +62,7 @@
                   v-model="nameQuery"
                   @change="handleNameQuery"
                   :placeholder="$t('common.appName')"
+                  class="search_input"
                 />
               </div>
             </el-col>
@@ -444,7 +454,7 @@ export default {
   }
   .icon-group {
     float: right;
-    width: 160px;
+    width: 158px;
     padding-right: 56px;
     em {
       line-height: 55px;

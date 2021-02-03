@@ -48,24 +48,15 @@
             ref="myCharts3"
           />
         </div>
-        <el-row
-          :gutter="8"
-          type="flex"
-          class="searchRow"
-        >
-          <el-col
-            :span="4"
-          >
-            <div>
-              <el-input
-                suffix-icon="el-icon-search"
-                v-model="nameQuery"
-                @change="handleNameQuery"
-                :placeholder="$t('common.appName')"
-              />
-            </div>
-          </el-col>
-        </el-row>
+        <div class="searchRow clearfix">
+          <el-input
+            suffix-icon="el-icon-search"
+            v-model="nameQuery"
+            @change="handleNameQuery"
+            :placeholder="$t('common.appName')"
+            class="search_input"
+          />
+        </div>
         <el-table
           :data="currentPageData"
           border
@@ -139,40 +130,40 @@
           </p>
           <div />
           <p class="basic_p">
-            <span>应用名称：</span>{{ middleData.name }}
+            <span>应用名称</span>{{ middleData.name }}
           </p>
           <p class="basic_p">
-            <span>版本：</span>{{ middleData.version }}
+            <span>版本</span>{{ middleData.version }}
           </p>
           <p class="basic_p">
-            <span>厂商：</span>{{ middleData.provider }}
+            <span>厂商</span>{{ middleData.provider }}
           </p>
           <p class="basic_p">
-            <span>架构：</span>{{ middleData.affinity }}
+            <span>架构</span>{{ middleData.affinity }}
           </p>
           <p class="basic_p">
-            <span>行业：</span>{{ middleData.industry }}
+            <span>行业</span>{{ middleData.industry }}
           </p>
           <p class="basic_p">
-            <span>类型：</span>{{ middleData.type }}
+            <span>类型</span>{{ middleData.type }}
           </p>
           <p class="basic_p">
-            <span>应用描述：</span>{{ middleData.shortDesc }}
+            <span>应用描述</span>{{ middleData.shortDesc }}
           </p>
           <p class="title2">
             其他信息
           </p>
           <p class="basic_p">
-            <span>源AppStore：</span>{{ middleData.sourceAppStore }}
+            <span>源AppStore</span>{{ middleData.sourceAppStore }}
           </p>
           <p class="basic_p">
-            <span>目标AppStore：</span>{{ middleData.targetAppStore }}
+            <span>目标AppStore</span>{{ middleData.targetAppStore }}
           </p>
           <p class="basic_p">
-            <span>apt测试状态：</span>{{ middleData.atpTestStatus }}
+            <span>apt测试状态</span>{{ middleData.atpTestStatus }}
           </p>
           <p class="basic_p">
-            <span>操作描述：</span>{{ middleData.description }}
+            <span>操作描述</span>{{ middleData.description }}
           </p>
         </div>
       </el-drawer>
@@ -648,7 +639,6 @@ export default {
 </script>
 <style lang="less">
 .my-app {
-  margin-top: 65px;
   .my-app-content {
     background: white;
     padding: 20px;
@@ -668,6 +658,10 @@ export default {
   }
   .searchRow {
     margin-bottom: 15px;
+    .search_input{
+      float: right;
+      width: 200px;
+    }
   }
 }
 .mychart{
@@ -742,11 +736,16 @@ export default {
   padding: 2px;
   font-size: 13px;
   margin-bottom: 5px;
+  line-height: 25px;
   span{
-    display: inline-block;
+    float: left;
+    width: 100px;
     margin-left: 30px;
+    color: #999;
+  }
+  span:last-child{
     text-align: left;
-    line-height: 25px;
+    padding-right: 10px;
   }
 }
 </style>

@@ -42,7 +42,6 @@ export default {
         this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/app/test/task'
       } else {
         this.srcUrl = currUrl.replace('appstore', 'atp')
-        this.srcUrl = this.srcUrl + '/#/app/test/task'
       }
     }
   },
