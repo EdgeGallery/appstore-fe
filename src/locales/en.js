@@ -331,7 +331,11 @@ const en = {
     quarterly4: 'Fourth quarter',
     viewTestRepo: 'view report',
     intentionAppstore: 'Intention platform',
-    acceptSuccess: 'App received successfully, please check or publish in "My App"'
+    acceptSuccess: 'App received successfully, please check or publish in "My App"',
+    deleteMsgSuccess: 'msg delete success',
+    deleteMsgFailed: 'msg delete failed',
+    deleteMsgTip: 'click to delete message',
+    acceptMsgTip: 'click to accept message'
   },
   about: {
   },

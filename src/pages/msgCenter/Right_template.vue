@@ -21,10 +21,17 @@
         <span class="lt">FROM:{{ data.sourceAppStore }}</span>
         <el-button
           type="primary"
-          class="rt"
+          class="acceptButton"
           @click="handleAccept"
         >
           接受
+        </el-button>
+        <el-button
+          type="primary"
+          class="deleteButtom"
+          @click="handleDelete"
+        >
+          删除
         </el-button>
       </div>
       <div class="detailInfo">
@@ -116,7 +123,7 @@
 
 <script>
 import ATPReport from './ATPReport'
-import { acceptMsg } from '../../tools/api.js'
+import { acceptMsg, deleteMsg } from '../../tools/api.js'
 export default {
   components: {
     ATPReport
@@ -142,6 +149,17 @@ export default {
           type: 'warning'
         })
       })
+    },
+    handleDelete () {
+      deleteMsg(this.data.messageId).then((res) => {
+        this.$message.success(this.$t('apppromotion.deleteMsgSuccess'))
+      }).catch((error) => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('apppromotion.deleteMsgFailed') + error.response.data.message,
+          type: 'warning'
+        })
+      })
     }
   },
   mounted () {
@@ -158,10 +176,17 @@ export default {
     font-size: 17px;
     font-weight: 600;
   }
-  .rt{
+  .acceptButton{
     position: relative;
     top: -10px;
     left: 25px;
+    float: right
+  }
+  .deleteButtom{
+    position: relative;
+    top: -10px;
+    margin-left: 10px;
+    float: right
   }
 }
 .title{
@@ -174,7 +199,7 @@ export default {
 }
 .titleTestRepo{
   font-size: 15px;
-  margin-top: 85px;
+  margin-top: 52px;
   margin-left: 18px;
   color: #999;
   z-index: 888;
@@ -198,24 +223,28 @@ export default {
   text-align: left;
 
 }
+.el-form-item--mini.el-form-item{
+  margin-bottom: 10px;
+}
 .el-form-item__content{
   font-size: 16px;
 }
 .detailInfo{
-  height:110px;
+  height: 110px;
 }
 .testDetail{
-  height:70px;
+  height: 70px;
 }
 .detailReport{
-  height:100%;
+  height: 100%;
   margin-left: 15px;
 }
 .iframeReport{
-  height:100%;
-  width:100%;
+  height: auto;
+  width: 100%;
   margin-left: 15px;
-  border:none;
+  margin-top: 10px;
+  border: 1px solid gray;
 }
 .appShortDes{
   margin-left: 33px;
