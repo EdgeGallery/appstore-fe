@@ -507,6 +507,18 @@ export default {
         this.conversionIcon(file)
       }
     },
+    conversionIcon (file) {
+      let image = new Image()
+      image.src = file
+      image.onload = () => {
+        // 将静态图片转化为base64
+        let base64 = this.getBase64Image(image)
+        // base64转化为文件流
+        this.defaultIconFile.push(this.base64toFile(base64))
+        this.packageForm.appIcon = this.defaultIconFile
+        this.showErr = !this.defaultIconFile
+      }
+    },
     // default icon
     chooseDefaultIcons (file, index) {
       this.packageForm.appIcon = []
