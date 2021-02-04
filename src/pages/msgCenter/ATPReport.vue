@@ -41,8 +41,8 @@
           >
             <el-table
               :data="tableData"
-              border
               style="width: 100%"
+              header-cell-class-name="headerStyle"
             >
               <el-table-column
                 fixed

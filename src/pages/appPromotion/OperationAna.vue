@@ -59,41 +59,48 @@
         </div>
         <el-table
           :data="currentPageData"
-          border
+          :default-sort="{prop: 'time', order: 'descending'}"
           style="width: 100%"
-          :header-cell-style="{ background: '#eeeeee'}"
+          header-cell-class-name="headerStyle"
         >
           <el-table-column
             prop="name"
             :label="$t('apppromotion.appName')"
             width="200"
+            sortable
           />
           <el-table-column
             prop="provider"
             :label="$t('apppromotion.provider')"
+            sortable
           />
           <el-table-column
             prop="version"
             :label="$t('apppromotion.version')"
             width="180"
+            sortable
           />
           <el-table-column
             prop="messageType"
             :label="$t('apppromotion.messageType')"
             width="180"
+            sortable
           />
           <el-table-column
             prop="sourceAppStore"
             :label="$t('apppromotion.sourceAppStore')"
+            sortable
           />
           <el-table-column
             prop="targetAppStore"
             :label="$t('apppromotion.targetAppStore')"
+            sortable
           />
           <el-table-column
             prop="time"
             :label="$t('apppromotion.dateTime')"
             width="200"
+            sortable
           />
           <el-table-column
             prop="description"
@@ -657,7 +664,7 @@ export default {
     margin: 20px;
   }
   .searchRow {
-    margin-bottom: 15px;
+    margin: 15px 0;
     .search_input{
       float: right;
       width: 200px;
@@ -735,7 +742,7 @@ export default {
 .basic_p{
   padding: 2px;
   font-size: 13px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   line-height: 25px;
   span{
     float: left;

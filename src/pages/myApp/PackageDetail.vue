@@ -24,8 +24,8 @@
       <div class="information">
         <el-table
           :data="tableData"
-          border
           style="width: 100%"
+          header-cell-class-name="headerStyle"
         >
           <el-table-column
             prop="name"
@@ -57,7 +57,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('common.operation')"
-            width="270"
+            width="125"
           >
             <template slot-scope="scope">
               <el-button

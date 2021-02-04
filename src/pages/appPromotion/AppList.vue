@@ -38,11 +38,11 @@
         <div class="packageTable">
           <el-table
             :data="currentPageData"
+            :default-sort="{prop: 'latestPushTime', order: 'descending'}"
             @selection-change="selectionLineChangeHandle"
-            border
             ref="multipleTable"
             style="width: 100%"
-            :header-cell-style="{ background: '#eeeeee'}"
+            header-cell-class-name="headerStyle"
           >
             <el-table-column
               type="selection"
@@ -51,14 +51,17 @@
             <el-table-column
               prop="name"
               :label="$t('apppromotion.appName')"
+              sortable
             />
             <el-table-column
               prop="provider"
               :label="$t('apppromotion.provider')"
+              sortable
             />
             <el-table-column
               prop="version"
               :label="$t('apppromotion.version')"
+              sortable
             />
             <el-table-column
               :label="$t('apppromotion.testRepo')"
@@ -75,10 +78,12 @@
             <el-table-column
               prop="latestPushTime"
               :label="$t('apppromotion.lastProTime')"
+              sortable
             />
             <el-table-column
               prop="pushTimes"
               :label="$t('apppromotion.proTimes')"
+              sortable
             />
             <el-table-column
               :label="$t('apppromotion.intentionAppstore')"
@@ -296,14 +301,9 @@ export default {
   .batchProm {
     margin-bottom: 5px;
     margin-top: 5px;
-    text-align: right;
     .search_input{
       width: 200px;
-      display: inline-block;
-      margin-right: 8px;
-    }
-    .batchProButton{
-      display: inline-block;
+      float: right;
     }
   }
   .packageTable{
@@ -312,6 +312,9 @@ export default {
         th {
           background-color: #eee;
         }
+      }
+      .buttonText{
+        color:#409eff;
       }
     }
 }

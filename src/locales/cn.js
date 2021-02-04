@@ -97,7 +97,8 @@ const cn = {
     appdTransId: 'APPD版本',
     modifyApp: '编辑',
     company: '公司',
-    pageTotalNum: '总条数'
+    pageTotalNum: '总条数',
+    noData: '暂无数据'
   },
   promptMessage: {
     guestUser: 'guest用户无权操作! 请登录',
@@ -165,7 +166,6 @@ const cn = {
     normalVerify: '输入的内容格式不正确',
     addAppStoreSuccess: '添加AppStore成功',
     editAppStoreSuccess: '编辑AppStore成功'
-
   },
   store: {
     advancedSearch: '高级搜索',
@@ -309,7 +309,7 @@ const cn = {
     testRepo: '认证测试报告',
     lastProTime: '最后推广时间',
     proTimes: '推广次数',
-    batchPro: '推送',
+    batchPro: '批量推送',
     messageType: '消息类型',
     messagePull: '拉取',
     messagePush: '推送',
@@ -346,7 +346,11 @@ const cn = {
     quarterly3: '第三季度',
     quarterly4: '第四季度',
     intentionAppstore: '意向平台',
-    acceptSuccess: '应用接收成功，请到“我的应用”中查看或发布'
+    acceptSuccess: '应用接收成功，请到“我的应用”中查看或发布',
+    deleteMsgSuccess: '删除消息成功',
+    deleteMsgFailed: '删除消息失败',
+    deleteMsgTip: '单机删除消息',
+    acceptMsgTip: '单击接收消息'
   },
   about: {},
   ...zhLocale

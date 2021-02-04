@@ -26,9 +26,8 @@
       <div class="app-prom">
         <el-table
           :data="appData"
-          border
           style="width: 100%"
-          :header-cell-style="{ background: '#eeeeee'}"
+          header-cell-class-name="headerStyle"
         >
           <el-table-column
             prop="name"
