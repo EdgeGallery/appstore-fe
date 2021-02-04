@@ -59,10 +59,27 @@
               </span>
               <div
                 class="el-icon-document-delete"
+                @click="handleDelete(index)"
+                @mouseenter="enter(1, item)"
+                @mouseleave="leave(item)"
               />
               <div
                 class="el-icon-document-checked"
+                @click="handleAccept(index)"
+                @mouseenter="enter(2, item)"
+                @mouseleave="leave(item)"
               />
+              <div
+                class="popUp"
+                v-show="item.seen"
+              >
+                <span
+                  v-if="operationType === 1"
+                >{{ $t('apppromotion.deleteMsgTip') }}</span>
+                <span
+                  v-else
+                >{{ $t('apppromotion.acceptMsgTip') }}</span>
+              </div>
             </div>
           </div>
         </el-collapse-item>
@@ -79,7 +96,7 @@
 
 <script>
 import RightContent from './Right_template'
-import { getAppdownAnaApiByType, updateStatus } from '../../tools/api.js'
+import { getAppdownAnaApiByType, updateStatus, acceptMsg, deleteMsg } from '../../tools/api.js'
 export default {
   components: {
     RightContent
@@ -91,6 +108,7 @@ export default {
       msgDetail: {},
       isActive: 0,
       hackReset: true,
+      operationType: 1,
       timeTable: [
         {
           value: '今天',
@@ -142,6 +160,7 @@ export default {
         let data = res.data
         data.forEach(item => {
           item.timeResult = this.timeCompute(item.time)
+          item.seen = false
         })
         this.msgs = data
         // 跳转到定位的item
@@ -209,6 +228,35 @@ export default {
       this.$nextTick(() => {
         this.hackReset = true
       })
+    },
+    handleAccept (index) {
+      acceptMsg(this.msgs[index].messageId).then((res) => {
+        this.$message.success(this.$t('apppromotion.acceptSuccess'))
+      }).catch((error) => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('apppromotion.acceptFailed') + error.response.data.message,
+          type: 'warning'
+        })
+      })
+    },
+    handleDelete (index) {
+      deleteMsg(this.msgs[index].messageId).then((res) => {
+        this.$message.success(this.$t('apppromotion.deleteMsgSuccess'))
+      }).catch((error) => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('apppromotion.deleteMsgFailed') + error.response.data.message,
+          type: 'warning'
+        })
+      })
+    },
+    enter (type, item) {
+      item.seen = true
+      this.operationType = type
+    },
+    leave (item) {
+      item.seen = false
     }
   },
   mounted () {
@@ -269,6 +317,16 @@ export default {
     float:right;
     margin-top: 3px;
   }
+  .popUp{
+    width: 150px;
+    height: 20px;
+    background-color: #FFFFFF;
+    z-index: 999999;
+    right: 10px;
+    float: right;
+    border: 1px solid gray;
+    font-size: 10px
+  }
 }
 .msgTime{
   font-size: 13px;
@@ -284,6 +342,7 @@ export default {
   padding-left:10px;
   cursor: pointer;
   border-radius: 2px;
+  height:50px;
   .tipTitleNo{
     font-weight:bold;
     color:#000;
@@ -293,11 +352,12 @@ export default {
   }
 }
 .msgBody{
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid #C0C0C0;
   margin-top:3px;
   padding-left:10px;
   cursor: pointer;
   border-radius: 2px;
+  height:50px;
   .tipTitleNo{
     font-weight:bold;
     color:#000;

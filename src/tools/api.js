@@ -62,10 +62,16 @@ function promTaskApi (packageId, param) {
   return POST(url, param, 'appstore')
 }
 
-// 接收app信息
+// 接收app推送信息
 function acceptMsg (messageId) {
   let url = 'messages/' + messageId + '/action/download'
   return GET(url, '', 'appstore')
+}
+
+// 删除app推送信息
+function deleteMsg (messageId) {
+  let url = 'messages/' + messageId
+  return DELETE(url, '', 'appstore')
 }
 
 // 获取类型为notice的消息
@@ -73,6 +79,7 @@ function getAppdownAnaApiByType () {
   let url = 'messages' + '?messageType=NOTICE'
   return GET(url, '', 'appstore')
 }
+
 // 更新msg读取状态
 function updateStatus (messageId) {
   let url = 'messages/' + messageId + '/action/readed'
@@ -299,6 +306,7 @@ export {
   getAppdownAnaApiByType,
   promProviderInfo,
   acceptMsg,
+  deleteMsg,
   updateStatus,
   processApi
 }
