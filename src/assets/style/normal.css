@@ -127,6 +127,8 @@ a{
   z-index: 99999 !important;
 }
 
+/* 导航栏组件归一化 */
+
 
 /* 弹框组件归一化 */
 
@@ -174,6 +176,9 @@ a{
 }
 .el-select{
   width: 100%;
+}
+.el-textarea__inner{
+  height: 40px;
 }
 
 
