@@ -127,6 +127,8 @@ a{
   z-index: 99999 !important;
 }
 
+/* 导航栏组件归一化 */
+
 
 /* 弹框组件归一化 */
 
@@ -142,10 +144,41 @@ a{
 .el-icon-close:before{
   color:#000 !important;
 }
+.el-dialog__body{
+  padding:10px 20px 0;
+  color:#000;
+}
 .dialog-footer{
   margin: 0 auto;
-  text-align: center;
+  padding: 0px!important;
+  text-align: right;
   display: block;
+}
+.el-dialog__body{
+  padding: 12px 20px;
+}
+.el-button{
+  margin-right: 0px!important;
+}
+.el-upload__tip{
+  display: inline-block;
+  padding-left: 12px;
+}
+.el-form-item{
+  margin-bottom: 10px;
+}
+.el-form-item__label{
+  line-height: 15px;
+  padding-bottom: 10px;
+}
+.el-form-item__content{
+  line-height: 15px;
+}
+.el-select{
+  width: 100%;
+}
+.el-textarea__inner{
+  height: 40px;
 }
 
 
