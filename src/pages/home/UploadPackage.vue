@@ -19,7 +19,7 @@
     <el-dialog
       :title="$t('store.uploadApp')"
       :visible.sync="dialogVisible"
-      width="45%"
+      width="40%"
       :before-close="handleClose"
       :close-on-click-modal="false"
       @close="clearForm"
@@ -663,11 +663,11 @@ export default {
 <style lang='less' >
 .upload-package{
   .el-dialog__header{
-  background-color: #5abdc7 ;
+    background-color: #5abdc7 ;
   }
-  .el-upload{
-    width: 100%;
-    text-align: left;
+  .el-form-error{
+    display: inline-block;
+    margin: 12px 0 0 5px;
   }
   .el-icon-upload{
     margin: 0px 0 16px !important;
@@ -695,7 +695,6 @@ export default {
       font-size: 14px;
     }
     .el-upload{
-      // float: left;
       width: 34px;
       height: 34px;
       line-height: 34px;
@@ -707,7 +706,7 @@ export default {
     }
     .el-icon-plus:before {
         content: "\e6d9";
-}
+    }
   }
   .el-icon-question{
       float: left;
@@ -771,22 +770,12 @@ export default {
   .el-upload-list{
     width: auto;
   }
-  // .el-upload-list--picture-card .el-upload-list__item-thumbnail{
-  //   width: 40px;
-  //   height: 40px;
-  //   min-width: 40px;
-  //   border: none;
-  //   margin: 0 15px 0 0;
-  // }
   .el-upload-list--picture-card .el-upload-list__item{
     width: 40px;
     height: 40px;
     min-width: 40px;
     border: none;
     margin: 0 15px 0 0;
-  }
-  .el-dialog__footer{
-    text-align: center;
   }
   #upload_package_detect{
     color: #fff;
