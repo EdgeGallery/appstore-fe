@@ -28,16 +28,22 @@
       <el-table-column
         prop="provider"
         :label="$t('common.provider')"
+        width="200"
       />
       <el-table-column
         prop="type"
         :label="$t('common.type')"
-        width="180"
+        width="150"
       />
       <el-table-column
         prop="affinity"
         :label="$t('common.architecture')"
-        width="180"
+        width="150"
+      />
+      <el-table-column
+        prop="createTime"
+        :label="$t('common.uploadTime')"
+        width="250"
       />
       <el-table-column
         prop="shortDesc"

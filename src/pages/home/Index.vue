@@ -42,7 +42,7 @@
                     :src="uploadAppLogo"
                     class="uploadAppLogo"
                     @click="uploadPackage"
-                    alt
+                    alt=""
                   >
                 </el-tooltip>
                 <el-tooltip
@@ -284,6 +284,8 @@ export default {
           this.findAppData = findApp('downloadCount', type)
         } else if (type === 'Score') {
           this.findAppData = findApp('score', type)
+        } else if (type === 'UploadTime') {
+          this.findAppData = findApp('uploadTime', type)
         }
       })
     },

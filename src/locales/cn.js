@@ -84,6 +84,7 @@ const cn = {
     confirm: '确认',
     detect: '检测',
     download: '下载',
+    uploadTime: '上传时间',
     applicationName: '应用名称',
     description: '描述',
     userName: '上传人',
