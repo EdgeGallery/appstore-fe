@@ -139,7 +139,7 @@ export default {
           let attr = platformItem.label
           selectItem[attr] = this.empty
           // 修改value成已经选的appstore
-          if (selectItem.targetPlatform.indexOf('全选') !== -1 || selectItem.targetPlatform.indexOf(platformItem.value) !== -1) {
+          if (selectItem.targetPlatform.indexOf('All') !== -1 || selectItem.targetPlatform.indexOf(platformItem.value) !== -1) {
             selectItem[attr] = this.start
           }
         })
@@ -174,7 +174,7 @@ export default {
       let data = JSON.parse(JSON.stringify(this.appData))
       data.forEach(
         (appDataItem) => {
-          if (appDataItem.targetPlatform.indexOf('全选') !== -1) {
+          if (appDataItem.targetPlatform.indexOf('All') !== -1) {
             appDataItem.targetPlatform = []
             this.platformData.forEach(item => {
               appDataItem.targetPlatform.push(item.value)

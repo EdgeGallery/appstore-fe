@@ -165,7 +165,7 @@
                 <el-input
                   id="url"
                   v-model="form.url"
-                  placeholder="例如：http://127.0.0.1:8080"
+                  placeholder="example: http://127.0.0.1:8080"
                 />
               </el-form-item>
               <el-form-item
@@ -221,7 +221,6 @@ import pagination from '../../components/common/Pagination.vue'
 import topBar from '../../components/common/TopBar'
 export default {
   components: {
-    // appList,
     pagination,
     topBar
   },
@@ -236,7 +235,6 @@ export default {
       appPackageData: [],
       dataLoading: false,
       interval: '',
-      title: this.$t('myApp.addApp'),
       dialogVisible: false,
       form: {
         appStoreName: '',
@@ -248,27 +246,6 @@ export default {
       },
       editType: 1,
       types: TTYPES,
-      rules: {
-        appStoreName: [
-          { required: true, message: '平台名称不能为空', trigger: 'blur' }
-        ],
-        appStoreVersion: [
-          { required: true, message: '平台版本不能为空', trigger: 'blur' }
-        ],
-        company: [
-          { required: true, message: '公司不能为空', trigger: 'blur' }
-        ],
-        url: [
-          { required: true, message: 'IP or URL不能为空', trigger: 'blur' },
-          { pattern: /^((http:\/\/|https:\/\/)?([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(:\d{0,5})?(\/.*)?$/, message: this.$t('promptMessage.normalVerify') }
-        ],
-        appdTransId: [
-          { required: true, message: '转换器不能为空', trigger: 'change' }
-        ],
-        shortDesc: [
-          { required: true, message: '描述不能为空', trigger: 'blur' }
-        ]
-      },
       nameQuery: '',
       findAppStoreData: []
     }
@@ -332,7 +309,7 @@ export default {
     },
     register () {
       this.editType = 1
-      this.title = this.$t('myApp.addApp')
+      // this.title = this.$t('myApp.addApp')
       this.isDisable = false
       this.clearForm()
       this.dialogVisible = true
@@ -376,7 +353,7 @@ export default {
     },
     modifyApp (row) {
       this.editType = 2
-      this.title = this.$t('myApp.modifyAppStore')
+      // this.title = this.$t('myApp.modifyAppStore')
       this.isDisable = true
       let middleData = JSON.parse(JSON.stringify(row))
       this.form = middleData
@@ -431,6 +408,39 @@ export default {
     //   // this.getAppPackageData()
     // }, 30000)
     this.appPackageData = this.currentPageData
+  },
+  computed: {
+    title () {
+      if (this.editType === 1) {
+        return this.$t('myApp.addApp')
+      } else {
+        return this.$t('myApp.modifyAppStore')
+      }
+    },
+    rules () {
+      const rules = {
+        appStoreName: [
+          { required: true, message: this.$t('apppromotion.nameCheck'), trigger: 'blur' }
+        ],
+        appStoreVersion: [
+          { required: true, message: this.$t('apppromotion.versionCheck'), trigger: 'blur' }
+        ],
+        company: [
+          { required: true, message: this.$t('apppromotion.companyCheck'), trigger: 'blur' }
+        ],
+        url: [
+          { required: true, message: this.$t('apppromotion.addrCheck'), trigger: 'blur' },
+          { pattern: /^((http:\/\/|https:\/\/)?([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(:\d{0,5})?(\/.*)?$/, message: this.$t('promptMessage.normalVerify') }
+        ],
+        appdTransId: [
+          { required: true, message: this.$t('apppromotion.appdCheck'), trigger: 'change' }
+        ],
+        shortDesc: [
+          { required: true, message: this.$t('apppromotion.descriptionCheck'), trigger: 'blur' }
+        ]
+      }
+      return rules
+    }
   },
   beforeDestroy () {
     this.clearInterval()

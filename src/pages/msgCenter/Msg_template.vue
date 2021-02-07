@@ -108,25 +108,7 @@ export default {
       msgDetail: {},
       isActive: 0,
       hackReset: true,
-      operationType: 1,
-      timeTable: [
-        {
-          value: '今天',
-          index: '1'
-        },
-        {
-          value: '一周内',
-          index: '2'
-        },
-        {
-          value: '一个月前',
-          index: '3'
-        },
-        {
-          value: '更早',
-          index: '4'
-        }
-      ]
+      operationType: 1
     }
   },
   methods: {
@@ -263,6 +245,28 @@ export default {
     let param = this.$route.query.item
     this.getAppData(param)
   },
+  computed: {
+    timeTable () {
+      return [
+        {
+          value: this.$t('messageCenter.msgToday'),
+          index: '1'
+        },
+        {
+          value: this.$t('messageCenter.msgWeek'),
+          index: '2'
+        },
+        {
+          value: this.$t('messageCenter.msgMonth'),
+          index: '3'
+        },
+        {
+          value: this.$t('messageCenter.msgOld'),
+          index: '4'
+        }
+      ]
+    }
+  },
   watch: {
     '$route': function (to, from) {
       console.log(to.query.item.messageId)
@@ -318,7 +322,7 @@ export default {
     margin-top: 3px;
   }
   .popUp{
-    width: 150px;
+    width: 120px;
     height: 20px;
     background-color: #FFFFFF;
     z-index: 999999;
