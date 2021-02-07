@@ -90,11 +90,19 @@
             >
               <template slot-scope="scope">
                 <el-select
-                  v-model="scope.row.targetPlatform"
                   multiple
+                  collapse-tags
+                  v-model="scope.row.targetPlatform"
+                  @change="changeSelect($event, scope.row)"
+                  @remove-tag="removeTag($event, scope.row)"
                   placeholder="请选择意向平台"
                   :class="scope.row.packageId"
                 >
+                  <el-option
+                    label="全选"
+                    value="全选"
+                    @click.native="selectAll(scope.row)"
+                  />
                   <el-option
                     v-for="item in appStoreList"
                     :key="item.value"
@@ -164,7 +172,8 @@ export default {
       isEnLan: true,
       btnChangeEnable: true,
       nameQuery: '',
-      findAppData: []
+      findAppData: [],
+      selectedArray: ['全选']
     }
   },
   methods: {
@@ -245,7 +254,7 @@ export default {
               latestPushTime: item.latestPushTime,
               pushTimes: item.pushTimes,
               packageId: item.packageId,
-              targetPlatform: item.targetPlatform
+              targetPlatform: ['全选']
             }
             this.appData.push(appDataItem)
             this.appPackageData.push(appDataItem)
@@ -267,6 +276,25 @@ export default {
         return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
       })
       if (!this.nameQuery) this.findAppData = this.appPackageData
+    },
+    selectAll (info) {
+      if (this.selectedArray.indexOf('全选') !== -1) {
+        this.appStoreList.map((item) => {
+          this.selectedArray.push(item.value)
+        })
+      } else {
+        this.selectedArray = []
+      }
+      info.targetPlatform = this.selectedArray
+    },
+    changeSelect (val, info) {
+      this.selectedArray = val
+      info.targetPlatform = this.selectedArray
+    },
+    removeTag (val, info) {
+      if (val === '全选') {
+        this.selectedArray = []
+      }
     }
   },
   mounted () {
