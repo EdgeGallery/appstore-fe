@@ -344,7 +344,7 @@ const en = {
     nameCheck: 'platform name can not be null',
     versionCheck: 'platform version can not be null',
     companyCheck: 'company can not be null',
-    addrCheck: 'IP or URL can not be null',
+    addrCheck: 'URL can not be null',
     appdCheck: 'APPD transducer can not be null',
     descriptionCheck: 'description can not be null'
   },
