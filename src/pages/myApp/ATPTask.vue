@@ -32,21 +32,29 @@ export default {
   name: 'Task',
   data () {
     return {
-      srcUrl: ''
+      srcUrl: '',
+      language: ''
     }
   },
   methods: {
     getAtpUrl () {
       let currUrl = window.location.href
       if (currUrl.indexOf('30091') !== -1) {
-        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/app/test/task'
+        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/app/test/task' + '?language=' + this.language
       } else {
         this.srcUrl = currUrl.replace('appstore', 'atp')
+        this.srcUrl = this.srcUrl + '?language=' + this.language
       }
     }
   },
   mounted () {
+    this.language = localStorage.getItem('language')
     this.getAtpUrl()
+  },
+  watch: {
+    '$i18n.locale': function () {
+      location.reload()
+    }
   }
 }
 </script>
