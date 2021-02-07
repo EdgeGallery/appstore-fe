@@ -206,6 +206,12 @@ const SORT_BY = [
     value: 'Score',
     selected: false,
     type: 'sortBy'
+  },
+  {
+    label: ['上传时间', 'UploadTime'],
+    value: 'UploadTime',
+    selected: false,
+    type: 'sortBy'
   }
 ]
 

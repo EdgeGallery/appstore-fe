@@ -81,6 +81,7 @@ const en = {
     confirm: 'Confirm',
     detect: 'Detect',
     download: 'Download',
+    uploadTime: 'uploadTime',
     applicationName: 'Application Name',
     description: 'Description',
     userName: 'Uploder',
