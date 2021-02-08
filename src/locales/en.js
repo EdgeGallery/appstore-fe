@@ -95,7 +95,7 @@ const en = {
     url: 'url',
     appdTransId: 'appTranslate id',
     modifyApp: 'modify',
-    deleteAppStore: 'This operation will permanently delete the external warehouse. Do you want to continue?',
+
     pageTotalNum: 'Total',
     noData: 'No Data'
   },
@@ -153,7 +153,8 @@ const en = {
     testSuccess: 'The test task is successful, please go to view the test report!',
     testRunning: 'The test task is running, please go to check the test progress!',
     testWaiting: 'The test task is waiting to run, please go to check the test progress!',
-    testCreated: 'The test task has been created, please go to run the test task!'
+    testCreated: 'The test task has been created, please go to run the test task!',
+    deleteAppStore: 'This operation will permanently delete the external warehouse. Do you want to continue?'
   },
   store: {
     advancedSearch: 'Advanced Search',
@@ -224,7 +225,8 @@ const en = {
     test: 'Test',
     publish: 'Publish',
     addApp: 'addApp',
-    provider: 'Provider'
+    provider: 'Provider',
+    modifyAppStore: 'Edit External Repository'
   },
   report: {
     version: 'Version',
@@ -336,7 +338,41 @@ const en = {
     deleteMsgSuccess: 'msg delete success',
     deleteMsgFailed: 'msg delete failed',
     deleteMsgTip: 'click to delete message',
-    acceptMsgTip: 'click to accept message'
+    acceptMsgTip: 'click to accept message',
+    targetPaltform: 'select an intended platform',
+    selectAll: 'select all',
+    nameCheck: 'platform name can not be null',
+    versionCheck: 'platform version can not be null',
+    companyCheck: 'company can not be null',
+    addrCheck: 'URL can not be null',
+    appdCheck: 'APPD transducer can not be null',
+    descriptionCheck: 'description can not be null'
+  },
+  messageCenter: {
+    msgToday: 'today',
+    msgWeek: 'within one week',
+    msgMonth: 'within one month',
+    msgOld: 'earlier',
+    acceptMsg: 'accept',
+    deleteMsg: 'delete',
+    appBasicInfo: 'APP Basic Information',
+    appLabel: 'label',
+    appStruct: 'struct',
+    appProvider: 'provider',
+    appAffinity: 'affinity',
+    appVersion: 'version',
+    appShortDes: 'description',
+    appIndustry: 'industry',
+    appTestRepo: 'APP Test Repo',
+    appTestPlatform: 'test platform',
+    atpTestPlatform: 'ATP test platform',
+    atpTestStatus: 'test status',
+    testRepoDescription: 'report details',
+    appType: 'type',
+    otherInfo: 'Other Information',
+    sourceAppStore: 'source',
+    targetAppStore: 'target',
+    operationType: 'operation'
   },
   about: {
   },

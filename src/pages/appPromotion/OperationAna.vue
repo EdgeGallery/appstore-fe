@@ -133,44 +133,44 @@
       >
         <div class="detailInfo">
           <p class="title1">
-            应用基本信息
+            {{ $t("messageCenter.appBasicInfo") }}
           </p>
           <div />
           <p class="basic_p">
-            <span>应用名称</span>{{ middleData.name }}
+            <span>{{ $t("messageCenter.appLabel") }}</span>{{ middleData.name }}
           </p>
           <p class="basic_p">
-            <span>版本</span>{{ middleData.version }}
+            <span>{{ $t("messageCenter.appVersion") }}</span>{{ middleData.version }}
           </p>
           <p class="basic_p">
-            <span>厂商</span>{{ middleData.provider }}
+            <span>{{ $t("messageCenter.appProvider") }}</span>{{ middleData.provider }}
           </p>
           <p class="basic_p">
-            <span>架构</span>{{ middleData.affinity }}
+            <span>{{ $t("messageCenter.appStruct") }}</span>{{ middleData.affinity }}
           </p>
           <p class="basic_p">
-            <span>行业</span>{{ middleData.industry }}
+            <span>{{ $t("messageCenter.appIndustry") }}</span>{{ middleData.industry }}
           </p>
           <p class="basic_p">
-            <span>类型</span>{{ middleData.type }}
+            <span>{{ $t("messageCenter.appType") }}</span>{{ middleData.type }}
           </p>
           <p class="basic_p">
-            <span>应用描述</span>{{ middleData.shortDesc }}
+            <span>{{ $t("messageCenter.appShortDes") }}</span>{{ middleData.shortDesc }}
           </p>
           <p class="title2">
-            其他信息
+            {{ $t("messageCenter.otherInfo") }}
           </p>
           <p class="basic_p">
-            <span>源AppStore</span>{{ middleData.sourceAppStore }}
+            <span>{{ $t("messageCenter.sourceAppStore") }}</span>{{ middleData.sourceAppStore }}
           </p>
           <p class="basic_p">
-            <span>目标AppStore</span>{{ middleData.targetAppStore }}
+            <span>{{ $t("messageCenter.targetAppStore") }}</span>{{ middleData.targetAppStore }}
           </p>
           <p class="basic_p">
-            <span>apt测试状态</span>{{ middleData.atpTestStatus }}
+            <span>{{ $t("messageCenter.atpTestStatus") }}</span>{{ middleData.atpTestStatus }}
           </p>
           <p class="basic_p">
-            <span>操作描述</span>{{ middleData.description }}
+            <span>{{ $t("messageCenter.operationType") }}</span>{{ middleData.description }}
           </p>
         </div>
       </el-drawer>
@@ -468,7 +468,7 @@ export default {
 
       let options1 = {
         title: {
-          text: this.$t('apppromotion.hotIndustry'),
+          text: 'Hot edge APP Distribution',
           left: 'center'
         },
         tooltip: {
@@ -482,7 +482,7 @@ export default {
         },
         series: [
           {
-            name: this.$t('apppromotion.hotIndustry'),
+            name: 'Hot edge APP Distribution',
             type: 'pie',
             radius: ['50%', '70%'],
             avoidLabelOverlap: false,
@@ -524,7 +524,7 @@ export default {
 
       let options2 = {
         title: {
-          text: this.$t('apppromotion.appPushAndNoticeStatistic')
+          text: 'Push APP Statistic'
         },
         tooltip: {
           trigger: 'axis',
@@ -533,7 +533,7 @@ export default {
           }
         },
         legend: {
-          data: [this.$t('apppromotion.pushApp'), this.$t('apppromotion.noticeApp')],
+          data: ['PUSH', 'NOTICE'],
           right: 30,
           top: 30
         },
@@ -559,14 +559,14 @@ export default {
         ],
         series: [
           {
-            name: this.$t('apppromotion.pushApp'),
+            name: 'PUSH',
             type: 'bar',
             stack: 'name',
             barWidth: 40,
             data: appStorePushArr
           },
           {
-            name: this.$t('apppromotion.noticeApp'),
+            name: 'NOTICE',
             type: 'bar',
             stack: 'name',
             barWidth: 40,
@@ -601,7 +601,7 @@ export default {
 
       let options3 = {
         title: {
-          text: this.$t('apppromotion.appDownloadTrend')
+          text: 'APP PULL Trending'
         },
         tooltip: {
           trigger: 'axis'

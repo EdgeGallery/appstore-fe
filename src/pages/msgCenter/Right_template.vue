@@ -24,19 +24,19 @@
           class="acceptButton"
           @click="handleAccept"
         >
-          接受
+          {{ $t("messageCenter.acceptMsg") }}
         </el-button>
         <el-button
           type="primary"
           class="deleteButtom"
           @click="handleDelete"
         >
-          删除
+          {{ $t("messageCenter.deleteMsg") }}
         </el-button>
       </div>
       <div class="detailInfo">
         <p class="title">
-          应用基本信息
+          {{ $t("messageCenter.appBasicInfo") }}
         </p>
         <el-form
           label-width="100px"
@@ -45,28 +45,28 @@
         >
           <el-row :gutter="24">
             <el-col :span="8">
-              <el-form-item label="名称">
+              <el-form-item :label="$t('messageCenter.appLabel')">
                 {{ data.basicInfo.name }}
               </el-form-item>
-              <el-form-item label="架构">
+              <el-form-item :label="$t('messageCenter.appStruct')">
                 {{ data.basicInfo.affinity }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="厂商">
+              <el-form-item :label="$t('messageCenter.appProvider')">
                 {{ data.basicInfo.provider }}
               </el-form-item>
               <el-form-item
-                label="亲和性"
+                :label="$t('messageCenter.appAffinity')"
               >
                 {{ data.basicInfo.type }}
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="版本">
+              <el-form-item :label="$t('messageCenter.appVersion')">
                 {{ data.basicInfo.version }}
               </el-form-item>
-              <el-form-item label="行业">
+              <el-form-item :label="$t('messageCenter.appIndustry')">
                 {{ data.basicInfo.industry }}
               </el-form-item>
             </el-col>
@@ -75,7 +75,7 @@
             <el-col :span="24">
               <el-form-item
                 class="appShortDes"
-                label="应用描述"
+                :label="$t('messageCenter.appShortDes')"
               >
                 {{ data.basicInfo.shortDesc }}
               </el-form-item>
@@ -85,7 +85,7 @@
       </div>
       <div class="testDetail">
         <p class="title">
-          应用测试报告
+          {{ $t("messageCenter.appTestRepo") }}
         </p>
         <el-form
           label-width="100px"
@@ -93,12 +93,12 @@
         >
           <el-row :gutter="24">
             <el-col :span="8">
-              <el-form-item label="测试平台">
-                ATP测试平台
+              <el-form-item :label="$t('messageCenter.appTestPlatform')">
+                {{ $t("messageCenter.atpTestPlatform") }}
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="测试结果">
+              <el-form-item :label="$t('messageCenter.atpTestStatus')">
                 {{ data.atpTestStatus }}
               </el-form-item>
             </el-col>
@@ -107,7 +107,7 @@
       </div>
       <div class="detailReport">
         <p class="titleTestRepo">
-          报告详情如下
+          {{ $t("messageCenter.testRepoDescription") }}
         </p>
         <div
           class="iframeReport"
@@ -199,7 +199,7 @@ export default {
 }
 .titleTestRepo{
   font-size: 15px;
-  margin-top: 52px;
+  // margin-top: 15px;
   margin-left: 18px;
   color: #999;
   z-index: 888;
@@ -238,6 +238,7 @@ export default {
 .detailReport{
   height: 100%;
   margin-left: 15px;
+  margin-top: 85px;
 }
 .iframeReport{
   height: auto;
@@ -252,6 +253,9 @@ export default {
 #appForm1 .el-form-item__label {
   font-size: 15px;
   color: #999;
+}
+#appForm2 {
+  margin-top: 10px;
 }
 #appForm2 .el-form-item__label {
   font-size: 15px;

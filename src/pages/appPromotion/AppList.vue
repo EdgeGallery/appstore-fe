@@ -95,12 +95,12 @@
                   v-model="scope.row.targetPlatform"
                   @change="changeSelect($event, scope.row)"
                   @remove-tag="removeTag($event, scope.row)"
-                  placeholder="请选择意向平台"
+                  :placeholder="$t('apppromotion.targetPaltform')"
                   :class="scope.row.packageId"
                 >
                   <el-option
-                    label="全选"
-                    value="全选"
+                    label="All"
+                    value="All"
                     @click.native="selectAll(scope.row)"
                   />
                   <el-option
@@ -173,7 +173,7 @@ export default {
       btnChangeEnable: true,
       nameQuery: '',
       findAppData: [],
-      selectedArray: ['全选']
+      selectedArray: ['All']
     }
   },
   methods: {
@@ -254,7 +254,7 @@ export default {
               latestPushTime: item.latestPushTime,
               pushTimes: item.pushTimes,
               packageId: item.packageId,
-              targetPlatform: ['全选']
+              targetPlatform: ['All']
             }
             this.appData.push(appDataItem)
             this.appPackageData.push(appDataItem)
@@ -278,7 +278,7 @@ export default {
       if (!this.nameQuery) this.findAppData = this.appPackageData
     },
     selectAll (info) {
-      if (this.selectedArray.indexOf('全选') !== -1) {
+      if (this.selectedArray.indexOf('All') !== -1) {
         this.appStoreList.map((item) => {
           this.selectedArray.push(item.value)
         })
