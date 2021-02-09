@@ -62,7 +62,6 @@ export default {
   },
   watch: {
     '$i18n.locale': function () {
-      // this.srcUrl = ''
       this.rebuileComponents()
       this.getAtpUrl()
     }
