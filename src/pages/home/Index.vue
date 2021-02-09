@@ -436,6 +436,10 @@ export default {
       getAppTableApi().then(
         (res) => {
           this.appData = this.findAppData = res.data
+          this.appData.forEach(item => {
+            let newDateBegin = this.dateChange(item.createTime)
+            item.createTime = newDateBegin
+          })
           this.checkProjectData()
         },
         () => {
@@ -447,13 +451,35 @@ export default {
         }
       )
     },
-    formate () {
-      var dateee = '2021-02-08 14:46:02.296131'
-
-      var date = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
-      console.log(dateee)
-      console.log(date)
+    dateChange (dateStr) {
+      if (dateStr) {
+        let date = new Date(Date.parse(dateStr))
+        let Y = date.getFullYear()
+        let M = date.getMonth() + 1
+        let D = date.getDate()
+        let H = date.getHours()
+        let m = date.getMinutes()
+        let s = date.getSeconds()
+        let changeDate =
+          Y +
+          '-' +
+          (M > 9 ? M : '0' + M) +
+          '-' +
+          (D > 9 ? D : '0' + D) +
+          ' ' +
+          (H > 9 ? H : '0' + H) +
+          ':' +
+          (m > 9 ? m : '0' + m) +
+          ':' +
+          (s > 9 ? s : '0' + s)
+        return changeDate
+      }
     }
+    // dateChange (dateee) {
+    //   var date = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+    //   console.log(dateee)
+    //   console.log(date)
+    // }
   },
   watch: {
     '$i18n.locale': function () {
