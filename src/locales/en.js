@@ -95,9 +95,9 @@ const en = {
     url: 'url',
     appdTransId: 'appTranslate id',
     modifyApp: 'modify',
-
     pageTotalNum: 'Total',
-    noData: 'No Data'
+    noData: 'No Data',
+    switchDisplay: 'Switch display'
   },
   promptMessage: {
     guestUser: 'The guest user has no right to operate. please log in first!',
