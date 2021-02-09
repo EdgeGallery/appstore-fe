@@ -343,7 +343,6 @@ export default {
 
     // 上传图标
     handleChangeLogo (file) {
-      console.log(1)
       let listTemp = []
       this.packageForm.base64Session = true
       this.packageForm.appIcon = []
@@ -493,7 +492,6 @@ export default {
     },
     // 选择默认图标
     chooseDefaultIcon (file, index) {
-      console.log(2)
       this.logoFileList = []
       this.uploadIcon = false
       this.packageForm.base64Session = true
