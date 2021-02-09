@@ -48,7 +48,7 @@
                 <el-tooltip
                   class="item"
                   effect="light"
-                  :content="$t('common.switchDisplay')"
+                  :content="$t('common.displaySwitch')"
                   placement="bottom-start"
                   :visible-arrow="false"
                 >
