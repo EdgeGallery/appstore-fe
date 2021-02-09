@@ -33,7 +33,7 @@
                 <el-tooltip
                   class="item"
                   effect="light"
-                  content="上传应用"
+                  :content="$t('store.uploadApp')"
                   placement="bottom-start"
                   :visible-arrow="false"
                 >
@@ -48,7 +48,7 @@
                 <el-tooltip
                   class="item"
                   effect="light"
-                  content="展示切换"
+                  :content="$t('common.displaySwitch')"
                   placement="bottom-start"
                   :visible-arrow="false"
                 >
@@ -446,6 +446,13 @@ export default {
           })
         }
       )
+    },
+    formate () {
+      var dateee = '2021-02-08 14:46:02.296131'
+
+      var date = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+      console.log(dateee)
+      console.log(date)
     }
   },
   watch: {
