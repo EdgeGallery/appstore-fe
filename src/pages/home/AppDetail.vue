@@ -362,6 +362,21 @@ export default {
       dialogVisible: false
     }
   },
+  // watch: {
+  //   $route (to, from) {
+  //     console.log(111)
+  //     // handler: function (val) {
+  //     //   console.log(val)
+  //     // },
+  //     // deep: true,
+  //     // immediate: true
+  //   }
+  // },
+  beforeRouteLeave (to, from, next) {
+    console.log(from.path)
+    sessionStorage.setItem('fromPath', from.path)
+    next(true)
+  },
   methods: {
     editInfo (title, index) {
       this.editorStatus = false

@@ -155,6 +155,7 @@
             class="clearfix"
             style="margin-bottom: 10px;"
             :table-data="findAppData"
+            :current-page-prop="currentPage"
             @getCurrentPageData="getCurrentPageData"
           />
         </el-col>
@@ -210,10 +211,23 @@ export default {
       findAppData: [],
       uploadAppLogo: uploadAppLogo,
       appgridLogo: appgridLogo,
-      applistLogo: applistLogo
+      applistLogo: applistLogo,
+      currentPage: 2
     }
   },
   methods: {
+    ifFromDetail () {
+      let fromPath = sessionStorage.getItem('fromPath') || ''
+      if (fromPath === '/detail') {
+        console.log('from  detail')
+        this.currentPage = Number(sessionStorage.getItem('currentPage'))
+        this.getAppData()
+      } else {
+        sessionStorage.removeItem('currentPage')
+        this.currentPage = 1
+      }
+      console.log(this.currentPage)
+    },
     filterFindAppData (data) {
       let appId = []
       for (let item of data) {
@@ -443,6 +457,7 @@ export default {
   },
   mounted () {
     this.getAppData()
+    this.ifFromDetail()
     this.types.forEach((item) => {
       item.selected = false
     })

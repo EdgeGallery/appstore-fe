@@ -42,12 +42,16 @@ export default {
     size: {
       type: Number,
       default: 12
+    },
+    currentPageProp: {
+      type: Number,
+      default: 1
     }
   },
   data () {
     return {
       totalNum: 0,
-      currentPage: 1,
+      currentPage: this.currentPageProp,
       data: [],
       pageSize: 12
     }
@@ -56,7 +60,9 @@ export default {
     tableData (val) {
       this.data = val
       this.totalNum = val.length
-      this.handleCurrentPageChange(1)
+      // this.handleCurrentPageChange(this.currentPage)
+      let page = sessionStorage.getItem('currentPage') ? Number(sessionStorage.getItem('currentPage')) : 1
+      this.handleCurrentPageChange(page)
     },
     size (val) {
       this.handlePageSizeChange(val * 2)
@@ -79,16 +85,18 @@ export default {
     },
     handleCurrentPageChange (val) {
       this.currentPage = val
+      sessionStorage.setItem('currentPage', this.currentPage)
       this.returnTableData()
     },
     returnTableData () {
       let start = (this.currentPage - 1) * this.pageSize
       let end = this.currentPage * this.pageSize
       let currentPageData = this.data.slice(start, end)
-      this.$emit('getCurrentPageData', currentPageData)
+      this.$emit('getCurrentPageData', currentPageData, this.pageSize, start)
     }
   },
   mounted () {
+    this.currentPage = parseFloat(sessionStorage.getItem('currentPage'))
   }
 }
 
