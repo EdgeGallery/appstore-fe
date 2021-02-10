@@ -430,7 +430,7 @@ export default {
         ],
         url: [
           { required: true, message: this.$t('apppromotion.addrCheck'), trigger: 'blur' },
-          { pattern: /^((http:\/\/|https:\/\/)?([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(:\d{0,5})?(\/.*)?$/, message: this.$t('promptMessage.normalVerify') }
+          { pattern: /^(\w+:\/\/)([^/:]+)(:\d*)?$/, message: this.$t('promptMessage.normalVerify') }
         ],
         appdTransId: [
           { required: true, message: this.$t('apppromotion.appdCheck'), trigger: 'change' }

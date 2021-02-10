@@ -66,40 +66,25 @@
           <el-table-column
             prop="name"
             :label="$t('apppromotion.appName')"
-            width="200"
+            width="210"
             sortable
           />
           <el-table-column
             prop="provider"
             :label="$t('apppromotion.provider')"
+            width="210"
             sortable
           />
           <el-table-column
             prop="version"
             :label="$t('apppromotion.version')"
-            width="180"
+            width="210"
             sortable
           />
           <el-table-column
             prop="messageType"
             :label="$t('apppromotion.messageType')"
-            width="180"
-            sortable
-          />
-          <el-table-column
-            prop="sourceAppStore"
-            :label="$t('apppromotion.sourceAppStore')"
-            sortable
-          />
-          <el-table-column
-            prop="targetAppStore"
-            :label="$t('apppromotion.targetAppStore')"
-            sortable
-          />
-          <el-table-column
-            prop="time"
-            :label="$t('apppromotion.dateTime')"
-            width="200"
+            width="210"
             sortable
           />
           <el-table-column
@@ -107,9 +92,15 @@
             :label="$t('apppromotion.description')"
           />
           <el-table-column
+            prop="time"
+            :label="$t('apppromotion.dateTime')"
+            width="210"
+            sortable
+          />
+          <el-table-column
             prop="detailInfo"
             :label="$t('apppromotion.mesOperation')"
-            width="190"
+            width="210"
           >
             <template slot-scope="scope">
               <el-button
@@ -468,7 +459,7 @@ export default {
 
       let options1 = {
         title: {
-          text: 'Hot edge APP Distribution',
+          text: 'Hot EDGE APP Distribution',
           left: 'center'
         },
         tooltip: {
@@ -547,7 +538,11 @@ export default {
           {
             type: 'category',
             axisLabel: {
-              interval: 0
+              interval: 0,
+              formatter: function (value, index) {
+                var v = value.substring(0, 6) + '...'
+                return value.length > 9 ? v : value
+              }
             },
             data: allAppStoreArr
           }

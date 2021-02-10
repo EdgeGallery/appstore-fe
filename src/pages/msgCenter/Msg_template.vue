@@ -223,15 +223,18 @@ export default {
       })
     },
     handleDelete (index) {
-      deleteMsg(this.msgs[index].messageId).then((res) => {
-        this.$message.success(this.$t('apppromotion.deleteMsgSuccess'))
-      }).catch((error) => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('apppromotion.deleteMsgFailed') + error.response.data.message,
-          type: 'warning'
+      setTimeout(() => {
+        deleteMsg(this.msgs[index].messageId).then((res) => {
+          this.$message.success(this.$t('apppromotion.deleteMsgSuccess'))
+          this.$router.go(0)
+        }).catch((error) => {
+          this.$message({
+            duration: 2000,
+            message: this.$t('apppromotion.deleteMsgFailed') + error.response.data.message,
+            type: 'warning'
+          })
         })
-      })
+      }, 500)
     },
     enter (type, item) {
       item.seen = true
