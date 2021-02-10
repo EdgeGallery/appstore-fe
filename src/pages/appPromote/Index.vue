@@ -144,6 +144,16 @@
                 </el-button>
               </template>
             </el-table-column>
+            <template slot="empty">
+              <div>
+                <img
+                  src="../../assets/images/empty.png"
+                  alt=""
+                  style="padding: 10px;"
+                >
+                <p>{{ $t('common.noData') }}</p>
+              </div>
+            </template>
           </el-table>
         </div>
         <pagination

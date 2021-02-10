@@ -146,7 +146,7 @@
                 alt=""
                 style="padding: 10px;"
               >
-              <p>暂无数据</p>
+              <p>{{ $t('common.noData') }}</p>
             </div>
           </template>
         </el-table>

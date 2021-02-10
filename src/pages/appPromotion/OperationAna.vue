@@ -90,19 +90,16 @@
           <el-table-column
             prop="provider"
             :label="$t('apppromotion.provider')"
-            width="210"
             sortable
           />
           <el-table-column
             prop="version"
             :label="$t('apppromotion.version')"
-            width="210"
             sortable
           />
           <el-table-column
             prop="messageType"
             :label="$t('apppromotion.messageType')"
-            width="210"
             sortable
           />
           <el-table-column
@@ -149,6 +146,16 @@
               </el-button>
             </template>
           </el-table-column>
+          <template slot="empty">
+            <div>
+              <img
+                src="../../assets/images/empty.png"
+                alt=""
+                style="padding: 10px;"
+              >
+              <p>{{ $t('common.noData') }}</p>
+            </div>
+          </template>
         </el-table>
       </div>
       <el-drawer
