@@ -221,9 +221,15 @@ export default {
       if (fromPath === '/detail') {
         console.log('from  detail')
         this.currentPage = Number(sessionStorage.getItem('currentPage'))
+        this.currentComponent = sessionStorage.getItem('currentComponent')
+        console.log(this.currentComponent)
+        if (this.currentComponent === 'appGrid') {
+          this.iconAactive = false
+        } else if (this.currentComponent === 'appList') {
+          this.iconAactive = true
+        }
         this.getAppData()
       } else {
-        sessionStorage.removeItem('currentPage')
         this.currentPage = 1
       }
       console.log(this.currentPage)
@@ -252,8 +258,10 @@ export default {
       this.iconAactive = !this.iconAactive
       if (this.iconAactive) {
         this.currentComponent = 'appList'
+        sessionStorage.setItem('currentComponent', 'appList')
       } else {
         this.currentComponent = 'appGrid'
+        sessionStorage.setItem('currentComponent', 'appGrid')
       }
     },
     sortByApp () {
@@ -433,6 +441,7 @@ export default {
     },
     getAppData () {
       this.uploadDiaVis = false
+      this.currentComponent = sessionStorage.getItem('currentComponent') || 'appGrid'
       getAppTableApi().then(
         (res) => {
           this.appData = this.findAppData = res.data
