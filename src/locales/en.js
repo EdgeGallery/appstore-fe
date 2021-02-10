@@ -297,7 +297,7 @@ const en = {
     testRepo: 'Test Result',
     lastProTime: 'Last ProTime',
     proTimes: 'Promote Times',
-    batchPro: 'Batch Promote',
+    batchPro: 'Batch push',
     messageType: 'message Type',
     messagePull: 'pull',
     messagePush: 'push',

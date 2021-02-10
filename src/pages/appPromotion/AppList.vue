@@ -115,7 +115,6 @@
             <el-table-column
               prop="operation"
               fixed="right"
-              header-align="center"
               :label="$t('apppromotion.mesOperation')"
               width="100"
             >
@@ -279,6 +278,8 @@ export default {
     },
     selectAll (info) {
       if (this.selectedArray.indexOf('All') !== -1) {
+        this.selectedArray = []
+        this.selectedArray.push('All')
         this.appStoreList.map((item) => {
           this.selectedArray.push(item.value)
         })
@@ -292,7 +293,7 @@ export default {
       info.targetPlatform = this.selectedArray
     },
     removeTag (val, info) {
-      if (val === '全选') {
+      if (val === 'All') {
         this.selectedArray = []
       }
     }
