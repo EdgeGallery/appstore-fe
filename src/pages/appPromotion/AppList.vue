@@ -52,7 +52,26 @@
               prop="name"
               :label="$t('apppromotion.appName')"
               sortable
-            />
+              width="150"
+              :cell-class-name="hiddenClass"
+            >
+              <template slot-scope="scope">
+                <el-popover
+                  placement="bottom"
+                  width="150"
+                  trigger="hover"
+                  v-if="scope.row.name.length>8"
+                >
+                  <div>{{ scope.row.name }}</div>
+                  <div slot="reference">
+                    {{ scope.row.name }}
+                  </div>
+                </el-popover>
+                <div v-else>
+                  {{ scope.row.name }}
+                </div>
+              </template>
+            </el-table-column>
             <el-table-column
               prop="provider"
               :label="$t('apppromotion.provider')"
@@ -176,6 +195,11 @@ export default {
     }
   },
   methods: {
+    hiddenClass (row) {
+      if (row.columnIndex === 0) {
+        return 'hiddenClass'
+      }
+    },
     toggleSelection (rows) {
       if (rows) {
         rows.forEach((row) => {

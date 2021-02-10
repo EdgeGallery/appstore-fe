@@ -264,3 +264,11 @@ a{
   height: 60px!important;
   line-height: 60px!important;
 }
+.el-popover__reference{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hiddenClass{
+  white-space: nowrap;
+}

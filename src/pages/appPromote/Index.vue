@@ -60,7 +60,26 @@
             <el-table-column
               prop="appStoreName"
               :label="$t('common.appStoreName')"
-            />
+              width="150"
+              :cell-class-name="hiddenClass"
+            >
+              <template slot-scope="scope">
+                <el-popover
+                  placement="bottom"
+                  width="150"
+                  trigger="hover"
+                  v-if="scope.row.appStoreName.length>8"
+                >
+                  <div>{{ scope.row.appStoreName }}</div>
+                  <div slot="reference">
+                    {{ scope.row.appStoreName }}
+                  </div>
+                </el-popover>
+                <div v-else>
+                  {{ scope.row.appStoreName }}
+                </div>
+              </template>
+            </el-table-column>
             <el-table-column
               prop="appStoreVersion"
               :label="$t('common.appStoreVersion')"
@@ -80,7 +99,26 @@
             <el-table-column
               prop="description"
               :label="$t('common.description')"
-            />
+              width="300"
+              :cell-class-name="hiddenClass"
+            >
+              <template slot-scope="scope">
+                <el-popover
+                  placement="bottom"
+                  width="300"
+                  trigger="hover"
+                  v-if="scope.row.description.length>20"
+                >
+                  <div>{{ scope.row.description }}</div>
+                  <div slot="reference">
+                    {{ scope.row.description }}
+                  </div>
+                </el-popover>
+                <div v-else>
+                  {{ scope.row.description }}
+                </div>
+              </template>
+            </el-table-column>
             <el-table-column
               prop="operation"
               fixed="right"
@@ -251,6 +289,11 @@ export default {
     }
   },
   methods: {
+    hiddenClass (row) {
+      if (row.columnIndex === 5 || row.columnIndex === 0) {
+        return 'hiddenClass'
+      }
+    },
     handleClose () {
       this.$emit('input', false)
       this.$refs.form.resetFields()
