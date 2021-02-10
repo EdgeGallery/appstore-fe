@@ -38,7 +38,26 @@
           <el-table-column
             prop="name"
             :label="$t('common.appName')"
-          />
+            width="150"
+            :cell-class-name="hiddenClass"
+          >
+            <template slot-scope="scope">
+              <el-popover
+                placement="bottom"
+                width="150"
+                trigger="hover"
+                v-if="scope.row.name.length>8"
+              >
+                <div>{{ scope.row.name }}</div>
+                <div slot="reference">
+                  {{ scope.row.name }}
+                </div>
+              </el-popover>
+              <div v-else>
+                {{ scope.row.name }}
+              </div>
+            </template>
+          </el-table-column>
           <el-table-column
             prop="provider"
             :label="$t('common.provider')"
@@ -59,13 +78,14 @@
             prop="shortDesc"
             :label="$t('common.description')"
             width="300"
+            :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
                 placement="bottom"
                 width="300"
                 trigger="hover"
-                v-if="scope.row.shortDesc.length>30"
+                v-if="scope.row.shortDesc.length>20"
               >
                 <div>{{ scope.row.shortDesc }}</div>
                 <div slot="reference">
@@ -341,13 +361,17 @@ export default {
     clearInterval () {
       clearTimeout(this.interval)
       this.interval = null
+    },
+    hiddenClass (row) {
+      if (row.columnIndex === 5 || row.columnIndex === 0) {
+        return 'hiddenClass'
+      }
     }
   },
   mounted () {
     this.userId = sessionStorage.getItem('userId')
     this.getAppData()
     this.interval = setInterval(() => {
-      // this.getAppData()
       this.getAppStatus()
     }, 10000)
   },
@@ -377,11 +401,6 @@ export default {
         height: 60px;
         max-height: 60px;
         line-height: 60px;
-      }
-      .el-popover__reference{
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
       .buttonRight{
         padding: 0 1px;

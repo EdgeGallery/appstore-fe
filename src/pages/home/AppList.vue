@@ -24,7 +24,26 @@
       <el-table-column
         prop="name"
         :label="$t('common.appName')"
-      />
+        width="150"
+        :cell-class-name="hiddenClass"
+      >
+        <template slot-scope="scope">
+          <el-popover
+            placement="bottom"
+            width="150"
+            trigger="hover"
+            v-if="scope.row.name.length>8"
+          >
+            <div>{{ scope.row.name }}</div>
+            <div slot="reference">
+              {{ scope.row.name }}
+            </div>
+          </el-popover>
+          <div v-else>
+            {{ scope.row.name }}
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="provider"
         :label="$t('common.provider')"
@@ -48,19 +67,24 @@
       <el-table-column
         prop="shortDesc"
         :label="$t('common.description')"
-        width="255"
+        width="300"
+        :cell-class-name="hiddenClass"
       >
         <template slot-scope="scope">
           <el-popover
-            placement="right-start"
+            placement="bottom"
             width="300"
             trigger="hover"
+            v-if="scope.row.shortDesc.length>20"
           >
             <div>{{ scope.row.shortDesc }}</div>
-            <span slot="reference">{{
-              scope.row.shortDesc.substr(0, 30) + "..."
-            }}</span>
+            <div slot="reference">
+              {{ scope.row.shortDesc }}
+            </div>
           </el-popover>
+          <div v-else>
+            {{ scope.row.shortDesc }}
+          </div>
         </template>
       </el-table-column>
       <el-table-column
@@ -144,6 +168,11 @@ export default {
         })
       }).catch(() => {
       })
+    },
+    hiddenClass (row) {
+      if (row.columnIndex === 5 || row.columnIndex === 0) {
+        return 'hiddenClass'
+      }
     }
   },
   mounted () {
