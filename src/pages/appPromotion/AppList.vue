@@ -87,7 +87,6 @@
             >
               <template slot-scope="scope">
                 <a
-                  style="color:#409eff"
                   :href="scope.row.atpTestReportUrl"
                   target="_blank"
                   class="buttonText"

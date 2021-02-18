@@ -36,7 +36,6 @@
                 <span>1</span>
                 <p>
                   <a
-                    style="color:#409eff"
                     href="https://gitee.com/edgegallery"
                     target="_blank"
                     rel="noopener noreferrer"
