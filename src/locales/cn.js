@@ -349,7 +349,7 @@ const cn = {
     acceptSuccess: '应用接收成功，请到“我的应用”中查看或发布',
     deleteMsgSuccess: '删除消息成功',
     deleteMsgFailed: '删除消息失败',
-    deleteMsgTip: '单机删除消息',
+    deleteMsgTip: '单击删除消息',
     acceptMsgTip: '单击接收消息',
     targetPaltform: '请选择意向平台',
     selectAll: '全选',

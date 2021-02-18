@@ -89,6 +89,10 @@ fieldset:before,fieldset:after {
 }
 a{
   text-decoration: none;
+  color: #688ef3;
+}
+.markdown-body a{
+  color: #688ef3 !important;
 }
 .lt{
   float: left;

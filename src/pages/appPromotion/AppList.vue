@@ -39,6 +39,7 @@
           <el-table
             :data="currentPageData"
             :default-sort="{prop: 'latestPushTime', order: 'descending'}"
+            @sort-change="sortChanged"
             @selection-change="selectionLineChangeHandle"
             ref="multipleTable"
             style="width: 100%"
@@ -51,7 +52,7 @@
             <el-table-column
               prop="name"
               :label="$t('apppromotion.appName')"
-              sortable
+              sortable="custom"
               width="150"
               :cell-class-name="hiddenClass"
             >
@@ -75,19 +76,18 @@
             <el-table-column
               prop="provider"
               :label="$t('apppromotion.provider')"
-              sortable
+              sortable="custom"
             />
             <el-table-column
               prop="version"
               :label="$t('apppromotion.version')"
-              sortable
+              sortable="custom"
             />
             <el-table-column
               :label="$t('apppromotion.testRepo')"
             >
               <template slot-scope="scope">
                 <a
-                  style="color:#409eff"
                   :href="scope.row.atpTestReportUrl"
                   target="_blank"
                   class="buttonText"
@@ -97,12 +97,12 @@
             <el-table-column
               prop="latestPushTime"
               :label="$t('apppromotion.lastProTime')"
-              sortable
+              sortable="custom"
             />
             <el-table-column
               prop="pushTimes"
               :label="$t('apppromotion.proTimes')"
-              sortable
+              sortable="custom"
             />
             <el-table-column
               :label="$t('apppromotion.intentionAppstore')"
@@ -329,6 +329,74 @@ export default {
     removeTag (val, info) {
       if (val === 'All') {
         this.selectedArray = []
+      }
+    },
+    sortChanged (column) {
+      console.log(column)
+      let sortTime = (a, b) => {
+        let timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
+        let timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
+        return timeValueA - timeValueB
+      }
+      let sortNumber = (a, b) => {
+        return a - b
+      }
+      let findApp = (fieldName, type) => {
+        let fieldArr = []
+        let appSort = []
+        this.findAppData.forEach((item) => {
+          if (type === 'name' || type === 'version' || type === 'provider' || type === 'messageType') {
+            fieldArr.push(item[fieldName].toLowerCase())
+          } else {
+            fieldArr.push(item[fieldName])
+          }
+        })
+        if (type === 'latestPushTime') {
+          fieldArr.sort(sortTime)
+          if (column.order === 'descending') {
+            fieldArr.reverse()
+          }
+        } else if (type === 'pushTimes') {
+          fieldArr.sort(sortNumber)
+          if (column.order === 'descending') {
+            fieldArr.reverse()
+          }
+        } else {
+          fieldArr.sort()
+          if (column.order === 'descending') {
+            fieldArr.reverse()
+          }
+        }
+        const set = new Set(fieldArr)
+        fieldArr = [...set]
+        fieldArr.forEach((fieldItem) => {
+          this.findAppData.forEach((item) => {
+            if (type === 'name' || type === 'provider' || type === 'version' || type === 'messageType') {
+              if (item[fieldName].toLowerCase() === fieldItem) {
+                appSort.push(item)
+              }
+            } else {
+              if (item[fieldName] === fieldItem) {
+                appSort.push(item)
+              }
+            }
+          })
+        })
+        console.log('finish sort ' + appSort.length)
+        return appSort
+      }
+
+      let type = column.prop
+      if (type === 'name') {
+        this.findAppData = findApp('name', type)
+      } else if (type === 'provider') {
+        this.findAppData = findApp('provider', type)
+      } else if (type === 'version') {
+        this.findAppData = findApp('version', type)
+      } else if (type === 'latestPushTime') {
+        this.findAppData = findApp('latestPushTime', type)
+      } else if (type === 'pushTimes') {
+        this.findAppData = findApp('pushTimes', type)
       }
     }
   },

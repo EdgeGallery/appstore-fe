@@ -60,6 +60,7 @@
         <el-table
           :data="currentPageData"
           :default-sort="{prop: 'time', order: 'descending'}"
+          @sort-change="sortChanged"
           style="width: 100%"
           header-cell-class-name="headerStyle"
         >
@@ -67,7 +68,7 @@
             prop="name"
             :label="$t('apppromotion.appName')"
             width="150"
-            sortable
+            sortable="custom"
             :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
@@ -90,17 +91,17 @@
           <el-table-column
             prop="provider"
             :label="$t('apppromotion.provider')"
-            sortable
+            sortable="custom"
           />
           <el-table-column
             prop="version"
             :label="$t('apppromotion.version')"
-            sortable
+            sortable="custom"
           />
           <el-table-column
             prop="messageType"
             :label="$t('apppromotion.messageType')"
-            sortable
+            sortable="custom"
           />
           <el-table-column
             prop="description"
@@ -129,7 +130,7 @@
             prop="time"
             :label="$t('apppromotion.dateTime')"
             width="210"
-            sortable
+            sortable="custom"
           />
           <el-table-column
             prop="detailInfo"
@@ -478,11 +479,70 @@ export default {
         return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
       })
       if (!this.nameQuery) this.findAppData = this.appPackageData
+    },
+    sortChanged (column) {
+      console.log(column)
+      let sortTime = (a, b) => {
+        let timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
+        let timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
+        return timeValueA - timeValueB
+      }
+      let findApp = (fieldName, type) => {
+        let fieldArr = []
+        let appSort = []
+        this.findAppData.forEach((item) => {
+          if (type === 'name' || type === 'version' || type === 'provider' || type === 'messageType') {
+            fieldArr.push(item[fieldName].toLowerCase())
+          } else {
+            fieldArr.push(item[fieldName])
+          }
+        })
+        if (type === 'time') {
+          fieldArr.sort(sortTime)
+          if (column.order === 'descending') {
+            fieldArr.reverse()
+          }
+        } else {
+          fieldArr.sort()
+          if (column.order === 'descending') {
+            fieldArr.reverse()
+          }
+        }
+        const set = new Set(fieldArr)
+        fieldArr = [...set]
+        fieldArr.forEach((fieldItem) => {
+          this.findAppData.forEach((item) => {
+            if (type === 'name' || type === 'provider' || type === 'version' || type === 'messageType') {
+              if (item[fieldName].toLowerCase() === fieldItem) {
+                appSort.push(item)
+              }
+            } else {
+              if (item[fieldName] === fieldItem) {
+                appSort.push(item)
+              }
+            }
+          })
+        })
+        console.log('finish sort ' + appSort.length)
+        return appSort
+      }
+
+      let type = column.prop
+      if (type === 'name') {
+        this.findAppData = findApp('name', type)
+      } else if (type === 'provider') {
+        this.findAppData = findApp('provider', type)
+      } else if (type === 'version') {
+        this.findAppData = findApp('version', type)
+      } else if (type === 'messageType') {
+        this.findAppData = findApp('messageType', type)
+      } else if (type === 'time') {
+        this.findAppData = findApp('time', type)
+      }
     }
+
   },
   mounted () {
-    // this.getTableData()
-    console.log(this.appData)
     this.getTableEx().then((res) => {
       const myCharts1 = this.$echarts.init(this.$refs.myCharts1)
       const myCharts2 = this.$echarts.init(this.$refs.myCharts2)
