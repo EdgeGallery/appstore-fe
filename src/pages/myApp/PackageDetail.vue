@@ -149,7 +149,6 @@
                 type="text"
               >
                 <a
-                  style="color: #409eff"
                   href="https://gitee.com/EdgeGallery"
                   target="_blank"
                   rel="noopener noreferrer"
