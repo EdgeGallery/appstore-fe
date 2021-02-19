@@ -26,8 +26,6 @@ import axios from 'axios'
 
 const URL_PREFIX = '/mec-appstore/mec/appstore/v1/'
 
-const APPSTORE_URL_PREFIX = '/mec-appstore/mec/appstore/poke/'
-
 function getCommentsApi (appId) {
   let url = 'apps/' + appId + '/comments'
   return GET(url)
@@ -40,56 +38,56 @@ function getAppDetailTableApi (appId) {
 
 // 查询所有可推广的应用
 function getAppPromTableApi () {
-  let url = 'pushable/packages'
-  return GET(url, '', 'appstore')
+  let url = 'packages/pushable'
+  return GET(url, '')
 }
 
 // 获取操作信息
 function getAppdownAnaApi () {
   let url = 'messages'
-  return GET(url, '', 'appstore')
+  return GET(url, '')
 }
 
 // 获取可以推送的平台信息
 function promProviderInfo () {
   let url = 'appstores'
-  return GET(url, '', 'appstore')
+  return GET(url, '')
 }
 
 // 推送任务
 function promTaskApi (packageId, param) {
-  let url = 'pushable/packages/' + packageId + '/action/push'
-  return POST(url, param, 'appstore')
+  let url = 'packages/' + packageId + '/action/push'
+  return POST(url, param)
 }
 
 // 接收app推送信息
 function acceptMsg (messageId) {
   let url = 'messages/' + messageId + '/action/download'
-  return GET(url, '', 'appstore')
+  return GET(url, '')
 }
 
 // 删除app推送信息
 function deleteMsg (messageId) {
   let url = 'messages/' + messageId
-  return DELETE(url, '', 'appstore')
+  return DELETE(url, '')
 }
 
 // 获取类型为notice的消息
 function getAppdownAnaApiByType () {
   let url = 'messages' + '?messageType=NOTICE'
-  return GET(url, '', 'appstore')
+  return GET(url, '')
 }
 
 // 更新msg读取状态
 function updateStatus (messageId) {
   let url = 'messages/' + messageId + '/action/readed'
-  return PUT(url, '', 'appstore')
+  return PUT(url, '')
 }
 
 // 获取测试报告信息
 function processApi (messageId) {
   let url = 'messages/' + messageId + '/report-data'
-  return GET(url, '', 'appstore')
+  return GET(url, '')
 }
 
 function getAppDetailFileApi (path, id) {
@@ -117,11 +115,6 @@ function getSubTasksApi (appId, taskId) {
   return GET(url, '', 'developer')
 }
 
-// function getMyAppApi (userId) {
-//   let url = 'apps?userId=' + userId
-//   return GET(url)
-// }
-
 function modifyAppPackageDetailApi (csarId, params) {
   let url = 'csars/' + csarId + '/modifymd'
   return POST(url, params)
@@ -137,10 +130,6 @@ function incAppDownloadTimesApi (appId, csarId) {
   return GET(url)
 }
 
-// function uploadAppPackageApi (params) {
-//   let url = 'mec/developer/v1/apps/'
-//   return POST(url, params, 'developer')
-// }
 function uploadAppApi (params) {
   let userId = sessionStorage.getItem('userId')
   let userName = sessionStorage.getItem('userName')
@@ -226,21 +215,21 @@ let myAppStore = {
   // 新增appstore接口
   addAppStoreApi: function (params) {
     let url = 'appstores'
-    return POST(url, params, 'appstore')
+    return POST(url, params)
   },
   // 编辑appstore接口
   modifyAppStoreApi: function (params, appStoreId) {
     let url = 'appstores/' + appStoreId
-    return PUT(url, params, 'appstore')
+    return PUT(url, params)
   },
   // 获取我的appstore
   getMyAppApi: function () {
     let url = 'appstores'
-    return GET(url, '', 'appstore')
+    return GET(url, '')
   },
   deleteAppStoreApi: function (appStoreId) {
     let url = 'appstores/' + appStoreId
-    return DELETE(url, '', 'appstore')
+    return DELETE(url, '')
   }
 }
 
@@ -294,7 +283,6 @@ export {
   getAppFileContentApi,
   downloadAppPakageApi,
   URL_PREFIX,
-  APPSTORE_URL_PREFIX,
   getUserInfo,
   logoutApi,
   uploadAppApi,
