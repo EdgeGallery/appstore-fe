@@ -16,7 +16,7 @@
  */
 
 import axios from 'axios'
-import { URL_PREFIX, APPSTORE_URL_PREFIX } from './api'
+import { URL_PREFIX } from './api'
 
 function getCookie (name) {
   let arr = []
@@ -28,12 +28,8 @@ function getCookie (name) {
   }
 }
 
-// type: appstore&developer
-function GET (url, params, type = 'store') {
+function GET (url, params) {
   let baseUrl = URL_PREFIX + url
-  if (type !== 'store') {
-    baseUrl = APPSTORE_URL_PREFIX + url
-  }
   return new Promise((resolve, reject) => {
     axios.get(baseUrl, {
       params: params,
@@ -50,11 +46,8 @@ function GET (url, params, type = 'store') {
   })
 }
 
-function DELETE (url, params, type = 'store') {
+function DELETE (url, params) {
   let baseUrl = URL_PREFIX + url
-  if (type !== 'store') {
-    baseUrl = APPSTORE_URL_PREFIX + url
-  }
   return new Promise((resolve, reject) => {
     axios.delete(baseUrl, {
       params: params,
@@ -71,11 +64,8 @@ function DELETE (url, params, type = 'store') {
   })
 }
 
-function POST (url, params, type = 'store') {
+function POST (url, params) {
   let baseUrl = URL_PREFIX + url
-  if (type !== 'store') {
-    baseUrl = APPSTORE_URL_PREFIX + url
-  }
   return new Promise((resolve, reject) => {
     axios.post(baseUrl, params, {
       withCredentials: true,
@@ -91,11 +81,8 @@ function POST (url, params, type = 'store') {
   })
 }
 
-function PUT (url, params, type = 'store') {
+function PUT (url, params) {
   let baseUrl = URL_PREFIX + url
-  if (type !== 'store') {
-    baseUrl = APPSTORE_URL_PREFIX + url
-  }
   return new Promise((resolve, reject) => {
     axios.put(baseUrl, params, {
       withCredentials: true,
