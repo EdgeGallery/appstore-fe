@@ -15,23 +15,32 @@
  *  limitations under the License.
  */
 
-function formatDateTime (timeStamp) {
-  let date = new Date()
-  date.setTime(timeStamp)
-  let y = date.getFullYear()
-  let m = date.getMonth() + 1
-  m = m < 10 ? ('0' + m) : m
-  let d = date.getDate()
-  d = d < 10 ? ('0' + d) : d
-  let h = date.getHours()
-  h = h < 10 ? ('0' + h) : h
-  let minute = date.getMinutes()
-  let second = date.getSeconds()
-  minute = minute < 10 ? ('0' + minute) : minute
-  second = second < 10 ? ('0' + second) : second
-  return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second
+function formatDateTime (dateStr) {
+  if (dateStr) {
+    let date = new Date(Date.parse(dateStr))
+    let Y = date.getFullYear()
+    let M = date.getMonth() + 1
+    let D = date.getDate()
+    let H = date.getHours()
+    let m = date.getMinutes()
+    let s = date.getSeconds()
+    let changeDate =
+      Y +
+      '-' +
+      (M > 9 ? M : '0' + M) +
+      '-' +
+      (D > 9 ? D : '0' + D) +
+      ' ' +
+      (H > 9 ? H : '0' + H) +
+      ':' +
+      (m > 9 ? m : '0' + m) +
+      ':' +
+      (s > 9 ? s : '0' + s)
+    return changeDate
+  }
+  return ''
 }
 
-export {
+export default {
   formatDateTime
 }

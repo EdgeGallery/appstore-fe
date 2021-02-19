@@ -75,6 +75,11 @@
             :label="$t('common.architecture')"
           />
           <el-table-column
+            prop="createTime"
+            :label="$t('common.uploadTime')"
+            width="250"
+          />
+          <el-table-column
             prop="shortDesc"
             :label="$t('common.description')"
             width="300"
@@ -164,6 +169,7 @@
 // import appList from '../home/AppList.vue'
 import { myApp, deleteAppPackageApi } from '../../tools/api.js'
 import pagination from '../../components/common/Pagination.vue'
+import timeFormatTools from '../../tools/timeFormatTools.js'
 export default {
   components: {
     // appList,
@@ -187,6 +193,10 @@ export default {
       myApp.getMyAppPackageApi(this.userId)
         .then(res => {
           this.appPackageData = res.data
+          this.appPackageData.forEach(item => {
+            let formatedTime = timeFormatTools.formatDateTime(item.createTime)
+            item.createTime = formatedTime
+          })
           this.dataLoading = false
         }, () => {
           this.dataLoading = false
