@@ -60,15 +60,15 @@
             <el-table-column
               prop="appStoreName"
               :label="$t('common.appStoreName')"
-              width="150"
+              width="300"
               :cell-class-name="hiddenClass"
             >
               <template slot-scope="scope">
                 <el-popover
                   placement="bottom"
-                  width="150"
+                  width="300"
                   trigger="hover"
-                  v-if="scope.row.appStoreName.length>8"
+                  v-if="scope.row.appStoreName.length>20"
                 >
                   <div>{{ scope.row.appStoreName }}</div>
                   <div slot="reference">
@@ -130,14 +130,12 @@
                   id="modifyBtn"
                   @click="modifyApp(scope.row)"
                   type="text"
-                  size="small"
                 >
                   {{ $t('common.modifyApp') }}
                 </el-button>
                 <el-button
                   id="deleteBtn"
                   type="text"
-                  size="small"
                   @click="getDelete(scope.row)"
                 >
                   {{ $t('common.delete') }}

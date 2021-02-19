@@ -24,15 +24,15 @@
       <el-table-column
         prop="name"
         :label="$t('common.appName')"
-        width="150"
+        width="300"
         :cell-class-name="hiddenClass"
       >
         <template slot-scope="scope">
           <el-popover
             placement="bottom"
-            width="150"
+            width="300"
             trigger="hover"
-            v-if="scope.row.name.length>8"
+            v-if="scope.row.name.length>20"
           >
             <div>{{ scope.row.name }}</div>
             <div slot="reference">
@@ -55,6 +55,7 @@
       <el-table-column
         prop="affinity"
         :label="$t('common.architecture')"
+        width="120"
       />
       <el-table-column
         prop="createTime"
@@ -103,7 +104,6 @@
             id="applist_detail"
             @click="detail(scope.row)"
             type="text"
-            size="small"
           >
             {{ $t('common.detail') }}
           </el-button>
@@ -112,7 +112,6 @@
             :disabled="scope.row.userId !== userId"
             @click="deleteRow(scope.row)"
             type="text"
-            size="small"
           >
             {{ $t('common.delete') }}
           </el-button>
@@ -189,9 +188,6 @@ export default {
 </script>
 <style lang='less' scoped>
 .app-list{
-  .el-table {
-    font-size: 17px;
-  }
   padding: 20px 0;
   .pagination{
     margin: 20px;

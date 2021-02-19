@@ -53,15 +53,15 @@
               prop="name"
               :label="$t('apppromotion.appName')"
               sortable="custom"
-              width="150"
+              width="300"
               :cell-class-name="hiddenClass"
             >
               <template slot-scope="scope">
                 <el-popover
                   placement="bottom"
-                  width="150"
+                  width="300"
                   trigger="hover"
-                  v-if="scope.row.name.length>8"
+                  v-if="scope.row.name.length>20"
                 >
                   <div>{{ scope.row.name }}</div>
                   <div slot="reference">
@@ -90,7 +90,6 @@
                 <a
                   :href="scope.row.atpTestReportUrl"
                   target="_blank"
-                  class="buttonText"
                 >{{ $t('apppromotion.viewTestRepo') }}</a>
               </template>
             </el-table-column>
@@ -142,7 +141,6 @@
                   id="pushBtn"
                   @click="showPushAppDialog(scope.row)"
                   type="text"
-                  size="small"
                 >
                   {{ $t('apppromotion.messagePush') }}
                 </el-button>
@@ -443,9 +441,6 @@ export default {
         th {
           background-color: #eee;
         }
-      }
-      .buttonText{
-        color:#409eff;
       }
     }
 }

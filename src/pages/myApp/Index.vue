@@ -38,15 +38,15 @@
           <el-table-column
             prop="name"
             :label="$t('common.appName')"
-            width="150"
+            width="300"
             :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
                 placement="bottom"
-                width="150"
+                width="300"
                 trigger="hover"
-                v-if="scope.row.name.length>8"
+                v-if="scope.row.name.length>20"
               >
                 <div>{{ scope.row.name }}</div>
                 <div slot="reference">
@@ -73,6 +73,11 @@
           <el-table-column
             prop="affinity"
             :label="$t('common.architecture')"
+          />
+          <el-table-column
+            prop="createTime"
+            :label="$t('common.uploadTime')"
+            width="250"
           />
           <el-table-column
             prop="shortDesc"
@@ -164,6 +169,7 @@
 // import appList from '../home/AppList.vue'
 import { myApp, deleteAppPackageApi } from '../../tools/api.js'
 import pagination from '../../components/common/Pagination.vue'
+import timeFormatTools from '../../tools/timeFormatTools.js'
 export default {
   components: {
     // appList,
@@ -187,6 +193,10 @@ export default {
       myApp.getMyAppPackageApi(this.userId)
         .then(res => {
           this.appPackageData = res.data
+          this.appPackageData.forEach(item => {
+            let formatedTime = timeFormatTools.formatDateTime(item.createTime)
+            item.createTime = formatedTime
+          })
           this.dataLoading = false
         }, () => {
           this.dataLoading = false
