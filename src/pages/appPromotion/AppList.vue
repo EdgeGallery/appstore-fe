@@ -90,7 +90,6 @@
                 <a
                   :href="scope.row.atpTestReportUrl"
                   target="_blank"
-                  class="buttonText"
                 >{{ $t('apppromotion.viewTestRepo') }}</a>
               </template>
             </el-table-column>
@@ -142,7 +141,6 @@
                   id="pushBtn"
                   @click="showPushAppDialog(scope.row)"
                   type="text"
-                  size="small"
                 >
                   {{ $t('apppromotion.messagePush') }}
                 </el-button>
@@ -443,9 +441,6 @@ export default {
         th {
           background-color: #eee;
         }
-      }
-      .buttonText{
-        color:#409eff;
       }
     }
 }

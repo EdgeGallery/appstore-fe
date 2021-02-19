@@ -130,14 +130,12 @@
                   id="modifyBtn"
                   @click="modifyApp(scope.row)"
                   type="text"
-                  size="small"
                 >
                   {{ $t('common.modifyApp') }}
                 </el-button>
                 <el-button
                   id="deleteBtn"
                   type="text"
-                  size="small"
                   @click="getDelete(scope.row)"
                 >
                   {{ $t('common.delete') }}

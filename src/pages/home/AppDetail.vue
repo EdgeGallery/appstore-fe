@@ -65,7 +65,6 @@
                 :disabled="scope.row.userId===userId ? false : true"
                 @click="download(scope.row)"
                 type="text"
-                size="small"
               >
                 {{ $t('store.download') }}
               </el-button>
@@ -73,7 +72,6 @@
                 id="appdetail_detail"
                 @click="getDetail(scope.row)"
                 type="text"
-                size="small"
               >
                 {{ $t('common.detail') }}
               </el-button>
@@ -82,7 +80,6 @@
                 :disabled="scope.row.userId===userId ? false : true"
                 @click="getDelete(scope.row)"
                 type="text"
-                size="small"
               >
                 {{ $t('common.delete') }}
               </el-button>

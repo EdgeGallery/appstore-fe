@@ -103,7 +103,6 @@
             id="applist_detail"
             @click="detail(scope.row)"
             type="text"
-            size="small"
           >
             {{ $t('common.detail') }}
           </el-button>
@@ -112,7 +111,6 @@
             :disabled="scope.row.userId !== userId"
             @click="deleteRow(scope.row)"
             type="text"
-            size="small"
           >
             {{ $t('common.delete') }}
           </el-button>
@@ -189,9 +187,6 @@ export default {
 </script>
 <style lang='less' scoped>
 .app-list{
-  .el-table {
-    font-size: 17px;
-  }
   padding: 20px 0;
   .pagination{
     margin: 20px;

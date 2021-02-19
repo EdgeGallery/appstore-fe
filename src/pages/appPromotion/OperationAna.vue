@@ -141,7 +141,6 @@
               <el-button
                 @click="showDrawer(scope.row)"
                 type="text"
-                size="small"
               >
                 {{ $t('apppromotion.checkDetail') }}
               </el-button>

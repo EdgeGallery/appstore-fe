@@ -64,7 +64,6 @@
                 id="appdetail_download"
                 @click="download(scope.row)"
                 type="text"
-                size="small"
               >
                 {{ $t('store.download') }}
               </el-button>
@@ -72,7 +71,6 @@
                 id="appdetail_delete"
                 @click="getDelete(scope.row)"
                 type="text"
-                size="small"
               >
                 {{ $t('common.delete') }}
               </el-button>
