@@ -67,16 +67,16 @@
           <el-table-column
             prop="name"
             :label="$t('apppromotion.appName')"
-            width="150"
+            width="300"
             sortable="custom"
             :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
                 placement="bottom"
-                width="150"
+                width="300"
                 trigger="hover"
-                v-if="scope.row.name.length>8"
+                v-if="scope.row.name.length>20"
               >
                 <div>{{ scope.row.name }}</div>
                 <div slot="reference">
