@@ -410,7 +410,9 @@ export default {
       }
     },
     getCurrentPageData (data) {
+      console.log(data)
       this.currentPageData = data
+      console.log(this.currentPageData)
     },
 
     handleNameQuery () {
@@ -446,6 +448,7 @@ export default {
       getAppTableApi().then(
         (res) => {
           this.appData = this.findAppData = res.data
+          console.log(this.appData)
           this.appData.forEach(item => {
             let newDateBegin = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = newDateBegin
@@ -480,6 +483,9 @@ export default {
     })
     this.sortBy.forEach((item) => {
       item.selected = false
+      if (item.value === 'UploadTime') {
+        item.selected = true
+      }
     })
     this.industry.forEach((item) => {
       item.selected = false

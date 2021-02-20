@@ -58,7 +58,9 @@ export default {
   },
   watch: {
     tableData (val) {
+      console.log(val)
       this.data = val
+      console.log(this.data)
       this.totalNum = val.length
       // this.handleCurrentPageChange(this.currentPage)
       let page = sessionStorage.getItem('currentPage') ? Number(sessionStorage.getItem('currentPage')) : 1
@@ -92,6 +94,7 @@ export default {
       let start = (this.currentPage - 1) * this.pageSize
       let end = this.currentPage * this.pageSize
       let currentPageData = this.data.slice(start, end)
+      console.log(currentPageData)
       this.$emit('getCurrentPageData', currentPageData, this.pageSize, start)
     }
   },
