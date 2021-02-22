@@ -154,6 +154,12 @@
             </template>
           </el-table>
         </div>
+        <app-store-grid
+          v-loading="dataLoading"
+          :app-data="currentPageData"
+          @modifyApp="modifyApp"
+          @deleteApp="getDelete"
+        />
         <pagination
           :table-data="findAppStoreData"
           @getCurrentPageData="getCurrentPageData"
@@ -265,10 +271,12 @@ import { TTYPES } from '../../tools/constant.js'
 import { myAppStore } from '../../tools/api.js'
 import pagination from '../../components/common/Pagination.vue'
 import topBar from '../../components/common/TopBar'
+import appStoreGrid from './AppStoreGrid.vue'
 export default {
   components: {
     pagination,
-    topBar
+    topBar,
+    appStoreGrid
   },
   data () {
     return {
@@ -506,6 +514,7 @@ export default {
     padding: 20px;
     .packageTable{
       margin: 20px 0;
+      display: none;
       .el-table thead{
         th {
           background-color: #eee;
