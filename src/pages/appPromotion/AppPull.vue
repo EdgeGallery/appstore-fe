@@ -146,9 +146,10 @@ export default {
       })
     },
     getAllPullApps () {
-      this.getProviders().then((resAppstore) => {
+      this.getProviders().then((res) => {
+        let resAppstore = res.data
         for (let i = 0; i < resAppstore.length; i++) {
-          getAppByAppstoreId(resAppstore[i].appstoreId).then((res) => {
+          getAppByAppstoreId(resAppstore[i].appStoreId).then((res) => {
             let appStoreToApps = []
             let data = res.data
             data.forEach(
@@ -157,15 +158,14 @@ export default {
                   name: item.name,
                   provider: item.provider,
                   version: item.version,
-                  atpTestReportUrl: item.atpTestReportUrl,
-                  latestPullTime: item.latestPullTime
+                  atpTestReportUrl: item.atpTestReportUrl
                 }
                 appStoreToApps.push(appDataItem)
               }
             )
             let tempdata = {
-              name: resAppstore[i].name,
-              title: resAppstore[i].title,
+              name: resAppstore[i].appStoreName,
+              title: resAppstore[i].appStoreName,
               content: appStoreToApps
             }
             // 添加tab数据
