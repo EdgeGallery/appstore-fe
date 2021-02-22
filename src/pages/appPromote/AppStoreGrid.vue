@@ -141,19 +141,6 @@ export default {
       type: Array,
       default () {
         return [
-          // {
-          //   appStoreId: 'ff9f1db5-dd76-4d5a-9d8b-cf1d87d25737',
-          //   appStoreName: 166,
-          //   appStoreVersion: '1.0',
-          //   company: 'ccc',
-          //   url: 'https://159.138.139.166:30099',
-          //   schema: null,
-          //   appPushIntf: null,
-          //   appdTransId: '社区_APPD_2.0',
-          //   description: 'dds联通_APPD_2.0联通_APPD_2.0联通_APPD_2.0联通_APPD_2.0联通_APPD_2.0联通_APPD_2.0',
-          //   addedTime: '2021-02-09 15:22:11',
-          //   modifiedTime: '2021-02-19 11:07:06'
-          // }
         ]
       }
     },
@@ -201,7 +188,6 @@ export default {
     width: 25%;
     box-sizing: border-box;
     margin-bottom: 20px;
-    // padding: 0 15px;
     .application {
       border: 1px solid #e6e6e6;
       display: flex;
