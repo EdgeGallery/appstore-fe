@@ -27,7 +27,6 @@
             class="search_input"
           />
           <el-button
-            class="batchProButton"
             type="primary"
             :disabled="btnChangeEnable"
             @click="showPushAppDialog"
@@ -436,12 +435,15 @@ export default {
     }
   }
   .packageTable{
-      margin: 20px 0;
-      .el-table thead{
-        th {
-          background-color: #eee;
-        }
+    margin: 20px 0;
+    .el-table thead{
+      th {
+        background-color: #eee;
       }
     }
+    .buttonText{
+      color:#409eff;
+    }
+  }
 }
 </style>

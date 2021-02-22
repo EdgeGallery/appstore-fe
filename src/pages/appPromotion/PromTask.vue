@@ -272,7 +272,7 @@ export default {
     .el-icon-close:before{
       font-size: 25px;
       color: #d8363e;
-  }
+    }
   }
 
   .el-dialog__footer {

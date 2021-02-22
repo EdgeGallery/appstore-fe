@@ -90,6 +90,18 @@ function processApi (messageId) {
   return GET(url, '')
 }
 
+// 拉取app
+function pullApp (packageId) {
+  let url = packageId + '/action/pull'
+  return POST(url, '')
+}
+
+// 根据appstoreid获取可以拉取app
+function getAppByAppstoreId (appstoreId) {
+  let url = appstoreId + '/pullable'
+  return GET(url, '')
+}
+
 function getAppDetailFileApi (path, id) {
   let url = 'csars/' + id + '/' + path
   return GET(url)
@@ -296,5 +308,7 @@ export {
   acceptMsg,
   deleteMsg,
   updateStatus,
-  processApi
+  processApi,
+  pullApp,
+  getAppByAppstoreId
 }

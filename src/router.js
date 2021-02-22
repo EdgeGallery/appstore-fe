@@ -230,6 +230,28 @@ export default new Router({
           }
         },
         {
+          path: 'appPull',
+          name: 'appPull',
+          component: () => import('./pages/appPromotion/AppPull.vue'),
+          meta: {
+            id: '2.7',
+            breadcrumb: [
+              {
+                nameEn: en.nav.home,
+                path: '/',
+                nameCn: cn.nav.home
+              }, {
+                nameEn: en.nav.appShare,
+                nameCn: cn.nav.appShare
+              }, {
+                nameEn: en.nav.appPull,
+                path: '/appPull',
+                nameCn: cn.nav.appPull
+              }
+            ]
+          }
+        },
+        {
           path: 'operationAnalyse',
           name: 'operationAnalyse',
           component: () => import('./pages/appPromotion/OperationAna.vue'),
