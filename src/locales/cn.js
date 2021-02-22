@@ -30,6 +30,7 @@ const cn = {
     appMgmt: '应用管理',
     appShare: '应用共享',
     appPush: '应用推送',
+    appPull: '应用拉取',
     externalAppManagement: '外部应用仓库管理',
     msgCenter: '消息中心',
     operAna: '操作分析',
@@ -385,6 +386,22 @@ const cn = {
     sourceAppStore: '源Appstore',
     targetAppStore: '目标Appstore',
     operationType: '操作描述'
+  },
+  appPull: {
+    name: '应用名称',
+    provider: '应用仓库',
+    version: '版本',
+    testRepo: '认证测试报告',
+    operation: '操作',
+    pull: '拉取',
+    batchPull: '批量拉取',
+    closeDlg: '关闭',
+    pullAppResult: '拉取结果',
+    result: '结果',
+    pullFailed: '拉取失败',
+    pullSuccess: '拉取成功',
+    getAppStoreException: '获取appStore异常',
+    getPullAppException: '获取拉取app信息异常'
   },
   about: {},
   ...zhLocale
