@@ -158,7 +158,8 @@ export default {
                     name: item.name,
                     provider: item.provider,
                     version: item.version,
-                    atpTestReportUrl: item.atpTestReportUrl
+                    atpTestReportUrl: item.atpTestReportUrl,
+                    packageId: item.packageId
                   }
                   appStoreToApps.push(appDataItem)
                 }
