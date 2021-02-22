@@ -280,7 +280,7 @@ export default {
       .no-display {
         display: block;
         margin-top: -12px;
-        opacity: 0.9;
+        opacity: 0.8;
       }
       .intr {
         padding: 0 32px;
