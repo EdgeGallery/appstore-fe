@@ -187,7 +187,7 @@ export default {
   .content {
     width: 25%;
     box-sizing: border-box;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     .application {
       border: 1px solid #e6e6e6;
       display: flex;
@@ -237,6 +237,7 @@ export default {
         }
       }
       .type-size {
+        line-height: 28px;
         text-align: left;
         display: flex;
         justify-content: center;
@@ -259,7 +260,6 @@ export default {
       .core {
         display: flex;
         align-items: center;
-        // justify-content: space-between;
         }
       }
       .el-button-group {
@@ -279,6 +279,11 @@ export default {
       background-color: #fff;
       .no-display {
         display: block;
+        margin-top: -12px;
+        opacity: 0.8;
+      }
+      .intr {
+        padding: 0 32px;
       }
     }
   }
