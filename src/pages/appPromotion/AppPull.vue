@@ -146,8 +146,7 @@ export default {
       })
     },
     getAllPullApps () {
-      this.getProviders().then((res) => {
-        let resAppstore = res.data
+      this.getProviders().then((resAppstore) => {
         for (let i = 0; i < resAppstore.length; i++) {
           getAppByAppstoreId(resAppstore[i].appStoreId).then((res) => {
             let appStoreToApps = []
