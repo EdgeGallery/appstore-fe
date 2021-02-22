@@ -151,27 +151,29 @@ export default {
           getAppByAppstoreId(resAppstore[i].appStoreId).then((res) => {
             let appStoreToApps = []
             let data = res.data
-            data.forEach(
-              (item) => {
-                let appDataItem = {
-                  name: item.name,
-                  provider: item.provider,
-                  version: item.version,
-                  atpTestReportUrl: item.atpTestReportUrl
+            if (data !== '') {
+              data.forEach(
+                (item) => {
+                  let appDataItem = {
+                    name: item.name,
+                    provider: item.provider,
+                    version: item.version,
+                    atpTestReportUrl: item.atpTestReportUrl
+                  }
+                  appStoreToApps.push(appDataItem)
                 }
-                appStoreToApps.push(appDataItem)
+              )
+              let tempdata = {
+                name: resAppstore[i].label,
+                title: resAppstore[i].label,
+                content: appStoreToApps
               }
-            )
-            let tempdata = {
-              name: resAppstore[i].appStoreName,
-              title: resAppstore[i].appStoreName,
-              content: appStoreToApps
-            }
-            // 添加tab数据
-            this.appStoreList.push(tempdata)
-            if (this.isFirstTab) {
-              this.activeName = tempdata.name
-              this.isFirstTab = false
+              // 添加tab数据
+              this.appStoreList.push(tempdata)
+              if (this.isFirstTab) {
+                this.activeName = tempdata.name
+                this.isFirstTab = false
+              }
             }
           }).catch(() => {
             this.$message({
