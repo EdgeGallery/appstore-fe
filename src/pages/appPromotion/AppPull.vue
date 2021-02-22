@@ -124,10 +124,10 @@ export default {
           data.forEach(item => {
             let providerItem = {
               number: index,
-              appstoreId: '',
+              appStoreId: '',
               label: ''
             }
-            providerItem.appstoreId = item.appStoreId
+            providerItem.appStoreId = item.appStoreId
             providerItem.label = item.appStoreName
             this.appStoreArr.push(providerItem)
             index++
