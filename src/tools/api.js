@@ -92,13 +92,13 @@ function processApi (messageId) {
 
 // 拉取app
 function pullApp (packageId) {
-  let url = packageId + '/action/pull'
+  let url = 'packages/' + packageId + '/action/pull'
   return POST(url, '')
 }
 
 // 根据appstoreid获取可以拉取app
 function getAppByAppstoreId (appstoreId) {
-  let url = appstoreId + '/pullable'
+  let url = 'packages/' + appstoreId + '/pullable'
   return GET(url, '')
 }
 
