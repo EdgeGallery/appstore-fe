@@ -34,6 +34,10 @@
             :label="$t('appPull.name')"
           />
           <el-table-column
+            prop="appstoreName"
+            :label="$t('appPull.provider')"
+          />
+          <el-table-column
             prop="result"
             :label="$t('appPull.result')"
           >
