@@ -21,18 +21,57 @@
         style="margin-bottom: 10px;"
         class="btn"
       >
-        <span class="lt">{{ $t('docs.docs') }}</span>
         <p class="clearfix" />
       </div>
     </div>
-    <div id="test-editor">
-      <mavon-editor
-        v-model="source"
-        :toolbars-flag="false"
-        :editable="false"
-        :subfield="false"
-        default-open="preview"
-      />
+    <div class="substeps">
+      <div class="substep">
+        <div
+          class="subcontent"
+          :class="{'content-en': language === 'en'}"
+        >
+          <div class="summary">
+            <span />{{ $t('docs.summary') }}
+          </div>
+          <div class="summaryContent">
+            <span />{{ $t('docs.summaryContent') }}
+            <br>
+            <span />{{ $t('docs.summaryContent1') }}
+            <br>
+            <span />{{ $t('docs.summaryContent2') }}
+            <br>
+            <span />{{ $t('docs.summaryContent3') }}
+          </div>
+        </div>
+
+        <div
+          class="subcontenttwo"
+          :class="{'content-en': language === 'en'}"
+        >
+          <div class="characteristic">
+            <span />{{ $t('docs.characteristic') }}
+          </div>
+          <div class="chaContent">
+            <span />{{ $t('docs.appUpload') }}
+            <span />{{ $t('docs.appTest') }}
+            <span />{{ $t('docs.appPublish') }}
+            <br>
+            <span />{{ $t('docs.appDetail') }}
+            <span />{{ $t('docs.appDownload') }}
+            <span />{{ $t('docs.appPromote') }}
+            <br>
+            <span />{{ $t('docs.appPull') }}
+            <span />{{ $t('docs.messageMgmt') }}
+            <span />{{ $t('docs.appstoreMgmt') }}
+          </div>
+        </div>
+        <!-- <div class="docImg">
+          <img
+            src="../../assets/images/all-the-arch.png"
+            alt
+          >
+        </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -49,20 +88,9 @@ export default {
   computed: {
     ...mapState(['language'])
   },
-  watch: {
-    language (val) {
-      this.getAppStoreDocs()
-      if (val === 'en') {
-        this.updateMdUrl = 'https://github.com/EdgeGallery/appstore-fe/blob/servicecomb/public/APPSTOREDOCSEN.md'
-      } else {
-        this.updateMdUrl = 'https://github.com/EdgeGallery/appstore-fe/blob/servicecomb/public/APPSTOREDOCSCN.md'
-      }
-    }
-  },
   data () {
     return {
-      source: '',
-      updateMdUrl: 'https://github.com/EdgeGallery/appstore-fe/blob/servicecomb/public/APPSTOREDOCSCN.md'
+      source: ''
     }
   },
   methods: {
@@ -79,9 +107,125 @@ export default {
 </script>
 <style lang='less' scoped>
 .docs {
-  padding: 15px 0;
+  .substeps {
+      margin-top: 20px;
+      background: white;
+      padding: 40px 30px 75px;
+      box-sizing: border-box;
+      display: flex;
+      position: relative;
+      justify-content: space-around;
+        .substep {
+          font-size: 16px;
+          // flex-direction: row;
+          docImg{
+            height: 200px;
+            line-height:200px;
+            padding: 20px;
+            width: 500px;
+            position: relative;
+            margin-top: 20px;
+            // border-top: solid #194686 2px;
+            text-align: center;
+          }
+          .subcontenttwo {
+            float: left;
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+            // height: 280px;
+            flex-direction: column;
+            position: relative;
+            .characteristic{
+              // margin-bottom: 15px;
+              width: 90%;
+              border-bottom: solid #194686 2px;
+              font-size: 24px;
+              font-weight: 550;
+            }
+            .chaContent{
+              width: 70%;
+              margin-top: 15px;
+              scroll-margin-left: 15px;
+            }
+            div {
+              padding: 0;
+              span {
+                display: inline-block;
+                height: 32px;
+                width: 32px;
+                //background: #2d9ead;
+                font-size: 18px;
+                line-height: 32px;
+                border-radius: 50%;
+                color: white;
+              }
+
+            }
+          }
+          .subcontent {
+            border-radius: 4px;
+            float: left;
+            padding: 20px;
+            box-sizing: border-box;
+            // height: 280px;
+            overflow: hidden;
+            position: relative;
+            flex-direction: column;
+            width: 50%;
+            .summary{
+              width: 90%;
+              border-bottom: solid #194686 2px;
+              font-size: 24px;
+              font-weight: 550;
+
+            }
+            .summaryContent{
+              margin-left: 30px;
+              margin-top: 15px;
+              width: 80%;
+              line-height: 30px;
+            }
+            div {
+              padding: 0;
+              span {
+                display: inline-block;
+                height: 32px;
+                width: 32px;
+                //background: #2d9ead;
+                font-size: 18px;
+                line-height: 32px;
+                border-radius: 50%;
+                color: white;
+              }
+
+            }
+          }
+          .content-en{
+             height: 450px;
+             width: 100%;
+          }
+        }
+        .raw{
+          position: relative;
+          img{
+            width: 100px;
+            position: absolute;
+            top: 100px;
+            left: -50px;
+          }
+        }
+      // }
+      .step-box:last-child{
+        .raw{
+          img{
+            display: none;
+          }
+        }
+      }
+    }
   .operation {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     .btn {
       padding: 5px 0;
       font-size: 14px;

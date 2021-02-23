@@ -165,9 +165,9 @@ function deleteAppPackageApi (appId, csarId, userId, userName) {
 }
 
 function getDocsApi (language) {
-  let url = './APPSTOREDOCSEN.md'
+  let url = './APPPackageDefinition.md'
   if (language === 'cn') {
-    url = './APPSTOREDOCSCN.md'
+    url = './APPPackageDefinition.md'
   }
   return axios.get(url)
 }

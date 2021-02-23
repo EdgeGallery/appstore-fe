@@ -210,15 +210,6 @@ export default {
           index: '1'
         },
         {
-          labelEn: 'Docs',
-          labelCn: '文档',
-          route: '/docs',
-          pageId: '2.1.2',
-          display: true,
-          link: '',
-          index: '2'
-        },
-        {
           labelEn: 'My App',
           labelCn: '我的应用',
           route: '/myapp',
@@ -278,6 +269,15 @@ export default {
               index: '5.5'
             }
           ]
+        },
+        {
+          labelEn: 'Docs',
+          labelCn: '文档',
+          route: '/docs',
+          pageId: '2.1.2',
+          display: true,
+          link: '',
+          index: '2'
         }
       ],
       isActive: 0,
