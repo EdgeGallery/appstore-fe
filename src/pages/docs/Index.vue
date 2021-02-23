@@ -18,84 +18,101 @@
   <div class="works">
     <bannerImage />
     <div class="how-it-works">
-      <div class="steps">
-        <div
-          class="step-box"
+      <el-tabs
+        v-model="activeName"
+        @tab-click="handleClick"
+      >
+        <el-tab-pane
+          class="table-pane"
+          :label="$t('docs.summary')"
         >
-          <div class="step">
-            <img
-              src="../../assets/images/how_it_works_icon1.png"
-              alt
-            >
-            <h5>{{ $t('docs.step1') }}</h5>
+          <Docs class="docs" />
+        </el-tab-pane>
+        <el-tab-pane
+          class="table-pane"
+          :label="$t('docs.operateFile')"
+        >
+          <div class="steps">
             <div
-              class="content"
-              :class="{'content-en': language === 'en'}"
+              class="step-box"
             >
-              <div>
-                <span>1</span>
-                <p>
-                  <a
-                    href="https://gitee.com/edgegallery"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >EdgeGallery</a>
-                  {{ $t('docs.step1Intr') }}
-                </p>
+              <div class="step">
+                <img
+                  src="../../assets/images/how_it_works_icon1.png"
+                  alt
+                >
+                <h5>{{ $t('docs.step1') }}</h5>
+                <div
+                  class="content"
+                  :class="{'content-en': language === 'en'}"
+                >
+                  <div>
+                    <span>1</span>
+                  </div>
+                  <h6>
+                    <span />{{ $t('docs.step1Info1') }}
+                  </h6>
+                  <h6 />
+                </div>
               </div>
-              <h6>
-                <span />{{ $t('docs.step1Info1') }}
-              </h6>
-              <h6>
-                <span />{{ $t('docs.step1Info1') }}
-              </h6>
-              <h6>{{ $t('docs.step1Process') }}</h6>
+              <div class="raw">
+                <img
+                  src="../../assets/images/how_it_works_raw.png"
+                  alt
+                >
+              </div>
+            </div>
+            <div
+              class="step-box"
+              v-for="(item, index) in workSteps"
+              :key="index"
+            >
+              <div class="step">
+                <img
+                  :src="item.img"
+                  alt
+                >
+                <h5>{{ $t(item.title1) }}</h5>
+                <div
+                  class="content"
+                  :class="{'content-en': language === 'en'}"
+                >
+                  <div>
+                    <span>{{ index + 2 }}</span>
+                    <p>{{ $t(item.title2) }}</p>
+                  </div>
+                  <h6
+                    v-for="content in item.content"
+                    :key="content"
+                  >
+                    <span />{{ $t(content) }}
+                  </h6>
+                  <h6>{{ $t(item.step) }}</h6>
+                </div>
+              </div>
+              <div class="raw">
+                <img
+                  src="../../assets/images/how_it_works_raw.png"
+                  alt
+                >
+              </div>
             </div>
           </div>
-          <div class="raw">
-            <img
-              src="../../assets/images/how_it_works_raw.png"
-              alt
-            >
+          <div class="oprefile">
+            <a
+              href="http://docs.edgegallery.org/zh_CN/latest/Projects/APPSTORE/AppStore_Contribution.html#id3"
+              target="_blank"
+              rel="noopener noreferrer"
+            >{{ $t('docs.moreDetail') }}</a>
           </div>
-        </div>
-        <div
-          class="step-box"
-          v-for="(item, index) in workSteps"
-          :key="index"
+        </el-tab-pane>
+        <el-tab-pane
+          class="table-pane"
+          :label="$t('docs.APPDStandard')"
         >
-          <div class="step">
-            <img
-              :src="item.img"
-              alt
-            >
-            <h5>{{ $t(item.title1) }}</h5>
-            <div
-              class="content"
-              :class="{'content-en': language === 'en'}"
-            >
-              <div>
-                <span>{{ index + 2 }}</span>
-                <p>{{ $t(item.title2) }}</p>
-              </div>
-              <h6
-                v-for="content in item.content"
-                :key="content"
-              >
-                <span />{{ $t(content) }}
-              </h6>
-              <h6>{{ $t(item.step) }}</h6>
-            </div>
-          </div>
-          <div class="raw">
-            <img
-              src="../../assets/images/how_it_works_raw.png"
-              alt
-            >
-          </div>
-        </div>
-      </div>
-      <Docs class="docs" />
+          <DocsAPPD class="docs" />
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 </template>
@@ -104,9 +121,10 @@
 import { mapState } from 'vuex'
 import bannerImage from '../../components/common/BannerImage.vue'
 import Docs from './Docs.vue'
+import DocsAPPD from './DocsAPPD.vue'
 export default {
   components: {
-    Docs, bannerImage
+    Docs, bannerImage, DocsAPPD
   },
   computed: {
     ...mapState(['language'])
@@ -127,31 +145,24 @@ export default {
         {
           img: require('../../assets/images/how_it_works_icon2.png'),
           title1: 'docs.step2',
-          title2: 'docs.step2Intr',
           content: [
-            'docs.step2Info1',
-            'docs.step2Info2'
-          ],
-          step: 'docs.step2Process'
+            'docs.step2Info1'
+          ]
         },
         {
           img: require('../../assets/images/how_it_works_icon3.png'),
           title1: 'docs.step3',
-          title2: 'docs.step3Intr',
           content: [
             'docs.step3Info1'
-          ],
-          step: 'docs.step3Process'
+          ]
         },
         {
           img: require('../../assets/images/how_it_works_icon4.png'),
           title1: 'docs.step4',
-          title2: 'docs.step4Intr',
           content: [
             'docs.step4Info1',
             'docs.step4Info2'
-          ],
-          step: 'docs.step4Process'
+          ]
         }
       ]
     }
@@ -160,7 +171,11 @@ export default {
   mounted () {}
 }
 </script>
-<style lang='less' scoped>
+<style lang='less'>
+body, html{
+  width: 100%;
+  height: 100%;
+}
 .works {
   margin-top: 65px;
   .banner {
@@ -169,20 +184,41 @@ export default {
       height: 500px;
     }
   }
+  .el-tabs__nav-scroll{
+    // text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+  .el-tabs__nav{
+    float: none;
+  }
+  .el-tabs__item{
+    font-size: 19px;
+  }
+
   .how-it-works {
     padding: 35px 55px;
     box-sizing: border-box;
     background: #eee;
+    .oprefile{
+        padding: 30px;
+        background: #fff;
+        text-align: center;
+      }
     .steps {
+      margin-top: 20px;
       background: white;
-      padding: 40px 30px 75px;
+      padding: 40px 30px 0px;
       box-sizing: border-box;
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
       .step-box {
+        width: 20%;
+        margin: 0 10px;
         display: flex;
         .step {
-          width: 290px;
+          width: 100%;
+          position: relative;
           text-align: center;
           font-size: 14px;
           img{
@@ -215,9 +251,9 @@ export default {
                 color: white;
               }
               p {
-                line-height: 55px;
+                line-height: 45px;
                 color: #212121;
-                font-weight: 600;
+               // font-weight: 600;
               }
             }
             h6 {
