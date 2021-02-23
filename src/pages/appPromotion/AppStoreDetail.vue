@@ -130,7 +130,7 @@ export default {
         shortDesc: row.shortDesc,
         type: row.type,
         atpTestStatus: row.atpTestStatus,
-        sourceStoreName: row.sourcePlatform
+        sourceStoreName: row.sourceStoreName
       }
       pullApp(row.packageId, param).then((res) => {
         this.$message.success(this.$t('appPull.pullSuccess'))

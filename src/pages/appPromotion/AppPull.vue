@@ -110,7 +110,7 @@ export default {
           shortDesc: tempData[i].shortDesc,
           type: tempData[i].type,
           atpTestStatus: tempData[i].atpTestStatus,
-          sourceStoreName: tempData[i].sourcePlatform
+          sourceStoreName: tempData[i].sourceStoreName
         }
         pullApp(tempData[i].packageId, param).then((res) => {
           this.$message.success(this.$t('appPull.pullSuccess'))
@@ -182,7 +182,7 @@ export default {
                     shortDesc: item.shortDesc,
                     type: item.type,
                     atpTestStatus: item.atpTestStatus,
-                    sourceStoreName: item.sourcePlatform
+                    sourceStoreName: resAppstore[i].appStoreName
                   }
                   console.log('test appstore' + resAppstore[i].appStoreId)
                   appStoreToApps.push(appDataItem)
