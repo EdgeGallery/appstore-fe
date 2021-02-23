@@ -96,7 +96,14 @@ export default {
 
       for (let i = 0; i < tempData.length; i++) {
         // 每次拉取一个app
-        pullApp(tempData[i].packageId).then((res) => {
+        let userId = sessionStorage.getItem('userId')
+        let userName = sessionStorage.getItem('userName')
+        let param = {
+          sourceStoreId: tempData[i].sourceStoreId,
+          userId: userId,
+          userName: userName
+        }
+        pullApp(tempData[i].packageId, param).then((res) => {
           this.$message.success(this.$t('appPull.pullSuccess'))
           let resData = res.data
           let pullResult = {
@@ -159,8 +166,10 @@ export default {
                     provider: item.provider,
                     version: item.version,
                     atpTestReportUrl: item.atpTestReportUrl,
-                    packageId: item.packageId
+                    packageId: item.packageId,
+                    sourceStoreId: resAppstore[i].appStoreId
                   }
+                  console.log('test appstore' + resAppstore[i].appStoreId)
                   appStoreToApps.push(appDataItem)
                 }
               )

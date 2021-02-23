@@ -91,9 +91,9 @@ function processApi (messageId) {
 }
 
 // 拉取app
-function pullApp (packageId) {
+function pullApp (packageId, param) {
   let url = 'packages/' + packageId + '/action/pull'
-  return POST(url, '')
+  return POST(url, param)
 }
 
 // 根据appstoreid获取可以拉取app
