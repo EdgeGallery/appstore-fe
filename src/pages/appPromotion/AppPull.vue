@@ -117,7 +117,7 @@ export default {
           let resData = res.data
           let pullResult = {
             name: tempData[i].name,
-            appstoreName: tempData[i].sourcePlatform,
+            appstoreName: tempData[i].sourceStoreName,
             result: resData
           }
           this.appPullResultData.push(pullResult)

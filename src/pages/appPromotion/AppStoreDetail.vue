@@ -101,8 +101,10 @@ export default {
       // 动态的把勾选的app信息添加到总的allSelectionsApp中
       let tempData = JSON.parse(sessionStorage.getItem('allAppPullInfo'))
       let packageIds = []
-      for (let i = 0; i < tempData.length; i++) {
-        packageIds.push(tempData[i].packageId)
+      if (tempData && tempData.length > 0) {
+        for (let i = 0; i < tempData.length; i++) {
+          packageIds.push(tempData[i].packageId)
+        }
       }
       for (let j = 0; j < val.length; j++) {
         if (packageIds.indexOf(val[j].packageId) === -1) {
