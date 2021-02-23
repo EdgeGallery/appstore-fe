@@ -16,10 +16,10 @@
 
 <template>
   <div class="banner-image">
-    <img
-      src="../../assets/images/how_it_works.png"
-      alt
-    >
+    <eg-banner
+      :image-url="bannerImageUrl"
+      :height="360"
+    />
     <div class="word">
       <p>{{ $t('common.bannerTitle') }}</p>
       <p>{{ $t('common.bannerWord') }}</p>
@@ -29,9 +29,14 @@
 
 <script>
 import { mapState } from 'vuex'
+import egBanner from 'eg-view/src/components/EgBanner.vue'
 export default {
+  components: {
+    egBanner
+  },
   data () {
     return {
+      bannerImageUrl: 'images/how_it_works.png'
     }
   },
   computed: {
@@ -45,16 +50,11 @@ export default {
 </script>
 <style lang='less' scoped>
 .banner-image {
-  height: 360px;
   width: 100%;
   position: relative;
   overflow: hidden;
-  color: white;
-  img{
-    height: 360px;
-    width: 100%;
-  }
   .word {
+    color: white;
     position: absolute;
     top: 110px;
     left: 145px;
