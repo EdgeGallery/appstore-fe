@@ -178,7 +178,6 @@ import uploadPackage from './UploadPackage.vue'
 import appGrid from './AppGrid.vue'
 import appList from './AppList.vue'
 import pagination from '../../components/common/Pagination.vue'
-import bannerImage from '../../components/common/BannerImage.vue'
 import uploadAppLogo from '@/assets/images/upload.png'
 import appgridLogo from '@/assets/images/appgrid.png'
 import applistLogo from '@/assets/images/applist.png'
@@ -191,7 +190,6 @@ export default {
     appGrid,
     appList,
     pagination,
-    bannerImage,
     HomeSwiper
   },
   data () {
@@ -325,12 +323,6 @@ export default {
           return (
             type.match(itemAffinity) || type.match(itemType) || type.match(itemIndustry)
           )
-          // console.log(itemType)
-          // return (type.match(itemType[0]) || type.match(itemType[1]))
-          // itemType.forEach((item) => {
-          //   console.log(type.match(item))
-          //   return type.match(item)
-          // })
         })
         if (
           conditionsTypes.every((item) => {
@@ -361,7 +353,6 @@ export default {
       }
       // filter of type and affinity
       this.findAppData = this.filterFindAppData(this.findAppData)
-      // this.sortByApp(this.findAppData)
     },
     changeSelectedConditions () {
       this.selectedConditions = []
@@ -419,7 +410,6 @@ export default {
       this.findAppData = this.appData
       this.findAppData = this.findAppData.filter((item) => {
         let itemName = item.name.toLowerCase()
-        // return itemName.match(this.nameQuery.toLowerCase())
         return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
       })
       if (!this.nameQuery) this.findAppData = this.appData
@@ -535,7 +525,6 @@ export default {
     .header_img {
       width: 25px;
       height: 25px;
-      // margin-right: 20px;
       cursor: pointer;
     }
   }
@@ -550,7 +539,6 @@ export default {
         font-size: 16px;
         padding-bottom: 10px;
         border-bottom: 1px solid #e7ebf5;
-        // padding-bottom: 15px;
         .left {
           float: left;
           .search-title {
@@ -583,7 +571,6 @@ export default {
           }
         }
         .right {
-          // width: 250px;
           float: right;
         }
       }
@@ -617,11 +604,9 @@ export default {
             padding: 6px 8px;
             margin: 0 5px;
             font-size: 14px;
-            // border: 1px solid #bac0ce;
             position: relative;
           }
           .selected {
-            // border: 1px solid #688ef3;
             border-radius: 12px;
             background-color: #688ef3;
             color: white;

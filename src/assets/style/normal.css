@@ -188,32 +188,6 @@ a{
 
 /* 导航栏归一化 */
 
-/* 面包屑归一化 */
-.el-breadcrumb__item:last-child .el-breadcrumb__inner,  .el-breadcrumb__item:last-child .el-breadcrumb__inner a,  .el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover,  .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover{
-  font-weight: normal !important;
-  color: #1c1c1c !important;
-}
-.el-breadcrumb__inner{
-  font-weight: normal !important;
-  color: #707070 !important;
-}
-.el-breadcrumb__separator{
-  color: #707070 !important;
-}
-.el-breadcrumb__inner a,  .el-breadcrumb__inner.is-link:hover{
-  color: #2E94FF !important;
-}
-.el-breadcrumb__separator{
-  margin-left: 0.25rem !important;
-  margin-right: 0.25rem !important;
-}
-.el-breadcrumb{
-  height: 3rem;
-  line-height: 3rem !important;
-  font-size: 14px;
-  padding: 0rem !important;
-}
-
 /* 搜索框、按钮组件归一化 */
   /* 搜索框input添加类名search_input */
 .search_input .el-input__inner{

@@ -16,27 +16,23 @@
 
 <template>
   <div
-    class="bread-crumb"
     v-if="isShow"
   >
-    <el-breadcrumb separator=">">
-      <el-breadcrumb-item
-        v-for="item in breadCrumbData"
-        :key="item.name"
-        :to="item.path"
-      >
-        {{ language === 'en' ? item.nameEn : item.nameCn }}
-      </el-breadcrumb-item>
-    </el-breadcrumb>
+    <eg-bread-crumb :data="dataNeedShown" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import EgBreadCrumb from 'eg-view/src/components/EgBreadCrumb'
 export default {
+  components: {
+    EgBreadCrumb
+  },
   data () {
     return {
       breadCrumbData: [],
+      dataNeedShown: [],
       isShow: false
     }
   },
@@ -48,9 +44,21 @@ export default {
       this.isShow = false
       this.breadCrumbData = route.meta.breadcrumb
       if (this.breadCrumbData && this.breadCrumbData.length > 0) this.isShow = true
+      this.getNeedShowData()
+    },
+    '$i18n.locale': function () {
+      this.getNeedShowData()
     }
   },
-  methods: {},
+  methods: {
+    getNeedShowData () {
+      let language = localStorage.getItem('language')
+      let showData = []
+      language === 'en' ? this.breadCrumbData.forEach(ele => showData.push({ name: ele.nameEn, path: ele.path }))
+        : this.breadCrumbData.forEach(ele => showData.push({ name: ele.nameCn, path: ele.path }))
+      this.dataNeedShown = showData
+    }
+  },
   mounted () {
     this.breadCrumbData = this.$route.meta.breadcrumb
     let nameObj = {
@@ -69,15 +77,9 @@ export default {
       this.breadCrumbData.splice(1, 1, nameObj)
     }
     if (this.breadCrumbData && this.breadCrumbData.length > 0) this.isShow = true
+    this.getNeedShowData()
   }
 }
 </script>
 <style lang='less'>
-.bread-crumb {
-  padding: 0 56px;
-  .el-breadcrumb {
-    line-height: 70px;
-    font-size: 14px;
-  }
-}
 </style>
