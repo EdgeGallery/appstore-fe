@@ -120,8 +120,17 @@ export default {
       let userName = sessionStorage.getItem('userName')
       let param = {
         sourceStoreId: row.sourceStoreId,
+        name: row.name,
+        provider: row.provider,
+        version: row.version,
         userId: userId,
-        userName: userName
+        userName: userName,
+        affinity: row.affinity,
+        industry: row.industry,
+        shortDesc: row.shortDesc,
+        type: row.type,
+        atpTestStatus: row.atpTestStatus,
+        sourceStoreName: row.sourcePlatform
       }
       pullApp(row.packageId, param).then((res) => {
         this.$message.success(this.$t('appPull.pullSuccess'))

@@ -101,7 +101,16 @@ export default {
         let param = {
           sourceStoreId: tempData[i].sourceStoreId,
           userId: userId,
-          userName: userName
+          userName: userName,
+          name: tempData[i].name,
+          provider: tempData[i].provider,
+          version: tempData[i].version,
+          affinity: tempData[i].affinity,
+          industry: tempData[i].industry,
+          shortDesc: tempData[i].shortDesc,
+          type: tempData[i].type,
+          atpTestStatus: tempData[i].atpTestStatus,
+          sourceStoreName: tempData[i].sourcePlatform
         }
         pullApp(tempData[i].packageId, param).then((res) => {
           this.$message.success(this.$t('appPull.pullSuccess'))
@@ -167,7 +176,13 @@ export default {
                     version: item.version,
                     atpTestReportUrl: item.atpTestReportUrl,
                     packageId: item.packageId,
-                    sourceStoreId: resAppstore[i].appStoreId
+                    sourceStoreId: resAppstore[i].appStoreId,
+                    affinity: item.affinity,
+                    industry: item.industry,
+                    shortDesc: item.shortDesc,
+                    type: item.type,
+                    atpTestStatus: item.atpTestStatus,
+                    sourceStoreName: item.sourcePlatform
                   }
                   console.log('test appstore' + resAppstore[i].appStoreId)
                   appStoreToApps.push(appDataItem)
