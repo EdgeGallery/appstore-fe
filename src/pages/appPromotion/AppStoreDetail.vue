@@ -116,7 +116,14 @@ export default {
       )
     },
     handlePull (row) {
-      pullApp(row.packageId).then((res) => {
+      let userId = sessionStorage.getItem('userId')
+      let userName = sessionStorage.getItem('userName')
+      let param = {
+        sourceStoreId: row.sourceStoreId,
+        userId: userId,
+        userName: userName
+      }
+      pullApp(row.packageId, param).then((res) => {
         this.$message.success(this.$t('appPull.pullSuccess'))
       }).catch(() => {
         this.$message({
