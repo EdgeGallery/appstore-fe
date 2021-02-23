@@ -16,23 +16,11 @@
 
 <template>
   <div class="my-app">
-    <top-bar
+    <eg-banner
       :image-url="bannerImg"
     />
+    <eg-bread-crumb :data="breadCrumbData" />
     <div class="padding56">
-      <el-breadcrumb
-        separator=">"
-      >
-        <el-breadcrumb-item :to="{ path: '/' }">
-          {{ $t('nav.home') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
-          {{ $t('nav.appShare') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
-          {{ $t('nav.externalAppManagement') }}
-        </el-breadcrumb-item>
-      </el-breadcrumb>
       <div class="my-app-content">
         <div class="batchProm">
           <el-input
@@ -266,17 +254,18 @@
 </template>
 
 <script>
-// import appList from '../home/AppList.vue'
 import { TTYPES } from '../../tools/constant.js'
 import { myAppStore } from '../../tools/api.js'
 import pagination from '../../components/common/Pagination.vue'
-import topBar from '../../components/common/TopBar'
 import appStoreGrid from './AppStoreGrid.vue'
+import EgBanner from 'eg-view/src/components/EgBanner.vue'
+import EgBreadCrumb from 'eg-view/src/components/EgBreadCrumb.vue'
 export default {
   components: {
     pagination,
-    topBar,
-    appStoreGrid
+    appStoreGrid,
+    EgBanner,
+    EgBreadCrumb
   },
   data () {
     return {
@@ -301,7 +290,8 @@ export default {
       editType: 1,
       types: TTYPES,
       nameQuery: '',
-      findAppStoreData: []
+      findAppStoreData: [],
+      breadCrumbData: []
     }
   },
   methods: {
@@ -368,7 +358,6 @@ export default {
     },
     register () {
       this.editType = 1
-      // this.title = this.$t('myApp.addApp')
       this.isDisable = false
       this.clearForm()
       this.dialogVisible = true
@@ -412,7 +401,6 @@ export default {
     },
     modifyApp (row) {
       this.editType = 2
-      // this.title = this.$t('myApp.modifyAppStore')
       this.isDisable = true
       let middleData = JSON.parse(JSON.stringify(row))
       this.form = middleData
@@ -457,16 +445,16 @@ export default {
         return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
       })
       if (!this.nameQuery) this.findAppStoreData = this.appPackageData
+    },
+    updateBreadCrumbData () {
+      this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.appShare'), path: '' }, { name: this.$t('nav.externalAppManagement'), path: '' }]
     }
   },
   mounted () {
     this.userId = sessionStorage.getItem('userId')
     this.getAppData()
-    // this.getAppPackageData()
-    // this.interval = setInterval(() => {
-    //   // this.getAppPackageData()
-    // }, 30000)
     this.appPackageData = this.currentPageData
+    this.updateBreadCrumbData()
   },
   computed: {
     title () {
@@ -499,6 +487,11 @@ export default {
         ]
       }
       return rules
+    }
+  },
+  watch: {
+    '$i18n.locale': function () {
+      this.updateBreadCrumbData()
     }
   },
   beforeDestroy () {
