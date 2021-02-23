@@ -182,7 +182,7 @@ export default {
                     shortDesc: item.shortDesc,
                     type: item.type,
                     atpTestStatus: item.atpTestStatus,
-                    sourceStoreName: resAppstore[i].appStoreName
+                    sourceStoreName: resAppstore[i].label
                   }
                   console.log('test appstore' + resAppstore[i].appStoreId)
                   appStoreToApps.push(appDataItem)
