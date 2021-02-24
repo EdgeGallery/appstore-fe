@@ -386,6 +386,9 @@ const en = {
     provider: 'provider',
     version: 'version',
     testRepo: 'test report',
+    appIndustry: 'industry',
+    appType: '类型',
+    appCreateTime: '创建时间',
     operation: 'operation',
     pull: 'pull',
     batchPull: 'Batch Pull',
@@ -395,7 +398,8 @@ const en = {
     pullException: 'pull exception',
     pullSuccess: 'pull success',
     getAppStoreException: 'get appStore Exception',
-    getPullAppException: 'get pull App Exception'
+    getPullAppException: 'get pull App Exception',
+    viewTestRepo: 'view report'
   },
   about: {
   },

@@ -41,12 +41,32 @@
             :label="$t('appPull.version')"
           />
           <el-table-column
-            prop="testRepo"
-            :label="$t('appPull.testRepo')"
+            prop="industry"
+            :label="$t('appPull.appIndustry')"
           />
+          <el-table-column
+            prop="type"
+            :label="$t('appPull.appType')"
+          />
+          <el-table-column
+            prop="createTime"
+            :label="$t('appPull.appCreateTime')"
+          />
+          <el-table-column
+            prop="atpTestReportUrl"
+            :label="$t('appPull.testRepo')"
+          >
+            <template slot-scope="scope">
+              <a
+                :href="scope.row.atpTestReportUrl"
+                target="_blank"
+              >{{ $t('appPull.viewTestRepo') }}</a>
+            </template>
+          </el-table-column>
           <el-table-column
             prop="operation"
             :label="$t('appPull.operation')"
+            width="100"
           >
             <template slot-scope="scope">
               <el-button
@@ -77,7 +97,8 @@ export default {
   data () {
     return {
       appPackageData: [],
-      appPullListInfo: []
+      appPullListInfo: [],
+      currentAppStoreId: ''
     }
   },
   methods: {
@@ -103,19 +124,23 @@ export default {
       if (!tempData) {
         tempData = []
       }
+      let finalData = []
       let packageIds = []
       for (let i = 0; i < tempData.length; i++) {
-        packageIds.push(tempData[i].packageId)
+        if (this.currentAppStoreId !== tempData[i].sourceStoreId) {
+          finalData.push(tempData[i])
+          packageIds.push(tempData[i].packageId)
+        }
       }
       for (let j = 0; j < val.length; j++) {
         if (packageIds.indexOf(val[j].packageId) === -1) {
           packageIds.push(val[j].packageId)
-          tempData.push(val)
+          finalData.push(val[j])
         }
       }
       sessionStorage.setItem(
         'allAppPullInfo',
-        JSON.stringify(tempData)
+        JSON.stringify(finalData)
       )
     },
     handlePull (row) {
@@ -148,6 +173,9 @@ export default {
   },
   mounted () {
     this.appPullListInfo = this.data
+    if (this.appPullListInfo.length > 0) {
+      this.currentAppStoreId = this.appPullListInfo[0].sourceStoreId
+    }
   }
 }
 
