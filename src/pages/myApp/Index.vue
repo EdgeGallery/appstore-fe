@@ -215,6 +215,7 @@ export default {
         if (item.status !== 'Published') {
           myApp.getPackageDetailApi(appId, packageId).then(res => {
             let data = res.data
+            data.createTime = timeFormatTools.formatDateTime(data.createTime)
             this.appPackageData.splice(index, 1, data)
           })
         }
