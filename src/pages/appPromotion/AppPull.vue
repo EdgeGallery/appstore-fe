@@ -23,16 +23,8 @@
           @tab-click="handleClick"
         >
           <div class="batch_pull">
-            <el-input
-              suffix-icon="el-icon-search"
-              v-model="nameQuery"
-              @change="handleNameQuery"
-              :placeholder="$t('common.appName')"
-              class="search_input"
-            />
             <el-button
               type="primary"
-              :disabled="btnChangeEnable"
               @click="showPullAppDialog"
             >
               {{ $t("appPull.batchPull") }}
@@ -91,6 +83,7 @@ export default {
       console.log(tab, event)
     },
     showPullAppDialog (row) {
+      this.appPullResultData = []
       let tempData = JSON.parse(sessionStorage.getItem('allAppPullInfo'))
       console.log(tempData.length)
 
@@ -235,12 +228,8 @@ export default {
       background: white;
       padding: 20px;
       .batch_pull {
-        margin-bottom: 5px;
+        margin-bottom: 45px;
         margin-top: 5px;
-        .search_input{
-          width: 200px;
-          float: right;
-        }
       }
       .el-tabs__item {
         border-right: 4px solid #fff;
@@ -250,11 +239,11 @@ export default {
       }
       .el-tabs__nav-scroll {
         background: #E1E7F5;
-        text-align: center;
+        // display: inline-block;
       }
-      .van-ellipsis{
-        text-align: center;
-      }
+      // .el-tabs__nav-wrap{
+      //   text-align: center;
+      // }
     }
   }
 

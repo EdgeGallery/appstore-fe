@@ -18,9 +18,20 @@
   <div class="app-pull">
     <div class="app-pull-content">
       <div class="packageTable">
+        <div class="search_pull">
+          <el-input
+            suffix-icon="el-icon-search"
+            v-model="nameQuery"
+            @change="handleNameQuery"
+            :placeholder="$t('common.appName')"
+            class="search_input"
+          />
+        </div>
         <el-table
-          :data="appPullListInfo"
+          :data="currentPageData"
           @selection-change="selectionLineChangeHandle"
+          :default-sort="{prop: 'createTime', order: 'descending'}"
+          @sort-change="sortChanged"
           style="width: 100%"
           header-cell-class-name="headerStyle"
         >
@@ -31,26 +42,32 @@
           <el-table-column
             prop="name"
             :label="$t('appPull.name')"
+            sortable="custom"
           />
           <el-table-column
             prop="provider"
             :label="$t('appPull.provider')"
+            sortable="custom"
           />
           <el-table-column
             prop="version"
             :label="$t('appPull.version')"
+            sortable="custom"
           />
           <el-table-column
             prop="industry"
             :label="$t('appPull.appIndustry')"
+            sortable="custom"
           />
           <el-table-column
             prop="type"
             :label="$t('appPull.appType')"
+            sortable="custom"
           />
           <el-table-column
             prop="createTime"
             :label="$t('appPull.appCreateTime')"
+            sortable="custom"
           />
           <el-table-column
             prop="atpTestReportUrl"
@@ -81,29 +98,43 @@
           </el-table-column>
         </el-table>
       </div>
+      <pagination
+        style="margin-bottom: 20px;"
+        :table-data="findAppData"
+        @getCurrentPageData="getCurrentPageData"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import { pullApp } from '../../tools/api.js'
+import pagination from '../../components/common/Pagination.vue'
 export default {
+  components: {
+    pagination
+  },
   props: {
     data: {
       required: true,
-      type: Object
+      type: Array
     }
   },
   data () {
     return {
       appPackageData: [],
-      appPullListInfo: [],
-      currentAppStoreId: ''
+      currentAppStoreId: '',
+      findAppData: [],
+      currentPageData: [],
+      nameQuery: ''
     }
   },
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
+    },
+    getCurrentPageData (data) {
+      this.currentPageData = data
     },
     unique (arr) {
       if (!Array.isArray(arr)) {
@@ -143,6 +174,14 @@ export default {
         JSON.stringify(finalData)
       )
     },
+    handleNameQuery () {
+      this.findAppData = this.appPackageData
+      this.findAppData = this.findAppData.filter((item) => {
+        let itemName = item.name.toLowerCase()
+        return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
+      })
+      if (!this.nameQuery) this.findAppData = this.appPackageData
+    },
     handlePull (row) {
       let userId = sessionStorage.getItem('userId')
       let userName = sessionStorage.getItem('userName')
@@ -169,12 +208,63 @@ export default {
           type: 'warning'
         })
       })
+    },
+    sortChanged (column) {
+      console.log(column)
+      let sortTime = (a, b) => {
+        let timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
+        let timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
+        return timeValueA - timeValueB
+      }
+      let findApp = (type) => {
+        let fieldArr = []
+        let appSort = []
+        this.findAppData.forEach((item) => {
+          if (type === 'name' || type === 'version' || type === 'provider' || type === 'industry' || type === 'type') {
+            fieldArr.push(item[type].toLowerCase())
+          } else {
+            fieldArr.push(item[type])
+          }
+        })
+        if (type === 'createTime') {
+          fieldArr.sort(sortTime)
+          if (column.order === 'descending') {
+            fieldArr.reverse()
+          }
+        } else {
+          fieldArr.sort()
+          if (column.order === 'descending') {
+            fieldArr.reverse()
+          }
+        }
+        const set = new Set(fieldArr)
+        fieldArr = [...set]
+        fieldArr.forEach((fieldItem) => {
+          this.findAppData.forEach((item) => {
+            if (type === 'name' || type === 'provider' || type === 'version' || type === 'messageType') {
+              if (item[type].toLowerCase() === fieldItem) {
+                appSort.push(item)
+              }
+            } else {
+              if (item[type] === fieldItem) {
+                appSort.push(item)
+              }
+            }
+          })
+        })
+        console.log('finish sort ' + appSort.length)
+        return appSort
+      }
+
+      let type = column.prop
+      this.findAppData = findApp(type)
     }
   },
   mounted () {
-    this.appPullListInfo = this.data
-    if (this.appPullListInfo.length > 0) {
-      this.currentAppStoreId = this.appPullListInfo[0].sourceStoreId
+    this.appPackageData = this.data
+    this.findAppData = this.appPackageData
+    if (this.appPackageData.length > 0) {
+      this.currentAppStoreId = this.appPackageData[0].sourceStoreId
     }
   }
 }
@@ -187,6 +277,14 @@ export default {
   .el-table thead{
     th {
       background-color: #eee;
+    }
+  }
+  .search_pull {
+    margin-bottom: 15px;
+    margin-top: -55px;
+    .search_input{
+      width: 200px;
+      float: right;
     }
   }
 }
