@@ -113,7 +113,6 @@ export default {
           sourceStoreName: tempData[i].sourceStoreName
         }
         pullApp(tempData[i].packageId, param).then((res) => {
-          this.$message.success(this.$t('appPull.pullSuccess'))
           let resData = res.data
           let pullResult = {
             name: tempData[i].name,
@@ -181,6 +180,7 @@ export default {
                     industry: item.industry,
                     shortDesc: item.shortDesc,
                     type: item.type,
+                    createTime: item.createTime,
                     atpTestStatus: item.atpTestStatus,
                     sourceStoreName: resAppstore[i].label
                   }
@@ -219,6 +219,10 @@ export default {
   },
   mounted () {
     this.getAllPullApps()
+    sessionStorage.setItem(
+      'allAppPullInfo',
+      JSON.stringify([])
+    )
   }
 }
 
@@ -239,9 +243,17 @@ export default {
         }
       }
       .el-tabs__item {
-        background: #A0B4EA;
-        border-right: 2px solid #fff!important;
-        color: #575d6c!important;
+        border-right: 4px solid #fff;
+        border-style: outset;
+        border-radius: 10px;
+        color: #575d6c !important;
+      }
+      .el-tabs__nav-scroll {
+        background: #E1E7F5;
+        text-align: center;
+      }
+      .van-ellipsis{
+        text-align: center;
       }
     }
   }

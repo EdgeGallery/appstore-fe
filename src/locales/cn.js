@@ -405,9 +405,12 @@ const cn = {
   },
   appPull: {
     name: '应用名称',
-    provider: '应用仓库',
+    provider: '厂商',
     version: '版本',
     testRepo: '认证测试报告',
+    appIndustry: '行业',
+    appType: '类型',
+    appCreateTime: '创建时间',
     operation: '操作',
     pull: '拉取',
     batchPull: '批量拉取',
@@ -417,7 +420,8 @@ const cn = {
     pullFailed: '拉取失败',
     pullSuccess: '拉取成功',
     getAppStoreException: '获取appStore异常',
-    getPullAppException: '获取拉取app信息异常'
+    getPullAppException: '获取拉取app信息异常',
+    viewTestRepo: '查看报告'
   },
   about: {},
   ...zhLocale
