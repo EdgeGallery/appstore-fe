@@ -43,7 +43,7 @@
           >
             <template slot-scope="scope">
               <span
-                v-if="scope.row[scope.column.property] === 'true'"
+                v-if="scope.row[scope.column.property] === true"
                 class="el-icon-check"
                 title="Succeed"
               />
