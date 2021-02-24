@@ -90,7 +90,6 @@
           class="condition-list"
         >
           <div class="sort-type">
-            <span class="icon" />
             <strong>{{ $t('common.industry') }}</strong>
             <div
               v-for="(item, index) in industry"
@@ -103,7 +102,6 @@
             </div>
           </div>
           <div class="sort-type">
-            <span class="icon" />
             <strong>{{ $t('common.type') }}</strong>
             <div
               v-for="(item, index) in types"
@@ -116,7 +114,6 @@
             </div>
           </div>
           <div class="sort-type">
-            <span class="icon" />
             <strong>{{ $t('common.architecture') }}</strong>
             <div
               v-for="(item, index) in affinity"
@@ -129,7 +126,6 @@
             </div>
           </div>
           <div class="sort-type underline">
-            <span class="icon" />
             <strong>{{ $t('store.sortBy') }}</strong>
             <div
               v-for="(item, index) in sortBy"
@@ -584,25 +580,19 @@ export default {
         .sort-type {
           margin-top: 10px;
           strong {
-            margin-right: 20px;
+            margin-right: 50px;
             font-size: 14px;
-            color: #3d3d3d;
+            color: #FFFFFF;
             font-weight: bold;
             display: inline-block;
             width: 65px;
-          }
-          .icon {
-            width: 8px;
-            height: 8px;
-            display: inline-block;
-            background-color: #688ef3;
-            margin-right: 10px;
-            border-radius: 50%;
+            background: #14C2C3;
+            text-align: center;
           }
           .box {
             display: inline-block;
             padding: 6px 8px;
-            margin: 0 5px;
+            margin: 0 10px;
             font-size: 14px;
             position: relative;
           }
