@@ -180,9 +180,9 @@ export default new Router({
           }
         },
         {
-          path: 'atptestcase',
-          name: 'atptestcase',
-          component: () => import('./pages/myApp/ATPTestCase.vue'),
+          path: 'selectscene',
+          name: 'selectscene',
+          component: () => import('./pages/myApp/TestScenarios.vue'),
           meta: {
             id: '2.4.1',
             breadcrumb: [{
