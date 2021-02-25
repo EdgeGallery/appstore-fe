@@ -28,10 +28,9 @@
       </p>
       <el-button
         class="upload_app"
-        icon="el-icon-upload"
         @click="jumpToAppList"
       >
-        上传应用文件
+        <em />上传应用文件
       </el-button>
     </div>
     <!-- 新上车应用 -->
@@ -41,7 +40,7 @@
       </h3>
       <p class="home_more">
         <el-link @click="jumpToAppList">
-          查看更多
+          查看更多 >>
         </el-link>
       </p>
       <el-row>
@@ -60,7 +59,7 @@
                 :underline="false"
                 @click="jumpToAppList"
               >
-                点击查看更多 >
+                点击查看更多 >>
               </el-link>
             </p>
           </div>
@@ -87,7 +86,7 @@
       </h3>
       <p class="home_more">
         <el-link @click="jumpToAppList">
-          查看更多
+          查看更多 >>
         </el-link>
       </p>
       <ul class="recomment_list clearfix">
@@ -112,7 +111,7 @@
             type="primary"
             class="rec_more"
           >
-            更多信息 >
+            更多信息 >>
           </el-link>
         </li>
       </ul>
@@ -124,7 +123,7 @@
       </h3>
       <p class="home_more">
         <el-link @click="jumpToAppList">
-          查看更多
+          查看更多 >>
         </el-link>
       </p>
       <swiper :options="swiperOption">
@@ -184,18 +183,18 @@
         <div class="upload_fgx" />
         <div class="upload_icon">
           <img
-            src="../../assets/images/home_upload_icon2.png"
-            alt=""
-          >
-          应用仓库
-        </div>
-        <div class="upload_fgx" />
-        <div class="upload_icon">
-          <img
             src="../../assets/images/home_upload_icon3.png"
             alt=""
           >
           应用测试
+        </div>
+        <div class="upload_fgx" />
+        <div class="upload_icon">
+          <img
+            src="../../assets/images/home_upload_icon2.png"
+            alt=""
+          >
+          应用仓库
         </div>
         <div class="upload_fgx" />
         <div class="upload_icon">
@@ -430,8 +429,8 @@ export default {
 <style lang="less">
 .apphome{
   .banner{
-    height: 600px;
-    padding: 150px 145px 0;
+    height: 500px;
+    padding: 130px 145px 0;
     color: #fff;
     background: url('../../assets/images/home_banner.png') center center no-repeat;
     .tit{
@@ -443,24 +442,33 @@ export default {
       margin-bottom: 5px;
     }
     .upload_app{
-      border: 1px solid #9163cc;
+      border: 2px solid #9163cc;
       color: #606266;
       border-radius: 15px;
       font-size: 16px;
       padding: 6px 20px;
       margin-top: 30px;
-      span{
+      em{
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background: url('../../assets/images/home_banner_upload_icon.png') center center no-repeat;
+        background-size: contain;
         position: relative;
-        top: -4px;
+        top: 7px;
+        margin-right: 7px;
       }
-      .el-icon-upload{
-        color: #9163cc;
-        font-size: 30px;
+      span{
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        position: relative;
+        top: -5px;
       }
     }
   }
   .home_content{
-    padding: 50px 15% 0;
+    padding: 70px 15% 50px;
     .home_tit{
       font-size: 32px;
       text-align: center;
@@ -472,6 +480,9 @@ export default {
         font-size: 16px;
       }
     }
+  }
+  .home_content:last-child{
+    padding: 70px 15% 0;
   }
   .new_app{
     .left{
@@ -565,9 +576,18 @@ export default {
     }
     .swiper-button-prev{
       left: 0;
+      height: 100%;
+      top: 20px;
+      background: #f0f2f5;
     }
     .swiper-button-next{
       right: 0;
+      height: 100%;
+      top: 20px;
+      background: #f0f2f5;
+    }
+    .swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled{
+      background: #f0f2f5;
     }
   }
   .app_upload{
@@ -588,7 +608,8 @@ export default {
         border-radius: 0;
       }
       .el-button:hover{
-        background: #fff;
+        background: #9265cd;
+        color: #fff;
       }
     }
     .upload_list{
