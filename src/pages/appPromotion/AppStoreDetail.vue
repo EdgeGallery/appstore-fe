@@ -285,6 +285,7 @@ export default {
     .search_input{
       width: 200px;
       float: right;
+      margin-bottom: 10px;
     }
   }
 }
