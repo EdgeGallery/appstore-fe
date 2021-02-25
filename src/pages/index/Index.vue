@@ -18,7 +18,7 @@
   <div class="apphome">
     <div class="banner">
       <p class="tit">
-        EdgeGallery应用商城
+        开放连接行业应用
       </p>
       <p class="info">
         汇聚各行业最前沿的边缘应用
