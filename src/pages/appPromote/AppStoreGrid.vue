@@ -41,7 +41,7 @@
           >
           <img
             style="height: 100px;"
-            :src="require(`@/assets/images/appStore.svg`)"
+            :src="require(`@/assets/images/appStoreDefault.svg`)"
             alt
             v-else-if="item.appdTransId.indexOf('联通') < 0 && item.appdTransId.indexOf('社区') < 0"
           >
