@@ -21,6 +21,7 @@
         <el-tabs
           v-model="activeName"
           @tab-click="handleClick"
+          stretch
         >
           <div class="batch_pull">
             <el-button
@@ -234,16 +235,32 @@ export default {
       .el-tabs__nav-scroll{
         display: flex;
         justify-content: center;
+        background: #EEEEEE;
       }
       .el-tabs__item{
         font-size: 16px;
+        padding: 0 20px;
+        height: 40px;
+        box-sizing: border-box;
+        line-height: 40px;
+        display: inline-block;
+        list-style: none;
+        font-weight: 500;
+        color: #303133;
+        position: relative;
+        border: 2px solid #fff;
       }
       .el-tabs__item.is-active {
-        background: #DBDBDB;
+        background: #C8BFE7;
         color: black;
       }
       .el-tabs__active-bar {
         background-color: transparent !important;
+      }
+      .el-tabs__header {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
       }
     }
   }
