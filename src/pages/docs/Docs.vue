@@ -44,33 +44,26 @@
           </div>
         </div>
 
-        <div
-          class="subcontenttwo"
-          :class="{'content-en': language === 'en'}"
-        >
-          <div class="characteristic">
-            <span />{{ $t('docs.characteristic') }}
+        <div class="docImg">
+          <div class="subDocImg">
+            <img
+              src="../../assets/images/summary1.png"
+              alt
+            >
           </div>
-          <div class="chaContent">
-            <span />{{ $t('docs.appUpload') }}
-            <span />{{ $t('docs.appTest') }}
-            <span />{{ $t('docs.appPublish') }}
-            <br>
-            <span />{{ $t('docs.appDetail') }}
-            <span />{{ $t('docs.appDownload') }}
-            <span />{{ $t('docs.appPromote') }}
-            <br>
-            <span />{{ $t('docs.appPull') }}
-            <span />{{ $t('docs.messageMgmt') }}
-            <span />{{ $t('docs.appstoreMgmt') }}
+          <div class="subDocImg">
+            <img
+              src="../../assets/images/summary2.png"
+              alt
+            >
+          </div>
+          <div class="subDocImg">
+            <img
+              src="../../assets/images/summary3.png"
+              alt
+            >
           </div>
         </div>
-        <!-- <div class="docImg">
-          <img
-            src="../../assets/images/all-the-arch.png"
-            alt
-          >
-        </div> -->
       </div>
     </div>
   </div>
@@ -118,51 +111,20 @@ export default {
         .substep {
           font-size: 16px;
           // flex-direction: row;
-          docImg{
-            height: 200px;
-            line-height:200px;
-            padding: 20px;
-            width: 500px;
-            position: relative;
-            margin-top: 20px;
-            // border-top: solid #194686 2px;
-            text-align: center;
-          }
-          .subcontenttwo {
-            float: left;
-            width: 50%;
-            padding: 20px;
+          .docImg{
+            margin-top: 10px;
+            background: white;
+            padding: 40px 30px 0px;
             box-sizing: border-box;
-            // height: 280px;
-            flex-direction: column;
-            position: relative;
-            .characteristic{
-              // margin-bottom: 15px;
-              width: 90%;
-              border-bottom: solid #194686 2px;
-              font-size: 24px;
-              font-weight: 550;
-            }
-            .chaContent{
-              width: 70%;
-              margin-top: 15px;
-              scroll-margin-left: 15px;
-            }
-            div {
-              padding: 0;
-              span {
-                display: inline-block;
-                height: 32px;
-                width: 32px;
-                //background: #2d9ead;
-                font-size: 18px;
-                line-height: 32px;
-                border-radius: 50%;
-                color: white;
-              }
-
+            display: flex;
+            justify-content: center;
+            .subDocImg{
+              box-shadow: 0 0 10px rgba(0,0,0,0.2);
+              background-color: #fff;
+              margin: 20px;
             }
           }
+
           .subcontent {
             border-radius: 4px;
             float: left;
@@ -172,9 +134,9 @@ export default {
             overflow: hidden;
             position: relative;
             flex-direction: column;
-            width: 50%;
+            // width: 100%;
             .summary{
-              width: 90%;
+              width: 100%;
               border-bottom: solid #194686 2px;
               font-size: 24px;
               font-weight: 550;
@@ -183,16 +145,16 @@ export default {
             .summaryContent{
               margin-left: 30px;
               margin-top: 15px;
-              width: 80%;
+              width: 97%;
               line-height: 30px;
             }
             div {
               padding: 0;
               span {
-                display: inline-block;
+                // display: inline-block;
                 height: 32px;
                 width: 32px;
-                //background: #2d9ead;
+                // background: #2d9ead;
                 font-size: 18px;
                 line-height: 32px;
                 border-radius: 50%;

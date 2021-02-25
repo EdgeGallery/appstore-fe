@@ -218,7 +218,7 @@ const cn = {
     docs: '文档',
     summary: '概述',
     operateFile: '操作指导',
-    APPDStandard: 'APPD操作规范',
+    APPDStandard: 'APPD规范',
     toscaFolder: 'tosca目录',
     imageFolder: 'image目录',
     artifactsFolder: 'artifacts目录',

@@ -33,69 +33,29 @@
           :label="$t('docs.operateFile')"
         >
           <div class="steps">
-            <div
-              class="step-box"
-            >
-              <div class="step">
-                <img
-                  src="../../assets/images/how_it_works_icon1.png"
-                  alt
-                >
-                <h5>{{ $t('docs.step1') }}</h5>
-                <div
-                  class="content"
-                  :class="{'content-en': language === 'en'}"
-                >
-                  <div>
-                    <span>1</span>
-                  </div>
-                  <h6>
-                    <span />{{ $t('docs.step1Info1') }}
-                  </h6>
-                  <h6 />
-                </div>
-              </div>
-              <div class="raw">
-                <img
-                  src="../../assets/images/how_it_works_raw.png"
-                  alt
-                >
-              </div>
+            <div class="step">
+              <img
+                src="../../assets/images/how_it_works_icon1.png"
+                alt
+              >
             </div>
-            <div
-              class="step-box"
-              v-for="(item, index) in workSteps"
-              :key="index"
-            >
-              <div class="step">
-                <img
-                  :src="item.img"
-                  alt
-                >
-                <h5>{{ $t(item.title1) }}</h5>
-                <div
-                  class="content"
-                  :class="{'content-en': language === 'en'}"
-                >
-                  <div>
-                    <span>{{ index + 2 }}</span>
-                    <p>{{ $t(item.title2) }}</p>
-                  </div>
-                  <h6
-                    v-for="content in item.content"
-                    :key="content"
-                  >
-                    <span />{{ $t(content) }}
-                  </h6>
-                  <h6>{{ $t(item.step) }}</h6>
-                </div>
-              </div>
-              <div class="raw">
-                <img
-                  src="../../assets/images/how_it_works_raw.png"
-                  alt
-                >
-              </div>
+            <div class="step">
+              <img
+                src="../../assets/images/how_it_works_icon2.png"
+                alt
+              >
+            </div>
+            <div class="step">
+              <img
+                src="../../assets/images/how_it_works_icon3.png"
+                alt
+              >
+            </div>
+            <div class="step">
+              <img
+                src="../../assets/images/how_it_works_icon4.png"
+                alt
+              >
             </div>
           </div>
           <div class="oprefile">
@@ -131,40 +91,7 @@ export default {
   },
   data () {
     return {
-      workSteps: [
-        // {
-        //   img: require('../../assets/images/how_it_works_icon1.png'),
-        //   title1: 'docs.step1',
-        //   title2: 'docs.step1Intr',
-        //   content: [
-        //     'docs.step1Info1',
-        //     'docs.step1Info2'
-        //   ],
-        //   step: 'docs.step1Process'
-        // },
-        {
-          img: require('../../assets/images/how_it_works_icon2.png'),
-          title1: 'docs.step2',
-          content: [
-            'docs.step2Info1'
-          ]
-        },
-        {
-          img: require('../../assets/images/how_it_works_icon3.png'),
-          title1: 'docs.step3',
-          content: [
-            'docs.step3Info1'
-          ]
-        },
-        {
-          img: require('../../assets/images/how_it_works_icon4.png'),
-          title1: 'docs.step4',
-          content: [
-            'docs.step4Info1',
-            'docs.step4Info2'
-          ]
-        }
-      ]
+
     }
   },
   methods: {},
@@ -212,91 +139,11 @@ body, html{
       box-sizing: border-box;
       display: flex;
       justify-content: center;
-      .step-box {
-        width: 20%;
-        margin: 0 10px;
-        display: flex;
-        .step {
-          width: 100%;
-          position: relative;
-          text-align: center;
-          font-size: 14px;
-          img{
-            height: 170px;
-          }
-          h5 {
-            font-size: 24px;
-            line-height: 33px;
-            margin: 20px 0;
-            height: 66px;
-          }
-          .content {
-            border-radius: 4px;
-            background: #f5f9fb;
-            padding: 20px;
-            box-sizing: border-box;
-            height: 330px;
-            overflow: hidden;
-            position: relative;
-            div {
-              padding: 0;
-              span {
-                display: inline-block;
-                height: 32px;
-                width: 32px;
-                background: #2d9ead;
-                font-size: 18px;
-                line-height: 32px;
-                border-radius: 50%;
-                color: white;
-              }
-              p {
-                line-height: 45px;
-                color: #212121;
-               // font-weight: 600;
-              }
-            }
-            h6 {
-              text-align: left;
-              font-weight: 500;
-              color: #212121;
-              font-size: 14px;
-              line-height: 30px;
-              padding: 0 20px;
-              span {
-                display: inline-block;
-                height: 8px;
-                width: 8px;
-                background: #2d9ead;
-                border-radius: 50%;
-                margin-right: 8px;
-              }
-            }
-            h6:last-child {
-              position: absolute;
-              left: 0;
-              right: 0;
-              bottom: 20px;
-              font-size: 10px;
-              color: #999999;
-              letter-spacing: 0;
-              text-align: center;
-            }
-          }
-          .content-en{
-             height: 450px;
-          }
-        }
-        .raw{
-          position: relative;
-          img{
-            width: 100px;
-            position: absolute;
-            top: 100px;
-            left: -50px;
-          }
-        }
-      }
+
+      .step :hover{
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      background-color: #fff;
+    }
       .step-box:last-child{
         .raw{
           img{
