@@ -37,12 +37,20 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/index'
+      redirect: '/home'
     },
     {
       path: '',
       component: () => import('./components/layout/Index.vue'),
       children: [
+        {
+          path: 'home',
+          name: 'appstorhome',
+          component: () => import('./pages/index/Index.vue'),
+          meta: {
+            id: '2.1'
+          }
+        },
         {
           path: 'index',
           name: 'appstorename',

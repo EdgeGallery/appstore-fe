@@ -201,10 +201,19 @@ export default {
       language: 'cn',
       list: [
         {
+          labelEn: 'Home',
+          labelCn: '首页',
+          route: '/home',
+          pageId: '2.1.1',
+          display: true,
+          link: '',
+          index: '4'
+        },
+        {
           labelEn: 'App Warehouse',
           labelCn: '应用仓库',
           route: '/index',
-          pageId: '2.1.1',
+          pageId: '2.1.3',
           display: true,
           link: '',
           index: '1'
