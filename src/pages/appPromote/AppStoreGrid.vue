@@ -28,7 +28,7 @@
       >
         <div class="img-box">
           <img
-            style="height: 100px; padding: 10px 0 5px 0"
+            style="height: 100px;"
             :src="require(`@/assets/images/liantong_store.png`)"
             alt
             v-if="item.appdTransId.indexOf('联通') > -1"
@@ -41,9 +41,21 @@
           >
           <img
             style="height: 100px;"
+            :src="require(`@/assets/images/yidong_store.png`)"
+            alt
+            v-else-if="item.appdTransId.indexOf('移动') > -1"
+          >
+          <img
+            style="height: 100px;"
+            :src="require(`@/assets/images/dianxin_store.png`)"
+            alt
+            v-else-if="item.appdTransId.indexOf('电信') > -1"
+          >
+          <img
+            style="height: 100px;"
             :src="require(`@/assets/images/appStoreDefault.svg`)"
             alt
-            v-else-if="item.appdTransId.indexOf('联通') < 0 && item.appdTransId.indexOf('社区') < 0"
+            v-else-if="item.appdTransId.indexOf('联通') < 0 && item.appdTransId.indexOf('社区') < 0 && item.appdTransId.indexOf('移动') < 0 && item.appdTransId.indexOf('电信') < 0"
           >
           <img
             :src="require(`@/assets/images/underlineOfstoreImg.png`)"
@@ -202,6 +214,7 @@ export default {
         width: 100%;
         display: flex;
         flex-direction: inherit;
+        padding: 10px 0 5px 0;
         img {
           width: 50%;
           display: block;
