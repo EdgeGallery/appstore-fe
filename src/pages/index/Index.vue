@@ -18,13 +18,13 @@
   <div class="apphome">
     <div class="banner">
       <p class="tit">
-        为开发人员提供一站式服务
+        开放连接行业应用
       </p>
       <p class="info">
-        为开发人员提供方便的开发插件
+        汇聚各行业最前沿的边缘应用
       </p>
       <p class="info">
-        帮助开发人员更快地开发和测试应用程序
+        共享5G智慧互联生活
       </p>
       <el-button
         class="upload_app"
@@ -430,7 +430,7 @@ export default {
 .apphome{
   .banner{
     height: 500px;
-    padding: 130px 145px 0;
+    padding: 130px 15% 0;
     color: #fff;
     background: url('../../assets/images/home_banner.png') center center no-repeat;
     .tit{
@@ -450,8 +450,8 @@ export default {
       margin-top: 30px;
       em{
         display: inline-block;
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
         background: url('../../assets/images/home_banner_upload_icon.png') center center no-repeat;
         background-size: contain;
         position: relative;
@@ -666,8 +666,8 @@ export default {
       }
     }
     .suggest{
-      border-bottom: 1px solid #707070;
-      padding: 30px 0 20px;
+      border-bottom: 2px solid #707070;
+      padding: 20px 0;
     }
     .link_list{
       margin-top: 20px;
