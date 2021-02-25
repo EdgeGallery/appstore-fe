@@ -228,7 +228,7 @@ export default {
       background: white;
       padding: 20px;
       .batch_pull {
-        margin-bottom: 45px;
+        margin-bottom: 25px;
         margin-top: 5px;
       }
       .el-tabs__nav-scroll{
