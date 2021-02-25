@@ -218,7 +218,8 @@ const cn = {
     docs: '文档',
     summary: '概述',
     operateFile: '操作指导',
-    APPDStandard: 'APPD规范',
+    operaContent: 'AppStore是开发者发布和上线App应用的市场，由Developer平台开发的边缘应用，经过测试可以直接分享到AppStore应用商店。',
+    APPDStandard: 'APPD包规范',
     toscaFolder: 'tosca目录',
     imageFolder: 'image目录',
     artifactsFolder: 'artifacts目录',
@@ -234,10 +235,11 @@ const cn = {
     messageMgmt: '消息管理',
     appstoreMgmt: '外部应用仓库管理',
     moreDetail: '查看更多详情...',
-    summaryContent: 'AppStore是开发者发布和上线App应用的边缘应用市场，由Developer平台开发的边缘应用，经过ATP测试后可以直接发布到AppStore应用商店。 用户也可以在AppStore直接上传边缘应用，经过ATP测试后可以发布到AppStore，对外展示.',
-    summaryContent1: '1.AppStore FE：开发者平台前台框架，使用VUE开发',
-    summaryContent2: '2.AppStore BE：开发者平台后台框架，使用SpringBoot+ServiceComb开发',
-    summaryContent3: '3.AppStore DB：后台依赖Postgres数据库'
+    summaryContent: 'AppStore是开发者发布和上线App应用的边缘应用市场，由Developer平台开发的边缘应用，经过ATP测试后可以直接发布到AppStore应用商店。 用户也可以在AppStore直接上传边缘应用，经过ATP测试后可以发布到AppStore，对外展现。',
+    summaryContent1: 'AppStore分为前后台两个部分，AppStore BE是后台部分，提供主要功能接口供前台或其他三方系统调用，AppStore FE是前台部分，提供界面展示。',
+    summaryContent2: '1.AppStore FE：开发者平台前台框架，使用VUE开发。',
+    summaryContent3: '2.AppStore BE：开发者平台后台框架，使用SpringBoot+ServiceComb开发。',
+    summaryContent4: '3.AppStore DB：后台依赖Postgres数据库。'
   },
   myApp: {
     checkTest: '查看历史测试任务',

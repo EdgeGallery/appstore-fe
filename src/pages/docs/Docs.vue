@@ -41,6 +41,16 @@
             <span />{{ $t('docs.summaryContent2') }}
             <br>
             <span />{{ $t('docs.summaryContent3') }}
+            <br>
+            <span />{{ $t('docs.summaryContent4') }}
+          </div>
+        </div>
+        <div
+          class="subcontenttwo"
+          :class="{'content-en': language === 'en'}"
+        >
+          <div class="characteristic">
+            <span />{{ $t('docs.characteristic') }}
           </div>
         </div>
 
@@ -112,7 +122,7 @@ export default {
           font-size: 16px;
           // flex-direction: row;
           .docImg{
-            margin-top: 10px;
+            // margin-top: 10px;
             background: white;
             padding: 40px 30px 0px;
             box-sizing: border-box;
@@ -123,6 +133,23 @@ export default {
               background-color: #fff;
               margin: 20px;
             }
+          }
+          .subcontenttwo {
+            float: left;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            // height: 280px;
+            flex-direction: column;
+            position: relative;
+            .characteristic{
+              width: 100%;
+              border-bottom: solid #194686 2px;
+              font-size: 24px;
+              font-weight: 550;
+
+            }
+
           }
 
           .subcontent {
