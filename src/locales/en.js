@@ -211,7 +211,7 @@ const en = {
     docs: 'Docs',
     summary: 'summary',
     operateFile: 'operate file',
-    APPDStandard: 'APPD standard',
+    APPDStandard: 'APP folder standard',
     characteristic: 'characteristic',
     moreDetail: 'start more detail...',
     summaryContent: 'AppStore is an edge application market where developers release and launch App applications. Edge applications developed by the Developer platform can be directly published to the AppStore application store after ATP testing. Users can also upload edge applications directly in the AppStore, and after ATP testing, they can be published to the AppStore for external display.'

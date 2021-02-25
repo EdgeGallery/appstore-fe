@@ -229,24 +229,33 @@ export default {
       background: white;
       padding: 20px;
       .batch_pull {
-        margin-bottom: 45px;
+        margin-bottom: 25px;
         margin-top: 5px;
       }
-      .el-tabs__item {
+      .el-tabs__nav-scroll{
+        display: flex;
+        justify-content: center;
+        background: #EEEEEE;
+      }
+      .el-tabs__item{
+        font-size: 16px;
         padding: 0 20px;
         height: 40px;
         box-sizing: border-box;
         line-height: 40px;
         display: inline-block;
         list-style: none;
-        font-size: 16px;
         font-weight: 500;
         color: #303133;
         position: relative;
         border: 2px solid #fff;
       }
-      .el-tabs__nav-scroll {
-        background: #EEEEEE;
+      .el-tabs__item.is-active {
+        background: #C8BFE7;
+        color: black;
+      }
+      .el-tabs__active-bar {
+        background-color: transparent !important;
       }
       .el-tabs__header {
         margin-left: auto;
@@ -255,6 +264,5 @@ export default {
       }
     }
   }
-
 }
 </style>

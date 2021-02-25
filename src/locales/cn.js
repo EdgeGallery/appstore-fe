@@ -219,7 +219,7 @@ const cn = {
     summary: '概述',
     operateFile: '操作指导',
     operaContent: 'AppStore是开发者发布和上线App应用的市场，由Developer平台开发的边缘应用，经过测试可以直接分享到AppStore应用商店。',
-    APPDStandard: 'APPD包规范',
+    APPDStandard: 'APP包规范',
     toscaFolder: 'tosca目录',
     imageFolder: 'image目录',
     artifactsFolder: 'artifacts目录',

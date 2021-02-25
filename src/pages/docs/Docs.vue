@@ -139,11 +139,11 @@ export default {
             width: 100%;
             padding: 20px;
             box-sizing: border-box;
-            // height: 280px;
             flex-direction: column;
             position: relative;
             .characteristic{
               width: 100%;
+              text-align: left;
               border-bottom: solid #194686 2px;
               font-size: 24px;
               font-weight: 550;
@@ -157,12 +157,11 @@ export default {
             float: left;
             padding: 20px;
             box-sizing: border-box;
-            // height: 280px;
             overflow: hidden;
             position: relative;
             flex-direction: column;
-            // width: 100%;
             .summary{
+              text-align: left;
               width: 100%;
               border-bottom: solid #194686 2px;
               font-size: 24px;
