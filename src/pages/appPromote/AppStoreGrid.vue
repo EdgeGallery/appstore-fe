@@ -28,7 +28,7 @@
       >
         <div class="img-box">
           <img
-            style="height: 100px;"
+            style="height: 100px; padding: 10px 0 5px 0"
             :src="require(`@/assets/images/liantong_store.png`)"
             alt
             v-if="item.appdTransId.indexOf('联通') > -1"
