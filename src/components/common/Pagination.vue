@@ -98,8 +98,8 @@ export default {
       this.$emit('getCurrentPageData', currentPageData, this.pageSize, start)
     }
   },
-  mounted () {
-    this.currentPage = parseFloat(sessionStorage.getItem('currentPage'))
+  beforeMount () {
+    this.currentPage = sessionStorage.getItem('currentPage') ? Number(sessionStorage.getItem('currentPage')) : 1
   }
 }
 
