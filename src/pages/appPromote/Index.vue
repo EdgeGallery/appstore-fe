@@ -148,9 +148,12 @@
           @modifyApp="modifyApp"
           @deleteApp="getDelete"
         />
-        <pagination
-          :table-data="findAppStoreData"
-          @getCurrentPageData="getCurrentPageData"
+        <eg-pagination
+          :page-num="pageNum"
+          :page-size="pageSize"
+          :total="total"
+          @sizeChange="sizeChange"
+          @currentChange="currentChange"
         />
         <div class="clearfix" />
       </div>
@@ -256,16 +259,16 @@
 <script>
 import { TTYPES } from '../../tools/constant.js'
 import { myAppStore } from '../../tools/api.js'
-import pagination from '../../components/common/Pagination.vue'
 import appStoreGrid from './AppStoreGrid.vue'
 import EgBanner from 'eg-view/src/components/EgBanner.vue'
 import EgBreadCrumb from 'eg-view/src/components/EgBreadCrumb.vue'
+import EgPagination from 'eg-view/src/components/EgPagination.vue'
 export default {
   components: {
-    pagination,
     appStoreGrid,
     EgBanner,
-    EgBreadCrumb
+    EgBreadCrumb,
+    EgPagination
   },
   data () {
     return {
@@ -291,10 +294,20 @@ export default {
       types: TTYPES,
       nameQuery: '',
       findAppStoreData: [],
-      breadCrumbData: []
+      breadCrumbData: [],
+      pageNum: 1,
+      pageSize: 8,
+      total: 0,
+      curPageSize: 8
     }
   },
   methods: {
+    sizeChange (val) {
+      this.curPageSize = val
+    },
+    currentChange (val) {
+      this.pageNum = val
+    },
     hiddenClass (row) {
       if (row.columnIndex === 5 || row.columnIndex === 0) {
         return 'hiddenClass'
@@ -337,6 +350,7 @@ export default {
         }
         this.findAppStoreData = this.appPackageData
         this.dataLoading = false
+        this.total = this.findAppStoreData.length
       }).catch(() => {
         this.dataLoading = false
         this.$message({
@@ -346,6 +360,11 @@ export default {
         })
         this.clearInterval()
       })
+    },
+    refreshCurrentData () {
+      let start = this.curPageSize * (this.pageNum - 1)
+      let end = this.curPageSize * this.pageNum
+      this.currentPageData = this.findAppStoreData.slice(start, end)
     },
     clearForm () {
       this.form.appStoreId = ''
@@ -431,9 +450,6 @@ export default {
       }).catch(() => {
       })
     },
-    getCurrentPageData (data) {
-      this.currentPageData = data
-    },
     clearInterval () {
       clearTimeout(this.interval)
       this.interval = null
@@ -492,6 +508,15 @@ export default {
   watch: {
     '$i18n.locale': function () {
       this.updateBreadCrumbData()
+    },
+    curPageSize: function () {
+      this.refreshCurrentData()
+    },
+    pageNum: function () {
+      this.refreshCurrentData()
+    },
+    findAppStoreData: function () {
+      this.refreshCurrentData()
     }
   },
   beforeDestroy () {
