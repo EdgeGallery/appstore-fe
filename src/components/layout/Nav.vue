@@ -442,6 +442,14 @@ export default {
       } else {
         this.ifGuest = false
       }
+      if (res.data.userName !== 'admin') {
+        this.list.splice(3, 1)
+        console.log(this.list)
+      }
+      if (res.data.userName === 'guest' && res.data.userName !== 'admin') {
+        this.list.splice(2, 1)
+        console.log(this.list)
+      }
     })
     let historyRoute = sessionStorage.getItem('historyRoute')
     if (historyRoute) {

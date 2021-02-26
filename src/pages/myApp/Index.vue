@@ -382,6 +382,7 @@ export default {
     }
   },
   mounted () {
+    sessionStorage.removeItem('currentPage')
     this.userId = sessionStorage.getItem('userId')
     this.getAppData()
     this.interval = setInterval(() => {
