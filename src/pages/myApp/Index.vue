@@ -305,7 +305,8 @@ export default {
           type: 'warning'
         }).then(() => {
           // 跳转首页页面，—+taskId+直接运行；
-          this.$router.push({ name: 'atptestcase', params: { taskId: testTaskId } })
+          // this.$router.push({ name: 'atptestcase', params: { taskId: testTaskId } })
+          this.$router.push({ name: 'selectscene', params: { taskId: testTaskId } })
         })
       }
     },
