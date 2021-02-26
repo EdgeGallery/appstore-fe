@@ -156,9 +156,12 @@
           </template>
         </el-table>
       </div>
-      <pagination
-        :table-data="appPackageData"
-        @getCurrentPageData="getCurrentPageData"
+      <eg-pagination
+        :page-num="pageNum"
+        :page-size="pageSize"
+        :total="total"
+        @sizeChange="sizeChange"
+        @currentChange="currentChange"
       />
       <div class="clearfix" />
     </div>
@@ -166,14 +169,12 @@
 </template>
 
 <script>
-// import appList from '../home/AppList.vue'
 import { myApp, deleteAppPackageApi } from '../../tools/api.js'
-import pagination from '../../components/common/Pagination.vue'
 import timeFormatTools from '../../tools/timeFormatTools.js'
+import egPagination from 'eg-view/src/components/EgPagination.vue'
 export default {
   components: {
-    // appList,
-    pagination
+    egPagination
   },
   data () {
     return {
@@ -183,10 +184,22 @@ export default {
       dataLoading: true,
       currentPageData: [],
       taskId: '',
-      interval: ''
+      interval: '',
+      pageNum: 1,
+      pageSize: 10,
+      total: 0,
+      curPageSize: 10
     }
   },
   methods: {
+    sizeChange (val) {
+      this.curPageSize = val
+      sessionStorage.setItem('myAppPageSize', val)
+    },
+    currentChange (val) {
+      this.pageNum = val
+      sessionStorage.setItem('myAppPageNum', val)
+    },
     // 只调用一个接口
     getAppData () {
       this.appPackageData = []
@@ -198,6 +211,12 @@ export default {
             item.createTime = formatedTime
           })
           this.dataLoading = false
+          this.total = this.appPackageData.length
+          if (this.curPageSize * (this.pageNum - 1) > this.total) {
+            this.pageNum = 1
+            sessionStorage.setItem('myAppPageNum', this.pageNum)
+          }
+          this.refreshCurrentData()
         }, () => {
           this.dataLoading = false
           this.$message({
@@ -368,9 +387,6 @@ export default {
     jumpTo () {
       this.$router.push('/app/test/task')
     },
-    getCurrentPageData (data) {
-      this.currentPageData = data
-    },
     clearInterval () {
       clearTimeout(this.interval)
       this.interval = null
@@ -379,7 +395,24 @@ export default {
       if (row.columnIndex === 5 || row.columnIndex === 0) {
         return 'hiddenClass'
       }
+    },
+    refreshCurrentData () {
+      let start = this.curPageSize * (this.pageNum - 1)
+      let end = this.curPageSize * this.pageNum
+      this.currentPageData = this.appPackageData.slice(start, end)
     }
+  },
+  watch: {
+    curPageSize: function () {
+      this.refreshCurrentData()
+    },
+    pageNum: function () {
+      this.refreshCurrentData()
+    }
+  },
+  beforeMount () {
+    this.pageNum = sessionStorage.getItem('myAppPageNum') ? sessionStorage.getItem('myAppPageNum') : 1
+    this.curPageSize = sessionStorage.getItem('myAppPageSize') ? sessionStorage.getItem('myAppPageSize') : 10
   },
   mounted () {
     sessionStorage.removeItem('currentPage')
