@@ -133,59 +133,6 @@ a{
 
 /* 导航栏组件归一化 */
 
-
-/* 弹框组件归一化 */
-
-.el-dialog__header{
-  background:#fff !important;
-}
-.el-dialog__title {
-  color: #000 !important;
-}
-.el-dialog__close {
-  color: #000 !important;
-}
-.el-icon-close:before{
-  color:#000 !important;
-}
-.el-dialog__body{
-  padding:10px 20px 0;
-  color:#000;
-}
-.dialog-footer{
-  margin: 0 auto;
-  padding: 0px!important;
-  text-align: right;
-  display: block;
-}
-.el-dialog__body{
-  padding: 12px 20px;
-}
-.el-button{
-  margin-right: 0px!important;
-}
-.el-upload__tip{
-  display: inline-block;
-  padding-left: 12px;
-}
-.el-form-item{
-  margin-bottom: 10px;
-}
-.el-form-item__label{
-  line-height: 15px;
-  padding-bottom: 10px;
-}
-.el-form-item__content{
-  line-height: 15px;
-}
-.el-select{
-  width: 100%;
-}
-.el-textarea__inner{
-  height: 40px;
-}
-
-
 /* 导航栏归一化 */
 
 /* 搜索框、按钮组件归一化 */

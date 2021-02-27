@@ -759,9 +759,6 @@ export default {
   .upIcon.active{
     color: #409EFF;
   }
-  .el-form-item{
-    margin-bottom: 15px;
-  }
   .el-form-item.icon{
     content: '';
     display: block;

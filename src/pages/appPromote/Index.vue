@@ -548,9 +548,6 @@ export default {
       }
     }
   }
-  .el-form-item{
-    margin-bottom: 20px;
-  }
   .space>div{
     background: #000;
     height: 300px;
