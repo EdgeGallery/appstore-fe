@@ -146,7 +146,7 @@ a{
   line-height: 32px;
 }
 .el-button{
-  padding: 8px 24px;
+  padding: 8px 24px!important;
 }
   /* 重要按钮样式，带背景色 */
 .el-button--primary{
