@@ -292,7 +292,7 @@ export default {
       background-color: #fff;
       .no-display {
         display: block;
-        margin-top: -12px;
+        margin-top: -4px;
         opacity: 0.8;
       }
       .intr {
