@@ -164,10 +164,20 @@ function deleteAppPackageApi (appId, csarId, userId, userName) {
   return DELETE(url)
 }
 
-function getDocsApi (language) {
-  let url = './APPPackageDefinition.md'
-  if (language === 'cn') {
-    url = './APPPackageDefinition.md'
+function getDocsApi (language, activeName) {
+  let url = ''
+  if (language === 'cn' && activeName === 'first') {
+    url = './APPPackageDefinition1.md'
+  } else if (language === 'cn' && activeName === 'second') {
+    url = './APPPackageDefinition2.md'
+  } else if (language === 'cn' && activeName === 'third') {
+    url = './APPPackageDefinition3.md'
+  } else if (language === 'cn' && activeName === 'four') {
+    url = './APPPackageDefinition4.md'
+  } else if (language === 'cn' && activeName === 'five') {
+    url = './APPPackageDefinition5.md'
+  } else if (language === 'cn' && activeName === 'six') {
+    url = './APPPackageDefinition6.md'
   }
   return axios.get(url)
 }

@@ -210,7 +210,7 @@ const en = {
     favorite: 'Favorite',
     docs: 'Docs',
     summary: 'summary',
-    operateFile: 'operate file',
+    operateFile: 'new user operate file',
     APPDStandard: 'APP folder standard',
     characteristic: 'characteristic',
     moreDetail: 'start more detail...',

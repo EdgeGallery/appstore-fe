@@ -24,15 +24,97 @@
         <p class="clearfix" />
       </div>
     </div>
-    <div id="test-editor">
-      <mavon-editor
-        v-model="source"
-        :toolbars-flag="false"
-        :editable="false"
-        :subfield="false"
-        default-open="preview"
-      />
-    </div>
+    <el-tabs
+      class="appdpane"
+      v-model="activeName"
+      tab-position="left"
+      @tab-click="getAppStoreDocs"
+    >
+      <el-tab-pane
+        :label="$t('docs.summary')"
+        name="first"
+      >
+        <div id="test-editor">
+          <mavon-editor
+            v-model="source"
+            :toolbars-flag="false"
+            :editable="false"
+            :subfield="false"
+            default-open="preview"
+          />
+        </div>
+      </el-tab-pane>
+      <el-tab-pane
+        :label="$t('docs.toscaFolder')"
+        name="second"
+      >
+        <div id="test-editor">
+          <mavon-editor
+            v-model="source"
+            :toolbars-flag="false"
+            :editable="false"
+            :subfield="false"
+            default-open="preview"
+          />
+        </div>
+      </el-tab-pane>
+      <el-tab-pane
+        :label="$t('docs.APPDFolder')"
+        name="third"
+      >
+        <div id="test-editor">
+          <mavon-editor
+            v-model="source"
+            :toolbars-flag="false"
+            :editable="false"
+            :subfield="false"
+            default-open="preview"
+          />
+        </div>
+      </el-tab-pane>
+      <el-tab-pane
+        :label="$t('docs.imageFolder')"
+        name="four"
+      >
+        <div id="test-editor">
+          <mavon-editor
+            v-model="source"
+            :toolbars-flag="false"
+            :editable="false"
+            :subfield="false"
+            default-open="preview"
+          />
+        </div>
+      </el-tab-pane>
+      <el-tab-pane
+        :label="$t('docs.manifestFile')"
+        name="five"
+      >
+        <div id="test-editor">
+          <mavon-editor
+            v-model="source"
+            :toolbars-flag="false"
+            :editable="false"
+            :subfield="false"
+            default-open="preview"
+          />
+        </div>
+      </el-tab-pane>
+      <el-tab-pane
+        :label="$t('docs.artifactsFolder')"
+        name="six"
+      >
+        <div id="test-editor">
+          <mavon-editor
+            v-model="source"
+            :toolbars-flag="false"
+            :editable="false"
+            :subfield="false"
+            default-open="preview"
+          />
+        </div>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 <script>
@@ -58,13 +140,15 @@ export default {
   },
   data () {
     return {
+      activeName: 'second',
       source: '',
       updateMdUrl: './APPPackageDefinition.md'
     }
   },
   methods: {
     getAppStoreDocs () {
-      getDocsApi(this.language).then(res => {
+      console.log(this.activeName)
+      getDocsApi(this.language, this.activeName).then(res => {
         this.source = res.data ? res.data : ''
       })
     }
@@ -76,7 +160,11 @@ export default {
 </script>
 <style lang='less' scoped>
 .docs {
+  .appdpane {
+    font-size: 15px;
+  }
   margin-top: 10px;
+  font-size: 14px;
   .operation {
     margin-bottom: 10px;
     .btn {
