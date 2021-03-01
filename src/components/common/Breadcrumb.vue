@@ -54,7 +54,7 @@ export default {
     getNeedShowData () {
       let language = localStorage.getItem('language')
       let showData = []
-      language === 'en' ? this.breadCrumbData.forEach(ele => showData.push({ name: ele.nameEn, path: ele.path }))
+      this.breadCrumbData && language === 'en' ? this.breadCrumbData.forEach(ele => showData.push({ name: ele.nameEn, path: ele.path }))
         : this.breadCrumbData.forEach(ele => showData.push({ name: ele.nameCn, path: ele.path }))
       this.dataNeedShown = showData
     }
