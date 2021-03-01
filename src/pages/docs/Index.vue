@@ -144,7 +144,7 @@ body, html{
             height: 30px;
             padding: 30px;
             background: #fff;
-            text-align: center
+            text-align: left
 
           }
     .steps {

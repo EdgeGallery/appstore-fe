@@ -27,10 +27,10 @@
     <div class="substeps">
       <div class="substep">
         <div
-          class="subcontent"
+          class="subcontenttwo"
           :class="{'content-en': language === 'en'}"
         >
-          <div class="summary">
+          <div class="characteristic">
             <span />{{ $t('docs.summary') }}
           </div>
           <div class="summaryContent">
@@ -53,7 +53,6 @@
             <span />{{ $t('docs.characteristic') }}
           </div>
         </div>
-
         <div class="docImg">
           <div class="subDocImg">
             <img
@@ -149,25 +148,6 @@ export default {
               font-weight: 550;
 
             }
-
-          }
-
-          .subcontent {
-            border-radius: 4px;
-            float: left;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow: hidden;
-            position: relative;
-            flex-direction: column;
-            .summary{
-              text-align: left;
-              width: 100%;
-              border-bottom: solid #194686 2px;
-              font-size: 24px;
-              font-weight: 550;
-
-            }
             .summaryContent{
               margin-left: 30px;
               margin-top: 15px;
@@ -188,7 +168,9 @@ export default {
               }
 
             }
+
           }
+
           .content-en{
              height: 450px;
              width: 100%;
