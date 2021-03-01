@@ -158,13 +158,15 @@ export default {
   }
 }
 </script>
-<style lang='less' scoped>
+<style lang='less' >
+
 .docs {
-  .appdpane {
-    font-size: 15px;
-  }
   margin-top: 10px;
   font-size: 14px;
+  .el-tabs--left .el-tabs__item.is-left {
+    font-size: 15px;
+    text-align: left;
+  }
   .operation {
     margin-bottom: 10px;
     .btn {
