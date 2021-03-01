@@ -39,6 +39,7 @@
                 >
                   >
                   <img
+                    v-if="ifShow"
                     :src="uploadAppLogo"
                     class="uploadAppLogo"
                     @click="uploadPackage"
@@ -190,6 +191,7 @@ export default {
   },
   data () {
     return {
+      ifShow: false,
       language: localStorage.getItem('language'),
       advancedStatus: false,
       uploadDiaVis: false,
@@ -247,7 +249,12 @@ export default {
       return filterData
     },
     uploadPackage () {
-      this.uploadDiaVis = true
+      let userName = sessionStorage.getItem('userName')
+      if (userName === 'guest') {
+        this.uploadDiaVis = false
+      } else {
+        this.uploadDiaVis = true
+      }
     },
     changeAppList () {
       this.iconAactive = !this.iconAactive
@@ -459,6 +466,11 @@ export default {
     }
   },
   mounted () {
+    if (sessionStorage.getItem('userName') === 'guest') {
+      this.ifShow = false
+    } else {
+      this.ifShow = true
+    }
     this.getAppData()
     this.ifFromDetail()
     this.types.forEach((item) => {
