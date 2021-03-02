@@ -140,7 +140,7 @@ export default {
   },
   data () {
     return {
-      activeName: 'second',
+      activeName: 'first',
       source: '',
       updateMdUrl: './APPPackageDefinition.md'
     }

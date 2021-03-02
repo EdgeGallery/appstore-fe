@@ -123,7 +123,7 @@ export default {
           .docImg{
             // margin-top: 10px;
             background: white;
-            padding: 40px 30px 0px;
+            padding: 10px 30px 0px;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
