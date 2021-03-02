@@ -404,7 +404,16 @@ const cn = {
     otherInfo: '其他信息',
     sourceAppStore: '源Appstore',
     targetAppStore: '目标Appstore',
-    operationType: '操作描述'
+    operationType: '操作描述',
+    unReadedMsg: '未读',
+    readedMsg: '已读',
+    allMsg: '全部消息',
+    appStoreName: '仓库名称',
+    clickToCheckRepo: '点击查看测试报告吧!',
+    urlLink: '链接',
+    returnToList: '返回消息列表',
+    msgDetailInfo: '消息详情',
+    updateMsgFailed: '更新消息状态失败'
   },
   appPull: {
     name: '应用名称',

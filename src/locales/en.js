@@ -379,7 +379,14 @@ const en = {
     otherInfo: 'Other Information',
     sourceAppStore: 'source',
     targetAppStore: 'target',
-    operationType: 'operation'
+    operationType: 'operation',
+    unReadedMsg: 'unReaded',
+    readedMsg: 'readed',
+    allMsg: 'all messages',
+    appStoreName: 'AppStore Name',
+    clickToCheckRepo: 'Click to view the test report!',
+    urlLink: 'url',
+    updateMsgFailed: 'update message status failed'
   },
   appPull: {
     name: 'app name',

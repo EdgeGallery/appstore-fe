@@ -13,82 +13,96 @@
   -  See the License for the specific language governing permissions and
   -  limitations under the License.
   -->
-
 <template>
   <div
     class="box"
     ref="box"
   >
-    <div class="left">
-      <el-collapse
-        v-model="activeNames"
-      >
-        <el-collapse-item
-          v-for="(msg) in timeTable"
-          :key="msg.index"
-          :name="msg.index"
-        >
-          <template slot="title">
-            {{ msg.value }}
-          </template>
-          <div
-            v-for="(item,index) in msgs"
-            :key="index"
-            :class="index===isActive?'selectMsgBody':'msgBody'"
-            v-show="(msg.index==='1'&&item.timeResult===1) || (msg.index==='2'&&item.timeResult===2) || (msg.index==='3'&&item.timeResult===3) ||(msg.index==='4'&&item.timeResult===4)"
-            @click="showdetail(item, index)"
-          >
+    <div class="leftMsg">
+      <div class="leftMsgInner">
+        <ul>
+          <li>
             <div
-              class="tipTitle"
-              :class="!item.readed?'tipTitleNo':''"
+              :class="activeValue===1?'selectTimeDivStyle':'timeDivStyle'"
+              @click="doClick(1)"
             >
-              {{ item.sourceAppStore }}
-              <span
-                class="msgTime"
-                v-if="msg.index==='1'"
-                :class="!item.readed?'msgTimeNo':''"
+              <img
+                :src="language === 'cn'?dayMsg:enDayMsg"
+                class="imgMsgStyle"
+                alt=""
               >
-                {{ item.time.split(' ')[1].substring(0, item.time.split(' ')[1].length-3) }}
-              </span>
-              <span
-                class="msgTime"
-                v-else
-                :class="!item.readed?'msgTimeNo':''"
-              >
-                {{ item.time.split(' ')[0] }}
-              </span>
-              <div
-                class="el-icon-document-delete"
-                @click="handleDelete(index)"
-                @mouseenter="enter(1, item)"
-                @mouseleave="leave(item)"
-              />
-              <div
-                class="el-icon-document-checked"
-                @click="handleAccept(index)"
-                @mouseenter="enter(2, item)"
-                @mouseleave="leave(item)"
-              />
-              <div
-                class="popUp"
-                v-show="item.seen"
-              >
-                <span
-                  v-if="operationType === 1"
-                >{{ $t('apppromotion.deleteMsgTip') }}</span>
-                <span
-                  v-else
-                >{{ $t('apppromotion.acceptMsgTip') }}</span>
+              <div class="timeFontStyle">
+                <span>{{ $t('messageCenter.msgToday') }}</span>
               </div>
             </div>
-          </div>
-        </el-collapse-item>
-      </el-collapse>
+          </li>
+          <li>
+            <div
+              :class="activeValue===2?'selectTimeDivStyle':'timeDivStyle'"
+              @click="doClick(2)"
+            >
+              <img
+                :src="language === 'cn'?weekMsg:enWeekMsg"
+                class="imgMsgStyle"
+                alt=""
+              >
+              <div class="timeFontStyle">
+                <span>{{ $t('messageCenter.msgWeek') }}</span>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              :class="activeValue===3?'selectTimeDivStyle':'timeDivStyle'"
+              @click="doClick(3)"
+            >
+              <img
+                :src="language === 'cn'?monthMsg:enMonthMsg"
+                class="imgMsgStyle"
+                alt=""
+              >
+              <div class="timeFontStyle">
+                <span>{{ $t('messageCenter.msgMonth') }}</span>
+                <div />
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              :class="activeValue===4?'selectTimeDivStyle':'timeDivStyle'"
+              @click="doClick(4)"
+            >
+              <img
+                :src="moreMsg"
+                class="imgMoreMsgStyle"
+                alt=""
+              >
+              <div class="timeFontStyle">
+                <span>{{ $t('messageCenter.msgOld') }}</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="right">
+    <div
+      class="rightMsg"
+      v-if="!isShowDlg"
+    >
       <RightContent
         v-if="hackReset"
-        :data="msgDetail"
+        @clickMsgItemEvent="getDetailMsg"
+        @isShowDetailMsgDlg="isShowDetailDlg"
+        :data="rightDetailData"
+      />
+    </div>
+    <div
+      class="rightMsg"
+      v-else
+    >
+      <DetailMsgDlg
+        :data="currentDetailMsg"
+        @isShowDetailMsgDlg="isShowDetailDlg"
       />
     </div>
   </div>
@@ -96,88 +110,81 @@
 
 <script>
 import RightContent from './Right_template'
+import DetailMsgDlg from './DetailMsgDlg'
+import dayMsg from '@/assets/images/dayMsg.png'
+import weekMsg from '@/assets/images/weekMsg.png'
+import monthMsg from '@/assets/images/monthMsg.png'
+import enDayMsg from '@/assets/images/enDayMsg.png'
+import enWeekMsg from '@/assets/images/enWeekMsg.png'
+import enMonthMsg from '@/assets/images/enMonthMsg.png'
+import moreMsg from '@/assets/images/moreMsg.png'
 import { getAppdownAnaApiByType, updateStatus, acceptMsg, deleteMsg } from '../../tools/api.js'
 export default {
   components: {
-    RightContent
+    RightContent,
+    DetailMsgDlg
   },
   data () {
     return {
-      msgs: [],
-      activeNames: ['1'],
-      msgDetail: {},
-      isActive: 0,
+      dayMsg: dayMsg,
+      weekMsg: weekMsg,
+      monthMsg: monthMsg,
+      enDayMsg: enDayMsg,
+      enWeekMsg: enWeekMsg,
+      enMonthMsg: enMonthMsg,
+      moreMsg: moreMsg,
       hackReset: true,
-      operationType: 1
+      activeValue: 1,
+      currentDetailMsg: {},
+      isShowDlg: false,
+      allData: [],
+      allRightDetailData: [],
+      language: localStorage.getItem('language'),
+      rightDetailData: [
+        {
+          name: 'unReadedMsg',
+          title: 'unReadedMsg',
+          content: []
+        },
+        {
+          name: 'readedMsg',
+          title: 'readedMsg',
+          content: []
+        },
+        {
+          name: 'allMsg',
+          title: 'allMsg',
+          content: []
+        }
+      ]
     }
   },
   methods: {
-    showdetail (item, index) {
-      this.msgDetail = item
-      this.isActive = index
-      if (!item.readed) {
-        item.readed = true
-        this.updateMsgStatus(item.messageId)
-      }
-      this.rebuileComponents()
-    },
-    timeCompute (time) {
-      var today = new Date()
-      var todayTime = today.getTime() % (1000 * 60 * 60 * 24)
-      var offset = new Date(time).getTime() - today.getTime()
-      var dateTime = offset + todayTime
-      if (dateTime >= 0 && dateTime < 1000 * 60 * 60 * 24) {
-        return 1
-      } else if (dateTime < 0 && dateTime / (1000 * 60 * 60 * 24) >= -7) {
-        return 2
-      } else if (dateTime / (1000 * 60 * 60 * 24) < -7 && dateTime / (1000 * 60 * 60 * 24) >= -30) {
-        return 3
-      } else {
-        return 4
-      }
-    },
+    getDataBySelectTime () {
 
-    getAppData (param) {
-      getAppdownAnaApiByType().then((res) => {
-        let data = res.data
-        data.forEach(item => {
-          item.timeResult = this.timeCompute(item.time)
-          item.seen = false
-        })
-        this.msgs = data
-        // 跳转到定位的item
-        if (!param) {
-          this.msgDetail = this.msgs[0]
-          if (this.msgs[0].readed === false) {
-            this.msgDetail.readed = true
-            this.updateMsgStatus(this.msgs[0].messageId)
+    },
+    getDetailMsg (value) {
+      this.currentDetailMsg = value
+    },
+    isShowDetailDlg (value) {
+      this.isShowDlg = value
+    },
+    doClick (value) {
+      this.activeValue = value
+      this.setCurrentTimeData(value)
+    },
+    setCurrentTimeData (value) {
+      this.rightDetailData[0].content = []
+      this.rightDetailData[1].content = []
+      this.rightDetailData[2].content = []
+      this.allRightDetailData.forEach(item => {
+        if (item.timeResult === this.activeValue) {
+          if (item.readed) {
+            this.rightDetailData[1].content.push(item)
+          } else {
+            this.rightDetailData[0].content.push(item)
           }
-        } else {
-          // 根据messge获取index并激活该index
-          for (let i = 0; i < this.msgs.length; i++) {
-            if (param.messageId === this.msgs[i].messageId) {
-              this.isActive = i
-              break
-            }
-          }
-          this.msgDetail = param
-          this.msgDetail.readed = true
-          this.updateMsgStatus(param.messageId)
-        }
-      }).catch((err) => {
-        if (err.response.data.code === 403) {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.guestUser'),
-            type: 'warning'
-          })
-          this.handleClose()
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('apppromotion.getNoticeFailed'),
-            type: 'warning'
-          })
+          this.rightDetailData[2].content.push(item)
         }
       })
     },
@@ -193,23 +200,15 @@ export default {
     },
     locateMessage (message) {
       // 根据messge获取index并激活该index
-      for (let i = 0; i < this.msgs.length; i++) {
-        if (message.messageId === this.msgs[i].messageId) {
-          this.isActive = i
+      for (let i = 0; i < this.allRightDetailData.length; i++) {
+        if (message.messageId === this.allRightDetailData[i].messageId) {
+          this.isShowDlg = true
+          this.currentDetailMsg = message
           break
         }
       }
-      this.msgDetail = message
-      this.msgDetail.readed = true
+      this.currentDetailMsg.readed = true
       this.updateMsgStatus(message.messageId)
-    },
-    rebuileComponents () {
-      // 销毁子标签
-      this.hackReset = false
-      // 重新创建子标签
-      this.$nextTick(() => {
-        this.hackReset = true
-      })
     },
     handleAccept (index) {
       acceptMsg(this.msgs[index].messageId).then((res) => {
@@ -236,141 +235,159 @@ export default {
         })
       }, 500)
     },
-    enter (type, item) {
-      item.seen = true
-      this.operationType = type
+    timeCompute (time) {
+      var today = new Date()
+      var todayTime = today.getTime() % (1000 * 60 * 60 * 24)
+      var offset = new Date(time).getTime() - today.getTime()
+      var dateTime = offset + todayTime
+      if (dateTime >= 0 && dateTime < 1000 * 60 * 60 * 24) {
+        return 1
+      } else if (dateTime < 0 && dateTime / (1000 * 60 * 60 * 24) >= -7) {
+        return 2
+      } else if (dateTime / (1000 * 60 * 60 * 24) < -7 && dateTime / (1000 * 60 * 60 * 24) >= -30) {
+        return 3
+      } else {
+        return 4
+      }
     },
-    leave (item) {
-      item.seen = false
+    getAppData (param) {
+      getAppdownAnaApiByType().then((res) => {
+        let data = res.data
+        data.forEach(item => {
+          item.timeResult = this.timeCompute(item.time)
+          this.allRightDetailData.push(item)
+        })
+        // 默认是选中今天数据
+        this.allRightDetailData.forEach(item => {
+          if (item.timeResult === 1) {
+            if (item.readed) {
+              this.rightDetailData[1].content.push(item)
+            } else {
+              this.rightDetailData[0].content.push(item)
+            }
+            this.rightDetailData[2].content.push(item)
+          }
+        })
+      }).catch((err) => {
+        if (err.response.data.code === 403) {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.guestUser'),
+            type: 'warning'
+          })
+          this.handleClose()
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('apppromotion.getNoticeFailed'),
+            type: 'warning'
+          })
+        }
+      })
     }
+
   },
   mounted () {
     let param = this.$route.query.item
     this.getAppData(param)
   },
-  computed: {
-    timeTable () {
-      return [
-        {
-          value: this.$t('messageCenter.msgToday'),
-          index: '1'
-        },
-        {
-          value: this.$t('messageCenter.msgWeek'),
-          index: '2'
-        },
-        {
-          value: this.$t('messageCenter.msgMonth'),
-          index: '3'
-        },
-        {
-          value: this.$t('messageCenter.msgOld'),
-          index: '4'
-        }
-      ]
-    }
-  },
   watch: {
     '$route': function (to, from) {
       console.log(to.query.item.messageId)
       this.locateMessage(to.query.item)
+    },
+    '$i18n.locale': function () {
+      this.language = localStorage.getItem('language')
     }
   }
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .box {
+  width: 80%;
+  min-width: 1500px;
   height: 100%;
-  margin: 65px 0px 0px;
-  background:#fff;
+  background:#ffffff;
+  margin:0px auto;
+
 }
-.left {
-  width: 18%;
-  height:100%;
-  background: #fff;
+.leftMsg{
+  width: 25%;
+  background: #ffffff;
   float: left;
   padding:0 12px;
   overflow-y: auto;
-  border-right:1px solid #eadfdf,
+  display: inline-block;
+  height:100%;
+  .leftMsgInner {
+    height:70%;
+    float: left;
+    margin-top: 20px;
+    padding:0 12px;
+    overflow-y: auto;
+    display: inline-block;
+    .timeDivStyle {
+      width: 280px;
+      height: 60px;
+      margin-left: 40px;
+      margin-top: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      .imgMsgStyle {
+        float: left;
+        margin-left: 10px;
+        width: 36px;
+        height: 36px;
+      }
+      .imgMoreMsgStyle {
+        float: left;
+        margin-top: 10px;
+        margin-left: 13px;
+      }
+      .timeFontStyle {
+        margin-left: 70px;
+        margin-top: 10px;
+      }
+    }
+    .selectTimeDivStyle {
+      width: 280px;
+      height: 60px;
+      margin-left: 40px;
+      margin-top: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      background:#E0E3E3;
+      .imgMsgStyle {
+        float: left;
+        margin-left: 10px;
+        width: 36px;
+        height: 36px;
+      }
+      .imgMoreMsgStyle {
+        float: left;
+        margin-top: 10px;
+        margin-left: 13px;
+      }
+      .timeFontStyle {
+        margin-left: 70px;
+        margin-top: 10px;
+      }
+    }
+    .timeDivStyle:hover{
+      background:#E0E3E3;
+    }
+  }
 }
-.right {
-  margin-left:18%;
-  width: 82%;
+
+.rightMsg {
+  float: left;
+  width: 75%;
   height: 100%;
   background: #FFFFFF;
   padding:25px 35px;
   overflow-y: auto;
+  display: inline-block;
 }
-.el-collapse{
-  border-top:none!important;
-}
-.msgBody:hover{
- background:#cedbe8;
-}
-.tipTitle{
-  font-size:15px;
-  color:#686b73;
-  .el-icon-document-checked{
-    font-size: 16px;
-    color: #409EFF;
-    margin-right: 3px;
-    margin-top: 3px;
-    float:right;
-  }
-  .el-icon-document-delete{
-    font-size: 16px;
-    color: #409EFF;
-    float:right;
-    margin-top: 3px;
-  }
-  .popUp{
-    width: 120px;
-    height: 20px;
-    background-color: #FFFFFF;
-    z-index: 999999;
-    right: 10px;
-    float: right;
-    border: 1px solid gray;
-    font-size: 10px
-  }
-}
-.msgTime{
-  font-size: 13px;
-  color:#b6b8bd;
-  margin-left:3px;
-  float:right;
-  padding-right:10px;
-}
-.selectMsgBody{
-  background:#cedbe8;
-  border-bottom: 1px solid #f5f5f5;
-  margin-top:3px;
-  padding-left:10px;
-  cursor: pointer;
-  border-radius: 2px;
-  height:50px;
-  .tipTitleNo{
-    font-weight:bold;
-    color:#000;
-  }
-  .msgTime{
-    color:#000;
-  }
-}
-.msgBody{
-  border-bottom: 1px solid #C0C0C0;
-  margin-top:3px;
-  padding-left:10px;
-  cursor: pointer;
-  border-radius: 2px;
-  height:50px;
-  .tipTitleNo{
-    font-weight:bold;
-    color:#000;
-  }
-  .msgTime{
-    color:#000;
-  }
-}
+
 </style>
