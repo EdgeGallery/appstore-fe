@@ -298,7 +298,21 @@ export default new Router({
           name: 'msgCenter',
           component: () => import('./pages/msgCenter/Msg_template.vue'),
           meta: {
-            id: '2.6'
+            id: '2.6',
+            breadcrumb: [
+              {
+                nameEn: en.nav.home,
+                path: '/',
+                nameCn: cn.nav.home
+              }, {
+                nameEn: en.nav.appShare,
+                nameCn: cn.nav.appShare
+              }, {
+                nameEn: en.nav.msgCenter,
+                path: '/msgCenter',
+                nameCn: cn.nav.msgCenter
+              }
+            ]
           },
           children: [
             {

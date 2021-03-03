@@ -1,5 +1,5 @@
 <!--
-  -  Copyright 2020 Huawei Technologies Co., Ltd.
+  -  Copyright 2021 Huawei Technologies Co., Ltd.
   -
   -  Licensed under the Apache License, Version 2.0 (the "License");
   -  you may not use this file except in compliance with the License.
@@ -15,132 +15,124 @@
   -->
 
 <template>
-  <div id="content">
-    <div class="detailcContent">
-      <div class="detailTitle">
-        <span class="lt">FROM:{{ data.sourceAppStore }}</span>
-        <el-button
-          type="primary"
-          class="acceptButton"
-          @click="handleAccept"
-        >
-          {{ $t("messageCenter.acceptMsg") }}
-        </el-button>
-        <el-button
-          type="primary"
-          class="deleteButtom"
-          @click="handleDelete"
-        >
-          {{ $t("messageCenter.deleteMsg") }}
-        </el-button>
-      </div>
-      <div class="detailInfo">
-        <p class="title">
-          {{ $t("messageCenter.appBasicInfo") }}
-        </p>
-        <el-form
-          label-width="100px"
-          size="mini"
-          id="appForm1"
-        >
-          <el-row :gutter="24">
-            <el-col :span="8">
-              <el-form-item :label="$t('messageCenter.appLabel')">
-                {{ data.basicInfo.name }}
-              </el-form-item>
-              <el-form-item :label="$t('messageCenter.appStruct')">
-                {{ data.basicInfo.affinity }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('messageCenter.appProvider')">
-                {{ data.basicInfo.provider }}
-              </el-form-item>
-              <el-form-item
-                :label="$t('messageCenter.appAffinity')"
-              >
-                {{ data.basicInfo.type }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('messageCenter.appVersion')">
-                {{ data.basicInfo.version }}
-              </el-form-item>
-              <el-form-item :label="$t('messageCenter.appIndustry')">
-                {{ data.basicInfo.industry }}
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row :gutter="24">
-            <el-col :span="24">
-              <el-form-item
-                class="appShortDes"
-                :label="$t('messageCenter.appShortDes')"
-              >
-                {{ data.basicInfo.shortDesc }}
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-      </div>
-      <div class="testDetail">
-        <p class="title">
-          {{ $t("messageCenter.appTestRepo") }}
-        </p>
-        <el-form
-          label-width="100px"
-          id="appForm2"
-        >
-          <el-row :gutter="24">
-            <el-col :span="8">
-              <el-form-item :label="$t('messageCenter.appTestPlatform')">
-                {{ $t("messageCenter.atpTestPlatform") }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item :label="$t('messageCenter.atpTestStatus')">
-                {{ data.atpTestStatus }}
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-      </div>
-      <div class="detailReport">
-        <p class="titleTestRepo">
-          {{ $t("messageCenter.testRepoDescription") }}
-        </p>
-        <div
-          class="iframeReport"
-        >
-          <ATPReport
-            :dataurl="data.messageId"
-          />
-        </div>
-      </div>
-    </div>
+  <div>
+    <el-tabs
+      v-model="activeName"
+      @tab-click="handleClick"
+    >
+      <el-tab-pane
+        v-for="(item) in allTabsMsg"
+        :key="item.name"
+        :label="getTabsTitle(item.title)"
+        :name="item.name"
+      >
+        <!-- <component :is="item.content" /> -->
+        <template>
+          <div>
+            <el-table
+              :data="item.content"
+              :row-style="{height: '80px'}"
+              :show-header="false"
+            >
+              <el-table-column>
+                <template slot-scope="scope">
+                  <div
+                    @click="getDetailMsg(scope.row)"
+                  >
+                    <img
+                      :src="scope.row.iconDownloadUrl"
+                      alt=""
+                      class="appIcon"
+                    >
+                    <div>
+                      <div class="fontLine">
+                        <span> {{ scope.row.sourceAppStore }} </span>
+                      </div>
+                      <div class="fontLine">
+                        <span> {{ scope.row.description }} </span>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column>
+                <template slot-scope="scope">
+                  <div
+                    @click="getDetailMsg(scope.row)"
+                  >
+                    <div>
+                      <div class="timeLine">
+                        <span> {{ scope.row.time }} </span>
+                      </div>
+                      <div class="opeLine">
+                        <img
+                          src="../../assets/images/acceptMsg.png"
+                          alt=""
+                          class="operatorLine"
+                          @click.stop="handleAccept(scope.row.messageId)"
+                        >
+                        <img
+                          src="../../assets/images/deleteMsg.png"
+                          alt=""
+                          class="operatorLine"
+                          @click.stop="handleDelete(scope.row.messageId)"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+        </template>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
-
 <script>
-import ATPReport from './ATPReport'
-import { acceptMsg, deleteMsg } from '../../tools/api.js'
+import { acceptMsg, deleteMsg, updateStatus } from '../../tools/api.js'
 export default {
   components: {
-    ATPReport
   },
   props: {
     data: {
       required: true,
-      type: Object
+      type: Array
     }
   },
   data () {
     return {
+      allTabsMsg: [],
+      activeName: 'unReadedMsg'
     }
   },
   methods: {
-    handleAccept () {
-      acceptMsg(this.data.messageId).then((res) => {
+    handleClick (tab, event) {
+      console.log(tab, event)
+    },
+    getTabsTitle (key) {
+      let localKey = 'messageCenter.' + key
+      return this.$t(localKey)
+    },
+    getDetailMsg (rowInfo) {
+      this.$emit('clickMsgItemEvent', rowInfo)
+      this.$emit('isShowDetailMsgDlg', true)
+      if (!rowInfo.readed) {
+        this.updateStatus(rowInfo.messageId)
+      }
+    },
+    updateMsgStatus (messageId) {
+      updateStatus(messageId).then((res) => {
+      }).catch(() => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('messageCenter.updateMsgFailed'),
+          type: 'warning'
+        })
+      })
+    },
+    handleAccept (messageId) {
+      acceptMsg(messageId).then((res) => {
         this.$message.success(this.$t('apppromotion.acceptSuccess'))
       }).catch((error) => {
         this.$message({
@@ -150,8 +142,8 @@ export default {
         })
       })
     },
-    handleDelete () {
-      deleteMsg(this.data.messageId).then((res) => {
+    handleDelete (messageId) {
+      deleteMsg(messageId).then((res) => {
         this.$message.success(this.$t('apppromotion.deleteMsgSuccess'))
       }).catch((error) => {
         this.$message({
@@ -163,102 +155,36 @@ export default {
     }
   },
   mounted () {
+    this.allTabsMsg = this.data
   }
 }
 </script>
 <style lang="less">
-#content,.detailcContent{
-  height:100%;
-}
-.detailTitle{
-  height:36px;
-  .lt{
-    font-size: 17px;
-    font-weight: 600;
+  .el-tabs__item{
+    font-size: 16px;
   }
-  .acceptButton{
-    position: relative;
-    top: -10px;
-    left: 25px;
-    float: right
+  .appIcon{
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-top: 7px;
   }
-  .deleteButtom{
-    position: relative;
-    top: -10px;
+  .fontLine{
+    padding: 5px 0px;
+    margin-left: 65px;
+  }
+  .timeLine{
+    padding: 5px 0px;
     margin-left: 10px;
-    float: right
+    text-align: right;
   }
-}
-.title{
-  font-size: 17px;
-  line-height: 36px;
-  color: #000;
-  margin-left: 20px;
-  position:relative;
-  z-index: 888;
-}
-.titleTestRepo{
-  font-size: 15px;
-  // margin-top: 15px;
-  margin-left: 18px;
-  color: #999;
-  z-index: 888;
-}
-.title::before{
-  content:'';
-  display:inline-block;
-  width:3px;
-  height:20px;
-  position: relative;
-  top:4px;
-  background:#409EFF;
-}
-.el-form-item{
-  margin:0;
-  margin-left: 33px;
+  .opeLine{
+    padding: 5px 0px;
+    margin-left: 10px;
+    text-align: right;
+  }
 
-}
-.el-form-item__label{
-  font-size: 16px;
-  text-align: left;
-
-}
-.el-form-item--mini.el-form-item{
-  margin-bottom: 10px;
-}
-.el-form-item__content{
-  font-size: 16px;
-}
-.detailInfo{
-  height: 110px;
-}
-.testDetail{
-  height: 70px;
-}
-.detailReport{
-  height: 100%;
-  margin-left: 15px;
-  margin-top: 85px;
-}
-.iframeReport{
-  height: auto;
-  width: 100%;
-  margin-left: 15px;
-  margin-top: 10px;
-  border: 1px solid gray;
-}
-.appShortDes{
-  margin-left: 33px;
-}
-#appForm1 .el-form-item__label {
-  font-size: 15px;
-  color: #999;
-}
-#appForm2 {
-  margin-top: 10px;
-}
-#appForm2 .el-form-item__label {
-  font-size: 15px;
-  color: #999;
-}
+  .operatorLine{
+    margin-left: 20px;
+  }
 </style>
