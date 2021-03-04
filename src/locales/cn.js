@@ -409,8 +409,8 @@ const cn = {
     readedMsg: '已读',
     allMsg: '全部消息',
     appStoreName: '仓库名称',
-    clickToCheckRepo: '点击查看测试报告吧!',
-    urlLink: '链接',
+    testRepoKey: '测试报告',
+    clickToCheckRepo: '点击查看!',
     returnToList: '返回消息列表',
     msgDetailInfo: '消息详情',
     updateMsgFailed: '更新消息状态失败'

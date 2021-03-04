@@ -78,11 +78,12 @@
         >
           <el-row :gutter="24">
             <el-col :span="4">
-              <img
-                src="../../assets/images/logo.png"
-                alt=""
-                class="appIcon"
-              >
+              <div class="icon_box">
+                <img
+                  :src="data.iconDownloadUrl"
+                  alt=""
+                >
+              </div>
             </el-col>
             <el-col
               :span="8"
@@ -142,11 +143,12 @@
         >
           <el-row :gutter="24">
             <el-col :span="4">
-              <img
-                :src="data.iconDownloadUrl"
-                alt=""
-                class="appIcon"
-              >
+              <div class="icon_box2">
+                <img
+                  src="../../assets/images/logo.png"
+                  alt=""
+                >
+              </div>
             </el-col>
             <el-col
               :span="8"
@@ -166,7 +168,7 @@
               <el-form-item :label="$t('messageCenter.atpTestStatus')">
                 {{ data.atpTestStatus }}
               </el-form-item>
-              <el-form-item :label="$t('messageCenter.urlLink')">
+              <el-form-item :label="$t('messageCenter.testRepoKey')">
                 <a
                   :href="data.atpTestReportUrl"
                   target="_blank"
@@ -235,7 +237,7 @@ export default {
   height: 100%;
   .part1{
     width: 95%;
-    height: 15%;
+    height: 8%;
     .part1Div{
       width: 100%;
       height: 30px;
@@ -254,15 +256,15 @@ export default {
         float: right;
         margin-right: 30px;
         .operatorLine{
-          width: 17px;
-          height: 17px;
+          width: 15px;
+          height: 15px;
         }
       }
       .part1Three{
         float: right;
         .operatorLine{
-          width: 17px;
-          height: 17px;
+          width: 15px;
+          height: 15px;
         }
       }
     }
@@ -274,11 +276,11 @@ export default {
   .part2{
     width: 95%;
     height: 25%;
-    // margin-top: -40px;
     .part2TitleDiv{
       width: 100%;
       height: 30px;
       margin-left: 15px;
+      display: inline-block;
       .linestyle2{
         margin: 4px 20px;
         width: 78%;
@@ -304,11 +306,16 @@ export default {
         text-align: left;
         color: #999;
       }
-      .appIcon{
-        height: 80px;
-        width: 170px;
-        margin-top: 20px;
-        margin-left: 30px;
+      .icon_box{
+        background: #fff;
+        text-align: center;
+        padding: 5px 5px 2px;
+        margin-left: 20px;
+        margin-top: 10px;
+        img{
+          height: 80px;
+          width: 80px;
+        }
       }
       .detailInfo{
         margin-left: 50px;
@@ -322,11 +329,16 @@ export default {
         text-align: left;
         color: #999;
       }
-      .appIcon{
-        height: 80px;
-        width: 170px;
-        margin-top: 20px;
-        margin-left: 30px;
+      .icon_box2{
+        background: #fff;
+        text-align: center;
+        padding: 5px 5px 2px;
+        margin-top: 25px;
+        margin-left: 20px;
+        img{
+          height: 80px;
+          width: 180px;
+        }
       }
       .detailInfo2{
         margin-left: 50px;
