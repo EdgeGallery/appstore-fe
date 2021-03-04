@@ -37,7 +37,7 @@
               <el-table-column>
                 <template slot-scope="scope">
                   <div
-                    @click="getDetailMsg(scope.row)"
+                    @dblclick="getDetailMsg(scope.row)"
                   >
                     <img
                       :src="scope.row.iconDownloadUrl"
@@ -46,7 +46,7 @@
                     >
                     <div>
                       <div class="fontLine">
-                        <span> {{ scope.row.sourceAppStore }} </span>
+                        <span> {{ scope.row.basicInfo.name }} </span>
                       </div>
                       <div class="fontLine">
                         <span> {{ scope.row.description }} </span>
@@ -58,7 +58,7 @@
               <el-table-column>
                 <template slot-scope="scope">
                   <div
-                    @click="getDetailMsg(scope.row)"
+                    @dblclick="getDetailMsg(scope.row)"
                   >
                     <div>
                       <div class="timeLine">
@@ -70,13 +70,28 @@
                           alt=""
                           class="operatorLine"
                           @click.stop="handleAccept(scope.row.messageId)"
+                          @mouseenter="enter(2, scope.row)"
+                          @mouseleave="leave(scope.row)"
                         >
                         <img
                           src="../../assets/images/deleteMsg.png"
                           alt=""
                           class="operatorLine"
                           @click.stop="handleDelete(scope.row.messageId)"
+                          @mouseenter="enter(1, scope.row)"
+                          @mouseleave="leave(scope.row)"
                         >
+                      </div>
+                      <div
+                        class="popUp"
+                        v-show="scope.row.seen"
+                      >
+                        <span
+                          v-if="operationType === 1"
+                        >{{ $t('apppromotion.deleteMsgTip') }}</span>
+                        <span
+                          v-else
+                        >{{ $t('apppromotion.acceptMsgTip') }}</span>
                       </div>
                     </div>
                   </div>
@@ -103,10 +118,18 @@ export default {
   data () {
     return {
       allTabsMsg: [],
-      activeName: 'unReadedMsg'
+      activeName: 'unReadedMsg',
+      operationType: 1
     }
   },
   methods: {
+    enter (type, item) {
+      item.seen = true
+      this.operationType = type
+    },
+    leave (item) {
+      item.seen = false
+    },
     handleClick (tab, event) {
       console.log(tab, event)
     },
@@ -183,8 +206,17 @@ export default {
     margin-left: 10px;
     text-align: right;
   }
+  .popUp{
+    width: 130px;
+    height: 20px;
+    z-index: 999999;
+    text-align: right;
+    float: right;
+    font-size: 10px;
+  }
 
   .operatorLine{
     margin-left: 20px;
+    cursor: pointer;
   }
 </style>

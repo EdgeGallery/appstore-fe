@@ -384,8 +384,8 @@ const en = {
     readedMsg: 'readed',
     allMsg: 'all messages',
     appStoreName: 'AppStore Name',
-    clickToCheckRepo: 'Click to view the test report!',
-    urlLink: 'url',
+    testRepoKey: 'test report',
+    clickToCheckRepo: 'click to view!',
     updateMsgFailed: 'update message status failed'
   },
   appPull: {
