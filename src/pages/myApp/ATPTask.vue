@@ -17,6 +17,7 @@
 <template>
   <div class="padding56">
     <iframe
+      v-if="isRouterAlive"
       title="atp"
       :src="srcUrl"
       name="atp"
@@ -32,21 +33,38 @@ export default {
   name: 'Task',
   data () {
     return {
-      srcUrl: ''
+      srcUrl: '',
+      isRouterAlive: true
     }
   },
   methods: {
     getAtpUrl () {
+      let language = localStorage.getItem('language')
       let currUrl = window.location.href
       if (currUrl.indexOf('30091') !== -1) {
-        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/app/test/task'
+        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/app/test/task' + '?language=' + language
       } else {
         this.srcUrl = currUrl.replace('appstore', 'atp')
+        this.srcUrl = this.srcUrl + '?language=' + language
       }
+    },
+    rebuileComponents () {
+      // 销毁子标签
+      this.isRouterAlive = false
+      // 重新创建子标签
+      this.$nextTick(() => {
+        this.isRouterAlive = true
+      })
     }
   },
   mounted () {
     this.getAtpUrl()
+  },
+  watch: {
+    '$i18n.locale': function () {
+      this.rebuileComponents()
+      this.getAtpUrl()
+    }
   }
 }
 </script>

@@ -197,11 +197,12 @@ export default {
         }).then(() => {
           // 跳转测试报告+taskId
           let currUrl = window.location.host
+          let language = localStorage.getItem('language')
           if (currUrl.indexOf('30091') !== -1) {
-            currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId
+            currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
           } else {
             currUrl = currUrl.replace('appstore', 'atp')
-            currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId
+            currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
           }
           window.open(currUrl, '_blank')
         }).catch(action => {
@@ -218,11 +219,12 @@ export default {
         }).then(() => {
           // 跳转测试报告
           let currUrl = window.location.host
+          let language = localStorage.getItem('language')
           if (currUrl.indexOf('30091') !== -1) {
-            currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId
+            currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
           } else {
             currUrl = currUrl.replace('appstore', 'atp')
-            currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId
+            currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
           }
           window.open(currUrl, '_blank')
         })
