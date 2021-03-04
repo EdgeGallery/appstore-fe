@@ -46,10 +46,10 @@
                     >
                     <div>
                       <div class="fontLine">
-                        <span> {{ scope.row.basicInfo.name }} </span>
+                        <span :class="!scope.row.readed?'fontStyle':''"> {{ scope.row.basicInfo.name }} </span>
                       </div>
                       <div class="fontLine">
-                        <span> {{ scope.row.description }} </span>
+                        <span :class="!scope.row.readed?'fontStyle':''"> {{ scope.row.description }} </span>
                       </div>
                     </div>
                   </div>
@@ -70,28 +70,15 @@
                           alt=""
                           class="operatorLine"
                           @click.stop="handleAccept(scope.row.messageId)"
-                          @mouseenter="enter(2, scope.row)"
-                          @mouseleave="leave(scope.row)"
+                          v-tooltip.right="{content:$t('apppromotion.acceptMsgTip'), delay: 0, class: 'tooltip-custom tooltip-other-custom' }"
                         >
                         <img
                           src="../../assets/images/deleteMsg.png"
                           alt=""
                           class="operatorLine"
                           @click.stop="handleDelete(scope.row.messageId)"
-                          @mouseenter="enter(1, scope.row)"
-                          @mouseleave="leave(scope.row)"
+                          v-tooltip.right="{content:$t('apppromotion.deleteMsgTip'), delay: 0, class: 'tooltip-custom tooltip-other-custom' }"
                         >
-                      </div>
-                      <div
-                        class="popUp"
-                        v-show="scope.row.seen"
-                      >
-                        <span
-                          v-if="operationType === 1"
-                        >{{ $t('apppromotion.deleteMsgTip') }}</span>
-                        <span
-                          v-else
-                        >{{ $t('apppromotion.acceptMsgTip') }}</span>
                       </div>
                     </div>
                   </div>
@@ -123,13 +110,6 @@ export default {
     }
   },
   methods: {
-    enter (type, item) {
-      item.seen = true
-      this.operationType = type
-    },
-    leave (item) {
-      item.seen = false
-    },
     handleClick (tab, event) {
       console.log(tab, event)
     },
@@ -141,7 +121,8 @@ export default {
       this.$emit('clickMsgItemEvent', rowInfo)
       this.$emit('isShowDetailMsgDlg', true)
       if (!rowInfo.readed) {
-        this.updateStatus(rowInfo.messageId)
+        rowInfo.readed = true
+        this.updateMsgStatus(rowInfo.messageId)
       }
     },
     updateMsgStatus (messageId) {
@@ -182,7 +163,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scope>
   .el-tabs__item{
     font-size: 16px;
   }
@@ -206,17 +187,35 @@ export default {
     margin-left: 10px;
     text-align: right;
   }
-  .popUp{
+  .tipMsg{
     width: 130px;
     height: 20px;
     z-index: 999999;
     text-align: right;
     float: right;
     font-size: 10px;
+    position: absolute;
+  }
+  .fontStyle{
+    font-weight:bold;
+    color:#000;
   }
 
   .operatorLine{
     margin-left: 20px;
     cursor: pointer;
+  }
+  .vue-tooltip.tooltip-custom {
+    color:#fff;
+    background-color: #646767;
+    box-shadow: 0 5px 30px rgba(0 , 0 , 0 , .6);
+    padding : 12px 55px;
+    margin-top: 70px;
+    margin-right: -20px;
+    z-index: 99999 !important;
+  }
+  .vue-tooltip.tooltip-custom .tooltip-arrow {
+      color:#fff;
+      border-color: #546E7A;
   }
 </style>

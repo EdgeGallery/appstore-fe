@@ -25,7 +25,7 @@
             class="operatorLine"
             @click="returnToList"
           >
-          <span>
+          <span class="operatorFont">
             {{ $t("messageCenter.returnToList") }}
           </span>
           <span class="part1MsgDetails">
@@ -41,7 +41,7 @@
             alt=""
             class="operatorLine"
           >
-          <span>{{ $t("messageCenter.deleteMsg") }}</span>
+          <span class="operatorFont">{{ $t("messageCenter.deleteMsg") }}</span>
         </div>
         <div
           class="part1Three"
@@ -52,7 +52,7 @@
             alt=""
             class="operatorLine"
           >
-          <span>{{ $t("messageCenter.acceptMsg") }}</span>
+          <span class="operatorFont">{{ $t("messageCenter.acceptMsg") }}</span>
         </div>
       </div>
       <hr class="linestyle">
@@ -68,13 +68,14 @@
           {{ $t("messageCenter.appBasicInfo") }}
         </h3>
         <div class="linestyle2">
-          <hr>
+          <hr style="border: 1px solid #DEE0E0;">
         </div>
       </div>
       <div class="appBasicInfoContent">
         <el-form
           label-width="100px"
           size="mini"
+          id="selectForm"
         >
           <el-row :gutter="24">
             <el-col :span="4">
@@ -132,7 +133,7 @@
           {{ $t("messageCenter.appTestRepo") }}
         </h3>
         <div class="linestyle2">
-          <hr>
+          <hr style="border: 1px solid #DEE0E0;">
         </div>
       </div>
       <div class="appBasicInfoContent2">
@@ -237,7 +238,7 @@ export default {
   height: 100%;
   .part1{
     width: 95%;
-    height: 8%;
+    height: 12%;
     .part1Div{
       width: 100%;
       height: 30px;
@@ -248,29 +249,39 @@ export default {
           font-weight: 800;
         }
         .operatorLine{
-          width: 25px;
-          height: 20px;
+          width: 18px;
+          height: 16px;
+        }
+        .operatorFont{
+          font-size: 14px;
         }
       }
       .part1Second{
         float: right;
         margin-right: 30px;
         .operatorLine{
-          width: 15px;
-          height: 15px;
+          width: 14px;
+          height: 14px;
+        }
+        .operatorFont{
+          font-size: 14px;
         }
       }
       .part1Three{
         float: right;
         .operatorLine{
-          width: 15px;
-          height: 15px;
+          width: 14px;
+          height: 14px;
+        }
+        .operatorFont{
+          font-size: 14px;
         }
       }
     }
     .linestyle{
       width: 95%;
       margin: 4px 20px;
+      border: 1px solid #DEE0E0;
     }
   }
   .part2{
@@ -285,7 +296,8 @@ export default {
         margin: 4px 20px;
         width: 78%;
         float: left;
-        margin-top: 14px;
+        margin-top: 10px;
+        color: #366798;
       }
       .appBasicImg{
         float: left;
@@ -294,7 +306,7 @@ export default {
       }
       .appBasicInfoTitle{
         float: left;
-        margin-top: 7px;
+        margin-top: 3px;
         margin-left: 14px;
       }
     }
@@ -318,7 +330,7 @@ export default {
         }
       }
       .detailInfo{
-        margin-left: 50px;
+        margin-left: 80px;
       }
     }
     .appBasicInfoContent2{
@@ -341,7 +353,7 @@ export default {
         }
       }
       .detailInfo2{
-        margin-left: 50px;
+        margin-left: 80px;
         margin-top: 30px;
       }
     }

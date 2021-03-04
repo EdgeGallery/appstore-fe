@@ -255,7 +255,6 @@ export default {
         let data = res.data
         data.forEach(item => {
           item.timeResult = this.timeCompute(item.time)
-          item.seen = false
           this.allRightDetailData.push(item)
         })
         // 默认是选中今天数据
@@ -338,9 +337,9 @@ export default {
       .imgMsgStyle {
         float: left;
         margin-left: 10px;
-        margin-top: 10px;
-        width: 36px;
-        height: 36px;
+        margin-top: 12px;
+        width: 32px;
+        height: 32px;
       }
       .imgMoreMsgStyle {
         float: left;
@@ -363,9 +362,9 @@ export default {
       .imgMsgStyle {
         float: left;
         margin-left: 10px;
-        margin-top: 10px;
-        width: 36px;
-        height: 36px;
+        margin-top: 12px;
+        width: 32px;
+        height: 32px;
       }
       .imgMoreMsgStyle {
         float: left;
