@@ -37,7 +37,7 @@
               <el-table-column>
                 <template slot-scope="scope">
                   <div
-                    @click="getDetailMsg(scope.row)"
+                    @dblclick="getDetailMsg(scope.row)"
                   >
                     <img
                       :src="scope.row.iconDownloadUrl"
@@ -58,7 +58,7 @@
               <el-table-column>
                 <template slot-scope="scope">
                   <div
-                    @click="getDetailMsg(scope.row)"
+                    @dblclick="getDetailMsg(scope.row)"
                   >
                     <div>
                       <div class="timeLine">
