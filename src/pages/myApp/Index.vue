@@ -165,6 +165,44 @@
       />
       <div class="clearfix" />
     </div>
+    <el-dialog
+      :title="$t('promptMessage.prompt')"
+      :visible.sync="dialogVisible"
+      width="30%"
+    >
+      <span v-if="testfailBtn">{{ $t('promptMessage.testFail') }}</span>
+      <span v-else>{{ $t('promptMessage.testSuccess') }}</span>
+      <div style="margin-top: 5px">
+        <el-button
+          type="primary"
+          size="mini"
+          plain
+          v-for="(item,index) in reportData"
+          :key="index"
+          @click="jumpToReport(item)"
+        >
+          {{ language==='cn'?item.nameCh:item.nameEn }}
+          <em
+            v-if="item.label==='EdgeGallery'"
+            class="el-icon-check"
+          />
+        </el-button>
+      </div>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          v-if="testfailBtn"
+          size="small"
+          @click="testAgain()"
+        >{{ $t('promptMessage.testAgain') }}</el-button>
+        <el-button
+          size="small"
+          @click="dialogVisible = false"
+        >{{ $t('common.cancel') }}</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -188,7 +226,12 @@ export default {
       pageNum: 1,
       pageSize: 10,
       total: 0,
-      curPageSize: 10
+      curPageSize: 10,
+      reportData: [],
+      language: localStorage.getItem('language'),
+      dialogVisible: false,
+      testfailBtn: '',
+      testAgainId: []
     }
   },
   methods: {
@@ -244,6 +287,46 @@ export default {
       this.$router.push({ name: 'myappdetail', params: { item } })
       sessionStorage.setItem('myappdetail', JSON.stringify(item))
     },
+    getTaskScene (testTaskId) {
+      this.getTaskApi().then(res => {
+        let data = res.data
+        this.reportData = []
+        data.testScenarios.forEach(item => {
+          let reportobj = {
+            taskId: '',
+            label: '',
+            nameCh: '',
+            nameEn: '',
+            scenarioId: ''
+          }
+          reportobj.label = item.label
+          reportobj.nameCh = item.nameCh
+          reportobj.nameEn = item.nameEn
+          reportobj.scenarioId = item.id
+          reportobj.taskId = testTaskId
+          this.reportData.push(reportobj)
+        })
+      }).catch(() => {})
+    },
+    testAgain () {
+      this.dialogVisible = false
+      let appId = this.testAgainId[0]
+      let packageId = this.testAgainId[1]
+      this.testPackage(appId, packageId)
+    },
+    jumpToReport (item) {
+      let currUrl = window.location.host
+      let language = localStorage.getItem('language')
+      let taskId = item.taskId
+      let scenarioId = item.scenarioId
+      if (currUrl.indexOf('30091') !== -1) {
+        currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + taskId + '&scenarioId=' + scenarioId + '&language=' + language
+      } else {
+        currUrl = currUrl.replace('appstore', 'atp')
+        currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + taskId + '&scenarioId=' + scenarioId + '&language=' + language
+      }
+      window.open(currUrl, '_blank')
+    },
     testMessage (row) {
       let testTaskId = row.testTaskId
       if (row.status === 'Upload') {
@@ -262,43 +345,15 @@ export default {
           message: this.$t('promptMessage.createFail')
         })
       } else if (row.status === 'Test_failed') {
-        this.$confirm(this.$t('promptMessage.testFail'), this.$t('promptMessage.prompt'), {
-          distinguishCancelAndClose: true,
-          confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('promptMessage.testAgain'),
-          type: 'warning'
-        }).then(() => {
-          // 跳转测试报告+taskId
-          let currUrl = window.location.host
-          if (currUrl.indexOf('30091') !== -1) {
-            currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId
-          } else {
-            currUrl = currUrl.replace('appstore', 'atp')
-            currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId
-          }
-          window.open(currUrl, '_blank')
-        }).catch(action => {
-          // 再次测试,首页+taskId，
-          if (action === 'cancel') {
-            this.testPackage(row.appId, row.packageId)
-          }
-        })
+        this.getTaskScene(testTaskId)
+        this.dialogVisible = true
+        this.testfailBtn = true
+        this.testAgainId[0] = row.appId
+        this.testAgainId[1] = row.packageId
       } else if (row.status === 'Test_success') {
-        this.$confirm(this.$t('promptMessage.testSuccess'), this.$t('promptMessage.prompt'), {
-          confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('common.cancel'),
-          type: 'warning'
-        }).then(() => {
-          // 跳转测试报告
-          let currUrl = window.location.host
-          if (currUrl.indexOf('30091') !== -1) {
-            currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId
-          } else {
-            currUrl = currUrl.replace('appstore', 'atp')
-            currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId
-          }
-          window.open(currUrl, '_blank')
-        })
+        this.getTaskScene(testTaskId)
+        this.dialogVisible = true
+        this.testfailBtn = false
       } else if (row.status === 'Test_running') {
         this.$confirm(this.$t('promptMessage.testRunning'), this.$t('promptMessage.prompt'), {
           confirmButtonText: this.$t('common.confirm'),
@@ -332,7 +387,6 @@ export default {
     testPackage (appId, packageId) {
       myApp.testPackageApi(appId, packageId).then(res => {
         this.taskId = res.data.atpTaskId
-        // this.$router.push({ name: 'atptestcase', params: { taskId: this.taskId } })
         this.$router.push({ name: 'selectscene', params: { taskId: this.taskId } })
       }).catch(() => {
         this.$message({

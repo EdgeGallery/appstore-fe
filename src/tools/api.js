@@ -285,6 +285,17 @@ let myApp = {
   getPackageDetailApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId
     return GET(url)
+  },
+  // 获取应用测试过的场景
+  getTaskApi: function (taskId) {
+    let url = '/mec-atp/edgegallery/atp/v1/tasks/' + taskId
+    return axios.get(url, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+      }
+    })
   }
 }
 export {
