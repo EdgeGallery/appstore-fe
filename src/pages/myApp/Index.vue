@@ -288,7 +288,7 @@ export default {
       sessionStorage.setItem('myappdetail', JSON.stringify(item))
     },
     getTaskScene (testTaskId) {
-      this.getTaskApi().then(res => {
+      myApp.getTaskApi(testTaskId).then(res => {
         let data = res.data
         this.reportData = []
         data.testScenarios.forEach(item => {
@@ -303,7 +303,8 @@ export default {
           reportobj.nameCh = item.nameCh
           reportobj.nameEn = item.nameEn
           reportobj.scenarioId = item.id
-          reportobj.taskId = testTaskId
+          // reportobj.taskId = testTaskId
+          reportobj.taskId = res.data.id
           this.reportData.push(reportobj)
         })
       }).catch(() => {})
