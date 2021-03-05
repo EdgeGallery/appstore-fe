@@ -216,10 +216,8 @@ export default {
     ifFromDetail () {
       let fromPath = sessionStorage.getItem('fromPath') || ''
       if (fromPath === '/detail') {
-        console.log('from  detail')
         this.currentPage = Number(sessionStorage.getItem('currentPage'))
         this.currentComponent = sessionStorage.getItem('currentComponent')
-        console.log(this.currentComponent)
         if (this.currentComponent === 'appGrid') {
           this.iconAactive = false
         } else if (this.currentComponent === 'appList') {
@@ -229,7 +227,6 @@ export default {
       } else {
         this.currentPage = 1
       }
-      console.log(this.currentPage)
     },
     filterFindAppData (data) {
       let appId = []
@@ -319,30 +316,28 @@ export default {
       this.selectedConditions.forEach((condition) => {
         conditionsTypes.push(condition.type)
         let type = condition.label.toString()
-        let conformData = this.appData.filter((item) => {
+        /* let conformData = this.appData.filter((item) => {
           let itemAffinity = item.affinity
           let itemType = item.type
           let itemIndustry = item.industry
           return (
             type.match(itemAffinity) || type.match(itemType) || type.match(itemIndustry)
           )
+        }) */
+        let conformData = []
+        console.log(this.appData)
+        this.appData.forEach(item => {
+          if (type.indexOf(item.industry) !== -1 || type.indexOf(item.type) !== -1 || type.indexOf(item.affinity) !== -1) {
+            console.log('------')
+            conformData.push(item)
+          }
         })
         if (
-          conditionsTypes.every((item) => {
-            return item === 'types'
-          }) ||
-          conditionsTypes.every((item) => {
-            return item === 'affinity'
-          }) ||
-          conditionsTypes.every((item) => {
-            return item === 'industry'
-          })
+          conditionsTypes.indexOf('types') !== -1 || conditionsTypes.indexOf('affinity') !== -1 || conditionsTypes.indexOf('industry') !== -1
         ) {
           this.findAppData = [...this.findAppData, ...conformData]
         } else if (
-          conditionsTypes.every((item) => {
-            return item !== 'sortBy'
-          })
+          conditionsTypes.indexOf('sortBy') === -1
         ) {
           this.findAppData = this.findAppData.filter((item) => {
             return conformData.indexOf(item) !== -1
@@ -446,6 +441,8 @@ export default {
             let newDateBegin = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = newDateBegin
           })
+
+          this.queryAppByCondition()
           this.checkProjectData()
         },
         () => {
@@ -471,8 +468,6 @@ export default {
     } else {
       this.ifShow = true
     }
-    this.getAppData()
-    this.ifFromDetail()
     this.types.forEach((item) => {
       item.selected = false
     })
@@ -488,6 +483,39 @@ export default {
     this.industry.forEach((item) => {
       item.selected = false
     })
+    if (this.$route.params.data) {
+      let params = JSON.parse(this.$route.params.data)
+      this.selectedConditions = params
+      console.log(this.selectedConditions)
+      console.log(this.selectedConditions[0].label[1])
+      this.industry.forEach((item) => {
+        item.selected = false
+        if (item.value === this.selectedConditions[0].label[1]) {
+          item.selected = true
+        }
+      })
+      this.affinity.forEach((item) => {
+        item.selected = false
+        if (item.value === this.selectedConditions[0].label[1]) {
+          item.selected = true
+        }
+      })
+      this.types.forEach((item) => {
+        item.selected = false
+        if (item.value === this.selectedConditions[0].label[1]) {
+          item.selected = true
+        }
+      })
+    }
+    this.getAppData()
+
+    // this.checkProjectData()
+    // this.findAppData = this.appData
+    this.ifFromDetail()
+
+    console.log(this.appData)
+    this.queryAppByCondition()
+    console.log(this.appData)
   }
 }
 </script>

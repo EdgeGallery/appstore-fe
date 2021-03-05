@@ -28,7 +28,7 @@
       </p>
       <el-button
         class="upload_app"
-        @click="jumpToAppList"
+        @click="uploadPackage"
       >
         <em />上传应用文件
       </el-button>
@@ -106,13 +106,13 @@
             v-html="item.content"
             class="rec_content"
           />
-          <el-link
-            @click="jumpToAppList"
+          <div
+            @click="selectedCondition(item.type,item.index)"
             type="primary"
             class="rec_more"
           >
             更多信息 >>
-          </el-link>
+          </div>
         </li>
       </ul>
     </div>
@@ -122,7 +122,7 @@
         评分最高
       </h3>
       <p class="home_more">
-        <el-link @click="jumpToAppList">
+        <el-link @click="selectedCondition1('Score', 2)">
           查看更多 >>
         </el-link>
       </p>
@@ -168,7 +168,7 @@
         方便快捷的接入AppStore，快速实现应用测试与共享
       </p>
       <p class="upload_btn">
-        <el-button @click="jumpToAppList">
+        <el-button @click="uploadPackage">
           上传应用
         </el-button>
       </p>
@@ -213,31 +213,37 @@
           <li>
             <h3>行业</h3>
             <el-link
-              v-for="(item,index) in industryList"
+              v-for="(item,index) in industry"
               :key="index"
-              @click="jumpToAppList"
+              class="box-curp"
+              :class="{selected: item.selected}"
+              @click="selectedCondition('industry', index)"
               :underline="false"
             >
-              {{ language==='cn'?item.label[0]:item.label[1] }}
+              <span>{{ language==='cn'?item.label[0]:item.label[1] }}</span>
             </el-link>
           </li>
           <li>
             <h3>类型</h3>
             <el-link
-              v-for="(item,index) in typesList"
+              v-for="(item,index) in types"
               :key="index"
-              @click="jumpToAppList"
+              class="box-curp"
+              :class="{selected: item.selected}"
+              @click="selectedCondition('types', index)"
               :underline="false"
             >
-              {{ language==='cn'?item.label[0]:item.label[1] }}
+              <span>{{ language==='cn'?item.label[0]:item.label[1] }}</span>
             </el-link>
           </li>
           <li>
             <h3>架构</h3>
             <el-link
-              v-for="(item,index) in architectureList"
+              v-for="(item,index) in affinity"
               :key="index"
-              @click="jumpToAppList"
+              class="box-curp"
+              :class="{selected: item.selected}"
+              @click="selectedCondition('affinity', index)"
               :underline="false"
             >
               {{ item.label }}
@@ -302,16 +308,30 @@
         </div>
       </div>
     </div>
+    <!-- 上传组件 -->
+    <div v-show="uploadDiaVis">
+      <uploadPackage
+        v-model="uploadDiaVis"
+        @getAppData="getAppData"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { INDUSTRY, TYPES, AFFINITY } from '../../tools/constant.js'
+import uploadPackage from '../home/UploadPackage.vue'
+// import homes from '../home/Index.vue'
 import { mapState } from 'vuex'
 export default {
-  name: '',
+  name: 'Home',
+  components: {
+    uploadPackage
+  },
   data () {
     return {
+      selectedConditions: [],
+      uploadDiaVis: false,
       newAppPic: require('../../assets/images/home_new_pic.jpg'),
       newAppData: [
         require('../../assets/images/home_new_app1.png'),
@@ -325,17 +345,23 @@ export default {
         {
           imgSrc: require('../../assets/images/home_recommend_pic1.jpg'),
           title: '游戏',
-          content: '游戏专区给大家带来了<br/>2020年度最热门的游戏<br/>应用推荐及下载'
+          content: '游戏专区给大家带来了<br/>2020年度最热门的游戏<br/>应用推荐及下载',
+          type: 'industry',
+          index: 5
         },
         {
           imgSrc: require('../../assets/images/home_recommend_pic2.jpg'),
           title: '智慧园区',
-          content: '利用大数据、物联网、云计算、<br/>人工智能等先进手段为园区赋能<br/>打造安全高效的园区'
+          content: '利用大数据、物联网、云计算、<br/>人工智能等先进手段为园区赋能<br/>打造安全高效的园区',
+          type: 'industry',
+          index: 0
         },
         {
           imgSrc: require('../../assets/images/home_recommend_pic3.jpg'),
           title: 'AI',
-          content: '最佳创意的AI应用<br/>这些应用帮你启发灵感、<br/>挥洒创意'
+          content: '最佳创意的AI应用<br/>这些应用帮你启发灵感、<br/>挥洒创意',
+          type: 'industry',
+          index: 8
         }
       ],
       scoreHighestData: [
@@ -391,9 +417,9 @@ export default {
           prevEl: '.swiper-button-prev'
         }
       },
-      industryList: INDUSTRY,
-      typesList: TYPES,
-      architectureList: AFFINITY,
+      industry: INDUSTRY,
+      types: TYPES,
+      affinity: AFFINITY,
       contactUrl: 'http://www.edgegallery.org/%e8%81%94%e7%b3%bb%e6%88%91%e4%bb%ac',
       giteeUrl: 'https://gitee.com/edgegallery',
       developerUrl: '',
@@ -401,6 +427,38 @@ export default {
     }
   },
   methods: {
+
+    uploadPackage () {
+      let userName = sessionStorage.getItem('userName')
+      if (userName === 'guest') {
+        this.uploadDiaVis = false
+      } else {
+        this.uploadDiaVis = true
+      }
+    },
+    selectedCondition (type, index) {
+      console.log(type)
+      console.log(index)
+      this[type][index].selected = !this[type][index].selected
+      console.log(this[type][index].selected)
+      this.selectedCondition2()
+    },
+    selectedCondition1 (type, index) {
+      this.selectedCondition2()
+    },
+    selectedCondition2 () {
+      this.selectedConditions = []
+      let types = ['types', 'affinity', 'industry']
+      if (this.selectedConditions) {
+        types.forEach((item) => {
+          this[item].forEach((condition) => {
+            if (condition.selected) this.selectedConditions.push(condition)
+          })
+        })
+      }
+      console.log(this.selectedConditions)
+      this.$router.push({ name: 'appstorename', params: { data: JSON.stringify(this.selectedConditions) } })
+    },
     jumpToAppList () {
       this.$router.push('/index')
     },
@@ -499,6 +557,12 @@ export default {
         left: 60px;
         color: #fff;
         font-size: 40px;
+        .box-curp{
+          color: #fff;
+          font-size: 16px;
+          margin-top: 20px;
+          line-height: 20px;
+        }
         .el-link{
           color: #fff;
           font-size: 16px;

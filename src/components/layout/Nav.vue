@@ -100,7 +100,7 @@
           <div
             class="el-icon-bell"
             @click="jumperToMsgDialog"
-            v-if="!ifGuest"
+            v-if="!ifAdmin"
             @mouseenter="enter"
             @mouseleave="leave"
           >
@@ -295,6 +295,7 @@ export default {
       userName: '',
       loginPage: '',
       ifGuest: true,
+      ifAdmin: false,
       menu_small: false,
       seen: false,
       unReadMsgCount: 0,
@@ -443,6 +444,7 @@ export default {
         this.ifGuest = false
       }
       if (res.data.userName !== 'admin') {
+        this.ifAdmin = true
         this.list.splice(3, 1)
         console.log(this.list)
       }

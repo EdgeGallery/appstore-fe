@@ -62,7 +62,7 @@
             <template slot-scope="scope">
               <el-button
                 id="appdetail_download"
-                :disabled="scope.row.userId===userId ? false : true"
+                :disabled="ifDelete || scope.row.userId===userId ? false : true"
                 @click="download(scope.row)"
                 type="text"
               >
@@ -77,7 +77,7 @@
               </el-button>
               <el-button
                 id="appdetail_delete"
-                :disabled="scope.row.userId===userId ? false : true"
+                :disabled="ifDownload || scope.row.userId===userId ? false : true"
                 @click="getDelete(scope.row)"
                 type="text"
               >
@@ -332,6 +332,8 @@ export default {
   },
   data () {
     return {
+      ifDelete: 'true',
+      ifDownload: 'true',
       userId: sessionStorage.getItem('userId'),
       userName: '',
       editorStatus: true,
@@ -619,6 +621,14 @@ export default {
     }
   },
   mounted () {
+    if ((sessionStorage.getItem('userName') === 'guest') || (sessionStorage.getItem('userName') !== 'guest' && sessionStorage.getItem('userName') !== 'admin')) {
+      this.ifDelete = false
+      this.ifDownload = false
+    } else {
+      this.ifDelete = true
+      this.ifDownload = true
+    }
+    console.log(this.$route.params.item)
     let params = this.$route.params.item
       ? this.$route.params.item
       : JSON.parse(sessionStorage.getItem('appstordetail'))

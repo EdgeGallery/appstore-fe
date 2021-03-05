@@ -73,8 +73,8 @@ const TYPES = [
     type: 'types'
   },
   {
-    label: ['游戏', 'Game'],
-    value: 'Game',
+    label: ['游戏应用', 'Game Application'],
+    value: 'Game Application',
     selected: false,
     type: 'types'
   },
