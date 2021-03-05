@@ -108,7 +108,7 @@
                 {{ data.basicInfo.provider }}
               </el-form-item>
               <el-form-item
-                :label="$t('messageCenter.appAffinity')"
+                :label="$t('messageCenter.appType')"
               >
                 {{ data.basicInfo.type }}
               </el-form-item>
@@ -116,6 +116,21 @@
                 :label="$t('messageCenter.appIndustry')"
               >
                 {{ data.basicInfo.industry }}
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="24">
+            <el-col :span="4">
+              <div class="space">
+                <div class="emptyDiv" />
+              </div>
+            </el-col>
+            <el-col
+              :span="16"
+              class="detailInfo"
+            >
+              <el-form-item :label="$t('messageCenter.appShortDes')">
+                {{ data.basicInfo.shortDesc }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -159,7 +174,7 @@
                 {{ data.sourceAppStore }}
               </el-form-item>
               <el-form-item :label="$t('messageCenter.appTestPlatform')">
-                {{ $t("messageCenter.appTestPlatform") }}
+                {{ $t("messageCenter.atpTestPlatform") }}
               </el-form-item>
             </el-col>
             <el-col
@@ -197,6 +212,7 @@ export default {
   },
   data () {
     return {
+      isButtonActive: false
     }
   },
   methods: {
@@ -259,6 +275,7 @@ export default {
       .part1Second{
         float: right;
         margin-right: 30px;
+        cursor: pointer;
         .operatorLine{
           width: 14px;
           height: 14px;
@@ -269,6 +286,7 @@ export default {
       }
       .part1Three{
         float: right;
+        cursor: pointer;
         .operatorLine{
           width: 14px;
           height: 14px;
@@ -318,12 +336,19 @@ export default {
         text-align: left;
         color: #999;
       }
+      .space{
+        background: #fff;
+        .emptyDiv{
+          width: 2px;
+          height: 1px;
+        }
+      }
       .icon_box{
         background: #fff;
         text-align: center;
         padding: 5px 5px 2px;
         margin-left: 20px;
-        margin-top: 10px;
+        margin-top: 30px;
         img{
           height: 80px;
           width: 80px;

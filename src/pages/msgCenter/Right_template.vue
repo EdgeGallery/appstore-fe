@@ -65,20 +65,34 @@
                         <span> {{ scope.row.time }} </span>
                       </div>
                       <div class="opeLine">
-                        <img
-                          src="../../assets/images/acceptMsg.png"
-                          alt=""
-                          class="operatorLine"
-                          @click.stop="handleAccept(scope.row.messageId)"
-                          v-tooltip.right="{content:$t('apppromotion.acceptMsgTip'), delay: 0, class: 'tooltip-custom tooltip-other-custom' }"
+                        <el-tooltip
+                          class="item"
+                          effect="light"
+                          :content="$t('apppromotion.acceptMsgTip')"
+                          placement="bottom-start"
+                          :visible-arrow="false"
                         >
-                        <img
-                          src="../../assets/images/deleteMsg.png"
-                          alt=""
-                          class="operatorLine"
-                          @click.stop="handleDelete(scope.row.messageId)"
-                          v-tooltip.right="{content:$t('apppromotion.deleteMsgTip'), delay: 0, class: 'tooltip-custom tooltip-other-custom' }"
+                          <img
+                            src="../../assets/images/acceptMsg.png"
+                            alt=""
+                            class="operatorLine"
+                            @click.stop="handleAccept(scope.row.messageId)"
+                          >
+                        </el-tooltip>
+                        <el-tooltip
+                          class="item"
+                          effect="light"
+                          :content="$t('apppromotion.deleteMsgTip')"
+                          placement="bottom-start"
+                          :visible-arrow="false"
                         >
+                          <img
+                            src="../../assets/images/deleteMsg.png"
+                            alt=""
+                            class="operatorLine"
+                            @click.stop="handleDelete(scope.row.messageId)"
+                          >
+                        </el-tooltip>
                       </div>
                     </div>
                   </div>
@@ -204,18 +218,5 @@ export default {
   .operatorLine{
     margin-left: 20px;
     cursor: pointer;
-  }
-  .vue-tooltip.tooltip-custom {
-    color:#fff;
-    background-color: #646767;
-    box-shadow: 0 5px 30px rgba(0 , 0 , 0 , .6);
-    padding : 12px 55px;
-    margin-top: 70px;
-    margin-right: -20px;
-    z-index: 99999 !important;
-  }
-  .vue-tooltip.tooltip-custom .tooltip-arrow {
-      color:#fff;
-      border-color: #546E7A;
   }
 </style>

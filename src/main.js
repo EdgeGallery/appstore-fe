@@ -31,14 +31,11 @@ import echarts from 'echarts'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 // import 'swiper/swiper-bundle.css'
 import 'swiper/css/swiper.css'
-import Tooltip from 'vue-directive-tooltip'
-// import 'vue-directive-tooltip/css/index.css'
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueCookies)
 Vue.use(mavonEditor)
 Vue.use(ElementUI)
 Vue.use(VCharts)
-Vue.use(Tooltip)
 Vue.prototype.$echarts = echarts
 function isChromeBrowser () {
   let userAgent = navigator.userAgent
