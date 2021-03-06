@@ -240,9 +240,9 @@ export default {
       dataLoading: true,
       taskId: '',
       interval: '',
-      pageNum: 1,
       pageSizes: [10, 20, 30],
       curPageSize: 10,
+      pageNumCache: 1,
       reportData: [],
       language: localStorage.getItem('language'),
       dialogVisible: false,
@@ -273,8 +273,7 @@ export default {
       sessionStorage.setItem('myAppPageSize', val)
     },
     currentChange (val) {
-      this.pageNum = val
-      sessionStorage.setItem('myAppPageNum', val)
+      this.pageNumCache = val
     },
     // 只调用一个接口
     getAppData () {
@@ -530,6 +529,14 @@ export default {
     total: function () {
       return this.sortedData.length
     },
+    pageNum: function () {
+      if (this.curPageSize * (this.pageNumCache - 1) > this.total) {
+        sessionStorage.setItem('myAppPageNum', 1)
+        return 1
+      }
+      sessionStorage.setItem('myAppPageNum', this.pageNumCache)
+      return this.pageNumCache
+    },
     currentPageData: function () {
       let start = this.curPageSize * (this.pageNum - 1)
       let end = this.curPageSize * this.pageNum
@@ -537,7 +544,7 @@ export default {
     }
   },
   beforeMount () {
-    this.pageNum = sessionStorage.getItem('myAppPageNum') ? parseInt(sessionStorage.getItem('myAppPageNum'), 10) : this.pageNum
+    this.pageNumCache = sessionStorage.getItem('myAppPageNum') ? parseInt(sessionStorage.getItem('myAppPageNum'), 10) : this.pageNumCache
     this.curPageSize = sessionStorage.getItem('myAppPageSize') ? parseInt(sessionStorage.getItem('myAppPageSize'), 10) : this.curPageSize
     this.filterValue = JSON.parse(sessionStorage.getItem('myAppStatusFilterValue')) ? JSON.parse(sessionStorage.getItem('myAppStatusFilterValue')) : this.filterValue
     this.nameQueryVal = sessionStorage.getItem('myAppNameQueryVal') ? sessionStorage.getItem('myAppNameQueryVal') : ''
