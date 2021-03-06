@@ -119,7 +119,6 @@
             :column-key="'status'"
             prop="status"
             :label="$t('myApp.status')"
-            sortable="custom"
             :filters="[{text: 'Upload', value: 'Upload'}, {text: 'Test_created', value: 'Test_created'}, {text: 'Test_create_failed', value: 'Test_create_failed'}, {text: 'Test_running', value: 'Test_running'}, {text: 'Test_waiting', value: 'Test_waiting'},{text: 'Test_failed', value: 'Test_failed'}, {text: 'Test_success', value: 'Test_success'}, {text: 'Published', value: 'Published'}]"
             :filtered-value="filterValue.status"
           />
