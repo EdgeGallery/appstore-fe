@@ -287,7 +287,6 @@ export default {
       }
     }
     .application:hover{
-      transform: translate3d(0,-10px,0);
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
       background-color: #fff;
       .no-display {
