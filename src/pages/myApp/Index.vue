@@ -241,7 +241,7 @@ export default {
       taskId: '',
       interval: '',
       pageNum: 1,
-      pageSizes: 10,
+      pageSizes: [10, 20, 30],
       curPageSize: 10,
       reportData: [],
       language: localStorage.getItem('language'),
