@@ -292,11 +292,8 @@ export default {
       background-color: #fff;
       .no-display {
         display: block;
-        margin-top: -4px;
+        margin-top: -32px;
         opacity: 0.8;
-      }
-      .intr {
-        padding: 0 32px;
       }
     }
   }
