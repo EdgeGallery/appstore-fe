@@ -150,7 +150,8 @@
         />
         <eg-pagination
           :page-num="pageNum"
-          :page-size="pageSize"
+          :page-size="curPageSize"
+          :page-sizes="pageSizes"
           :total="total"
           @sizeChange="sizeChange"
           @currentChange="currentChange"
@@ -296,7 +297,7 @@ export default {
       findAppStoreData: [],
       breadCrumbData: [],
       pageNum: 1,
-      pageSize: 8,
+      pageSizes: [8, 16, 24],
       total: 0,
       curPageSize: 8
     }

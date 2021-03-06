@@ -175,7 +175,8 @@
       </div>
       <eg-pagination
         :page-num="pageNum"
-        :page-size="pageSize"
+        :page-size="curPageSize"
+        :page-sizes="pageSizes"
         :total="total"
         @sizeChange="sizeChange"
         @currentChange="currentChange"
@@ -240,7 +241,7 @@ export default {
       taskId: '',
       interval: '',
       pageNum: 1,
-      pageSize: 10,
+      pageSizes: 10,
       curPageSize: 10,
       reportData: [],
       language: localStorage.getItem('language'),
