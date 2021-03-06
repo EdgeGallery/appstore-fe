@@ -405,12 +405,14 @@ export default {
     },
 
     handleNameQuery () {
-      this.findAppData = this.appData
-      this.findAppData = this.findAppData.filter((item) => {
-        let itemName = item.name.toLowerCase()
-        return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
-      })
-      if (!this.nameQuery) this.findAppData = this.appData
+      if (!this.nameQuery) {
+        this.findAppData = this.appData
+      } else {
+        this.findAppData = this.appData.filter((item) => {
+          let itemName = item.name.toLowerCase()
+          return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
+        })
+      }
     },
     checkProjectData () {
       this.findAppData.forEach(itemBe => {

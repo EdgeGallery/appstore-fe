@@ -17,27 +17,35 @@
 <template>
   <div class="myApp padding56">
     <div class="myApp-content">
-      <el-row>
-        <el-col :span="24">
-          <el-button
-            id="myapp_checktest"
-            type="primary"
-            class="rt"
-            @click="jumpTo"
-          >
-            {{ $t('myApp.checkTest') }}
-          </el-button>
-        </el-col>
-      </el-row>
+      <div class="myApp-operArea">
+        <el-button
+          id="myapp_checktest"
+          type="primary"
+          class="rt"
+          @click="jumpTo"
+        >
+          {{ $t('myApp.checkTest') }}
+        </el-button>
+        <el-input
+          suffix-icon="el-icon-search"
+          v-model="nameQueryVal"
+          :placeholder="$t('common.appName')"
+          class="search_input"
+        />
+      </div>
       <div class="packageTable">
         <el-table
           v-loading="dataLoading"
           :data="currentPageData"
           header-cell-class-name="headerStyle"
+          :default-sort="defaultSort"
+          @sort-change="sortChange"
+          @filter-change="filterChange"
         >
           <el-table-column
             prop="name"
             :label="$t('common.appName')"
+            sortable="custom"
             width="300"
             :cell-class-name="hiddenClass"
           >
@@ -61,23 +69,28 @@
           <el-table-column
             prop="provider"
             :label="$t('common.provider')"
+            sortable="custom"
           />
           <el-table-column
             prop="version"
             :label="$t('common.version')"
+            sortable="custom"
           />
           <el-table-column
             prop="type"
             :label="$t('common.type')"
+            sortable="custom"
           />
           <el-table-column
             prop="affinity"
             :label="$t('common.architecture')"
+            sortable="custom"
           />
           <el-table-column
             prop="createTime"
             :label="$t('common.uploadTime')"
             width="250"
+            sortable="custom"
           />
           <el-table-column
             prop="shortDesc"
@@ -103,8 +116,12 @@
             </template>
           </el-table-column>
           <el-table-column
+            :column-key="'status'"
             prop="status"
             :label="$t('myApp.status')"
+            sortable="custom"
+            :filters="[{text: 'Upload', value: 'Upload'}, {text: 'Test_created', value: 'Test_created'}, {text: 'Test_create_failed', value: 'Test_create_failed'}, {text: 'Test_running', value: 'Test_running'}, {text: 'Test_waiting', value: 'Test_waiting'},{text: 'Test_failed', value: 'Test_failed'}, {text: 'Test_success', value: 'Test_success'}, {text: 'Published', value: 'Published'}]"
+            :filtered-value="filterValue.status"
           />
           <el-table-column
             fixed="right"
@@ -220,21 +237,36 @@ export default {
       appData: [],
       appPackageData: [],
       dataLoading: true,
-      currentPageData: [],
       taskId: '',
       interval: '',
       pageNum: 1,
       pageSize: 10,
-      total: 0,
       curPageSize: 10,
       reportData: [],
       language: localStorage.getItem('language'),
       dialogVisible: false,
       testfailBtn: '',
-      testAgainId: []
+      testAgainId: [],
+      filterValue: { status: [] },
+      nameQueryVal: '',
+      defaultSort: { prop: 'createTime', order: 'descending' }
     }
   },
   methods: {
+    sortChange (column) {
+      this.defaultSort = {
+        prop: column.prop,
+        order: column.order
+      }
+      sessionStorage.setItem('myAppSortVal', JSON.stringify(this.defaultSort))
+    },
+    filterChange (filters) {
+      this.filterValue = filters
+      sessionStorage.setItem('myAppStatusFilterValue', JSON.stringify(this.filterValue))
+    },
+    filterStatus (val, row) {
+      return row.status === val
+    },
     sizeChange (val) {
       this.curPageSize = val
       sessionStorage.setItem('myAppPageSize', val)
@@ -254,12 +286,6 @@ export default {
             item.createTime = formatedTime
           })
           this.dataLoading = false
-          this.total = this.appPackageData.length
-          if (this.curPageSize * (this.pageNum - 1) > this.total) {
-            this.pageNum = 1
-            sessionStorage.setItem('myAppPageNum', this.pageNum)
-          }
-          this.refreshCurrentData()
         }, () => {
           this.dataLoading = false
           this.$message({
@@ -450,24 +476,71 @@ export default {
       if (row.columnIndex === 5 || row.columnIndex === 0) {
         return 'hiddenClass'
       }
-    },
-    refreshCurrentData () {
-      let start = this.curPageSize * (this.pageNum - 1)
-      let end = this.curPageSize * this.pageNum
-      this.currentPageData = this.appPackageData.slice(start, end)
     }
   },
   watch: {
-    curPageSize: function () {
-      this.refreshCurrentData()
+  },
+  computed: {
+    findedData: function () {
+      sessionStorage.setItem('myAppNameQueryVal', this.nameQueryVal)
+      if (!this.nameQueryVal) {
+        return this.appPackageData
+      } else {
+        return this.appPackageData.filter((item) => {
+          let itemName = item.name.toLowerCase()
+          return itemName.indexOf(this.nameQueryVal.toLowerCase()) !== -1
+        })
+      }
     },
-    pageNum: function () {
-      this.refreshCurrentData()
+    filteredData: function () {
+      if (this.filterValue.status.length === 0) {
+        return this.findedData
+      } else {
+        return this.findedData.filter(item => this.filterValue.status.includes(item.status))
+      }
+    },
+    sortedData: function () {
+      let tempData = [].concat(this.filteredData)
+      let sortProp = this.defaultSort.prop
+      let sortOrder = this.defaultSort.order
+      tempData.sort((a, b) => {
+        let aProp = a[sortProp].toLowerCase()
+        let bProp = b[sortProp].toLowerCase()
+        if (sortOrder === 'descending') {
+          if (aProp > bProp) {
+            return -1
+          }
+          if (aProp < bProp) {
+            return 1
+          }
+          return 0
+        } else {
+          if (aProp > bProp) {
+            return 1
+          }
+          if (aProp < bProp) {
+            return -1
+          }
+          return 0
+        }
+      })
+      return tempData
+    },
+    total: function () {
+      return this.sortedData.length
+    },
+    currentPageData: function () {
+      let start = this.curPageSize * (this.pageNum - 1)
+      let end = this.curPageSize * this.pageNum
+      return this.sortedData.slice(start, end)
     }
   },
   beforeMount () {
-    this.pageNum = sessionStorage.getItem('myAppPageNum') ? sessionStorage.getItem('myAppPageNum') : 1
-    this.curPageSize = sessionStorage.getItem('myAppPageSize') ? sessionStorage.getItem('myAppPageSize') : 10
+    this.pageNum = sessionStorage.getItem('myAppPageNum') ? parseInt(sessionStorage.getItem('myAppPageNum'), 10) : this.pageNum
+    this.curPageSize = sessionStorage.getItem('myAppPageSize') ? parseInt(sessionStorage.getItem('myAppPageSize'), 10) : this.curPageSize
+    this.filterValue = JSON.parse(sessionStorage.getItem('myAppStatusFilterValue')) ? JSON.parse(sessionStorage.getItem('myAppStatusFilterValue')) : this.filterValue
+    this.nameQueryVal = sessionStorage.getItem('myAppNameQueryVal') ? sessionStorage.getItem('myAppNameQueryVal') : ''
+    this.defaultSort = JSON.parse(sessionStorage.getItem('myAppSortVal')) ? JSON.parse(sessionStorage.getItem('myAppSortVal')) : this.defaultSort
   },
   mounted () {
     sessionStorage.removeItem('currentPage')
@@ -488,6 +561,16 @@ export default {
     background: white;
     padding: 20px;
     // height: calc(100% - 10px);
+    .myApp-operArea {
+      height: 40px;
+      .el-button{
+        float: left;
+      }
+      .search_input{
+        float: right;
+        width: 200px;
+      }
+    }
     .packageTable{
       margin: 20px 0;
       .headerStyle{
