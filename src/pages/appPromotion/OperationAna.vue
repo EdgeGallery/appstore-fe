@@ -559,14 +559,21 @@ export default {
           let industryPullNum = this.getIndustryPullNum(item, this.appPackageData)
           if (industryPullNum > 0) {
             nameArr.push(item)
+            let providerInfo = {
+              value: industryPullNum,
+              name: item
+            }
+            industryArr.push(providerInfo)
           }
-          let providerInfo = {
-            value: industryPullNum,
-            name: item
-          }
-          industryArr.push(providerInfo)
         }
       )
+      if (industryArr < 1) {
+        let defaultData = {
+          value: 0,
+          name: 'No Data'
+        }
+        industryArr.push(defaultData)
+      }
 
       let options1 = {
         title: {

@@ -32,6 +32,7 @@
           @selection-change="selectionLineChangeHandle"
           :default-sort="{prop: 'createTime', order: 'descending'}"
           @sort-change="sortChanged"
+          ref="multipleTable"
           style="width: 100%"
           header-cell-class-name="headerStyle"
         >
@@ -227,8 +228,18 @@ export default {
     sortChanged (column) {
       console.log(column)
       let sortTime = (a, b) => {
-        let timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
-        let timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
+        let timeValueA = 0
+        let timeValueB = 0
+        if (a === null) {
+          timeValueA = 946656000000
+        } else {
+          timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
+        }
+        if (b === null) {
+          timeValueB = 946656000000
+        } else {
+          timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
+        }
         return timeValueA - timeValueB
       }
       let findApp = (type) => {
@@ -273,6 +284,11 @@ export default {
 
       let type = column.prop
       this.findAppData = findApp(type)
+    },
+    defaultSort () {
+      setTimeout(() => {
+        this.$refs.multipleTable.sort('latestPushTime', 'descending')
+      }, 500)
     }
   },
   mounted () {
@@ -281,6 +297,7 @@ export default {
     if (this.appPackageData.length > 0) {
       this.currentAppStoreId = this.appPackageData[0].sourceStoreId
     }
+    this.defaultSort()
   }
 }
 
