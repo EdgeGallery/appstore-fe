@@ -333,8 +333,18 @@ export default {
     sortChanged (column) {
       console.log(column)
       let sortTime = (a, b) => {
-        let timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
-        let timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
+        let timeValueA = 0
+        let timeValueB = 0
+        if (a === null) {
+          timeValueA = 946656000000
+        } else {
+          timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
+        }
+        if (b === null) {
+          timeValueB = 946656000000
+        } else {
+          timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
+        }
         return timeValueA - timeValueB
       }
       let sortNumber = (a, b) => {
@@ -403,6 +413,11 @@ export default {
         this.getTableData()
         this.nameQuery = ''
       }
+    },
+    defaultSort () {
+      setTimeout(() => {
+        this.$refs.multipleTable.sort('latestPushTime', 'descending')
+      }, 500)
     }
   },
   mounted () {
@@ -416,6 +431,7 @@ export default {
     )
     let language = localStorage.getItem('language')
     this.isEnLan = language === 'en'
+    this.defaultSort()
   }
 }
 </script>
