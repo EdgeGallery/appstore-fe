@@ -172,6 +172,7 @@ export default {
 
       // 延迟2秒调用后台
       let data = JSON.parse(JSON.stringify(this.appData))
+      let flagNumber = 0
       data.forEach(
         (appDataItem) => {
           if (appDataItem.targetPlatform.indexOf('All') !== -1) {
@@ -195,7 +196,6 @@ export default {
           promTaskApi(appDataItem.packageId, param)
             .then((res) => {
               if (res.data) {
-                // [true,false]
                 let reData = res.data
                 console.log(reData)
                 let resData = reData.join(',').split(',')
@@ -210,6 +210,10 @@ export default {
                 }
                 console.log(this.appData)
               }
+              flagNumber++
+              if (flagNumber === data.length) {
+                this.$emit('refreshAppPromInfo', true)
+              }
             })
             .catch((err) => {
               this.$message.error(this.$t('promptMessage.operationFailed'))
@@ -217,9 +221,6 @@ export default {
             })
         }
       )
-      // setTimeout(() => {
-      //   console.log(this.appData)
-      // }, 500)
     },
     getPromoteAppStore (data) {
       this.promoteAppStore = []

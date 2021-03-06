@@ -161,6 +161,7 @@
         <div v-if="uploadDiaVis">
           <promTask
             v-model="uploadDiaVis"
+            @refreshAppPromInfo="refreshPromData"
             :app-store-list-prop="appStoreList"
           />
         </div>
@@ -271,6 +272,7 @@ export default {
     },
     getTableData () {
       this.appPackageData = []
+      this.findAppData = []
       getAppPromTableApi().then((res) => {
         let data = res.data
         data.forEach(
@@ -394,6 +396,12 @@ export default {
         this.findAppData = findApp('latestPushTime', type)
       } else if (type === 'pushTimes') {
         this.findAppData = findApp('pushTimes', type)
+      }
+    },
+    refreshPromData (value) {
+      if (value) {
+        this.getTableData()
+        this.nameQuery = ''
       }
     }
   },
