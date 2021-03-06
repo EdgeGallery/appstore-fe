@@ -22,7 +22,7 @@
           class="analyseAnaNoData"
           v-if="appPackageData.length < 1"
         >
-          <p>暂无操作分析数据</p>
+          <p>{{ $t('apppromotion.haveNoAnaData') }}</p>
           <img
             src="../../assets/images/construct.png"
             alt="a"
@@ -543,6 +543,9 @@ export default {
   },
   mounted () {
     this.getTableEx().then((res) => {
+      if (res.data.length <= 0) {
+        return
+      }
       const myCharts1 = this.$echarts.init(this.$refs.myCharts1)
       const myCharts2 = this.$echarts.init(this.$refs.myCharts2)
       const myCharts3 = this.$echarts.init(this.$refs.myCharts3)
@@ -740,7 +743,7 @@ export default {
     }).catch(() => {
       this.$message({
         duration: 2000,
-        message: this.$t('apppromotion.getPromInfoFailed'),
+        message: this.$t('apppromotion.getOperatorInfoFailed'),
         type: 'warning'
       })
     })

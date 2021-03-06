@@ -18,14 +18,28 @@
   <div class="app-pull padding56">
     <div class="app-pull-content">
       <div class="pull_container">
+        <div
+          class="pullNoData"
+          v-if="appStoreList.length < 1"
+        >
+          <p>{{ $t('appPull.haveNoPullData') }}</p>
+          <img
+            src="../../assets/images/construct.png"
+            alt="a"
+          >
+        </div>
         <el-tabs
           v-model="activeName"
           @tab-click="handleClick"
           stretch
         >
-          <div class="batch_pull">
+          <div
+            class="batch_pull"
+            v-if="appStoreList.length > 0"
+          >
             <el-button
               type="primary"
+              :disabled="btnChangeEnable"
               @click="showPullAppDialog"
             >
               {{ $t("appPull.batchPull") }}
@@ -40,6 +54,7 @@
             <!-- <component :is="item.content" /> -->
             <div v-if="isShowAppTable">
               <AppStoreDetail
+                @setEnableStatus="setButtonStatus"
                 :data="item.content"
               />
             </div>
@@ -75,6 +90,7 @@ export default {
       appStoreArr: [],
       activeName: '',
       isFirstTab: true,
+      btnChangeEnable: true,
       appStoreList: [],
       appPackageData: []
     }
@@ -82,6 +98,9 @@ export default {
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
+    },
+    setButtonStatus (value) {
+      this.btnChangeEnable = value
     },
     showPullAppDialog (row) {
       this.appPullResultData = []
@@ -261,6 +280,12 @@ export default {
         margin-left: auto;
         margin-right: auto;
         width: 100%;
+      }
+      .pullNoData{
+        width:100%;
+        height:400px;
+        text-align: center;
+        line-height: 25px;
       }
     }
   }

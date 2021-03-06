@@ -353,7 +353,8 @@ const en = {
     companyCheck: 'company can not be null',
     addrCheck: 'URL can not be null',
     appdCheck: 'APPD transducer can not be null',
-    descriptionCheck: 'description can not be null'
+    descriptionCheck: 'description can not be null',
+    haveNoAnaData: 'No operation analyse data!'
   },
   messageCenter: {
     msgToday: 'today',
@@ -406,7 +407,8 @@ const en = {
     pullSuccess: 'pull success',
     getAppStoreException: 'get appStore Exception',
     getPullAppException: 'get pull App Exception',
-    viewTestRepo: 'view report'
+    viewTestRepo: 'view report',
+    haveNoPullData: 'No data is pulled'
   },
   about: {
   },

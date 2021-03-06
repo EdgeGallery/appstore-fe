@@ -96,6 +96,16 @@
               </el-button>
             </template>
           </el-table-column>
+          <template slot="empty">
+            <div>
+              <img
+                src="../../assets/images/empty.png"
+                alt=""
+                style="padding: 10px;"
+              >
+              <p>{{ $t('common.noData') }}</p>
+            </div>
+          </template>
         </el-table>
       </div>
       <pagination
@@ -173,6 +183,11 @@ export default {
         'allAppPullInfo',
         JSON.stringify(finalData)
       )
+      if (finalData.length === 0) {
+        this.$emit('setEnableStatus', true)
+      } else {
+        this.$emit('setEnableStatus', false)
+      }
     },
     handleNameQuery () {
       this.findAppData = this.appPackageData

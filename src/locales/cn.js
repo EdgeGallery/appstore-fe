@@ -378,7 +378,8 @@ const cn = {
     companyCheck: '公司不能为空',
     addrCheck: 'URL不能为空',
     appdCheck: '转换器不能为空',
-    descriptionCheck: '描述不能为空'
+    descriptionCheck: '描述不能为空',
+    haveNoAnaData: '暂无操作分析数据！'
   },
   messageCenter: {
     msgToday: '今天',
@@ -433,7 +434,8 @@ const cn = {
     pullSuccess: '拉取成功',
     getAppStoreException: '获取appStore异常',
     getPullAppException: '获取拉取app信息异常',
-    viewTestRepo: '查看报告'
+    viewTestRepo: '查看报告',
+    haveNoPullData: '暂无拉取数据！'
   },
   about: {},
   ...zhLocale
