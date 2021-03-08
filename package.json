@@ -41,6 +41,7 @@
     "@vue/cli-service": "^3.11.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "bootstrap": "^4.0.0-beta",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^5.0.0",
@@ -50,7 +51,8 @@
     "vue-template-compiler": "^2.6.11",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
-    "postcss-url": "^7.2.1"
+    "postcss-url": "^7.2.1",
+    "vue-video-player": "^5.0.2"
   },
   "eslintConfig": {
     "root": true,

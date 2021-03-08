@@ -29,6 +29,9 @@ import 'mavon-editor/dist/css/index.css'
 import VueCookies from 'vue-cookies'
 import echarts from 'echarts'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import VideoPlayer from 'vue-video-player'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'video.js/dist/video-js.min.css'
 // import 'swiper/swiper-bundle.css'
 import 'swiper/css/swiper.css'
 Vue.use(VueAwesomeSwiper)
@@ -36,6 +39,7 @@ Vue.use(VueCookies)
 Vue.use(mavonEditor)
 Vue.use(ElementUI)
 Vue.use(VCharts)
+Vue.use(VideoPlayer)
 Vue.prototype.$echarts = echarts
 function isChromeBrowser () {
   let userAgent = navigator.userAgent
