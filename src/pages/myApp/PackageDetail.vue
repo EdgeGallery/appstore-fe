@@ -21,7 +21,7 @@
         <img :src="appIconPath">
       </div>
       <div class="package-detail">
-        <p>{{ currentData.name }}{{ updateDefaultValue }}</p>
+        <p>{{ currentData.name }}</p>
         <div class="app-header">
           <div class="version-title">
             <span>{{ $t('common.version') }}</span>
@@ -231,8 +231,8 @@ export default {
       }
     }
   },
-  computed: {
-    updateDefaultValue: function () {
+  watch: {
+    tableData: function (val) {
       if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && !(this.tableData.length === 0)) {
         this.currentData = this.tableData[0]
       }
