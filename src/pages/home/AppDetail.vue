@@ -15,305 +15,309 @@
   -->
 
 <template>
-  <div
-    class="app-detail"
-  >
+  <div class="app-detail">
     <div class="app-info">
-      <p>{{ $t('store.appPackageInfo') }}</p>
-
-      <div class="information">
-        <el-table
-          :data="tableData"
-          style="width: 100%"
-          header-cell-class-name="headerStyle"
-        >
-          <el-table-column
-            prop="name"
-            :label="$t('common.appName')"
-          />
-          <el-table-column
-            prop="version"
-            :label="$t('common.version')"
-          />
-          <el-table-column
-            prop="industry"
-            :label="$t('common.industry')"
-          />
-          <el-table-column
-            prop="type"
-            :label="$t('common.type')"
-          />
-          <el-table-column
-            prop="affinity"
-            :label="$t('common.architecture')"
-          />
-          <el-table-column
-            :label="$t('store.createTime')"
-            width="200"
+      <div class="img-box">
+        <img :src="appIconPath">
+      </div>
+      <div class="package-detail">
+        <p>{{ currentData.name }}</p>
+        <div class="app-header">
+          <div class="version-title">
+            <span>{{ $t('common.version') }}</span>
+          </div>
+          <div class="version-value">
+            <select
+              class="drop-down"
+              v-model="currentData"
+            >
+              <option
+                v-for="(data, index) in tableData"
+                :value="data"
+                :key="index"
+                @change="updateData"
+              >
+                {{ data.version }}
+              </option>
+            </select>
+          </div>
+          <div class="score-title">
+            <span>{{ $t('store.score') }}</span>
+          </div>
+          <div class="score-value">
+            <span>
+              <el-rate
+                v-model="score"
+                disabled
+                show-score
+                text-color="#ff9900"
+                score-template="{value}"
+              />
+            </span>
+          </div>
+        </div>
+        <div class="app-desc">
+          <span>{{ currentData.shortDesc }}</span>
+        </div>
+        <div class="information">
+          <div class="left-titles">
+            <div class="industry-title">
+              <span>{{ $t('common.industry') }}</span>
+            </div>
+            <div class="affinity-title">
+              <span>{{ $t('common.architecture') }}</span>
+            </div>
+          </div>
+          <div class="left-values">
+            <div class="industry-value">
+              <span>{{ currentData.industry }}</span>
+            </div>
+            <div class="affinity-value">
+              <span>{{ currentData.affinity }}</span>
+            </div>
+          </div>
+          <div class="right-titles">
+            <div class="type-title">
+              <span>{{ $t('common.type') }}</span>
+            </div>
+            <div class="create-time-title">
+              <span>{{ $t('store.createTime') }}</span>
+            </div>
+          </div>
+          <div class="right-values">
+            <div class="type-value">
+              <span>{{ currentData.type }}</span>
+            </div>
+            <div class="create-time-value">
+              <span>{{ currentData.createTime }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="buttons">
+          <button
+            class="download-button"
+            :disabled="ifDownload || currentData.userId===userId ? false : true"
+            @click="download(currentData)"
           >
-            <template slot-scope="scope">
-              {{ scope.row.createTime.split('.')[0] }}
-            </template>
-          </el-table-column>
-          <el-table-column
-            :label="$t('common.operation')"
-            width="270"
+            {{ $t('store.download') }}
+          </button>
+          <button
+            class="delete-button"
+            :disabled="ifDelete || currentData.userId===userId ? false : true"
+            @click="getDelete(currentData)"
           >
-            <template slot-scope="scope">
-              <el-button
-                id="appdetail_download"
-                :disabled="ifDelete || scope.row.userId===userId ? false : true"
-                @click="download(scope.row)"
-                type="text"
-              >
-                {{ $t('store.download') }}
-              </el-button>
-              <el-button
-                id="appdetail_detail"
-                @click="getDetail(scope.row)"
-                type="text"
-              >
-                {{ $t('common.detail') }}
-              </el-button>
-              <el-button
-                id="appdetail_delete"
-                :disabled="ifDownload || scope.row.userId===userId ? false : true"
-                @click="getDelete(scope.row)"
-                type="text"
-              >
-                {{ $t('common.delete') }}
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+            {{ $t('common.delete') }}
+          </button>
+        </div>
       </div>
     </div>
-
-    <el-row :gutter="24">
-      <el-col
-        :span="18"
-        style="position: relative;margin-top:15px;"
+    <div class="doc-detail">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            @click.prevent="setActive('demo')"
+            :class="{ active: isActive('demo') }"
+            href="#demo"
+          >
+            {{ $t('store.demo') }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            @click.prevent="setActive('introduction')"
+            :class="{ active: isActive('introduction') }"
+            href="#introduction"
+          >
+            {{ $t('store.introduction') }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            @click.prevent="setActive('comments')"
+            :class="{ active: isActive('comments') }"
+            href="#comments"
+          >
+            {{ $t('store.comments') }}
+          </a>
+        </li>
+      </ul>
+      <div
+        class="tab-content"
+        id="myTabContent"
       >
         <div
-          id="appDetailMd"
-          ref="appDetailMd"
-          v-if="editorStatus"
+          class="tab-pane fade"
+          :class="{ 'active show': isActive('demo') }"
+          id="demo"
         >
-          <mavon-editor
-            v-model="source"
-            :toolbars-flag="false"
-            :editable="false"
-            :subfield="false"
-            default-open="preview"
+          <video-player
+            class="video-player-box vjs-big-play-centered demo-tab"
+            ref="videoPlayer"
+            :options="playerOptions"
+            :playsinline="true"
           />
         </div>
-        <div class="editor">
-          <div v-if="!editorStatus">
-            <div id="appdetail_detail_doc">
-              <el-input
-                type="textarea"
-                rows="30"
-                v-model="editDetails"
-              />
-            </div>
-            <el-button
-              id="appdetail_confirm"
-              type="primary"
-              size="mini"
-              style="margin-top: 5px;float: right;"
-              @click="confirmEdit"
-            >
-              {{ $t('common.confirm') }}
-            </el-button>
-            <el-button
-              id="appdetail_cancel"
-              type="primary"
-              size="mini"
-              style="margin-top: 5px;float: right;margin-right: 5px;"
-              @click="cancleEdit"
-            >
-              {{ $t('common.cancel') }}
-            </el-button>
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div class="right">
+        <div
+          class="tab-pane fade"
+          :class="{ 'active show': isActive('introduction') }"
+          id="introduction"
+        >
           <div
-            class="provider"
-            style="background: white;"
+            id="appDetailMd"
+            ref="appDetailMd"
+            v-if="editorStatus"
           >
-            <p>
-              <span>{{ $t('common.provider') }}:</span>
-              <span class="name">{{ details.provider }}</span>
-            </p>
-          </div>
-          <div class="box">
-            <h4>Try it!</h4>
-            <p>
-              <el-button
-                id="appdetail_platform"
-                type="text"
-              >
-                <a
-                  href="https://gitee.com/EdgeGallery"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  EdgeGallery Platform</a>
-              </el-button>
-            </p>
-          </div>
-          <div
-            class="box"
-            style="background: white;"
-          >
-            <h4>Dependency</h4>
-            <p>
-              <el-button
-                id="appdetail_mysql"
-                type="text"
-                disabled
-              >
-                MySQl
-              </el-button>
-            </p>
-          </div>
-          <div class="box appDetailFileList">
-            <el-tree
-              :data="appDetailFileList"
-              default-expand-all
-              node-key="id"
-              ref="tree"
-              highlight-current
-              :props="defaultProps"
-              @node-click="handleNodeClick"
-              style="overflow-x: auto;"
+            <mavon-editor
+              v-model="source"
+              :toolbars-flag="false"
+              :editable="false"
+              :subfield="false"
+              default-open="preview"
             />
           </div>
-          <div class="box comments">
-            <h4>{{ $t('store.comments') }}</h4>
-            <div
-              class="commnet-list"
-              v-if="!postComment"
-            >
-              <div
-                class="commnet-list-content"
-                v-for="item in historyComentsList"
-                :key="item.commentTime"
-              >
-                <div class="flex">
-                  <p style="margin-right: 5px;">
-                    {{ $t('store.userName') }}:
-                  </p>
-                  <p>{{ item.user.userName }}</p>
-                </div>
-                <div class="flex">
-                  <p style="margin-right: 5px;">
-                    {{ $t('store.score') }}:
-                  </p>
-                  <p>
-                    <el-rate
-                      v-model="item.score"
-                      disabled
-                      show-score
-                      text-color="#ff9900"
-                      score-template="{value}"
-                    />
-                  </p>
-                </div>
-                <div class="flex">
-                  <p style="margin-right: 5px;">
-                    {{ $t('store.time') }}:
-                  </p>
-                  <p>{{ item.commentTime.split(' ')[0] }}</p>
-                </div>
-                <div class="flex">
-                  <p style="margin-right: 5px;">
-                    {{ $t('store.comments') }}:
-                  </p>
-                  <p>{{ item.body }}</p>
-                </div>
-              </div>
-              <div
-                class="rt clearfix"
-                style="margin-top: 10px"
-              >
-                <el-button
-                  id="appdetail_post_comment"
-                  type="primary"
-                  size="mini"
-                  @click="changepostComment"
-                >
-                  {{ $t('store.comments') }}
-                </el-button>
-              </div>
-              <div class="clearfix" />
-            </div>
-            <div
-              class="submit-comment"
-              v-if="postComment"
-            >
-              <p class="flex">
-                <span style="margin-right: 5px;">{{ $t('store.score') }}:</span>
-                <el-rate
-                  v-model="comments.score"
-                  allow-half
-                  show-score
-                />
-              </p>
-              <p id="appdetail_comment">
-                <span style="margin-bottom: 5px;">{{ $t('store.comments') }}:</span>
+          <div class="editor">
+            <div v-if="!editorStatus">
+              <div id="appdetail_detail_doc">
                 <el-input
                   type="textarea"
-                  v-model="comments.message"
-                  rows="5"
-                  maxlength="200"
-                  show-word-limit
+                  rows="30"
+                  v-model="editDetails"
                 />
-              </p>
-              <p class="clearfix">
-                <el-button
-                  id="appdetail_submit_comment"
-                  type="primary"
-                  size="mini"
-                  class="rt"
-                  @click="submitComment"
-                >
-                  {{ $t('store.postComment') }}
-                </el-button>
-                <el-button
-                  id="appdetail_commen_cancel"
-                  type="success"
-                  size="mini"
-                  class="rt"
-                  @click="changepostComment"
-                  style="margin-right: 5px;"
-                >
-                  {{ $t('common.cancel') }}
-                </el-button>
-              </p>
-              <div class="clearfix" />
+              </div>
+              <el-button
+                id="appdetail_confirm"
+                type="primary"
+                size="mini"
+                style="margin-top: 5px;float: right;"
+                @click="confirmEdit"
+              >
+                {{ $t('common.confirm') }}
+              </el-button>
+              <el-button
+                id="appdetail_cancel"
+                type="primary"
+                size="mini"
+                style="margin-top: 5px;float: right;margin-right: 5px;"
+                @click="cancleEdit"
+              >
+                {{ $t('common.cancel') }}
+              </el-button>
             </div>
           </div>
         </div>
-      </el-col>
-    </el-row>
-    <el-dialog
-      :visible.sync="dialogVisible"
-      :title="$t('common.detail')"
-      class="dialogdetail"
-    >
-      <mavon-editor
-        v-model="markdownSource"
-        :toolbars-flag="false"
-        :editable="false"
-        :subfield="false"
-        default-open="preview"
-        :box-shadow="false"
-        preview-background="#ffffff"
-      />
-    </el-dialog>
+        <div
+          class="tab-pane fade comments-tab"
+          :class="{ 'active show': isActive('comments') }"
+          id="comments"
+        >
+          <div
+            class="comment-list"
+            v-if="!postComment"
+          >
+            <div
+              class="comment-list-content"
+              v-for="item in historyComentsList"
+              :key="item.commentTime"
+            >
+              <div class="flex">
+                <p style="margin-right: 5px;">
+                  {{ $t('store.userName') }}:
+                </p>
+                <p>{{ item.user.userName }}</p>
+              </div>
+              <div class="flex">
+                <p style="margin-right: 5px;">
+                  {{ $t('store.score') }}:
+                </p>
+                <p>
+                  <el-rate
+                    v-model="item.score"
+                    disabled
+                    show-score
+                    text-color="#ff9900"
+                    score-template="{value}"
+                  />
+                </p>
+              </div>
+              <div class="flex">
+                <p style="margin-right: 5px;">
+                  {{ $t('store.time') }}:
+                </p>
+                <p>{{ item.commentTime.split(' ')[0] }}</p>
+              </div>
+              <div class="flex">
+                <p style="margin-right: 5px;">
+                  {{ $t('store.comments') }}:
+                </p>
+                <p>{{ item.body }}</p>
+              </div>
+            </div>
+            <div
+              class="rt clearfix"
+              style="margin-top: 10px"
+            >
+              <el-button
+                id="appdetail_post_comment"
+                type="primary"
+                size="mini"
+                @click="changepostComment"
+              >
+                {{ $t('store.comments') }}
+              </el-button>
+            </div>
+            <div class="clearfix" />
+          </div>
+          <div
+            class="submit-comment"
+            v-if="postComment"
+          >
+            <p class="flex">
+              <span style="margin-right: 5px;">{{ $t('store.score') }}:</span>
+              <el-rate
+                v-model="comments.score"
+                allow-half
+                show-score
+              />
+            </p>
+            <p id="appdetail_comment">
+              <span style="margin-bottom: 5px;">{{ $t('store.comments') }}:</span>
+              <el-input
+                type="textarea"
+                v-model="comments.message"
+                rows="5"
+                maxlength="200"
+                show-word-limit
+              />
+            </p>
+            <p class="clearfix">
+              <el-button
+                id="appdetail_submit_comment"
+                type="primary"
+                size="mini"
+                class="rt"
+                @click="submitComment"
+              >
+                {{ $t('store.postComment') }}
+              </el-button>
+              <el-button
+                id="appdetail_commen_cancel"
+                type="success"
+                size="mini"
+                class="rt"
+                @click="changepostComment"
+                style="margin-right: 5px;"
+              >
+                {{ $t('common.cancel') }}
+              </el-button>
+            </p>
+            <div class="clearfix" />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -324,7 +328,8 @@ import {
   submitAppCommentApi,
   getAppFileContentApi,
   downloadAppPakageApi,
-  deleteAppPackageApi
+  deleteAppPackageApi,
+  URL_PREFIX
 } from '../../tools/api.js'
 
 export default {
@@ -341,6 +346,8 @@ export default {
       appId: '',
       packageId: '',
       tableData: [],
+      currentData: {},
+      activeItem: 'demo',
       appDetailFileList: [],
       defaultProps: {
         children: 'childs',
@@ -356,20 +363,25 @@ export default {
       source: '',
       showEdit: true,
       filePath: [],
+      appIconPath: '',
       markdownSource: '',
-      dialogVisible: false
+      dialogVisible: false,
+      playerOptions: {
+        muted: false,
+        playbackRates: [0.7, 1.0, 1.5, 2.0],
+        language: 'en',
+        sources: []
+      }
     }
   },
-  // watch: {
-  //   $route (to, from) {
-  //     console.log(111)
-  //     // handler: function (val) {
-  //     //   console.log(val)
-  //     // },
-  //     // deep: true,
-  //     // immediate: true
-  //   }
-  // },
+  watch: {
+    tableData: function (val) {
+      if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && !(this.tableData.length === 0)) {
+        this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
+      }
+      return ''
+    }
+  },
   beforeRouteLeave (to, from, next) {
     console.log(from.path)
     sessionStorage.setItem('fromPath', from.path)
@@ -490,6 +502,15 @@ export default {
         }
         callback()
       })
+    },
+    updateData (data) {
+      this.currentData = data.target.value
+    },
+    isActive (menuItem) {
+      return this.activeItem === menuItem
+    },
+    setActive (menuItem) {
+      this.activeItem = menuItem
     },
     dateChange (dateStr) {
       if (dateStr) {
@@ -634,117 +655,205 @@ export default {
       : JSON.parse(sessionStorage.getItem('appstordetail'))
     this.details = params
     this.appId = this.details.appId
+    this.score = this.details.score
     this.getTableData(function clearData () {})
     this.getComments()
     this.userName = params.username
+    let val = {
+      type: 'video/mp4',
+      src: URL_PREFIX + 'apps/' + this.appId + '/demoVideo'
+    }
+    this.playerOptions.sources.push(val)
+    this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
   }
 }
 </script>
 <style lang='less' >
 .app-detail {
-  padding: 0 56px 50px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
   .app-info {
-    padding: 32px;
+    border: 1px solid gray;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px 5px 5px;
     background: white;
-    p {
-      font-size: 20px;
-      color: #282b33;
-      line-height: 24px;
-      font-weight: 700;
+    .img-box {
+      box-sizing: border-box;
+      text-align: left;
+      width: 200px;
+      img {
+        height: 80%;
+        width: 100%;
+      }
     }
-    .information {
-      margin-top: 15px;
-      .description {
-        .el-textarea__inner {
-          color: black !important;
-          cursor: auto !important;
-          font-family: "Microsoft Yahei", "simsun", "arial", "tahoma", sans-serif;
+    .package-detail {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      flex-grow: 1;
+      p {
+        padding: 5px 5px 5px;
+        font-size: 20px;
+        color: black !important;
+        line-height: 23px;
+        font-weight: 700;
+        font-family: "Microsoft Yahei", "simsun", "arial", "tahoma", sans-serif;
+      }
+      span {
+        display: inline-block;
+        height: 28px;
+        white-space:pre;
+      }
+      .app-header {
+        padding: 5px 5px 5px;
+        display: flex;
+        flex-wrap: wrap;
+        .version-title {
+          flex-grow: 1;
+          flex-direction: column;
+        }
+        .version-value {
+          flex-grow: 16;
+          flex-direction: column;
+          align-content: left;
+          .drop-down {
+            background-color: whitesmoke;
+            color: black;
+            padding: 5px 19px 4px;
+            font-size: 16px;
+            border: 1px solid gray;
+            cursor: pointer
+          }
+        }
+        .score-title {
+          flex-grow: 1;
+          flex-direction: column;
+        }
+        .score-value {
+          flex-grow: 1;
+          flex-direction: column;
+        }
+      }
+      .app-desc {
+        border: 1px solid rgba(95, 92, 92, 0.2);
+        padding: 10px 10px 10px;
+      }
+      .information {
+        display: flex;
+        flex-wrap: wrap;
+        .left-titles {
+          flex-grow: 1;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          padding: 5px 5px 5px;
+          .industry-title {
+            padding: 5px 5px 5px;
+          }
+          .affinity-title {
+            padding: 5px 5px 5px;
+          }
+        }
+        .left-values {
+          flex-grow: 2;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          padding: 5px 5px 5px;
+          .industry-value {
+            padding: 5px 5px 5px;
+          }
+          .affinity-value {
+            padding: 5px 5px 5px;
+          }
+        }
+        .right-titles {
+          flex-grow: 1;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          padding: 5px 5px 5px;
+          .type-title {
+            padding: 5px 5px 5px;
+          }
+          .create-time-title {
+            padding: 5px 5px 5px;
+          }
+        }
+        .right-values {
+          flex-grow: 15;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          padding: 5px 5px 5px;
+          .type-value {
+            padding: 5px 5px 5px;
+          }
+          .create-time-value {
+            padding: 5px 5px 5px;
+          }
+        }
+      }
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        color: #333;
+        background-color:#fff;
+        border-radius: 4px;
+        font-size: 14px;
+        font-family: '微软雅黑',arail;
+        cursor: pointer;
+        .download-button {
+          flex-direction: column;
+          padding: 10px 20px 10px;
+          background-color: #13ce66;
+          color: #fff;
+        }
+        .delete-button {
+          margin-left: 50px;
+          flex-direction: column;
+          padding: 10px 30px 10px;
+          background-color: #c03030;
+          color: #fff;
+        }
+        .delete-button[disabled]{
+          border: 1px solid #999999;
+          background-color: #cccccc;
+          color: #666666;
+        }
+        .download-button[disabled]{
+          border: 1px solid #999999;
+          background-color: #cccccc;
+          color: #666666;
         }
       }
     }
   }
-  .title-margin {
-    margin: 15px 0;
-  }
-  .edit {
-    margin-top: -40px;
-    margin-right: 55px;
-    i {
-      margin-right: 5px;
-      color: #409eff;
+  .doc-detail {
+    border: 1px solid gray;
+    .demo-tab {
+      background: #fff;
+      padding: 30px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
     }
-  }
-
-  .editon-icon {
-    float: right;
-    position: relative;
-    top: 20px;
-    right: 130px;
-    z-index: 10005;
-    span{
-      padding: 5px 35px;
-      border: 1px solid #ddd;
-    }
-  }
-  .right {
-    margin-top: 15px;
-    .box {
-      margin-top: 15px;
-      background-color: white;
-      padding: 10px;
-      .name-margin{
-        margin-top: 10px;
-      }
-      .name {
-        margin-left: 10px;
-      }
-    }
-    .provider {
-      padding: 10px;
-      .name-margin{
-        margin-top: 10px;
-      }
-      .name {
-        margin-left: 10px;
-      }
-    }
-    .comments {
+    .comments-tab {
+      background: #fff;
+      padding: 30px;
+      display: flex;
       p {
         margin-top: 10px;
-        padding-left: 10px;
       }
-      .commnet-list {
+      .comment-list {
         padding-top: 10px;
-        padding-left: 10px;
-        .commnet-list-content {
+        .comment-list-content {
           padding-bottom: 10px;
           border-bottom: 1px solid #eee;
         }
       }
-    }
-    .appDetailFileList {
-      font-size: 18px;
-      line-height: 24px;
-      p {
-        line-height: 24px;
-      }
-      .child {
-        p {
-          font-size: 16px;
-          text-indent: 2rem;
-        }
-      }
-      .subChild {
-        p {
-          font-size: 14px;
-          text-indent: 2rem;
-        }
-      }
-    }
-  }
-  .dialogdetail{
-    .el-dialog__close {
-      color: #fff;
     }
   }
 }

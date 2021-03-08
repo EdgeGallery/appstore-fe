@@ -160,6 +160,39 @@
           </div>
         </el-form-item>
         <el-form-item
+          :label="$t('store.appVideo')"
+          prop="videoFile"
+        >
+          <el-upload
+            ref="upload"
+            action=""
+            :limit="1"
+            :on-exceed="handleExceed"
+            :on-change="handleChangeVideo"
+            :on-remove="handleDelteVideoFile"
+            :file-list="packageForm.videoFile"
+            :auto-upload="false"
+            accept=".mp4"
+          >
+            <el-button
+              slot="trigger"
+              size="small"
+              type="primary"
+              plain
+            >
+              {{ $t('store.uploadVideo') }}
+            </el-button>
+            <div
+              class="el-upload__tip"
+              slot="tip"
+            >
+              <em class="el-icon-warning" />
+              {{ $t('store.onlyVideo') }}
+              {{ $t('store.videoSizeLimit') }}
+            </div>
+          </el-upload>
+        </el-form-item>
+        <el-form-item
           :label="$t('common.architecture')"
           prop="affinity"
         >
@@ -244,6 +277,7 @@ export default {
       dialogVisible: this.value,
       packageForm: {
         fileList: [],
+        videoFile: [],
         appIcon: [],
         shortDesc: '',
         // mepType: '',
@@ -266,6 +300,9 @@ export default {
       rules: {
         fileList: [
           { required: true }
+        ],
+        videoFile: [
+          { required: false }
         ],
         appIcon: [
           { required: true }
@@ -294,6 +331,7 @@ export default {
     },
     clearForm () {
       this.packageForm.fileList = []
+      this.packageForm.videoFile = []
       this.packageForm.appIcon = []
       this.packageForm.shortDesc = ''
       this.packageForm.industry = 'Smart Park'
@@ -325,6 +363,9 @@ export default {
     },
     handleChange (file, fileList) {
       this.checkFileType(file, 'fileList', 'csar')
+    },
+    handleChangeVideo (file) {
+      this.checkFileType(file, 'videoFile', 'mp4')
     },
     handleChangeApi (file, fileList) {
       this.checkFileType(file, 'apiFileList', 'json')
@@ -398,6 +439,9 @@ export default {
     },
     handleDelte (file, fileList) {
       this.packageForm.fileList = fileList
+    },
+    handleDelteVideoFile (file, fileList) {
+      this.packageForm.videoFile = fileList
     },
     handleDelteAppIcon (file, fileList) {
       this.packageForm.appIcon = fileList
@@ -545,6 +589,7 @@ export default {
       fd.append('shortDesc', packageForm.shortDesc ? packageForm.shortDesc : '')
       fd.append('userId', userId)
       fd.append('userName', userName)
+      fd.append('demoVideo', packageForm.videoFile[0])
       myApp.uploadAppPackageApi(fd).then(res => {
         this.$message({
           duration: 2000,
@@ -758,6 +803,9 @@ export default {
   }
   .upIcon.active{
     color: #409EFF;
+  }
+  .el-form-item{
+    margin-bottom: 15px;
   }
   .el-form-item.icon{
     content: '';
