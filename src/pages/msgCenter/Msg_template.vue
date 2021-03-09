@@ -303,7 +303,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .box {
   width: 80%;
   min-width: 1500px;
