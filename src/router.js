@@ -324,6 +324,14 @@ export default new Router({
               }
             }
           ]
+        },
+        {
+          path: 'refresh',
+          name: 'refresh',
+          component: () => import('./pages/appPromotion/Refresh.vue'),
+          meta: {
+            id: '2.7'
+          }
         }
       ]
     }
