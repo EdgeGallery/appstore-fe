@@ -234,7 +234,8 @@ export default {
       currentPageData: [],
       middleData: [],
       nameQuery: '',
-      findAppData: []
+      findAppData: [],
+      language: localStorage.getItem('language')
     }
   },
   methods: {
@@ -577,7 +578,7 @@ export default {
 
       let options1 = {
         title: {
-          text: 'Hot EDGE APP Distribution',
+          text: this.$t('apppromotion.hotIndustry'),
           left: 'center'
         },
         tooltip: {
@@ -633,7 +634,7 @@ export default {
 
       let options2 = {
         title: {
-          text: 'Push APP Statistic'
+          text: this.$t('apppromotion.appPushAndNoticeStatistic')
         },
         tooltip: {
           trigger: 'axis',
@@ -714,7 +715,7 @@ export default {
 
       let options3 = {
         title: {
-          text: 'APP PULL Trending'
+          text: this.$t('apppromotion.appDownloadTrend')
         },
         tooltip: {
           trigger: 'axis'
@@ -754,6 +755,13 @@ export default {
         type: 'warning'
       })
     })
+  },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
+      this.$router.replace('/refresh')
+    }
   }
 }
 </script>
@@ -763,7 +771,6 @@ export default {
     background: white;
     padding: 20px;
   }
-  //padding: 30px 0;
   .pagination {
     margin: 20px;
   }
