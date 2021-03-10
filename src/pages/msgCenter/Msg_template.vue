@@ -237,14 +237,13 @@ export default {
     },
     timeCompute (time) {
       var today = new Date()
-      var todayTime = today.getTime() % (1000 * 60 * 60 * 24)
-      var offset = new Date(time).getTime() - today.getTime()
-      var dateTime = offset + todayTime
-      if (dateTime >= 0 && dateTime < 1000 * 60 * 60 * 24) {
+      var todayTime = (today.getTime() + 28800000) % (1000 * 60 * 60 * 24)
+      var timeValue = today.getTime() - todayTime - new Date(time).getTime()
+      if (timeValue <= 0) {
         return 1
-      } else if (dateTime < 0 && dateTime / (1000 * 60 * 60 * 24) >= -7) {
+      } else if (timeValue / (1000 * 60 * 60 * 24) > 0 && timeValue / (1000 * 60 * 60 * 24) <= 7) {
         return 2
-      } else if (dateTime / (1000 * 60 * 60 * 24) < -7 && dateTime / (1000 * 60 * 60 * 24) >= -30) {
+      } else if (timeValue / (1000 * 60 * 60 * 24) > 7 && timeValue / (1000 * 60 * 60 * 24) <= 30) {
         return 3
       } else {
         return 4
@@ -252,9 +251,18 @@ export default {
     },
     getAppData (param) {
       getAppdownAnaApiByType().then((res) => {
+        if (param) {
+          this.isShowDlg = true
+          this.currentDetailMsg = param
+          this.currentDetailMsg.readed = true
+          this.updateMsgStatus(param.messageId)
+        }
         let data = res.data
         data.forEach(item => {
           item.timeResult = this.timeCompute(item.time)
+          if (param && item.messageId === param.messageId) {
+            item.readed = true
+          }
           this.allRightDetailData.push(item)
         })
         // 默认是选中今天数据

@@ -363,10 +363,10 @@ const en = {
     haveNoAnaData: 'No operation analyse data!'
   },
   messageCenter: {
-    msgToday: 'today',
-    msgWeek: 'within one week',
-    msgMonth: 'within one month',
-    msgOld: 'earlier',
+    msgToday: 'Today',
+    msgWeek: 'This Week',
+    msgMonth: 'This Month',
+    msgOld: 'Old',
     acceptMsg: 'accept',
     deleteMsg: 'delete',
     appBasicInfo: 'APP Basic Information',
