@@ -21,7 +21,8 @@ import { URL_PREFIX } from './api'
 function getCookie (name) {
   let arr = []
   let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
-  if (arr === document.cookie.match(reg)) {
+  arr = document.cookie.match(reg)
+  if (arr) {
     return (arr[2])
   } else {
     return null

@@ -27,6 +27,7 @@ import i18n from './locales/i18n.js'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import VueCookies from 'vue-cookies'
+import uploader from 'vue-simple-uploader'
 import echarts from 'echarts'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VideoPlayer from 'vue-video-player'
@@ -34,11 +35,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'video.js/dist/video-js.min.css'
 // import 'swiper/swiper-bundle.css'
 import 'swiper/css/swiper.css'
+import Tooltip from 'vue-directive-tooltip'
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueCookies)
 Vue.use(mavonEditor)
 Vue.use(ElementUI)
 Vue.use(VCharts)
+Vue.use(Tooltip)
+Vue.use(uploader)
 Vue.use(VideoPlayer)
 Vue.prototype.$echarts = echarts
 function isChromeBrowser () {

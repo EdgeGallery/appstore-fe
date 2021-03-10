@@ -33,7 +33,21 @@
           :label="$t('store.appPackage')"
           prop="fileList"
         >
-          <el-upload
+          <!-- 上传大文件 -->
+          <uploader
+            :options="options"
+            class="uploader-example"
+            @file-complete="fileComplete"
+            :limit="1"
+          >
+            <uploader-unsupport />
+            <uploader-drop>
+              <uploader-btn>{{ $t('store.uploadApp') }}</uploader-btn>
+            </uploader-drop>
+            <uploader-list />
+          </uploader>
+
+          <!-- <el-upload
             ref="upload"
             action=""
             :limit="1"
@@ -60,7 +74,7 @@
               {{ $t('store.onlyCsar') }}
               {{ $t('store.packageSizeLimit') }}
             </div>
-          </el-upload>
+          </el-upload> -->
         </el-form-item>
         <el-form-item
           :label="$t('common.industry')"
@@ -244,7 +258,10 @@
 
 <script>
 import { TYPES, AFFINITY, INDUSTRY } from '../../tools/constant.js'
-import { myApp } from '../../tools/api.js'
+import { myApp, URL_PREFIX } from '../../tools/api.js'
+import { getCookie } from '../../tools/request.js'
+import axios from 'axios'
+
 export default {
   props: {
     value: {
@@ -322,6 +339,17 @@ export default {
         shortDesc: [
           { required: true, message: '描述不能为空', trigger: 'blur' }
         ]
+      },
+      fileAddress: '',
+      name: '',
+      mergerUrl: '',
+      mergerUrlHttp: '',
+      options: {
+        testChunks: false,
+        headers: {},
+        forceChunkSize: true,
+        simultaneousUploads: 5, // 并发数
+        chunkSize: 8 * 1024 * 1024// 块大小
       }
     }
   },
@@ -581,7 +609,7 @@ export default {
       let userName = sessionStorage.getItem('userName')
       let fd = new FormData()
       let packageForm = this.packageForm
-      fd.append('file', packageForm.fileList[0])
+      fd.append('fileAddress', this.fileAddress)
       fd.append('icon', packageForm.appIcon.length > 0 ? packageForm.appIcon[0] : this.defaultIconFile)
       fd.append('industry', packageForm.industry)
       fd.append('type', packageForm.types)
@@ -629,11 +657,12 @@ export default {
       // this.uploadBtnLoading = true
       // judgement of if file is exist
       let appFileIcon = (this.packageForm.appIcon.length || this.defaultIconFile)
-      let appFilePackage = (this.packageForm.fileList.length)
+      let appFilePackage = (this.fileAddress.length)
       let industry = this.packageForm.industry.length
       let types = this.packageForm.types
       let affinity = this.packageForm.affinity.length
       let shortDesc = this.packageForm.shortDesc
+
       if (!appFilePackage) {
         this.$message({
           duration: 2000,
@@ -696,6 +725,18 @@ export default {
           this.packageForm.types = itemFe.label[1]
         }
       })
+    },
+    fileComplete () {
+      console.log('file complete', arguments)
+      const file = arguments[0].file
+      let url = this.mergerUrl + file.name + '&guid=' + arguments[0].uniqueIdentifier
+      axios.get(url).then(response => {
+        console.log(response.data)
+        this.fileAddress = response.data
+        console.log(this.fileAddress)
+      }).catch(error => {
+        console.log(error)
+      })
     }
   },
   watch: {
@@ -711,6 +752,13 @@ export default {
   mounted () {
     this.showErr = this.logoFileList
     this.chooseDefaultIcon(this.defaultIcon[0], 0)
+  },
+  created () {
+    this.options.headers = { 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN') }
+    let url = window.location.origin
+    url = url.replace('8083', '9082')
+    this.options.target = url + URL_PREFIX + 'image/upload'
+    this.mergerUrl = url + URL_PREFIX + 'image/merge?fileName='
   }
 }
 
@@ -837,5 +885,8 @@ export default {
     background-color: #fea712;
     border-color: #fea712;
   }
+}
+.uploader-file[status=success] .uploader-file-remove{
+  display: block !important;
 }
 </style>
