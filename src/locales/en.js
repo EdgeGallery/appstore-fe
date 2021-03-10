@@ -24,6 +24,7 @@ const en = {
     about: 'About',
     logout: 'Logout',
     login: 'Login',
+    userAccountCenter: 'My Account',
     appstore: 'APP Warehouse',
     appMgmt: 'appMgmt',
     appShare: 'App Share',

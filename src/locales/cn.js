@@ -26,6 +26,7 @@ const cn = {
     about: '关于',
     logout: '注销',
     login: '登录',
+    userAccountCenter: '我的帐号',
     appstore: '应用仓库',
     appMgmt: '应用管理',
     appShare: '应用共享',
