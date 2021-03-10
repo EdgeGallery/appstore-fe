@@ -109,10 +109,12 @@
           </template>
         </el-table>
       </div>
-      <pagination
-        style="margin-bottom: 20px;"
-        :table-data="findAppData"
-        @getCurrentPageData="getCurrentPageData"
+      <eg-pagination
+        :page-num="pageNum"
+        :page-size="pageSize"
+        :total="total"
+        @sizeChange="sizeChange"
+        @currentChange="currentChange"
       />
     </div>
   </div>
@@ -120,10 +122,10 @@
 
 <script>
 import { pullApp } from '../../tools/api.js'
-import pagination from '../../components/common/Pagination.vue'
+import EgPagination from 'eg-view/src/components/EgPagination.vue'
 export default {
   components: {
-    pagination
+    EgPagination
   },
   props: {
     data: {
@@ -137,15 +139,22 @@ export default {
       currentAppStoreId: '',
       findAppData: [],
       currentPageData: [],
-      nameQuery: ''
+      nameQuery: '',
+      pageNum: 1,
+      pageSize: 10,
+      total: 0,
+      curPageSize: 10
     }
   },
   methods: {
+    sizeChange (val) {
+      this.curPageSize = val
+    },
+    currentChange (val) {
+      this.pageNum = val
+    },
     handleClick (tab, event) {
       console.log(tab, event)
-    },
-    getCurrentPageData (data) {
-      this.currentPageData = data
     },
     unique (arr) {
       if (!Array.isArray(arr)) {
@@ -190,6 +199,11 @@ export default {
         this.$emit('setEnableStatus', false)
       }
     },
+    refreshCurrentData () {
+      let start = this.curPageSize * (this.pageNum - 1)
+      let end = this.curPageSize * this.pageNum
+      this.currentPageData = this.findAppData.slice(start, end)
+    },
     handleNameQuery () {
       this.findAppData = this.appPackageData
       this.findAppData = this.findAppData.filter((item) => {
@@ -197,6 +211,7 @@ export default {
         return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
       })
       if (!this.nameQuery) this.findAppData = this.appPackageData
+      this.total = this.findAppData.length
     },
     handlePull (row) {
       let userId = sessionStorage.getItem('userId')
@@ -294,10 +309,22 @@ export default {
   mounted () {
     this.appPackageData = this.data
     this.findAppData = this.appPackageData
+    this.total = this.findAppData.length
     if (this.appPackageData.length > 0) {
       this.currentAppStoreId = this.appPackageData[0].sourceStoreId
     }
     this.defaultSort()
+  },
+  watch: {
+    curPageSize: function () {
+      this.refreshCurrentData()
+    },
+    pageNum: function () {
+      this.refreshCurrentData()
+    },
+    findAppData: function () {
+      this.refreshCurrentData()
+    }
   }
 }
 
