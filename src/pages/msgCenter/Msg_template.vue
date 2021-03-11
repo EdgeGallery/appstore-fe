@@ -87,7 +87,7 @@
     </div>
     <div
       class="rightMsg"
-      v-if="!isShowDlg"
+      v-show="!isShowDlg"
     >
       <RightContent
         v-if="hackReset"
@@ -98,7 +98,7 @@
     </div>
     <div
       class="rightMsg"
-      v-else
+      v-show="isShowDlg"
     >
       <DetailMsgDlg
         :data="currentDetailMsg"

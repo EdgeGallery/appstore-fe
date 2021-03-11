@@ -166,10 +166,12 @@
           />
         </div>
       </div>
-      <pagination
-        style="margin-bottom: 20px;"
-        :table-data="findAppData"
-        @getCurrentPageData="getCurrentPageData"
+      <eg-pagination
+        :page-num="pageNum"
+        :page-size="pageSize"
+        :total="total"
+        @sizeChange="sizeChange"
+        @currentChange="currentChange"
       />
     </div>
   </div>
@@ -178,11 +180,11 @@
 <script>
 import { getAppPromTableApi, promProviderInfo } from '../../tools/api.js'
 import promTask from './PromTask.vue'
-import pagination from '../../components/common/Pagination.vue'
+import EgPagination from 'eg-view/src/components/EgPagination.vue'
 export default {
   components: {
     promTask,
-    pagination
+    EgPagination
   },
   data () {
     return {
@@ -199,10 +201,20 @@ export default {
       btnChangeEnable: true,
       nameQuery: '',
       findAppData: [],
-      selectedArray: ['All']
+      selectedArray: ['All'],
+      pageNum: 1,
+      pageSize: 10,
+      total: 0,
+      curPageSize: 10
     }
   },
   methods: {
+    sizeChange (val) {
+      this.curPageSize = val
+    },
+    currentChange (val) {
+      this.pageNum = val
+    },
     hiddenClass (row) {
       if (row.columnIndex === 0) {
         return 'hiddenClass'
@@ -227,9 +239,6 @@ export default {
       } else {
         this.btnChangeEnable = false
       }
-    },
-    getCurrentPageData (data) {
-      this.currentPageData = data
     },
     getProviders () {
       promProviderInfo().then((res) => {
@@ -293,6 +302,7 @@ export default {
           }
         )
         this.findAppData = this.appPackageData
+        this.total = this.findAppData.length
       }).catch(() => {
         this.$message({
           duration: 2000,
@@ -301,6 +311,11 @@ export default {
         })
       })
     },
+    refreshCurrentData () {
+      let start = this.curPageSize * (this.pageNum - 1)
+      let end = this.curPageSize * this.pageNum
+      this.currentPageData = this.findAppData.slice(start, end)
+    },
     handleNameQuery () {
       this.findAppData = this.appPackageData
       this.findAppData = this.findAppData.filter((item) => {
@@ -308,6 +323,7 @@ export default {
         return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
       })
       if (!this.nameQuery) this.findAppData = this.appPackageData
+      this.total = this.findAppData.length
     },
     selectAll (info) {
       if (this.selectedArray.indexOf('All') !== -1) {
@@ -432,6 +448,17 @@ export default {
     let language = localStorage.getItem('language')
     this.isEnLan = language === 'en'
     this.defaultSort()
+  },
+  watch: {
+    curPageSize: function () {
+      this.refreshCurrentData()
+    },
+    pageNum: function () {
+      this.refreshCurrentData()
+    },
+    findAppData: function () {
+      this.refreshCurrentData()
+    }
   }
 }
 </script>

@@ -130,6 +130,14 @@
           >|</span>
           <span
             class="curp"
+            @click="openUserAccountCenter()"
+            v-if="!ifGuest"
+          >{{ $t('nav.userAccountCenter') }}</span>
+          <span
+            v-if="!ifGuest"
+          >|</span>
+          <span
+            class="curp"
             @click="logout()"
             v-if="ifGuest"
           >{{ $t('nav.login') }}</span>
@@ -294,6 +302,7 @@ export default {
       fromPath: '',
       userName: '',
       loginPage: '',
+      userCenterPage: '',
       ifGuest: true,
       ifAdmin: false,
       menu_small: false,
@@ -416,6 +425,9 @@ export default {
     },
     jumpToEdge () {
       window.open('https://gitee.com/edgegallery', '_blank')
+    },
+    openUserAccountCenter () {
+      window.open(this.userCenterPage)
     }
   },
 
@@ -438,6 +450,7 @@ export default {
       sessionStorage.setItem('userName', res.data.userName)
       this.userName = res.data.userName
       this.loginPage = res.data.loginPage
+      this.userCenterPage = res.data.userCenterPage
       if (res.data.userName === 'guest') {
         this.ifGuest = true
       } else {

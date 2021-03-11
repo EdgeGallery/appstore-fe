@@ -33,48 +33,69 @@
           :label="$t('store.appPackage')"
           prop="fileList"
         >
-          <!-- 上传大文件 -->
-          <uploader
-            :options="options"
-            class="uploader-example"
-            @file-complete="fileComplete"
-            :limit="1"
-          >
-            <uploader-unsupport />
-            <uploader-drop>
-              <uploader-btn>{{ $t('store.uploadApp') }}</uploader-btn>
-            </uploader-drop>
-            <uploader-list />
-          </uploader>
-
-          <!-- <el-upload
-            ref="upload"
-            action=""
-            :limit="1"
-            :on-exceed="handleExceed"
-            :on-change="handleChange"
-            :on-remove="handleDelte"
-            :file-list="packageForm.fileList"
-            :auto-upload="false"
-            accept=".csar"
-          >
-            <el-button
-              slot="trigger"
-              size="small"
-              type="primary"
-              plain
+          <div class="uploadMin">
+            <el-upload
+              ref="upload"
+              action=""
+              :limit="1"
+              :on-exceed="handleExceed"
+              :on-change="handleChange"
+              :on-remove="handleDelte"
+              :file-list="packageForm.fileList"
+              :auto-upload="false"
+              accept=".csar"
+              v-show="ifUploadMin"
             >
-              {{ $t('store.uploadApp') }}
-            </el-button>
+              <el-button
+                slot="trigger"
+                size="small"
+                type="primary"
+                plain
+              >
+                {{ $t('store.uploadApp') }}
+              </el-button>
+            </el-upload>
+          </div>
+          <!-- 上传大文件 -->
+          <div class="uploadMin">
+            <uploader
+              :options="options"
+              class="uploader-example"
+              @file-complete="fileComplete"
+              :limit="1"
+              v-show="ifUploadBig"
+            >
+              <uploader-unsupport />
+              <uploader-drop>
+                <uploader-btn>{{ $t('store.uploadApp') }}</uploader-btn>
+              </uploader-drop>
+              <uploader-list />
+            </uploader>
+          </div>
+          <div class="tipFile">
+            <div class="tipFile">
+              <label
+                v-for="(item, index) in radioData"
+                :key="index"
+                class="lableStyle"
+              >
+                <input
+                  type="radio"
+                  v-model="radioVal"
+                  :value="item.value"
+                  @change="getRadioVal"
+                >
+                {{ item.value }}
+              </label>
+            </div>
             <div
-              class="el-upload__tip"
+              class="tipFile"
               slot="tip"
             >
               <em class="el-icon-warning" />
               {{ $t('store.onlyCsar') }}
-              {{ $t('store.packageSizeLimit') }}
             </div>
-          </el-upload> -->
+          </div>
         </el-form-item>
         <el-form-item
           :label="$t('common.industry')"
@@ -271,6 +292,15 @@ export default {
   },
   data () {
     return {
+      deployPlatform: 'min',
+      formLabelWidth: '110px',
+      ifUploadBig: false,
+      ifUploadMin: true,
+      radioData: [
+        { value: '文件大小不超过10M' },
+        { value: '文件大小超过10M' }
+      ],
+      radioVal: '文件大小不超过10M',
       language: localStorage.getItem('language'),
       defaultActive: '',
       defaultIconFile: '',
@@ -313,7 +343,6 @@ export default {
       defaultUrl: '',
       uploadIcon: false,
       showErr: false,
-      formLabelWidth: '110px',
       rules: {
         fileList: [
           { required: true }
@@ -354,6 +383,18 @@ export default {
     }
   },
   methods: {
+    getRadioVal () {
+      console.log(this.radioVal)
+      console.log(this.ifUploadMin)
+      console.log(this.ifUploadBig)
+      if (this.radioVal === '文件大小不超过10M') {
+        this.ifUploadMin = true
+        this.ifUploadBig = false
+      } else {
+        this.ifUploadMin = false
+        this.ifUploadBig = true
+      }
+    },
     handleClose () {
       this.$emit('input', false)
     },
@@ -618,6 +659,54 @@ export default {
       fd.append('userId', userId)
       fd.append('userName', userName)
       fd.append('demoVideo', packageForm.videoFile[0])
+      myApp.uploadVMAppApi(fd).then(res => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('promptMessage.uploadSuccess'),
+          type: 'success'
+        })
+        this.handleClose()
+        // this.$emit('getAppData')
+        this.$router.push('/myapp')
+      }).catch(error => {
+        if (error.response.data.code === 403) {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.guestUser'),
+            type: 'warning'
+          })
+          this.handleClose()
+        } else if (error.response.data.message) {
+          this.$message({
+            duration: 2000,
+            message: error.response.data.message,
+            type: 'warning'
+          })
+          this.handleClose()
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.uploadFailed'),
+            type: 'warning'
+          })
+          this.handleClose()
+        }
+      })
+    },
+    uploadMin () {
+      let userId = sessionStorage.getItem('userId')
+      let userName = sessionStorage.getItem('userName')
+      let fd = new FormData()
+      let packageForm = this.packageForm
+      fd.append('file', packageForm.fileList[0])
+      fd.append('icon', packageForm.appIcon.length > 0 ? packageForm.appIcon[0] : this.defaultIconFile)
+      fd.append('industry', packageForm.industry)
+      fd.append('type', packageForm.types)
+      fd.append('affinity', packageForm.affinity)
+      fd.append('shortDesc', packageForm.shortDesc ? packageForm.shortDesc : '')
+      fd.append('userId', userId)
+      fd.append('userName', userName)
+      fd.append('demoVideo', packageForm.videoFile[0])
       myApp.uploadAppPackageApi(fd).then(res => {
         this.$message({
           duration: 2000,
@@ -657,7 +746,12 @@ export default {
       // this.uploadBtnLoading = true
       // judgement of if file is exist
       let appFileIcon = (this.packageForm.appIcon.length || this.defaultIconFile)
-      let appFilePackage = (this.fileAddress.length)
+      let appFilePackage
+      if (this.ifUploadMin) {
+        appFilePackage = (this.packageForm.fileList.length)
+      } else {
+        appFilePackage = (this.fileAddress.length)
+      }
       let industry = this.packageForm.industry.length
       let types = this.packageForm.types
       let affinity = this.packageForm.affinity.length
@@ -706,7 +800,11 @@ export default {
         })
         // this.uploadBtnLoading = false
       } else {
-        this.upload()
+        if (this.ifUploadBig) {
+          this.upload()
+        } else {
+          this.uploadMin()
+        }
       }
     },
     changeDataLanguage () {
@@ -752,6 +850,7 @@ export default {
   mounted () {
     this.showErr = this.logoFileList
     this.chooseDefaultIcon(this.defaultIcon[0], 0)
+    this.getRadioVal()
   },
   created () {
     this.options.headers = { 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN') }
@@ -765,6 +864,58 @@ export default {
 </script>
 <style lang='less' >
 .upload-package{
+  .uploadMin{
+    float: left;
+    .el-button--primary.is-plain {
+      margin-top: 5px;
+      display: inline-block;
+      position: relative;
+      padding: 4px 22px;
+      font-size: 100%;
+      line-height: 1.4;
+      color: #688ef3;
+      border: 1px solid #c3d2fa;
+      cursor: pointer;
+      border-radius: 2px;
+      background: #f0f4fe;
+      outline: none
+    }
+    .uploader-btn {
+      margin-top: 5px;
+      display: inline-block;
+      position: relative;
+      padding: 4px 22px;
+      font-size: 100%;
+      line-height: 1.4;
+      color: #688ef3;
+      border: 1px solid #c3d2fa;
+      cursor: pointer;
+      border-radius: 2px;
+      background: #f0f4fe;
+      outline: none
+    }
+    .uploader-drop{
+      padding: 0;
+      border: 0;
+      background-color: #fff;
+    }
+  }
+  .tipFile{
+    float: left;
+    font-size: 12px;
+    margin-left: 12px;
+    margin-top: 6px;
+    color: #606266;
+    .el-icon-warning:before {
+    content: aqua;
+    }
+    .lableStyle{
+      margin-left: 12px;
+      font-size: 12px;
+      color: #606266;
+  }
+  }
+
   .el-dialog__header{
     background-color: #5abdc7 ;
   }
