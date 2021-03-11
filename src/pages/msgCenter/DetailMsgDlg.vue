@@ -186,7 +186,7 @@
               </el-form-item>
               <el-form-item :label="$t('messageCenter.testRepoKey')">
                 <a
-                  :href="data.atpTestReportUrl"
+                  :href="atpRepoUrl"
                   target="_blank"
                 >{{ $t("messageCenter.clickToCheckRepo") }}</a>
               </el-form-item>
@@ -212,7 +212,9 @@ export default {
   },
   data () {
     return {
-      isButtonActive: false
+      isButtonActive: false,
+      language: localStorage.getItem('language'),
+      atpRepoUrl: ''
     }
   },
   methods: {
@@ -244,6 +246,14 @@ export default {
 
   },
   mounted () {
+    this.atpRepoUrl = this.data.atpTestReportUrl + (this.language === 'cn' ? '&language=cn' : '&language=en')
+  },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
+      this.atpRepoUrl = this.data.atpTestReportUrl + (this.language === 'cn' ? '&language=cn' : '&language=en')
+    }
   }
 }
 
