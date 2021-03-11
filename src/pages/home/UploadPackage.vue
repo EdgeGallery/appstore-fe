@@ -866,13 +866,53 @@ export default {
 .upload-package{
   .uploadMin{
     float: left;
-    margin-left: 10px;
+    .el-button--primary.is-plain {
+      margin-top: 5px;
+      display: inline-block;
+      position: relative;
+      padding: 4px 22px;
+      font-size: 100%;
+      line-height: 1.4;
+      color: #688ef3;
+      border: 1px solid #c3d2fa;
+      cursor: pointer;
+      border-radius: 2px;
+      background: #f0f4fe;
+      outline: none
+    }
+    .uploader-btn {
+      margin-top: 5px;
+      display: inline-block;
+      position: relative;
+      padding: 4px 22px;
+      font-size: 100%;
+      line-height: 1.4;
+      color: #688ef3;
+      border: 1px solid #c3d2fa;
+      cursor: pointer;
+      border-radius: 2px;
+      background: #f0f4fe;
+      outline: none
+    }
+    .uploader-drop{
+      padding: 0;
+      border: 0;
+      background-color: #fff;
+    }
   }
   .tipFile{
     float: left;
-    margin-left: 10px;
+    font-size: 12px;
+    margin-left: 12px;
+    margin-top: 6px;
+    color: #606266;
+    .el-icon-warning:before {
+    content: aqua;
+    }
     .lableStyle{
-    margin-left: 10px;
+      margin-left: 12px;
+      font-size: 12px;
+      color: #606266;
   }
   }
 
