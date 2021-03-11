@@ -15,143 +15,180 @@
   -->
 
 <template>
-  <div class="app-detail">
-    <div class="app-info">
-      <div class="img-box">
-        <img :src="appIconPath">
+  <div class="app_detail padding56">
+    <div class="app_info_div">
+      <div class="app_icon">
+        <img
+          :src="appIconPath"
+          alt=""
+        >
       </div>
-      <div class="package-detail">
-        <p>{{ currentData.name }}</p>
-        <div class="app-header">
-          <div class="version-title">
-            <span>{{ $t('common.version') }}</span>
-          </div>
-          <div class="version-value">
-            <select
-              class="drop-down"
-              v-model="currentData"
+      <div class="app_info">
+        <p class="app_title">
+          {{ currentData.name }}
+          <span class="createTime">{{ currentData.createTime }}</span>
+        </p>
+        <div class="app_version">
+          {{ currentData.provider }}
+          <span class="fg" />
+          <select
+            class="drop-down"
+            v-model="currentData"
+          >
+            <option
+              v-for="(data, index) in tableData"
+              :value="data"
+              :key="index"
+              @change="updateData"
             >
-              <option
-                v-for="(data, index) in tableData"
-                :value="data"
-                :key="index"
-                @change="updateData"
-              >
-                {{ data.version }}
-              </option>
-            </select>
-          </div>
-          <div class="score-title">
-            <span>{{ $t('store.score') }}</span>
-          </div>
-          <div class="score-value">
-            <span>
-              <el-rate
-                v-model="score"
-                disabled
-                show-score
-                text-color="#ff9900"
-                score-template="{value}"
-              />
-            </span>
-          </div>
+              {{ data.version }}
+            </option>
+          </select>
         </div>
-        <div class="app-desc">
-          <span>{{ currentData.shortDesc }}</span>
-        </div>
-        <div class="information">
-          <div class="left-titles">
-            <div class="industry-title">
-              <span>{{ $t('common.industry') }}</span>
-            </div>
-            <div class="affinity-title">
-              <span>{{ $t('common.architecture') }}</span>
-            </div>
-          </div>
-          <div class="left-values">
-            <div class="industry-value">
-              <span>{{ currentData.industry }}</span>
-            </div>
-            <div class="affinity-value">
-              <span>{{ currentData.affinity }}</span>
-            </div>
-          </div>
-          <div class="right-titles">
-            <div class="type-title">
-              <span>{{ $t('common.type') }}</span>
-            </div>
-            <div class="create-time-title">
-              <span>{{ $t('store.createTime') }}</span>
-            </div>
-          </div>
-          <div class="right-values">
-            <div class="type-value">
-              <span>{{ currentData.type }}</span>
-            </div>
-            <div class="create-time-value">
-              <span>{{ currentData.createTime }}</span>
-            </div>
-          </div>
-        </div>
-        <div class="buttons">
-          <button
-            class="download-button"
+        <p class="app_desc">
+          {{ currentData.shortDesc }}
+        </p>
+        <p class="app_tag clearfix">
+          <span class="industry">
+            {{ currentData.industry }}
+          </span>
+          <span class="architecture">
+            {{ currentData.affinity }}
+          </span>
+          <span class="type">
+            {{ currentData.type }}
+          </span>
+        </p>
+      </div>
+      <div class="app_score">
+        <span class="score_num">{{ currentData.score }}</span>
+        <el-rate
+          v-model="currentData.score"
+          disabled
+          text-color="#ff9900"
+          score-template="{value}"
+        />
+        <p class="score_btn">
+          <el-button
+            type="primary"
+            class="batchProButton"
             :disabled="ifDownload || currentData.userId===userId ? false : true"
             @click="download(currentData)"
           >
             {{ $t('store.download') }}
-          </button>
-          <button
-            class="delete-button"
-            :disabled="ifDelete || currentData.userId===userId ? false : true"
-            @click="getDelete(currentData)"
-          >
-            {{ $t('common.delete') }}
-          </button>
-        </div>
+          </el-button>
+        </p>
       </div>
     </div>
-    <div class="doc-detail">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            @click.prevent="setActive('demo')"
-            :class="{ active: isActive('demo') }"
-            href="#demo"
-          >
-            {{ $t('store.demo') }}
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            @click.prevent="setActive('introduction')"
-            :class="{ active: isActive('introduction') }"
-            href="#introduction"
-          >
-            {{ $t('store.introduction') }}
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            @click.prevent="setActive('comments')"
-            :class="{ active: isActive('comments') }"
-            href="#comments"
-          >
-            {{ $t('store.comments') }}
-          </a>
-        </li>
-      </ul>
-      <div
-        class="tab-content"
-        id="myTabContent"
+    <div class="app_content">
+      <el-tabs
+        v-model="activeName"
       >
-        <div
-          class="tab-pane fade"
-          :class="{ 'active show': isActive('demo') }"
-          id="demo"
+        <el-tab-pane
+          :label="$t('store.introduction')"
+          name="introduction"
+        >
+          <mavon-editor
+            v-model="source"
+            :toolbars-flag="false"
+            :editable="false"
+            :subfield="false"
+            default-open="preview"
+            :box-shadow="false"
+            preview-background="#ffffff"
+          />
+        </el-tab-pane>
+        <el-tab-pane
+          :label="$t('store.comments')"
+          name="comments"
+        >
+          <div class="submit_comment clearfix">
+            <span class="score_span">{{ $t('store.score') }}</span>
+            <el-rate
+              v-model="comments.score"
+              allow-half
+              show-score
+            />
+            <div class="comment_input">
+              <img
+                :src="userIconUrl"
+                alt=""
+                class="user_icon"
+              >
+              <el-input
+                type="textarea"
+                v-model="comments.message"
+                rows="5"
+                maxlength="200"
+                show-word-limit
+                :placeholder="$t('store.commentInfo')"
+              />
+            </div>
+            <p class="submit_btn">
+              <el-button
+                type="primary"
+                @click="submitComment"
+              >
+                {{ $t('myApp.publish') }}
+              </el-button>
+            </p>
+          </div>
+          <div
+            class="no_comment"
+            v-if="historyComentsList.length===0"
+          >
+            <img
+              :src="noCommentIcon"
+              alt=""
+            >
+            <p>
+              {{ $t('store.noComment') }}
+            </p>
+          </div>
+          <div
+            class="show_comment"
+            v-if="historyComentsList.length!==0"
+          >
+            <ul>
+              <li
+                v-for="(item,index) in historyComentsList"
+                :key="index"
+              >
+                <div class="user_icon">
+                  <img
+                    :src="userIconUrl"
+                    alt=""
+                    v-if="!item.userIconUrl"
+                  >
+                  <img
+                    :src="item.userIconUrl"
+                    alt=""
+                    v-if="item.userIconUrl"
+                  >
+                </div>
+                <div class="user_info">
+                  <p>{{ item.user.userName }}</p>
+                  <p class="commentTime">
+                    {{ item.commentTime }}
+                  </p>
+                </div>
+                <div class="comment_content">
+                  {{ item.body }}
+                  <el-rate
+                    v-model="item.score"
+                    disabled
+                    text-color="#ff9900"
+                    score-template="{value}"
+                    show-score
+                  />
+                </div>
+              </li>
+            </ul>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane
+          :label="$t('store.demo')"
+          name="demo"
         >
           <video-player
             class="video-player-box vjs-big-play-centered demo-tab"
@@ -159,201 +196,33 @@
             :options="playerOptions"
             :playsinline="true"
           />
-        </div>
-        <div
-          class="tab-pane fade"
-          :class="{ 'active show': isActive('introduction') }"
-          id="introduction"
-        >
-          <div
-            id="appDetailMd"
-            ref="appDetailMd"
-            v-if="editorStatus"
-          >
-            <mavon-editor
-              v-model="source"
-              :toolbars-flag="false"
-              :editable="false"
-              :subfield="false"
-              default-open="preview"
-            />
-          </div>
-          <div class="editor">
-            <div v-if="!editorStatus">
-              <div id="appdetail_detail_doc">
-                <el-input
-                  type="textarea"
-                  rows="30"
-                  v-model="editDetails"
-                />
-              </div>
-              <el-button
-                id="appdetail_confirm"
-                type="primary"
-                size="mini"
-                style="margin-top: 5px;float: right;"
-                @click="confirmEdit"
-              >
-                {{ $t('common.confirm') }}
-              </el-button>
-              <el-button
-                id="appdetail_cancel"
-                type="primary"
-                size="mini"
-                style="margin-top: 5px;float: right;margin-right: 5px;"
-                @click="cancleEdit"
-              >
-                {{ $t('common.cancel') }}
-              </el-button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="tab-pane fade comments-tab"
-          :class="{ 'active show': isActive('comments') }"
-          id="comments"
-        >
-          <div
-            class="comment-list"
-            v-if="!postComment"
-          >
-            <div
-              class="comment-list-content"
-              v-for="item in historyComentsList"
-              :key="item.commentTime"
-            >
-              <div class="flex">
-                <p style="margin-right: 5px;">
-                  {{ $t('store.userName') }}:
-                </p>
-                <p>{{ item.user.userName }}</p>
-              </div>
-              <div class="flex">
-                <p style="margin-right: 5px;">
-                  {{ $t('store.score') }}:
-                </p>
-                <p>
-                  <el-rate
-                    v-model="item.score"
-                    disabled
-                    show-score
-                    text-color="#ff9900"
-                    score-template="{value}"
-                  />
-                </p>
-              </div>
-              <div class="flex">
-                <p style="margin-right: 5px;">
-                  {{ $t('store.time') }}:
-                </p>
-                <p>{{ item.commentTime.split(' ')[0] }}</p>
-              </div>
-              <div class="flex">
-                <p style="margin-right: 5px;">
-                  {{ $t('store.comments') }}:
-                </p>
-                <p>{{ item.body }}</p>
-              </div>
-            </div>
-            <div
-              class="rt clearfix"
-              style="margin-top: 10px"
-            >
-              <el-button
-                id="appdetail_post_comment"
-                type="primary"
-                size="mini"
-                @click="changepostComment"
-              >
-                {{ $t('store.comments') }}
-              </el-button>
-            </div>
-            <div class="clearfix" />
-          </div>
-          <div
-            class="submit-comment"
-            v-if="postComment"
-          >
-            <p class="flex">
-              <span style="margin-right: 5px;">{{ $t('store.score') }}:</span>
-              <el-rate
-                v-model="comments.score"
-                allow-half
-                show-score
-              />
-            </p>
-            <p id="appdetail_comment">
-              <span style="margin-bottom: 5px;">{{ $t('store.comments') }}:</span>
-              <el-input
-                type="textarea"
-                v-model="comments.message"
-                rows="5"
-                maxlength="200"
-                show-word-limit
-              />
-            </p>
-            <p class="clearfix">
-              <el-button
-                id="appdetail_submit_comment"
-                type="primary"
-                size="mini"
-                class="rt"
-                @click="submitComment"
-              >
-                {{ $t('store.postComment') }}
-              </el-button>
-              <el-button
-                id="appdetail_commen_cancel"
-                type="success"
-                size="mini"
-                class="rt"
-                @click="changepostComment"
-                style="margin-right: 5px;"
-              >
-                {{ $t('common.cancel') }}
-              </el-button>
-            </p>
-            <div class="clearfix" />
-          </div>
-        </div>
-      </div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 </template>
+
 <script>
 import {
   getCommentsApi,
   getAppDetailTableApi,
-  modifyAppPackageDetailApi,
   submitAppCommentApi,
-  getAppFileContentApi,
   downloadAppPakageApi,
-  deleteAppPackageApi,
   URL_PREFIX
 } from '../../tools/api.js'
-
 export default {
-  components: {
-  },
+  name: '',
   data () {
     return {
-      ifDelete: 'true',
       ifDownload: 'true',
       userId: sessionStorage.getItem('userId'),
-      userName: '',
-      editorStatus: true,
       details: '',
       appId: '',
       packageId: '',
       tableData: [],
       currentData: {},
-      activeItem: 'demo',
+      activeName: 'introduction',
       appDetailFileList: [],
-      defaultProps: {
-        children: 'childs',
-        label: 'name'
-      },
-      editDetails: '',
       postComment: false,
       comments: {
         score: 0,
@@ -361,67 +230,30 @@ export default {
       },
       historyComentsList: [],
       source: '',
-      showEdit: true,
-      filePath: [],
       appIconPath: '',
-      markdownSource: '',
-      dialogVisible: false,
       playerOptions: {
         muted: false,
         playbackRates: [0.7, 1.0, 1.5, 2.0],
         language: 'en',
         sources: []
-      }
+      },
+      userIconUrl: require('../../assets/images/app_detail_user.jpg'),
+      noCommentIcon: require('../../assets/images/app_detail_info_icon.png')
     }
   },
   watch: {
     tableData: function (val) {
-      if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && !(this.tableData.length === 0)) {
+      if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
         this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
       }
       return ''
     }
   },
   beforeRouteLeave (to, from, next) {
-    console.log(from.path)
     sessionStorage.setItem('fromPath', from.path)
     next(true)
   },
   methods: {
-    editInfo (title, index) {
-      this.editorStatus = false
-      this.showEdit = false
-    },
-    cancleEdit () {
-      this.showEdit = true
-      this.editorStatus = true
-      this.$nextTick(() => {
-        this.$refs.appDetailMdArea.innerHTML = this.details.details
-      })
-    },
-    confirmEdit () {
-      this.showEdit = true
-      let fd = new FormData()
-      fd.append('content', this.editDetails)
-      modifyAppPackageDetailApi(this.details.packageId, fd)
-        .then(res => {
-          this.editorStatus = true
-          this.details.details = this.source = this.editDetails
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.modifySuccess'),
-            type: 'success'
-          })
-        })
-        .catch(() => {
-          this.editorStatus = true
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.operationFailed'),
-            type: 'warning'
-          })
-        })
-    },
     changepostComment () {
       this.postComment = !this.postComment
       let userName = sessionStorage.getItem('userName')
@@ -443,10 +275,6 @@ export default {
           body: this.comments.message
         }
         params = JSON.stringify(params)
-        /*         let fd = new FormData()
-        Object.keys(params).forEach(item => {
-          fd.append(item, params[item])
-        }) */
         let userId = sessionStorage.getItem('userId')
         let userName = sessionStorage.getItem('userName')
         submitAppCommentApi(this.appId, params, userId, userName).then(res => {
@@ -478,6 +306,7 @@ export default {
     getComments () {
       getCommentsApi(this.appId).then(res => {
         this.historyComentsList = res.data
+        this.handleDate()
       }, () => {
         this.$message({
           duration: 2000,
@@ -506,11 +335,16 @@ export default {
     updateData (data) {
       this.currentData = data.target.value
     },
-    isActive (menuItem) {
-      return this.activeItem === menuItem
-    },
-    setActive (menuItem) {
-      this.activeItem = menuItem
+    handleDate () {
+      this.historyComentsList.sort(function (a, b) {
+        return b.commentTime < a.commentTime ? -1 : 1
+      })
+      let year = new Date().getFullYear()
+      this.historyComentsList.forEach(item => {
+        if (item.commentTime.indexOf(year) !== -1) {
+          item.commentTime = item.commentTime.replace((year + '-'), '')
+        }
+      })
     },
     dateChange (dateStr) {
       if (dateStr) {
@@ -536,120 +370,13 @@ export default {
         return changeDate
       }
     },
-    getParent (nodes) {
-      let name = nodes.data.name
-      if (!Array.isArray(nodes.parent)) {
-        if (name) {
-          this.filePath.push(name)
-          this.getParent(nodes.parent)
-        }
-      }
-    },
-    handleNodeClick (nodeObj, node) {
-      this.filePath = []
-      if (!nodeObj.childs.length) {
-        this.getParent(node)
-      }
-      if (this.filePath.length) {
-        this.filePath.reverse().splice(0, 1)
-        let truePath = this.filePath.join(':')
-        let fd = new FormData()
-        fd.append('filePath', truePath)
-        getAppFileContentApi(this.appId, this.packageId, fd).then(res => {
-          let data = res.data
-          if (data) {
-            this.dialogVisible = true
-            if (nodeObj.name.indexOf('.md') >= 0) {
-              this.markdownSource = res.data
-            } else if (nodeObj.name.indexOf('.tgz') >= 0) {
-              this.markdownSource = this.$t('promptMessage.fileNotSupport')
-            } else {
-              this.markdownSource = '```yaml\r\n' + res.data + '\r\n```'
-            }
-          } else {
-            this.markdownSource = ''
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.fileEmpty')
-            })
-          }
-        }).catch(error => {
-          this.dialogVisible = false
-          if (error.response.data.code === 403) {
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.guestUser'),
-              type: 'warning'
-            })
-          } else {
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.getfail')
-            })
-          }
-        })
-      }
-    },
     download (row) {
       downloadAppPakageApi(this.appId, row)
-    },
-    getDetail (row) {
-      this.editDetails = this.source = row.details
-      this.appDetailFileList = [JSON.parse(row.format)]
-      this.packageId = row.packageId
-    },
-    getDelete (row) {
-      this.$confirm(this.$t('promptMessage.deletePrompt'), this.$t('promptMessage.prompt'), {
-        confirmButtonText: this.$t('common.confirm'),
-        cancelButtonText: this.$t('common.cancel'),
-        type: 'warning'
-      }).then(() => {
-        let userId = sessionStorage.getItem('userId')
-        let userName = sessionStorage.getItem('userName')
-        deleteAppPackageApi(row.appId, row.packageId, userId, userName).then(res => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.deleteSuccess'),
-            type: 'success'
-          })
-          this.dataReload()
-        }).catch(() => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.operationFailed'),
-            type: 'warning'
-          })
-        })
-      }).catch(() => {
-      })
-    },
-    dataReload () {
-      this.tableData = []
-      this.editDetails = ''
-      this.appDetailFileList = []
-      this.editorStatus = true
-      this.source = ''
-      this.historyComentsList = []
-      this.getTableData(function clearData () {
-        if (this.tableData.length > 0) {
-          this.getComments()
-        } else {
-          this.$router.push({ name: 'appstorename' })
-        }
-      }.bind(this))
     }
   },
+  created () {
+  },
   mounted () {
-    if ((sessionStorage.getItem('userName') === 'guest') || (sessionStorage.getItem('userName') !== 'guest' && sessionStorage.getItem('userName') !== 'admin')) {
-      this.ifDelete = false
-      this.ifDownload = false
-    } else {
-      this.ifDelete = true
-      this.ifDownload = true
-    }
-    console.log(this.$route.params.item)
     let params = this.$route.params.item
       ? this.$route.params.item
       : JSON.parse(sessionStorage.getItem('appstordetail'))
@@ -668,192 +395,202 @@ export default {
   }
 }
 </script>
-<style lang='less' >
-.app-detail {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  .app-info {
-    border: 1px solid gray;
+
+<style lang="less">
+.app_detail{
+  p{
+    margin-bottom: 0;
+  }
+  .app_info_div{
+    background: #fff;
+    padding: 20px;
     display: flex;
-    flex-wrap: wrap;
-    padding: 5px 5px 5px;
-    background: white;
-    .img-box {
-      box-sizing: border-box;
-      text-align: left;
-      width: 200px;
-      img {
-        height: 80%;
+    align-items: center;
+    .app_icon{
+      width: 130px;
+      img{
         width: 100%;
       }
     }
-    .package-detail {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      flex-grow: 1;
-      p {
-        padding: 5px 5px 5px;
-        font-size: 20px;
-        color: black !important;
+    .app_info{
+      width: calc(100% - 310px);
+      padding: 0 20px;
+      word-wrap: break-word;
+      .app_title{
+        font-size: 26px;
+        font-weight: bold;
+        .createTime{
+          font-size: 14px;
+          font-weight: normal;
+          color: #666;
+          margin-left: 10px;
+        }
+      }
+      .app_version{
+        .fg{
+          display: inline-block;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: #000;
+          margin: 0 10px;
+          position: relative;
+          top: -3px;
+        }
+      }
+      .app_desc{
+        margin: 15px 0;
         line-height: 23px;
-        font-weight: 700;
-        font-family: "Microsoft Yahei", "simsun", "arial", "tahoma", sans-serif;
       }
-      span {
-        display: inline-block;
-        height: 28px;
-        white-space:pre;
-      }
-      .app-header {
-        padding: 5px 5px 5px;
-        display: flex;
-        flex-wrap: wrap;
-        .version-title {
-          flex-grow: 1;
-          flex-direction: column;
+      .app_tag{
+        span{
+          float: left;
+          font-size: 14px;
+          font-weight: bold;
+          border-radius: 5px 0 0 5px;
+          padding: 5px 20px 5px 10px;
+          margin-right: 20px;
         }
-        .version-value {
-          flex-grow: 16;
-          flex-direction: column;
-          align-content: left;
-          .drop-down {
-            background-color: whitesmoke;
-            color: black;
-            padding: 5px 19px 4px;
-            font-size: 16px;
-            border: 1px solid gray;
-            cursor: pointer
-          }
+        .industry{
+          background: url('../../assets/images/app_detail_industry_bg.png') center right no-repeat #1ececa;
+          background-size: contain;
         }
-        .score-title {
-          flex-grow: 1;
-          flex-direction: column;
+        .architecture{
+          background: url('../../assets/images/app_detail_architecture_bg.png') center right no-repeat #fcb722;
+          background-size: contain;
         }
-        .score-value {
-          flex-grow: 1;
-          flex-direction: column;
+        .type{
+          background: url('../../assets/images/app_detail_type_bg.png') center right no-repeat #a680d7;
+          background-size: contain;
         }
       }
-      .app-desc {
-        border: 1px solid rgba(95, 92, 92, 0.2);
-        padding: 10px 10px 10px;
+    }
+    .app_score{
+      width: 180px;
+      .score_num{
+        float: left;
+        width: 35px;
+        text-align: center;
+        height: 20px;
+        line-height: 20px;
+        font-size: 26px;
+        font-weight: bold;
+        margin-right: 5px;
       }
-      .information {
-        display: flex;
-        flex-wrap: wrap;
-        .left-titles {
-          flex-grow: 1;
-          display: flex;
-          flex-wrap: wrap;
-          flex-direction: column;
-          padding: 5px 5px 5px;
-          .industry-title {
-            padding: 5px 5px 5px;
-          }
-          .affinity-title {
-            padding: 5px 5px 5px;
-          }
-        }
-        .left-values {
-          flex-grow: 2;
-          display: flex;
-          flex-wrap: wrap;
-          flex-direction: column;
-          padding: 5px 5px 5px;
-          .industry-value {
-            padding: 5px 5px 5px;
-          }
-          .affinity-value {
-            padding: 5px 5px 5px;
-          }
-        }
-        .right-titles {
-          flex-grow: 1;
-          display: flex;
-          flex-wrap: wrap;
-          flex-direction: column;
-          padding: 5px 5px 5px;
-          .type-title {
-            padding: 5px 5px 5px;
-          }
-          .create-time-title {
-            padding: 5px 5px 5px;
-          }
-        }
-        .right-values {
-          flex-grow: 15;
-          display: flex;
-          flex-wrap: wrap;
-          flex-direction: column;
-          padding: 5px 5px 5px;
-          .type-value {
-            padding: 5px 5px 5px;
-          }
-          .create-time-value {
-            padding: 5px 5px 5px;
-          }
+      .el-rate{
+        float: left;
+        width: 140px;
+        .el-rate__icon{
+          font-size: 22px;
+          margin: 0 0 0 6px;
         }
       }
-      .buttons {
-        display: flex;
-        flex-wrap: wrap;
-        color: #333;
-        background-color:#fff;
-        border-radius: 4px;
-        font-size: 14px;
-        font-family: '微软雅黑',arail;
-        cursor: pointer;
-        .download-button {
-          flex-direction: column;
-          padding: 10px 20px 10px;
-          background-color: #13ce66;
-          color: #fff;
-        }
-        .delete-button {
-          margin-left: 50px;
-          flex-direction: column;
-          padding: 10px 30px 10px;
-          background-color: #c03030;
-          color: #fff;
-        }
-        .delete-button[disabled]{
-          border: 1px solid #999999;
-          background-color: #cccccc;
-          color: #666666;
-        }
-        .download-button[disabled]{
-          border: 1px solid #999999;
-          background-color: #cccccc;
-          color: #666666;
+      .score_btn{
+        float: left;
+        width: 100%;
+        text-align: center;
+        margin-top: 25px;
+        .el-button{
+          width: 130px;
+          border-radius: 0;
         }
       }
     }
   }
-  .doc-detail {
-    border: 1px solid gray;
-    .demo-tab {
-      background: #fff;
-      padding: 30px;
-      align-items: center;
+  .app_content{
+    background: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    .el-tabs__nav-scroll{
+      display: flex;
       justify-content: center;
-      display: flex;
-    }
-    .comments-tab {
-      background: #fff;
-      padding: 30px;
-      display: flex;
-      p {
-        margin-top: 10px;
+      .el-tabs__item{
+        font-size: 16px;
       }
-      .comment-list {
-        padding-top: 10px;
-        .comment-list-content {
-          padding-bottom: 10px;
-          border-bottom: 1px solid #eee;
+    }
+    .el-tabs__nav-wrap::after{
+      height: 0;
+    }
+    .el-tabs__content{
+      padding: 0 50px;
+    }
+    .submit_comment{
+      padding: 20px;
+      .score_span{
+        float: left;
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .el-rate{
+        float: left;
+        margin: 3px 0 0 10px;
+        .el-rate__icon{
+          font-size: 22px;
         }
       }
+      .comment_input{
+        float: left;
+        width: 100%;
+        margin: 40px 0 20px;
+        display: flex;
+        .user_icon{
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          margin-right: 20px;
+        }
+        .el-textarea__inner{
+          height: 80px;
+        }
+      }
+      .submit_btn{
+        float: left;
+        width: 100%;
+        text-align: right;
+        .el-button{
+          border-radius: 0;
+        }
+      }
+    }
+    .no_comment{
+      color: #bbb;
+      text-align: center;
+      p{
+        margin: 10px 0 30px;
+      }
+    }
+    .show_comment{
+      padding: 20px;
+      li{
+        border-top: 1px solid #ddd;
+        margin-left: 80px;
+        padding: 20px 0;
+        display: flex;
+        // align-items: center;
+        .user_icon{
+          img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+        }
+        .user_info{
+          margin: 0 20px 0 10px;
+          min-width: 115px;
+          .commentTime{
+            font-size: 12px;
+            color: #aaa;
+          }
+        }
+        .el-rate{
+          margin-top: 5px;
+        }
+      }
+    }
+    .video-js{
+      width: 80%;
+      min-height: 300px;
+      margin: 30px auto 50px;
     }
   }
 }

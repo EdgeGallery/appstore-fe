@@ -180,8 +180,8 @@ const cn = {
     createTime: '创建时间',
     download: '下载',
     comments: '评论',
-    introduction: '介绍',
-    demo: '演示',
+    introduction: '应用详情',
+    demo: '视频',
     message: '消息',
     postComment: '提交评论',
     uploadApp: '上传应用',
@@ -201,7 +201,9 @@ const cn = {
     time: '时间',
     toBeAdded: '待补充',
     iconRequired: '请上传图标',
-    limitition: '请上传.jpg或.png格式文件，或选择默认应用图标，且大小不超过2M'
+    limitition: '请上传.jpg或.png格式文件，或选择默认应用图标，且大小不超过2M',
+    commentInfo: '写下你的评论，帮助我成长吧！',
+    noComment: '暂时没有评论哦，请留下你的第一条评论吧！'
   },
   docs: {
     // step1: '开源MEP平台',
