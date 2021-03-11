@@ -361,7 +361,8 @@ const en = {
     addrCheck: 'URL can not be null',
     appdCheck: 'APPD transducer can not be null',
     descriptionCheck: 'description can not be null',
-    haveNoAnaData: 'No operation analyse data!'
+    haveNoAnaData: 'No operation analyse data!',
+    existSameAppstoreName: 'An external appstore with the same name already exists, please edit the name of the external appstore again!'
   },
   messageCenter: {
     msgToday: 'Today',

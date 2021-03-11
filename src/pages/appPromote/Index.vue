@@ -382,6 +382,26 @@ export default {
       this.clearForm()
       this.dialogVisible = true
     },
+    createCheckAppstoreName (name) {
+      if (this.appPackageData.length > 0) {
+        for (let i = 0; i < this.appPackageData.length; i++) {
+          if (this.appPackageData[i].appStoreName === name) {
+            return false
+          }
+        }
+      }
+      return true
+    },
+    modifyCheckAppstoreName (name, id) {
+      if (this.appPackageData.length > 1) {
+        for (let i = 0; i < this.appPackageData.length; i++) {
+          if (this.appPackageData[i].appStoreName === name && this.appPackageData[i].appStoreId !== id) {
+            return false
+          }
+        }
+      }
+      return true
+    },
     confirmToRegister (form) {
       let fd = new FormData()
       fd.append('appStoreId', this.form.appStoreId)
@@ -394,6 +414,14 @@ export default {
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.editType === 1) {
+            if (!this.createCheckAppstoreName(this.form.appStoreName)) {
+              this.$message({
+                duration: 2000,
+                message: this.$t('apppromotion.existSameAppstoreName'),
+                type: 'warning'
+              })
+              return
+            }
             myAppStore.addAppStoreApi(fd).then(res => {
               this.$message.success(this.$t('promptMessage.addAppStoreSuccess'))
               this.getAppPackageData()
@@ -406,6 +434,14 @@ export default {
               }
             })
           } else {
+            if (!this.modifyCheckAppstoreName(this.form.appStoreName, this.form.appStoreId)) {
+              this.$message({
+                duration: 2000,
+                message: this.$t('apppromotion.existSameAppstoreName'),
+                type: 'warning'
+              })
+              return
+            }
             myAppStore.modifyAppStoreApi(fd, this.form.appStoreId).then(res => {
               this.$message.success(this.$t('promptMessage.editAppStoreSuccess'))
               this.getAppPackageData()
