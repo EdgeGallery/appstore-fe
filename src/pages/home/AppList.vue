@@ -109,7 +109,7 @@
           </el-button>
           <el-button
             id="applist_delete"
-            :disabled="scope.row.userId !== userId"
+            :disabled="ifDelete || userId === scope.row.userId ? false : true"
             @click="deleteRow(scope.row)"
             type="text"
           >
@@ -142,6 +142,8 @@ export default {
   },
   data () {
     return {
+
+      ifDelete: 'true',
       userId: sessionStorage.getItem('userId')
     }
   },
@@ -182,6 +184,11 @@ export default {
     }
   },
   mounted () {
+    if ((sessionStorage.getItem('userName') === 'guest') || (sessionStorage.getItem('userName') !== 'guest' && sessionStorage.getItem('userName') !== 'admin')) {
+      this.ifDelete = false
+    } else {
+      this.ifDelete = true
+    }
   }
 }
 
