@@ -186,7 +186,7 @@ const cn = {
     message: '消息',
     postComment: '提交评论',
     uploadApp: '上传应用',
-    uploadVideo: 'Upload Demo Video',
+    uploadVideo: '上传视频',
     uploadLogo: '上传图标',
     appPackage: '应用程序',
     dragPackage: '拖动应用程序包文件到这里或点击上传',
@@ -195,14 +195,18 @@ const cn = {
     appIcon: '应用图标',
     appVideo: 'App Video',
     onlyImg: '请上传.jpg或.png格式文件,或者选择默认图标',
-    onlyVideo: 'Can only upload .mp4 files.',
+    onlyVideo: '只能上传 .mp4 文件..',
     iconSizeLimit: '文件大小不超过2M',
-    videoSizeLimit: 'no more than 10M.',
+    videoSizeLimit: '文件大小不超过10M.',
     userName: '用户',
     time: '时间',
     toBeAdded: '待补充',
     iconRequired: '请上传图标',
-    limitition: '请上传.jpg或.png格式文件，或选择默认应用图标，且大小不超过2M'
+    limitition: '请上传.jpg或.png格式文件，或选择默认应用图标，且大小不超过2M',
+    chooseUploadeWay: '应用大小选择',
+    MinFileUpload: '文件大小不超过10M',
+    BigFileUpload: '文件大小超过10M'
+
   },
   docs: {
     // step1: '开源MEP平台',

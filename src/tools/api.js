@@ -261,6 +261,11 @@ let myApp = {
     let url = 'apps'
     return POST(url, params)
   },
+  // 首页上传大文件接口
+  uploadVMAppApi: function (params) {
+    let url = 'appsBigFile'
+    return POST(url, params)
+  },
   // 获取我的应用
   // getMyAppApi: function (userId) {
   //   let url = 'apps?userId=' + userId
