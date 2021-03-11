@@ -390,7 +390,8 @@ const cn = {
     addrCheck: 'URL不能为空',
     appdCheck: '转换器不能为空',
     descriptionCheck: '描述不能为空',
-    haveNoAnaData: '暂无操作分析数据！'
+    haveNoAnaData: '暂无操作分析数据！',
+    existSameAppstoreName: '已存在同名外部仓库，请重新编辑外部仓库名称'
   },
   messageCenter: {
     msgToday: '今天',
