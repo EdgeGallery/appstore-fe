@@ -170,8 +170,8 @@ const en = {
     createTime: 'Create Time',
     download: 'Download',
     comments: 'Comments',
-    introduction: 'Introduction',
-    demo: 'Demo',
+    introduction: 'Application Details',
+    demo: 'Video',
     message: 'Message',
     postComment: 'Post a Comment',
     uploadApp: 'Upload App Package',
@@ -189,7 +189,9 @@ const en = {
     videoSizeLimit: 'no more than 10M.',
     userName: 'Commentator',
     time: 'Time',
-    toBeAdded: 'To be added'
+    toBeAdded: 'To be added',
+    commentInfo: 'Write your comment and help me grow!',
+    noComment: 'There are no comments yet, please leave your first comment!'
   },
   docs: {
     step1: 'Open source MEP platform',
