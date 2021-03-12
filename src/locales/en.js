@@ -191,7 +191,8 @@ const en = {
     time: 'Time',
     toBeAdded: 'To be added',
     commentInfo: 'Write your comment and help me grow!',
-    noComment: 'There are no comments yet, please leave your first comment!'
+    noComment: 'There are no comments yet, please leave your first comment!',
+    hasNotVideo: 'There is no demo video for the current application！'
   },
   docs: {
     step1: 'Open source MEP platform',

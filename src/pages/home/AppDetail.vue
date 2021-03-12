@@ -127,7 +127,7 @@
             <p class="submit_btn">
               <el-button
                 type="primary"
-                @click="submitComment"
+                @click="changepostComment"
               >
                 {{ $t('myApp.publish') }}
               </el-button>
@@ -190,12 +190,26 @@
           :label="$t('store.demo')"
           name="demo"
         >
-          <video-player
-            class="video-player-box vjs-big-play-centered demo-tab"
-            ref="videoPlayer"
-            :options="playerOptions"
-            :playsinline="true"
-          />
+          <div
+            class="no_comment"
+            v-show="playerOptions.sources.length===0"
+          >
+            <img
+              :src="videoIconUrl"
+              alt=""
+            >
+            <p>
+              {{ $t('store.hasNotVideo') }}
+            </p>
+          </div>
+          <div v-show="playerOptions.sources.length!==0">
+            <video-player
+              class="video-player-box vjs-big-play-centered demo-tab"
+              ref="videoPlayer"
+              :options="playerOptions"
+              :playsinline="true"
+            />
+          </div>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -220,7 +234,6 @@ export default {
       tableData: [],
       currentData: {},
       activeName: 'introduction',
-      postComment: false,
       comments: {
         score: 0,
         message: ''
@@ -235,7 +248,8 @@ export default {
         sources: []
       },
       userIconUrl: require('../../assets/images/app_detail_user.jpg'),
-      noCommentIcon: require('../../assets/images/app_detail_info_icon.png')
+      noCommentIcon: require('../../assets/images/app_detail_info_icon.png'),
+      videoIconUrl: require('../../assets/images/app_detail_video.png')
     }
   },
   watch: {
@@ -252,16 +266,16 @@ export default {
   },
   methods: {
     changepostComment () {
-      this.postComment = !this.postComment
       let userName = sessionStorage.getItem('userName')
       this.historyComentsList.forEach((item) => {
         if (item.user.userName === userName) {
-          this.postComment = false
           this.$message({
             duration: 2000,
             type: 'warning',
             message: this.$t('promptMessage.cannotComment')
           })
+        } else {
+          this.submitComment()
         }
       })
     },
@@ -275,7 +289,6 @@ export default {
         let userId = sessionStorage.getItem('userId')
         let userName = sessionStorage.getItem('userName')
         submitAppCommentApi(this.appId, params, userId, userName).then(res => {
-          this.changepostComment()
           this.getComments()
           this.comments.score = 0
           this.comments.message = ''
@@ -321,6 +334,13 @@ export default {
           let newDateBegin = this.dateChange(item.createTime)
           item.createTime = newDateBegin
           this.tableData.push(item)
+          if (data.demoVideoName) {
+            let val = {
+              type: 'video/mp4',
+              src: URL_PREFIX + 'apps/' + this.appId + '/demoVideo'
+            }
+            this.playerOptions.sources.push(val)
+          }
         }, () => {
         })
         if (data.length !== 0) {
@@ -384,11 +404,6 @@ export default {
     this.getTableData(function clearData () {})
     this.getComments()
     this.userName = params.username
-    let val = {
-      type: 'video/mp4',
-      src: URL_PREFIX + 'apps/' + this.appId + '/demoVideo'
-    }
-    this.playerOptions.sources.push(val)
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
   }
 }
