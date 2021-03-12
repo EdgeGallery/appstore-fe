@@ -61,9 +61,9 @@
         </p>
       </div>
       <div class="app_score">
-        <span class="score_num">{{ currentData.score }}</span>
+        <span class="score_num">{{ score }}</span>
         <el-rate
-          v-model="currentData.score"
+          v-model="score"
           disabled
           text-color="#ff9900"
           score-template="{value}"
@@ -72,7 +72,7 @@
           <el-button
             type="primary"
             class="batchProButton"
-            :disabled="ifDownload || currentData.userId===userId ? false : true"
+            :disabled="currentData.userId===userId ? false : true"
             @click="download(currentData)"
           >
             {{ $t('store.download') }}
@@ -214,15 +214,12 @@ export default {
   name: '',
   data () {
     return {
-      ifDownload: 'true',
       userId: sessionStorage.getItem('userId'),
       details: '',
       appId: '',
-      packageId: '',
       tableData: [],
       currentData: {},
       activeName: 'introduction',
-      appDetailFileList: [],
       postComment: false,
       comments: {
         score: 0,
@@ -280,6 +277,8 @@ export default {
         submitAppCommentApi(this.appId, params, userId, userName).then(res => {
           this.changepostComment()
           this.getComments()
+          this.comments.score = 0
+          this.comments.message = ''
         }).catch(error => {
           if (error.response.data.code === 403) {
             this.$message({
@@ -325,8 +324,7 @@ export default {
         }, () => {
         })
         if (data.length !== 0) {
-          this.editDetails = this.source = data[0].details
-          this.appDetailFileList = [JSON.parse(data[0].format)]
+          this.source = data[0].details
           this.packageId = data[0].packageId
         }
         callback()
