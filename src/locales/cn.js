@@ -207,8 +207,8 @@ const cn = {
     noComment: '暂时没有评论哦，请留下你的第一条评论吧！',
     chooseUploadeWay: '应用大小选择',
     MinFileUpload: '文件大小不超过10M',
-    BigFileUpload: '文件大小超过10M'
-
+    BigFileUpload: '文件大小超过10M',
+    hasNotVideo: '当前应用还没有可演示的视频！'
   },
   docs: {
     // step1: '开源MEP平台',

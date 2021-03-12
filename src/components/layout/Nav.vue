@@ -314,6 +314,9 @@ export default {
   watch: {
     $route (to, from) {
       this.activeIndex = to.path
+      if (to.path === '/detail') {
+        this.activeIndex = '/index'
+      }
       this.fromPath = from.path
       let path = this.$route.path
       if (path === '/index') {
@@ -346,8 +349,11 @@ export default {
       this.menu_small = data
     },
     handleSelect (index, path, item) {
+      console.log(path)
+      console.log(item)
       if (index) {
         this.activeIndex = index
+        console.log(index)
         this.$router.push(this.activeIndex)
       }
       this.closeMenu()
