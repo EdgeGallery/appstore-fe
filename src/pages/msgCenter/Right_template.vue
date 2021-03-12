@@ -177,7 +177,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
   .el-tabs__item{
     font-size: 16px;
   }

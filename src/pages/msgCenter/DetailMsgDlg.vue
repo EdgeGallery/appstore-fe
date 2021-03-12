@@ -259,7 +259,7 @@ export default {
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .detailContent{
   height: 100%;
   .part1{
@@ -270,6 +270,7 @@ export default {
       height: 30px;
       .part1First{
         float: left;
+        margin-left: 20px;
         .part1MsgDetails{
           margin-left: 300px;
           font-weight: 800;
@@ -321,10 +322,10 @@ export default {
       margin-left: 15px;
       display: inline-block;
       .linestyle2{
-        margin: 4px 20px;
-        width: 78%;
+        margin-left: 5px;
+        width: 74%;
         float: left;
-        margin-top: 10px;
+        margin-top: 3px;
         color: #366798;
       }
       .appBasicImg{
@@ -370,7 +371,7 @@ export default {
     }
     .appBasicInfoContent2{
       height: 100px;
-      margin-top: 30px;
+      margin-top: 20px;
       .el-form-item__label{
         font-size: 14px;
         text-align: left;
