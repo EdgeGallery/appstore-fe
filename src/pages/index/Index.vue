@@ -39,7 +39,10 @@
         新上车应用
       </h3>
       <p class="home_more">
-        <el-link @click="jumpToAppList">
+        <el-link
+          :underline="false"
+          @click="jumpToAppList"
+        >
           查看更多 >>
         </el-link>
       </p>
@@ -85,7 +88,10 @@
         特别推荐集锦
       </h3>
       <p class="home_more">
-        <el-link @click="jumpToAppList">
+        <el-link
+          :underline="false"
+          @click="jumpToAppList"
+        >
           查看更多 >>
         </el-link>
       </p>
@@ -97,7 +103,7 @@
           <img
             :src="item.imgSrc"
             alt=""
-            @click="jumpToAppList"
+            @click="selectedCondition(item.type,item.index)"
           >
           <p class="rec_tit">
             {{ item.title }}
@@ -446,6 +452,16 @@ export default {
     selectedCondition1 (type, index) {
       this.selectedCondition2()
     },
+    refreshCondition () {
+      let types = ['types', 'affinity', 'industry']
+      if (this.selectedConditions) {
+        types.forEach((item) => {
+          this[item].forEach((condition) => {
+            condition.selected = false
+          })
+        })
+      }
+    },
     selectedCondition2 () {
       this.selectedConditions = []
       let types = ['types', 'affinity', 'industry']
@@ -479,6 +495,7 @@ export default {
   created () {
   },
   mounted () {
+    this.refreshCondition()
     this.getPlatformUrl()
   }
 }
