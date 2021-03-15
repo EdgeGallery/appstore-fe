@@ -159,7 +159,7 @@
       </el-row>
     </div>
     <!-- 上传组件 -->
-    <div v-show="uploadDiaVis">
+    <div v-if="uploadDiaVis">
       <uploadPackage
         v-model="uploadDiaVis"
         @getAppData="getAppData"
