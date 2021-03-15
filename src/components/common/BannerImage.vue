@@ -20,10 +20,10 @@
       :image-url="bannerImageUrl"
       :height="360"
     />
-    <div class="word">
+    <!-- <div class="word">
       <p>{{ $t('common.bannerTitle') }}</p>
       <p>{{ $t('common.bannerWord') }}</p>
-    </div>
+    </div> -->
   </div>
 </template>
 

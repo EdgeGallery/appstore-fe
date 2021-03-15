@@ -559,8 +559,6 @@ export default {
       this.packageForm.base64Session = true
       this.defaultIconFile = []
       this.packageForm.defaultActive = 0
-
-      console.log(this.defaultIcon)
       switch (val) {
         case 'Video Application':
           this.defaultIcon.splice(0, 1, this.defaultIconData[0])
@@ -609,6 +607,7 @@ export default {
       this.uploadIcon = false
       this.packageForm.base64Session = true
       this.defaultIconFile = []
+
       if (this.packageForm.defaultActive === index) {
         this.packageForm.defaultActive = ''
         this.packageForm.appIcon = []
@@ -836,6 +835,9 @@ export default {
         console.log(error)
       })
     }
+  },
+  destroyed () {
+    this.clearForm()
   },
   watch: {
     '$i18n.locale': function () {

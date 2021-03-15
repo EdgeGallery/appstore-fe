@@ -18,32 +18,32 @@
   <div class="apphome">
     <div class="banner">
       <p class="tit">
-        开放连接行业应用
+        {{ $t('common.bannerTitle') }}
       </p>
       <p class="info">
-        汇聚各行业最前沿的边缘应用
+        {{ $t('common.bannerWord') }}
       </p>
       <p class="info">
-        共享5G智慧互联生活
+        {{ $t('common.bannerWord1') }}
       </p>
       <el-button
         class="upload_app"
         @click="uploadPackage"
       >
-        <em />上传应用文件
+        <em />{{ $t('store.uploadApp') }}
       </el-button>
     </div>
     <!-- 新上车应用 -->
     <div class="new_app home_content">
       <h3 class="home_tit">
-        新上车应用
+        {{ $t('store.newUploadApp') }}
       </h3>
       <p class="home_more">
         <el-link
           :underline="false"
           @click="jumpToAppList"
         >
-          查看更多 >>
+          {{ $t('store.viewMore') }}
         </el-link>
       </p>
       <el-row>
@@ -56,13 +56,13 @@
             alt=""
           >
           <div class="new_app_tit">
-            2021 先睹为快
+            {{ $t('store.speakPeek') }}
             <p>
               <el-link
                 :underline="false"
                 @click="jumpToAppList"
               >
-                点击查看更多 >>
+                {{ $t('store.clickViewMore') }}
               </el-link>
             </p>
           </div>
@@ -85,14 +85,14 @@
     <!-- 特别推荐 -->
     <div class="recommend home_content">
       <h3 class="home_tit">
-        特别推荐集锦
+        {{ $t('store.reCommendColletion') }}
       </h3>
       <p class="home_more">
         <el-link
           :underline="false"
           @click="jumpToAppList"
         >
-          查看更多 >>
+          {{ $t('store.viewMore') }}
         </el-link>
       </p>
       <ul class="recomment_list clearfix">
@@ -117,7 +117,7 @@
             type="primary"
             class="rec_more"
           >
-            更多信息 >>
+            {{ $t('store.moreInfo') }}
           </div>
         </li>
       </ul>
@@ -125,11 +125,11 @@
     <!-- 评分最高 -->
     <div class="score home_content">
       <h3 class="home_tit">
-        评分最高
+        {{ $t('store.higherScore') }}
       </h3>
       <p class="home_more">
         <el-link @click="selectedCondition1('Score', 2)">
-          查看更多 >>
+          {{ $t('store.viewMore') }}
         </el-link>
       </p>
       <swiper :options="swiperOption">
@@ -168,14 +168,14 @@
     <!-- 接入你的应用 -->
     <div class="app_upload home_content">
       <h3 class="home_tit">
-        接入你的应用
+        {{ $t('store.addYourApp') }}
       </h3>
       <p class="tit_bot">
-        方便快捷的接入AppStore，快速实现应用测试与共享
+        {{ $t('store.addYourAppTitle') }}
       </p>
       <p class="upload_btn">
         <el-button @click="uploadPackage">
-          上传应用
+          {{ $t('store.uploadApp') }}
         </el-button>
       </p>
       <div class="upload_list">
@@ -184,7 +184,7 @@
             src="../../assets/images/home_upload_icon1.png"
             alt=""
           >
-          上传应用
+          {{ $t('store.uploadApp') }}
         </div>
         <div class="upload_fgx" />
         <div class="upload_icon">
@@ -192,7 +192,7 @@
             src="../../assets/images/home_upload_icon3.png"
             alt=""
           >
-          应用测试
+          {{ $t('docs.appTest') }}
         </div>
         <div class="upload_fgx" />
         <div class="upload_icon">
@@ -200,7 +200,7 @@
             src="../../assets/images/home_upload_icon2.png"
             alt=""
           >
-          应用仓库
+          {{ $t('store.appstore') }}
         </div>
         <div class="upload_fgx" />
         <div class="upload_icon">
@@ -208,7 +208,7 @@
             src="../../assets/images/home_upload_icon4.png"
             alt=""
           >
-          应用共享
+          {{ $t('store.appShare') }}
         </div>
       </div>
     </div>
@@ -217,7 +217,7 @@
       <div class="footer_list">
         <ul class="footer_ul">
           <li>
-            <h3>行业</h3>
+            <h3>{{ $t('common.industry') }}</h3>
             <el-link
               v-for="(item,index) in industry"
               :key="index"
@@ -230,7 +230,7 @@
             </el-link>
           </li>
           <li>
-            <h3>类型</h3>
+            <h3>{{ $t('common.type') }}</h3>
             <el-link
               v-for="(item,index) in types"
               :key="index"
@@ -243,7 +243,7 @@
             </el-link>
           </li>
           <li>
-            <h3>架构</h3>
+            <h3>{{ $t('common.architecture') }}</h3>
             <el-link
               v-for="(item,index) in affinity"
               :key="index"
@@ -258,7 +258,7 @@
         </ul>
       </div>
       <p class="suggest">
-        建议使用Google Chrome及IE9以上浏览器浏览
+        {{ $t('store.recommendBroswer') }}
       </p>
       <div class="link_list clearfix">
         <div class="left">
@@ -268,19 +268,24 @@
           >
           <p>
             <el-link
+              :underline="false"
               :href="developerUrl"
               target="_blank"
             >
-              开发者平台
+              {{ $t('store.developerPlateform') }}
             </el-link>
             <el-link
+              :underline="false"
               :href="mecmUrl"
               target="_blank"
             >
               MECM
             </el-link>
-            <el-link @click="$router.push('/docs')">
-              官方指导
+            <el-link
+              :underline="false"
+              @click="$router.push('/docs')"
+            >
+              {{ $t('store.officialGuide') }}
             </el-link>
           </p>
         </div>
@@ -426,7 +431,7 @@ export default {
       industry: INDUSTRY,
       types: TYPES,
       affinity: AFFINITY,
-      contactUrl: 'http://www.edgegallery.org/%e8%81%94%e7%b3%bb%e6%88%91%e4%bb%ac',
+      contactUrl: 'http://www.edgegallery.org',
       giteeUrl: 'https://gitee.com/edgegallery',
       developerUrl: '',
       mecmUrl: ''

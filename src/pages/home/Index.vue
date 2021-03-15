@@ -31,6 +31,7 @@
             >
               <div class="rt">
                 <el-tooltip
+                  v-if="ifShow"
                   class="item"
                   effect="light"
                   :content="$t('store.uploadApp')"
@@ -39,7 +40,6 @@
                 >
                   >
                   <img
-                    v-if="ifShow"
                     :src="uploadAppLogo"
                     class="uploadAppLogo"
                     @click="uploadPackage"
@@ -159,7 +159,7 @@
       </el-row>
     </div>
     <!-- 上传组件 -->
-    <div v-show="uploadDiaVis">
+    <div v-if="uploadDiaVis">
       <uploadPackage
         v-model="uploadDiaVis"
         @getAppData="getAppData"
@@ -328,7 +328,6 @@ export default {
         console.log(this.appData)
         this.appData.forEach(item => {
           if (type.indexOf(item.industry) !== -1 || type.indexOf(item.type) !== -1 || type.indexOf(item.affinity) !== -1) {
-            console.log('------')
             conformData.push(item)
           }
         })
@@ -627,7 +626,7 @@ export default {
             color: #FFFFFF;
             font-weight: bold;
             display: inline-block;
-            width: 65px;
+            width: 85px;
             background: #14C2C3;
             text-align: center;
           }
