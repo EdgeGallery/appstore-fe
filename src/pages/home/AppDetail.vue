@@ -224,6 +224,7 @@ import {
   downloadAppPakageApi,
   URL_PREFIX
 } from '../../tools/api.js'
+import { INDUSTRY, TYPES } from '../../tools/constant.js'
 export default {
   name: '',
   data () {
@@ -249,15 +250,22 @@ export default {
       },
       userIconUrl: require('../../assets/images/app_detail_user.jpg'),
       noCommentIcon: require('../../assets/images/app_detail_info_icon.png'),
-      videoIconUrl: require('../../assets/images/app_detail_video.png')
+      videoIconUrl: require('../../assets/images/app_detail_video.png'),
+      language: localStorage.getItem('language')
     }
   },
   watch: {
     tableData: function (val) {
       if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
         this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
+        this.checkProjectData()
       }
       return ''
+    },
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
+      this.checkProjectData()
     }
   },
   beforeRouteLeave (to, from, next) {
@@ -390,6 +398,30 @@ export default {
     },
     download (row) {
       downloadAppPakageApi(this.appId, row)
+    },
+    checkProjectData () {
+      INDUSTRY.forEach(itemFe => {
+        if (this.language === 'cn') {
+          if (this.currentData.industry === itemFe.label[1]) {
+            this.currentData.industry = itemFe.label[0]
+          }
+        } else {
+          if (this.currentData.industry === itemFe.label[0]) {
+            this.currentData.industry = itemFe.label[1]
+          }
+        }
+      })
+      TYPES.forEach(itemFe => {
+        if (this.language === 'cn') {
+          if (this.currentData.type === itemFe.label[1]) {
+            this.currentData.type = itemFe.label[0]
+          }
+        } else {
+          if (this.currentData.type === itemFe.label[0]) {
+            this.currentData.type = itemFe.label[1]
+          }
+        }
+      })
     }
   },
   created () {
@@ -405,6 +437,7 @@ export default {
     this.getComments()
     this.userName = params.username
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
+    this.checkProjectData()
   }
 }
 </script>
