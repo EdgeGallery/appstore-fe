@@ -151,6 +151,7 @@ export default {
     detail (item) {
       this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
+      sessionStorage.setItem('pathSource', 'index')
     },
     deleteRow (row) {
       this.$confirm(this.$t('promptMessage.deletePrompt'), this.$t('promptMessage.prompt'), {
