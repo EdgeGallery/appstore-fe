@@ -154,6 +154,9 @@ body, html{
       box-sizing: border-box;
       display: flex;
       justify-content: center;
+      .step img{
+        width: 100%;
+      }
 
       .step :hover{
         box-shadow: 0 0 10px rgba(0,0,0,0.2);
