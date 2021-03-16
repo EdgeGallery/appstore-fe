@@ -16,6 +16,15 @@
 
 <template>
   <div class="apphome">
+    <div
+      class="alsrtInfo"
+      :style="{display: displayStsates}"
+      ref="alertMsg"
+    >
+      <div class="profPrompt_test">
+        {{ aletMsg }}
+      </div>
+    </div>
     <div class="banner">
       <p class="tit">
         {{ $t('common.bannerTitle') }}
@@ -341,6 +350,8 @@ export default {
   },
   data () {
     return {
+      aletMsg: '建议使用Google Chrome及IE9以上浏览器浏览', // 弹出框中的提示语
+      displayStsates: 'none',
       selectedConditions: [],
       uploadDiaVis: false,
       newAppPic: require('../../assets/images/home_new_pic.jpg'),
@@ -438,7 +449,15 @@ export default {
     }
   },
   methods: {
-
+    // 提示弹框
+    alertDia (msg) {
+      this.displayStsates = 'block'
+      this.aletMsg = msg
+      // 延迟2秒后消失 自己可以更改时间
+      window.setTimeout(() => {
+        this.displayStsates = 'none'
+      }, 2000)
+    },
     uploadPackage () {
       let userName = sessionStorage.getItem('userName')
       if (userName === 'guest') {
@@ -500,6 +519,7 @@ export default {
   created () {
   },
   mounted () {
+    this.alertDia(this.aletMsg)
     this.refreshCondition()
     this.getPlatformUrl()
   }
@@ -508,6 +528,33 @@ export default {
 
 <style lang="less">
 .apphome{
+  .alsrtInfo{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.1);
+    .profPrompt_test{
+      padding: 30px 10px;
+      width: 420px;
+      overflow: hidden;
+      line-height: 28px;
+      border: 1px solid #4eb6d3;
+      color: #4eb6d3;
+      position: absolute;
+      background-color: #fbfbfb;
+      top: 20%;
+      left: 82%;
+      font-size: 14px;
+      font-family: Gotham-Book;
+      opacity: 1;
+      /* z-index: 1; */
+      text-align: center;
+      transform: translate(-50%, -50%);
+    }
+  }
   .banner{
     height: 500px;
     padding: 130px 15% 0;
