@@ -267,8 +267,9 @@ export default {
       })
     },
     getDetail (item) {
-      this.$router.push({ name: 'myappdetail', params: { item } })
-      sessionStorage.setItem('myappdetail', JSON.stringify(item))
+      this.$router.push({ name: 'appstordetail', params: { item } })
+      sessionStorage.setItem('appstordetail', JSON.stringify(item))
+      sessionStorage.setItem('pathSource', 'myapp')
     },
     testMessage (row) {
       let testTaskId = row.testTaskId

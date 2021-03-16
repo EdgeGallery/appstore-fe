@@ -110,6 +110,7 @@ export default {
     jumpToDetai (item) {
       this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
+      sessionStorage.setItem('pathSource', 'index')
     },
     getAppIcon (item) {
       return URL_PREFIX + 'apps/' + item.appId + '/icon'

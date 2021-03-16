@@ -146,7 +146,7 @@ const en = {
     confirmLogout: 'Are you sure to log out?',
     subCommentFailReason: 'Rating and content are required',
     contrastTime: 'The submission time cannot be earlier than the test end time!',
-    cannotComment: 'You cannot comment twice',
+    cannotComment: 'You cannot comment on your application',
     onlyOneFile: 'Only one file is allowed, please remove the file first!',
     publishSuccess: 'Publish Success',
     createtask: 'Whether to create a test task?',

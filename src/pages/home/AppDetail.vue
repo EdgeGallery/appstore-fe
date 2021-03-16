@@ -34,16 +34,18 @@
           <select
             class="drop-down"
             v-model="currentData"
+            v-show="pathSource==='index'"
+            @change="updateData"
           >
             <option
               v-for="(data, index) in tableData"
               :value="data"
               :key="index"
-              @change="updateData"
             >
               {{ data.version }}
             </option>
           </select>
+          <span v-show="pathSource==='myapp'">{{ currentData.version }}</span>
         </div>
         <p class="app_desc">
           {{ currentData.shortDesc }}
@@ -127,7 +129,7 @@
             <p class="submit_btn">
               <el-button
                 type="primary"
-                @click="changepostComment"
+                @click="submitComment"
               >
                 {{ $t('myApp.publish') }}
               </el-button>
@@ -222,7 +224,9 @@ import {
   getAppDetailTableApi,
   submitAppCommentApi,
   downloadAppPakageApi,
-  URL_PREFIX
+  URL_PREFIX,
+  getAppTableApi,
+  myApp
 } from '../../tools/api.js'
 import { INDUSTRY, TYPES } from '../../tools/constant.js'
 export default {
@@ -251,13 +255,16 @@ export default {
       userIconUrl: require('../../assets/images/app_detail_user.jpg'),
       noCommentIcon: require('../../assets/images/app_detail_info_icon.png'),
       videoIconUrl: require('../../assets/images/app_detail_video.png'),
-      language: localStorage.getItem('language')
+      language: localStorage.getItem('language'),
+      pathSource: sessionStorage.getItem('pathSource'),
+      packageId: ''
     }
   },
   watch: {
     tableData: function (val) {
       if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
         this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
+        this.source = this.currentData.details
         this.checkProjectData()
       }
       return ''
@@ -273,20 +280,6 @@ export default {
     next(true)
   },
   methods: {
-    changepostComment () {
-      let userName = sessionStorage.getItem('userName')
-      this.historyComentsList.forEach((item) => {
-        if (item.user.userName === userName) {
-          this.$message({
-            duration: 2000,
-            type: 'warning',
-            message: this.$t('promptMessage.cannotComment')
-          })
-        } else {
-          this.submitComment()
-        }
-      })
-    },
     submitComment () {
       if (this.comments.score && this.comments.message) {
         let params = {
@@ -306,6 +299,12 @@ export default {
               duration: 2000,
               message: this.$t('promptMessage.guestUser'),
               type: 'warning'
+            })
+          } else if (error.response.data.message.indexOf('can not comment own app') !== -1) {
+            this.$message({
+              duration: 2000,
+              type: 'warning',
+              message: this.$t('promptMessage.cannotComment')
             })
           } else {
             this.$message({
@@ -349,17 +348,17 @@ export default {
             }
             this.playerOptions.sources.push(val)
           }
-        }, () => {
         })
-        if (data.length !== 0) {
-          this.source = data[0].details
-          this.packageId = data[0].packageId
+        if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
+          this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
+          this.source = this.currentData.details
+          this.checkProjectData()
         }
         callback()
       })
     },
-    updateData (data) {
-      this.currentData = data.target.value
+    updateData () {
+      this.source = this.currentData.details
     },
     handleDate () {
       this.historyComentsList.sort(function (a, b) {
@@ -422,6 +421,38 @@ export default {
           }
         }
       })
+    },
+    // 从“我的应用”进入无评分，根据appId查询整体评分
+    getAppData () {
+      getAppTableApi().then(
+        (res) => {
+          res.data.forEach(item => {
+            if (item.appId === this.appId) {
+              this.score = item.score
+            }
+          })
+        },
+        () => {
+          this.$message({
+            duration: 2000,
+            type: 'warning',
+            message: this.$t('promptMessage.getAppFail')
+          })
+        }
+      )
+    },
+    // 从“我的应用”进入，根据packageId查询当前版本的详情
+    getMyAppData (callback) {
+      myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
+        let data = res.data
+        let newDateBegin = this.dateChange(data.createTime)
+        data.createTime = newDateBegin
+        this.tableData.push(data)
+        if (data) {
+          this.source = data.details
+        }
+        callback()
+      })
     }
   },
   created () {
@@ -432,10 +463,20 @@ export default {
       : JSON.parse(sessionStorage.getItem('appstordetail'))
     this.details = params
     this.appId = this.details.appId
-    this.score = this.details.score
+    if (this.details.score) {
+      this.score = this.details.score
+    }
+    if (this.details.packageId) {
+      this.packageId = this.details.packageId
+      if (this.pathSource === 'myapp') {
+        this.source = this.details.details
+        this.getMyAppData(function clearData () {
+        })
+      }
+    }
+    this.getAppData()
     this.getTableData(function clearData () {})
     this.getComments()
-    this.userName = params.username
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
     this.checkProjectData()
   }

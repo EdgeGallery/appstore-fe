@@ -299,7 +299,6 @@ export default {
       ],
       isActive: 0,
       activeIndex: '',
-      fromPath: '',
       userName: '',
       loginPage: '',
       userCenterPage: '',
@@ -314,10 +313,12 @@ export default {
   watch: {
     $route (to, from) {
       this.activeIndex = to.path
-      if (to.path === '/detail') {
+      if (to.path === '/detail' && from.path === '/index') {
         this.activeIndex = '/index'
       }
-      this.fromPath = from.path
+      if (to.path === '/detail' && from.path === '/myapp') {
+        this.activeIndex = '/myapp'
+      }
       let path = this.$route.path
       if (path === '/index') {
         this.isActive = 0
@@ -349,11 +350,8 @@ export default {
       this.menu_small = data
     },
     handleSelect (index, path, item) {
-      console.log(path)
-      console.log(item)
       if (index) {
         this.activeIndex = index
-        console.log(index)
         this.$router.push(this.activeIndex)
       }
       this.closeMenu()
@@ -465,11 +463,9 @@ export default {
       if (res.data.userName !== 'admin') {
         this.ifAdmin = true
         this.list.splice(3, 1)
-        console.log(this.list)
       }
       if (res.data.userName === 'guest' && res.data.userName !== 'admin') {
         this.list.splice(2, 1)
-        console.log(this.list)
       }
     })
     let historyRoute = sessionStorage.getItem('historyRoute')
