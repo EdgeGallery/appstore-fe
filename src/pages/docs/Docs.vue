@@ -118,6 +118,7 @@ export default {
       position: relative;
       justify-content: space-around;
         .substep {
+          width: 100%;
           font-size: 16px;
           // flex-direction: row;
           .docImg{
@@ -131,6 +132,9 @@ export default {
               box-shadow: 0 0 10px rgba(0,0,0,0.2);
               background-color: #fff;
               margin: 20px;
+              img{
+                width: 100%;
+              }
             }
           }
           .subcontenttwo {
@@ -179,7 +183,7 @@ export default {
         .raw{
           position: relative;
           img{
-            width: 100px;
+            width: 10%;
             position: absolute;
             top: 100px;
             left: -50px;
