@@ -28,38 +28,39 @@
             alt="a"
           >
         </div>
-        <el-tabs
-          v-model="activeName"
-          @tab-click="handleClick"
-          stretch
+        <div
+          class="batch_pull"
+          v-if="appStoreList.length > 0"
         >
-          <div
-            class="batch_pull"
-            v-if="appStoreList.length > 0"
+          <el-button
+            type="primary"
+            :disabled="btnChangeEnable"
+            @click="showPullAppDialog"
           >
-            <el-button
-              type="primary"
-              :disabled="btnChangeEnable"
-              @click="showPullAppDialog"
-            >
-              {{ $t("appPull.batchPull") }}
-            </el-button>
-          </div>
-          <el-tab-pane
-            v-for="(item) in appStoreList"
-            :key="item.name"
-            :label="item.title"
-            :name="item.name"
+            {{ $t("appPull.batchPull") }}
+          </el-button>
+        </div>
+        <template>
+          <el-select
+            v-model="value"
+            :placeholder="$t('apppromotion.targetPaltform')"
+            class="selectStyle"
           >
-            <!-- <component :is="item.content" /> -->
-            <div v-if="isShowAppTable">
-              <AppStoreDetail
-                @setEnableStatus="setButtonStatus"
-                :data="item.content"
-              />
-            </div>
-          </el-tab-pane>
-        </el-tabs>
+            <el-option
+              v-for="item in appStoreList"
+              :key="item.title"
+              :label="item.name"
+              :value="item.title"
+              @click.native="getSelectAppstoreData(item.name)"
+            />
+          </el-select>
+        </template>
+        <div v-if="hackReset">
+          <AppStoreDetail
+            @setSelectedItems="setSelectedItems"
+            :data="currentTableData"
+          />
+        </div>
       </div>
       <!-- pull dialog -->
       <div v-if="isShowDialog">
@@ -75,7 +76,7 @@
 <script>
 import appPullResultDlg from './AppPullResultDlg.vue'
 import AppStoreDetail from './AppStoreDetail'
-import { pullApp, promProviderInfo, getAppByAppstoreId } from '../../tools/api.js'
+import { promProviderInfo, getAppByAppstoreId } from '../../tools/api.js'
 export default {
   components: {
     AppStoreDetail,
@@ -83,24 +84,58 @@ export default {
   },
   data () {
     return {
-      isShowAppTable: true,
       allSelectionsApp: [],
       isShowDialog: false,
       appPullResultData: [],
       appStoreArr: [],
-      activeName: '',
-      isFirstTab: true,
       btnChangeEnable: true,
+      value: '',
       appStoreList: [],
-      appPackageData: []
+      currentTableData: [],
+      appPackageData: [],
+      hackReset: true
     }
   },
   methods: {
-    handleClick (tab, event) {
-      console.log(tab, event)
+    rebuileComponents () {
+      this.hackReset = false
+      this.$nextTick(() => {
+        this.hackReset = true
+      })
     },
-    setButtonStatus (value) {
-      this.btnChangeEnable = value
+    getSelectAppstoreData (name) {
+      for (let i = 0; i < this.appStoreList.length; i++) {
+        if (this.appStoreList[i].name === name) {
+          this.currentTableData = this.appStoreList[i].content
+          this.rebuileComponents()
+        }
+      }
+    },
+    setSelectedItems (value) {
+      if (value.length > 0) {
+        this.btnChangeEnable = false
+      } else {
+        this.btnChangeEnable = true
+      }
+      // 更新appStoreList里面的所有数据选中状态
+      for (let i = 0; i < this.appStoreList.length; i++) {
+        for (let j = 0; j < this.appStoreList[i].content.length; j++) {
+          this.appStoreList[i].content[j].isSelectToPull = false
+        }
+      }
+      for (let i = 0; i < value.length; i++) {
+        for (let j = 0; j < this.appStoreList.length; j++) {
+          if (value[i].sourceStoreName === this.appStoreList[j].name) {
+            for (let k = 0; k < this.appStoreList[j].content.length; k++) {
+              if (value[i].packageId === this.appStoreList[j].content[k].packageId) {
+                this.appStoreList[j].content[k].isSelectToPull = true
+                break
+              }
+            }
+            break
+          }
+        }
+      }
     },
     showPullAppDialog (row) {
       this.appPullResultData = []
@@ -108,40 +143,13 @@ export default {
       console.log(tempData.length)
 
       for (let i = 0; i < tempData.length; i++) {
-        // 每次拉取一个app
-        let userId = sessionStorage.getItem('userId')
-        let userName = sessionStorage.getItem('userName')
-        let param = {
-          sourceStoreId: tempData[i].sourceStoreId,
-          userId: userId,
-          userName: userName,
+        let pullResult = {
           name: tempData[i].name,
-          provider: tempData[i].provider,
-          version: tempData[i].version,
-          affinity: tempData[i].affinity,
-          industry: tempData[i].industry,
-          shortDesc: tempData[i].shortDesc,
-          type: tempData[i].type,
-          atpTestStatus: tempData[i].atpTestStatus,
-          sourceStoreName: tempData[i].sourceStoreName
+          appstoreName: tempData[i].sourceStoreName,
+          result: 'start'
         }
-        pullApp(tempData[i].packageId, param).then((res) => {
-          let resData = res.data
-          let pullResult = {
-            name: tempData[i].name,
-            appstoreName: tempData[i].sourceStoreName,
-            result: resData
-          }
-          this.appPullResultData.push(pullResult)
-        }).catch(() => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('appPull.pullFailed'),
-            type: 'warning'
-          })
-        })
+        this.appPullResultData.push(pullResult)
       }
-
       this.isShowDialog = true
     },
     getProviders () {
@@ -195,7 +203,8 @@ export default {
                     type: item.type,
                     createTime: item.createTime,
                     atpTestStatus: item.atpTestStatus,
-                    sourceStoreName: resAppstore[i].label
+                    sourceStoreName: resAppstore[i].label,
+                    isSelectToPull: false
                   }
                   console.log('test appstore' + resAppstore[i].appStoreId)
                   appStoreToApps.push(appDataItem)
@@ -206,12 +215,7 @@ export default {
                 title: resAppstore[i].label,
                 content: appStoreToApps
               }
-              // 添加tab数据
               this.appStoreList.push(tempdata)
-              if (this.isFirstTab) {
-                this.activeName = tempdata.name
-                this.isFirstTab = false
-              }
             }
           }).catch(() => {
             this.$message({
@@ -221,6 +225,8 @@ export default {
             })
           })
         }
+        this.currentTableData = this.appStoreList[0]
+        this.value = this.appStoreList[0].name
       }).catch(() => {
         this.$message({
           duration: 2000,
@@ -247,9 +253,14 @@ export default {
     .pull_container {
       background: white;
       padding: 20px;
+      .selectStyle{
+        width: 260px;
+        margin-left: 10px;
+      }
       .batch_pull {
         margin-bottom: 25px;
         margin-top: 5px;
+        float: left;
       }
       .el-tabs__nav-scroll{
         display: flex;

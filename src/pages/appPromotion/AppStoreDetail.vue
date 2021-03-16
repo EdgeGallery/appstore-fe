@@ -81,22 +81,6 @@
               >{{ $t('appPull.viewTestRepo') }}</a>
             </template>
           </el-table-column>
-          <el-table-column
-            prop="operation"
-            :label="$t('appPull.operation')"
-            width="100"
-          >
-            <template slot-scope="scope">
-              <el-button
-                id="pullBtn"
-                @click="handlePull(scope.row)"
-                type="text"
-                size="small"
-              >
-                {{ $t('appPull.pull') }}
-              </el-button>
-            </template>
-          </el-table-column>
           <template slot="empty">
             <div>
               <img
@@ -121,7 +105,6 @@
 </template>
 
 <script>
-import { pullApp } from '../../tools/api.js'
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
 export default {
   components: {
@@ -143,7 +126,8 @@ export default {
       pageNum: 1,
       pageSize: 10,
       total: 0,
-      curPageSize: 10
+      curPageSize: 10,
+      selectFlag: false
     }
   },
   methods: {
@@ -171,6 +155,11 @@ export default {
     },
     selectionLineChangeHandle (val) {
       // 动态的把勾选的app信息添加到总的allSelectionsApp中
+      if (this.selectFlag) {
+        this.selectFlag = false
+        return
+      }
+
       let tempData = JSON.parse(sessionStorage.getItem('allAppPullInfo'))
       if (!tempData) {
         tempData = []
@@ -193,16 +182,22 @@ export default {
         'allAppPullInfo',
         JSON.stringify(finalData)
       )
-      if (finalData.length === 0) {
-        this.$emit('setEnableStatus', true)
-      } else {
-        this.$emit('setEnableStatus', false)
-      }
+
+      this.$emit('setSelectedItems', finalData)
     },
     refreshCurrentData () {
       let start = this.curPageSize * (this.pageNum - 1)
       let end = this.curPageSize * this.pageNum
       this.currentPageData = this.findAppData.slice(start, end)
+
+      this.$nextTick(function () {
+        for (let j = 0; j < this.currentPageData.length; j++) {
+          if (this.currentPageData[j].isSelectToPull === true) {
+            this.selectFlag = true
+            this.$refs.multipleTable.toggleRowSelection(this.currentPageData[j], this.selectFlag)
+          }
+        }
+      })
     },
     handleNameQuery () {
       this.findAppData = this.appPackageData
@@ -212,33 +207,6 @@ export default {
       })
       if (!this.nameQuery) this.findAppData = this.appPackageData
       this.total = this.findAppData.length
-    },
-    handlePull (row) {
-      let userId = sessionStorage.getItem('userId')
-      let userName = sessionStorage.getItem('userName')
-      let param = {
-        sourceStoreId: row.sourceStoreId,
-        name: row.name,
-        provider: row.provider,
-        version: row.version,
-        userId: userId,
-        userName: userName,
-        affinity: row.affinity,
-        industry: row.industry,
-        shortDesc: row.shortDesc,
-        type: row.type,
-        atpTestStatus: row.atpTestStatus,
-        sourceStoreName: row.sourceStoreName
-      }
-      pullApp(row.packageId, param).then((res) => {
-        this.$message.success(this.$t('appPull.pullSuccess'))
-      }).catch(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('appPull.pullFailed'),
-          type: 'warning'
-        })
-      })
     },
     sortChanged (column) {
       console.log(column)
