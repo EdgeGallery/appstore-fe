@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="appPullDlg">
+  <div class="appPullResDlg">
     <el-dialog
       :title="$t('appPull.pullAppResult')"
       :visible.sync="dialogVisible"
@@ -43,14 +43,24 @@
           >
             <template slot-scope="scope">
               <span
-                v-if="scope.row[scope.column.property] === true"
+                v-if="scope.row[scope.column.property] === 'false'"
+                class="el-icon-close"
+                title="false"
+              />
+              <span
+                v-else-if="scope.row[scope.column.property] === 'true' "
                 class="el-icon-check"
                 title="Succeed"
               />
               <span
-                v-else
-                class="el-icon-close"
-                title="false"
+                v-else-if="scope.row[scope.column.property] === 'start'"
+                class="el-icon-finished"
+                title="start"
+              />
+              <span
+                v-else-if="scope.row[scope.column.property] === 'inProgress'"
+                class="el-icon-loading"
+                title="inProgress"
               />
             </template>
           </el-table-column>
@@ -63,13 +73,20 @@
         <el-button
           @click="handleCloseDirect"
         >{{
-          $t("appPull.closeDlg")
+          $t("apppromotion.closePanel")
+        }}</el-button>
+        <el-button
+          type="primary"
+          @click="handleExecute"
+        >{{
+          $t("apppromotion.execute")
         }}</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 <script>
+import { pullApp } from '../../tools/api.js'
 export default {
   props: {
     appPullResultData: {
@@ -90,6 +107,57 @@ export default {
     handleCloseDirect () {
       this.dialogVisible = false
       this.$emit('input', false)
+    },
+    handleExecute () {
+      this.appPullResultData = []
+      let tempData = JSON.parse(sessionStorage.getItem('allAppPullInfo'))
+      console.log(tempData.length)
+
+      for (let i = 0; i < tempData.length; i++) {
+        let pullResult = {
+          name: tempData[i].name,
+          appstoreName: tempData[i].sourceStoreName,
+          result: 'inProgress'
+        }
+        this.appPullResultData.push(pullResult)
+      }
+
+      setTimeout(() => {
+        for (let i = 0; i < tempData.length; i++) {
+        // 每次拉取一个app
+          let userId = sessionStorage.getItem('userId')
+          let userName = sessionStorage.getItem('userName')
+          let param = {
+            sourceStoreId: tempData[i].sourceStoreId,
+            userId: userId,
+            userName: userName,
+            name: tempData[i].name,
+            provider: tempData[i].provider,
+            version: tempData[i].version,
+            affinity: tempData[i].affinity,
+            industry: tempData[i].industry,
+            shortDesc: tempData[i].shortDesc,
+            type: tempData[i].type,
+            atpTestStatus: tempData[i].atpTestStatus,
+            sourceStoreName: tempData[i].sourceStoreName
+          }
+          pullApp(tempData[i].packageId, param).then((res) => {
+            let resData = res.data
+            let pullResult = {
+              name: tempData[i].name,
+              appstoreName: tempData[i].sourceStoreName,
+              result: resData
+            }
+            this.appPullResultData.push(pullResult)
+          }).catch(() => {
+            this.$message({
+              duration: 2000,
+              message: this.$t('appPull.pullFailed'),
+              type: 'warning'
+            })
+          })
+        }
+      }, 2000)
     }
   },
   mounted () {
@@ -98,7 +166,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.appPullDlg {
+.appPullResDlg {
   .el-dialog__header{
     background-color: #688ef3 ;
     .el-dialog__title {
