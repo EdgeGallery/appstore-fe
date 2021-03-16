@@ -166,18 +166,42 @@ function deleteAppPackageApi (appId, csarId, userId, userName) {
 
 function getDocsApi (language, activeName) {
   let url = ''
-  if (language === 'cn' && activeName === 'first') {
-    url = './APPPackageDefinition1.md'
-  } else if (language === 'cn' && activeName === 'second') {
-    url = './APPPackageDefinition2.md'
-  } else if (language === 'cn' && activeName === 'third') {
-    url = './APPPackageDefinition3.md'
-  } else if (language === 'cn' && activeName === 'four') {
-    url = './APPPackageDefinition4.md'
-  } else if (language === 'cn' && activeName === 'five') {
-    url = './APPPackageDefinition5.md'
-  } else if (language === 'cn' && activeName === 'six') {
-    url = './APPPackageDefinition6.md'
+  if (activeName === 'first') {
+    if (language === 'cn') {
+      url = './APPPackageDefinition1.md'
+    } else if (language === 'en') {
+      url = './APPPackageDefinition1EN.md'
+    }
+  } else if (activeName === 'second') {
+    if (language === 'cn') {
+      url = './APPPackageDefinition2.md'
+    } else if (language === 'en') {
+      url = './APPPackageDefinition2EN.md'
+    }
+  } else if (activeName === 'third') {
+    if (language === 'cn') {
+      url = './APPPackageDefinition3.md'
+    } else if (language === 'en') {
+      url = './APPPackageDefinition3EN.md'
+    }
+  } else if (activeName === 'four') {
+    if (language === 'cn') {
+      url = './APPPackageDefinition4.md'
+    } else if (language === 'en') {
+      url = './APPPackageDefinition4EN.md'
+    }
+  } else if (activeName === 'five') {
+    if (language === 'cn') {
+      url = './APPPackageDefinition5.md'
+    } else if (language === 'en') {
+      url = './APPPackageDefinition5EN.md'
+    }
+  } else if (activeName === 'six') {
+    if (language === 'cn') {
+      url = './APPPackageDefinition6.md'
+    } else if (language === 'en') {
+      url = './APPPackageDefinition6EN.md'
+    }
   }
   return axios.get(url)
 }
