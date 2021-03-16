@@ -245,7 +245,7 @@ export default {
           index: '5',
           children: [
             {
-              labelEn: 'External App Management',
+              labelEn: 'External App Warehouse Management',
               labelCn: '外部应用仓库管理',
               route: '/apppromote',
               pageId: '2.1.6.1',

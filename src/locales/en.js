@@ -30,7 +30,7 @@ const en = {
     appShare: 'App Share',
     appPush: 'App Promote',
     appPull: 'App Pull',
-    externalAppManagement: 'External App Management',
+    externalAppManagement: 'External App Warehouse Management',
     msgCenter: 'Message Center',
     operAna: 'Operation Analyse',
     detail: 'Detail',
@@ -260,9 +260,9 @@ const en = {
     status: 'Status',
     test: 'Test',
     publish: 'Publish',
-    addApp: 'Add App',
+    addApp: 'Add External Warehouse',
     provider: 'Provider',
-    modifyAppStore: 'Edit External Repository'
+    modifyAppStore: 'Edit External Warehouse'
   },
   report: {
     version: 'Version',
