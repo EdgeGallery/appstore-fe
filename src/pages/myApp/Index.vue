@@ -173,6 +173,7 @@
         </el-table>
       </div>
       <eg-pagination
+        class="rt"
         :page-num="pageNum"
         :page-size="curPageSize"
         :page-sizes="pageSizes"

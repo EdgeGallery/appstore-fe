@@ -200,6 +200,7 @@
         >
           <el-upload
             ref="upload"
+            style="position:relative;top:3px;"
             action=""
             :limit="1"
             :on-exceed="handleExceed"
