@@ -169,6 +169,6 @@ export default {
 }
 .content{
   border-bottom: 1px solid #f5f5f5;
-  height: 230px;
+  height: 245px;
 }
 </style>
