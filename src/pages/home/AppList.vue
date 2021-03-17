@@ -185,7 +185,7 @@ export default {
     }
   },
   mounted () {
-    if ((sessionStorage.getItem('userName') === 'guest') || (sessionStorage.getItem('userName') !== 'guest' && sessionStorage.getItem('userName') !== 'admin')) {
+    if ((sessionStorage.getItem('userNameRole') === 'guest') || (sessionStorage.getItem('userNameRole') === 'tenant')) {
       this.ifDelete = false
     } else {
       this.ifDelete = true

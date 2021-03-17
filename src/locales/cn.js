@@ -143,6 +143,7 @@ const cn = {
     subCommentFail: '提交评论失败。',
     getCommentFail: '获取评论失败。',
     getAppFail: '获取App数据失败。',
+    reLogin: '会话超时，请重新登录。',
     getTaskListFail: '获取测试任务失败。',
     getMyAppFail: '获取我的App数据失败。',
     verifyNamePhoneFail: '验证用户名或手机号失败。',
