@@ -18,14 +18,29 @@
   <div class="my-app padding56">
     <div class="my-app-content">
       <div class="app-list">
+        <template>
+          <el-select
+            multiple
+            @remove-tag="removeTag($event)"
+            v-model="value"
+            :placeholder="$t('apppromotion.targetPaltform')"
+            class="selectStyle"
+          >
+            <el-option
+              label="All"
+              value="All"
+              @click.native="getSelectAppstoreData('All')"
+            />
+            <el-option
+              v-for="item in appStoreList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+              @click.native="getSelectAppstoreData(item.value)"
+            />
+          </el-select>
+        </template>
         <div class="batchProm">
-          <el-input
-            suffix-icon="el-icon-search"
-            v-model="nameQuery"
-            @change="handleNameQuery"
-            :placeholder="$t('common.appName')"
-            class="search_input"
-          />
           <el-button
             type="primary"
             :disabled="btnChangeEnable"
@@ -34,6 +49,16 @@
             {{ $t("apppromotion.batchPro") }}
           </el-button>
         </div>
+
+        <div class="search_input">
+          <el-input
+            suffix-icon="el-icon-search"
+            v-model="nameQuery"
+            @change="handleNameQuery"
+            :placeholder="$t('common.appName')"
+          />
+        </div>
+
         <div class="packageTable">
           <el-table
             :data="currentPageData"
@@ -102,49 +127,6 @@
               :label="$t('apppromotion.proTimes')"
               sortable="custom"
             />
-            <el-table-column
-              :label="$t('apppromotion.intentionAppstore')"
-            >
-              <template slot-scope="scope">
-                <el-select
-                  multiple
-                  collapse-tags
-                  v-model="scope.row.targetPlatform"
-                  @change="changeSelect($event, scope.row)"
-                  @remove-tag="removeTag($event, scope.row)"
-                  :placeholder="$t('apppromotion.targetPaltform')"
-                  :class="scope.row.packageId"
-                >
-                  <el-option
-                    label="All"
-                    value="All"
-                    @click.native="selectAll(scope.row)"
-                  />
-                  <el-option
-                    v-for="item in appStoreList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  />
-                </el-select>
-              </template>
-            </el-table-column>
-            <el-table-column
-              prop="operation"
-              fixed="right"
-              :label="$t('apppromotion.mesOperation')"
-              width="100"
-            >
-              <template slot-scope="scope">
-                <el-button
-                  id="pushBtn"
-                  @click="showPushAppDialog(scope.row)"
-                  type="text"
-                >
-                  {{ $t('apppromotion.messagePush') }}
-                </el-button>
-              </template>
-            </el-table-column>
             <template slot="empty">
               <div>
                 <img
@@ -157,12 +139,11 @@
             </template>
           </el-table>
         </div>
-        <!-- 组件 -->
         <div v-if="uploadDiaVis">
           <promTask
             v-model="uploadDiaVis"
             @refreshAppPromInfo="refreshPromData"
-            :app-store-list-prop="appStoreList"
+            :app-store-list-prop="promProviderList"
           />
         </div>
       </div>
@@ -194,7 +175,7 @@ export default {
       appPackageData: [],
       currentPageData: [],
       appStoreList: [],
-      value: '',
+      value: ['All'],
       isEnLan: true,
       btnChangeEnable: true,
       nameQuery: '',
@@ -204,7 +185,8 @@ export default {
       pageSize: 10,
       total: 0,
       curPageSize: 10,
-      language: localStorage.getItem('language')
+      language: localStorage.getItem('language'),
+      promProviderList: []
     }
   },
   methods: {
@@ -264,6 +246,15 @@ export default {
       })
     },
     showPushAppDialog (row) {
+      this.promProviderList = []
+      for (let i = 0; i < this.value.length; i++) {
+        for (let j = 0; j < this.appStoreList.length; j++) {
+          if (this.appStoreList[j].value === this.value[i]) {
+            this.promProviderList.push(this.appStoreList[j])
+            break
+          }
+        }
+      }
       this.uploadDiaVis = true
       if (!(row instanceof MouseEvent)) {
         sessionStorage.setItem(
@@ -324,23 +315,31 @@ export default {
       if (!this.nameQuery) this.findAppData = this.appPackageData
       this.total = this.findAppData.length
     },
-    selectAll (info) {
-      if (this.selectedArray.indexOf('All') !== -1) {
-        this.selectedArray = []
-        this.selectedArray.push('All')
-        this.appStoreList.map((item) => {
-          this.selectedArray.push(item.value)
-        })
+    getSelectAppstoreData (item) {
+      // 去勾选
+      if (this.value.indexOf(item) === -1) {
+        if (item === 'All') {
+          setTimeout(() => {
+            this.value = []
+          }, 100)
+        }
       } else {
-        this.selectedArray = []
+        if (item === 'All') {
+          setTimeout(() => {
+            this.value = ['All']
+          }, 100)
+        } else {
+          let temp = JSON.parse(JSON.stringify(this.value))
+          this.value = []
+          for (let i = 0; i < temp.length; i++) {
+            if (temp[i] !== 'All') {
+              this.value.push(temp[i])
+            }
+          }
+        }
       }
-      info.targetPlatform = this.selectedArray
     },
-    changeSelect (val, info) {
-      this.selectedArray = val
-      info.targetPlatform = this.selectedArray
-    },
-    removeTag (val, info) {
+    removeTag (val) {
       if (val === 'All') {
         this.selectedArray = []
       }
@@ -365,14 +364,14 @@ export default {
       let sortNumber = (a, b) => {
         return a - b
       }
-      let findApp = (fieldName, type) => {
+      let findApp = (type) => {
         let fieldArr = []
         let appSort = []
         this.findAppData.forEach((item) => {
           if (type === 'name' || type === 'version' || type === 'provider' || type === 'messageType') {
-            fieldArr.push(item[fieldName].toLowerCase())
+            fieldArr.push(item[type].toLowerCase())
           } else {
-            fieldArr.push(item[fieldName])
+            fieldArr.push(item[type])
           }
         })
         if (type === 'latestPushTime') {
@@ -396,32 +395,21 @@ export default {
         fieldArr.forEach((fieldItem) => {
           this.findAppData.forEach((item) => {
             if (type === 'name' || type === 'provider' || type === 'version' || type === 'messageType') {
-              if (item[fieldName].toLowerCase() === fieldItem) {
+              if (item[type].toLowerCase() === fieldItem) {
                 appSort.push(item)
               }
             } else {
-              if (item[fieldName] === fieldItem) {
+              if (item[type] === fieldItem) {
                 appSort.push(item)
               }
             }
           })
         })
-        console.log('finish sort ' + appSort.length)
         return appSort
       }
 
       let type = column.prop
-      if (type === 'name') {
-        this.findAppData = findApp('name', type)
-      } else if (type === 'provider') {
-        this.findAppData = findApp('provider', type)
-      } else if (type === 'version') {
-        this.findAppData = findApp('version', type)
-      } else if (type === 'latestPushTime') {
-        this.findAppData = findApp('latestPushTime', type)
-      } else if (type === 'pushTimes') {
-        this.findAppData = findApp('pushTimes', type)
-      }
+      this.findAppData = findApp(type)
     },
     refreshPromData (value) {
       if (value) {
@@ -482,10 +470,16 @@ export default {
   .batchProm {
     margin-bottom: 5px;
     margin-top: 5px;
-    .search_input{
-      width: 200px;
-      float: right;
-    }
+    margin-left: 10px;
+    float: left;
+  }
+  .search_input{
+    width: 200px;
+    float: right;
+  }
+  .selectStyle{
+    width: 260px;
+    float: left;
   }
   .packageTable{
     margin: 20px 0;

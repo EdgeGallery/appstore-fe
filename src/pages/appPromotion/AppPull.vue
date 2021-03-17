@@ -28,18 +28,6 @@
             alt="a"
           >
         </div>
-        <div
-          class="batch_pull"
-          v-if="appStoreList.length > 0"
-        >
-          <el-button
-            type="primary"
-            :disabled="btnChangeEnable"
-            @click="showPullAppDialog"
-          >
-            {{ $t("appPull.batchPull") }}
-          </el-button>
-        </div>
         <template>
           <el-select
             v-model="value"
@@ -55,6 +43,19 @@
             />
           </el-select>
         </template>
+        <div
+          class="batch_pull"
+          v-if="appStoreList.length > 0"
+        >
+          <el-button
+            type="primary"
+            :disabled="btnChangeEnable"
+            @click="showPullAppDialog"
+          >
+            {{ $t("appPull.batchPull") }}
+          </el-button>
+        </div>
+
         <div v-if="hackReset">
           <AppStoreDetail
             @setSelectedItems="setSelectedItems"
@@ -255,11 +256,12 @@ export default {
       padding: 20px;
       .selectStyle{
         width: 260px;
-        margin-left: 10px;
+        float: left;
       }
       .batch_pull {
         margin-bottom: 25px;
         margin-top: 5px;
+        margin-left: 10px;
         float: left;
       }
       .el-tabs__nav-scroll{
