@@ -23,7 +23,9 @@
       :before-close="handleClose"
       :close-on-click-modal="false"
     >
-      <div class="app-prom">
+      <div
+        class="app-prom"
+      >
         <el-table
           :data="appData"
           style="width: 100%"
@@ -48,7 +50,7 @@
               <span
                 v-else-if="scope.row[scope.column.property] === 'true' "
                 class="el-icon-check"
-                title="Succeed"
+                title="succeed"
               />
               <span
                 v-else-if="scope.row[scope.column.property] === 'start'"
@@ -56,19 +58,9 @@
                 title="start"
               />
               <span
-                v-else-if="scope.row[scope.column.property] === 'empty'"
-                class="el-icon-minus"
-                title="empty"
-              />
-              <span
                 v-else-if="scope.row[scope.column.property] === 'inProgress'"
                 class="el-icon-loading"
-                title="aaa"
-              />
-              <span
-                class="el-icon-loading"
-                v-else
-                title="In Progress"
+                title="inProgress"
               />
             </template>
           </el-table-column>
@@ -106,18 +98,9 @@ export default {
   data () {
     return {
       dialogVisible: true,
-      appPromStatus: 'ready',
       appData: [],
       providers: [],
-      appStoreIds: [],
       packageIds: [],
-      targetPlatformTitles: [],
-      promoteAppStore: [],
-      empty: 'empty',
-      start: 'start',
-      isTrue: 'true',
-      iFalse: 'false',
-      InProgress: 'inProgress',
       platformData: [],
       selectData: []
     }
@@ -132,21 +115,14 @@ export default {
       }
       // 获取appstoreid和apstoreName
       this.platformData = this.appStoreListProp
-      console.log(this.platformData)
       this.selectData.forEach(selectItem => {
         this.platformData.forEach(platformItem => {
-          // 全部赋值成empty
+          // 全部赋值成start
           let attr = platformItem.label
-          selectItem[attr] = this.empty
-          // 修改value成已经选的appstore
-          if (selectItem.targetPlatform.indexOf('All') !== -1 || selectItem.targetPlatform.indexOf(platformItem.value) !== -1) {
-            selectItem[attr] = this.start
-          }
+          selectItem[attr] = 'start'
         })
       })
-      console.log(this.selectData)
       this.appData = this.selectData
-      console.log(this.appData)
     },
     handleClose () {
       this.$emit('input', false)
@@ -157,86 +133,52 @@ export default {
       this.$emit('input', false)
     },
     handleExecute () {
-      this.promTask(this.packageIds, this.platformData, this.appStoreIds)
+      this.promTask()
     },
-    getPackageIds (data) {
-      this.packageIds = []
-      data.forEach(
-        (item) => {
-          this.packageIds.push(item.packageId)
-        }
-      )
-    },
-    promTask (packageIds, platformData, appstoreIds) {
-      console.log(this.appData)
+    promTask () {
+      let target = []
+      this.platformData.forEach(item => {
+        target.push(item.value)
+      })
+      let param = {
+        targetPlatform: target
+      }
 
-      // 延迟2秒调用后台
-      let data = JSON.parse(JSON.stringify(this.appData))
-      let flagNumber = 0
-      data.forEach(
-        (appDataItem) => {
-          if (appDataItem.targetPlatform.indexOf('All') !== -1) {
-            appDataItem.targetPlatform = []
-            this.platformData.forEach(item => {
-              appDataItem.targetPlatform.push(item.value)
-            })
-          }
-          let param = {
-            targetPlatform: appDataItem.targetPlatform
-          }
-          for (let i = 0; i < appDataItem.targetPlatform.length; i++) {
-            this.platformData.forEach(platformItem => {
-              if (appDataItem.targetPlatform[i] === platformItem.value) {
-                let attr = platformItem.label
-                appDataItem[attr] = this.InProgress
-              }
-            })
-          }
-          this.appData = data
-          promTaskApi(appDataItem.packageId, param)
-            .then((res) => {
-              if (res.data) {
-                let reData = res.data
-                console.log(reData)
-                let resData = reData.join(',').split(',')
-                console.log(resData)
-                for (let i = 0; i < appDataItem.targetPlatform.length; i++) {
-                  this.platformData.forEach(platformItem => {
-                    if (appDataItem.targetPlatform[i] === platformItem.value) {
-                      let attr = platformItem.label
-                      appDataItem[attr] = resData[i]
-                    }
-                  })
-                }
-                console.log(this.appData)
-              }
-              flagNumber++
-              if (flagNumber === data.length) {
-                this.$emit('refreshAppPromInfo', true)
-              }
-            })
-            .catch((err) => {
-              this.$message.error(this.$t('promptMessage.operationFailed'))
-              console.log(err)
-            })
+      for (let i = 0; i < this.appData.length; i++) {
+        for (let j = 0; j < this.platformData.length; j++) {
+          this.appData[i][this.platformData[j].label] = 'inProgress'
         }
-      )
-    },
-    getPromoteAppStore (data) {
-      this.promoteAppStore = []
-      data.forEach(
-        (item) => {
-          let appstore = {
-            packageId: '',
-            appStoreIds: []
-          }
-          appstore.appStoreIds = item.targetPlatform
-          appstore.packageId = item.packageId
-          this.promoteAppStore.push(appstore)
-          console.log('appstore:')
-          console.log(this.promoteAppStore)
+      }
+      let tempTableData = JSON.parse(JSON.stringify(this.appData))
+      this.appData = []
+      for (let i = 0; i < tempTableData.length; i++) {
+        this.appData.push(tempTableData[i])
+      }
+
+      let tempData = this.appData
+      setTimeout(() => {
+        for (let i = 0; i < tempData.length; i++) {
+          promTaskApi(tempData[i].packageId, param).then((res) => {
+            if (res.data) {
+              let reData = res.data
+              let index = 0
+              for (let j = 0; j < reData.length; j++) {
+                this.appData[index][this.platformData[j].label] = reData[j]
+              }
+              index++
+            }
+          }).catch((err) => {
+            this.$message.error(this.$t('promptMessage.operationFailed'))
+            console.log(err)
+          })
         }
-      )
+        let tempRes = JSON.parse(JSON.stringify(this.appData))
+        this.appData = []
+        for (let i = 0; i < tempRes.length; i++) {
+          this.appData.push(tempRes[i])
+        }
+        this.$emit('refreshAppPromInfo', true)
+      }, 2000)
     }
   },
   watch: {
@@ -245,14 +187,8 @@ export default {
     }
   },
   mounted () {
-    console.log(this.appStoreListProp)
     this.providers = this.appStoreListProp
-    this.getStatus = function () {
-      this.appPromStatus = 'success'
-    }
     this.getTableData()
-    this.getPromoteAppStore(this.appData)
-    this.getPackageIds(this.appData)
   }
 }
 </script>
