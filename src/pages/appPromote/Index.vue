@@ -426,7 +426,6 @@ export default {
       this.dialogVisible = true
     },
     getDelete (row) {
-      console.log('*******appStoreId***********= ' + row.appStoreId)
       this.$confirm(this.$t('promptMessage.deleteAppStore'), this.$t('promptMessage.prompt'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
@@ -509,13 +508,13 @@ export default {
       return this.findedData.length
     },
     pageNum: function () {
-      if (this.curPageSize * (this.pageNumCache - 1) > this.total) {
+      if (this.curPageSize * (this.pageNumCache - 1) >= this.total) {
         return 1
       }
       return this.pageNumCache
     },
     currentPageData: function () {
-      let calPageNum = this.curPageSize * (this.pageNumCache - 1) > this.total ? 1 : this.pageNumCache
+      let calPageNum = this.curPageSize * (this.pageNumCache - 1) >= this.total ? 1 : this.pageNumCache
       let start = this.curPageSize * (calPageNum - 1)
       let end = this.curPageSize * calPageNum
       return this.findedData.slice(start, end)
