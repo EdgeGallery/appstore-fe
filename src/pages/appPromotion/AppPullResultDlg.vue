@@ -123,6 +123,7 @@ export default {
       }
 
       setTimeout(() => {
+        let flagNumber = 0
         for (let i = 0; i < tempData.length; i++) {
         // 每次拉取一个app
           let userId = sessionStorage.getItem('userId')
@@ -143,12 +144,15 @@ export default {
           }
           pullApp(tempData[i].packageId, param).then((res) => {
             let resData = res.data
-            let pullResult = {
-              name: tempData[i].name,
-              appstoreName: tempData[i].sourceStoreName,
-              result: resData
+            this.appPullResultData[i]['result'] = resData
+            flagNumber++
+            if (flagNumber === tempData.length) {
+              let tempRes = JSON.parse(JSON.stringify(this.appPullResultData))
+              this.appPullResultData = []
+              for (let j = 0; j < tempRes.length; j++) {
+                this.appPullResultData.push(tempRes[j])
+              }
             }
-            this.appPullResultData.push(pullResult)
           }).catch(() => {
             this.$message({
               duration: 2000,

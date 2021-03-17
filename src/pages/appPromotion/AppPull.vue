@@ -259,7 +259,7 @@ export default {
         float: left;
       }
       .batch_pull {
-        margin-bottom: 25px;
+        margin-bottom: 15px;
         margin-top: 5px;
         margin-left: 10px;
         float: left;

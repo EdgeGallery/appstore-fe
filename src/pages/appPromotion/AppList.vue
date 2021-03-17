@@ -468,7 +468,7 @@ export default {
   }
   padding: 20px 0;
   .batchProm {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     margin-top: 5px;
     margin-left: 10px;
     float: left;
@@ -480,6 +480,7 @@ export default {
   .selectStyle{
     width: 260px;
     float: left;
+    margin-bottom: 10px;
   }
   .packageTable{
     margin: 20px 0;

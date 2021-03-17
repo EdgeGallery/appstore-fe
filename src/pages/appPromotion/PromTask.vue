@@ -157,6 +157,7 @@ export default {
 
       let tempData = this.appData
       setTimeout(() => {
+        let flagNumber = 0
         for (let i = 0; i < tempData.length; i++) {
           promTaskApi(tempData[i].packageId, param).then((res) => {
             if (res.data) {
@@ -167,17 +168,20 @@ export default {
               }
               index++
             }
+            flagNumber++
+            if (flagNumber === tempData.length) {
+              let tempRes = JSON.parse(JSON.stringify(this.appData))
+              this.appData = []
+              for (let i = 0; i < tempRes.length; i++) {
+                this.appData.push(tempRes[i])
+              }
+              this.$emit('refreshAppPromInfo', true)
+            }
           }).catch((err) => {
             this.$message.error(this.$t('promptMessage.operationFailed'))
             console.log(err)
           })
         }
-        let tempRes = JSON.parse(JSON.stringify(this.appData))
-        this.appData = []
-        for (let i = 0; i < tempRes.length; i++) {
-          this.appData.push(tempRes[i])
-        }
-        this.$emit('refreshAppPromInfo', true)
       }, 2000)
     }
   },
