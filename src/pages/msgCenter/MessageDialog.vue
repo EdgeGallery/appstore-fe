@@ -119,7 +119,7 @@ export default {
 <style lang="less" scoped>
 .msgDialog{
   width: 350px;
-  height: 300px;
+  height: 315px;
   background-color: #404348;
 }
 
