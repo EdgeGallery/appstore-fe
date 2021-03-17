@@ -137,7 +137,7 @@
         <el-form-item
           :label="$t('store.appIcon')"
           :label-width="formLabelWidth"
-          prop="logoFileList"
+          prop="type"
           class="icon"
         >
           <div class="default-icon">
@@ -303,7 +303,7 @@ export default {
       radioVal: '文件大小不超过10M',
       language: localStorage.getItem('language'),
       defaultActive: '',
-      defaultIconFile: '',
+      defaultIconFile: [],
       defaultIconData: [
         require('../../assets/images/project_videoapp.png'),
         require('../../assets/images/project_game.png'),
@@ -319,7 +319,7 @@ export default {
         require('../../assets/images/project_mep.png')
       ],
       defaultIcon: [
-        require('../../assets/images/project_videosur.png')
+        require('../../assets/images/project_videoapp.png')
       ],
       dialogVisible: this.value,
       packageForm: {
@@ -563,7 +563,7 @@ export default {
         case 'Video Application':
           this.defaultIcon.splice(0, 1, this.defaultIconData[0])
           break
-        case 'Game':
+        case 'Game Application':
           this.defaultIcon.splice(0, 1, this.defaultIconData[1])
           console.log(this.defaultIcon)
           break
@@ -598,8 +598,8 @@ export default {
           this.defaultIcon.splice(0, 1, this.defaultIconData[11])
           break
       }
-      // this.conversionIcon(this.defaultIcon[0])
-      // this.checkProjectData()
+      this.conversionIcon(this.defaultIcon[0])
+      this.checkProjectData()
     },
     // 选择默认图标
     chooseDefaultIcon (file, index) {
