@@ -478,7 +478,7 @@ export default {
       return this.sortedData.length
     },
     pageNum: function () {
-      if (this.curPageSize * (this.pageNumCache - 1) > this.total) {
+      if (this.curPageSize * (this.pageNumCache - 1) >= this.total) {
         sessionStorage.setItem('myAppPageNum', 1)
         return 1
       }
@@ -486,8 +486,9 @@ export default {
       return this.pageNumCache
     },
     currentPageData: function () {
-      let start = this.curPageSize * (this.pageNum - 1)
-      let end = this.curPageSize * this.pageNum
+      let calPageNum = this.curPageSize * (this.pageNumCache - 1) >= this.total ? 1 : this.pageNumCache
+      let start = this.curPageSize * (calPageNum - 1)
+      let end = this.curPageSize * calPageNum
       return this.sortedData.slice(start, end)
     }
   },
