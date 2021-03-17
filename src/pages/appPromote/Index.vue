@@ -25,8 +25,7 @@
         <div class="batchProm">
           <el-input
             suffix-icon="el-icon-search"
-            v-model="nameQuery"
-            @change="handleNameQuery"
+            v-model="nameQueryVal"
             :placeholder="$t('common.appStoreName')"
             class="search_input"
           />
@@ -274,11 +273,9 @@ export default {
   data () {
     return {
       bannerImg: 'images/appstore.png',
-      currentPageData: [],
       pointNum: 5,
       tableData: [],
       userId: '',
-      appData: [],
       appPackageData: [],
       dataLoading: false,
       interval: '',
@@ -293,12 +290,11 @@ export default {
       },
       editType: 1,
       types: TTYPES,
-      nameQuery: '',
+      nameQueryVal: '',
       findAppStoreData: [],
       breadCrumbData: [],
-      pageNum: 1,
+      pageNumCache: 1,
       pageSizes: [8, 16, 24],
-      total: 0,
       curPageSize: 8
     }
   },
@@ -307,7 +303,7 @@ export default {
       this.curPageSize = val
     },
     currentChange (val) {
-      this.pageNum = val
+      this.pageNumCache = val
     },
     hiddenClass (row) {
       if (row.columnIndex === 5 || row.columnIndex === 0) {
@@ -319,39 +315,11 @@ export default {
       this.$refs.form.resetFields()
       this.dialogVisible = false
     },
-    getAppData () {
-      this.appPackageData = []
-      myAppStore.getMyAppApi(this.userId)
-        .then(res => {
-          this.appData = res.data
-          if (this.appData.length === 0) {
-            this.dataLoading = false
-          } else {
-            this.getAppPackageData()
-          }
-        }, () => {
-          this.dataLoading = false
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.getMyAppFail'),
-            type: 'warning'
-          })
-        })
-    },
     getAppPackageData () {
       this.appPackageData = []
       myAppStore.getMyAppApi(this.userId).then(res => {
-        let data = res.data
-        if (data.length === 1) {
-          this.appPackageData.push(data[0])
-        } else {
-          data.forEach(csaritem => {
-            this.appPackageData.push(csaritem)
-          })
-        }
-        this.findAppStoreData = this.appPackageData
+        this.appPackageData = res.data
         this.dataLoading = false
-        this.total = this.findAppStoreData.length
       }).catch(() => {
         this.dataLoading = false
         this.$message({
@@ -361,11 +329,6 @@ export default {
         })
         this.clearInterval()
       })
-    },
-    refreshCurrentData () {
-      let start = this.curPageSize * (this.pageNum - 1)
-      let end = this.curPageSize * this.pageNum
-      this.currentPageData = this.findAppStoreData.slice(start, end)
     },
     clearForm () {
       this.form.appStoreId = ''
@@ -491,22 +454,13 @@ export default {
       clearTimeout(this.interval)
       this.interval = null
     },
-    handleNameQuery () {
-      this.findAppStoreData = this.appPackageData
-      this.findAppStoreData = this.findAppStoreData.filter((item) => {
-        let itemName = item.appStoreName.toLowerCase()
-        return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
-      })
-      if (!this.nameQuery) this.findAppStoreData = this.appPackageData
-    },
     updateBreadCrumbData () {
       this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.appShare'), path: '' }, { name: this.$t('nav.externalAppManagement'), path: '' }]
     }
   },
   mounted () {
     this.userId = sessionStorage.getItem('userId')
-    this.getAppData()
-    this.appPackageData = this.currentPageData
+    this.getAppPackageData()
     this.updateBreadCrumbData()
   },
   computed: {
@@ -540,20 +494,36 @@ export default {
         ]
       }
       return rules
+    },
+    findedData: function () {
+      if (!this.nameQueryVal) {
+        return this.appPackageData
+      } else {
+        return this.appPackageData.filter((item) => {
+          let itemName = item.appStoreName.toLowerCase()
+          return itemName.indexOf(this.nameQueryVal.toLowerCase()) !== -1
+        })
+      }
+    },
+    total: function () {
+      return this.findedData.length
+    },
+    pageNum: function () {
+      if (this.curPageSize * (this.pageNumCache - 1) > this.total) {
+        return 1
+      }
+      return this.pageNumCache
+    },
+    currentPageData: function () {
+      let calPageNum = this.curPageSize * (this.pageNumCache - 1) > this.total ? 1 : this.pageNumCache
+      let start = this.curPageSize * (calPageNum - 1)
+      let end = this.curPageSize * calPageNum
+      return this.findedData.slice(start, end)
     }
   },
   watch: {
     '$i18n.locale': function () {
       this.updateBreadCrumbData()
-    },
-    curPageSize: function () {
-      this.refreshCurrentData()
-    },
-    pageNum: function () {
-      this.refreshCurrentData()
-    },
-    findAppStoreData: function () {
-      this.refreshCurrentData()
     }
   },
   beforeDestroy () {
