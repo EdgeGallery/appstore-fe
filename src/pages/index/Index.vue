@@ -137,7 +137,10 @@
         {{ $t('store.higherScore') }}
       </h3>
       <p class="home_more">
-        <el-link @click="selectedCondition1('Score', 2)">
+        <el-link
+          :underline="false"
+          @click="selectedCondition1('Score', 2)"
+        >
           {{ $t('store.viewMore') }}
         </el-link>
       </p>
