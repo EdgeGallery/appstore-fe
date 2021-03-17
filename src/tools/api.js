@@ -287,7 +287,7 @@ let myApp = {
   },
   // 首页上传大文件接口
   uploadVMAppApi: function (params) {
-    let url = 'appsBigFile'
+    let url = 'appsImage'
     return POST(url, params)
   },
   // 获取我的应用

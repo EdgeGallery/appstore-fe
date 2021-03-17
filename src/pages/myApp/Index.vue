@@ -509,6 +509,9 @@ export default {
   },
   beforeDestroy () {
     this.clearInterval()
+  },
+  destroyed () {
+    sessionStorage.removeItem('myAppStatusFilterValue')
   }
 }
 </script>
