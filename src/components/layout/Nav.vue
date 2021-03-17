@@ -455,16 +455,25 @@ export default {
       this.userName = res.data.userName
       this.loginPage = res.data.loginPage
       this.userCenterPage = res.data.userCenterPage
+      if (res.data.authorities.indexOf('ROLE_APPSTORE_ADMIN') > -1) {
+        console.log('test role*****')
+        console.log(res.data.authorities.indexOf('ROLE_APPSTORE_ADMIN'))
+        sessionStorage.setItem('userNameRole', 'admin')
+      } else if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1) {
+        sessionStorage.setItem('userNameRole', 'tenant')
+      } else {
+        sessionStorage.setItem('userNameRole', 'guest')
+      }
       if (res.data.userName === 'guest') {
         this.ifGuest = true
       } else {
         this.ifGuest = false
       }
-      if (res.data.userName !== 'admin') {
+      if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1 || res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
         this.ifAdmin = true
         this.list.splice(3, 1)
       }
-      if (res.data.userName === 'guest' && res.data.userName !== 'admin') {
+      if (res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
         this.list.splice(2, 1)
       }
     })

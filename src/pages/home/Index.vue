@@ -450,7 +450,7 @@ export default {
           this.$message({
             duration: 2000,
             type: 'warning',
-            message: this.$t('promptMessage.getAppFail')
+            message: this.$t('promptMessage.reLogin')
           })
         }
       )
@@ -464,7 +464,7 @@ export default {
     }
   },
   mounted () {
-    if (sessionStorage.getItem('userName') === 'guest') {
+    if (sessionStorage.getItem('userNameRole') === 'guest') {
       this.ifShow = false
     } else {
       this.ifShow = true

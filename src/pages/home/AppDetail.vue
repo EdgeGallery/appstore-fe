@@ -74,7 +74,7 @@
           <el-button
             type="primary"
             class="batchProButton"
-            :disabled="currentData.userId===userId ? false : true"
+            :disabled="ifDownload || currentData.userId===userId ? false : true"
             @click="download(currentData)"
           >
             {{ $t('store.download') }}
@@ -233,6 +233,7 @@ export default {
   name: '',
   data () {
     return {
+      ifDownload: 'true',
       userId: sessionStorage.getItem('userId'),
       details: '',
       appId: '',
@@ -458,6 +459,11 @@ export default {
   created () {
   },
   mounted () {
+    if ((sessionStorage.getItem('userNameRole') === 'guest') || (sessionStorage.getItem('userNameRole') === 'tenant')) {
+      this.ifDownload = false
+    } else {
+      this.ifDownload = true
+    }
     let params = this.$route.params.item
       ? this.$route.params.item
       : JSON.parse(sessionStorage.getItem('appstordetail'))
