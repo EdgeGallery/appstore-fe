@@ -461,7 +461,7 @@ const cn = {
     pullAppResult: '拉取结果',
     result: '结果',
     pullFailed: '拉取失败',
-    pullSuccess: '拉取成功',
+    pullSuccess: '拉取成功，请在我的应用中查看',
     getAppStoreException: '获取appStore异常',
     getPullAppException: '获取拉取app信息异常',
     viewTestRepo: '查看报告',

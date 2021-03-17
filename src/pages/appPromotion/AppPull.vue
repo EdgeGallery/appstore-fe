@@ -94,7 +94,8 @@ export default {
       appStoreList: [],
       currentTableData: [],
       appPackageData: [],
-      hackReset: true
+      hackReset: true,
+      hasActiveDefault: false
     }
   },
   methods: {
@@ -218,6 +219,11 @@ export default {
               }
               this.appStoreList.push(tempdata)
             }
+            if (!this.hasActiveDefault && this.appStoreList.length > 0) {
+              this.currentTableData = this.appStoreList[0]
+              this.value = this.appStoreList[0].name
+              this.hasActiveDefault = true
+            }
           }).catch(() => {
             this.$message({
               duration: 2000,
@@ -226,8 +232,6 @@ export default {
             })
           })
         }
-        this.currentTableData = this.appStoreList[0]
-        this.value = this.appStoreList[0].name
       }).catch(() => {
         this.$message({
           duration: 2000,

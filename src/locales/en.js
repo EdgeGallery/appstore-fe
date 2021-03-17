@@ -445,7 +445,7 @@ const en = {
     pullAppResult: 'Pull Result',
     result: 'result',
     pullException: 'pull exception',
-    pullSuccess: 'pull success',
+    pullSuccess: 'pull success, please check in my app',
     getAppStoreException: 'get appStore Exception',
     getPullAppException: 'get pull App Exception',
     viewTestRepo: 'view report',
