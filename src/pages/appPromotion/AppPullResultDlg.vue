@@ -143,7 +143,7 @@ export default {
             sourceStoreName: tempData[i].sourceStoreName
           }
           pullApp(tempData[i].packageId, param).then((res) => {
-            let resData = res.data
+            let resData = res.data.toString()
             this.appPullResultData[i]['result'] = resData
             flagNumber++
             if (flagNumber === tempData.length) {

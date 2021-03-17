@@ -161,7 +161,7 @@ export default {
         for (let i = 0; i < tempData.length; i++) {
           promTaskApi(tempData[i].packageId, param).then((res) => {
             if (res.data) {
-              let reData = res.data
+              let reData = res.data.join(',').split(',')
               let index = 0
               for (let j = 0; j < reData.length; j++) {
                 this.appData[index][this.platformData[j].label] = reData[j]
