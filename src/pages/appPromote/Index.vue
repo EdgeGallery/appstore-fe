@@ -148,6 +148,7 @@
           @deleteApp="getDelete"
         />
         <eg-pagination
+          class="paginationStyle"
           :page-num="pageNum"
           :page-size="curPageSize"
           :page-sizes="pageSizes"
@@ -544,6 +545,10 @@ export default {
           background-color: #eee;
         }
       }
+    }
+    .paginationStyle{
+      float: right;
+      margin-top: -20px;
     }
     .batchProm {
       margin-bottom: 5px;

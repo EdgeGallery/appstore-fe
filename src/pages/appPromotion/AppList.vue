@@ -148,6 +148,7 @@
         </div>
       </div>
       <eg-pagination
+        class="paginationStyle"
         :page-num="pageNum"
         :page-size="pageSize"
         :total="total"
@@ -454,6 +455,10 @@ export default {
   .my-app-content {
     background: white;
     padding: 20px;
+    .paginationStyle{
+      float: right;
+      margin-top: -20px;
+    }
   }
 }
 .app-list {

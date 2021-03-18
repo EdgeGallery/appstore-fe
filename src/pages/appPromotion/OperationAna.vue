@@ -477,14 +477,14 @@ export default {
         let timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
         return timeValueA - timeValueB
       }
-      let findApp = (fieldName, type) => {
+      let findApp = (type) => {
         let fieldArr = []
         let appSort = []
         this.findAppData.forEach((item) => {
           if (type === 'name' || type === 'version' || type === 'provider' || type === 'messageType') {
-            fieldArr.push(item[fieldName].toLowerCase())
+            fieldArr.push(item[type].toLowerCase())
           } else {
-            fieldArr.push(item[fieldName])
+            fieldArr.push(item[type])
           }
         })
         if (type === 'time') {
@@ -503,11 +503,11 @@ export default {
         fieldArr.forEach((fieldItem) => {
           this.findAppData.forEach((item) => {
             if (type === 'name' || type === 'provider' || type === 'version' || type === 'messageType') {
-              if (item[fieldName].toLowerCase() === fieldItem) {
+              if (item[type].toLowerCase() === fieldItem) {
                 appSort.push(item)
               }
             } else {
-              if (item[fieldName] === fieldItem) {
+              if (item[type] === fieldItem) {
                 appSort.push(item)
               }
             }
@@ -517,17 +517,7 @@ export default {
       }
 
       let type = column.prop
-      if (type === 'name') {
-        this.findAppData = findApp('name', type)
-      } else if (type === 'provider') {
-        this.findAppData = findApp('provider', type)
-      } else if (type === 'version') {
-        this.findAppData = findApp('version', type)
-      } else if (type === 'messageType') {
-        this.findAppData = findApp('messageType', type)
-      } else if (type === 'time') {
-        this.findAppData = findApp('time', type)
-      }
+      this.findAppData = findApp(type)
     }
 
   },
