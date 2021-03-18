@@ -16,6 +16,14 @@
 
 <template>
   <div class="padding56">
+    <el-button
+      type="primary"
+      icon="el-icon-back"
+      @click="jumpToMyapp()"
+      style="margin: 10px;"
+    >
+      {{ $t('nav.myApp') }}
+    </el-button>
     <iframe
       title="atp"
       :src="srcUrl"
@@ -39,11 +47,14 @@ export default {
     getAtpUrl () {
       let currUrl = window.location.href
       if (currUrl.indexOf('30091') !== -1) {
-        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/atpprocess' + '?taskid=' + this.taskId
+        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/atpprocess' + '?taskId=' + this.taskId
       } else {
         this.srcUrl = currUrl.replace('appstore', 'atp')
-        this.srcUrl = this.srcUrl + '?taskid=' + this.taskId
+        this.srcUrl = this.srcUrl + '?taskId=' + this.taskId
       }
+    },
+    jumpToMyapp () {
+      this.$router.push('/myapp')
     }
   },
   mounted () {

@@ -16,6 +16,14 @@
 
 <template>
   <div class="padding56">
+    <el-button
+      type="primary"
+      icon="el-icon-back"
+      @click="jumpToMyapp()"
+      style="margin: 10px;"
+    >
+      {{ $t('nav.myApp') }}
+    </el-button>
     <iframe
       v-if="isRouterAlive"
       title="atp"
@@ -47,6 +55,9 @@ export default {
         this.srcUrl = currUrl.replace('appstore', 'atp')
         this.srcUrl = this.srcUrl + '?taskid=' + this.taskId + '&language=' + language
       }
+    },
+    jumpToMyapp () {
+      this.$router.push('/myapp')
     },
     rebuileComponents () {
       // 销毁子标签
