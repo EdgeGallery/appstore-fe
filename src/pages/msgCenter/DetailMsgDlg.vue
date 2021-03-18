@@ -64,10 +64,10 @@
           alt=""
           class="appBasicImg"
         >
-        <h3 class="appBasicInfoTitle">
+        <h4 class="appBasicInfoTitle">
           {{ $t("messageCenter.appBasicInfo") }}
-        </h3>
-        <div class="linestyle2">
+        </h4>
+        <div :class="language==='cn'?'linestyle2cn':'linestyle2en'">
           <hr style="border: 1px solid #DEE0E0;">
         </div>
       </div>
@@ -144,10 +144,10 @@
           alt=""
           class="appBasicImg"
         >
-        <h3 class="appBasicInfoTitle">
+        <h4 class="appBasicInfoTitle">
           {{ $t("messageCenter.appTestRepo") }}
-        </h3>
-        <div class="linestyle2">
+        </h4>
+        <div :class="language==='cn'?'linestyle2cn':'linestyle2en'">
           <hr style="border: 1px solid #DEE0E0;">
         </div>
       </div>
@@ -259,7 +259,7 @@ export default {
 
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .detailContent{
   height: 100%;
   .part1{
@@ -286,6 +286,7 @@ export default {
       .part1Second{
         float: right;
         margin-right: 30px;
+        margin-left: 10px;
         cursor: pointer;
         .operatorLine{
           width: 14px;
@@ -321,9 +322,16 @@ export default {
       height: 30px;
       margin-left: 15px;
       display: inline-block;
-      .linestyle2{
+      .linestyle2cn{
         margin-left: 5px;
-        width: 74%;
+        width: 76%;
+        float: left;
+        margin-top: 3px;
+        color: #366798;
+      }
+      .linestyle2en{
+        margin-left: 5px;
+        width: 67%;
         float: left;
         margin-top: 3px;
         color: #366798;
