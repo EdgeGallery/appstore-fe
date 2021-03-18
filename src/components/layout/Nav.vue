@@ -303,7 +303,7 @@ export default {
       loginPage: '',
       userCenterPage: '',
       ifGuest: true,
-      isAdmin: true,
+      isAdmin: false,
       menu_small: false,
       seen: false,
       unReadMsgCount: 0,
@@ -470,6 +470,8 @@ export default {
       if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1 || res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
         this.isAdmin = false
         this.list.splice(3, 1)
+      } else {
+        this.isAdmin = true
       }
       if (res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
         this.list.splice(2, 1)

@@ -16,7 +16,7 @@
 
 <template>
   <div class="app-pull">
-    <div class="app-pull-content">
+    <div>
       <div class="packageTable">
         <div class="search_pull">
           <el-input
@@ -94,6 +94,7 @@
         </el-table>
       </div>
       <eg-pagination
+        class="paginationStyle"
         :page-num="pageNum"
         :page-size="pageSize"
         :total="total"
@@ -295,7 +296,7 @@ export default {
 
 <style lang="less" scoped>
 .packageTable{
-  margin: 20px 0;
+  margin: 20px 0 40px 0;
   .el-table thead{
     th {
       background-color: #eee;
@@ -310,5 +311,9 @@ export default {
       margin-bottom: 10px;
     }
   }
+}
+.paginationStyle{
+  float: right;
+  margin-top: -20px;
 }
 </style>
