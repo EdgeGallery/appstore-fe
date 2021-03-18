@@ -233,7 +233,6 @@ export default {
           }
           providerItem.value = item.appStoreId
           providerItem.label = item.appStoreName
-          console.log(providerItem)
           this.appStoreList.push(providerItem)
           index++
         })
@@ -261,7 +260,6 @@ export default {
           'appstordetail',
           JSON.stringify(row)
         )
-        console.log('button select push')
       } else {
         sessionStorage.setItem(
           'appstordetail',
@@ -345,7 +343,6 @@ export default {
       }
     },
     sortChanged (column) {
-      console.log(column)
       let sortTime = (a, b) => {
         let timeValueA = 0
         let timeValueB = 0
@@ -426,7 +423,6 @@ export default {
   mounted () {
     this.getTableData()
     this.getProviders()
-    console.log(this.dataonLineListSelections)
     sessionStorage.setItem(
       'appstordetail',
       JSON.stringify(this.dataonLineListSelections)

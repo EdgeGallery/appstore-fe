@@ -79,8 +79,6 @@ export default {
     }
   },
   mounted () {
-    console.log('this is swiper')
-    console.log(this.SwiperList)
   }
 }
 </script>

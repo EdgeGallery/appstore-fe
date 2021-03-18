@@ -313,16 +313,7 @@ export default {
       this.selectedConditions.forEach((condition) => {
         conditionsTypes.push(condition.type)
         let type = condition.label.toString()
-        /* let conformData = this.appData.filter((item) => {
-          let itemAffinity = item.affinity
-          let itemType = item.type
-          let itemIndustry = item.industry
-          return (
-            type.match(itemAffinity) || type.match(itemType) || type.match(itemIndustry)
-          )
-        }) */
         let conformData = []
-        console.log(this.appData)
         this.appData.forEach(item => {
           if (type.indexOf(item.industry) !== -1 || type.indexOf(item.type) !== -1 || type.indexOf(item.affinity) !== -1) {
             conformData.push(item)
@@ -395,9 +386,7 @@ export default {
       }
     },
     getCurrentPageData (data) {
-      console.log(data)
       this.currentPageData = data
-      console.log(this.currentPageData)
     },
 
     handleNameQuery () {
@@ -434,7 +423,6 @@ export default {
       getAppTableApi().then(
         (res) => {
           this.appData = this.findAppData = res.data
-          console.log(this.appData)
           this.appData.forEach(item => {
             let newDateBegin = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = newDateBegin
@@ -484,8 +472,6 @@ export default {
     if (this.$route.params.data) {
       let params = JSON.parse(this.$route.params.data)
       this.selectedConditions = params
-      console.log(this.selectedConditions)
-      console.log(this.selectedConditions[0].label[1])
       this.industry.forEach((item) => {
         item.selected = false
         if (item.value === this.selectedConditions[0].label[1]) {
@@ -512,14 +498,8 @@ export default {
       })
     }
     this.getAppData()
-
-    // this.checkProjectData()
-    // this.findAppData = this.appData
     this.ifFromDetail()
-
-    console.log(this.appData)
     this.queryAppByCondition()
-    console.log(this.appData)
   }
 }
 </script>

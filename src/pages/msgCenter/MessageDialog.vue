@@ -92,7 +92,6 @@ export default {
       })
     },
     jumpToMsgDialog (item) {
-      console.log('jump item:' + item)
       if (item) {
         this.$router.push({ name: 'msgCenter', query: { item } })
       } else {
