@@ -80,7 +80,7 @@ const cn = {
     provider: '厂商',
     contact: '联系方式',
     operation: '操作',
-    detail: '详情',
+    detail: ' 详情',
     delete: '删除',
     cancel: '取消',
     confirm: '确认',
