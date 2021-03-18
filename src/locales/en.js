@@ -412,7 +412,7 @@ const en = {
     appVersion: 'version',
     appShortDes: 'description',
     appIndustry: 'industry',
-    appTestRepo: 'APP Test Repo',
+    appTestRepo: 'Application test report',
     appTestPlatform: 'test platform',
     atpTestPlatform: 'ATP test platform',
     atpTestStatus: 'test status',
@@ -428,7 +428,9 @@ const en = {
     appStoreName: 'AppStore Name',
     testRepoKey: 'test report',
     clickToCheckRepo: 'click to view!',
-    updateMsgFailed: 'update message status failed'
+    updateMsgFailed: 'update message status failed',
+    returnToList: 'Return to message list',
+    msgDetailInfo: 'Message details'
   },
   appPull: {
     name: 'app name',

@@ -98,7 +98,7 @@
     </div>
     <div
       class="rightMsg"
-      v-show="isShowDlg"
+      v-if="isShowDlg"
     >
       <DetailMsgDlg
         :data="currentDetailMsg"
