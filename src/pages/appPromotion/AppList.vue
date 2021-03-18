@@ -59,7 +59,7 @@
           />
         </div>
 
-        <div class="packageTable">
+        <div class="appPromPackageTable">
           <el-table
             :data="currentPageData"
             :default-sort="{prop: 'latestPushTime', order: 'descending'}"
@@ -304,6 +304,7 @@ export default {
       this.$nextTick(function () {
         let start = this.curPageSize * (this.pageNum - 1)
         let end = this.curPageSize * this.pageNum
+        this.currentPageData = []
         this.currentPageData = this.findAppData.slice(start, end)
       })
     },
@@ -485,7 +486,7 @@ export default {
     float: left;
     margin-bottom: 10px;
   }
-  .packageTable{
+  .appPromPackageTable{
     margin: 20px 0;
     .el-table thead{
       th {

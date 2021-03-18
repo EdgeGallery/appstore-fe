@@ -220,7 +220,7 @@ export default new Router({
           name: 'apppromotion',
           component: () => import('./pages/appPromotion/AppList.vue'),
           meta: {
-            id: '2.5',
+            id: '2.8',
             breadcrumb: [
               {
                 nameEn: en.nav.home,
@@ -264,7 +264,7 @@ export default new Router({
           name: 'operationAnalyse',
           component: () => import('./pages/appPromotion/OperationAna.vue'),
           meta: {
-            id: '2.5',
+            id: '2.9',
             breadcrumb: [
               {
                 nameEn: en.nav.home,
@@ -286,7 +286,7 @@ export default new Router({
           name: 'promTask',
           component: () => import('./pages/appPromotion/PromTask.vue'),
           meta: {
-            id: '2.5.1',
+            id: '2.8.1',
             breadcrumb: [
               { nameEn: 'appProm', path: '/appProm', nameCn: '应用推送' },
               { nameEn: 'Batch Promot', nameCn: '推送' }
