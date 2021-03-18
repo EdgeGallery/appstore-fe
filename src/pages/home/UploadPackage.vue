@@ -551,9 +551,6 @@ export default {
       return this.base64toFile(dataURL)
     },
     changeIcon (val) {
-      console.log('this is first')
-      console.log(val)
-      console.log('this is end')
       this.packageForm.base64Session = true
       this.defaultIconFile = []
       this.packageForm.defaultActive = 0
@@ -563,7 +560,6 @@ export default {
           break
         case 'Game Application':
           this.defaultIcon.splice(0, 1, this.defaultIconData[1])
-          console.log(this.defaultIcon)
           break
         case 'Video Surveillance':
           this.defaultIcon.splice(0, 1, this.defaultIconData[2])
@@ -822,13 +818,10 @@ export default {
       })
     },
     fileComplete () {
-      console.log('file complete', arguments)
       const file = arguments[0].file
       let url = this.mergerUrl + file.name + '&guid=' + arguments[0].uniqueIdentifier
       axios.get(url).then(response => {
-        console.log(response.data)
         this.fileAddress = response.data
-        console.log(this.fileAddress)
       }).catch(error => {
         console.log(error)
       })

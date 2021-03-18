@@ -142,8 +142,6 @@ export default {
     showPullAppDialog (row) {
       this.appPullResultData = []
       let tempData = JSON.parse(sessionStorage.getItem('allAppPullInfo'))
-      console.log(tempData.length)
-
       for (let i = 0; i < tempData.length; i++) {
         let pullResult = {
           name: tempData[i].name,
@@ -208,7 +206,6 @@ export default {
                     sourceStoreName: resAppstore[i].label,
                     isSelectToPull: false
                   }
-                  console.log('test appstore' + resAppstore[i].appStoreId)
                   appStoreToApps.push(appDataItem)
                 }
               )
@@ -220,7 +217,7 @@ export default {
               this.appStoreList.push(tempdata)
             }
             if (!this.hasActiveDefault && this.appStoreList.length > 0) {
-              this.currentTableData = this.appStoreList[0]
+              this.currentTableData = this.appStoreList[0].content
               this.value = this.appStoreList[0].name
               this.hasActiveDefault = true
             }

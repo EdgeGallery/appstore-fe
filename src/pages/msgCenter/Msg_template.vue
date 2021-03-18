@@ -301,7 +301,6 @@ export default {
   },
   watch: {
     '$route': function (to, from) {
-      console.log(to.query.item.messageId)
       this.locateMessage(to.query.item)
     },
     '$i18n.locale': function () {

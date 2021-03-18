@@ -147,7 +147,6 @@ export default {
   },
   methods: {
     getAppStoreDocs () {
-      console.log(this.activeName)
       getDocsApi(this.language, this.activeName).then(res => {
         this.source = res.data ? res.data : ''
       })

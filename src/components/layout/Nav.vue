@@ -100,7 +100,7 @@
           <div
             class="el-icon-bell"
             @click="jumperToMsgDialog"
-            v-if="!ifAdmin"
+            v-if="isAdmin"
             @mouseenter="enter"
             @mouseleave="leave"
           >
@@ -160,7 +160,7 @@
           @mouseleave="leave"
         >
           <messageDialog
-            v-if="!ifGuest"
+            v-if="isAdmin"
             @msgEvent="getMsg"
             @msgCheckAllEvent="checkAllMsg"
           />
@@ -303,7 +303,7 @@ export default {
       loginPage: '',
       userCenterPage: '',
       ifGuest: true,
-      ifAdmin: false,
+      isAdmin: true,
       menu_small: false,
       seen: false,
       unReadMsgCount: 0,
@@ -456,8 +456,6 @@ export default {
       this.loginPage = res.data.loginPage
       this.userCenterPage = res.data.userCenterPage
       if (res.data.authorities.indexOf('ROLE_APPSTORE_ADMIN') > -1) {
-        console.log('test role*****')
-        console.log(res.data.authorities.indexOf('ROLE_APPSTORE_ADMIN'))
         sessionStorage.setItem('userNameRole', 'admin')
       } else if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1) {
         sessionStorage.setItem('userNameRole', 'tenant')
@@ -470,7 +468,7 @@ export default {
         this.ifGuest = false
       }
       if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1 || res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
-        this.ifAdmin = true
+        this.isAdmin = false
         this.list.splice(3, 1)
       }
       if (res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {

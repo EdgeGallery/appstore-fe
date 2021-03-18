@@ -163,7 +163,6 @@
         :with-header="false"
         :closable="false"
         :visible="visible"
-        :after-visible-change="afterVisibleChange"
         @close="onClose"
       >
         <div class="detailInfo">
@@ -244,11 +243,7 @@ export default {
         return 'hiddenClass'
       }
     },
-    afterVisibleChange (val) {
-      console.log('visible', val)
-    },
     showDrawer (row) {
-      console.log(row)
       this.middleData = JSON.parse(JSON.stringify(row))
       this.visible = true
     },
@@ -403,16 +398,13 @@ export default {
       let minutes = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
       let seconds = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
       date = Y + '-' + M + '-' + D + ' ' + hours + ':' + minutes + ':' + seconds
-      console.log(date)
       return date
     },
     getDateValue (datestr) {
       let dayValue = this.dateDiff(this.getCurrentTime(new Date()).split(' ')[0], datestr)
-      console.log(dayValue)
       return dayValue
     },
     getRecent7days () {
-      // xxxx-xx-xx --> xx/xx
       let recent7daysStr = []
       let now = new Date()
       let day1 = this.getCurrentTime(now).split(' ')[0]
@@ -429,7 +421,6 @@ export default {
         recent7daysStr.push(daytime)
       }
       recent7daysStr.push(day1)
-      console.log(recent7daysStr)
       return recent7daysStr
     },
     // 获取最近七天的pull app数量
@@ -481,7 +472,6 @@ export default {
       if (!this.nameQuery) this.findAppData = this.appPackageData
     },
     sortChanged (column) {
-      console.log(column)
       let sortTime = (a, b) => {
         let timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
         let timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
@@ -523,7 +513,6 @@ export default {
             }
           })
         })
-        console.log('finish sort ' + appSort.length)
         return appSort
       }
 

@@ -111,8 +111,6 @@ export default {
     handleExecute () {
       this.appPullResultData = []
       let tempData = JSON.parse(sessionStorage.getItem('allAppPullInfo'))
-      console.log(tempData.length)
-
       for (let i = 0; i < tempData.length; i++) {
         let pullResult = {
           name: tempData[i].name,

@@ -137,9 +137,6 @@ export default {
     currentChange (val) {
       this.pageNum = val
     },
-    handleClick (tab, event) {
-      console.log(tab, event)
-    },
     unique (arr) {
       if (!Array.isArray(arr)) {
         console.log('type error!')
@@ -209,7 +206,6 @@ export default {
       this.total = this.findAppData.length
     },
     sortChanged (column) {
-      console.log(column)
       let sortTime = (a, b) => {
         let timeValueA = 0
         let timeValueB = 0
@@ -261,7 +257,6 @@ export default {
             }
           })
         })
-        console.log('finish sort ' + appSort.length)
         return appSort
       }
 

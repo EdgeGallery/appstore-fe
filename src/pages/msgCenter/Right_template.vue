@@ -18,7 +18,6 @@
   <div>
     <el-tabs
       v-model="activeName"
-      @tab-click="handleClick"
     >
       <el-tab-pane
         v-for="(item) in allTabsMsg"
@@ -124,9 +123,6 @@ export default {
     }
   },
   methods: {
-    handleClick (tab, event) {
-      console.log(tab, event)
-    },
     getTabsTitle (key) {
       let localKey = 'messageCenter.' + key
       return this.$t(localKey)

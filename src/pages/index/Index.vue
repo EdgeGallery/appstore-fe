@@ -479,10 +479,7 @@ export default {
       }
     },
     selectedCondition (type, index) {
-      console.log(type)
-      console.log(index)
       this[type][index].selected = !this[type][index].selected
-      console.log(this[type][index].selected)
       this.selectedCondition2()
     },
     selectedCondition1 (type, index) {
@@ -508,7 +505,6 @@ export default {
           })
         })
       }
-      console.log(this.selectedConditions)
       this.$router.push({ name: 'appstorename', params: { data: JSON.stringify(this.selectedConditions) } })
     },
     jumpToAppList () {
