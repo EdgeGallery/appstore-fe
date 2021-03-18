@@ -246,7 +246,7 @@ export default {
       return filterData
     },
     uploadPackage () {
-      let userName = sessionStorage.getItem('userName')
+      let userName = sessionStorage.getItem('userNameRole')
       if (userName === 'guest') {
         this.uploadDiaVis = false
       } else {
@@ -496,6 +496,12 @@ export default {
         }
       })
       this.affinity.forEach((item) => {
+        item.selected = false
+        if (item.value === this.selectedConditions[0].label) {
+          item.selected = true
+        }
+      })
+      this.sortBy.forEach((item) => {
         item.selected = false
         if (item.value === this.selectedConditions[0].label[1]) {
           item.selected = true

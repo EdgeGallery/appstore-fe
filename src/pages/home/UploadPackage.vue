@@ -74,19 +74,18 @@
           </div>
           <div class="tipFile">
             <div class="tipFile">
-              <label
-                v-for="(item, index) in radioData"
-                :key="index"
-                class="lableStyle"
+              <el-radio-group
+                v-model="radioVal"
+                @change="getRadioVal"
               >
-                <input
-                  type="radio"
-                  v-model="radioVal"
-                  :value="item.value"
-                  @change="getRadioVal"
+                <el-radio
+                  v-for="(item, index) in radioData"
+                  :key="index"
+                  :label="item.value"
                 >
-                {{ item.value }}
-              </label>
+                  {{ item.value }}
+                </el-radio>
+              </el-radio-group>
             </div>
             <div
               class="tipFile"
@@ -385,9 +384,7 @@ export default {
   },
   methods: {
     getRadioVal () {
-      console.log(this.radioVal)
-      console.log(this.ifUploadMin)
-      console.log(this.ifUploadBig)
+      this.rules.fileList[0].required = false
       if (this.radioVal === '文件大小不超过10M') {
         this.ifUploadMin = true
         this.ifUploadBig = false
@@ -859,8 +856,8 @@ export default {
     this.options.headers = { 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN') }
     let url = window.location.origin
     url = url.replace('8083', '9082')
-    this.options.target = url + URL_PREFIX + 'image/upload'
-    this.mergerUrl = url + URL_PREFIX + 'image/merge?fileName='
+    this.options.target = url + URL_PREFIX + 'apps/upload'
+    this.mergerUrl = url + URL_PREFIX + 'apps/merge?fileName='
   }
 }
 
@@ -906,16 +903,19 @@ export default {
   .tipFile{
     float: left;
     font-size: 12px;
-    margin-left: 12px;
+    margin-left: 10px;
     margin-top: 6px;
     color: #606266;
     .el-icon-warning:before {
     content: aqua;
     }
     .lableStyle{
-      margin-left: 12px;
+      margin-left: 10px;
       font-size: 12px;
       color: #606266;
+      input{
+        background: #688ef3;
+      }
   }
   }
 

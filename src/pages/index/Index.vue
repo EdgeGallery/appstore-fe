@@ -137,7 +137,12 @@
         {{ $t('store.higherScore') }}
       </h3>
       <p class="home_more">
-        <el-link @click="selectedCondition1('Score', 2)">
+        <el-link
+          v-for="(item,index) in scoreData"
+          :key="index"
+          @click="selectedCondition(item.type,item.index)"
+          :underline="false"
+        >
           {{ $t('store.viewMore') }}
         </el-link>
       </p>
@@ -339,7 +344,7 @@
 </template>
 
 <script>
-import { INDUSTRY, TYPES, AFFINITY } from '../../tools/constant.js'
+import { INDUSTRY, TYPES, AFFINITY, SORT_BY } from '../../tools/constant.js'
 import uploadPackage from '../home/UploadPackage.vue'
 // import homes from '../home/Index.vue'
 import { mapState } from 'vuex'
@@ -363,6 +368,11 @@ export default {
         require('../../assets/images/home_new_app5.png'),
         require('../../assets/images/home_new_app6.png')
       ],
+      scoreData: [
+        {
+          type: 'sortBy',
+          index: 2
+        }],
       recommendData: [
         {
           imgSrc: require('../../assets/images/home_recommend_pic1.jpg'),
@@ -442,6 +452,7 @@ export default {
       industry: INDUSTRY,
       types: TYPES,
       affinity: AFFINITY,
+      sortBy: SORT_BY,
       contactUrl: 'http://www.edgegallery.org',
       giteeUrl: 'https://gitee.com/edgegallery',
       developerUrl: '',
@@ -489,7 +500,7 @@ export default {
     },
     selectedCondition2 () {
       this.selectedConditions = []
-      let types = ['types', 'affinity', 'industry']
+      let types = ['types', 'affinity', 'industry', 'sortBy']
       if (this.selectedConditions) {
         types.forEach((item) => {
           this[item].forEach((condition) => {

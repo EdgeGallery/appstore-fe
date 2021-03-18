@@ -48,6 +48,7 @@ export default {
     },
     '$i18n.locale': function () {
       this.getNeedShowData()
+      this.getBreadCrumbData()
     }
   },
   methods: {
@@ -57,29 +58,33 @@ export default {
       language === 'en' ? this.breadCrumbData.forEach(ele => showData.push({ name: ele.nameEn, path: ele.path }))
         : this.breadCrumbData.forEach(ele => showData.push({ name: ele.nameCn, path: ele.path }))
       this.dataNeedShown = showData
+    },
+    getBreadCrumbData () {
+      this.breadCrumbData = this.$route.meta.breadcrumb
+      let nameObj = {
+        nameCn: '',
+        nameEn: ''
+      }
+      if (this.$route.fullPath === '/myappdetail') {
+        let detailData = JSON.parse(sessionStorage.getItem('myappdetail'))
+        nameObj.nameCn = detailData.name + this.$t('common.detail')
+        nameObj.nameEn = detailData.name + this.$t('common.detail')
+        this.breadCrumbData.splice(2, 1, nameObj)
+      } else if (this.$route.fullPath === '/detail') {
+        let detailData = JSON.parse(sessionStorage.getItem('appstordetail'))
+        nameObj.nameCn = detailData.name + this.$t('common.detail')
+        nameObj.nameEn = detailData.name + this.$t('common.detail')
+        this.breadCrumbData.splice(1, 1, nameObj)
+      }
+      if (this.breadCrumbData && this.breadCrumbData.length > 0) {
+        this.isShow = true
+        this.getNeedShowData()
+      }
     }
+
   },
   mounted () {
-    this.breadCrumbData = this.$route.meta.breadcrumb
-    let nameObj = {
-      nameCn: '',
-      nameEn: ''
-    }
-    if (this.$route.fullPath === '/myappdetail') {
-      let detailData = JSON.parse(sessionStorage.getItem('myappdetail'))
-      nameObj.nameCn = detailData.name + ' ÏêÇé'
-      nameObj.nameEn = detailData.name + ' detail'
-      this.breadCrumbData.splice(2, 1, nameObj)
-    } else if (this.$route.fullPath === '/detail') {
-      let detailData = JSON.parse(sessionStorage.getItem('appstordetail'))
-      nameObj.nameCn = detailData.name + ' ÏêÇé'
-      nameObj.nameEn = detailData.name + ' detail'
-      this.breadCrumbData.splice(1, 1, nameObj)
-    }
-    if (this.breadCrumbData && this.breadCrumbData.length > 0) {
-      this.isShow = true
-      this.getNeedShowData()
-    }
+    this.getBreadCrumbData()
   }
 }
 </script>
