@@ -301,9 +301,11 @@ export default {
       })
     },
     refreshCurrentData () {
-      let start = this.curPageSize * (this.pageNum - 1)
-      let end = this.curPageSize * this.pageNum
-      this.currentPageData = this.findAppData.slice(start, end)
+      this.$nextTick(function () {
+        let start = this.curPageSize * (this.pageNum - 1)
+        let end = this.curPageSize * this.pageNum
+        this.currentPageData = this.findAppData.slice(start, end)
+      })
     },
     handleNameQuery () {
       this.findAppData = this.appPackageData
