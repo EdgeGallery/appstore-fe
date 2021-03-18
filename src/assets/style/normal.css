@@ -113,7 +113,7 @@ a{
   cursor: pointer;
 }
 .padding56{
-  padding: 0 56px;
+  padding: 0 200px;
   padding-bottom: 25px;
   box-sizing: border-box;
 }
@@ -173,4 +173,9 @@ a{
   background-color: #86a5f5;
   border-color: #86a5f5;
   color: #fff;
+}
+@media screen and (max-width:1380px){
+  .padding56{
+    padding: 0 56px;
+  }
 }
