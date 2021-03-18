@@ -16,9 +16,6 @@
 
 <template>
   <div class="home">
-    <div>
-      <home-swiper />
-    </div>
     <div class="app">
       <el-row class="app-content">
         <el-col
@@ -530,7 +527,6 @@ export default {
 <style lang="less" scoped>
 .home {
   margin-top: 65px;
-  background: white;
   .el-form-item {
     margin-bottom: 0;
   }
@@ -572,11 +568,11 @@ export default {
     }
   }
   .app {
-    padding: 0 56px;
+    padding: 30px 200px;
     box-sizing: border-box;
     .app-content {
       background: white;
-      padding: 0px;
+      padding: 30px 40px;
       box-sizing: border-box;
       .search {
         font-size: 16px;
@@ -625,7 +621,9 @@ export default {
           border-bottom: 1px solid #e7ebf5;
         }
         .sort-type {
-          margin-top: 10px;
+          margin-top: 15px;
+          min-height: 36px;
+          line-height: 36px;
           strong {
             margin-right: 50px;
             font-size: 14px;
@@ -633,23 +631,29 @@ export default {
             font-weight: bold;
             display: inline-block;
             width: 85px;
-            background: #14C2C3;
+            height: 30px;
+            line-height: 30px;
+            background: #688ef3;
             text-align: center;
           }
           .box {
             display: inline-block;
-            padding: 6px 8px;
             margin: 0 10px;
             font-size: 14px;
             position: relative;
           }
           .selected {
-            border-radius: 12px;
-            background-color: #688ef3;
-            color: white;
+            color: #688ef3;
+            font-size: 16px;
+            font-weight: bold;
           }
         }
       }
+    }
+  }
+  @media screen and (max-width:1380px){
+    .app{
+      padding: 30px 56px;
     }
   }
 }
