@@ -856,8 +856,8 @@ export default {
     this.options.headers = { 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN') }
     let url = window.location.origin
     url = url.replace('8083', '9082')
-    this.options.target = url + URL_PREFIX + 'app/upload'
-    this.mergerUrl = url + URL_PREFIX + 'app/merge?fileName='
+    this.options.target = url + URL_PREFIX + 'apps/upload'
+    this.mergerUrl = url + URL_PREFIX + 'apps/merge?fileName='
   }
 }
 
