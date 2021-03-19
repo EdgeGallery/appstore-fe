@@ -209,7 +209,8 @@ const en = {
     addYourAppTitle: 'Conveniently and quickly receive AppStore, quickly realize application testing and sharing',
     developerPlateform: 'Developer Plateform',
     officialGuide: 'Official Guidance',
-    recommendBroswer: 'It is recommended to use Google Chrome and IE9 or higher browsers to browse'
+    recommendBroswer: 'It is recommended to use Google Chrome and IE9 or higher browsers to browse',
+    downloadNum: ' Downloads'
   },
   docs: {
     step1: 'Open source MEP platform',

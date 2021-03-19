@@ -225,7 +225,8 @@ const cn = {
     addYourAppTitle: '方便快捷的接入AppStore，快速实现应用测试与共享',
     developerPlateform: '开发者平台',
     officialGuide: '官方指导',
-    recommendBroswer: '建议使用Google Chrome及IE9以上浏览器浏览'
+    recommendBroswer: '建议使用Google Chrome及IE9以上浏览器浏览',
+    downloadNum: '次下载'
   },
   docs: {
     // step1: '开源MEP平台',
