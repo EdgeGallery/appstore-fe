@@ -316,7 +316,8 @@ export default {
       if (to.path === '/detail' && from.path === '/index') {
         this.activeIndex = '/index'
       }
-      if (to.path === '/detail' && from.path === '/myapp') {
+      if ((to.path === '/detail' && from.path === '/myapp') || (to.path === '/app/test/task' && from.path === '/myapp') || (to.path === '/atpreport' && from.path === '/myapp') ||
+       (to.path === '/myappdetail' && from.path === '/myapp') || (to.path === '/atpprocess' && from.path === '/myapp') || (to.path === '/atptestcase' && from.path === '/myapp')) {
         this.activeIndex = '/myapp'
       }
       let path = this.$route.path
