@@ -622,7 +622,6 @@ export default {
           }
           .selected {
             color: #688ef3;
-            font-size: 16px;
             font-weight: bold;
           }
         }

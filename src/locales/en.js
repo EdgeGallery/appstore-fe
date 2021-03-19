@@ -242,7 +242,7 @@ const en = {
     appPublish: 'Publish Application',
     appView: 'View Application',
     summary: 'Summary',
-    operateFile: 'User Operate Guidance',
+    operateFile: 'Beginner Guidance',
     operaContent: 'A picture teaches you to quickly become familiar with the basic functions of the AppStore, from viewing applications to sharing applications is that simple！',
     toscaFolder: 'TOSCA-Metadata Directory',
     APPDFolder: 'APPD Directory',
