@@ -124,7 +124,7 @@ export default new Router({
           name: 'atptask',
           component: () => import('./pages/myApp/ATPTask.vue'),
           meta: {
-            id: '2.4.1',
+            id: '2.4.2',
             breadcrumb: [{
               nameEn: en.nav.home,
               path: '/',
@@ -144,7 +144,7 @@ export default new Router({
           name: 'atpreport',
           component: () => import('./pages/myApp/ATPReport.vue'),
           meta: {
-            id: '2.4.1',
+            id: '2.4.3',
             breadcrumb: [{
               nameEn: en.nav.home,
               path: '/',
@@ -168,7 +168,7 @@ export default new Router({
           name: 'atpprocess',
           component: () => import('./pages/myApp/ATPProcess.vue'),
           meta: {
-            id: '2.4.1',
+            id: '2.4.4',
             breadcrumb: [{
               nameEn: en.nav.home,
               path: '/',
@@ -192,7 +192,7 @@ export default new Router({
           name: 'selectscene',
           component: () => import('./pages/myApp/TestScenarios.vue'),
           meta: {
-            id: '2.4.1',
+            id: '2.4.5',
             breadcrumb: [{
               nameEn: en.nav.home,
               path: '/',
