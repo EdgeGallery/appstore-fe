@@ -63,13 +63,19 @@
         </p>
       </div>
       <div class="app_score">
-        <span class="score_num">{{ score }}</span>
-        <el-rate
-          v-model="score"
-          disabled
-          text-color="#ff9900"
-          score-template="{value}"
-        />
+        <p><span class="download_num">{{ 5 }}</span>{{ $t('store.downloadcount') }}</p>
+
+        <p class="score_num">
+          {{ score }}
+        </p>
+        <p>
+          <el-rate
+            v-model="score"
+            disabled
+            text-color="#ff9900"
+            score-template="{value}"
+          />
+        </p>
         <p class="score_btn">
           <el-button
             type="primary"
@@ -493,6 +499,8 @@ export default {
 .app_detail{
   p{
     margin-bottom: 0;
+    text-align: center;
+    font-size: 14px;
   }
   .app_info_div{
     background: #fff;
@@ -560,13 +568,17 @@ export default {
     }
     .app_score{
       width: 180px;
+      .download_num{
+        text-align: center;
+        font-size: 15px;
+      }
       .score_num{
         float: left;
         width: 35px;
         text-align: center;
         height: 20px;
         line-height: 20px;
-        font-size: 26px;
+        font-size: 24px;
         font-weight: bold;
         margin-right: 5px;
       }

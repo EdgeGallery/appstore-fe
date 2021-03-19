@@ -56,19 +56,19 @@
         <div class="docImg">
           <div class="subDocImg">
             <img
-              src="../../assets/images/summary1.png"
+              :src="language === 'cn'? summary1 : summaryen1"
               alt
             >
           </div>
           <div class="subDocImg">
             <img
-              src="../../assets/images/summary2.png"
+              :src="language === 'cn'? summary2 : summaryen2"
               alt
             >
           </div>
           <div class="subDocImg">
             <img
-              src="../../assets/images/summary3.png"
+              :src="language === 'cn'? summary3 : summaryen3"
               alt
             >
           </div>
@@ -80,6 +80,12 @@
 <script>
 import { mapState } from 'vuex'
 import { getDocsApi } from '../../tools/api.js'
+import summary1 from '@/assets/images/summary1.png'
+import summaryen1 from '@/assets/images/summaryen1.png'
+import summary2 from '@/assets/images/summary2.png'
+import summaryen2 from '@/assets/images/summaryen2.png'
+import summary3 from '@/assets/images/summary3.png'
+import summaryen3 from '@/assets/images/summaryen3.png'
 export default {
   props: {
     treeId: {
@@ -92,7 +98,13 @@ export default {
   },
   data () {
     return {
-      source: ''
+      source: '',
+      summary1: summary1,
+      summaryen1: summaryen1,
+      summary2: summary2,
+      summaryen2: summaryen2,
+      summary3: summary3,
+      summaryen3: summaryen3
     }
   },
   methods: {
