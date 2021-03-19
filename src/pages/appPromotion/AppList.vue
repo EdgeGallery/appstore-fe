@@ -251,13 +251,13 @@ export default {
         for (let i = 0; i < this.appStoreList.length; i++) {
           this.promProviderList.push(this.appStoreList[i])
         }
-        return
-      }
-      for (let i = 0; i < this.value.length; i++) {
-        for (let j = 0; j < this.appStoreList.length; j++) {
-          if (this.appStoreList[j].value === this.value[i]) {
-            this.promProviderList.push(this.appStoreList[j])
-            break
+      } else {
+        for (let i = 0; i < this.value.length; i++) {
+          for (let j = 0; j < this.appStoreList.length; j++) {
+            if (this.appStoreList[j].value === this.value[i]) {
+              this.promProviderList.push(this.appStoreList[j])
+              break
+            }
           }
         }
       }
