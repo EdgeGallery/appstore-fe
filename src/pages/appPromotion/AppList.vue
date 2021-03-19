@@ -287,7 +287,7 @@ export default {
               version: item.version,
               atpTestStatus: item.atpTestStatus,
               atpTestReportUrl: item.atpTestReportUrl,
-              latestPushTime: item.latestPushTime,
+              latestPushTime: item.latestPushTime.split('.')[0],
               pushTimes: item.pushTimes,
               packageId: item.packageId,
               targetPlatform: ['All']
