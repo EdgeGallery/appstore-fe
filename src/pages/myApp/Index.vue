@@ -120,6 +120,7 @@
           <el-table-column
             :column-key="'status'"
             prop="status"
+            width="130"
             :label="$t('myApp.status')"
             :filters="[{text: 'Upload', value: 'Upload'}, {text: 'Test_created', value: 'Test_created'}, {text: 'Test_create_failed', value: 'Test_create_failed'}, {text: 'Test_running', value: 'Test_running'}, {text: 'Test_waiting', value: 'Test_waiting'},{text: 'Test_failed', value: 'Test_failed'}, {text: 'Test_success', value: 'Test_success'}, {text: 'Published', value: 'Published'}]"
             :filtered-value="filterValue.status"
@@ -127,7 +128,7 @@
           <el-table-column
             fixed="right"
             :label="$t('myApp.operation')"
-            width="260"
+            width="210"
           >
             <template slot-scope="scope">
               <el-button
@@ -521,6 +522,7 @@ export default {
 .myApp {
   .myApp-content {
     background: white;
+    margin-top: 95px;
     padding: 20px;
     // height: calc(100% - 10px);
     .myApp-operArea {

@@ -88,15 +88,7 @@ export default new Router({
           name: 'appstoremyapp',
           component: () => import('./pages/myApp/Index.vue'),
           meta: {
-            id: '2.4',
-            breadcrumb: [{
-              nameEn: en.nav.home,
-              path: '/',
-              nameCn: cn.nav.home
-            }, {
-              nameEn: en.nav.myApp,
-              nameCn: cn.nav.myApp
-            }]
+            id: '2.4'
           }
         },
         {

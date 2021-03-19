@@ -460,7 +460,6 @@ export default {
     },
     uploadPackage () {
       let userName = sessionStorage.getItem('userNameRole')
-      // let userName = sessionStorage.getItem('userName')
       if (userName === 'guest') {
         this.uploadDiaVis = false
       } else {
