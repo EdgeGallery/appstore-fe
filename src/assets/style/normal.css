@@ -174,8 +174,14 @@ a{
   border-color: #86a5f5;
   color: #fff;
 }
+.bread-crumb{
+  padding: 0 200px !important;
+}
 @media screen and (max-width:1380px){
   .padding56{
     padding: 0 56px;
+  }
+  .bread-crumb{
+    padding: 0 56px !important;
   }
 }

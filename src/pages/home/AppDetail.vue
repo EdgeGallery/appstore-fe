@@ -63,19 +63,18 @@
         </p>
       </div>
       <div class="app_score">
-        <p><span class="download_num">{{ 5 }}</span>{{ $t('store.downloadcount') }}</p>
-
+        <p class="download_num">
+          {{ downloadNum }}{{ this.$t('store.downloadNum') }}
+        </p>
         <p class="score_num">
           {{ score }}
         </p>
-        <p>
-          <el-rate
-            v-model="score"
-            disabled
-            text-color="#ff9900"
-            score-template="{value}"
-          />
-        </p>
+        <el-rate
+          v-model="score"
+          disabled
+          text-color="#ff9900"
+          score-template="{value}"
+        />
         <p class="score_btn">
           <el-button
             type="primary"
@@ -264,7 +263,8 @@ export default {
       videoIconUrl: require('../../assets/images/app_detail_video.png'),
       language: localStorage.getItem('language'),
       pathSource: sessionStorage.getItem('pathSource'),
-      packageId: ''
+      packageId: '',
+      downloadNum: 26
     }
   },
   watch: {
@@ -436,6 +436,7 @@ export default {
           res.data.forEach(item => {
             if (item.appId === this.appId) {
               this.score = item.score
+              this.downloadNum = item.downloadCount
             }
           })
         },
@@ -477,6 +478,7 @@ export default {
     this.appId = this.details.appId
     if (this.details.score) {
       this.score = this.details.score
+      this.downloadNum = this.details.downloadCount
     }
     if (this.details.packageId) {
       this.packageId = this.details.packageId
@@ -499,8 +501,8 @@ export default {
 .app_detail{
   p{
     margin-bottom: 0;
-    text-align: center;
     font-size: 14px;
+    width: 100%;
   }
   .app_info_div{
     background: #fff;
@@ -569,22 +571,25 @@ export default {
     .app_score{
       width: 180px;
       .download_num{
+        float: left;
+        height: 26px;
+        line-height: 26px;
         text-align: center;
-        font-size: 15px;
+        margin-bottom: 5px;
       }
       .score_num{
         float: left;
-        width: 35px;
         text-align: center;
         height: 20px;
         line-height: 20px;
         font-size: 24px;
         font-weight: bold;
-        margin-right: 5px;
+        margin: 5px 0;
       }
       .el-rate{
         float: left;
-        width: 140px;
+        width: 100%;
+        text-align: center;
         .el-rate__icon{
           font-size: 22px;
           margin: 0 0 0 6px;
@@ -593,8 +598,8 @@ export default {
       .score_btn{
         float: left;
         width: 100%;
+        margin-top: 15px;
         text-align: center;
-        margin-top: 25px;
         .el-button{
           width: 130px;
           border-radius: 0;

@@ -498,11 +498,12 @@ export default {
   position: fixed;
   z-index: 9999;
   width: 100%;
+  padding: 0 200px;
 
   .logo {
     height: 65px;
     line-height: 65px;
-    padding-left: 25px;
+    margin-left: -15px;
     img {
       height: 65px;
     }
@@ -659,6 +660,11 @@ export default {
     .nav-tabs{
       padding-right: 1px;
     }
+  }
+}
+@media screen and (max-width:1380px){
+  .headerComp{
+    padding: 0 56px;
   }
 }
 </style>
