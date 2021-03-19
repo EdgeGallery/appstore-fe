@@ -266,7 +266,7 @@ export default {
     },
     defaultSort () {
       setTimeout(() => {
-        this.$refs.multipleTable.sort('latestPushTime', 'descending')
+        this.$refs.multipleTable.sort('createTime', 'descending')
       }, 500)
     }
   },
