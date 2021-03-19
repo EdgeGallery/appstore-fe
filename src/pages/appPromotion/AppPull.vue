@@ -220,6 +220,7 @@ export default {
               this.currentTableData = this.appStoreList[0].content
               this.value = this.appStoreList[0].name
               this.hasActiveDefault = true
+              this.rebuileComponents()
             }
           }).catch(() => {
             this.$message({
