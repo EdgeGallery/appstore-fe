@@ -521,6 +521,7 @@ export default {
 .myApp {
   .myApp-content {
     background: white;
+    margin-top: 95px;
     padding: 20px;
     // height: calc(100% - 10px);
     .myApp-operArea {

@@ -188,7 +188,7 @@ export default {
   },
   data () {
     return {
-      ifShow: false,
+      ifShow: true,
       language: localStorage.getItem('language'),
       advancedStatus: false,
       uploadDiaVis: false,
@@ -451,8 +451,6 @@ export default {
   mounted () {
     if (sessionStorage.getItem('userNameRole') === 'guest') {
       this.ifShow = false
-    } else {
-      this.ifShow = true
     }
     this.types.forEach((item) => {
       item.selected = false
