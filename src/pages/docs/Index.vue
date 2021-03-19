@@ -16,7 +16,13 @@
 
 <template>
   <div class="works">
-    <bannerImage />
+    <div class="banner-image">
+      <img
+        :src="language === 'cn'?howworks:howworksEN"
+        class="imgMsgStyle"
+        alt=""
+      >
+    </div>
     <div class="how-it-works">
       <el-tabs
         v-model="activeName"
@@ -38,25 +44,25 @@
           <div class="steps">
             <div class="step">
               <img
-                src="../../assets/images/how_it_works_icon1.png"
+                :src="language === 'cn'? worksIcon1 : worksIconen1"
                 alt
               >
             </div>
             <div class="step">
               <img
-                src="../../assets/images/how_it_works_icon2.png"
+                :src="language === 'cn'? worksIcon2 : worksIconen2"
                 alt
               >
             </div>
             <div class="step">
               <img
-                src="../../assets/images/how_it_works_icon3.png"
+                :src="language === 'cn'? worksIcon3 : worksIconen3"
                 alt
               >
             </div>
             <div class="step">
               <img
-                src="../../assets/images/how_it_works_icon4.png"
+                :src="language === 'cn'? worksIcon4 : worksIconen4"
                 alt
               >
             </div>
@@ -82,18 +88,37 @@
 
 <script>
 import { mapState } from 'vuex'
-import bannerImage from '../../components/common/BannerImage.vue'
 import Docs from './Docs.vue'
 import DocsAPPD from './DocsAPPD.vue'
+import worksIcon1 from '@/assets/images/how_it_works_icon1.png'
+import worksIconen1 from '@/assets/images/how_it_works_icon-en1.png'
+import worksIcon2 from '@/assets/images/how_it_works_icon2.png'
+import worksIconen2 from '@/assets/images/how_it_works_icon-en2.png'
+import worksIcon3 from '@/assets/images/how_it_works_icon3.png'
+import worksIconen3 from '@/assets/images/how_it_works_icon-en3.png'
+import worksIcon4 from '@/assets/images/how_it_works_icon4.png'
+import worksIconen4 from '@/assets/images/how_it_works_icon-en4.png'
+import howworks from '@/assets/images/how_it_works.png'
+import howworksEN from '@/assets/images/how_it_worksEN.png'
 export default {
   components: {
-    Docs, bannerImage, DocsAPPD
+    Docs, DocsAPPD
   },
   computed: {
     ...mapState(['language'])
   },
   data () {
     return {
+      howworks: howworks,
+      howworksEN: howworksEN,
+      worksIcon1: worksIcon1,
+      worksIconen1: worksIconen1,
+      worksIcon2: worksIcon2,
+      worksIconen2: worksIconen2,
+      worksIcon3: worksIcon3,
+      worksIconen3: worksIconen3,
+      worksIcon4: worksIcon4,
+      worksIconen4: worksIconen4
 
     }
   },
@@ -108,6 +133,26 @@ body, html{
 }
 .works {
   margin-top: 65px;
+  .banner-image {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  .word {
+    color: white;
+    position: absolute;
+    top: 110px;
+    left: 145px;
+    p:nth-child(1){
+      font-size: 40px;
+      margin-bottom: 30px;
+    }
+    p:nth-child(2){
+      width: 500px;
+      font-size: 20px;
+      line-height: 40px;
+    }
+  }
+}
   .banner {
     img {
       width: 100%;
@@ -127,7 +172,7 @@ body, html{
   }
 
   .how-it-works {
-    padding: 35px 55px;
+    padding: 35px 200px;
     box-sizing: border-box;
     background: #eee;
     .oprefile{

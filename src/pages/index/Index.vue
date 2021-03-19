@@ -25,24 +25,10 @@
         {{ aletMsg }}
       </div>
     </div>
-    <div class="banner">
-      <p class="tit">
-        {{ $t('common.bannerTitle') }}
-      </p>
-      <p class="info">
-        {{ $t('common.bannerWord') }}
-      </p>
-      <p class="info">
-        {{ $t('common.bannerWord1') }}
-      </p>
-      <el-button
-        class="upload_app"
-        @click="uploadPackage"
-      >
-        <em />{{ $t('store.uploadApp') }}
-      </el-button>
-    </div>
     <!-- 新上车应用 -->
+    <div class="banner">
+      <home-swiper />
+    </div>
     <div class="new_app home_content">
       <h3 class="home_tit">
         {{ $t('store.newUploadApp') }}
@@ -345,13 +331,16 @@
 
 <script>
 import { INDUSTRY, TYPES, AFFINITY, SORT_BY } from '../../tools/constant.js'
+import HomeSwiper from '../../components/common/Swipers.vue'
 import uploadPackage from '../home/UploadPackage.vue'
 // import homes from '../home/Index.vue'
 import { mapState } from 'vuex'
 export default {
   name: 'Home',
   components: {
-    uploadPackage
+    uploadPackage,
+    HomeSwiper
+
   },
   data () {
     return {
@@ -564,10 +553,9 @@ export default {
     }
   }
   .banner{
-    height: 500px;
-    padding: 130px 15% 0;
+    height: 530px;
+    padding: 0;
     color: #fff;
-    background: url('../../assets/images/home_banner.png') center center no-repeat;
     .tit{
       font-size: 40px;
       margin-bottom: 30px;

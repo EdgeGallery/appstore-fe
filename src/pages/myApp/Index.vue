@@ -46,13 +46,13 @@
             prop="name"
             :label="$t('common.appName')"
             sortable="custom"
-            width="300"
+            width="210"
             :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
                 placement="bottom"
-                width="300"
+
                 trigger="hover"
                 v-if="scope.row.name.length>20"
               >
@@ -69,6 +69,7 @@
           <el-table-column
             prop="provider"
             :label="$t('common.provider')"
+            width="130"
             sortable="custom"
           />
           <el-table-column
@@ -79,6 +80,7 @@
           <el-table-column
             prop="type"
             :label="$t('common.type')"
+            width="150"
             sortable="custom"
           />
           <el-table-column
@@ -89,7 +91,7 @@
           <el-table-column
             prop="createTime"
             :label="$t('common.uploadTime')"
-            width="250"
+            width="170"
             sortable="custom"
           />
           <el-table-column

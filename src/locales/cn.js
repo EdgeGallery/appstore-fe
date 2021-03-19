@@ -177,6 +177,7 @@ const cn = {
     screening: '筛选',
     sortBy: '排序',
     most: '下载量',
+    downloadcount: ' 次下载',
     name: '名称',
     score: '评分',
     appPackageInfo: '应用程序基本信息',

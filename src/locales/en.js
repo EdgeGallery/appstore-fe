@@ -167,6 +167,7 @@ const en = {
     sortBy: 'Sort By',
     most: 'Most',
     name: 'Name',
+    downloadcount: ' downloads',
     score: 'Score',
     appPackageInfo: 'App Package Basic Information',
     createTime: 'Create Time',

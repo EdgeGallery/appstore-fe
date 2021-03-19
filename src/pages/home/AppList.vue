@@ -24,13 +24,13 @@
       <el-table-column
         prop="name"
         :label="$t('common.appName')"
-        width="300"
+        width="230"
         :cell-class-name="hiddenClass"
       >
         <template slot-scope="scope">
           <el-popover
             placement="bottom"
-            width="300"
+            width="230"
             trigger="hover"
             v-if="scope.row.name.length>20"
           >
@@ -47,10 +47,12 @@
       <el-table-column
         prop="provider"
         :label="$t('common.provider')"
+        width="130"
       />
       <el-table-column
         prop="type"
         :label="$t('common.type')"
+        width="150"
       />
       <el-table-column
         prop="affinity"
@@ -60,7 +62,7 @@
       <el-table-column
         prop="createTime"
         :label="$t('common.uploadTime')"
-        width="250"
+        width="170"
       />
       <el-table-column
         prop="shortDesc"
@@ -88,12 +90,12 @@
       <el-table-column
         prop="downloadCount"
         :label="$t('store.most')"
-        width="120"
+        width="100"
       />
       <el-table-column
         prop="score"
         :label="$t('store.score')"
-        width="120"
+        width="100"
       />
       <el-table-column
         :label="$t('common.operation')"
