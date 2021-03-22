@@ -194,7 +194,6 @@
 <script>
 import {
   modifyAppPackageDetailApi,
-  getAppFileContentApi,
   downloadAppPakageApi,
   deleteAppPackageApi,
   myApp,
@@ -328,53 +327,6 @@ export default {
           this.filePath.push(name)
           this.getParent(nodes.parent)
         }
-      }
-    },
-    handleNodeClick (nodeObj, node) {
-      this.filePath = []
-      if (!nodeObj.childs.length) {
-        this.getParent(node)
-      }
-      if (this.filePath.length) {
-        this.filePath.reverse().splice(0, 1)
-        let truePath = this.filePath.join(':')
-        let fd = new FormData()
-        fd.append('filePath', truePath)
-        getAppFileContentApi(this.appId, this.packageId, fd).then(res => {
-          let data = res.data
-          if (data) {
-            this.dialogVisible = true
-            if (nodeObj.name.indexOf('.md') >= 0) {
-              this.markdownSource = res.data
-            } else if (nodeObj.name.indexOf('.tgz') >= 0) {
-              this.markdownSource = this.$t('promptMessage.fileNotSupport')
-            } else {
-              this.markdownSource = '```yaml\r\n' + res.data + '\r\n```'
-            }
-          } else {
-            this.markdownSource = ''
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.fileEmpty')
-            })
-          }
-        }).catch(error => {
-          this.dialogVisible = false
-          if (error.response.data.code === 403) {
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.guestUser'),
-              type: 'warning'
-            })
-          } else {
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.getfail')
-            })
-          }
-        })
       }
     },
     download (row) {

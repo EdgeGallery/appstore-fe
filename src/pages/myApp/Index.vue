@@ -275,6 +275,17 @@ export default {
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
       sessionStorage.setItem('pathSource', 'myapp')
     },
+    jumperToTestRepo (testTaskId) {
+      let currUrl = window.location.host
+      let language = localStorage.getItem('language')
+      if (currUrl.indexOf('30091') !== -1) {
+        currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
+      } else {
+        currUrl = currUrl.replace('appstore', 'atp')
+        currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
+      }
+      window.open(currUrl, '_blank')
+    },
     testMessage (row) {
       let testTaskId = row.testTaskId
       switch (row.status) {
@@ -302,16 +313,7 @@ export default {
             cancelButtonText: this.$t('promptMessage.testAgain'),
             type: 'warning'
           }).then(() => {
-          // 跳转测试报告+taskId
-            let currUrl = window.location.host
-            let language = localStorage.getItem('language')
-            if (currUrl.indexOf('30091') !== -1) {
-              currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
-            } else {
-              currUrl = currUrl.replace('appstore', 'atp')
-              currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
-            }
-            window.open(currUrl, '_blank')
+            this.jumperToTestRepo(testTaskId)
           }).catch(action => {
           // 再次测试,首页+taskId，
             if (action === 'cancel') {
@@ -325,16 +327,7 @@ export default {
             cancelButtonText: this.$t('common.cancel'),
             type: 'warning'
           }).then(() => {
-          // 跳转测试报告
-            let currUrl = window.location.host
-            let language = localStorage.getItem('language')
-            if (currUrl.indexOf('30091') !== -1) {
-              currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
-            } else {
-              currUrl = currUrl.replace('appstore', 'atp')
-              currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
-            }
-            window.open(currUrl, '_blank')
+            this.jumperToTestRepo(testTaskId)
           })
           break
         case 'Test_running':
