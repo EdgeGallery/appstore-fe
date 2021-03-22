@@ -111,10 +111,10 @@ export default {
     handleExecute () {
       this.appPullResultData = []
       let tempData = JSON.parse(sessionStorage.getItem('allAppPullInfo'))
-      for (let i = 0; i < tempData.length; i++) {
+      for (let tempDataArr of tempData) {
         let pullResult = {
-          name: tempData[i].name,
-          appstoreName: tempData[i].sourceStoreName,
+          name: tempDataArr.name,
+          appstoreName: tempDataArr.sourceStoreName,
           result: 'inProgress'
         }
         this.appPullResultData.push(pullResult)
@@ -147,8 +147,8 @@ export default {
             if (flagNumber === tempData.length) {
               let tempRes = JSON.parse(JSON.stringify(this.appPullResultData))
               this.appPullResultData = []
-              for (let j = 0; j < tempRes.length; j++) {
-                this.appPullResultData.push(tempRes[j])
+              for (let tempResArr of tempRes) {
+                this.appPullResultData.push(tempResArr)
               }
             }
           }).catch(() => {
@@ -161,9 +161,6 @@ export default {
         }
       }, 2000)
     }
-  },
-  mounted () {
-
   }
 }
 </script>

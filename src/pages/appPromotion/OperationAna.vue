@@ -390,7 +390,6 @@ export default {
       return parseInt(Math.abs(endDate - startDate) / 1000 / 60 / 60 / 24) + 1
     },
     getCurrentTime (date) {
-      // let date = new Date()
       let Y = date.getFullYear()
       let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
       let D = date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate()
@@ -401,8 +400,7 @@ export default {
       return date
     },
     getDateValue (datestr) {
-      let dayValue = this.dateDiff(this.getCurrentTime(new Date()).split(' ')[0], datestr)
-      return dayValue
+      return this.dateDiff(this.getCurrentTime(new Date()).split(' ')[0], datestr)
     },
     getRecent7days () {
       let recent7daysStr = []
@@ -460,8 +458,7 @@ export default {
           }
         }
       )
-      let pullArr = [day7, day6, day5, day4, day3, day2, day1]
-      return pullArr
+      return [day7, day6, day5, day4, day3, day2, day1]
     },
     handleNameQuery () {
       this.findAppData = this.appPackageData
@@ -676,8 +673,8 @@ export default {
       targetAppStoreSet.forEach(
         (item) => {
           let pullAppNum = this.getPullAppNum(item, this.appPackageData)
-          for (let i = 0; i < pullAppNum.length; i++) {
-            if (pullAppNum[i] > 0) {
+          for (let pullAppNumArr of pullAppNum) {
+            if (pullAppNumArr > 0) {
               targetAppStoreArr.push(item)
               let pullInfo = {
                 name: item,

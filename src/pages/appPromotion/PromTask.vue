@@ -143,15 +143,15 @@ export default {
       }
       let tempTableData = JSON.parse(JSON.stringify(this.appData))
       this.appData = []
-      for (let k = 0; k < tempTableData.length; k++) {
-        this.appData.push(tempTableData[k])
+      for (let arr of tempTableData) {
+        this.appData.push(arr)
       }
     },
     updateResult () {
       let tempRes = JSON.parse(JSON.stringify(this.appData))
       this.appData = []
-      for (let i = 0; i < tempRes.length; i++) {
-        this.appData.push(tempRes[i])
+      for (let tempArr of tempRes) {
+        this.appData.push(tempArr)
       }
       this.$emit('refreshAppPromInfo', true)
     },
