@@ -523,8 +523,7 @@ export default {
       let ctx = canvas.getContext('2d')
       ctx.drawImage(img, 0, 0, img.width, img.height)
       let ext = img.src.substring(img.src.lastIndexOf('.') + 1).toLowerCase()
-      let dataURL = canvas.toDataURL('image/' + ext)
-      return dataURL
+      return canvas.toDataURL('image/' + ext)
     },
     base64toFile (dataurl, filename = 'file') {
       let arr = dataurl.split(',')
@@ -549,6 +548,39 @@ export default {
       let ext = img.src.substring(img.src.lastIndexOf('.') + 1).toLowerCase()
       let dataURL = canvas.toDataURL('image/' + ext)
       return this.base64toFile(dataURL)
+    },
+    handleUploadSuccess () {
+      this.$message({
+        duration: 2000,
+        message: this.$t('promptMessage.uploadSuccess'),
+        type: 'success'
+      })
+      this.handleClose()
+      this.$router.push('/myapp')
+    },
+    handleExceptionMsg (error) {
+      if (error.response.data.code === 403) {
+        this.$message({
+          duration: 2000,
+          message: this.$t('promptMessage.guestUser'),
+          type: 'warning'
+        })
+        this.handleClose()
+      } else if (error.response.data.message) {
+        this.$message({
+          duration: 2000,
+          message: error.response.data.message,
+          type: 'warning'
+        })
+        this.handleClose()
+      } else {
+        this.$message({
+          duration: 2000,
+          message: this.$t('promptMessage.uploadFailed'),
+          type: 'warning'
+        })
+        this.handleClose()
+      }
     },
     changeIcon (val) {
       this.packageForm.base64Session = true
@@ -653,37 +685,9 @@ export default {
       fd.append('userName', userName)
       fd.append('demoVideo', packageForm.videoFile[0])
       myApp.uploadVMAppApi(fd).then(res => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('promptMessage.uploadSuccess'),
-          type: 'success'
-        })
-        this.handleClose()
-        // this.$emit('getAppData')
-        this.$router.push('/myapp')
+        this.handleUploadSuccess()
       }).catch(error => {
-        if (error.response.data.code === 403) {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.guestUser'),
-            type: 'warning'
-          })
-          this.handleClose()
-        } else if (error.response.data.message) {
-          this.$message({
-            duration: 2000,
-            message: error.response.data.message,
-            type: 'warning'
-          })
-          this.handleClose()
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.uploadFailed'),
-            type: 'warning'
-          })
-          this.handleClose()
-        }
+        this.handleExceptionMsg(error)
       })
     },
     uploadMin () {
@@ -701,37 +705,9 @@ export default {
       fd.append('userName', userName)
       fd.append('demoVideo', packageForm.videoFile[0])
       myApp.uploadAppPackageApi(fd).then(res => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('promptMessage.uploadSuccess'),
-          type: 'success'
-        })
-        this.handleClose()
-        // this.$emit('getAppData')
-        this.$router.push('/myapp')
+        this.handleUploadSuccess()
       }).catch(error => {
-        if (error.response.data.code === 403) {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.guestUser'),
-            type: 'warning'
-          })
-          this.handleClose()
-        } else if (error.response.data.message) {
-          this.$message({
-            duration: 2000,
-            message: error.response.data.message,
-            type: 'warning'
-          })
-          this.handleClose()
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.uploadFailed'),
-            type: 'warning'
-          })
-          this.handleClose()
-        }
+        this.handleExceptionMsg(error)
       })
     },
     // confirm to submit

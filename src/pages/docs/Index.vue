@@ -121,9 +121,7 @@ export default {
       worksIconen4: worksIconen4
 
     }
-  },
-  methods: {},
-  mounted () {}
+  }
 }
 </script>
 <style lang='less'>

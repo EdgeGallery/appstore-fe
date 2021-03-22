@@ -387,8 +387,7 @@ export default {
         let H = date.getHours()
         let m = date.getMinutes()
         let s = date.getSeconds()
-        let changeDate =
-          Y +
+        return Y +
           '-' +
           (M > 9 ? M : '0' + M) +
           '-' +
@@ -399,7 +398,6 @@ export default {
           (m > 9 ? m : '0' + m) +
           ':' +
           (s > 9 ? s : '0' + s)
-        return changeDate
       }
     },
     download (row) {
@@ -459,8 +457,6 @@ export default {
       })
     }
   },
-  created () {
-  },
   mounted () {
     if ((sessionStorage.getItem('userNameRole') === 'guest') || (sessionStorage.getItem('userNameRole') === 'tenant')) {
       this.ifDownload = false
@@ -480,12 +476,11 @@ export default {
       this.packageId = this.details.packageId
       if (this.pathSource === 'myapp') {
         this.source = this.details.details
-        this.getMyAppData(function clearData () {
-        })
+        this.getMyAppData()
       }
     }
     this.getAppData()
-    this.getTableData(function clearData () {})
+    this.getTableData()
     this.getComments()
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
     this.checkProjectData()

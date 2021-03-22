@@ -177,7 +177,8 @@ export default {
             type: 'warning'
           })
         })
-      }).catch(() => {
+      }).catch((error) => {
+        console.log(error)
       })
     },
     hiddenClass (row) {

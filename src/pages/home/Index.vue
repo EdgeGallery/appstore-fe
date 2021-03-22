@@ -340,16 +340,13 @@ export default {
       this.findAppData = this.filterFindAppData(this.findAppData)
     },
     changeSelectedConditions () {
-      this.selectedConditions = []
-      let types = ['types', 'affinity', 'sortBy', 'industry']
-      types.forEach((item) => {
-        this[item].forEach((condition) => {
-          if (condition.selected) this.selectedConditions.push(condition)
-        })
-      })
-      this.queryAppByCondition()
+      this.doQuery()
     },
     changeSelectedConditions2 () {
+      this.doQuery()
+      this.sortByApp(this.findAppData)
+    },
+    doQuery () {
       this.selectedConditions = []
       let types = ['types', 'affinity', 'sortBy', 'industry']
       types.forEach((item) => {
@@ -358,7 +355,6 @@ export default {
         })
       })
       this.queryAppByCondition()
-      this.sortByApp(this.findAppData)
     },
     selectedCondition (type, index) {
       this[type][index].selected = !this[type][index].selected

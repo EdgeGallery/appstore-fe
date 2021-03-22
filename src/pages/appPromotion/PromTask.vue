@@ -135,6 +135,32 @@ export default {
     handleExecute () {
       this.promTask()
     },
+    changeToProcess () {
+      for (let i = 0; i < this.appData.length; i++) {
+        for (let j = 0; j < this.platformData.length; j++) {
+          this.appData[i][this.platformData[j].label] = 'inProgress'
+        }
+      }
+      let tempTableData = JSON.parse(JSON.stringify(this.appData))
+      this.appData = []
+      for (let k = 0; k < tempTableData.length; k++) {
+        this.appData.push(tempTableData[k])
+      }
+    },
+    updateResult () {
+      let tempRes = JSON.parse(JSON.stringify(this.appData))
+      this.appData = []
+      for (let i = 0; i < tempRes.length; i++) {
+        this.appData.push(tempRes[i])
+      }
+      this.$emit('refreshAppPromInfo', true)
+    },
+    fillResultData (index, result) {
+      let reData = result.join(',').split(',')
+      for (let j = 0; j < reData.length; j++) {
+        this.appData[index][this.platformData[j].label] = reData[j]
+      }
+    },
     promTask () {
       let target = []
       this.platformData.forEach(item => {
@@ -143,39 +169,18 @@ export default {
       let param = {
         targetPlatform: target
       }
-
-      for (let i = 0; i < this.appData.length; i++) {
-        for (let j = 0; j < this.platformData.length; j++) {
-          this.appData[i][this.platformData[j].label] = 'inProgress'
-        }
-      }
-      let tempTableData = JSON.parse(JSON.stringify(this.appData))
-      this.appData = []
-      for (let i = 0; i < tempTableData.length; i++) {
-        this.appData.push(tempTableData[i])
-      }
-
+      this.changeToProcess()
       let tempData = this.appData
       setTimeout(() => {
         let flagNumber = 0
         for (let i = 0; i < tempData.length; i++) {
           promTaskApi(tempData[i].packageId, param).then((res) => {
             if (res.data) {
-              let reData = res.data.join(',').split(',')
-              let index = 0
-              for (let j = 0; j < reData.length; j++) {
-                this.appData[index][this.platformData[j].label] = reData[j]
-              }
-              index++
+              this.fillResultData(i, res.data)
             }
             flagNumber++
             if (flagNumber === tempData.length) {
-              let tempRes = JSON.parse(JSON.stringify(this.appData))
-              this.appData = []
-              for (let i = 0; i < tempRes.length; i++) {
-                this.appData.push(tempRes[i])
-              }
-              this.$emit('refreshAppPromInfo', true)
+              this.updateResult()
             }
           }).catch((err) => {
             this.$message.error(this.$t('promptMessage.operationFailed'))
