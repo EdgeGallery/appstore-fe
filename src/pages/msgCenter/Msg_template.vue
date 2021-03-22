@@ -160,9 +160,6 @@ export default {
     }
   },
   methods: {
-    getDataBySelectTime () {
-
-    },
     getDetailMsg (value) {
       this.currentDetailMsg = value
     },
@@ -190,6 +187,7 @@ export default {
     },
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
+        console.log('update status success')
       }).catch(() => {
         this.$message({
           duration: 2000,
@@ -199,13 +197,9 @@ export default {
       })
     },
     locateMessage (message) {
-      // 根据messge获取index并激活该index
-      for (let i = 0; i < this.allRightDetailData.length; i++) {
-        if (message.messageId === this.allRightDetailData[i].messageId) {
-          this.isShowDlg = true
-          this.currentDetailMsg = message
-          break
-        }
+      if (this.allRightDetailData.indexOf(message.messageId) !== -1) {
+        this.isShowDlg = true
+        this.currentDetailMsg = message
       }
       this.currentDetailMsg.readed = true
       this.updateMsgStatus(message.messageId)

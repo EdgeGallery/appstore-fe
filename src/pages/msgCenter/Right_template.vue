@@ -25,7 +25,6 @@
         :label="getTabsTitle(item.title)"
         :name="item.name"
       >
-        <!-- <component :is="item.content" /> -->
         <template>
           <div>
             <el-table
@@ -137,6 +136,7 @@ export default {
     },
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
+        console.log('update status success')
       }).catch(() => {
         this.$message({
           duration: 2000,

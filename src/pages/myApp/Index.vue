@@ -277,89 +277,98 @@ export default {
     },
     testMessage (row) {
       let testTaskId = row.testTaskId
-      if (row.status === 'Upload') {
-        this.$confirm(this.$t('promptMessage.createtask'), this.$t('promptMessage.prompt'), {
-          confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('common.cancel'),
-          type: 'warning'
-        }).then(() => {
+      switch (row.status) {
+        case 'Upload':
+          this.$confirm(this.$t('promptMessage.createtask'), this.$t('promptMessage.prompt'), {
+            confirmButtonText: this.$t('common.confirm'),
+            cancelButtonText: this.$t('common.cancel'),
+            type: 'warning'
+          }).then(() => {
           // 跳转atp首页加参数taskId,
-          this.testPackage(row.appId, row.packageId)
-        })
-      } else if (row.status === 'Test_create_failed') {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.createFail')
-        })
-      } else if (row.status === 'Test_failed') {
-        this.$confirm(this.$t('promptMessage.testFail'), this.$t('promptMessage.prompt'), {
-          distinguishCancelAndClose: true,
-          confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('promptMessage.testAgain'),
-          type: 'warning'
-        }).then(() => {
-          // 跳转测试报告+taskId
-          let currUrl = window.location.host
-          let language = localStorage.getItem('language')
-          if (currUrl.indexOf('30091') !== -1) {
-            currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
-          } else {
-            currUrl = currUrl.replace('appstore', 'atp')
-            currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
-          }
-          window.open(currUrl, '_blank')
-        }).catch(action => {
-          // 再次测试,首页+taskId，
-          if (action === 'cancel') {
             this.testPackage(row.appId, row.packageId)
-          }
-        })
-      } else if (row.status === 'Test_success') {
-        this.$confirm(this.$t('promptMessage.testSuccess'), this.$t('promptMessage.prompt'), {
-          confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('common.cancel'),
-          type: 'warning'
-        }).then(() => {
+          })
+          break
+        case 'Test_create_failed':
+          this.$message({
+            duration: 2000,
+            type: 'warning',
+            message: this.$t('promptMessage.createFail')
+          })
+          break
+        case 'Test_failed':
+          this.$confirm(this.$t('promptMessage.testFail'), this.$t('promptMessage.prompt'), {
+            distinguishCancelAndClose: true,
+            confirmButtonText: this.$t('common.confirm'),
+            cancelButtonText: this.$t('promptMessage.testAgain'),
+            type: 'warning'
+          }).then(() => {
+          // 跳转测试报告+taskId
+            let currUrl = window.location.host
+            let language = localStorage.getItem('language')
+            if (currUrl.indexOf('30091') !== -1) {
+              currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
+            } else {
+              currUrl = currUrl.replace('appstore', 'atp')
+              currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
+            }
+            window.open(currUrl, '_blank')
+          }).catch(action => {
+          // 再次测试,首页+taskId，
+            if (action === 'cancel') {
+              this.testPackage(row.appId, row.packageId)
+            }
+          })
+          break
+        case 'Test_success':
+          this.$confirm(this.$t('promptMessage.testSuccess'), this.$t('promptMessage.prompt'), {
+            confirmButtonText: this.$t('common.confirm'),
+            cancelButtonText: this.$t('common.cancel'),
+            type: 'warning'
+          }).then(() => {
           // 跳转测试报告
-          let currUrl = window.location.host
-          let language = localStorage.getItem('language')
-          if (currUrl.indexOf('30091') !== -1) {
-            currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
-          } else {
-            currUrl = currUrl.replace('appstore', 'atp')
-            currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
-          }
-          window.open(currUrl, '_blank')
-        })
-      } else if (row.status === 'Test_running') {
-        this.$confirm(this.$t('promptMessage.testRunning'), this.$t('promptMessage.prompt'), {
-          confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('common.cancel'),
-          type: 'warning'
-        }).then(() => {
+            let currUrl = window.location.host
+            let language = localStorage.getItem('language')
+            if (currUrl.indexOf('30091') !== -1) {
+              currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
+            } else {
+              currUrl = currUrl.replace('appstore', 'atp')
+              currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
+            }
+            window.open(currUrl, '_blank')
+          })
+          break
+        case 'Test_running':
+          this.$confirm(this.$t('promptMessage.testRunning'), this.$t('promptMessage.prompt'), {
+            confirmButtonText: this.$t('common.confirm'),
+            cancelButtonText: this.$t('common.cancel'),
+            type: 'warning'
+          }).then(() => {
           // 跳转测试进展页面，—+taskId
-          this.$router.push({ name: 'atpprocess', params: { taskId: testTaskId } })
-        })
-      } else if (row.status === 'Test_waiting') {
-        this.$confirm(this.$t('promptMessage.testWaiting'), this.$t('promptMessage.prompt'), {
-          confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('common.cancel'),
-          type: 'warning'
-        }).then(() => {
+            this.$router.push({ name: 'atpprocess', params: { taskId: testTaskId } })
+          })
+          break
+        case 'Test_waiting':
+          this.$confirm(this.$t('promptMessage.testWaiting'), this.$t('promptMessage.prompt'), {
+            confirmButtonText: this.$t('common.confirm'),
+            cancelButtonText: this.$t('common.cancel'),
+            type: 'warning'
+          }).then(() => {
           // 跳转测试进展页面，—+taskId
-          this.$router.push({ name: 'atpprocess', params: { taskId: testTaskId } })
-        })
-      } else if (row.status === 'Test_created') {
-        this.$confirm(this.$t('promptMessage.testCreated'), this.$t('promptMessage.prompt'), {
-          confirmButtonText: this.$t('common.confirm'),
-          cancelButtonText: this.$t('common.cancel'),
-          type: 'warning'
-        }).then(() => {
+            this.$router.push({ name: 'atpprocess', params: { taskId: testTaskId } })
+          })
+          break
+        case 'Test_created':
+          this.$confirm(this.$t('promptMessage.testCreated'), this.$t('promptMessage.prompt'), {
+            confirmButtonText: this.$t('common.confirm'),
+            cancelButtonText: this.$t('common.cancel'),
+            type: 'warning'
+          }).then(() => {
           // 跳转首页页面，—+taskId+直接运行；
           // this.$router.push({ name: 'atptestcase', params: { taskId: testTaskId } })
-          this.$router.push({ name: 'selectscene', params: { taskId: testTaskId } })
-        })
+            this.$router.push({ name: 'selectscene', params: { taskId: testTaskId } })
+          })
+          break
+        default:
       }
     },
     testPackage (appId, packageId) {
@@ -413,7 +422,8 @@ export default {
             type: 'warning'
           })
         })
-      }).catch(() => {
+      }).catch((error) => {
+        console.log(error)
       })
     },
     jumpTo () {

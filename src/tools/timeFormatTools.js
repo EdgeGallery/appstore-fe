@@ -24,19 +24,17 @@ function formatDateTime (dateStr) {
     let H = date.getHours()
     let m = date.getMinutes()
     let s = date.getSeconds()
-    let changeDate =
-      Y +
-      '-' +
-      (M > 9 ? M : '0' + M) +
-      '-' +
-      (D > 9 ? D : '0' + D) +
-      ' ' +
-      (H > 9 ? H : '0' + H) +
-      ':' +
-      (m > 9 ? m : '0' + m) +
-      ':' +
-      (s > 9 ? s : '0' + s)
-    return changeDate
+    return Y +
+    '-' +
+    (M > 9 ? M : '0' + M) +
+    '-' +
+    (D > 9 ? D : '0' + D) +
+    ' ' +
+    (H > 9 ? H : '0' + H) +
+    ':' +
+    (m > 9 ? m : '0' + m) +
+    ':' +
+    (s > 9 ? s : '0' + s)
   }
   return ''
 }
