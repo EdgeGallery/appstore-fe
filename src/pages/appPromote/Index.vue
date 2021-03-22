@@ -76,12 +76,12 @@
               :label="$t('common.company')"
             />
             <el-table-column
-              prop="url"
-              :label="$t('common.url')"
-            />
-            <el-table-column
               prop="appdTransId"
               :label="$t('common.appdTransId')"
+            />
+            <el-table-column
+              prop="url"
+              :label="$t('common.url')"
             />
             <el-table-column
               prop="description"
