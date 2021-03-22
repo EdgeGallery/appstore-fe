@@ -18,7 +18,10 @@
   <div class="app-detail">
     <div class="app-info">
       <div class="img-box">
-        <img :src="appIconPath">
+        <img
+          :src="appIconPath"
+          alt=""
+        >
       </div>
       <div class="package-detail">
         <p>{{ currentData.name }}</p>
@@ -233,7 +236,7 @@ export default {
   },
   watch: {
     tableData: function (val) {
-      if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && !(this.tableData.length === 0)) {
+      if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && this.tableData.length !== 0) {
         this.currentData = this.tableData[0]
       }
       return ''
@@ -305,8 +308,7 @@ export default {
         let H = date.getHours()
         let m = date.getMinutes()
         let s = date.getSeconds()
-        let changeDate =
-          Y +
+        return Y +
           '-' +
           (M > 9 ? M : '0' + M) +
           '-' +
@@ -317,7 +319,6 @@ export default {
           (m > 9 ? m : '0' + m) +
           ':' +
           (s > 9 ? s : '0' + s)
-        return changeDate
       }
     },
     getParent (nodes) {
@@ -358,8 +359,6 @@ export default {
               message: this.$t('promptMessage.fileEmpty')
             })
           }
-          // let blankWin = window.open('')
-          // blankWin.document.write(data)
         }).catch(error => {
           this.dialogVisible = false
           if (error.response.data.code === 403) {
@@ -404,7 +403,8 @@ export default {
             type: 'warning'
           })
         })
-      }).catch(() => {
+      }).catch((error) => {
+        console.log(error)
       })
     },
     dataReload () {
@@ -426,8 +426,7 @@ export default {
     this.appId = this.details.appId
     this.score = this.details.score
     this.packageId = this.details.packageId
-    this.getTableData(function clearData () {
-    })
+    this.getTableData()
     this.userName = params.username
     let val = {
       type: 'video/mp4',
@@ -491,11 +490,6 @@ export default {
             cursor: pointer
           }
         }
-      }
-      .app-header {
-        padding: 5px 5px 5px;
-        display: flex;
-        flex-wrap: wrap;
         .version-title {
           flex-grow: 1;
           flex-direction: column;
@@ -581,7 +575,7 @@ export default {
         background-color:#fff;
         border-radius: 4px;
         font-size: 14px;
-        font-family: '微软雅黑',arail;
+        font-family: '微软雅黑',arail, sans-serif;
         cursor: pointer;
         .download-button {
           flex-direction: column;

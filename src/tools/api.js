@@ -166,41 +166,50 @@ function deleteAppPackageApi (appId, csarId, userId, userName) {
 
 function getDocsApi (language, activeName) {
   let url = ''
-  if (activeName === 'first') {
-    if (language === 'cn') {
-      url = './APPPackageDefinition1.md'
-    } else if (language === 'en') {
-      url = './APPPackageDefinition1EN.md'
+
+  if (language === 'cn') {
+    switch (activeName) {
+      case 'first':
+        url = './APPPackageDefinition1.md'
+        break
+      case 'second':
+        url = './APPPackageDefinition2.md'
+        break
+      case 'third':
+        url = './APPPackageDefinition3.md'
+        break
+      case 'four':
+        url = './APPPackageDefinition4.md'
+        break
+      case 'five':
+        url = './APPPackageDefinition5.md'
+        break
+      case 'six':
+        url = './APPPackageDefinition6.md'
+        break
+      default:
     }
-  } else if (activeName === 'second') {
-    if (language === 'cn') {
-      url = './APPPackageDefinition2.md'
-    } else if (language === 'en') {
-      url = './APPPackageDefinition2EN.md'
-    }
-  } else if (activeName === 'third') {
-    if (language === 'cn') {
-      url = './APPPackageDefinition3.md'
-    } else if (language === 'en') {
-      url = './APPPackageDefinition3EN.md'
-    }
-  } else if (activeName === 'four') {
-    if (language === 'cn') {
-      url = './APPPackageDefinition4.md'
-    } else if (language === 'en') {
-      url = './APPPackageDefinition4EN.md'
-    }
-  } else if (activeName === 'five') {
-    if (language === 'cn') {
-      url = './APPPackageDefinition5.md'
-    } else if (language === 'en') {
-      url = './APPPackageDefinition5EN.md'
-    }
-  } else if (activeName === 'six') {
-    if (language === 'cn') {
-      url = './APPPackageDefinition6.md'
-    } else if (language === 'en') {
-      url = './APPPackageDefinition6EN.md'
+  } else {
+    switch (activeName) {
+      case 'first':
+        url = './APPPackageDefinition1EN.md'
+        break
+      case 'second':
+        url = './APPPackageDefinition2EN.md'
+        break
+      case 'third':
+        url = './APPPackageDefinition3EN.md'
+        break
+      case 'four':
+        url = './APPPackageDefinition4EN.md'
+        break
+      case 'five':
+        url = './APPPackageDefinition5EN.md'
+        break
+      case 'six':
+        url = './APPPackageDefinition6EN.md'
+        break
+      default:
     }
   }
   return axios.get(url)
@@ -215,15 +224,6 @@ function downloadAppPakageApi (appId, row) {
   let url = 'apps/' + appId + '/packages/' + row.packageId + '/action/download'
   let URL = URL_PREFIX + url
   window.open(URL)
-/*   let url = 'apps/' + appId + '/packages/' + row.csarId + '/action/download'
-  incAppDownloadTimesApi(appId, row.csarId).then(res => {})
-  let form = document.createElement('form')
-  document.getElementsByTagName('body')[0].appendChild(form)
-  form.setAttribute('style', 'display:none')
-  form.setAttribute('target', '')
-  form.setAttribute('method', 'post')
-  form.setAttribute('action', URL_PREFIX + url)
-  form.submit() */
 }
 
 function getUserInfo () {

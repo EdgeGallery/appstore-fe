@@ -333,7 +333,6 @@
 import { INDUSTRY, TYPES, AFFINITY, SORT_BY } from '../../tools/constant.js'
 import HomeSwiper from '../../components/common/Swipers.vue'
 import uploadPackage from '../home/UploadPackage.vue'
-// import homes from '../home/Index.vue'
 import { mapState } from 'vuex'
 export default {
   name: 'Home',
@@ -344,7 +343,7 @@ export default {
   },
   data () {
     return {
-      aletMsg: '建议使用Google Chrome及IE9以上浏览器浏览', // 弹出框中的提示语
+      aletMsg: '建议使用Google Chrome及IE9以上浏览器浏览',
       displayStsates: 'none',
       selectedConditions: [],
       uploadDiaVis: false,
@@ -512,8 +511,6 @@ export default {
   computed: {
     ...mapState(['language'])
   },
-  created () {
-  },
   mounted () {
     this.alertDia(this.aletMsg)
     this.refreshCondition()
@@ -544,7 +541,7 @@ export default {
       top: 20%;
       left: 82%;
       font-size: 14px;
-      font-family: Gotham-Book;
+      font-family: Gotham-Book, sans-serif;
       opacity: 1;
       /* z-index: 1; */
       text-align: center;
