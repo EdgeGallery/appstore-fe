@@ -112,6 +112,11 @@ function getAppTableApi (params) {
   return GET(url, params)
 }
 
+function getAppListApi (appId) {
+  let url = 'apps/' + appId
+  return GET(url)
+}
+
 function startTestApi (appId, userId) {
   let url = 'mec/developer/v1/apps/' + appId + '/action/start-test?userId=' + userId
   return GET(url, '', 'developer')
@@ -349,5 +354,6 @@ export {
   updateStatus,
   processApi,
   pullApp,
-  getAppByAppstoreId
+  getAppByAppstoreId,
+  getAppListApi
 }
