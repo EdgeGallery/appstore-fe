@@ -348,8 +348,8 @@ export default {
     },
     createCheckAppstoreName (name) {
       if (this.appPackageData.length > 0) {
-        for (let i = 0; i < this.appPackageData.length; i++) {
-          if (this.appPackageData[i].appStoreName === name) {
+        for (let arr of this.appPackageData) {
+          if (arr.appStoreName === name) {
             return false
           }
         }
@@ -358,13 +358,20 @@ export default {
     },
     modifyCheckAppstoreName (name, id) {
       if (this.appPackageData.length > 1) {
-        for (let i = 0; i < this.appPackageData.length; i++) {
-          if (this.appPackageData[i].appStoreName === name && this.appPackageData[i].appStoreId !== id) {
+        for (let arr of this.appPackageData) {
+          if (arr.appStoreName === name && arr.appStoreId !== id) {
             return false
           }
         }
       }
       return true
+    },
+    judgeResult (error) {
+      if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
+        this.$message.error(error.response.data.details[0])
+      } else {
+        this.$message.error(error.message)
+      }
     },
     confirmToRegister (form) {
       let fd = new FormData()
@@ -391,11 +398,7 @@ export default {
               this.getAppPackageData()
               this.dialogVisible = false
             }, error => {
-              if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
-                this.$message.error(error.response.data.details[0])
-              } else {
-                this.$message.error(error.message)
-              }
+              this.judgeResult(error)
             })
           } else {
             if (!this.modifyCheckAppstoreName(this.form.appStoreName, this.form.appStoreId)) {
@@ -447,7 +450,6 @@ export default {
             type: 'warning'
           })
         })
-      }).catch(() => {
       })
     },
     clearInterval () {
@@ -472,7 +474,7 @@ export default {
       }
     },
     rules () {
-      const rules = {
+      return {
         appStoreName: [
           { required: true, message: this.$t('apppromotion.nameCheck'), trigger: 'blur' }
         ],
@@ -493,7 +495,6 @@ export default {
           { required: true, message: this.$t('apppromotion.descriptionCheck'), trigger: 'blur' }
         ]
       }
-      return rules
     },
     findedData: function () {
       if (!this.nameQueryVal) {

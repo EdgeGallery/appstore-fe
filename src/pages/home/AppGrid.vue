@@ -121,8 +121,7 @@ export default {
       let language = localStorage.getItem('language')
       this.language = language
     }
-  },
-  mounted () {}
+  }
 }
 </script>
 <style lang='less' scoped>

@@ -344,7 +344,7 @@ export default {
   },
   data () {
     return {
-      aletMsg: '建议使用Google Chrome及IE9以上浏览器浏览', // 弹出框中的提示语
+      aletMsg: '建议使用Google Chrome及IE9以上浏览器浏览',
       displayStsates: 'none',
       selectedConditions: [],
       uploadDiaVis: false,
@@ -449,11 +449,9 @@ export default {
     }
   },
   methods: {
-    // 提示弹框
     alertDia (msg) {
       this.displayStsates = 'block'
       this.aletMsg = msg
-      // 延迟2秒后消失 自己可以更改时间
       window.setTimeout(() => {
         this.displayStsates = 'none'
       }, 2000)
@@ -511,8 +509,6 @@ export default {
   },
   computed: {
     ...mapState(['language'])
-  },
-  created () {
   },
   mounted () {
     this.alertDia(this.aletMsg)
