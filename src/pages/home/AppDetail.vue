@@ -230,7 +230,7 @@ import {
   submitAppCommentApi,
   downloadAppPakageApi,
   URL_PREFIX,
-  getAppTableApi,
+  getAppListApi,
   myApp
 } from '../../tools/api.js'
 import { INDUSTRY, TYPES } from '../../tools/constant.js'
@@ -264,7 +264,7 @@ export default {
       language: localStorage.getItem('language'),
       pathSource: sessionStorage.getItem('pathSource'),
       packageId: '',
-      downloadNum: 26
+      downloadNum: 0
     }
   },
   watch: {
@@ -431,14 +431,10 @@ export default {
     },
     // 从“我的应用”进入无评分，根据appId查询整体评分
     getAppData () {
-      getAppTableApi().then(
+      getAppListApi(this.appId).then(
         (res) => {
-          res.data.forEach(item => {
-            if (item.appId === this.appId) {
-              this.score = item.score
-              this.downloadNum = item.downloadCount
-            }
-          })
+          this.score = res.data.score
+          this.downloadNum = res.data.downloadCount
         },
         () => {
           this.$message({
