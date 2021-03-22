@@ -172,7 +172,7 @@
               :model="form"
               ref="form"
               :rules="rules"
-              label-width="110px"
+              label-width="140px"
             >
               <el-form-item
                 :label="$t('common.appStoreName')"
