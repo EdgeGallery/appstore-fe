@@ -37,10 +37,6 @@ export default {
   },
   computed: {
     ...mapState(['language'])
-  },
-  methods: {
-  },
-  mounted () {
   }
 }
 </script>

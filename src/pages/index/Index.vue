@@ -448,11 +448,9 @@ export default {
     }
   },
   methods: {
-    // 提示弹框
     alertDia (msg) {
       this.displayStsates = 'block'
       this.aletMsg = msg
-      // 延迟2秒后消失 自己可以更改时间
       window.setTimeout(() => {
         this.displayStsates = 'none'
       }, 2000)
