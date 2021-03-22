@@ -106,9 +106,9 @@ export default {
       })
     },
     getSelectAppstoreData (name) {
-      for (let i = 0; i < this.appStoreList.length; i++) {
-        if (this.appStoreList[i].name === name) {
-          this.currentTableData = this.appStoreList[i].content
+      for (let appStoreListArr of this.appStoreList) {
+        if (appStoreListArr.name === name) {
+          this.currentTableData = this.appStoreListArr.content
           this.rebuileComponents()
         }
       }
@@ -120,11 +120,26 @@ export default {
         this.btnChangeEnable = true
       }
       // 更新appStoreList里面的所有数据选中状态
-      for (let i = 0; i < this.appStoreList.length; i++) {
-        for (let j = 0; j < this.appStoreList[i].content.length; j++) {
-          this.appStoreList[i].content[j].isSelectToPull = false
+      for (let appStoreListArr of this.appStoreList) {
+        for (let contentArr of appStoreListArr) {
+          contentArr.isSelectToPull = false
         }
       }
+      for (let valueArr of value) {
+        // for (let i = 0; i < value.length; i++) {
+        for (let appStoreListArr of this.appStoreList) {
+          if (valueArr.sourceStoreName === appStoreListArr.name) {
+            for (let contenArr of appStoreListArr.content) {
+              if (valueArr.packageId === contenArr.packageId) {
+                contenArr.isSelectToPull = true
+                break
+              }
+            }
+            break
+          }
+        }
+      }
+
       for (let i = 0; i < value.length; i++) {
         for (let j = 0; j < this.appStoreList.length; j++) {
           if (value[i].sourceStoreName === this.appStoreList[j].name) {
