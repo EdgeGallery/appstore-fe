@@ -433,23 +433,6 @@ export default {
     },
     openUserAccountCenter () {
       window.open(this.userCenterPage)
-    },
-    ifHaveRole (res) {
-      if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1 || res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
-        this.isAdmin = false
-        this.list.splice(3, 1)
-      } else {
-        this.isAdmin = true
-      }
-    },
-    ifHaveAuti (res) {
-      if (res.data.authorities.indexOf('ROLE_APPSTORE_ADMIN') > -1) {
-        sessionStorage.setItem('userNameRole', 'admin')
-      } else if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1) {
-        sessionStorage.setItem('userNameRole', 'tenant')
-      } else {
-        sessionStorage.setItem('userNameRole', 'guest')
-      }
     }
   },
 
@@ -473,13 +456,24 @@ export default {
       this.userName = res.data.userName
       this.loginPage = res.data.loginPage
       this.userCenterPage = res.data.userCenterPage
-      this.ifHaveAuti(res)
+      if (res.data.authorities.indexOf('ROLE_APPSTORE_ADMIN') > -1) {
+        sessionStorage.setItem('userNameRole', 'admin')
+      } else if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1) {
+        sessionStorage.setItem('userNameRole', 'tenant')
+      } else {
+        sessionStorage.setItem('userNameRole', 'guest')
+      }
       if (res.data.userName === 'guest') {
         this.ifGuest = true
       } else {
         this.ifGuest = false
       }
-      this.ifHaveRole(res)
+      if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1 || res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
+        this.isAdmin = false
+        this.list.splice(3, 1)
+      } else {
+        this.isAdmin = true
+      }
       if (res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
         this.list.splice(2, 1)
       }
