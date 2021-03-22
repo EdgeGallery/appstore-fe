@@ -257,7 +257,7 @@ export default {
         align-items: center;
         .type {
           text-align: left;
-          width: 30%;
+          width: 57%;
           display: inline-block;
           color: #949494
         }
