@@ -175,13 +175,12 @@ body, html{
     background: #eee;
     .oprefile{
         padding: 30px;
-        background: #fff;
+        background-color: #fff;
         text-align: center;
       }
     .summary{
             margin-top: 30px;
             width: 100%;
-            // border-bottom: solid #194686 1px;
             font-size: 18px;
             font-weight: 450;
             height: 30px;
@@ -191,7 +190,6 @@ body, html{
 
           }
     .steps {
-      // margin-top: 20px;
       background: white;
       padding: 40px 30px 0px;
       box-sizing: border-box;
@@ -204,8 +202,6 @@ body, html{
       .step :hover{
         box-shadow: 0 0 10px rgba(0,0,0,0.2);
         background-color: #fff;
-
-        background: white;
         padding: 20px 30px 0px;
         box-sizing: border-box;
         display: flex;
