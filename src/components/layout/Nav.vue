@@ -473,7 +473,7 @@ export default {
       this.userName = res.data.userName
       this.loginPage = res.data.loginPage
       this.userCenterPage = res.data.userCenterPage
-      this.ifHaveAuti()
+      this.ifHaveAuti(res)
       if (res.data.userName === 'guest') {
         this.ifGuest = true
       } else {
