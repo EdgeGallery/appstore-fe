@@ -439,6 +439,30 @@ export default {
           })
         }
       )
+    },
+    functionSortBy () {
+      this.sortBy.forEach((item) => {
+        item.selected = false
+        if (item.value === this.selectedConditions[0].label[1]) {
+          item.selected = true
+        }
+      })
+    },
+    functionIndustry () {
+      this.sortBy.forEach((item) => {
+        item.selected = false
+        if (item.value === this.selectedConditions[0].label[1]) {
+          item.selected = true
+        }
+      })
+    },
+    functionTypes () {
+      this.types.forEach((item) => {
+        item.selected = false
+        if (item.value === this.selectedConditions[0].label[1]) {
+          item.selected = true
+        }
+      })
     }
   },
   watch: {
@@ -470,30 +494,15 @@ export default {
     if (this.$route.params.data) {
       let params = JSON.parse(this.$route.params.data)
       this.selectedConditions = params
-      this.industry.forEach((item) => {
-        item.selected = false
-        if (item.value === this.selectedConditions[0].label[1]) {
-          item.selected = true
-        }
-      })
+      this.newFunctionIndustry()
       this.affinity.forEach((item) => {
         item.selected = false
         if (item.value === this.selectedConditions[0].label) {
           item.selected = true
         }
       })
-      this.sortBy.forEach((item) => {
-        item.selected = false
-        if (item.value === this.selectedConditions[0].label[1]) {
-          item.selected = true
-        }
-      })
-      this.types.forEach((item) => {
-        item.selected = false
-        if (item.value === this.selectedConditions[0].label[1]) {
-          item.selected = true
-        }
-      })
+      this.newFunctionSortBy()
+      this.functionTypes()
     }
     this.getAppData()
     this.ifFromDetail()

@@ -33,7 +33,6 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VideoPlayer from 'vue-video-player'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'video.js/dist/video-js.min.css'
-// import 'swiper/swiper-bundle.css'
 import 'swiper/css/swiper.css'
 import Tooltip from 'vue-directive-tooltip'
 Vue.use(VueAwesomeSwiper)
