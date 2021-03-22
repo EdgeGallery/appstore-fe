@@ -16,15 +16,6 @@
 
 <template>
   <div class="apphome">
-    <div
-      class="alsrtInfo"
-      :style="{display: displayStsates}"
-      ref="alertMsg"
-    >
-      <div class="profPrompt_test">
-        {{ aletMsg }}
-      </div>
-    </div>
     <!-- 新上车应用 -->
     <div class="banner">
       <home-swiper />
@@ -519,33 +510,6 @@ export default {
 
 <style lang="less">
 .apphome{
-  .alsrtInfo{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.1);
-    .profPrompt_test{
-      padding: 30px 10px;
-      width: 420px;
-      overflow: hidden;
-      line-height: 28px;
-      border: 1px solid #4eb6d3;
-      color: #4eb6d3;
-      position: absolute;
-      background-color: #fbfbfb;
-      top: 20%;
-      left: 82%;
-      font-size: 14px;
-      font-family: Gotham-Book, sans-serif;
-      opacity: 1;
-      /* z-index: 1; */
-      text-align: center;
-      transform: translate(-50%, -50%);
-    }
-  }
   .banner{
     height: 530px;
     padding: 0;

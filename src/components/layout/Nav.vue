@@ -522,13 +522,13 @@ export default {
         font-size: 18px;
         font-weight: 700;
         margin-right: 0px;
-        font-family: Microsoft YaHei;
+        font-family: Microsoft YaHei , sans-serif;
         vertical-align: bottom;
       }
       .el-submenu__title {
         font-size: 18px;
         font-weight: 700;
-        font-family: Microsoft YaHei;
+        font-family: Microsoft YaHei , sans-serif;
       }
       .el-menu--horizontal>.el-submenu .el-submenu__title {
         height: 65px;

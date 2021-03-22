@@ -126,7 +126,6 @@ export default {
         }
       }
       for (let valueArr of value) {
-        // for (let i = 0; i < value.length; i++) {
         for (let appStoreListArr of this.appStoreList) {
           if (valueArr.sourceStoreName === appStoreListArr.name) {
             for (let contenArr of appStoreListArr.content) {
@@ -139,28 +138,14 @@ export default {
           }
         }
       }
-
-      for (let i = 0; i < value.length; i++) {
-        for (let j = 0; j < this.appStoreList.length; j++) {
-          if (value[i].sourceStoreName === this.appStoreList[j].name) {
-            for (let k = 0; k < this.appStoreList[j].content.length; k++) {
-              if (value[i].packageId === this.appStoreList[j].content[k].packageId) {
-                this.appStoreList[j].content[k].isSelectToPull = true
-                break
-              }
-            }
-            break
-          }
-        }
-      }
     },
     showPullAppDialog (row) {
       this.appPullResultData = []
       let tempData = JSON.parse(sessionStorage.getItem('allAppPullInfo'))
-      for (let i = 0; i < tempData.length; i++) {
+      for (let tempDataArr of tempData) {
         let pullResult = {
-          name: tempData[i].name,
-          appstoreName: tempData[i].sourceStoreName,
+          name: tempDataArr.name,
+          appstoreName: tempDataArr.sourceStoreName,
           result: 'start'
         }
         this.appPullResultData.push(pullResult)
