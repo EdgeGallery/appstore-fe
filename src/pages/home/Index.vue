@@ -476,7 +476,10 @@ export default {
         this.setItemSelectedValue(item)
       })
       this.affinity.forEach((item) => {
-        this.setItemSelectedValue(item)
+        item.selected = false
+        if (item.value === this.selectedConditions[0].label) {
+          item.selected = true
+        }
       })
       this.sortBy.forEach((item) => {
         this.setItemSelectedValue(item)
