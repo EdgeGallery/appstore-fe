@@ -157,17 +157,17 @@ export default {
         promProviderInfo().then((res) => {
           let data = res.data
           let index = 1
-          data.forEach(item => {
-            let providerItem = {
-              number: index,
-              appStoreId: '',
-              label: ''
-            }
+          let providerItem = {
+            number: index,
+            appStoreId: '',
+            label: ''
+          }
+          for (let item of data) {
             providerItem.appStoreId = item.appStoreId
             providerItem.label = item.appStoreName
             this.appStoreArr.push(providerItem)
             index++
-          })
+          }
           if (data.length > 0) {
             resolve(this.appStoreArr)
           }
@@ -183,8 +183,9 @@ export default {
     },
     getAllPullApps () {
       this.getProviders().then((resAppstore) => {
-        for (let i = 0; i < resAppstore.length; i++) {
-          getAppByAppstoreId(resAppstore[i].appStoreId).then((res) => {
+        // for (let i = 0; i < resAppstore.length; i++) {
+        for (let resAppstoreArr of resAppstore) {
+          getAppByAppstoreId(resAppstoreArr.appStoreId).then((res) => {
             let appStoreToApps = []
             let data = res.data
             if (data !== '') {
@@ -196,22 +197,22 @@ export default {
                     version: item.version,
                     atpTestReportUrl: item.atpTestReportUrl,
                     packageId: item.packageId,
-                    sourceStoreId: resAppstore[i].appStoreId,
+                    sourceStoreId: resAppstoreArr.appStoreId,
                     affinity: item.affinity,
                     industry: item.industry,
                     shortDesc: item.shortDesc,
                     type: item.type,
                     createTime: item.createTime,
                     atpTestStatus: item.atpTestStatus,
-                    sourceStoreName: resAppstore[i].label,
+                    sourceStoreName: resAppstoreArr.label,
                     isSelectToPull: false
                   }
                   appStoreToApps.push(appDataItem)
                 }
               )
               let tempdata = {
-                name: resAppstore[i].label,
-                title: resAppstore[i].label,
+                name: resAppstoreArr.label,
+                title: resAppstoreArr.label,
                 content: appStoreToApps
               }
               this.appStoreList.push(tempdata)

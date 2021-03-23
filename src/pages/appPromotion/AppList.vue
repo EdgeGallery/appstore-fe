@@ -252,7 +252,6 @@ export default {
           this.promProviderList.push(arr)
         }
       } else {
-        // for (let i = 0; i < this.value.length; i++) {
         for (let len of this.value) {
           for (let arr of this.appStoreList) {
             if (arr.value === len) {
@@ -263,6 +262,9 @@ export default {
         }
       }
       this.uploadDiaVis = true
+      this.newFunction(row)
+    },
+    newFunction (row) {
       if (!(row instanceof MouseEvent)) {
         sessionStorage.setItem(
           'appstordetail',

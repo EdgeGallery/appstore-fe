@@ -172,10 +172,7 @@ export default {
     handleDelete (param) {
       this.$emit('deleteApp', param)
     }
-  },
-  watch: {
-  },
-  mounted () {}
+  }
 }
 </script>
 
