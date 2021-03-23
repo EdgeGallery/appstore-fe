@@ -222,17 +222,17 @@ export default {
         }
         return timeValueA - timeValueB
       }
-      let findApp = (type) => {
+      let findApp = (typePa) => {
         let fieldArr = []
         let appSort = []
         this.findAppData.forEach((item) => {
-          if (type === 'name' || type === 'version' || type === 'provider' || type === 'industry' || type === 'type') {
-            fieldArr.push(item[type].toLowerCase())
+          if (typePa === 'name' || typePa === 'version' || typePa === 'provider' || typePa === 'industry' || typePa === 'type') {
+            fieldArr.push(item[typePa].toLowerCase())
           } else {
-            fieldArr.push(item[type])
+            fieldArr.push(item[typePa])
           }
         })
-        if (type === 'createTime') {
+        if (typePa === 'createTime') {
           fieldArr.sort(sortTime)
           if (column.order === 'descending') {
             fieldArr.reverse()
@@ -245,24 +245,27 @@ export default {
         }
         const set = new Set(fieldArr)
         fieldArr = [...set]
-        fieldArr.forEach((fieldItem) => {
-          this.findAppData.forEach((item) => {
-            if (type === 'name' || type === 'provider' || type === 'version' || type === 'messageType') {
-              if (item[type].toLowerCase() === fieldItem) {
-                appSort.push(item)
-              }
-            } else {
-              if (item[type] === fieldItem) {
-                appSort.push(item)
-              }
-            }
-          })
-        })
+        this.newFunction(fieldArr, typePa, appSort)
         return appSort
       }
 
       let type = column.prop
       this.findAppData = findApp(type)
+    },
+    newFunction (fieldArr, typePa, appSort) {
+      fieldArr.forEach((fieldItem) => {
+        this.findAppData.forEach((item) => {
+          if (typePa === 'name' || typePa === 'provider' || typePa === 'version' || typePa === 'messageType') {
+            if (item[typePa].toLowerCase() === fieldItem) {
+              appSort.push(item)
+            }
+          } else {
+            if (item[typePa] === fieldItem) {
+              appSort.push(item)
+            }
+          }
+        })
+      })
     },
     defaultSort () {
       setTimeout(() => {

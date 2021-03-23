@@ -1,5 +1,3 @@
-
-
 ### Image目录
 该目录下包含一个或者多个Image镜像文件和一个镜像描述文件。  
 Image镜像文件采用压缩包的方式放置于Image目录下。对于虚机应用，镜像文件为qcow2镜像，对于容器用用，镜像为容器导出的镜像tar文件。
@@ -25,7 +23,6 @@ SwImageDesc.json文件样例：
 
 ```
 [
-    //镜像在APP包内
     {
         "id":"1",
         "name":"monitoring-service-fe:1.0",
@@ -40,7 +37,6 @@ SwImageDesc.json文件样例：
         "operatingSystem":"ubuntu",
         "supportedVirtualisationEnvironment":"linux"
     }
-    //镜像不在APP包内
     {
         "id":"2",
         "name":"monitoring-service-be:1.0",

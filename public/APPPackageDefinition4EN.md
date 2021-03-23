@@ -1,12 +1,12 @@
-
-
 ### Image directory
-This directory contains one or more Image image files and an image description file.
-The Image image file is placed in the Image directory in the form of a compressed package. For virtual machine applications, the image file is a qcow2 image, and for container use, the image is an image tar file exported by the container.
+This directory contains one or more image attachment files and one or more description files.
+For virtual machine applications, the replacement file is qcow2, and for container use, it is replaced by a replacement tar file for container replacement.
 The Image directory contains a SwImageDesc.json file to describe the image information. The definition of SwImageDesc.json file is shown in the following table. For details, please refer to ETSI ISG NFV IFA011.
 
+
+
 | Parameter name | Parameter type | Description | Is it required |
-|---------|---------|----------------------------- -------|----------|
+|---------|---------|----------|----------|
 |id | Identifier| Image file ID, used as a serial number, unique in the APP package, if you use the name to distinguish, you don’t need to use this parameter | O |
 |name | String | Mirror name, which is used when VIM is registered to distinguish different mirrors. When it is a container scene, it is named "container image name: version" here | M |
 |version | String | Mirror file version number | M |
@@ -52,5 +52,5 @@ Sample of SwImageDesc.json file:
         "swImage":"swr.ap-southeast-1.myhuaweicloud.com/edgegallery/monitoring-be-service:1.0",
         "operatingSystem":"ubuntu",
         "supportedVirtualisationEnvironment":"linux"
-    }    
+    }
 ]

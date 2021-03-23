@@ -114,17 +114,8 @@ export default {
       }
     },
     setSelectedItems (value) {
-      if (value.length > 0) {
-        this.btnChangeEnable = false
-      } else {
-        this.btnChangeEnable = true
-      }
-      // 更新appStoreList里面的所有数据选中状态
-      for (let appStoreListArr of this.appStoreList) {
-        for (let contentArr of appStoreListArr) {
-          contentArr.isSelectToPull = false
-        }
-      }
+      this.judgeChange(value)
+      this.judgeChange1()
       for (let valueArr of value) {
         for (let appStoreListArr of this.appStoreList) {
           if (valueArr.sourceStoreName === appStoreListArr.name) {
@@ -136,6 +127,20 @@ export default {
             }
             break
           }
+        }
+      }
+    },
+    judgeChange (valueArr) {
+      if (valueArr.length > 0) {
+        this.btnChangeEnable = false
+      } else {
+        this.btnChangeEnable = true
+      }
+    },
+    judgeChange1 () {
+      for (let appStoreListArr of this.appStoreList) {
+        for (let contentArr of appStoreListArr) {
+          contentArr.isSelectToPull = false
         }
       }
     },
@@ -183,7 +188,6 @@ export default {
     },
     getAllPullApps () {
       this.getProviders().then((resAppstore) => {
-        // for (let i = 0; i < resAppstore.length; i++) {
         for (let resAppstoreArr of resAppstore) {
           getAppByAppstoreId(resAppstoreArr.appStoreId).then((res) => {
             let appStoreToApps = []
