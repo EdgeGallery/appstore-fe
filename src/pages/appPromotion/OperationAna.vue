@@ -434,26 +434,29 @@ export default {
         (item) => {
           if (name === item.targetAppStore && item.messageType === this.getMessageType('PULL')) {
             let days = this.getDateValue(item.time.split(' ')[0])
-            if (days === 1) {
-              day1++
-            }
-            if (days === 2) {
-              day2++
-            }
-            if (days === 3) {
-              day3++
-            }
-            if (days === 4) {
-              day4++
-            }
-            if (days === 5) {
-              day5++
-            }
-            if (days === 6) {
-              day6++
-            }
-            if (days === 7) {
-              day7++
+            switch (days) {
+              case 1:
+                day1++
+                break
+              case 2:
+                day2++
+                break
+              case 3:
+                day3++
+                break
+              case 4:
+                day4++
+                break
+              case 5:
+                day5++
+                break
+              case 6:
+                day6++
+                break
+              case 7:
+                day7++
+                break
+              default:
             }
           }
         }
@@ -474,17 +477,17 @@ export default {
         let timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
         return timeValueA - timeValueB
       }
-      let findApp = (type) => {
+      let findApp = (typePa) => {
         let fieldArr = []
         let appSort = []
         this.findAppData.forEach((item) => {
-          if (type === 'name' || type === 'version' || type === 'provider' || type === 'messageType') {
-            fieldArr.push(item[type].toLowerCase())
+          if (typePa === 'name' || typePa === 'version' || typePa === 'provider' || typePa === 'messageType') {
+            fieldArr.push(item[typePa].toLowerCase())
           } else {
-            fieldArr.push(item[type])
+            fieldArr.push(item[typePa])
           }
         })
-        if (type === 'time') {
+        if (typePa === 'time') {
           fieldArr.sort(sortTime)
           if (column.order === 'descending') {
             fieldArr.reverse()
@@ -497,24 +500,27 @@ export default {
         }
         const set = new Set(fieldArr)
         fieldArr = [...set]
-        fieldArr.forEach((fieldItem) => {
-          this.findAppData.forEach((item) => {
-            if (type === 'name' || type === 'provider' || type === 'version' || type === 'messageType') {
-              if (item[type].toLowerCase() === fieldItem) {
-                appSort.push(item)
-              }
-            } else {
-              if (item[type] === fieldItem) {
-                appSort.push(item)
-              }
-            }
-          })
-        })
+        this.filterSort(fieldArr, typePa, appSort)
         return appSort
       }
 
       let type = column.prop
       this.findAppData = findApp(type)
+    },
+    filterSort (fieldArr, typePa, appSort) {
+      fieldArr.forEach((fieldItem) => {
+        this.findAppData.forEach((item) => {
+          if (typePa === 'name' || typePa === 'provider' || typePa === 'version' || typePa === 'messageType') {
+            if (item[typePa].toLowerCase() === fieldItem) {
+              appSort.push(item)
+            }
+          } else {
+            if (item[typePa] === fieldItem) {
+              appSort.push(item)
+            }
+          }
+        })
+      })
     }
 
   },
@@ -726,6 +732,7 @@ export default {
       myCharts3.setOption(options3)
     }).catch(() => {
       this.$message({
+        showClose: true,
         duration: 2000,
         message: this.$t('apppromotion.getOperatorInfoFailed'),
         type: 'warning'

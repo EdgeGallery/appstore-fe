@@ -128,7 +128,7 @@
           <el-table-column
             fixed="right"
             :label="$t('myApp.operation')"
-            width="210"
+            width="195"
           >
             <template slot-scope="scope">
               <el-button

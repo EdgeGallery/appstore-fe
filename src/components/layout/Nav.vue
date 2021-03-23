@@ -315,10 +315,7 @@ export default {
       if (to.path === '/detail' && from.path === '/index') {
         this.activeIndex = '/index'
       }
-      if ((to.path === '/detail' && from.path === '/myapp') || (to.path === '/app/test/task' && from.path === '/myapp') || (to.path === '/atpreport' && from.path === '/myapp') ||
-       (to.path === '/myappdetail' && from.path === '/myapp') || (to.path === '/atpprocess' && from.path === '/myapp') || (to.path === '/atptestcase' && from.path === '/myapp')) {
-        this.activeIndex = '/myapp'
-      }
+      this.judgePath(to, from)
       let path = this.$route.path
       if (path === '/index') {
         this.isActive = 0
@@ -433,23 +430,33 @@ export default {
     },
     openUserAccountCenter () {
       window.open(this.userCenterPage)
+    },
+    judgePath (toPath, fromPath) {
+      if ((toPath.path === '/detail' && fromPath.path === '/myapp') || (toPath.path === '/app/test/task' && fromPath.path === '/myapp') || (toPath.path === '/atpreport' && fromPath.path === '/myapp') ||
+      (toPath.path === '/myappdetail' && fromPath.path === '/myapp') || (toPath.path === '/atpprocess' && fromPath.path === '/myapp') || (toPath.path === '/atptestcase' && fromPath.path === '/myapp')) {
+        this.activeIndex = '/myapp'
+      }
+    },
+    judgeRoute (pathPa) {
+      if (pathPa === '/') {
+        this.isActive = 0
+      } else if (pathPa === '/docs') {
+        this.isActive = 1
+      } else if (pathPa === '/myapp') {
+        this.isActive = 2
+      } else if (pathPa === '/about') {
+        this.isActive = 3
+      } else if (pathPa === '/apppromote') {
+        this.isActive = 4
+      }
     }
+
   },
 
   mounted () {
     localStorage.setItem('language', 'cn')
     let path = this.$route.path
-    if (path === '/') {
-      this.isActive = 0
-    } else if (path === '/docs') {
-      this.isActive = 1
-    } else if (path === '/myapp') {
-      this.isActive = 2
-    } else if (path === '/about') {
-      this.isActive = 3
-    } else if (path === '/apppromote') {
-      this.isActive = 4
-    }
+    this.judgeRoute(path)
     getUserInfo().then(res => {
       sessionStorage.setItem('userId', res.data.userId)
       sessionStorage.setItem('userName', res.data.userName)

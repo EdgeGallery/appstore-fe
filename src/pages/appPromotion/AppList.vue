@@ -374,22 +374,22 @@ export default {
       let sortNumber = (a, b) => {
         return a - b
       }
-      let findApp = (type) => {
+      let findApp = (typePa) => {
         let fieldArr = []
         let appSort = []
         this.findAppData.forEach((item) => {
-          if (type === 'name' || type === 'version' || type === 'provider' || type === 'messageType') {
-            fieldArr.push(item[type].toLowerCase())
+          if (typePa === 'name' || typePa === 'version' || typePa === 'provider' || typePa === 'messageType') {
+            fieldArr.push(item[typePa].toLowerCase())
           } else {
-            fieldArr.push(item[type])
+            fieldArr.push(item[typePa])
           }
         })
-        if (type === 'latestPushTime') {
+        if (typePa === 'latestPushTime') {
           fieldArr.sort(sortTime)
           if (column.order === 'descending') {
             fieldArr.reverse()
           }
-        } else if (type === 'pushTimes') {
+        } else if (typePa === 'pushTimes') {
           fieldArr.sort(sortNumber)
           if (column.order === 'descending') {
             fieldArr.reverse()
@@ -402,24 +402,27 @@ export default {
         }
         const set = new Set(fieldArr)
         fieldArr = [...set]
-        fieldArr.forEach((fieldItem) => {
-          this.findAppData.forEach((item) => {
-            if (type === 'name' || type === 'provider' || type === 'version' || type === 'messageType') {
-              if (item[type].toLowerCase() === fieldItem) {
-                appSort.push(item)
-              }
-            } else {
-              if (item[type] === fieldItem) {
-                appSort.push(item)
-              }
-            }
-          })
-        })
+        this.filterItem(fieldArr, typePa, appSort)
         return appSort
       }
 
       let type = column.prop
       this.findAppData = findApp(type)
+    },
+    filterItem (fieldArr, typePa, appSort) {
+      fieldArr.forEach((fieldItem) => {
+        this.findAppData.forEach((item) => {
+          if (typePa === 'name' || typePa === 'provider' || typePa === 'version' || typePa === 'messageType') {
+            if (item[typePa].toLowerCase() === fieldItem) {
+              appSort.push(item)
+            }
+          } else {
+            if (item[typePa] === fieldItem) {
+              appSort.push(item)
+            }
+          }
+        })
+      })
     },
     refreshPromData (value) {
       if (value) {
