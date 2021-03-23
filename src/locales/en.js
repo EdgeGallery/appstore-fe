@@ -427,7 +427,7 @@ const en = {
     unReadedMsg: 'unReaded',
     readedMsg: 'readed',
     allMsg: 'all messages',
-    appStoreName: 'AppStore Name',
+    appStoreName: 'store name',
     testRepoKey: 'test report',
     clickToCheckRepo: 'click to view!',
     updateMsgFailed: 'update message status failed',

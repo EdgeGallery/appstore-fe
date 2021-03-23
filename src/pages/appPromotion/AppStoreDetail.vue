@@ -269,6 +269,7 @@ export default {
     },
     defaultSort () {
       setTimeout(() => {
+        this.selectFlag = true
         this.$refs.multipleTable.sort('createTime', 'descending')
       }, 500)
     }
