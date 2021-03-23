@@ -164,16 +164,16 @@ export default {
       }
       let finalData = []
       let packageIds = []
-      for (let tempDataArr of tempData) {
-        if (this.currentAppStoreId !== tempDataArr.sourceStoreId) {
-          finalData.push(tempDataArr)
-          packageIds.push(tempDataArr.packageId)
+      for (let tempDataItem of tempData) {
+        if (this.currentAppStoreId !== tempDataItem.sourceStoreId) {
+          finalData.push(tempDataItem)
+          packageIds.push(tempDataItem.packageId)
         }
       }
-      for (let varArr of val) {
-        if (packageIds.indexOf(varArr.packageId) === -1) {
-          packageIds.push(varArr.packageId)
-          finalData.push(varArr)
+      for (let varArrItem of val) {
+        if (packageIds.indexOf(varArrItem.packageId) === -1) {
+          packageIds.push(varArrItem.packageId)
+          finalData.push(varArrItem)
         }
       }
       sessionStorage.setItem(
@@ -189,10 +189,10 @@ export default {
       this.currentPageData = this.findAppData.slice(start, end)
 
       this.$nextTick(function () {
-        for (let arr of this.currentPageData) {
-          if (arr.isSelectToPull === true) {
+        for (let appItem of this.currentPageData) {
+          if (appItem.isSelectToPull === true) {
             this.selectFlag = true
-            this.$refs.multipleTable.toggleRowSelection(arr, this.selectFlag)
+            this.$refs.multipleTable.toggleRowSelection(appItem, this.selectFlag)
           }
         }
       })

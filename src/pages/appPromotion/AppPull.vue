@@ -106,22 +106,22 @@ export default {
       })
     },
     getSelectAppstoreData (name) {
-      for (let appStoreListArr of this.appStoreList) {
-        if (appStoreListArr.name === name) {
-          this.currentTableData = this.appStoreListArr.content
+      for (let appStoreItem of this.appStoreList) {
+        if (appStoreItem.name === name) {
+          this.currentTableData = appStoreItem.content
           this.rebuileComponents()
         }
       }
     },
     setSelectedItems (value) {
-      this.judgeChange(value)
-      this.judgeChange1()
-      for (let valueArr of value) {
-        for (let appStoreListArr of this.appStoreList) {
-          if (valueArr.sourceStoreName === appStoreListArr.name) {
-            for (let contenArr of appStoreListArr.content) {
-              if (valueArr.packageId === contenArr.packageId) {
-                contenArr.isSelectToPull = true
+      this.setPullButtonValue(value)
+      this.setAllAppSeclectValueToFalse()
+      for (let selectItem of value) {
+        for (let appStoreItem of this.appStoreList) {
+          if (selectItem.sourceStoreName === appStoreItem.name) {
+            for (let appItem of appStoreItem.content) {
+              if (selectItem.packageId === appItem.packageId) {
+                appItem.isSelectToPull = true
                 break
               }
             }
@@ -130,17 +130,17 @@ export default {
         }
       }
     },
-    judgeChange (valueArr) {
-      if (valueArr.length > 0) {
+    setPullButtonValue (value) {
+      if (value.length > 0) {
         this.btnChangeEnable = false
       } else {
         this.btnChangeEnable = true
       }
     },
-    judgeChange1 () {
-      for (let appStoreListArr of this.appStoreList) {
-        for (let contentArr of appStoreListArr) {
-          contentArr.isSelectToPull = false
+    setAllAppSeclectValueToFalse () {
+      for (let appStoreListItem of this.appStoreList) {
+        for (let appItem of appStoreListItem.content) {
+          appItem.isSelectToPull = false
         }
       }
     },
