@@ -392,6 +392,7 @@ const cn = {
     totalNum: '总量',
     appDownloadTrend: 'APP拉取趋势图',
     appPushStatistic: 'APP推送统计',
+    appPushTargetAppstore: '目标仓库',
     pushChartUnit: '单位：次',
     quarterly1: '第一季度',
     quarterly2: '第二季度',

@@ -128,7 +128,8 @@ export default {
       pageSize: 10,
       total: 0,
       curPageSize: 10,
-      selectFlag: false
+      selectFlag: false,
+      sortActionFlag: false
     }
   },
   methods: {
@@ -153,6 +154,10 @@ export default {
     },
     selectionLineChangeHandle (val) {
       // 动态的把勾选的app信息添加到总的allSelectionsApp中
+      if (this.sortActionFlag) {
+        this.sortActionFlag = false
+        return
+      }
       if (this.selectFlag) {
         this.selectFlag = false
         return
@@ -269,8 +274,14 @@ export default {
     },
     defaultSort () {
       setTimeout(() => {
-        this.selectFlag = true
-        this.$refs.multipleTable.sort('createTime', 'descending')
+        if (this.currentPageData.length > 0) {
+          // 排序会触发勾选bug
+          this.sortActionFlag = true
+          this.$refs.multipleTable.sort('createTime', 'descending')
+          setTimeout(() => {
+            this.sortActionFlag = false
+          }, 500)
+        }
       }, 500)
     }
   },

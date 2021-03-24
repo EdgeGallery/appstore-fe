@@ -377,6 +377,7 @@ const en = {
     totalNum: 'total',
     appDownloadTrend: 'APP pull trend chart',
     appPushStatistic: 'APP push statistics',
+    appPushTargetAppstore: 'target appstore',
     pushChartUnit: 'Unit: Times',
     quarterly1: 'First season',
     quarterly2: 'Second quarter',
