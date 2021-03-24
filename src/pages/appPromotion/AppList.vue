@@ -141,6 +141,7 @@
         </div>
         <div v-if="uploadDiaVis">
           <promTask
+            ref="promItem"
             v-model="uploadDiaVis"
             @refreshAppPromInfo="refreshPromData"
             :app-store-list-prop="promProviderList"
@@ -262,6 +263,9 @@ export default {
         }
       }
       this.uploadDiaVis = true
+      setTimeout(() => {
+        this.$refs.promItem.handleExecute()
+      }, 500)
       this.newFunction(row)
     },
     newFunction (row) {
