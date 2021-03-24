@@ -75,12 +75,6 @@
         >{{
           $t("apppromotion.closePanel")
         }}</el-button>
-        <el-button
-          type="primary"
-          @click="handleExecute"
-        >{{
-          $t("apppromotion.execute")
-        }}</el-button>
       </span>
     </el-dialog>
   </div>

@@ -344,18 +344,7 @@ export default {
       let number = 0
       appPackageData.forEach(
         (item) => {
-          if (name === item.sourceAppStore && item.messageType === this.getMessageType('PUSH')) {
-            number++
-          }
-        }
-      )
-      return number
-    },
-    getNoticeNum (name, appPackageData) {
-      let number = 0
-      appPackageData.forEach(
-        (item) => {
-          if (name === item.targetAppStore && item.messageType === this.getMessageType('NOTICE')) {
+          if (name === item.targetAppStore && item.messageType === this.getMessageType('PUSH')) {
             number++
           }
         }
@@ -570,6 +559,7 @@ export default {
         legend: {
           orient: 'vertical',
           left: 10,
+          top: 20,
           data: nameArr
         },
         series: [
@@ -599,35 +589,27 @@ export default {
 
       // echart2
       let appStorePushArr = []
-      let appStoreNoticeArr = []
       let allAppStoreArr = []
       let appStoreNames = this.getAppStoreNames(this.appPackageData)
       appStoreNames.forEach(
         (item) => {
           let pushNum = this.getPushNum(item, this.appPackageData)
-          let noticeNum = this.getNoticeNum(item, this.appPackageData)
-          if (pushNum > 0 || noticeNum > 0) {
+          if (pushNum > 0) {
             allAppStoreArr.push(item)
             appStorePushArr.push(pushNum)
-            appStoreNoticeArr.push(noticeNum)
           }
         }
       )
 
       let options2 = {
         title: {
-          text: this.$t('apppromotion.appPushAndNoticeStatistic')
+          text: this.$t('apppromotion.appPushStatistic')
         },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
             type: 'shadow'
           }
-        },
-        legend: {
-          data: ['PUSH', 'NOTICE'],
-          right: 30,
-          top: 30
         },
         grid: {
           left: '3%',
@@ -650,7 +632,8 @@ export default {
         ],
         yAxis: [
           {
-            type: 'value'
+            type: 'value',
+            name: this.$t('apppromotion.pushChartUnit')
           }
         ],
         series: [
@@ -660,13 +643,6 @@ export default {
             stack: 'name',
             barWidth: 40,
             data: appStorePushArr
-          },
-          {
-            name: 'NOTICE',
-            type: 'bar',
-            stack: 'name',
-            barWidth: 40,
-            data: appStoreNoticeArr
           }
         ]
       }
@@ -679,8 +655,8 @@ export default {
       targetAppStoreSet.forEach(
         (item) => {
           let pullAppNum = this.getPullAppNum(item, this.appPackageData)
-          for (let pullAppNumArr of pullAppNum) {
-            if (pullAppNumArr > 0) {
+          for (let pullAppNumItem of pullAppNum) {
+            if (pullAppNumItem > 0) {
               targetAppStoreArr.push(item)
               let pullInfo = {
                 name: item,
@@ -708,7 +684,7 @@ export default {
           top: 30
         },
         grid: {
-          left: '3%',
+          left: '6%',
           right: '5%',
           bottom: '3%',
           containLabel: true
@@ -723,7 +699,8 @@ export default {
         },
         yAxis: {
           type: 'value',
-          minInterval: 1
+          minInterval: 1,
+          name: this.$t('apppromotion.pushChartUnit')
         },
         series: targetAppStorePullArr
       }

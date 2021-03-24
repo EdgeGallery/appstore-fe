@@ -66,6 +66,7 @@
       <!-- pull dialog -->
       <div v-if="isShowDialog">
         <appPullResultDlg
+          ref="childItem"
           v-model="isShowDialog"
           :app-pull-result-data="appPullResultData"
         />
@@ -156,6 +157,9 @@ export default {
         this.appPullResultData.push(pullResult)
       }
       this.isShowDialog = true
+      setTimeout(() => {
+        this.$refs.childItem.handleExecute()
+      }, 500)
     },
     getProviders () {
       return new Promise((resolve, reject) => {
