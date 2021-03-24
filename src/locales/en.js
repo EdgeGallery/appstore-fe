@@ -177,7 +177,7 @@ const en = {
     demo: 'Video',
     message: 'Message',
     postComment: 'Post a Comment',
-    uploadApp: 'Upload App Package',
+    uploadApp: 'Upload',
     uploadLogo: 'Upload Logo',
     uploadVideo: 'Upload Demo Video',
     appstore: 'App Store',
