@@ -95,7 +95,7 @@ export default {
       appStoreList: [],
       currentTableData: [],
       appPackageData: [],
-      hackReset: true,
+      hackReset: false,
       hasActiveDefault: false
     }
   },
@@ -122,7 +122,7 @@ export default {
           if (selectItem.sourceStoreName === appStoreItem.name) {
             for (let appItem of appStoreItem.content) {
               if (selectItem.packageId === appItem.packageId) {
-                appItem.isSelectToPull = true
+                appItem['isSelectToPull'] = true
                 break
               }
             }

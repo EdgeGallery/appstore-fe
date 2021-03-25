@@ -590,6 +590,8 @@ export default {
       // echart2
       let appStorePushArr = []
       let allAppStoreArr = []
+
+      let statisticArr = []
       let appStoreNames = this.getAppStoreNames(this.appPackageData)
       appStoreNames.forEach(
         (item) => {
@@ -597,9 +599,29 @@ export default {
           if (pushNum > 0) {
             allAppStoreArr.push(item)
             appStorePushArr.push(pushNum)
+            let tempObj = {
+              name: item,
+              count: pushNum
+            }
+            statisticArr.push(tempObj)
           }
         }
       )
+      let sortNumber = (a, b) => {
+        return b - a
+      }
+      // 统计top5 推送应用的仓库
+      let top5Name = []
+      appStorePushArr.sort(sortNumber)
+      appStorePushArr = appStorePushArr.slice(0, 5)
+      for (let num of appStorePushArr) {
+        for (let item of statisticArr) {
+          if (item.count === num) {
+            top5Name.push(item.name)
+          }
+        }
+      }
+      top5Name = top5Name.slice(0, 5)
 
       let options2 = {
         title: {
@@ -620,6 +642,7 @@ export default {
         xAxis: [
           {
             type: 'category',
+            // name: this.$t('apppromotion.appPushTargetAppstore'),
             axisLabel: {
               interval: 0,
               formatter: function (value, index) {
@@ -627,7 +650,7 @@ export default {
                 return value.length > 9 ? v : value
               }
             },
-            data: allAppStoreArr
+            data: top5Name
           }
         ],
         yAxis: [
@@ -642,7 +665,12 @@ export default {
             type: 'bar',
             stack: 'name',
             barWidth: 40,
-            data: appStorePushArr
+            data: appStorePushArr,
+            itemStyle: {
+              normal: {
+                color: '#2f4554'
+              }
+            }
           }
         ]
       }
