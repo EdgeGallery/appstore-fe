@@ -372,7 +372,7 @@ export default {
           title: 'AI',
           content: '最佳创意的AI应用<br/>这些应用帮你启发灵感、<br/>挥洒创意',
           type: 'industry',
-          index: 8
+          index: 7
         }
       ],
       scoreHighestData: [
@@ -435,6 +435,7 @@ export default {
       contactUrl: 'http://www.edgegallery.org',
       giteeUrl: 'https://gitee.com/edgegallery',
       developerUrl: '',
+      language: localStorage.getItem('language'),
       mecmUrl: ''
     }
   },
@@ -495,26 +496,36 @@ export default {
         this.developerUrl = currUrl.replace('appstore', 'developer')
         this.mecmUrl = currUrl.replace('appstore', 'mecm')
       }
+    },
+    changeEnCn (language) {
+      if (language === 'en') {
+        this.recommendData[0].title = 'Game'
+        this.recommendData[0].content = 'The game zone brings you<br>The hottest games of 2020 Application recommendation and download'
+        this.recommendData[1].title = 'Smart Park'
+        this.recommendData[1].content = 'Using big data, Internet of Things, cloud computing, artificial intelligence and other advanced methods to empower the park to create a safe and efficient park'
+        this.recommendData[2].content = 'The best creative AI applications These applications help you inspire and express your creativity'
+      } else {
+        this.recommendData[0].title = '游戏'
+        this.recommendData[0].content = '游戏专区给大家带来了<br/>2020年度最热门的游戏<br/>应用推荐及下载'
+        this.recommendData[1].title = '智慧园区'
+        this.recommendData[1].content = '利用大数据、物联网、云计算、<br/>人工智能等先进手段为园区赋能<br/>打造安全高效的园区'
+        this.recommendData[2].content = '最佳创意的AI应用<br/>这些应用帮你启发灵感、<br/>挥洒创意'
+      }
     }
   },
   computed: {
     ...mapState(['language'])
   },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+
+      this.changeEnCn(language)
+    }
+  },
   mounted () {
     let language = localStorage.getItem('language')
-    if (language === 'en') {
-      this.recommendData[0].title = 'Game'
-      this.recommendData[0].content = 'The game zone brings you<br>The hottest games of 2020 Application recommendation and download'
-      this.recommendData[1].title = 'Smart Park'
-      this.recommendData[1].content = 'Using big data, Internet of Things, cloud computing, artificial intelligence and other advanced methods to empower the park to create a safe and efficient park'
-      this.recommendData[2].content = 'The best creative AI applications These applications help you inspire and express your creativity'
-    } else {
-      this.recommendData[0].title = '游戏'
-      this.recommendData[0].content = '游戏专区给大家带来了<br/>2020年度最热门的游戏<br/>应用推荐及下载'
-      this.recommendData[1].title = '智慧园区'
-      this.recommendData[1].content = '利用大数据、物联网、云计算、<br/>人工智能等先进手段为园区赋能<br/>打造安全高效的园区'
-      this.recommendData[0].content = '最佳创意的AI应用<br/>这些应用帮你启发灵感、<br/>挥洒创意'
-    }
+    this.changeEnCn(language)
     this.alertDia(this.aletMsg)
     this.refreshCondition()
     this.getPlatformUrl()
