@@ -375,7 +375,6 @@ export default {
       }
       .detailInfo{
         margin-left: 80px;
-        margin-top: 40px;
       }
     }
     .appBasicInfoContent2{
