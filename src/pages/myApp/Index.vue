@@ -75,6 +75,7 @@
           <el-table-column
             prop="version"
             :label="$t('common.version')"
+            width="120"
             sortable="custom"
           />
           <el-table-column
@@ -87,23 +88,23 @@
             prop="affinity"
             :label="$t('common.architecture')"
             sortable="custom"
+            width="140"
           />
           <el-table-column
             prop="createTime"
             :label="$t('common.uploadTime')"
-            width="170"
+            width="160"
             sortable="custom"
           />
           <el-table-column
             prop="shortDesc"
             :label="$t('common.description')"
-            width="300"
             :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
                 placement="bottom"
-                width="300"
+                width="260"
                 trigger="hover"
                 v-if="scope.row.shortDesc.length>20"
               >
@@ -128,7 +129,7 @@
           <el-table-column
             fixed="right"
             :label="$t('myApp.operation')"
-            width="195"
+            width="210"
           >
             <template slot-scope="scope">
               <el-button
@@ -515,9 +516,6 @@ export default {
   },
   beforeDestroy () {
     this.clearInterval()
-  },
-  destroyed () {
-    sessionStorage.removeItem('myAppStatusFilterValue')
   }
 }
 </script>
