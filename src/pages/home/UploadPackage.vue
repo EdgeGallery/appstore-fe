@@ -385,7 +385,7 @@ export default {
   methods: {
     getRadioVal () {
       this.rules.fileList[0].required = false
-      if (this.radioVal === '文件大小不超过10M' || this.radioVal === 'more than 10MB') {
+      if (this.radioVal === '文件大小不超过10M' || this.radioVal === 'less than 10MB') {
         this.ifUploadMin = true
         this.ifUploadBig = false
       } else {
@@ -801,6 +801,17 @@ export default {
       }).catch(error => {
         console.log(error)
       })
+    },
+    changeCnEn (language) {
+      if (language === 'en') {
+        this.radioData[0].value = 'less than 10MB'
+        this.radioData[1].value = 'more than 10MB'
+        this.radioVal = 'less than 10MB'
+      } else {
+        this.radioData[0].value = '文件大小不超过10M'
+        this.radioData[1].value = '文件大小超过10M'
+        this.radioVal = '文件大小不超过10M'
+      }
     }
   },
   destroyed () {
@@ -810,6 +821,7 @@ export default {
     '$i18n.locale': function () {
       let language = localStorage.getItem('language')
       this.language = language
+      this.changeCnEn(language)
       this.changeDataLanguage()
     },
     value: function (newVal) {
@@ -818,15 +830,7 @@ export default {
   },
   mounted () {
     let language = localStorage.getItem('language')
-    if (language === 'en') {
-      this.radioData[0].value = 'less than 10MB'
-      this.radioData[1].value = 'more than 10MB'
-      this.radioVal = 'more than 10MB'
-    } else {
-      this.radioData[0].value = '文件大小不超过10M'
-      this.radioData[1].value = '文件大小超过10M'
-      this.radioVal = '文件大小不超过10M'
-    }
+    this.changeCnEn(language)
     this.showErr = this.logoFileList
     this.chooseDefaultIcon(this.defaultIcon[0], 0)
     this.getRadioVal()
