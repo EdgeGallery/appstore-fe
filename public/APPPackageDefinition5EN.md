@@ -1,4 +1,4 @@
-  ### manifest file
+  ### Manifest File
 The manifest file MEAO is parsed to verify the integrity of the APP package. The file extension is .mf.
 The manifest file format is in the form of key-value pairs. It mainly defines the metadata information and integrity protection related information of the APP package. For specific definitions, refer to the relevant specifications of ETSI NFV SOL004.
 The metadata mainly contains the following parameters:
