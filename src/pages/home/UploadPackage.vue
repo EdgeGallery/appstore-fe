@@ -819,8 +819,8 @@ export default {
   mounted () {
     let language = localStorage.getItem('language')
     if (language === 'en') {
-      this.radioData[0].value = 'more than 10MB'
-      this.radioData[1].value = 'less than 10MB'
+      this.radioData[0].value = 'less than 10MB'
+      this.radioData[1].value = 'more than 10MB'
       this.radioVal = 'more than 10MB'
     } else {
       this.radioData[0].value = '文件大小不超过10M'
