@@ -57,6 +57,7 @@
               :disabled="!item.display"
               :index="item.route"
               :key="item.pageId"
+              @click.native="jumpTo(item.route, index, item.link, item.display)"
             >
               <template
                 slot="title"
@@ -237,7 +238,7 @@ export default {
         {
           labelEn: 'App Share',
           labelCn: '应用共享',
-          route: '/apppromote',
+          route: '/appShare',
           pageId: '2.1.6',
           display: true,
           link: '',
@@ -325,7 +326,7 @@ export default {
         this.isActive = 2
       } else if (path === '/about') {
         this.isActive = 0
-      } else if (path === '/apppromote' || path === '/apppromotion' || path === '/msgCenter' || path === '/right_panel' || path === 'app/prom/task') {
+      } else if (path === '/appShare' || path === '/apppromote' || path === '/apppromotion' || path === '/msgCenter' || path === '/right_panel' || path === 'app/prom/task') {
         this.isActive = 4
       } else {
         this.isActive = 0
@@ -363,9 +364,15 @@ export default {
       this.$i18n.locale = this.language
       this.$store.commit('changeLaguage', { language: this.language })
     },
-    jumpTo (route, index, link, isUse = true) {
+    jumpTo (route, link, isUse = true) {
       if (!link) {
         if (!isUse) return ''
+      }
+      if (route === '/appShare') {
+        this.$nextTick(() => {
+          this.activeIndex = '/apppromote'
+        })
+        this.$router.push(route)
       }
     },
 
@@ -446,7 +453,7 @@ export default {
         this.isActive = 2
       } else if (pathPa === '/about') {
         this.isActive = 3
-      } else if (pathPa === '/apppromote') {
+      } else if (pathPa === '/apppromote' || pathPa === '/appStore') {
         this.isActive = 4
       }
     }

@@ -471,6 +471,14 @@ const cn = {
     viewTestRepo: '查看报告',
     haveNoPullData: '暂无拉取数据！'
   },
+  appShare: {
+    manager: '外部应用仓库管理',
+    appstoreManager: '添加、修改、和删除可以应用共享的外部仓库。',
+    appstorePush: '展示可推送的应用信息，选择需要推送给运营商或者第三方的应用。',
+    appstorePull: '展示可拉取的应用信息，选择需要拉取的应用可进行批量拉取。',
+    appstoreMsg: '查看通知信息，可以接受来自不同运营商推送的APP信息。',
+    appstoreOperAna: '操作分析界面可以查看拉取、下载、推送等类型的消息,并从多个维度进行统计分析。'
+  },
   about: {},
   ...zhLocale
 }

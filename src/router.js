@@ -324,6 +324,14 @@ export default new Router({
           meta: {
             id: '2.7'
           }
+        },
+        {
+          path: 'appShare',
+          name: 'appShare',
+          component: () => import('./pages/appPromotion/appShareIndex.vue'),
+          meta: {
+            id: '2.10'
+          }
         }
       ]
     }

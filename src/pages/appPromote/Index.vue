@@ -273,7 +273,6 @@ export default {
   },
   data () {
     return {
-      bannerImg: 'images/appstore.png',
       pointNum: 5,
       tableData: [],
       userId: '',
@@ -296,7 +295,9 @@ export default {
       breadCrumbData: [],
       pageNumCache: 1,
       pageSizes: [8, 16, 24],
-      curPageSize: 8
+      curPageSize: 8,
+      language: localStorage.getItem('language'),
+      bannerImg: 'images/appstorecn.png'
     }
   },
   methods: {
@@ -525,6 +526,8 @@ export default {
   watch: {
     '$i18n.locale': function () {
       this.updateBreadCrumbData()
+      this.language = localStorage.getItem('language')
+      this.bannerImg = this.language === 'cn' ? 'images/appstorecn.png' : 'images/appstoreen.png'
     }
   },
   beforeDestroy () {
