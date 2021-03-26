@@ -497,6 +497,10 @@ export default {
         this.mecmUrl = currUrl.replace('appstore', 'mecm')
       }
     },
+    changeDataLanguage () {
+      let language = localStorage.getItem('language')
+      this.language = language
+    },
     changeEnCn (language) {
       if (language === 'en') {
         this.recommendData[0].title = 'Game'
@@ -518,14 +522,12 @@ export default {
   },
   watch: {
     '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-
-      this.changeEnCn(language)
+      this.changeDataLanguage()
+      this.changeEnCn(this.language)
     }
   },
   mounted () {
-    let language = localStorage.getItem('language')
-    this.changeEnCn(language)
+    this.changeEnCn(this.language)
     this.alertDia(this.aletMsg)
     this.refreshCondition()
     this.getPlatformUrl()
