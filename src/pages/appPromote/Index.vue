@@ -458,13 +458,15 @@ export default {
       this.interval = null
     },
     updateBreadCrumbData () {
-      this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.appShare'), path: '' }, { name: this.$t('nav.externalAppManagement'), path: '' }]
+      this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.appShare'), path: '/appShare' }, { name: this.$t('nav.externalAppManagement'), path: '' }]
     }
   },
   mounted () {
     this.userId = sessionStorage.getItem('userId')
     this.getAppPackageData()
     this.updateBreadCrumbData()
+    this.language = localStorage.getItem('language')
+    this.bannerImg = this.language === 'cn' ? 'images/appstorecn.png' : 'images/appstoreen.png'
   },
   computed: {
     title () {

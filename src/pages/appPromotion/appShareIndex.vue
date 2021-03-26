@@ -193,6 +193,10 @@ export default {
       }
     }
   },
+  mounted () {
+    this.language = localStorage.getItem('language')
+    this.bannerImg = this.language === 'cn' ? 'images/sharebannercn.png' : 'images/sharebanneren.png'
+  },
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
