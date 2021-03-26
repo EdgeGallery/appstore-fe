@@ -220,7 +220,8 @@ export default new Router({
                 nameCn: cn.nav.home
               }, {
                 nameEn: en.nav.appShare,
-                nameCn: cn.nav.appShare
+                nameCn: cn.nav.appShare,
+                path: '/appShare'
               }, {
                 nameEn: en.nav.appPush,
                 path: '/apppromotion',
@@ -242,7 +243,8 @@ export default new Router({
                 nameCn: cn.nav.home
               }, {
                 nameEn: en.nav.appShare,
-                nameCn: cn.nav.appShare
+                nameCn: cn.nav.appShare,
+                path: '/appShare'
               }, {
                 nameEn: en.nav.appPull,
                 path: '/appPull',
@@ -264,7 +266,8 @@ export default new Router({
                 nameCn: cn.nav.home
               }, {
                 nameEn: en.nav.appShare,
-                nameCn: cn.nav.appShare
+                nameCn: cn.nav.appShare,
+                path: '/appShare'
               }, {
                 nameEn: en.nav.operAna,
                 path: '/operationAnalyse',
@@ -298,7 +301,8 @@ export default new Router({
                 nameCn: cn.nav.home
               }, {
                 nameEn: en.nav.appShare,
-                nameCn: cn.nav.appShare
+                nameCn: cn.nav.appShare,
+                path: '/appShare'
               }, {
                 nameEn: en.nav.msgCenter,
                 path: '/msgCenter',
