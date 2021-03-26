@@ -457,6 +457,14 @@ const en = {
     viewTestRepo: 'view report',
     haveNoPullData: 'No data is pulled'
   },
+  appShare: {
+    manager: 'Store Manager',
+    appstoreManager: 'Add, modify, and delete external repositories that can be shared.',
+    appstorePush: 'View the application information that can be pushed, and select the application that needs to be pushed to the operator or a third party.',
+    appstorePull: 'View the application information that can be pulled from various external warehouses, and select the applications that need to be pulled for batch pulling.',
+    appstoreMsg: 'View notification information, you can accept APP information that needs to be pushed from different operators.',
+    appstoreOperAna: 'The operation analysis interface can view pull, download, push and other types of messages, and perform statistical analysis from multiple dimensions.'
+  },
   about: {
   },
   ...enLocale
