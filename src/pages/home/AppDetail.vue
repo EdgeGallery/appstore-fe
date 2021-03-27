@@ -348,7 +348,7 @@ export default {
           let newDateBegin = this.dateChange(item.createTime)
           item.createTime = newDateBegin
           this.tableData.push(item)
-          if (data.demoVideoName) {
+          if (item.demoVideoName) {
             let val = {
               type: 'video/mp4',
               src: URL_PREFIX + 'apps/' + this.appId + '/demoVideo'
