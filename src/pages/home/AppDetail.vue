@@ -342,7 +342,7 @@ export default {
         })
       })
     },
-    getTableData (callback) {
+    getTableData () {
       getAppDetailTableApi(this.appId).then(res => {
         let data = res.data
         data.forEach(item => {
@@ -362,7 +362,6 @@ export default {
           this.source = this.currentData.details
           this.checkProjectData()
         }
-        callback()
       })
     },
     updateData () {
@@ -446,7 +445,7 @@ export default {
       )
     },
     // 从“我的应用”进入，根据packageId查询当前版本的详情
-    getMyAppData (callback) {
+    getMyAppData () {
       myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
         let data = res.data
         let newDateBegin = this.dateChange(data.createTime)
@@ -455,7 +454,6 @@ export default {
         if (data) {
           this.source = data.details
         }
-        callback()
       })
     }
   },
