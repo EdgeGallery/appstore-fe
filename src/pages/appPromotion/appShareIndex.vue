@@ -221,7 +221,7 @@ export default {
       background:#FAFAFA;
       margin-top: 10px;
       .part1{
-        margin-top: 30px;
+        margin-top: 20px;
         height: 320px;
         text-align: center;
         background:#FAFAFA;
@@ -277,7 +277,6 @@ export default {
         }
       }
       .part2{
-        margin-top: 30px;
         height: 320px;
         text-align: left;
         margin-top: 20px;
