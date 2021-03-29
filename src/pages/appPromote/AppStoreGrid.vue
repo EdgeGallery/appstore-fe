@@ -97,14 +97,6 @@
           </p>
           <p class="type-size">
             <span class="type">
-              {{ $t('common.url') }}
-            </span>
-            <span class="size">
-              {{ item.url?item.url:'' }}
-            </span>
-          </p>
-          <p class="type-size">
-            <span class="type">
               {{ $t('common.description') }}
             </span>
             <el-tooltip
