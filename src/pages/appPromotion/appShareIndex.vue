@@ -216,44 +216,44 @@ export default {
     margin:0 auto;
     text-align: center;
     .nav-content{
-      height: 650px;
+      height: 710px;
       display: inline-block;
       background:#FAFAFA;
       margin-top: 10px;
       .part1{
         margin-top: 30px;
-        height: 300px;
+        height: 320px;
         text-align: center;
         background:#FAFAFA;
         .item-style{
           width: 350px;
-          height: 280px;
+          height: 320px;
           margin: 5px 10px;
           background:#FFFFFF;
           display: inline-block;
           text-align: center;
           .icon{
             .img-icon{
-              width: 70px;
-              height: 70px;
+              width: 93px;
+              height: 93px;
               margin-top: 10px;
               display: inline-block;
             }
           }
           .content-title{
-            width: 310px;
+            width: 330px;
             height: 30px;
             margin-top: 10px;
             display: inline-block;
             .title-font{
               background: linear-gradient(to bottom, white 0%,white 50%, #c2f1f0 50%, #c2f1f0 100%);
               font-weight: bold;
-              font-size: 18px;
+              font-size: 20px;
               font-family: Microsoft YaHei , sans-serif;
             }
           }
           .content-detail{
-            width: 250px;
+            width: 260px;
             height: 95px;
             margin-top: 10px;
             word-wrap:break-word;
@@ -271,16 +271,20 @@ export default {
             }
           }
         }
+        .item-style:hover{
+          box-shadow: 0 0 10px rgba(0,0,0,0.2);
+          background-color: #fff;
+        }
       }
       .part2{
         margin-top: 30px;
-        height: 280px;
+        height: 320px;
         text-align: left;
         margin-top: 20px;
         background:#FAFAFA;
         .item-style{
           width: 350px;
-          height: 280px;
+          height: 320px;
           margin: 5px 10px;
           background:#FFFFFF;
           display: inline-block;
@@ -289,13 +293,13 @@ export default {
             width: 350px;
             .img-icon{
               margin-top: 10px;
-              width: 70px;
-              height: 70px;
+              width: 93px;
+              height: 93px;
               display: inline-block;
             }
           }
           .content-title{
-            width: 310px;
+            width: 330px;
             height: 30px;
             margin-top: 10px;
             display: inline-block;
@@ -307,7 +311,7 @@ export default {
             }
           }
           .content-detail{
-            width: 250px;
+            width: 260px;
             height: 95px;
             margin-top: 10px;
             word-wrap:break-word;
@@ -321,8 +325,13 @@ export default {
               width: 90px;
               height: 30px;
               display: inline-block;
+              cursor: pointer;
             }
           }
+        }
+        .item-style:hover{
+          box-shadow: 0 0 10px rgba(0,0,0,0.2);
+          background-color: #fff;
         }
       }
     }
