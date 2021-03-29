@@ -35,14 +35,6 @@
           </div>
           <div class="summaryContent">
             <span />{{ $t('docs.summaryContent') }}
-            <br>
-            <span />{{ $t('docs.summaryContent1') }}
-            <br>
-            <span />{{ $t('docs.summaryContent2') }}
-            <br>
-            <span />{{ $t('docs.summaryContent3') }}
-            <br>
-            <span />{{ $t('docs.summaryContent4') }}
           </div>
         </div>
         <div
@@ -152,7 +144,7 @@ export default {
           .subcontenttwo {
             float: left;
             width: 100%;
-            padding: 20px;
+            padding: 10px;
             box-sizing: border-box;
             flex-direction: column;
             position: relative;
