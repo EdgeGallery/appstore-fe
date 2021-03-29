@@ -53,16 +53,32 @@
             </p>
           </div>
         </el-col>
-        <el-col :span="14">
+        <el-col
+          :span="14"
+          v-loading="newAppDataLoading"
+        >
           <div
             v-for="(item,index) in newAppData"
             :key="index"
             class="new_app_icon"
+            v-show="showDefaultData"
           >
             <img
               :src="item"
               alt=""
               @click="jumpToAppList"
+            >
+          </div>
+          <div
+            v-for="(item,index) in newAppDataBe"
+            :key="index"
+            class="new_app_icon"
+            v-show="!showDefaultData"
+          >
+            <img
+              :src="getImageUrl(item.appId)"
+              alt=""
+              @click="jumpToDetai(item)"
             >
           </div>
         </el-col>
@@ -123,38 +139,78 @@
           {{ $t('store.viewMore') }}
         </el-link>
       </p>
-      <swiper :options="swiperOption">
-        <swiper-slide
-          v-for="(item,index) in scoreHighestData"
-          :key="index"
+      <div v-loading="scoreHighDataLoading">
+        <swiper
+          :options="swiperOption"
+          v-show="showDefaultScoreData"
         >
-          <div class="icon_box">
-            <img
-              :src="item.imgSrc"
-              alt=""
-              @click="jumpToAppList"
-            >
-          </div>
-          <p class="app_name">
-            {{ item.name }}
-          </p>
-          <el-rate
-            v-model="item.score"
-            disabled
-            show-score
-            text-color="#ff9900"
-            score-template="{value}"
+          <swiper-slide
+            v-for="(item,index) in scoreHighestData"
+            :key="index"
+          >
+            <div class="icon_box">
+              <img
+                :src="item.imgSrc"
+                alt=""
+                @click="jumpToAppList"
+              >
+            </div>
+            <p class="app_name">
+              {{ item.name }}
+            </p>
+            <el-rate
+              v-model="item.score"
+              disabled
+              show-score
+              text-color="#ff9900"
+              score-template="{value}"
+            />
+          </swiper-slide>
+          <div
+            class="swiper-button-prev"
+            slot="button-prev"
           />
-        </swiper-slide>
-        <div
-          class="swiper-button-prev"
-          slot="button-prev"
-        />
-        <div
-          class="swiper-button-next"
-          slot="button-next"
-        />
-      </swiper>
+          <div
+            class="swiper-button-next"
+            slot="button-next"
+          />
+        </swiper>
+        <swiper
+          :options="swiperOption"
+          v-show="!showDefaultScoreData"
+        >
+          <swiper-slide
+            v-for="(item,index) in scoreHighestDataBe"
+            :key="index"
+          >
+            <div class="icon_box">
+              <img
+                :src="getImageUrl(item.appId)"
+                alt=""
+                @click="jumpToDetai(item)"
+              >
+            </div>
+            <p class="app_name">
+              {{ item.name }}
+            </p>
+            <el-rate
+              v-model="item.score"
+              disabled
+              show-score
+              text-color="#ff9900"
+              score-template="{value}"
+            />
+          </swiper-slide>
+          <div
+            class="swiper-button-prev"
+            slot="button-prev"
+          />
+          <div
+            class="swiper-button-next"
+            slot="button-next"
+          />
+        </swiper>
+      </div>
     </div>
     <!-- 接入你的应用 -->
     <div class="app_upload home_content">
@@ -321,6 +377,7 @@
 </template>
 
 <script>
+import { getAppTableApi, URL_PREFIX } from '../../tools/api.js'
 import { INDUSTRY, TYPES, AFFINITY, SORT_BY } from '../../tools/constant.js'
 import HomeSwiper from '../../components/common/Swipers.vue'
 import uploadPackage from '../home/UploadPackage.vue'
@@ -338,7 +395,7 @@ export default {
       displayStsates: 'none',
       selectedConditions: [],
       uploadDiaVis: false,
-      newAppPic: require('../../assets/images/home_new_pic.jpg'),
+      newAppPic: require('../../assets/images/home_new_pic.png'),
       newAppData: [
         require('../../assets/images/home_new_app1.png'),
         require('../../assets/images/home_new_app2.png'),
@@ -436,7 +493,13 @@ export default {
       giteeUrl: 'https://gitee.com/edgegallery',
       developerUrl: '',
       language: localStorage.getItem('language'),
-      mecmUrl: ''
+      mecmUrl: '',
+      showDefaultData: false,
+      newAppDataLoading: true,
+      newAppDataBe: [],
+      showDefaultScoreData: false,
+      scoreHighDataLoading: true,
+      scoreHighestDataBe: []
     }
   },
   methods: {
@@ -515,6 +578,58 @@ export default {
         this.recommendData[1].content = '利用大数据、物联网、云计算、<br/>人工智能等先进手段为园区赋能<br/>打造安全高效的园区'
         this.recommendData[2].content = '最佳创意的AI应用<br/>这些应用帮你启发灵感、<br/>挥洒创意'
       }
+    },
+    getAppData () {
+      getAppTableApi().then(
+        (res) => {
+          this.newAppDataBe = []
+          let data = res.data
+          data.sort(function (a, b) {
+            return a.score < b.score ? 1 : -1
+          })
+          let appName = ['TcsaeAnalysis', 'FactoryWording', 'ktmedia', 'fnapp', 'kingsoftcloud', 'Anheng WAF']
+          data.forEach(item => {
+            if (appName.indexOf(item.name) !== -1) {
+              this.newAppDataBe.push(item)
+            }
+          })
+          if (this.newAppDataBe.length === 6) {
+            this.showDefaultData = false
+          } else {
+            this.showDefaultData = true
+          }
+          this.newAppDataLoading = false
+          this.scoreHighestDataBe = []
+          for (let i = 0; i <= 7; i++) {
+            this.scoreHighestDataBe.push(data[i])
+          }
+          if (this.scoreHighestDataBe.length === 8) {
+            this.showDefaultScoreData = false
+          } else {
+            this.showDefaultScoreData = true
+          }
+          this.scoreHighDataLoading = false
+        },
+        () => {
+          this.showDefaultData = true
+          this.showDefaultScoreData = true
+          this.newAppDataLoading = false
+          this.scoreHighDataLoading = false
+          this.$message({
+            duration: 2000,
+            type: 'warning',
+            message: this.$t('promptMessage.getAppFail')
+          })
+        }
+      )
+    },
+    getImageUrl (appId) {
+      return URL_PREFIX + 'apps/' + appId + '/icon'
+    },
+    jumpToDetai (item) {
+      this.$router.push({ name: 'appstordetail', params: { item } })
+      sessionStorage.setItem('appstordetail', JSON.stringify(item))
+      sessionStorage.setItem('pathSource', 'index')
     }
   },
   computed: {
@@ -527,6 +642,7 @@ export default {
     }
   },
   mounted () {
+    this.getAppData()
     this.changeEnCn(this.language)
     this.alertDia(this.aletMsg)
     this.refreshCondition()
@@ -538,7 +654,7 @@ export default {
 <style lang="less">
 .apphome{
   .banner{
-    height: 530px;
+    height: 360px;
     padding: 0;
     color: #fff;
     .tit{
@@ -598,12 +714,12 @@ export default {
       img{
         width: 100%;
         display: block;
-        max-width: 620px;
+        max-width: 430px;
         border-radius: 20px;
       }
       .new_app_tit{
         position: absolute;
-        bottom: 80px;
+        top: 80px;
         left: 60px;
         color: #fff;
         font-size: 40px;
@@ -626,7 +742,7 @@ export default {
     .new_app_icon{
       float: left;
       width: 21%;
-      margin: 6%;
+      margin: 4.5%;
       img{
         width: 100%;
         max-width: 160px;
@@ -657,6 +773,7 @@ export default {
         .rec_more{
           font-size: 16px;
           margin-top: 10px;
+          cursor: pointer;
         }
       }
       li:nth-child(2){

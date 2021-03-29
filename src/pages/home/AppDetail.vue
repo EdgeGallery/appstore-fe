@@ -300,6 +300,7 @@ export default {
           this.getComments()
           this.comments.score = 0
           this.comments.message = ''
+          this.getAppData()
         }).catch(error => {
           if (error.response.data.code === 403) {
             this.$message({
@@ -402,6 +403,7 @@ export default {
     },
     download (row) {
       downloadAppPakageApi(this.appId, row)
+      this.getAppData()
     },
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {

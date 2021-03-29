@@ -315,6 +315,9 @@ export default {
       if (to.path === '/detail' && from.path === '/index') {
         this.activeIndex = '/index'
       }
+      if (to.path === '/detail' && from.path === '/home') {
+        this.activeIndex = '/home'
+      }
       this.judgePath(to, from)
       let path = this.$route.path
       if (path === '/index') {
