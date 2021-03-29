@@ -587,24 +587,23 @@ export default {
           data.sort(function (a, b) {
             return a.score < b.score ? 1 : -1
           })
-          let appName = ['TcsaeAnalysis', 'FactoryWording', 'ktmedia', 'fnapp', 'kingsoftcloud', 'Anheng WAF']
-          data.forEach(item => {
-            if (appName.indexOf(item.name) !== -1) {
-              this.newAppDataBe.push(item)
-            }
-          })
-          if (this.newAppDataBe.length === 6) {
-            this.showDefaultData = false
+          if (data.length >= 6) {
+            let appName = ['TcsaeAnalysis', 'FactoryWording', 'ktmedia', 'fnapp', 'kingsoftcloud', 'Anheng WAF']
+            data.forEach(item => {
+              if (appName.indexOf(item.name) !== -1) {
+                this.newAppDataBe.push(item)
+              }
+            })
           } else {
             this.showDefaultData = true
           }
+
           this.newAppDataLoading = false
           this.scoreHighestDataBe = []
-          for (let i = 0; i <= 7; i++) {
-            this.scoreHighestDataBe.push(data[i])
-          }
-          if (this.scoreHighestDataBe.length === 8) {
-            this.showDefaultScoreData = false
+          if (data.length >= 8) {
+            for (let i = 0; i <= 7; i++) {
+              this.scoreHighestDataBe.push(data[i])
+            }
           } else {
             this.showDefaultScoreData = true
           }
