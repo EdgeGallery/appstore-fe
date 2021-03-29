@@ -31,9 +31,9 @@
               >
             </div>
             <div class="content-title">
-              <h5 class="title-font">
+              <span class="title-font">
                 {{ $t("appShare.manager") }}
-              </h5>
+              </span>
             </div>
             <div class="content-detail">
               <span class="detailStyle">{{ $t("appShare.appstoreManager") }}</span>
@@ -56,9 +56,9 @@
               >
             </div>
             <div class="content-title">
-              <h5 class="title-font">
+              <span class="title-font">
                 {{ $t("nav.appPush") }}
-              </h5>
+              </span>
             </div>
             <div class="content-detail">
               <span class="detailStyle">{{ $t("appShare.appstorePush") }}</span>
@@ -81,9 +81,9 @@
               >
             </div>
             <div class="content-title">
-              <h5 class="title-font">
+              <span class="title-font">
                 {{ $t("nav.appPull") }}
-              </h5>
+              </span>
             </div>
             <div class="content-detail">
               <span class="detailStyle">{{ $t("appShare.appstorePull") }}</span>
@@ -108,9 +108,9 @@
               >
             </div>
             <div class="content-title">
-              <h5 class="title-font">
+              <span class="title-font">
                 {{ $t("nav.msgCenter") }}
-              </h5>
+              </span>
             </div>
             <div class="content-detail">
               <span class="detailStyle">{{ $t("appShare.appstoreMsg") }}</span>
@@ -133,9 +133,9 @@
               >
             </div>
             <div class="content-title">
-              <h5 class="title-font">
+              <span class="title-font">
                 {{ $t("nav.operAna") }}
-              </h5>
+              </span>
             </div>
             <div class="content-detail">
               <span class="detailStyle">{{ $t("appShare.appstoreOperAna") }}</span>
@@ -216,18 +216,15 @@ export default {
     margin:0 auto;
     text-align: center;
     .nav-content{
-      width:60%;
       height: 650px;
       display: inline-block;
       background:#FAFAFA;
       margin-top: 10px;
       .part1{
         margin-top: 30px;
-        width: 1130px;
         height: 300px;
         text-align: center;
         background:#FAFAFA;
-        float: left;
         .item-style{
           width: 350px;
           height: 280px;
@@ -244,18 +241,20 @@ export default {
             }
           }
           .content-title{
-            width: 180px;
+            width: 310px;
             height: 30px;
             margin-top: 10px;
             display: inline-block;
             .title-font{
               background: linear-gradient(to bottom, white 0%,white 50%, #c2f1f0 50%, #c2f1f0 100%);
               font-weight: bold;
+              font-size: 18px;
+              font-family: Microsoft YaHei , sans-serif;
             }
           }
           .content-detail{
             width: 250px;
-            height: 110px;
+            height: 95px;
             margin-top: 10px;
             word-wrap:break-word;
             display: inline-block;
@@ -275,16 +274,14 @@ export default {
       }
       .part2{
         margin-top: 30px;
-        width: 1130px;
         height: 280px;
         text-align: left;
         margin-top: 20px;
         background:#FAFAFA;
-        float: left;
         .item-style{
           width: 350px;
           height: 280px;
-          margin: 5px 15px;
+          margin: 5px 10px;
           background:#FFFFFF;
           display: inline-block;
           text-align: center;
@@ -298,18 +295,20 @@ export default {
             }
           }
           .content-title{
-            width: 180px;
+            width: 310px;
             height: 30px;
             margin-top: 10px;
             display: inline-block;
             .title-font{
               background: linear-gradient(to bottom, white 0%,white 50%, #c2f1f0 50%, #c2f1f0 100%);
               font-weight: bold;
+              font-size: 18px;
+              font-family: Microsoft YaHei , sans-serif;
             }
           }
           .content-detail{
             width: 250px;
-            height: 110px;
+            height: 95px;
             margin-top: 10px;
             word-wrap:break-word;
             display: inline-block;

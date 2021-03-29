@@ -265,7 +265,6 @@ const cn = {
     appPromote: '应用推送',
     appPull: '应用拉取',
     messageMgmt: '消息管理',
-    appstoreMgmt: '外部应用仓库管理',
     moreDetail: '查看更多详情...',
     summaryContent: 'AppStore是开发者发布和上线App应用的边缘应用市场，由Developer平台开发的边缘应用，经过ATP测试后可以直接发布到AppStore应用商店。 用户也可以在AppStore直接上传边缘应用，经过ATP测试后可以发布到AppStore，对外展现。',
     summaryContent1: '该平台分为前后台两个部分，提供主要功能接口供前台或其他三方系统调用，并进行界面展示。',

@@ -245,7 +245,7 @@ export default {
           index: '5',
           children: [
             {
-              labelEn: 'External App Warehouse Management',
+              labelEn: 'External AppStore Management',
               labelCn: '外部应用仓库管理',
               route: '/apppromote',
               pageId: '2.1.6.1',
@@ -369,9 +369,6 @@ export default {
         if (!isUse) return ''
       }
       if (route === '/appShare') {
-        this.$nextTick(() => {
-          this.activeIndex = '/apppromote'
-        })
         this.$router.push(route)
       }
     },
@@ -442,6 +439,9 @@ export default {
       if ((toPath.path === '/detail' && fromPath.path === '/myapp') || (toPath.path === '/app/test/task' && fromPath.path === '/myapp') || (toPath.path === '/atpreport' && fromPath.path === '/myapp') ||
       (toPath.path === '/myappdetail' && fromPath.path === '/myapp') || (toPath.path === '/atpprocess' && fromPath.path === '/myapp') || (toPath.path === '/atptestcase' && fromPath.path === '/myapp')) {
         this.activeIndex = '/myapp'
+      }
+      if (toPath.path === '/appShare') {
+        this.activeIndex = '/apppromote'
       }
     },
     judgeRoute (pathPa) {

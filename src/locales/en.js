@@ -30,7 +30,7 @@ const en = {
     appShare: 'App Share',
     appPush: 'App Promote',
     appPull: 'App Pull',
-    externalAppManagement: 'External App Warehouse Management',
+    externalAppManagement: 'External AppStore Management',
     msgCenter: 'Message Center',
     operAna: 'Operation Analyse',
     detail: 'Detail',
@@ -458,7 +458,7 @@ const en = {
     haveNoPullData: 'No data is pulled'
   },
   appShare: {
-    manager: 'Store Manager',
+    manager: 'External AppStore Management',
     appstoreManager: 'Add, modify, and delete external repositories that can be shared.',
     appstorePush: 'View the application information that can be pushed, and select the application that needs to be pushed to the operator or a third party.',
     appstorePull: 'View the application information that can be pulled from various external warehouses, and select the applications that need to be pulled for batch pulling.',
