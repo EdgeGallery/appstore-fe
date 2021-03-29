@@ -29,7 +29,6 @@
           <img
             src="../../assets/images/logo.png"
             class="curp"
-            @click="jumpToEdge"
             alt
           >
         </div>
@@ -428,9 +427,6 @@ export default {
     },
     jumperToMsgDialog () {
       this.$router.push({ name: 'msgCenter' })
-    },
-    jumpToEdge () {
-      window.open('https://gitee.com/edgegallery', '_blank')
     },
     openUserAccountCenter () {
       window.open(this.userCenterPage)

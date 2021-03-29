@@ -252,11 +252,7 @@ const en = {
     APPDStandard: 'APP Folder Standard',
     characteristic: 'Characteristic',
     moreDetail: 'start more detail...',
-    summaryContent: 'AppStore is an edge application market where developers release and launch App applications. Edge applications developed by the Developer platform can be directly published to the AppStore application store after ATP testing. Users can also upload edge applications directly in the AppStore, and after ATP testing, they can be published to the AppStore for external display.',
-    summaryContent1: 'The platform is divided into two parts, front and back, providing main functional interfaces for the front desk or other three-party systems to call and display the interface.',
-    summaryContent2: 'AppStore FE: AppStore application warehouse platform front-end framework, developed using VUE.',
-    summaryContent3: 'AppStore BE: AppStore application warehouse platform background framework, developed using SpringBoot+ServiceComb.',
-    summaryContent4: 'AppStore DB：The backend depends on the Postgres database.'
+    summaryContent: 'AppStore is an edge application market where developers release and launch App applications. Edge applications developed by the Developer platform can be directly published to the AppStore application store after ATP testing. Users can also upload edge applications directly in the AppStore, and after ATP testing, they can be published to the AppStore for external display.'
   },
   myApp: {
     checkTest: 'View historical test tasks',
