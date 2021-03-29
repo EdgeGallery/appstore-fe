@@ -79,13 +79,6 @@ export default {
   },
   data () {
     return {
-      // swiperOptions: {
-      //   loop: true,
-      //   autoplay: {
-      //     disableOnInteraction: false,
-      //     delay: 4000
-      //   }
-      // },
       uploadDiaVis: false,
       missPic: missPic,
       missPicEN: missPicEN,
@@ -121,16 +114,12 @@ export default {
 
 <style lang="less">
 .wrapper{
-  height: 500px;
+  height: 330px;
   position: relative;
   .banner{
-    // height: 500px;
-    // padding: 0 0 0;
-    // color: #fff;
-    //background: url('../../assets/images/home_banner.png') center center no-repeat;
     .home_text{
       position: absolute;
-      top: 100px;
+      top: 50px;
       left: 150px;
     }
     .home_text.none{
@@ -174,13 +163,12 @@ export default {
     }
   }
   .el-carousel__container{
-    height: 500px;
+    height: 330px;
   }
   img{
     width: 100%;
     height: 100%;
   }
-  // height: ;
   .el-carousel__item{
     img{
       background-image:'../../assets/images/chocolate.png'
@@ -191,12 +179,10 @@ export default {
       font-size: 18px;
       opacity: 0.75;
       line-height: 350px;
-      // margin: 0;
     }
 
     .el-carousel__item:nth-child(2n) {
       background-color: #99a9bf;
-      line-height: 350px;
     }
 
     .el-carousel__item:nth-child(2n+1) {

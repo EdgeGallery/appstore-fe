@@ -214,7 +214,7 @@ const cn = {
     MinFileUpload: '文件大小不超过10M',
     BigFileUpload: '文件大小超过10M',
     hasNotVideo: '当前应用还没有可演示的视频！',
-    newUploadApp: '新上车应用',
+    newUploadApp: '近期热门应用',
     viewMore: '查看更多 >>',
     clickViewMore: '点击查看更多 >>',
     moreInfo: '更多信息 >>',

@@ -198,7 +198,7 @@ const en = {
     commentInfo: 'Write your comment and help me grow!',
     noComment: 'There are no comments yet, please leave your first comment!',
     hasNotVideo: 'There is no demo video for the current application！',
-    newUploadApp: 'New Onboard Apps',
+    newUploadApp: 'Recently Popular Apps',
     viewMore: 'View More >>',
     clickViewMore: 'Click to view more >>',
     moreInfo: 'More Information >>',
