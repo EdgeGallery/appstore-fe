@@ -594,6 +594,11 @@ export default {
                 this.newAppDataBe.push(item)
               }
             })
+            if (this.newAppDataBe.length === 6) {
+              this.showDefaultData = false
+            } else {
+              this.showDefaultData = true
+            }
           } else {
             this.showDefaultData = true
           }
