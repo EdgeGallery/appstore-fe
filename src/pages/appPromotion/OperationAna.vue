@@ -634,7 +634,7 @@ export default {
           }
         },
         grid: {
-          left: '3%',
+          left: '6%',
           right: '4%',
           bottom: '3%',
           containLabel: true
@@ -642,7 +642,6 @@ export default {
         xAxis: [
           {
             type: 'category',
-            // name: this.$t('apppromotion.appPushTargetAppstore'),
             axisLabel: {
               interval: 0,
               formatter: function (value, index) {
