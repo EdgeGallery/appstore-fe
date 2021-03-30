@@ -220,7 +220,7 @@ const cn = {
     moreInfo: '更多信息 >>',
     speakPeek: '2021 先睹为快',
     reCommendColletion: '特别推荐锦集',
-    higherScore: '评分更高',
+    higherScore: '评分最高',
     addYourApp: '实现你的应用',
     addYourAppTitle: '方便快捷的接入AppStore，快速实现应用测试与共享',
     developerPlateform: '开发者平台',

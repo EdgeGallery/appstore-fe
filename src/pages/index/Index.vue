@@ -361,8 +361,19 @@
             <img
               src="../../assets/images/home_footer_wechat.png"
               alt=""
+              @click="showWechat=!showWechat"
             >
           </el-link>
+          <div class="show_wechat">
+            <el-collapse-transition>
+              <div v-show="showWechat">
+                <img
+                  src="../../assets/images/home_footer_wechat_eg.png"
+                  alt=""
+                >
+              </div>
+            </el-collapse-transition>
+          </div>
         </div>
       </div>
     </div>
@@ -370,7 +381,6 @@
     <div v-show="uploadDiaVis">
       <uploadPackage
         v-model="uploadDiaVis"
-        @getAppData="getAppData"
       />
     </div>
   </div>
@@ -499,7 +509,8 @@ export default {
       newAppDataBe: [],
       showDefaultScoreData: false,
       scoreHighDataLoading: true,
-      scoreHighestDataBe: []
+      scoreHighestDataBe: [],
+      showWechat: false
     }
   },
   methods: {
@@ -927,6 +938,7 @@ export default {
       .right{
         float: right;
         text-align: right;
+        position: relative;
         .el-link{
           display: inline-block;
           width: 40px;
@@ -935,6 +947,11 @@ export default {
           img{
             width: 100%;
           }
+        }
+        .show_wechat{
+          position: absolute;
+          right: 50px;
+          bottom: 0;
         }
       }
     }
