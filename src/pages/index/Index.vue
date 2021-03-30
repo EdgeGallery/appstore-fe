@@ -599,7 +599,7 @@ export default {
             return a.score < b.score ? 1 : -1
           })
           if (data.length >= 6) {
-            let appName = ['TcsaeAnalysis', 'FactoryWording', 'ktmedia', 'fnapp', 'kingsoftcloud', 'Anheng WAF']
+            let appName = ['TcsaeAnalysis', 'EdgeCubeCloud', 'ktmedia', 'Odoo', 'ananmeeting', 'battlecity']
             data.forEach(item => {
               if (appName.indexOf(item.name) !== -1) {
                 this.newAppDataBe.push(item)
