@@ -15,7 +15,10 @@
   -->
 
 <template>
-  <div class="apphome">
+  <div
+    class="apphome"
+    ref="apphome"
+  >
     <!-- 新上车应用 -->
     <div class="banner">
       <home-swiper />
@@ -106,20 +109,26 @@
             :src="item.imgSrc"
             alt=""
             @click="selectedCondition(item.type,item.index)"
+            :class="[{'toTop':addAnimationTop}]"
           >
-          <p class="rec_tit">
-            {{ item.title }}
-          </p>
-          <p
-            v-html="item.content"
-            class="rec_content"
-          />
           <div
-            @click="selectedCondition(item.type,item.index)"
-            type="primary"
-            class="rec_more"
+            class="text"
+            :class="[{'toTopText':addAnimationTop}]"
           >
-            {{ $t('store.moreInfo') }}
+            <p class="rec_tit">
+              {{ item.title }}
+            </p>
+            <p
+              v-html="item.content"
+              class="rec_content"
+            />
+            <div
+              @click="selectedCondition(item.type,item.index)"
+              type="primary"
+              class="rec_more"
+            >
+              {{ $t('store.moreInfo') }}
+            </div>
           </div>
         </li>
       </ul>
@@ -510,7 +519,8 @@ export default {
       showDefaultScoreData: false,
       scoreHighDataLoading: true,
       scoreHighestDataBe: [],
-      showWechat: false
+      showWechat: false,
+      addAnimationTop: false
     }
   },
   methods: {
@@ -599,7 +609,7 @@ export default {
             return a.score < b.score ? 1 : -1
           })
           if (data.length >= 6) {
-            let appName = ['TcsaeAnalysis', 'EdgeCubeCloud', 'ktmedia', 'Odoo', 'ananmeeting', 'battlecity']
+            let appName = ['cras', 'fnapp', 'kingsoftcloud', 'ktmedia', 'TcsaeAnalysis', 'ananmeeting']
             data.forEach(item => {
               if (appName.indexOf(item.name) !== -1) {
                 this.newAppDataBe.push(item)
@@ -645,6 +655,13 @@ export default {
       this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
       sessionStorage.setItem('pathSource', 'index')
+    },
+    handleScroll () {
+      console.log(this.$refs.apphome.getBoundingClientRect().top)
+      let scrollTop = this.$refs.apphome.getBoundingClientRect().top
+      if (scrollTop < -750 && scrollTop > -1200) {
+        this.addAnimationTop = true
+      }
     }
   },
   computed: {
@@ -662,6 +679,7 @@ export default {
     this.alertDia(this.aletMsg)
     this.refreshCondition()
     this.getPlatformUrl()
+    window.addEventListener('scroll', this.handleScroll, true)
   }
 }
 </script>
@@ -776,6 +794,10 @@ export default {
           max-width: 496px;
           border-radius: 20px;
           cursor: pointer;
+          opacity: 0;
+        }
+        .text{
+          opacity: 0;
         }
         .rec_tit{
           font-size: 24px;
@@ -793,6 +815,27 @@ export default {
       }
       li:nth-child(2){
         margin: 0 5%;
+      }
+      @keyframes toTop {
+        0% {
+          will-change: scroll-position;/*优化动画卡顿1*/
+          opacity: 0;
+          transform:translateY(100px);
+        }
+        100% {
+          opacity: 1;
+          transform:translateY(0px);
+        }
+      }
+      li .toTop{
+        animation-name: toTop;
+        animation-duration: 0.4s;
+        opacity: 1;
+      }
+      li .toTopText{
+        animation-name: toTop;
+        animation-duration: 0.6s;
+        opacity: 1;
       }
     }
   }
