@@ -590,7 +590,7 @@ export default {
         case 'Video Application':
           this.defaultIcon.splice(0, 1, this.defaultIconData[0])
           break
-        case 'Game Application':
+        case 'Game':
           this.defaultIcon.splice(0, 1, this.defaultIconData[1])
           break
         case 'Video Surveillance':
