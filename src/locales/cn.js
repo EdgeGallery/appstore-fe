@@ -39,7 +39,13 @@ const cn = {
     testTask: '测试任务',
     atpReport: '测试报告',
     atpProcess: '测试进展',
-    atpTest: '测试'
+    atpTest: '测试',
+    appQuery2: '应用查询',
+    appDownload3: '应用下载',
+    appDownload31: '下载应用包',
+    appDownload32: '下载应用图标',
+    appMessage1: '消息推送'
+
   },
   common: {
     bannerTitle: '开放连接行业应用',
@@ -266,7 +272,25 @@ const cn = {
     appPull: '应用拉取',
     messageMgmt: '消息管理',
     moreDetail: '查看更多详情...',
-    summaryContent: 'AppStore是开发者发布和上线App应用的边缘应用市场，由Developer平台开发的边缘应用，经过ATP测试后可以直接发布到AppStore应用商店。 用户也可以在AppStore直接上传边缘应用，经过ATP测试后可以发布到AppStore，对外展现。'
+    summaryContent: 'AppStore是开发者发布和上线App应用的边缘应用市场，由Developer平台开发的边缘应用，经过ATP测试后可以直接发布到AppStore应用商店。 用户也可以在AppStore直接上传边缘应用，经过ATP测试后可以发布到AppStore，对外展现。',
+
+    titleContent: '快速帮您熟悉edgegallery仓库的核心功能',
+    beginnerPart1: '您好，欢迎使用Edgegallery应用仓库全景图。',
+    beginnerPart2: '使用本仓库，您可以下载感兴趣的应用，上传或删除应用，发布或共享应用等。',
+    beginnerGuides: '新手指南',
+    beginnerGuide: ' 新手指导',
+    coreFunGuide: ' 核心功能操作指导',
+    interfaceFile: '接口文档',
+    externalWarehouse: '应用拉取',
+    appPullOrPush: '应用推广',
+    appView: '应用查询',
+    centerMsg: '消息中心',
+    userGuide: '-新手指导-',
+    appFolderStar: '-应用包规范-',
+    interfaceStar: '-仓库间接口规范-',
+    apppull: '应用拉取',
+    appPush: '应用推广'
+
   },
   myApp: {
     checkTest: '查看历史测试任务',

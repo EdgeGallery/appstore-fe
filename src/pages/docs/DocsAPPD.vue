@@ -160,6 +160,7 @@ export default {
 <style lang='less' >
 
 .docs {
+  padding: 40px 200px 75px;
   margin-top: 0px;
   font-size: 14px;
   .el-tabs--left .el-tabs__item.is-left {

@@ -31,10 +31,28 @@
           :class="{'content-en': language === 'en'}"
         >
           <div class="characteristic">
-            <span />{{ $t('docs.summary') }}
+            <img
+              :src="docsLine"
+              alt
+            >
+            <span />{{ $t('docs.beginnerGuide') }}
           </div>
           <div class="summaryContent">
-            <span />{{ $t('docs.summaryContent') }}
+            <span />{{ $t('docs.beginnerPart1') }}
+          </div>
+          <div class="docImg">
+            <div class="subDocImg">
+              <img
+                :src="language === 'cn'? summary1 : summaryen1"
+                alt
+              >
+            </div>
+            <div class="subDocImg">
+              <img
+                :src="language === 'cn'? summary2 : summaryen2"
+                alt
+              >
+            </div>
           </div>
         </div>
         <div
@@ -42,25 +60,40 @@
           :class="{'content-en': language === 'en'}"
         >
           <div class="characteristic">
-            <span />{{ $t('docs.characteristic') }}
+            <img
+              :src="docsLine"
+              alt
+            >
+            <span />{{ $t('docs.coreFunGuide') }}
+          </div>
+          <div class="summaryContent">
+            <span />{{ $t('docs.beginnerPart2') }}
           </div>
         </div>
         <div class="docImg">
           <div class="subDocImg">
             <img
-              :src="language === 'cn'? summary1 : summaryen1"
+              :src="language === 'cn'? worksIcon1 : worksIconen1"
               alt
             >
           </div>
           <div class="subDocImg">
             <img
-              :src="language === 'cn'? summary2 : summaryen2"
+              :src="language === 'cn'? worksIcon2 : worksIconen2"
+              alt
+            >
+          </div>
+        </div>
+        <div class="docImg">
+          <div class="subDocImg">
+            <img
+              :src="language === 'cn'? worksIcon3 : worksIconen3"
               alt
             >
           </div>
           <div class="subDocImg">
             <img
-              :src="language === 'cn'? summary3 : summaryen3"
+              :src="language === 'cn'? worksIcon4 : worksIconen4"
               alt
             >
           </div>
@@ -78,6 +111,18 @@ import summary2 from '@/assets/images/summary2.png'
 import summaryen2 from '@/assets/images/summaryen2.png'
 import summary3 from '@/assets/images/summary3.png'
 import summaryen3 from '@/assets/images/summaryen3.png'
+
+import worksIcon1 from '@/assets/images/how_it_works_icon1.png'
+import worksIconen1 from '@/assets/images/how_it_works_icon-en1.png'
+import worksIcon2 from '@/assets/images/how_it_works_icon2.png'
+import worksIconen2 from '@/assets/images/how_it_works_icon-en2.png'
+import worksIcon3 from '@/assets/images/how_it_works_icon3.png'
+import worksIconen3 from '@/assets/images/how_it_works_icon-en3.png'
+import worksIcon4 from '@/assets/images/how_it_works_icon4.png'
+import worksIconen4 from '@/assets/images/how_it_works_icon-en4.png'
+
+import docsLine from '@/assets/images/docsLine.png'
+
 export default {
   props: {
     treeId: {
@@ -96,7 +141,16 @@ export default {
       summary2: summary2,
       summaryen2: summaryen2,
       summary3: summary3,
-      summaryen3: summaryen3
+      summaryen3: summaryen3,
+      worksIcon1: worksIcon1,
+      worksIconen1: worksIconen1,
+      worksIcon2: worksIcon2,
+      worksIconen2: worksIconen2,
+      worksIcon3: worksIcon3,
+      worksIconen3: worksIconen3,
+      worksIcon4: worksIcon4,
+      worksIconen4: worksIconen4,
+      docsLine: docsLine
     }
   },
   methods: {
@@ -114,9 +168,9 @@ export default {
 <style lang='less' scoped>
 .docs {
   .substeps {
-      margin-top: 20px;
-      background: white;
-      padding: 40px 30px 75px;
+      margin-top: -45px;
+      background: #fff;
+      padding: 40px 100px 75px;
       box-sizing: border-box;
       display: flex;
       position: relative;
@@ -126,14 +180,14 @@ export default {
           font-size: 16px;
           // flex-direction: row;
           .docImg{
-            // margin-top: 10px;
+            margin-top: 10px;
             background: white;
             padding: 10px 30px 0px;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
             .subDocImg{
-              box-shadow: 0 0 10px rgba(0,0,0,0.2);
               background-color: #fff;
               margin: 20px;
               img{
@@ -144,23 +198,24 @@ export default {
           .subcontenttwo {
             float: left;
             width: 100%;
-            padding: 10px;
+            padding: 20px;
             box-sizing: border-box;
             flex-direction: column;
             position: relative;
             .characteristic{
               width: 100%;
               text-align: left;
-              border-bottom: solid #194686 2px;
-              font-size: 24px;
+              font-size: 168x;
               font-weight: 550;
 
             }
+            .characteristic::before{
+              background:#409EFF;
+            }
             .summaryContent{
-              margin-left: 30px;
-              margin-top: 15px;
               width: 97%;
-              line-height: 30px;
+              line-height: 20px;
+              font-size: 14px;
             }
             div {
               padding: 0;
@@ -212,5 +267,6 @@ export default {
       }
     }
   }
+
 }
 </style>
