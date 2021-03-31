@@ -317,6 +317,12 @@ export default {
       }
       if (to.path === '/detail' && from.path === '/home') {
         this.activeIndex = '/home'
+      } else if (to.path === '/docsInterface' && from.path === '/docs') {
+        this.activeIndex = '/docs'
+      } else if (to.path === '/docsAPPD' && from.path === '/docs') {
+        this.activeIndex = '/docs'
+      } else if (to.path === '/docsBeginnerGuide' && from.path === '/docs') {
+        this.activeIndex = '/docs'
       }
       this.judgePath(to, from)
       let path = this.$route.path
