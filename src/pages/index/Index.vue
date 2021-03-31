@@ -35,11 +35,8 @@
           {{ $t('store.viewMore') }}
         </el-link>
       </p>
-      <el-row>
-        <el-col
-          :span="10"
-          class="left"
-        >
+      <div class="new_app_div">
+        <div class="left">
           <img
             :src="newAppPic"
             alt=""
@@ -55,10 +52,11 @@
               </el-link>
             </p>
           </div>
-        </el-col>
-        <el-col
+        </div>
+        <div
           :span="14"
           v-loading="newAppDataLoading"
+          class="new_app_right"
         >
           <div
             v-for="(item,index) in newAppData"
@@ -84,8 +82,8 @@
               @click="jumpToDetai(item)"
             >
           </div>
-        </el-col>
-      </el-row>
+        </div>
+      </div>
     </div>
     <!-- 特别推荐 -->
     <div class="recommend home_content">
@@ -657,7 +655,6 @@ export default {
       sessionStorage.setItem('pathSource', 'index')
     },
     handleScroll () {
-      console.log(this.$refs.apphome.getBoundingClientRect().top)
       let scrollTop = this.$refs.apphome.getBoundingClientRect().top
       if (scrollTop < -750 && scrollTop > -1200) {
         this.addAnimationTop = true
@@ -725,7 +722,7 @@ export default {
     }
   }
   .home_content{
-    padding: 70px 15% 50px;
+    padding: 70px 10% 50px;
     .home_tit{
       font-size: 32px;
       text-align: center;
@@ -739,10 +736,15 @@ export default {
     }
   }
   .home_content:last-child{
-    padding: 70px 15% 0;
+    padding: 70px 10% 0;
   }
   .new_app{
+    .new_app_div{
+      display: flex;
+      justify-content: center;
+    }
     .left{
+      width: 40%;
       position: relative;
       img{
         width: 100%;
@@ -772,13 +774,19 @@ export default {
         }
       }
     }
+    .new_app_right{
+      width: 60%;
+      display: flex;
+      flex-wrap:wrap;
+      align-items: center;
+    }
     .new_app_icon{
-      float: left;
       width: 21%;
-      margin: 4.5%;
+      margin: 20px;
       img{
         width: 100%;
-        max-width: 160px;
+        max-width: 140px;
+        max-height: 140px;
         cursor: pointer;
       }
     }
@@ -920,7 +928,7 @@ export default {
         background: url('../../assets/images/home_upload_fgx.png') center 70px no-repeat;
         background-size: contain;
       }
-      @media screen and (max-width: 1380px){
+      @media screen and (max-width: 1545px){
         .upload_fgx{
           background: url('../../assets/images/home_upload_fgx.png') center 55px no-repeat;
           background-size: contain;
@@ -999,9 +1007,9 @@ export default {
       }
     }
   }
-  @media screen and (max-width: 1380px){
+  @media screen and (max-width: 1545px){
     .home_content{
-      padding: 50px 8%;
+      padding: 50px 56px;
     }
     .upload_fgx{
         background: url('../../assets/images/home_upload_fgx.png') center 50px no-repeat;

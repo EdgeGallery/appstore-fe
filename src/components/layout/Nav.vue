@@ -21,7 +21,7 @@
     >
       <el-col
         :lg="6"
-        :md="6"
+        :md="4"
         :sm="14"
         :xs="13"
       >
@@ -87,7 +87,7 @@
       </el-col>
       <el-col
         :lg="6"
-        :md="6"
+        :md="8"
         :sm="10"
         :xs="11"
       >
@@ -515,7 +515,7 @@ export default {
   position: fixed;
   z-index: 9999;
   width: 100%;
-  padding: 0 200px;
+  padding: 0 10%;
 
   .logo {
     height: 65px;
@@ -679,7 +679,7 @@ export default {
     }
   }
 }
-@media screen and (max-width:1380px){
+@media screen and (max-width:1545px){
   .headerComp{
     padding: 0 56px;
   }

@@ -113,7 +113,7 @@ a{
   cursor: pointer;
 }
 .padding56{
-  padding: 0 200px;
+  padding: 0 10%;
   padding-bottom: 25px;
   box-sizing: border-box;
 }
@@ -175,9 +175,9 @@ a{
   color: #fff;
 }
 .bread-crumb{
-  padding: 0 200px !important;
+  padding: 0 10% !important;
 }
-@media screen and (max-width:1380px){
+@media screen and (max-width:1545px){
   .padding56{
     padding: 0 56px;
   }
