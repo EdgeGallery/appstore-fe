@@ -177,7 +177,7 @@ a{
 .bread-crumb{
   padding: 0 10% !important;
 }
-@media screen and (max-width:1545px){
+@media screen and (max-width:1380px){
   .padding56{
     padding: 0 56px;
   }

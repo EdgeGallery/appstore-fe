@@ -207,12 +207,7 @@ export default {
       background-color: #fff;
     }
   }
-  @media screen and (max-width:1400px){
-    .content{
-      width: 33%;
-    }
-  }
-  @media screen and (min-width:1545px) and (max-width:1605px){
+  @media screen and (max-width:1605px){
     .content{
       width: 33%;
     }

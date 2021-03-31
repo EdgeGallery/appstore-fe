@@ -621,7 +621,7 @@ export default {
       }
     }
   }
-  @media screen and (max-width:1545px){
+  @media screen and (max-width:1380px){
     .app{
       padding: 30px 56px;
     }

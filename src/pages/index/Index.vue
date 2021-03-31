@@ -778,11 +778,12 @@ export default {
       width: 60%;
       display: flex;
       flex-wrap:wrap;
+      justify-content: center;
       align-items: center;
     }
     .new_app_icon{
       width: 21%;
-      margin: 20px;
+      margin: 20px 5%;
       img{
         width: 100%;
         max-width: 140px;
@@ -928,7 +929,7 @@ export default {
         background: url('../../assets/images/home_upload_fgx.png') center 70px no-repeat;
         background-size: contain;
       }
-      @media screen and (max-width: 1545px){
+      @media screen and (max-width: 1380px){
         .upload_fgx{
           background: url('../../assets/images/home_upload_fgx.png') center 55px no-repeat;
           background-size: contain;
@@ -1007,7 +1008,7 @@ export default {
       }
     }
   }
-  @media screen and (max-width: 1545px){
+  @media screen and (max-width: 1380px){
     .home_content{
       padding: 50px 8%;
     }
