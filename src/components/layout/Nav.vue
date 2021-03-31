@@ -675,7 +675,7 @@ export default {
     }
   }
 }
-@media screen and (max-width:1545px){
+@media screen and (max-width:1380px){
   .headerComp{
     padding: 0 56px;
   }
