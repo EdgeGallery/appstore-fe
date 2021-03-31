@@ -250,6 +250,7 @@ const en = {
     summary: 'Summary',
     beginnerGuides: "Beginner's Guide",
     beginnerGuide: "Beginner's Guide",
+    coreFunGuide: 'Core function operation guidance',
     operaContent: 'A picture teaches you to quickly become familiar with the basic functions of the AppStore, from viewing applications to sharing applications is that simple！',
     toscaFolder: 'TOSCA-Metadata Directory',
     APPDFolder: 'APPD Directory',

@@ -18,7 +18,10 @@
   <div>
     <eg-bread-crumb :data="breadCrumbData" />
     <div class="docs flex">
-      <div class="test-editors">
+      <div
+        class="test-editors"
+        :class="{'test-editors-en':(language==='en')}"
+      >
         <el-menu
           :default-active="activeIndex"
           class="el-menu-demo"
@@ -59,7 +62,6 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
 import { getInterface } from '../../tools/api.js'
 import EgBreadCrumb from 'eg-view/src/components/EgBreadCrumb.vue'
 export default {
@@ -72,14 +74,11 @@ export default {
   components: {
     EgBreadCrumb
   },
-  computed: {
-    ...mapState(['language'])
-  },
   data () {
     return {
       activeIndex: '1',
       source: '',
-      language: localStorage.getItem('language'),
+      language: localStorage.getItem('language') || 'cn',
       breadCrumbData: [
         {
           name: '首页',
@@ -99,10 +98,9 @@ export default {
 
   watch: {
     '$i18n.locale': function () {
-      this.updateBreadCrumbData()
       this.language = localStorage.getItem('language')
+      this.updateBreadCrumbData(this.activeIndex)
       this.getAppStoreDocs()
-      this.changeBreadData()
     }
 
   },
@@ -113,7 +111,7 @@ export default {
       })
     },
     clickShow () {
-      let name = this.$route.params.value
+      let name = this.$route.params.value || '1'
       this.activeIndex = name
       console.log(name)
       console.log(this.activeIndex)
@@ -127,27 +125,27 @@ export default {
       this.updateBreadCrumbData(key)
     },
     updateBreadCrumbData (activeIndex) {
-      if (this.language === 'cn') {
-        switch (activeIndex) {
-          case '1':
-            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appMessage'), path: '' }]
-            break
-          case '2':
-            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery2'), path: '' }]
-            break
-          case '3-1':
-            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appDownload31'), path: '' }]
-            break
-          case '3-2':
-            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appDownload32'), path: '' }]
-            break
-          default:
-        }
+      console.log(activeIndex)
+      switch (activeIndex) {
+        case '1':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appMessage1'), path: '' }]
+          break
+        case '2':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery2'), path: '' }]
+          break
+        case '3-1':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appDownload31'), path: '' }]
+          break
+        case '3-2':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appDownload32'), path: '' }]
+          break
+        default:
       }
     }
   },
   mounted () {
-    this.updateBreadCrumbData()
+    console.log(this.activeIndex)
+    this.updateBreadCrumbData(this.activeIndex)
     this.clickShow()
     this.getAppStoreDocs()
   }
@@ -181,6 +179,9 @@ export default {
       }
 
     }
+  }
+  .test-editors.test-editors-en{
+    width: 350px;
   }
   #test-editor{
     // margin-top: 40px;
