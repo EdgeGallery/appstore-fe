@@ -33,17 +33,17 @@
           v-else
         >
           <div
-            class="mychart"
+            class="mychart1"
             id="myCharts1"
             ref="myCharts1"
           />
           <div
-            class="mychart"
+            class="mychart2"
             id="myCharts2"
             ref="myCharts2"
           />
           <div
-            class="mychart3"
+            class="mychart2"
             id="myCharts3"
             ref="myCharts3"
           />
@@ -102,6 +102,7 @@
             prop="messageType"
             :label="$t('apppromotion.messageType')"
             sortable="custom"
+            width="150"
           />
           <el-table-column
             prop="description"
@@ -135,7 +136,7 @@
           <el-table-column
             prop="detailInfo"
             :label="$t('apppromotion.mesOperation')"
-            width="210"
+            width="180"
           >
             <template slot-scope="scope">
               <el-button
@@ -327,7 +328,6 @@ export default {
       let set = new Set()
       this.appPackageData.forEach(
         (item) => {
-          set.add(item.sourceAppStore)
           set.add(item.targetAppStore)
         })
       return set
@@ -589,7 +589,6 @@ export default {
 
       // echart2
       let appStorePushArr = []
-      let allAppStoreArr = []
 
       let statisticArr = []
       let appStoreNames = this.getAppStoreNames(this.appPackageData)
@@ -597,7 +596,6 @@ export default {
         (item) => {
           let pushNum = this.getPushNum(item, this.appPackageData)
           if (pushNum > 0) {
-            allAppStoreArr.push(item)
             appStorePushArr.push(pushNum)
             let tempObj = {
               name: item,
@@ -614,7 +612,14 @@ export default {
       let top5Name = []
       appStorePushArr.sort(sortNumber)
       appStorePushArr = appStorePushArr.slice(0, 5)
-      for (let num of appStorePushArr) {
+      let finalNumArr = []
+      for (let numItem of appStorePushArr) {
+        if (finalNumArr.indexOf(numItem) === -1) {
+          finalNumArr.push(numItem)
+        }
+      }
+
+      for (let num of finalNumArr) {
         for (let item of statisticArr) {
           if (item.count === num) {
             top5Name.push(item.name)
@@ -777,31 +782,34 @@ export default {
       width: 200px;
     }
   }
-}
-.mychart{
-  width:30%;
-  height:300px;
-  float:left;
-  margin-left:23px;
-}
-.mychart3{
-  width:35%;
-  height:300px;
-  float:left;
-  margin-left:23px;
-}
-.analyseAna{
-  width:100%;
-  height:300px;
-}
-.analyseAnaNoData{
-  width:100%;
-  height:400px;
-  text-align: center;
-  line-height: 25px;
-}
-.detailInfo{
-  height:110px;
+  .analyseAna{
+    width: 100%;
+    height: 310px;
+    display: inline-block;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-align: center;
+    .mychart1{
+      width: 25%;
+      height: 300px;
+      display: inline-block;
+    }
+    .mychart2{
+      width: 34%;
+      height: 300px;
+      display: inline-block;
+      margin-left: 40px;
+    }
+  }
+  .analyseAnaNoData{
+    width: 100%;
+    height: 400px;
+    text-align: center;
+    line-height: 25px;
+  }
+  .detailInfo{
+    height: 110px;
+  }
 }
 .el-drawer__header{
   display: none;
@@ -814,37 +822,37 @@ export default {
   height: 36px;
   line-height: 36px;
   margin: 75px 0 15px;
-  position:relative;
+  position: relative;
   z-index: 888;
   padding-left: 15px;
   border-bottom: 1px solid #e7ebf5;
 }
 .title1::before{
-  content:'';
-  display:inline-block;
-  width:3px;
-  height:18px;
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 18px;
   position: relative;
-  top:4px;
-  background:#409EFF;
+  top: 4px;
+  background: #409EFF;
 }
 .title2{
   height: 36px;
   line-height: 36px;
   margin: 25px 0 15px;
-  position:relative;
+  position: relative;
   z-index: 888;
   padding-left: 15px;
   border-bottom: 1px solid #e7ebf5;
 }
 .title2::before{
-  content:'';
-  display:inline-block;
-  width:3px;
-  height:18px;
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 18px;
   position: relative;
-  top:4px;
-  background:#409EFF;
+  top: 4px;
+  background: #409EFF;
 }
 .basic_p{
   padding: 2px;
