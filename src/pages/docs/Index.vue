@@ -73,7 +73,7 @@
           </div>
           <div class="content-title">
             <h5 class="title-font">
-              {{ $t("docs.titleContent") }}
+              {{ $t("docs.titleContentAPPD") }}
             </h5>
           </div>
           <el-link
@@ -101,7 +101,7 @@
           </div>
           <div class="content-title">
             <h5 class="title-font">
-              {{ $t("docs.titleContent") }}
+              {{ $t("docs.titleContentinter") }}
             </h5>
           </div>
           <el-link
