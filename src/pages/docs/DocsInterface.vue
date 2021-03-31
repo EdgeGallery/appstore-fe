@@ -82,7 +82,7 @@ export default {
       language: localStorage.getItem('language'),
       breadCrumbData: [
         {
-          name: '首页1',
+          name: '首页',
           path: '/'
         },
         {
@@ -127,20 +127,19 @@ export default {
       this.updateBreadCrumbData(key)
     },
     updateBreadCrumbData (activeIndex) {
-      this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }]
       if (this.language === 'cn') {
         switch (activeIndex) {
           case '1':
-            this.breadCrumbData.push({ name: this.$t('nav.appMessage1'), path: '' })
+            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appMessage'), path: '' }]
             break
           case '2':
-            this.breadCrumbData.push({ name: this.$t('nav.appQuery2'), path: '' })
+            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery2'), path: '' }]
             break
           case '3-1':
-            this.breadCrumbData.push({ name: this.$t('nav.appDownload31'), path: '' })
+            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appDownload31'), path: '' }]
             break
           case '3-2':
-            this.breadCrumbData.push({ name: this.$t('nav.appDownload32'), path: '' })
+            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appDownload32'), path: '' }]
             break
           default:
         }
@@ -159,7 +158,7 @@ export default {
 .docs {
   margin-top: 0px;
   font-size: 14px;
-  padding: 20px 200px 75px;
+  padding: 20px 10% 75px;
   .el-tabs--left .el-tabs__item.is-left {
     font-size: 15px;
     text-align: left;

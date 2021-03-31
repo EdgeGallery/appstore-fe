@@ -244,6 +244,7 @@ const en = {
     docs: 'Docs',
     appTest: 'Application Test',
     appUpload: 'Upload Application',
+    appShare: 'Application Share',
     appPublish: 'Publish Application',
     appView: 'View Application',
     summary: 'Summary',
@@ -265,8 +266,8 @@ const en = {
     summaryContent: 'AppStore is an edge application market where developers release and launch App applications. Edge applications developed by the Developer platform can be directly published to the AppStore application store after ATP testing. Users can also upload edge applications directly in the AppStore, and after ATP testing, they can be published to the AppStore for external display.',
 
     titleContent: 'Quickly help you familiarize yourself with the core functions of the edgegallery warehouse',
-    titleContentAPPD: 'Quickly help you realize application sharing between warehouses',
-    titleContentinter: 'Quickly help you familiarize yourself with the Edgegallery interface',
+    titleContentAPPD: 'Quickly help you familiarize yourself with how to define an application package',
+    titleContentinter: 'Quickly help you realize application sharing between warehouses',
     beginnerPart1: 'Hello, welcome to use Edgegallery application warehouse panorama。',
     beginnerPart2: 'Using this repository, you can download applications of interest, upload or delete applications, publish or share applications, etc.'
   },
