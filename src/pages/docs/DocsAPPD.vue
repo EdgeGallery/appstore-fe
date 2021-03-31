@@ -155,28 +155,26 @@ export default {
       })
     },
     updateBreadCrumbData (activeName) {
-      if (this.language === 'cn') {
-        switch (activeName) {
-          case 'first':
-            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.summary'), path: '' }]
-            break
-          case 'second':
-            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.toscaFolder'), path: '' }]
-            break
-          case 'third':
-            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.APPDFolder'), path: '' }]
-            break
-          case 'four':
-            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.imageFolder'), path: '' }]
-            break
-          case 'five':
-            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.manifestFile'), path: '' }]
-            break
-          case 'six':
-            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.artifactsFolder'), path: '' }]
-            break
-          default:
-        }
+      switch (activeName) {
+        case 'first':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.summary'), path: '' }]
+          break
+        case 'second':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.toscaFolder'), path: '' }]
+          break
+        case 'third':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.APPDFolder'), path: '' }]
+          break
+        case 'four':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.imageFolder'), path: '' }]
+          break
+        case 'five':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.manifestFile'), path: '' }]
+          break
+        case 'six':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.artifactsFolder'), path: '' }]
+          break
+        default:
       }
     }
   },
