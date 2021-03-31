@@ -23,104 +23,214 @@
         alt=""
       >
     </div>
-    <div class="how-it-works">
-      <el-tabs
-        v-model="activeName"
-        @tab-click="handleClick"
-      >
-        <el-tab-pane
-          class="table-pane"
-          :label="$t('docs.summary')"
+    <div class="home_content">
+      <h3 class="home_tit">
+        <img
+          class="status3-pic"
+          :src="biginnerGuideIcon"
+          alt=""
         >
-          <Docs class="docs" />
-        </el-tab-pane>
-        <el-tab-pane
-          class="table-pane"
-          :label="$t('docs.operateFile')"
+      </h3>
+      <div class="docs_pics">
+        <div class="docsIndexIcon">
+          <img
+            class="status3-pic"
+            :src="beginnericon"
+            alt=""
+          >
+          <div class="name-title">
+            <h5 class="name-font">
+              {{ $t("docs.userGuide") }}
+            </h5>
+          </div>
+          <div class="content-title">
+            <h5 class="title-font">
+              {{ $t("docs.titleContent") }}
+            </h5>
+          </div>
+          <el-link
+            class="button"
+            :underline="false"
+            :href="beginnerDetail"
+          >
+            <img
+              :src="language === 'cn'?cnDetailButton:enDetailButton"
+              class="content-detail-button"
+              alt=""
+            >
+          </el-link>
+        </div>
+        <div class="docsIndexIcon">
+          <img
+            class="status3-pic"
+            :src="APPDStandard"
+            alt=""
+          >
+          <div class="name-title">
+            <h5 class="name-font">
+              {{ $t("docs.appFolderStar") }}
+            </h5>
+          </div>
+          <div class="content-title">
+            <h5 class="title-font">
+              {{ $t("docs.titleContent") }}
+            </h5>
+          </div>
+          <el-link
+            class="button"
+            :underline="false"
+            :href="docsAPPDDetail"
+          >
+            <img
+              :src="language === 'cn'?cnDetailButton:enDetailButton"
+              class="content-detail-button"
+              alt=""
+            >
+          </el-link>
+        </div>
+        <div class="docsIndexIcon">
+          <img
+            class="status3-pic"
+            :src="interfaceStandard"
+            alt=""
+          >
+          <div class="name-title">
+            <h5 class="name-font">
+              {{ $t("docs.interfaceStar") }}
+            </h5>
+          </div>
+          <div class="content-title">
+            <h5 class="title-font">
+              {{ $t("docs.titleContent") }}
+            </h5>
+          </div>
+          <el-link
+            class="button"
+            :underline="false"
+            @click="jumpTointerface('1')"
+          >
+            <img
+              :src="language === 'cn'?cnDetailButton:enDetailButton"
+              class="content-detail-button"
+              alt=""
+            >
+          </el-link>
+        </div>
+      </div>
+    </div>
+
+    <div class="home_interface">
+      <h3 class="interface_tit">
+        <img
+          :src="interfaceFileIcon"
+          class="content-detail-button"
+          alt=""
         >
-          <div class="summary">
-            <span />{{ $t('docs.operaContent') }}
-          </div>
-          <div class="steps">
-            <div class="step">
-              <img
-                :src="language === 'cn'? worksIcon1 : worksIconen1"
-                alt
-              >
-            </div>
-            <div class="step">
-              <img
-                :src="language === 'cn'? worksIcon2 : worksIconen2"
-                alt
-              >
-            </div>
-            <div class="step">
-              <img
-                :src="language === 'cn'? worksIcon3 : worksIconen3"
-                alt
-              >
-            </div>
-            <div class="step">
-              <img
-                :src="language === 'cn'? worksIcon4 : worksIconen4"
-                alt
-              >
-            </div>
-          </div>
-          <div class="oprefile">
-            <a
-              href="http://docs.edgegallery.org/zh_CN/latest/Projects/APPSTORE/AppStore_Contribution.html#id3"
-              target="_blank"
-              rel="noopener noreferrer"
-            >{{ $t('docs.moreDetail') }}</a>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane
-          class="table-pane"
-          :label="$t('docs.APPDStandard')"
-        >
-          <DocsAPPD class="docs" />
-        </el-tab-pane>
-      </el-tabs>
+      </h3>
+      <div class="interface_pics">
+        <div class="docsIndexIcon">
+          <img
+            :src="appPromoteIcon"
+            class="content-detail-button"
+            alt=""
+          >
+          <el-link
+            class="interface-title"
+            :underline="false"
+            @click="jumpTointerface('2')"
+          >
+            <h5 class="title-font">
+              {{ $t("nav.appQuery2") }}
+            </h5>
+          </el-link>
+        </div>
+        <div class="docsIndexIcon">
+          <img
+            :src="appPullIcon"
+            class="content-detail-button"
+            alt=""
+          >
+          <el-link
+            class="interface-title"
+            :underline="false"
+            @click="jumpTointerface('3-1')"
+          >
+            <h5 class="title-font">
+              {{ $t("nav.appDownload3") }}
+            </h5>
+          </el-link>
+        </div>
+        <div class="docsIndexIcon">
+          <img
+            :src="centerMsgIcon"
+            class="content-detail-button"
+            alt=""
+          >
+          <el-link
+            class="interface-title"
+            :underline="false"
+            @click="jumpTointerface('1')"
+          >
+            <h5 class="title-font">
+              {{ $t("nav.appMessage1") }}
+            </h5>
+          </el-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import Docs from './Docs.vue'
-import DocsAPPD from './DocsAPPD.vue'
-import worksIcon1 from '@/assets/images/how_it_works_icon1.png'
-import worksIconen1 from '@/assets/images/how_it_works_icon-en1.png'
-import worksIcon2 from '@/assets/images/how_it_works_icon2.png'
-import worksIconen2 from '@/assets/images/how_it_works_icon-en2.png'
-import worksIcon3 from '@/assets/images/how_it_works_icon3.png'
-import worksIconen3 from '@/assets/images/how_it_works_icon-en3.png'
-import worksIcon4 from '@/assets/images/how_it_works_icon4.png'
-import worksIconen4 from '@/assets/images/how_it_works_icon-en4.png'
 import howworks from '@/assets/images/how_it_works.png'
 import howworksEN from '@/assets/images/how_it_worksEN.png'
+import beginnericon from '@/assets/images/beginnericon.png'
+import APPDStandard from '@/assets/images/APPD_standard.png'
+import interfaceStandard from '@/assets/images/interface_standard.png'
+import appPromoteIcon from '@/assets/images/appPromoteIcon.png'
+import appPullIcon from '@/assets/images/appPullIcon.png'
+import centerMsgIcon from '@/assets/images/centerMsgIcon.png'
+import exterRepoIcon from '@/assets/images/exterRepoIcon.png'
+import enDetailButton from '@/assets/images/contentdetailen.png'
+import cnDetailButton from '@/assets/images/contentdetailcn.png'
+import biginnerGuideIcon from '@/assets/images/biginnerGuideIcon.png'
+import interfaceFileIcon from '@/assets/images/interfaceFileIcon.png'
 export default {
-  components: {
-    Docs, DocsAPPD
-  },
+  // components: {
+  //   Docs, DocsAPPD
+  // },
   computed: {
     ...mapState(['language'])
   },
   data () {
     return {
+      enDetailButton: enDetailButton,
+      cnDetailButton: cnDetailButton,
       howworks: howworks,
       howworksEN: howworksEN,
-      worksIcon1: worksIcon1,
-      worksIconen1: worksIconen1,
-      worksIcon2: worksIcon2,
-      worksIconen2: worksIconen2,
-      worksIcon3: worksIcon3,
-      worksIconen3: worksIconen3,
-      worksIcon4: worksIcon4,
-      worksIconen4: worksIconen4
-
+      beginnericon: beginnericon,
+      APPDStandard: APPDStandard,
+      interfaceStandard: interfaceStandard,
+      appPromoteIcon: appPromoteIcon,
+      appPullIcon: appPullIcon,
+      centerMsgIcon: centerMsgIcon,
+      exterRepoIcon: exterRepoIcon,
+      biginnerGuideIcon: biginnerGuideIcon,
+      interfaceFileIcon: interfaceFileIcon,
+      beginnerDetail: '/#/docsBeginnerGuide',
+      docsAPPDDetail: '/#/docsAPPD',
+      docsInterface: '/#/docsInterface'
     }
+  },
+  methods: {
+    jumpTointerfaceNew (value) {
+      this.$router.push({ name: 'docsInterface', params: { value: value } })
+    },
+    jumpTointerface (value) {
+      this.$router.push({ name: 'docsInterface', params: { value: value } })
+    }
+
   }
 }
 </script>
@@ -135,6 +245,122 @@ body, html{
   width: 100%;
   position: relative;
   overflow: hidden;
+  }
+  .home_content{
+    // margin-top: 20px;
+    background: white;
+    padding: 35px 360px;
+    box-sizing: border-box;
+    // display: flex;
+    position: relative;
+    .home_tit{
+      margin-top: 25px;
+      font-size: 32px;
+      text-align: center;
+    }
+   .docs_pics{
+     margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      .docsIndexIcon{
+        width: 30%;
+        text-align: center;
+        .content-title{
+          .title-font{
+            font-size: 16px;
+            margin-top: 20px;
+          }
+        }
+        .button{
+          margin-top: 20px;
+        }
+        .name-title{
+          .name-font{
+            font-weight: 600;
+            margin-top: 30px;
+          }
+        }
+      }
+    }
+    .home_more{
+      text-align: center;
+      margin: 15px 0 30px;
+      .el-link{
+        font-size: 16px;
+      }
+    }
+  }
+  .home_interface{
+    background: #fafafa;
+    padding: 35px 360px;
+    box-sizing: border-box;
+    // display: flex;
+    position: relative;
+    .interface_tit{
+      font-size: 32px;
+      text-align: center;
+    }
+   .interface_pics{
+      display: flex;
+      justify-content: center;
+      .docsIndexIcon{
+        width: 30%;
+        text-align: center;
+        .interface-title{
+          .title-font{
+            margin-top: -90px
+          }
+
+        }
+      }
+    }
+    .home_more{
+      text-align: center;
+      margin: 15px 0 30px;
+      .el-link{
+        font-size: 16px;
+      }
+    }
+  }
+  .recommend{
+    .recomment_list{
+      .button{
+            width: 350px;
+            .content-detail-button{
+              width: 90px;
+              height: 30px;
+              display: inline-block;
+              cursor: pointer;
+            }
+          }
+      li{
+        float: left;
+        width: 30%;
+        img{
+          width: 100%;
+          display: block;
+          max-width: 496px;
+          border-radius: 20px;
+          cursor: pointer;
+        }
+        .rec_tit{
+          font-size: 24px;
+          margin: 20px 0 15px;
+        }
+        .rec_content{
+          line-height: 25px;
+          color: #848484;
+        }
+        .rec_more{
+          font-size: 16px;
+          margin-top: 10px;
+        }
+      }
+      li:nth-child(2){
+        margin: 0 5%;
+      }
+    }
+  }
   .word {
     color: white;
     position: absolute;
@@ -151,12 +377,12 @@ body, html{
     }
   }
 }
-  .banner {
-    img {
-      width: 100%;
-      height: 500px;
-    }
-  }
+  // .banner {
+  //   img {
+  //     width: 100%;
+  //     height: 500px;
+  //   }
+  // }
   .el-tabs__nav-scroll{
     // text-align: center;
     display: flex;
@@ -170,9 +396,9 @@ body, html{
   }
 
   .how-it-works {
-    padding: 35px 10%;
+    padding: 35px 200px;
     box-sizing: border-box;
-    background: #eee;
+    background: #fff;
     .oprefile{
         padding: 30px;
         background-color: #fff;
@@ -216,6 +442,5 @@ body, html{
         }
       }
     }
-  }
 }
 </style>

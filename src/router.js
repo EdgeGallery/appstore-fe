@@ -84,6 +84,30 @@ export default new Router({
           }
         },
         {
+          path: 'docsBeginnerGuide',
+          name: 'docsBeginnerGuide',
+          component: () => import('./pages/docs/Docs.vue'),
+          meta: {
+            id: '2.2.1'
+          }
+        },
+        {
+          path: 'docsAPPD',
+          name: 'docsAPPD',
+          component: () => import('./pages/docs/DocsAPPD.vue'),
+          meta: {
+            id: '2.2.3'
+          }
+        },
+        {
+          path: 'docsInterface',
+          name: 'docsInterface',
+          component: () => import('./pages/docs/DocsInterface.vue'),
+          meta: {
+            id: '2.2.4'
+          }
+        },
+        {
           path: 'myapp',
           name: 'appstoremyapp',
           component: () => import('./pages/myApp/Index.vue'),

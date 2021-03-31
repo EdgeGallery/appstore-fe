@@ -169,6 +169,44 @@ function deleteAppPackageApi (appId, csarId, userId, userName) {
   return DELETE(url)
 }
 
+function getInterface (language, activeName) {
+  let url = ''
+  if (language === 'cn') {
+    switch (activeName) {
+      case '1':
+        url = './InterfaceMessage.md'
+        break
+      case '2':
+        url = './InterfaceappQuery2.md'
+        break
+      case '3-1':
+        url = './InterfaceDownload1.md'
+        break
+      case '3-2':
+        url = './InterfaceDownload2.md'
+        break
+      default:
+    }
+  } else {
+    switch (activeName) {
+      case '1':
+        url = './InterfaceMessageen.md'
+        break
+      case '2':
+        url = './InterfaceappQuery2en.md'
+        break
+      case '3-1':
+        url = './InterfaceDownload1en.md'
+        break
+      case '3-2':
+        url = './InterfaceDownload2en.md'
+        break
+      default:
+    }
+  }
+  return axios.get(url)
+}
+
 function getDocsApi (language, activeName) {
   let url = ''
 
@@ -336,6 +374,8 @@ export {
   deleteAppApi,
   deleteAppPackageApi,
   getDocsApi,
+
+  getInterface,
   getAppFileContentApi,
   downloadAppPakageApi,
   URL_PREFIX,
