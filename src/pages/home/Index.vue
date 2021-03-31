@@ -539,7 +539,7 @@ export default {
     }
   }
   .app {
-    padding: 30px 200px;
+    padding: 30px 10%;
     box-sizing: border-box;
     .app-content {
       background: white;
@@ -621,7 +621,7 @@ export default {
       }
     }
   }
-  @media screen and (max-width:1380px){
+  @media screen and (max-width:1545px){
     .app{
       padding: 30px 56px;
     }

@@ -170,7 +170,7 @@ body, html{
   }
 
   .how-it-works {
-    padding: 35px 200px;
+    padding: 35px 10%;
     box-sizing: border-box;
     background: #eee;
     .oprefile{

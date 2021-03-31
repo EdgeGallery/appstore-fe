@@ -124,7 +124,7 @@ export default {
   }
 }
 </script>
-<style lang='less' scoped>
+<style lang='less'>
 .app-grid {
   display: flex;
   padding: 10px;
@@ -157,45 +157,47 @@ export default {
         h4 {
           line-height: 34px;
         }
-      p {
-        color: black;
-        line-height: 28px;
-      }
-      span {
-        display: inline-block;
-        height: 28px;
-      }
-      .name {
-        text-align: left;
-        .app-name {
-          width: 75%;
+        p {
+          color: black;
+          line-height: 28px;
+        }
+        span {
+          display: inline-block;
+          height: 28px;
+        }
+        .name {
+          text-align: left;
+          .app-name {
+            width: 75%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 22px;
+          }
+          .app-version {
+            font-size: 14px;
+            color: #999999;
+          }
+        }
+        .type-size {
+          text-align: left;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          font-size: 22px;
+          .type {
+            text-align: left;
+            display: inline-block;
+          }
+          .size {
+            display: inline-block;
+          }
         }
-        .app-version {
-          font-size: 14px;
-          color: #999999;
-        }
-      }
-      .type-size {
-        text-align: left;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        .type {
-          text-align: left;
-          display: inline-block;
-        }
-        .size {
-          display: inline-block;
-        }
-      }
-      .core {
-        display: flex;
-        align-items: center;
-        // justify-content: space-between;
+        .core {
+          display: flex;
+          align-items: center;
+          .el-rate__icon{
+            margin-right: 1px;
+          }
         }
       }
     }
@@ -203,6 +205,16 @@ export default {
       transform: translate3d(0,-10px,0);
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
       background-color: #fff;
+    }
+  }
+  @media screen and (max-width:1400px){
+    .content{
+      width: 33%;
+    }
+  }
+  @media screen and (min-width:1545px) and (max-width:1605px){
+    .content{
+      width: 33%;
     }
   }
 }
