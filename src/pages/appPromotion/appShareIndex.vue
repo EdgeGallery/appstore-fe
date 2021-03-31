@@ -216,6 +216,7 @@ export default {
     margin:0 auto;
     text-align: center;
     .nav-content{
+      width: 1110px;
       height: 710px;
       display: inline-block;
       background:#FAFAFA;
