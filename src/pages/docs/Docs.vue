@@ -62,7 +62,10 @@
               {{ $t('docs.beginnerPart2') }}
             </div>
           </div>
-          <div class="docImg">
+          <div class="docImg docWrap">
+            <div class="docsNum">
+              {{ $t('nav.appDownload3') }}
+            </div>
             <div class="subDocImg1">
               <img
                 :src="language === 'cn'? worksIcon1 : worksIconen1"
@@ -76,14 +79,21 @@
               >
             </div>
           </div>
-          <div class="docImg">
+          <div class="docImg docWrap">
             <div class="subDocImg2">
+              <div class="docsNum2">
+                {{ $t('docs.appUpload') }}
+              </div>
               <img
                 :src="language === 'cn'? worksIcon3 : worksIconen3"
                 alt
               >
             </div>
+
             <div class="subDocImg2">
+              <div class="docsNum3">
+                {{ $t('docs.appShare') }}
+              </div>
               <img
                 :src="language === 'cn'? worksIcon4 : worksIconen4"
                 alt
@@ -114,6 +124,9 @@ import worksIconen3 from '@/assets/images/how_it_works_icon-en3.png'
 import worksIcon4 from '@/assets/images/how_it_works_icon4.png'
 import worksIconen4 from '@/assets/images/how_it_works_icon-en4.png'
 import docsLine from '@/assets/images/docsLine.png'
+import docsNum1 from '@/assets/images/docsNum1.png'
+import docsNum2 from '@/assets/images/docsNum2.png'
+import docsNum3 from '@/assets/images/docsNum3.png'
 import EgBreadCrumb from 'eg-view/src/components/EgBreadCrumb.vue'
 export default {
   props: {
@@ -131,6 +144,9 @@ export default {
   data () {
     return {
       source: '',
+      docsNum1: docsNum1,
+      docsNum2: docsNum2,
+      docsNum3: docsNum3,
       summary1: summary1,
       summaryen1: summaryen1,
       summary2: summary2,
@@ -186,11 +202,43 @@ export default {
             display: flex;
             justify-content: center;
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            // flex-wrap: wrap;
+            .docsNum{
+              width: 100%;
+              text-align: left;
+              font-size: 18px;
+              font-weight: 550;
+              height: 78px;
+              line-height: 78px;
+              background: url('../../assets/images/docsNum1.png') left center no-repeat;
+              padding-left: 30px;
+              margin-left: 100px;
+            }
+            .docsNum2{
+              width: 30%;
+              text-align: left;
+              font-size: 18px;
+              font-weight: 550;
+              height: 58px;
+              line-height: 58px;
+              background: url('../../assets/images/docsNum2.png') left center no-repeat;
+              padding-left: 30px;
+              margin-left: 0px;
+            }
+            .docsNum3{
+              width: 100%;
+              font-size: 18px;
+              font-weight: 550;
+              height: 58px;
+              line-height: 58px;
+              background: url('../../assets/images/docsNum3.png') left center no-repeat;
+              padding-left: 30px;
+            }
             .subDocImg1{
-              padding: 90px;
+              padding: 20px 90px;
             }
             .subDocImg2{
-              padding: 50px;
+              padding: 20px 50px;
             }
             .subDocImg{
               background-color: #fff;
@@ -200,6 +248,9 @@ export default {
               }
             }
           }
+          .docImg.docWrap{
+            flex-wrap: wrap;
+          }
           .subcontenttwo {
             float: left;
             width: 100%;
@@ -207,6 +258,7 @@ export default {
             box-sizing: border-box;
             flex-direction: column;
             position: relative;
+
             .characteristic{
               width: 100%;
               text-align: left;

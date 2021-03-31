@@ -155,26 +155,25 @@ export default {
       })
     },
     updateBreadCrumbData (activeName) {
-      this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }]
       if (this.language === 'cn') {
         switch (activeName) {
           case 'first':
-            this.breadCrumbData.push({ name: this.$t('docs.summary'), path: '' })
+            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.summary'), path: '' }]
             break
           case 'second':
-            this.breadCrumbData.push({ name: this.$t('docs.toscaFolder'), path: '' })
+            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.toscaFolder'), path: '' }]
             break
           case 'third':
-            this.breadCrumbData.push({ name: this.$t('docs.APPDFolder'), path: '' })
+            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.APPDFolder'), path: '' }]
             break
           case 'four':
-            this.breadCrumbData.push({ name: this.$t('docs.imageFolder'), path: '' })
+            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.imageFolder'), path: '' }]
             break
           case 'five':
-            this.breadCrumbData.push({ name: this.$t('docs.manifestFile'), path: '' })
+            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.manifestFile'), path: '' }]
             break
           case 'six':
-            this.breadCrumbData.push({ name: this.$t('docs.artifactsFolder'), path: '' })
+            this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.artifactsFolder'), path: '' }]
             break
           default:
         }
@@ -190,9 +189,12 @@ export default {
 <style lang='less' >
 
 .docs {
-  padding: 20px 200px 75px;
+  padding: 20px 10% 75px;
   margin-top: 0px;
   font-size: 14px;
+  .el-tabs__item{
+    padding: 0 20px 0 0;
+  }
   .el-tabs--left .el-tabs__item.is-left {
     font-size: 15px;
     text-align: left;
