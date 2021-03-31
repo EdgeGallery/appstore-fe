@@ -15,111 +15,107 @@
   -->
 
 <template>
-  <div class="docs">
-    <div class="operation">
-      <div
-        style="margin-bottom: 10px;"
-        class="btn"
+  <div>
+    <eg-bread-crumb :data="breadCrumbData" />
+    <div class="docs">
+      <el-tabs
+        class="appdpane"
+        v-model="activeName"
+        tab-position="left"
+        @tab-click="getAppStoreDocs"
       >
-        <p class="clearfix" />
-      </div>
+        <el-tab-pane
+          :label="$t('docs.summary')"
+          name="first"
+        >
+          <div id="test-editor">
+            <mavon-editor
+              v-model="source"
+              :toolbars-flag="false"
+              :editable="false"
+              :subfield="false"
+              default-open="preview"
+            />
+          </div>
+        </el-tab-pane>
+        <el-tab-pane
+          :label="$t('docs.toscaFolder')"
+          name="second"
+        >
+          <div id="test-editor">
+            <mavon-editor
+              v-model="source"
+              :toolbars-flag="false"
+              :editable="false"
+              :subfield="false"
+              default-open="preview"
+            />
+          </div>
+        </el-tab-pane>
+        <el-tab-pane
+          :label="$t('docs.APPDFolder')"
+          name="third"
+        >
+          <div id="test-editor">
+            <mavon-editor
+              v-model="source"
+              :toolbars-flag="false"
+              :editable="false"
+              :subfield="false"
+              default-open="preview"
+            />
+          </div>
+        </el-tab-pane>
+        <el-tab-pane
+          :label="$t('docs.imageFolder')"
+          name="four"
+        >
+          <div id="test-editor">
+            <mavon-editor
+              v-model="source"
+              :toolbars-flag="false"
+              :editable="false"
+              :subfield="false"
+              default-open="preview"
+            />
+          </div>
+        </el-tab-pane>
+        <el-tab-pane
+          :label="$t('docs.manifestFile')"
+          name="five"
+        >
+          <div id="test-editor">
+            <mavon-editor
+              v-model="source"
+              :toolbars-flag="false"
+              :editable="false"
+              :subfield="false"
+              default-open="preview"
+            />
+          </div>
+        </el-tab-pane>
+        <el-tab-pane
+          :label="$t('docs.artifactsFolder')"
+          name="six"
+        >
+          <div id="test-editor">
+            <mavon-editor
+              v-model="source"
+              :toolbars-flag="false"
+              :editable="false"
+              :subfield="false"
+              default-open="preview"
+            />
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
-    <el-tabs
-      class="appdpane"
-      v-model="activeName"
-      tab-position="left"
-      @tab-click="getAppStoreDocs"
-    >
-      <el-tab-pane
-        :label="$t('docs.summary')"
-        name="first"
-      >
-        <div id="test-editor">
-          <mavon-editor
-            v-model="source"
-            :toolbars-flag="false"
-            :editable="false"
-            :subfield="false"
-            default-open="preview"
-          />
-        </div>
-      </el-tab-pane>
-      <el-tab-pane
-        :label="$t('docs.toscaFolder')"
-        name="second"
-      >
-        <div id="test-editor">
-          <mavon-editor
-            v-model="source"
-            :toolbars-flag="false"
-            :editable="false"
-            :subfield="false"
-            default-open="preview"
-          />
-        </div>
-      </el-tab-pane>
-      <el-tab-pane
-        :label="$t('docs.APPDFolder')"
-        name="third"
-      >
-        <div id="test-editor">
-          <mavon-editor
-            v-model="source"
-            :toolbars-flag="false"
-            :editable="false"
-            :subfield="false"
-            default-open="preview"
-          />
-        </div>
-      </el-tab-pane>
-      <el-tab-pane
-        :label="$t('docs.imageFolder')"
-        name="four"
-      >
-        <div id="test-editor">
-          <mavon-editor
-            v-model="source"
-            :toolbars-flag="false"
-            :editable="false"
-            :subfield="false"
-            default-open="preview"
-          />
-        </div>
-      </el-tab-pane>
-      <el-tab-pane
-        :label="$t('docs.manifestFile')"
-        name="five"
-      >
-        <div id="test-editor">
-          <mavon-editor
-            v-model="source"
-            :toolbars-flag="false"
-            :editable="false"
-            :subfield="false"
-            default-open="preview"
-          />
-        </div>
-      </el-tab-pane>
-      <el-tab-pane
-        :label="$t('docs.artifactsFolder')"
-        name="six"
-      >
-        <div id="test-editor">
-          <mavon-editor
-            v-model="source"
-            :toolbars-flag="false"
-            :editable="false"
-            :subfield="false"
-            default-open="preview"
-          />
-        </div>
-      </el-tab-pane>
-    </el-tabs>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
 import { getDocsApi } from '../../tools/api.js'
+import EgBreadCrumb from 'eg-view/src/components/EgBreadCrumb.vue'
 export default {
   props: {
     treeId: {
@@ -127,12 +123,17 @@ export default {
       default: ''
     }
   },
+  components: {
+    EgBreadCrumb
+  },
   computed: {
     ...mapState(['language'])
   },
   watch: {
     language (val) {
+      console.log(this.activeName)
       this.getAppStoreDocs()
+      this.updateBreadCrumbData(this.activeName)
       if (val === 'en') {
         this.updateMdUrl = './APPPackageDefinition.md'
       }
@@ -142,25 +143,54 @@ export default {
     return {
       activeName: 'first',
       source: '',
+      breadCrumbData: [],
       updateMdUrl: './APPPackageDefinition.md'
     }
   },
   methods: {
     getAppStoreDocs () {
+      this.updateBreadCrumbData(this.activeName)
       getDocsApi(this.language, this.activeName).then(res => {
         this.source = res.data ? res.data : ''
       })
+    },
+    updateBreadCrumbData (activeName) {
+      this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }]
+      if (this.language === 'cn') {
+        switch (activeName) {
+          case 'first':
+            this.breadCrumbData.push({ name: this.$t('docs.summary'), path: '' })
+            break
+          case 'second':
+            this.breadCrumbData.push({ name: this.$t('docs.toscaFolder'), path: '' })
+            break
+          case 'third':
+            this.breadCrumbData.push({ name: this.$t('docs.APPDFolder'), path: '' })
+            break
+          case 'four':
+            this.breadCrumbData.push({ name: this.$t('docs.imageFolder'), path: '' })
+            break
+          case 'five':
+            this.breadCrumbData.push({ name: this.$t('docs.manifestFile'), path: '' })
+            break
+          case 'six':
+            this.breadCrumbData.push({ name: this.$t('docs.artifactsFolder'), path: '' })
+            break
+          default:
+        }
+      }
     }
   },
   mounted () {
     this.getAppStoreDocs()
+    this.updateBreadCrumbData(this.activeName)
   }
 }
 </script>
 <style lang='less' >
 
 .docs {
-  padding: 40px 200px 75px;
+  padding: 20px 200px 75px;
   margin-top: 0px;
   font-size: 14px;
   .el-tabs--left .el-tabs__item.is-left {

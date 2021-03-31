@@ -159,7 +159,7 @@ export default {
 .docs {
   margin-top: 0px;
   font-size: 14px;
-  padding: 0 200px;
+  padding: 20px 200px 75px;
   .el-tabs--left .el-tabs__item.is-left {
     font-size: 15px;
     text-align: left;

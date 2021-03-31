@@ -191,7 +191,6 @@ import interfaceStandard from '@/assets/images/interface_standard.png'
 import appPromoteIcon from '@/assets/images/appPromoteIcon.png'
 import appPullIcon from '@/assets/images/appPullIcon.png'
 import centerMsgIcon from '@/assets/images/centerMsgIcon.png'
-import exterRepoIcon from '@/assets/images/exterRepoIcon.png'
 import enDetailButton from '@/assets/images/contentdetailen.png'
 import cnDetailButton from '@/assets/images/contentdetailcn.png'
 import biginnerGuideIcon from '@/assets/images/biginnerGuideIcon.png'
@@ -215,7 +214,6 @@ export default {
       appPromoteIcon: appPromoteIcon,
       appPullIcon: appPullIcon,
       centerMsgIcon: centerMsgIcon,
-      exterRepoIcon: exterRepoIcon,
       biginnerGuideIcon: biginnerGuideIcon,
       interfaceFileIcon: interfaceFileIcon,
       beginnerDetail: '/#/docsBeginnerGuide',
@@ -309,6 +307,7 @@ body, html{
         .interface-title{
           .title-font{
             margin-top: -90px
+
           }
 
         }
@@ -377,6 +376,10 @@ body, html{
     }
   }
 }
+.title-font :focus{
+       background-color: red;
+
+          }
   // .banner {
   //   img {
   //     width: 100%;
