@@ -722,7 +722,7 @@ export default {
     }
   }
   .home_content{
-    padding: 70px 10% 50px;
+    padding: 70px 15% 50px;
     .home_tit{
       font-size: 32px;
       text-align: center;
@@ -736,7 +736,7 @@ export default {
     }
   }
   .home_content:last-child{
-    padding: 70px 10% 0;
+    padding: 70px 15% 0;
   }
   .new_app{
     .new_app_div{
@@ -1009,7 +1009,7 @@ export default {
   }
   @media screen and (max-width: 1545px){
     .home_content{
-      padding: 50px 56px;
+      padding: 50px 8%;
     }
     .upload_fgx{
         background: url('../../assets/images/home_upload_fgx.png') center 50px no-repeat;
