@@ -16,86 +16,79 @@
 
 <template>
   <div class="docs">
-    <div class="operation">
-      <div
-        style="margin-bottom: 10px;"
-        class="btn"
-      >
-        <p class="clearfix" />
-      </div>
-    </div>
-    <div class="substeps">
-      <div class="substep">
-        <div
-          class="subcontenttwo"
-          :class="{'content-en': language === 'en'}"
-        >
-          <div class="characteristic">
-            <img
-              :src="docsLine"
-              alt
-            >
-            <span />{{ $t('docs.beginnerGuide') }}
+    <eg-bread-crumb :data="breadCrumbData" />
+    <div class="padding56">
+      <div class="substeps">
+        <div class="substep">
+          <div
+            class="subcontenttwo"
+            :class="{'content-en': language === 'en'}"
+          >
+            <div class="characteristic">
+              {{ $t('docs.beginnerGuide') }}
+            </div>
+            <div class="summaryContent">
+              {{ $t('docs.beginnerPart1') }}
+            </div>
+            <div class="docImg">
+              <div class="subDocImg">
+                <img
+                  :src="language === 'cn'? summary1 : summaryen1"
+                  alt
+                >
+              </div>
+              <div class="subDocImg">
+                <img
+                  :src="language === 'cn'? summary2 : summaryen2"
+                  alt
+                >
+              </div>
+              <div class="subDocImg">
+                <img
+                  :src="language === 'cn'? summary3 : summaryen3"
+                  alt
+                >
+              </div>
+            </div>
           </div>
-          <div class="summaryContent">
-            <span />{{ $t('docs.beginnerPart1') }}
+          <div
+            class="subcontenttwo"
+            :class="{'content-en': language === 'en'}"
+          >
+            <div class="characteristic">
+              {{ $t('docs.coreFunGuide') }}
+            </div>
+            <div class="summaryContent">
+              {{ $t('docs.beginnerPart2') }}
+            </div>
           </div>
           <div class="docImg">
-            <div class="subDocImg">
+            <div class="subDocImg1">
               <img
-                :src="language === 'cn'? summary1 : summaryen1"
+                :src="language === 'cn'? worksIcon1 : worksIconen1"
                 alt
               >
             </div>
-            <div class="subDocImg">
+            <div class="subDocImg1">
               <img
-                :src="language === 'cn'? summary2 : summaryen2"
+                :src="language === 'cn'? worksIcon2 : worksIconen2"
                 alt
               >
             </div>
           </div>
-        </div>
-        <div
-          class="subcontenttwo"
-          :class="{'content-en': language === 'en'}"
-        >
-          <div class="characteristic">
-            <img
-              :src="docsLine"
-              alt
-            >
-            <span />{{ $t('docs.coreFunGuide') }}
-          </div>
-          <div class="summaryContent">
-            <span />{{ $t('docs.beginnerPart2') }}
-          </div>
-        </div>
-        <div class="docImg">
-          <div class="subDocImg">
-            <img
-              :src="language === 'cn'? worksIcon1 : worksIconen1"
-              alt
-            >
-          </div>
-          <div class="subDocImg">
-            <img
-              :src="language === 'cn'? worksIcon2 : worksIconen2"
-              alt
-            >
-          </div>
-        </div>
-        <div class="docImg">
-          <div class="subDocImg">
-            <img
-              :src="language === 'cn'? worksIcon3 : worksIconen3"
-              alt
-            >
-          </div>
-          <div class="subDocImg">
-            <img
-              :src="language === 'cn'? worksIcon4 : worksIconen4"
-              alt
-            >
+          <div class="docImg">
+            <div class="subDocImg2">
+              <img
+                :src="language === 'cn'? worksIcon3 : worksIconen3"
+                alt
+              >
+            </div>
+            <div class="subDocImg2">
+              <img
+                :src="language === 'cn'? worksIcon4 : worksIconen4"
+                alt
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -120,9 +113,8 @@ import worksIcon3 from '@/assets/images/how_it_works_icon3.png'
 import worksIconen3 from '@/assets/images/how_it_works_icon-en3.png'
 import worksIcon4 from '@/assets/images/how_it_works_icon4.png'
 import worksIconen4 from '@/assets/images/how_it_works_icon-en4.png'
-
 import docsLine from '@/assets/images/docsLine.png'
-
+import EgBreadCrumb from 'eg-view/src/components/EgBreadCrumb.vue'
 export default {
   props: {
     treeId: {
@@ -132,6 +124,9 @@ export default {
   },
   computed: {
     ...mapState(['language'])
+  },
+  components: {
+    EgBreadCrumb
   },
   data () {
     return {
@@ -150,7 +145,8 @@ export default {
       worksIconen3: worksIconen3,
       worksIcon4: worksIcon4,
       worksIconen4: worksIconen4,
-      docsLine: docsLine
+      docsLine: docsLine,
+      breadCrumbData: []
     }
   },
   methods: {
@@ -158,19 +154,22 @@ export default {
       getDocsApi(this.language).then(res => {
         this.source = res.data ? res.data : ''
       })
+    },
+    updateBreadCrumbData (activeName) {
+      this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.beginnerGuide'), path: '' }]
     }
   },
   mounted () {
     this.getAppStoreDocs()
+    this.updateBreadCrumbData()
   }
 }
 </script>
 <style lang='less' scoped>
 .docs {
+  background: #fff;
   .substeps {
-      margin-top: -45px;
-      background: #fff;
-      padding: 40px 100px 75px;
+      padding: 0px 0 75px;
       box-sizing: border-box;
       display: flex;
       position: relative;
@@ -187,6 +186,12 @@ export default {
             display: flex;
             justify-content: center;
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            .subDocImg1{
+              padding: 90px;
+            }
+            .subDocImg2{
+              padding: 50px;
+            }
             .subDocImg{
               background-color: #fff;
               margin: 20px;
@@ -198,15 +203,19 @@ export default {
           .subcontenttwo {
             float: left;
             width: 100%;
-            padding: 20px;
+            padding: 20px 0;
             box-sizing: border-box;
             flex-direction: column;
             position: relative;
             .characteristic{
               width: 100%;
               text-align: left;
-              font-size: 168x;
+              font-size: 18px;
               font-weight: 550;
+              height: 28px;
+              line-height: 28px;
+              background: url('../../assets/images/docsLine.png') left center no-repeat;
+              padding-left: 15px;
 
             }
             .characteristic::before{
@@ -214,6 +223,7 @@ export default {
             }
             .summaryContent{
               width: 97%;
+              margin-top: 5px;
               line-height: 20px;
               font-size: 14px;
             }

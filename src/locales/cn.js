@@ -275,6 +275,8 @@ const cn = {
     summaryContent: 'AppStore是开发者发布和上线App应用的边缘应用市场，由Developer平台开发的边缘应用，经过ATP测试后可以直接发布到AppStore应用商店。 用户也可以在AppStore直接上传边缘应用，经过ATP测试后可以发布到AppStore，对外展现。',
 
     titleContent: '快速帮您熟悉edgegallery仓库的核心功能',
+    titleContentAPPD: '快速帮您熟悉如何定义应用包',
+    titleContentinter: '快速帮您熟悉如何定义接口',
     beginnerPart1: '您好，欢迎使用Edgegallery应用仓库全景图。',
     beginnerPart2: '使用本仓库，您可以下载感兴趣的应用，上传或删除应用，发布或共享应用等。',
     beginnerGuides: '新手指南',
