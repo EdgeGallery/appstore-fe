@@ -93,7 +93,7 @@
             </div>
             <div class="subDocImg2">
               <div class="docsNum3">
-                {{ $t('docs.appShared') }}
+                {{ $t('docs.appShare') }}
               </div>
               <img
                 :src="language === 'cn'? worksIcon4 : worksIconen4"

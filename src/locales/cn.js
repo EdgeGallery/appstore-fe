@@ -264,7 +264,7 @@ const cn = {
     manifestFile: 'manifest文件',
     characteristic: '特性',
     appUpload: '应用上传',
-    appShared: '应用共享',
+    appShare: '应用共享',
     appTest: '应用测试',
     appPublish: '应用发布',
     appDetail: '应用查询',
