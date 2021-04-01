@@ -131,12 +131,18 @@ export default {
   },
   watch: {
     language (val) {
-      console.log(this.activeName)
+      this.language = localStorage.getItem('language')
       this.getAppStoreDocs()
       this.updateBreadCrumbData(this.activeName)
       if (val === 'en') {
         this.updateMdUrl = './APPPackageDefinition.md'
       }
+    },
+
+    '$i18n.locale': function () {
+      this.language = localStorage.getItem('language')
+      this.updateBreadCrumbData(this.activeName)
+      this.getAppStoreDocs()
     }
   },
   data () {
@@ -144,7 +150,8 @@ export default {
       activeName: 'first',
       source: '',
       breadCrumbData: [],
-      updateMdUrl: './APPPackageDefinition.md'
+      updateMdUrl: './APPPackageDefinition.md',
+      language: localStorage.getItem('language') || 'cn'
     }
   },
   methods: {
@@ -179,8 +186,8 @@ export default {
     }
   },
   mounted () {
-    this.getAppStoreDocs()
     this.updateBreadCrumbData(this.activeName)
+    this.getAppStoreDocs()
   }
 }
 </script>

@@ -107,7 +107,7 @@
           <el-link
             class="button"
             :underline="false"
-            @click="jumpTointerface('1')"
+            @click="jumpTointerface('2')"
           >
             <img
               :src="language === 'cn'?cnDetailButton:enDetailButton"

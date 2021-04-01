@@ -270,7 +270,7 @@ const en = {
     titleContentAPPD: 'Quickly help you familiarize yourself with how to define an application package',
     titleContentinter: 'Quickly help you realize application sharing between warehouses',
     beginnerPart1: 'Hello, welcome to use Edgegallery application warehouse panorama。',
-    beginnerPart2: 'Using this repository, you can download applications of interest, upload or delete applications, publish or share applications, etc.'
+    beginnerPart2: 'Using this warehouse, you can evaluate and download applications, upload and publish applications, share applications, etc.'
   },
   myApp: {
     checkTest: 'View historical test tasks',
