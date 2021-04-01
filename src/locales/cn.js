@@ -264,7 +264,7 @@ const cn = {
     manifestFile: 'manifest文件',
     characteristic: '特性',
     appUpload: '应用上传',
-    appShare: '应用共享',
+    appShared: '应用共享',
     appTest: '应用测试',
     appPublish: '应用发布',
     appDetail: '应用查询',
@@ -279,7 +279,7 @@ const cn = {
     titleContentAPPD: '快速帮您熟悉如何定义应用包',
     titleContentinter: '快速帮您实现仓库间应用共享',
     beginnerPart1: '您好，欢迎使用Edgegallery应用仓库全景图。',
-    beginnerPart2: '使用本仓库，您可以下载感兴趣的应用，上传或删除应用，发布或共享应用等。',
+    beginnerPart2: '使用本仓库，您可以评价下载应用，上传发布应用，共享应用等。',
     beginnerGuides: '新手指南',
     beginnerGuide: ' 新手指导',
     coreFunGuide: ' 核心功能操作指导',
@@ -292,7 +292,8 @@ const cn = {
     appFolderStar: '-应用包规范-',
     interfaceStar: '-仓库间接口规范-',
     apppull: '应用拉取',
-    appPush: '应用推广'
+    appPush: '应用推广',
+    appPublishdoc: '应用发布'
 
   },
   myApp: {

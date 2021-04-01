@@ -128,12 +128,7 @@
         >
       </h3>
       <div class="interface_pics">
-        <div class="docsIndexIcon">
-          <img
-            :src="appPromoteIcon"
-            class="content-detail-button"
-            alt=""
-          >
+        <div class="docsIndexIcon1">
           <el-link
             class="interface-title"
             :underline="false"
@@ -144,12 +139,7 @@
             </h5>
           </el-link>
         </div>
-        <div class="docsIndexIcon">
-          <img
-            :src="appPullIcon"
-            class="content-detail-button"
-            alt=""
-          >
+        <div class="docsIndexIcon2">
           <el-link
             class="interface-title"
             :underline="false"
@@ -160,12 +150,7 @@
             </h5>
           </el-link>
         </div>
-        <div class="docsIndexIcon">
-          <img
-            :src="centerMsgIcon"
-            class="content-detail-button"
-            alt=""
-          >
+        <div class="docsIndexIcon3">
           <el-link
             class="interface-title"
             :underline="false"
@@ -247,7 +232,7 @@ body, html{
   .home_content{
     // margin-top: 20px;
     background: white;
-    padding: 35px 360px;
+    padding: 35px 10%;
     box-sizing: border-box;
     // display: flex;
     position: relative;
@@ -256,11 +241,49 @@ body, html{
       font-size: 32px;
       text-align: center;
     }
-   .docs_pics{
-     margin-top: 30px;
+    .docs_pics{
+      margin-top: 30px;
       display: flex;
       justify-content: center;
       .docsIndexIcon{
+        width: 33%;
+        text-align: center;
+        .name-font{
+          font-size: 18px;
+          margin-top: 25px;
+          font-weight: bold;
+        }
+        .title-font{
+          font-size: 16px;
+          color: #adabab;
+          margin: 20px 0;
+        }
+      }
+    }
+    .home_more{
+      text-align: center;
+      margin: 15px 0 30px;
+      .el-link{
+        font-size: 16px;
+      }
+    }
+  }
+  .home_interface{
+    width: 100%;
+    background: #fafafa;
+    padding: 35px 10%;
+    box-sizing: border-box;
+    // display: flex;
+    position: relative;
+    .interface_tit{
+      font-size: 32px;
+      text-align: center;
+    }
+   .interface_pics{
+      display: flex;
+      justify-content: center;
+      .docsIndexIcon1{
+        background: url('../../assets/images/appPromoteIcon.png') center center no-repeat;
         width: 30%;
         text-align: center;
         .content-title{
@@ -279,6 +302,55 @@ body, html{
           }
         }
       }
+      .docsIndexIcon2{
+        background: url('../../assets/images/appPullIcon.png') center center no-repeat;
+        width: 30%;
+        height: 200px;
+        text-align: center;
+        .content-title{
+          .title-font{
+            font-size: 16px;
+            margin-top: 20px;
+          }
+        }
+        .button{
+          margin-top: 20px;
+        }
+        .name-title{
+          .name-font{
+            font-weight: 600;
+            margin-top: 30px;
+          }
+        }
+      }
+      .docsIndexIcon3{
+        background: url('../../assets/images/appPromoteIcon.png') center center no-repeat;
+        width: 30%;
+        text-align: center;
+        .content-title{
+          .title-font{
+            font-size: 16px;
+            margin-top: 20px;
+          }
+        }
+        .button{
+          margin-top: 20px;
+        }
+        .name-title{
+          .name-font{
+            font-weight: 600;
+            margin-top: 30px;
+          }
+        }
+      }
+      .interface-title{
+        margin-top: 120px;
+        .title-font{
+          // margin-top: -90px
+
+        }
+
+      }
     }
     .home_more{
       text-align: center;
@@ -288,37 +360,12 @@ body, html{
       }
     }
   }
-  .home_interface{
-    background: #fafafa;
-    padding: 35px 360px;
-    box-sizing: border-box;
-    // display: flex;
-    position: relative;
-    .interface_tit{
-      font-size: 32px;
-      text-align: center;
+  @media screen and(max-width:1380px){
+    .home_content{
+      padding: 35px 56px;
     }
-   .interface_pics{
-      display: flex;
-      justify-content: center;
-      .docsIndexIcon{
-        width: 30%;
-        text-align: center;
-        .interface-title{
-          .title-font{
-            margin-top: -90px
-
-          }
-
-        }
-      }
-    }
-    .home_more{
-      text-align: center;
-      margin: 15px 0 30px;
-      .el-link{
-        font-size: 16px;
-      }
+    .home_interface{
+      padding: 35px 56px;
     }
   }
   .recommend{

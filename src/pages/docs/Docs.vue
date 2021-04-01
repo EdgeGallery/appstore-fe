@@ -63,36 +63,37 @@
             </div>
           </div>
           <div class="docImg docWrap">
-            <div class="docsNum">
-              {{ $t('nav.appDownload3') }}
-            </div>
             <div class="subDocImg1">
+              <div class="docsNum">
+                {{ $t('nav.appDownload3') }}
+              </div>
               <img
                 :src="language === 'cn'? worksIcon1 : worksIconen1"
                 alt
               >
             </div>
             <div class="subDocImg1">
+              <div class="docsNumbak" />
               <img
                 :src="language === 'cn'? worksIcon2 : worksIconen2"
                 alt
               >
             </div>
           </div>
+
           <div class="docImg docWrap">
             <div class="subDocImg2">
               <div class="docsNum2">
-                {{ $t('docs.appUpload') }}
+                {{ $t('docs.appPublishdoc') }}
               </div>
               <img
                 :src="language === 'cn'? worksIcon3 : worksIconen3"
                 alt
               >
             </div>
-
             <div class="subDocImg2">
               <div class="docsNum3">
-                {{ $t('docs.appShare') }}
+                {{ $t('docs.appShared') }}
               </div>
               <img
                 :src="language === 'cn'? worksIcon4 : worksIconen4"
@@ -219,15 +220,27 @@ export default {
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
             // flex-wrap: wrap;
             .docsNum{
+              height: 10%;
               width: 100%;
               text-align: left;
               font-size: 18px;
               font-weight: 550;
-              height: 78px;
-              line-height: 78px;
+              height: 58px;
+              line-height: 58px;
               background: url('../../assets/images/docsNum1.png') left center no-repeat;
               padding-left: 30px;
-              margin-left: 120px;
+              // margin-left: 100px;
+            }
+            .docsNumbak{
+              height: 10%;
+              width: 100%;
+              text-align: left;
+              font-size: 18px;
+              font-weight: 550;
+              height: 58px;
+              line-height: 58px;
+              padding-left: 30px;
+              // margin-left: 100px;
             }
             .docsNum2{
               width: 100%;
@@ -238,7 +251,6 @@ export default {
               line-height: 58px;
               background: url('../../assets/images/docsNum2.png') left center no-repeat;
               padding-left: 30px;
-               margin-left: -120px;
             }
             .docsNum3{
               width: 100%;
@@ -250,7 +262,7 @@ export default {
               padding-left: 30px;
             }
             .subDocImg1{
-              padding: 20px 90px;
+              padding: 20px 50px;
             }
             .subDocImg2{
               padding: 20px 50px;
@@ -264,7 +276,9 @@ export default {
             }
           }
           .docImg.docWrap{
+            width: 100%;
             flex-wrap: wrap;
+
           }
           .subcontenttwo {
             float: left;
