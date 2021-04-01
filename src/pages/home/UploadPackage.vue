@@ -455,6 +455,7 @@ export default {
       this.packageForm.base64Session = true
       this.packageForm.appIcon = []
       this.defaultIconFile = []
+      this.logoFileList = []
       this.packageForm.defaultActive = ''
       if (file) {
         if (file.raw.name.indexOf(' ') !== -1) {
@@ -624,7 +625,11 @@ export default {
           this.defaultIcon.splice(0, 1, this.defaultIconData[11])
           break
       }
-      this.conversionIcon(this.defaultIcon[0])
+      if (this.logoFileList.length !== 0) {
+        this.handleChangeLogo(this.logoFileList[0])
+      } else {
+        this.conversionIcon(this.defaultIcon[0])
+      }
       this.checkProjectData()
     },
     // 选择默认图标
