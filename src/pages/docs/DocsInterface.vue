@@ -161,29 +161,53 @@ export default {
     text-align: left;
   }
   .test-editors{
-    // margin-top: 40px;
-
     width: 250px;
     .el-menu{
-      padding: 20px;
       background-color: #f0f2f5;
-      font-size: 15px;
       height: 100%;
       text-align: left;
       .el-submenu__title{
-        font-size: 16px;
+        line-height: 44px;
+        height: 44px;
+      }
+      .el-submenu__title:hover, .el-submenu__title.is-active{
+        background-color: #e7edf7!important;
+        color: #688ef3;
+      }
+      .el-submenu__title:hover::before, .el-submenu__title.is-active::before{
+        content: '';
+        width: 1px;
+        height: 100%;
+        display: inline-block;
+        background-color: #0052d9;
+        position: absolute;
+        left: 0;
+        top: 0;
       }
       .el-menu-item{
-        font-size: 16px;
+        line-height: 44px;
+        height: 44px;
       }
-
+      .el-menu-item:hover, .el-menu-item.is-active{
+        background-color: #e7edf7!important;
+        color: #688ef3;
+      }
+      .el-menu-item:hover::before, .el-menu-item.is-active::before{
+        content: '';
+        width: 1px;
+        height: 100%;
+        display: inline-block;
+        background-color: #0052d9;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
     }
   }
   .test-editors.test-editors-en{
     width: 350px;
   }
   #test-editor{
-    // margin-top: 40px;
     width: calc(100% - 420px);
     .markdown-body{
       height: 100%;
