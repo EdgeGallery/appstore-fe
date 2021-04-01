@@ -174,16 +174,6 @@ export default {
         background-color: #e7edf7!important;
         color: #688ef3;
       }
-      .el-submenu__title:hover::before, .el-submenu__title.is-active::before{
-        content: '';
-        width: 1px;
-        height: 100%;
-        display: inline-block;
-        background-color: #0052d9;
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
       .el-menu-item{
         line-height: 44px;
         height: 44px;
@@ -191,16 +181,6 @@ export default {
       .el-menu-item:hover, .el-menu-item.is-active{
         background-color: #e7edf7!important;
         color: #688ef3;
-      }
-      .el-menu-item:hover::before, .el-menu-item.is-active::before{
-        content: '';
-        width: 1px;
-        height: 100%;
-        display: inline-block;
-        background-color: #0052d9;
-        position: absolute;
-        left: 0;
-        top: 0;
       }
     }
   }
