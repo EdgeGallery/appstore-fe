@@ -186,7 +186,7 @@ const en = {
     uploadLogo: 'Upload Logo',
     uploadVideo: 'Upload Demo Video',
     appstore: 'App Store',
-    appShare: 'App Share',
+    appShare: 'App Shared',
     appPackage: 'App Package',
     dragPackage: 'Drag App package files here orclick to upload',
     onlyCsar: 'Can only upload .csar files.',
@@ -242,9 +242,9 @@ const en = {
     share: 'Share',
     favorite: 'Favorite',
     docs: 'Docs',
-    appTest: 'Application Test',
+    appTest: 'App Test',
     appUpload: 'Upload Application',
-    appShare: 'Application Share',
+    appShared: 'Application Shared',
     appPublish: 'Publish Application',
     appView: 'View Application',
     summary: 'Summary',
@@ -270,7 +270,8 @@ const en = {
     titleContentAPPD: 'Quickly help you familiarize yourself with how to define an application package',
     titleContentinter: 'Quickly help you realize application sharing between warehouses',
     beginnerPart1: 'Hello, welcome to use Edgegallery application warehouse panorama。',
-    beginnerPart2: 'Using this warehouse, you can evaluate and download applications, upload and publish applications, share applications, etc.'
+    beginnerPart2: 'Using this warehouse, you can evaluate and download applications, upload and publish applications, share applications, etc.',
+    appPublishdoc: 'Application Publish'
   },
   myApp: {
     checkTest: 'View historical test tasks',
