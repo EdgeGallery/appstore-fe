@@ -28,9 +28,6 @@
           @select="handleSelect"
           background-color="#eee"
         >
-          <el-menu-item index="1">
-            {{ $t('nav.appMessage1') }}
-          </el-menu-item>
           <el-menu-item index="2">
             {{ $t('nav.appQuery2') }}
           </el-menu-item>
@@ -45,6 +42,9 @@
               {{ $t('nav.appDownload32') }}
             </el-menu-item>
           </el-submenu>
+          <el-menu-item index="1">
+            {{ $t('nav.appMessage1') }}
+          </el-menu-item>
         </el-menu>
       </div>
       <div
@@ -76,7 +76,7 @@ export default {
   },
   data () {
     return {
-      activeIndex: '1',
+      activeIndex: '2',
       source: '',
       language: localStorage.getItem('language') || 'cn',
       breadCrumbData: [
@@ -111,21 +111,21 @@ export default {
       })
     },
     clickShow () {
-      let name = this.$route.params.value || '1'
+      let name = this.$route.params.value || '2'
       this.activeIndex = name
       console.log(name)
       console.log(this.activeIndex)
+      this.updateBreadCrumbData(name)
     },
     handleSelect (key, keyPath) {
       this.activeIndex = key
       console.log(this.activeIndex)
       console.log(key)
-      console.log(keyPath)
       this.getAppStoreDocs()
       this.updateBreadCrumbData(key)
     },
     updateBreadCrumbData (activeIndex) {
-      console.log(activeIndex)
+      console.log(this.activeIndex)
       switch (activeIndex) {
         case '1':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appMessage1'), path: '' }]
@@ -144,10 +144,9 @@ export default {
     }
   },
   mounted () {
-    console.log(this.activeIndex)
     this.updateBreadCrumbData(this.activeIndex)
-    this.clickShow()
     this.getAppStoreDocs()
+    this.clickShow()
   }
 }
 </script>
@@ -167,8 +166,8 @@ export default {
     width: 250px;
     .el-menu{
       padding: 20px;
-      background-color: #c0c4cc;
-      font-size: 16px;
+      background-color: #f0f2f5;
+      font-size: 15px;
       height: 100%;
       text-align: left;
       .el-submenu__title{

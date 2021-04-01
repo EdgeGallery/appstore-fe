@@ -162,7 +162,22 @@ export default {
       worksIcon4: worksIcon4,
       worksIconen4: worksIconen4,
       docsLine: docsLine,
-      breadCrumbData: []
+      breadCrumbData: [],
+      language: localStorage.getItem('language') || 'cn'
+    }
+  },
+  watch: {
+    language (val) {
+      this.getAppStoreDocs()
+      this.updateBreadCrumbData(this.activeName)
+      if (val === 'en') {
+        this.updateMdUrl = './APPPackageDefinition.md'
+      }
+    },
+    '$i18n.locale': function () {
+      this.language = localStorage.getItem('language')
+      this.updateBreadCrumbData(this.activeName)
+      this.getAppStoreDocs()
     }
   },
   methods: {
@@ -177,7 +192,7 @@ export default {
   },
   mounted () {
     this.getAppStoreDocs()
-    this.updateBreadCrumbData()
+    this.updateBreadCrumbData(this.activeName)
   }
 }
 </script>
@@ -212,10 +227,10 @@ export default {
               line-height: 78px;
               background: url('../../assets/images/docsNum1.png') left center no-repeat;
               padding-left: 30px;
-              margin-left: 100px;
+              margin-left: 120px;
             }
             .docsNum2{
-              width: 30%;
+              width: 100%;
               text-align: left;
               font-size: 18px;
               font-weight: 550;
@@ -223,7 +238,7 @@ export default {
               line-height: 58px;
               background: url('../../assets/images/docsNum2.png') left center no-repeat;
               padding-left: 30px;
-              margin-left: 0px;
+               margin-left: -120px;
             }
             .docsNum3{
               width: 100%;
