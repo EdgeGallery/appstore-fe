@@ -859,9 +859,11 @@ export default {
         background: #fff;
         text-align: center;
         padding: 5px 5px 2px;
+        width: 130px;
+        height: 130px;
         img{
           width: 100%;
-          max-width: 130px;
+          height: 100%;
           cursor: pointer;
         }
       }
