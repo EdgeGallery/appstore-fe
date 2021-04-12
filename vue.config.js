@@ -19,14 +19,6 @@ module.exports = {
   devServer: {
     host: '0.0.0.0',
     proxy: {
-      '/api': {
-        target: 'http://159.138.5.142:8099/mec/appstore/v1/',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': '/'
-        }
-      },
       '/rest/mec-appstore/': {
         target: 'http://mec-appstore',
         agent: new HttpProxyAgent('http://127.0.0.1:8082'),
