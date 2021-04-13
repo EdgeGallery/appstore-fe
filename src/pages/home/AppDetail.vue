@@ -29,8 +29,6 @@
           <span class="createTime">{{ currentData.createTime }}</span>
         </p>
         <div class="app_version">
-          {{ currentData.provider }}
-          <span class="fg" />
           <select
             class="drop-down"
             v-model="currentData"
@@ -46,6 +44,10 @@
             </option>
           </select>
           <span v-show="pathSource==='myapp'">{{ currentData.version }}</span>
+          <span class="fg" />
+          {{ currentData.provider }}
+          <span class="fg" />
+          {{ currentData.size }} KB
         </div>
         <p class="app_desc">
           {{ currentData.shortDesc }}
@@ -348,6 +350,7 @@ export default {
         data.forEach(item => {
           let newDateBegin = this.dateChange(item.createTime)
           item.createTime = newDateBegin
+          item.size = (Number(item.size) / 1024).toFixed(2)
           this.tableData.push(item)
           if (item.demoVideoName) {
             let val = {
@@ -521,15 +524,20 @@ export default {
         }
       }
       .app_version{
+        height: 24px;
+        line-height: 24px;
+        .drop-down{
+          top:-2px;
+          margin-right: 5px;
+        }
         .fg{
           display: inline-block;
-          width: 4px;
-          height: 4px;
-          border-radius: 50%;
+          width: 1px;
+          height: 14px;
           background: #000;
           margin: 0 10px;
           position: relative;
-          top: -3px;
+          top: 1px;
         }
       }
       .app_desc{
