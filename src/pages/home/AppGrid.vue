@@ -55,6 +55,12 @@
             />
           </p>
         </div>
+        <img
+          :src="item.deployMode==='container'?imageImgUrl:vmImgUrl"
+          alt=""
+          class="deployType"
+          :title="$t('store.workloadType')+' : '+item.deployMode"
+        >
       </div>
     </div>
   </div>
@@ -86,7 +92,9 @@ export default {
   data () {
     return {
       language: localStorage.getItem('language'),
-      rate: 3
+      rate: 3,
+      imageImgUrl: require('../../assets/images/deploy_docker.png'),
+      vmImgUrl: require('../../assets/images/deploy_vm.png')
     }
   },
   methods: {
@@ -141,6 +149,14 @@ export default {
       justify-content: space-around;
       transition: transform 0.3s ease-in;
       background: #fafafa;
+      position: relative;
+      .deployType{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 25px;
+        height: 25px;
+      }
       .img-box {
         // padding: 50px 0;
         box-sizing: border-box;

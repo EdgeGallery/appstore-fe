@@ -215,7 +215,8 @@ const en = {
     developerPlateform: 'Developer Plateform',
     officialGuide: 'Official Guidance',
     recommendBroswer: 'It is recommended to use Google Chrome and IE9 or higher browsers to browse',
-    downloadNum: ' Downloads'
+    downloadNum: ' Downloads',
+    workloadType: 'Workload Type'
   },
   docs: {
     step1: 'Open source MEP platform',

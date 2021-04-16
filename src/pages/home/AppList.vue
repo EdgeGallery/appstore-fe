@@ -57,7 +57,12 @@
       <el-table-column
         prop="affinity"
         :label="$t('common.architecture')"
-        width="120"
+        width="80"
+      />
+      <el-table-column
+        prop="deployMode"
+        :label="$t('store.workloadType')"
+        width="100"
       />
       <el-table-column
         prop="createTime"
@@ -90,12 +95,12 @@
       <el-table-column
         prop="downloadCount"
         :label="$t('store.most')"
-        width="100"
+        width="90"
       />
       <el-table-column
         prop="score"
         :label="$t('store.score')"
-        width="100"
+        width="60"
       />
       <el-table-column
         :label="$t('common.operation')"
