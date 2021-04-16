@@ -47,7 +47,7 @@
           <span class="fg" />
           {{ currentData.provider }}
           <span class="fg" />
-          {{ currentData.size }} KB
+          {{ currentData.size }}
         </div>
         <p class="app_desc">
           {{ currentData.shortDesc }}
@@ -347,23 +347,31 @@ export default {
     getTableData () {
       getAppDetailTableApi(this.appId).then(res => {
         let data = res.data
-        data.forEach(item => {
-          let newDateBegin = this.dateChange(item.createTime)
-          item.createTime = newDateBegin
-          item.size = (Number(item.size) / 1024).toFixed(2)
-          this.tableData.push(item)
-          if (item.demoVideoName) {
-            let val = {
-              type: 'video/mp4',
-              src: URL_PREFIX + 'apps/' + this.appId + '/demoVideo'
-            }
-            this.playerOptions.sources.push(val)
-          }
-        })
+        this.handleTableTada(data)
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
           this.checkProjectData()
+        }
+      })
+    },
+    handleTableTada (data) {
+      data.forEach(item => {
+        let newDateBegin = this.dateChange(item.createTime)
+        item.createTime = newDateBegin
+        let size = (Number(item.size) / 1024).toFixed(2)
+        if (size >= 1024) {
+          item.size = (size / 1024).toFixed(2) + ' MB'
+        } else {
+          item.size = size + ' KB'
+        }
+        this.tableData.push(item)
+        if (item.demoVideoName) {
+          let val = {
+            type: 'video/mp4',
+            src: URL_PREFIX + 'apps/' + this.appId + '/demoVideo'
+          }
+          this.playerOptions.sources.push(val)
         }
       })
     },
@@ -453,6 +461,7 @@ export default {
         let data = res.data
         let newDateBegin = this.dateChange(data.createTime)
         data.createTime = newDateBegin
+        this.handleTableTada(data)
         this.tableData.push(data)
         if (data) {
           this.source = data.details
