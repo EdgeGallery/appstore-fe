@@ -216,7 +216,9 @@ const en = {
     officialGuide: 'Official Guidance',
     recommendBroswer: 'It is recommended to use Google Chrome and IE9 or higher browsers to browse',
     downloadNum: ' Downloads',
-    workloadType: 'Workload Type'
+    workloadType: 'Workload Type',
+    deployContainer: 'Container',
+    deployVM: 'VM'
   },
   docs: {
     step1: 'Open source MEP platform',

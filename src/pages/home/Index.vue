@@ -87,7 +87,10 @@
           :span="24"
           class="condition-list"
         >
-          <div class="sort-type">
+          <div
+            class="sort-type"
+            :class="{'sort-type-en':language==='en'}"
+          >
             <strong>{{ $t('common.industry') }}</strong>
             <div
               v-for="(item, index) in industry"
@@ -99,7 +102,10 @@
               <span>{{ language==='cn'?item.label[0]:item.label[1] }}</span>
             </div>
           </div>
-          <div class="sort-type">
+          <div
+            class="sort-type"
+            :class="{'sort-type-en':language==='en'}"
+          >
             <strong>{{ $t('common.type') }}</strong>
             <div
               v-for="(item, index) in types"
@@ -111,7 +117,10 @@
               <span>{{ language === 'cn'?item.label[0]:item.label[1] }}</span>
             </div>
           </div>
-          <div class="sort-type">
+          <div
+            class="sort-type"
+            :class="{'sort-type-en':language==='en'}"
+          >
             <strong>{{ $t('common.architecture') }}</strong>
             <div
               v-for="(item, index) in affinity"
@@ -123,7 +132,10 @@
               <span>{{ item.label }}</span>
             </div>
           </div>
-          <div class="sort-type underline">
+          <div
+            class="sort-type underline"
+            :class="{'sort-type-en':language==='en'}"
+          >
             <strong>{{ $t('store.sortBy') }}</strong>
             <div
               v-for="(item, index) in sortBy"
@@ -616,6 +628,11 @@ export default {
           .selected {
             color: #688ef3;
             font-weight: bold;
+          }
+        }
+        .sort-type.sort-type-en{
+          strong{
+            width: 105px;
           }
         }
       }
