@@ -24,7 +24,7 @@
       <el-table-column
         prop="name"
         :label="$t('common.appName')"
-        width="230"
+        width="220"
         :cell-class-name="hiddenClass"
       >
         <template slot-scope="scope">
@@ -52,17 +52,26 @@
       <el-table-column
         prop="type"
         :label="$t('common.type')"
-        width="150"
+        width="130"
       />
       <el-table-column
         prop="affinity"
         :label="$t('common.architecture')"
-        width="120"
+        width="105"
       />
+      <el-table-column
+        prop="deployMode"
+        :label="$t('store.workloadType')"
+        width="125"
+      >
+        <template slot-scope="scope">
+          {{ scope.row.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
+        </template>
+      </el-table-column>
       <el-table-column
         prop="createTime"
         :label="$t('common.uploadTime')"
-        width="170"
+        width="150"
       />
       <el-table-column
         prop="shortDesc"
@@ -90,16 +99,16 @@
       <el-table-column
         prop="downloadCount"
         :label="$t('store.most')"
-        width="100"
+        width="90"
       />
       <el-table-column
         prop="score"
         :label="$t('store.score')"
-        width="100"
+        width="70"
       />
       <el-table-column
         :label="$t('common.operation')"
-        width="120"
+        width="110"
       >
         <template slot-scope="scope">
           <el-button

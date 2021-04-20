@@ -33,8 +33,15 @@
           >
         </div>
         <div class="intr">
-          <h4 class="name">
-            <span class="app-name">{{ item.name }} &nbsp;</span>
+          <h4 class="name clearfix">
+            <span
+              class="app-name"
+              :class="{'containers':item.deployMode==='container','vm':item.deployMode==='vm','name-en':language==='en'}"
+            >{{ item.name }} &nbsp;</span>
+            <span
+              class="deployMode"
+              :class="{'containers':item.deployMode==='container','vm':item.deployMode==='vm','mode-en':language==='en'}"
+            >{{ item.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}</span>
           </h4>
           <p class="type-size">
             {{ $t('common.industry') }}：{{ item.industry?item.industry:'/' }}
@@ -141,6 +148,7 @@ export default {
       justify-content: space-around;
       transition: transform 0.3s ease-in;
       background: #fafafa;
+      position: relative;
       .img-box {
         // padding: 50px 0;
         box-sizing: border-box;
@@ -167,12 +175,48 @@ export default {
         }
         .name {
           text-align: left;
+          span{
+            float: left;
+          }
           .app-name {
-            width: 75%;
+            max-width: calc(100% - 53px);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             font-size: 22px;
+          }
+          .app-name.containers.name-en{
+            max-width: calc(100% - 73px);
+          }
+          .app-name.vm.name-en{
+            max-width: calc(100% - 45px);
+          }
+          .deployMode{
+            width: 48px;
+            font-size: 12px;
+            color: #fff;
+            border-radius: 20px;
+            text-align: center;
+            height: 18px;
+            line-height: 18px;
+            padding: 0 8px;
+            margin-top: 7px;
+            box-sizing: border-box;
+          }
+          .deployMode.containers{
+            background: #1ececa;
+          }
+          .deployMode.vm{
+            background: #9163cc;
+            width: 54px;
+            padding: 0 5px;
+          }
+          .deployMode.containers.mode-en{
+            width: 68px;
+            padding: 0 8px;
+          }
+          .deployMode.vm.mode-en{
+            width: 40px;
           }
           .app-version {
             font-size: 14px;

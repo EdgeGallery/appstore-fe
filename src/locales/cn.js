@@ -232,7 +232,10 @@ const cn = {
     developerPlateform: '开发者平台',
     officialGuide: '官方指导',
     recommendBroswer: '建议使用Google Chrome及IE9以上浏览器浏览',
-    downloadNum: '次下载'
+    downloadNum: '次下载',
+    workloadType: '负载类型',
+    deployContainer: '容器',
+    deployVM: '虚拟机'
   },
   docs: {
     // step1: '开源MEP平台',
