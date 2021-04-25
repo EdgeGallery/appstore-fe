@@ -249,7 +249,7 @@
           :label="$t('common.description')"
           prop="shortDesc"
         >
-          <div id="upload_package_description">
+          <div>
             <el-input
               type="textarea"
               :rows="4"
@@ -257,6 +257,27 @@
               maxlength="1024"
               show-word-limit
             />
+          </div>
+        </el-form-item>
+        <el-form-item
+          class="showType"
+          :label="$t('common.appDisplay')"
+        >
+          <div class="showTypeCheckbox">
+            <el-checkbox-group
+              v-model="packageForm.checkList"
+              @change="showTypeChange"
+            >
+              <el-checkbox label="innerPublic">
+                {{ $t('common.innerPublic') }}
+              </el-checkbox>
+              <el-checkbox
+                label="public"
+                :disabled="packageForm.isSelectInnerPublic=== true? false:true"
+              >
+                {{ $t('common.public') }}
+              </el-checkbox>
+            </el-checkbox-group>
           </div>
         </el-form-item>
       </el-form>
@@ -327,14 +348,14 @@ export default {
         videoFile: [],
         appIcon: [],
         shortDesc: '',
-        // mepType: '',
+        checkList: ['innerPublic', 'public'],
+        isSelectInnerPublic: true,
         industry: 'Smart Park',
         types: 'Video Application',
         affinity: 'X86',
         base64Session: false,
         defaultActive: ''
       },
-      // logoFileList: '',
       logoFileList: [],
       types: TYPES,
       affinity: AFFINITY,
@@ -686,6 +707,7 @@ export default {
       fd.append('type', packageForm.types)
       fd.append('affinity', packageForm.affinity)
       fd.append('shortDesc', packageForm.shortDesc ? packageForm.shortDesc : '')
+      fd.append('showType', packageForm.checkList.length === 0 ? 'private' : (packageForm.checkList.length === 1 ? 'inner-public' : 'public'))
       fd.append('userId', userId)
       fd.append('userName', userName)
       fd.append('demoVideo', packageForm.videoFile[0])
@@ -706,6 +728,7 @@ export default {
       fd.append('type', packageForm.types)
       fd.append('affinity', packageForm.affinity)
       fd.append('shortDesc', packageForm.shortDesc ? packageForm.shortDesc : '')
+      fd.append('showType', packageForm.checkList.length === 0 ? 'private' : (packageForm.checkList.length === 1 ? 'inner-public' : 'public'))
       fd.append('userId', userId)
       fd.append('userName', userName)
       fd.append('demoVideo', packageForm.videoFile[0])
@@ -817,6 +840,21 @@ export default {
         this.radioData[1].value = '文件大小超过10M'
         this.radioVal = '文件大小不超过10M'
       }
+    },
+    showTypeChange (val) {
+      if (val.length === 0) {
+        this.packageForm.checkList = []
+        this.packageForm.isSelectInnerPublic = false
+      } else if (val.length === 1 && val[0] === 'innerPublic') {
+        this.packageForm.checkList = ['innerPublic']
+        this.packageForm.isSelectInnerPublic = true
+      } else if (val.length === 1 && val[0] === 'public') {
+        this.packageForm.checkList = []
+        this.packageForm.isSelectInnerPublic = false
+      } else {
+        this.packageForm.checkList = ['innerPublic', 'public']
+        this.packageForm.isSelectInnerPublic = true
+      }
     }
   },
   destroyed () {
@@ -904,7 +942,7 @@ export default {
       input{
         background: #688ef3;
       }
-  }
+    }
   }
 
   .el-dialog__header{
@@ -1027,6 +1065,13 @@ export default {
     background-color: #fea712;
     border-color: #fea712;
   }
+  .showType{
+    margin-top: -10px;
+    .showTypeCheckbox{
+      margin-top: 11px;
+    }
+  }
+
 }
 .uploader-file[status=success] .uploader-file-remove{
   display: block !important;
