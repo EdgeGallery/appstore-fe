@@ -84,12 +84,6 @@ function updateStatus (messageId) {
   return PUT(url, '')
 }
 
-// 获取测试报告信息
-function processApi (messageId) {
-  let url = 'messages/' + messageId + '/report-data'
-  return GET(url, '')
-}
-
 // 拉取app
 function pullApp (packageId, param) {
   let url = 'packages/' + packageId + '/action/pull'
@@ -392,7 +386,6 @@ export {
   acceptMsg,
   deleteMsg,
   updateStatus,
-  processApi,
   pullApp,
   getAppByAppstoreId,
   getAppListApi
