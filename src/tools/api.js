@@ -126,11 +126,6 @@ function getSubTasksApi (appId, taskId) {
   return GET(url, '', 'developer')
 }
 
-function modifyAppPackageDetailApi (csarId, params) {
-  let url = 'csars/' + csarId + '/modifymd'
-  return POST(url, params)
-}
-
 function submitAppCommentApi (appId, params, userId, userName) {
   let url = 'apps/' + appId + '/comments?userId=' + userId + '&userName=' + userName
   return POST(url, params)
@@ -351,6 +346,11 @@ let myApp = {
   getPackageDetailApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId
     return GET(url)
+  },
+  // 修改应用
+  modifyAppAttr: function (appId, packageId) {
+    let url = 'apps/' + appId + '/package/' + packageId
+    return PUT(url)
   }
 }
 export {
@@ -361,7 +361,6 @@ export {
   startTestApi,
   getTaskListApi,
   getSubTasksApi,
-  modifyAppPackageDetailApi,
   submitAppCommentApi,
   incAppDownloadTimesApi,
   uploadAppTaskApi,
