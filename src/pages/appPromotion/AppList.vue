@@ -191,8 +191,7 @@ export default {
       language: localStorage.getItem('language'),
       promProviderList: [],
       order: 'desc',
-      prop: 'latestPushTime',
-      opType: 'push'
+      prop: 'latestPushTime'
     }
   },
   methods: {
@@ -299,7 +298,7 @@ export default {
       this.appPackageData = []
       this.findAppData = []
       this.appName = this.nameQuery.toLowerCase()
-      getAppPromTableApi(this.curPageSize, this.offsetPage, this.appName, this.order, this.prop, this.opType).then((res) => {
+      getAppPromTableApi(this.curPageSize, this.offsetPage, this.appName, this.order, this.prop).then((res) => {
         this.total = res.data.total
         this.appPackageData = res.data.results
         this.appPackageData.forEach(item => {
@@ -367,59 +366,6 @@ export default {
         }
       }
       this.getTableData()
-      console.log(column)
-      // let sortTime = (a, b) => {
-      //   let timeValueA = 0
-      //   let timeValueB = 0
-      //   if (a === null) {
-      //     timeValueA = 946656000000
-      //   } else {
-      //     timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
-      //   }
-      //   if (b === null) {
-      //     timeValueB = 946656000000
-      //   } else {
-      //     timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
-      //   }
-      //   return timeValueA - timeValueB
-      // }
-      // let sortNumber = (a, b) => {
-      //   return a - b
-      // }
-      // let findApp = (typePa) => {
-      //   let fieldArr = []
-      //   let appSort = []
-      //   this.findAppData.forEach((item) => {
-      //     if (typePa === 'name' || typePa === 'version' || typePa === 'provider' || typePa === 'messageType') {
-      //       fieldArr.push(item[typePa].toLowerCase())
-      //     } else {
-      //       fieldArr.push(item[typePa])
-      //     }
-      //   })
-      //   if (typePa === 'latestPushTime') {
-      //     fieldArr.sort(sortTime)
-      //     if (column.order === 'descending') {
-      //       fieldArr.reverse()
-      //     }
-      //   } else if (typePa === 'pushTimes') {
-      //     fieldArr.sort(sortNumber)
-      //     if (column.order === 'descending') {
-      //       fieldArr.reverse()
-      //     }
-      //   } else {
-      //     fieldArr.sort()
-      //     if (column.order === 'descending') {
-      //       fieldArr.reverse()
-      //     }
-      //   }
-      //   const set = new Set(fieldArr)
-      //   fieldArr = [...set]
-      //   this.filterItem(fieldArr, typePa, appSort)
-      //   return appSort
-      // }
-
-      // let type = column.prop
-      // this.findAppData = findApp(type)
     },
     filterItem (fieldArr, typePa, appSort) {
       fieldArr.forEach((fieldItem) => {

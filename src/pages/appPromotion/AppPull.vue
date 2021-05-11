@@ -109,8 +109,7 @@ export default {
       prop: 'createTime',
       order: 'desc',
       appName: '',
-      total: 0,
-      opType: 'pull'
+      total: 0
 
     }
   },
@@ -226,7 +225,7 @@ export default {
     getAllPullApps () {
       this.getProviders().then((resAppstore) => {
         for (let resAppstoreItem of resAppstore) {
-          getAppByAppstoreId(resAppstoreItem.appStoreId, this.curPageSize, this.offsetPage, this.appName, this.order, this.prop, this.opType).then((res) => {
+          getAppByAppstoreId(resAppstoreItem.appStoreId, this.curPageSize, this.offsetPage, this.appName, this.order, this.prop).then((res) => {
             let appStoreToApps = []
             let data = res.data.results
             this.total = res.data.total

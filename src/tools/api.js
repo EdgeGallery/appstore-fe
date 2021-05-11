@@ -40,7 +40,7 @@ function getAppDetailTableApi (appId, limit, offset) {
 
 // 查询所有可推广的应用
 function getAppPromTableApi (limitSize, offsetPage, appName, order, prop, opType) {
-  let url = 'packages/pushable?limitSize=' + limitSize + '&offsetPage=' + offsetPage + '&appName=' + appName + '&order=' + order + '&prop=' + prop + '&opType=' + opType
+  let url = 'packages/pushable?limitSize=' + limitSize + '&offsetPage=' + offsetPage + '&appName=' + appName + '&order=' + order + '&prop=' + prop
   return GETV2(url, '')
 }
 
@@ -106,7 +106,7 @@ function getAppByAppstoreIdV1 (appstoreId) {
 
 // 根据appstoreid获取可以拉取app
 function getAppByAppstoreId (appstoreId, limitSize, offsetPage, appName, order, prop, opType) {
-  let url = 'packages/' + appstoreId + '/pullable?limitSize=' + limitSize + '&offsetPage=' + offsetPage + '&appName=' + appName + '&order=' + order + '&prop=' + prop + '&opType=' + opType
+  let url = 'packages/' + appstoreId + '/pullable?limitSize=' + limitSize + '&offsetPage=' + offsetPage + '&appName=' + appName + '&order=' + order + '&prop=' + prop
   return GETV2(url, '')
 }
 
