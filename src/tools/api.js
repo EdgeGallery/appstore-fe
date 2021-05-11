@@ -35,7 +35,7 @@ function getCommentsApi (appId, limit, offset) {
 
 function getAppDetailTableApi (appId, limit, offset) {
   let url = 'apps/' + appId + '/packages?limit=' + limit + '&offset=' + offset
-  return GET(url)
+  return GETV2(url)
 }
 
 // 查询所有可推广的应用
