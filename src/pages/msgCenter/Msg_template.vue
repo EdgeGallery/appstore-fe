@@ -140,6 +140,9 @@ export default {
       allData: [],
       allRightDetailData: [],
       language: localStorage.getItem('language'),
+      limitSize: 1000,
+      offsetPage: 0,
+      appName: '',
       rightDetailData: [
         {
           name: 'unReadedMsg',
@@ -244,14 +247,14 @@ export default {
       }
     },
     getAppData (param) {
-      getAppdownAnaApiByType().then((res) => {
+      getAppdownAnaApiByType(this.limitSize, this.offsetPage, this.appName).then((res) => {
         if (param) {
           this.isShowDlg = true
           this.currentDetailMsg = param
           this.currentDetailMsg.readed = true
           this.updateMsgStatus(param.messageId)
         }
-        let data = res.data
+        let data = res.data.results
         data.forEach(item => {
           item.timeResult = this.timeCompute(item.time)
           if (param && item.messageId === param.messageId) {

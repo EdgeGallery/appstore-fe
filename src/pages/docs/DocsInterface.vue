@@ -113,19 +113,14 @@ export default {
     clickShow () {
       let name = this.$route.params.value || '2'
       this.activeIndex = name
-      console.log(name)
-      console.log(this.activeIndex)
       this.updateBreadCrumbData(name)
     },
     handleSelect (key, keyPath) {
       this.activeIndex = key
-      console.log(this.activeIndex)
-      console.log(key)
       this.getAppStoreDocs()
       this.updateBreadCrumbData(key)
     },
     updateBreadCrumbData (activeIndex) {
-      console.log(this.activeIndex)
       switch (activeIndex) {
         case '1':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appMessage1'), path: '' }]

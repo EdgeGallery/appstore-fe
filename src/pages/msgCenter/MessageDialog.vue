@@ -61,7 +61,10 @@ export default {
   data () {
     return {
       msgs: [],
-      interval: ''
+      interval: '',
+      limitSize: 1000,
+      offsetPage: 0,
+      appName: ''
     }
   },
   methods: {
@@ -72,7 +75,7 @@ export default {
       return Math.floor(dateDiff / (24 * 3600 * 1000))
     },
     getMessage () {
-      getAppdownAnaApiByType().then((res) => {
+      getAppdownAnaApiByType(this.limitSize, this.offsetPage, this.appName).then((res) => {
         this.msgs = []
         let data = res.data
         data.forEach(item => {

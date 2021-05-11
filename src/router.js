@@ -116,6 +116,26 @@ export default new Router({
           }
         },
         {
+          path: 'myappdetail',
+          name: 'myappdetail',
+          component: () => import('./pages/myApp/PackageDetail.vue'),
+          meta: {
+            id: '2.4.1',
+            breadcrumb: [{
+              nameEn: en.nav.home,
+              path: '/',
+              nameCn: cn.nav.home
+            }, {
+              nameEn: en.nav.myApp,
+              path: '/myapp',
+              nameCn: cn.nav.myApp
+            }, {
+              nameEn: en.nav.detail,
+              nameCn: cn.nav.detail
+            }]
+          }
+        },
+        {
           path: 'app/test/task',
           name: 'atptask',
           component: () => import('./pages/myApp/ATPTask.vue'),

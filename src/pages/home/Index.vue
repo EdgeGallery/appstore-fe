@@ -75,7 +75,7 @@
                 <el-input
                   suffix-icon="el-icon-search"
                   v-model="nameQuery"
-                  @change="handleNameQuery"
+                  @change="queryApp"
                   :placeholder="$t('common.appName')"
                   class="search_input"
                 />
@@ -155,6 +155,8 @@
           <component
             :is="currentComponent"
             :app-data="currentPageData"
+            @getOrder="getOrder"
+            @getProp="getProp"
             @getAppData="getAppData"
           />
           <pagination
@@ -162,6 +164,7 @@
             style="margin-bottom: 10px;"
             :table-data="findAppData"
             :current-page-prop="currentPage"
+            :total="total"
             @getCurrentPageData="getCurrentPageData"
           />
         </el-col>
@@ -218,10 +221,25 @@ export default {
       uploadAppLogo: uploadAppLogo,
       appgridLogo: appgridLogo,
       applistLogo: applistLogo,
-      currentPage: 2
+      currentPage: 2,
+      limitSize: 12,
+      appName: '',
+      userId: sessionStorage.getItem('userId'),
+      offsetPage: sessionStorage.getItem('offsetRepo') || 0,
+      total: 0,
+      prop: 'createTime',
+      order: 'desc'
     }
   },
   methods: {
+    getOrder (data) {
+      this.order = data
+      this.getAppData()
+    },
+    getProp (data) {
+      this.prop = data
+      this.getAppData()
+    },
     ifFromDetail () {
       let fromPath = sessionStorage.getItem('fromPath') || ''
       if (fromPath === '/detail') {
@@ -393,19 +411,11 @@ export default {
         }
       }
     },
-    getCurrentPageData (data) {
+    getCurrentPageData (data, pageSize, start) {
+      this.limitSize = pageSize
+      this.offsetPage = start
+      sessionStorage.setItem('offsetRepo', this.offsetPage)
       this.currentPageData = data
-    },
-
-    handleNameQuery () {
-      if (!this.nameQuery) {
-        this.findAppData = this.appData
-      } else {
-        this.findAppData = this.appData.filter((item) => {
-          let itemName = item.name.toLowerCase()
-          return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
-        })
-      }
     },
     checkProjectData () {
       this.findAppData.forEach(itemBe => {
@@ -425,12 +435,18 @@ export default {
         })
       })
     },
+    queryApp () {
+      sessionStorage.setItem('currentPage', 1)
+      this.getAppData()
+    },
     getAppData () {
       this.uploadDiaVis = false
       this.currentComponent = sessionStorage.getItem('currentComponent') || 'appGrid'
-      getAppTableApi().then(
+      this.appName = this.nameQuery.toLowerCase()
+      getAppTableApi(this.limitSize, this.offsetPage, this.userId, this.appName, this.order, this.prop).then(
         (res) => {
-          this.appData = this.findAppData = res.data
+          this.appData = this.findAppData = res.data.results
+          this.total = res.data.total
           this.appData.forEach(item => {
             let newDateBegin = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = newDateBegin
@@ -459,6 +475,14 @@ export default {
     '$i18n.locale': function () {
       let language = localStorage.getItem('language')
       this.language = language
+      this.getAppData()
+    },
+    offsetPage (val, oldVal) {
+      this.offsetPage = val
+      this.getAppData()
+    },
+    limitSize (val, oldVal) {
+      this.limitSize = val
       this.getAppData()
     }
   },

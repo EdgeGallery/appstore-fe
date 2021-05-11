@@ -266,7 +266,9 @@ export default {
       language: localStorage.getItem('language'),
       pathSource: sessionStorage.getItem('pathSource'),
       packageId: '',
-      downloadNum: 0
+      downloadNum: 0,
+      limit: 100,
+      offset: 0
     }
   },
   watch: {
@@ -333,8 +335,8 @@ export default {
       }
     },
     getComments () {
-      getCommentsApi(this.appId).then(res => {
-        this.historyComentsList = res.data
+      getCommentsApi(this.appId, this.limit, this.offset).then(res => {
+        this.historyComentsList = res.data.results
         this.handleDate()
       }, () => {
         this.$message({
@@ -345,7 +347,7 @@ export default {
       })
     },
     getTableData () {
-      getAppDetailTableApi(this.appId).then(res => {
+      getAppDetailTableApi(this.appId, this.limit, this.offset).then(res => {
         let data = res.data
         this.handleTableTada(data)
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {

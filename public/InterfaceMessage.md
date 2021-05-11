@@ -8,6 +8,20 @@
 |-----|-----|----|------|-----|
 |dto | path |Y| Object | MessageReqDto |
 
+#### 请求样例
+
+    try {
+                MessagePo messagePo = messageMapper.getOneMessage(message.getMessageId());
+                if (messagePo != null) {
+                    LOGGER.error("message {} has existed", message.getMessageId());
+                    throw new DomainException(String.format("message %s has existed", message.getMessageId()));
+                }
+                messageMapper.insert(MessagePo.of(message));
+            } catch (Exception e) {
+                LOGGER.error("add message to db error: {}", e.getMessage());
+                throw new DomainException("db operate error");
+            }
+
 #### 请求参数 MessageReqDto
 |参数 |位置 | 是否必选 | 类型 |说明|
 |-----|-----|----|------|-----|

@@ -54,7 +54,7 @@
           <el-input
             suffix-icon="el-icon-search"
             v-model="nameQuery"
-            @change="handleNameQuery"
+            @change="queryApp"
             :placeholder="$t('common.appName')"
           />
         </div>
@@ -100,12 +100,10 @@
             <el-table-column
               prop="provider"
               :label="$t('apppromotion.provider')"
-              sortable="custom"
             />
             <el-table-column
               prop="version"
               :label="$t('apppromotion.version')"
-              sortable="custom"
             />
             <el-table-column
               :label="$t('apppromotion.testRepo')"
@@ -185,10 +183,16 @@ export default {
       selectedArray: ['All'],
       pageNum: 1,
       pageSize: 10,
+      appStoreName: '',
+      offsetPage: sessionStorage.getItem('offsetAppPush') || 0,
       total: 0,
       curPageSize: 10,
+      appName: '',
       language: localStorage.getItem('language'),
-      promProviderList: []
+      promProviderList: [],
+      order: 'desc',
+      prop: 'latestPushTime',
+      opType: 'push'
     }
   },
   methods: {
@@ -197,6 +201,10 @@ export default {
     },
     currentChange (val) {
       this.pageNum = val
+      console.log(this.pageNum)
+      this.offsetPage = this.curPageSize * (this.pageNum - 1)
+      sessionStorage.setItem('offsetAppPush', this.offsetPage)
+      this.getTableData()
     },
     hiddenClass (row) {
       if (row.columnIndex === 0) {
@@ -224,8 +232,8 @@ export default {
       }
     },
     getProviders () {
-      promProviderInfo().then((res) => {
-        let data = res.data
+      promProviderInfo(this.curPageSize, this.offsetPage, this.appStoreName).then((res) => {
+        let data = res.data.results
         let index = 1
         data.forEach(item => {
           let providerItem = {
@@ -281,30 +289,26 @@ export default {
         )
       }
     },
+    queryApp () {
+      if (this.nameQuery.toLowerCase()) {
+        this.pageNum = 1
+      }
+      this.getTableData()
+    },
     getTableData () {
       this.appPackageData = []
       this.findAppData = []
-      getAppPromTableApi().then((res) => {
-        let data = res.data
-        data.forEach(
-          (item) => {
-            let appDataItem = {
-              name: item.name,
-              provider: item.provider,
-              version: item.version,
-              atpTestStatus: item.atpTestStatus,
-              atpTestReportUrl: item.atpTestReportUrl,
-              latestPushTime: item.latestPushTime !== null ? item.latestPushTime.split('.')[0] : null,
-              pushTimes: item.pushTimes,
-              packageId: item.packageId,
-              targetPlatform: ['All']
-            }
-            this.appData.push(appDataItem)
-            this.appPackageData.push(appDataItem)
+      this.appName = this.nameQuery.toLowerCase()
+      getAppPromTableApi(this.curPageSize, this.offsetPage, this.appName, this.order, this.prop, this.opType).then((res) => {
+        this.total = res.data.total
+        this.appPackageData = res.data.results
+        this.appPackageData.forEach(item => {
+          if (item.latestPushTime) {
+            item.latestPushTime = item.latestPushTime.split('.')[0]
           }
-        )
-        this.findAppData = this.appPackageData
-        this.total = this.findAppData.length
+          item.targetPlatform = ['All']
+        })
+        this.currentPageData = this.findAppData = this.appPackageData
       }).catch(() => {
         this.$message({
           duration: 2000,
@@ -315,20 +319,11 @@ export default {
     },
     refreshCurrentData () {
       this.$nextTick(function () {
-        let start = this.curPageSize * (this.pageNum - 1)
-        let end = this.curPageSize * this.pageNum
+        this.offsetPage = this.curPageSize * (this.pageNum - 1)
+        // let end = this.curPageSize * this.pageNum
         this.currentPageData = []
-        this.currentPageData = this.findAppData.slice(start, end)
+        this.currentPageData = this.findAppData
       })
-    },
-    handleNameQuery () {
-      this.findAppData = this.appPackageData
-      this.findAppData = this.findAppData.filter((item) => {
-        let itemName = item.name.toLowerCase()
-        return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
-      })
-      if (!this.nameQuery) this.findAppData = this.appPackageData
-      this.total = this.findAppData.length
     },
     getSelectAppstoreData (item) {
       // 去勾选
@@ -360,58 +355,71 @@ export default {
       }
     },
     sortChanged (column) {
-      let sortTime = (a, b) => {
-        let timeValueA = 0
-        let timeValueB = 0
-        if (a === null) {
-          timeValueA = 946656000000
+      if (column.prop == null || column.order == null) {
+        this.prop = 'latestPushTime'
+        this.order = 'desc'
+      } else {
+        this.prop = column.prop
+        if (column.order === 'ascending') {
+          this.order = 'asc'
         } else {
-          timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
+          this.order = 'desc'
         }
-        if (b === null) {
-          timeValueB = 946656000000
-        } else {
-          timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
-        }
-        return timeValueA - timeValueB
       }
-      let sortNumber = (a, b) => {
-        return a - b
-      }
-      let findApp = (typePa) => {
-        let fieldArr = []
-        let appSort = []
-        this.findAppData.forEach((item) => {
-          if (typePa === 'name' || typePa === 'version' || typePa === 'provider' || typePa === 'messageType') {
-            fieldArr.push(item[typePa].toLowerCase())
-          } else {
-            fieldArr.push(item[typePa])
-          }
-        })
-        if (typePa === 'latestPushTime') {
-          fieldArr.sort(sortTime)
-          if (column.order === 'descending') {
-            fieldArr.reverse()
-          }
-        } else if (typePa === 'pushTimes') {
-          fieldArr.sort(sortNumber)
-          if (column.order === 'descending') {
-            fieldArr.reverse()
-          }
-        } else {
-          fieldArr.sort()
-          if (column.order === 'descending') {
-            fieldArr.reverse()
-          }
-        }
-        const set = new Set(fieldArr)
-        fieldArr = [...set]
-        this.filterItem(fieldArr, typePa, appSort)
-        return appSort
-      }
+      this.getTableData()
+      console.log(column)
+      // let sortTime = (a, b) => {
+      //   let timeValueA = 0
+      //   let timeValueB = 0
+      //   if (a === null) {
+      //     timeValueA = 946656000000
+      //   } else {
+      //     timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
+      //   }
+      //   if (b === null) {
+      //     timeValueB = 946656000000
+      //   } else {
+      //     timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
+      //   }
+      //   return timeValueA - timeValueB
+      // }
+      // let sortNumber = (a, b) => {
+      //   return a - b
+      // }
+      // let findApp = (typePa) => {
+      //   let fieldArr = []
+      //   let appSort = []
+      //   this.findAppData.forEach((item) => {
+      //     if (typePa === 'name' || typePa === 'version' || typePa === 'provider' || typePa === 'messageType') {
+      //       fieldArr.push(item[typePa].toLowerCase())
+      //     } else {
+      //       fieldArr.push(item[typePa])
+      //     }
+      //   })
+      //   if (typePa === 'latestPushTime') {
+      //     fieldArr.sort(sortTime)
+      //     if (column.order === 'descending') {
+      //       fieldArr.reverse()
+      //     }
+      //   } else if (typePa === 'pushTimes') {
+      //     fieldArr.sort(sortNumber)
+      //     if (column.order === 'descending') {
+      //       fieldArr.reverse()
+      //     }
+      //   } else {
+      //     fieldArr.sort()
+      //     if (column.order === 'descending') {
+      //       fieldArr.reverse()
+      //     }
+      //   }
+      //   const set = new Set(fieldArr)
+      //   fieldArr = [...set]
+      //   this.filterItem(fieldArr, typePa, appSort)
+      //   return appSort
+      // }
 
-      let type = column.prop
-      this.findAppData = findApp(type)
+      // let type = column.prop
+      // this.findAppData = findApp(type)
     },
     filterItem (fieldArr, typePa, appSort) {
       fieldArr.forEach((fieldItem) => {
@@ -457,10 +465,10 @@ export default {
       this.language = language
     },
     curPageSize: function () {
-      this.refreshCurrentData()
+      this.getTableData()
     },
-    pageNum: function () {
-      this.refreshCurrentData()
+    offsetPage: function () {
+      this.getTableData()
     },
     findAppData: function () {
       this.refreshCurrentData()

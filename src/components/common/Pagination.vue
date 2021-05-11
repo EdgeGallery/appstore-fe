@@ -46,6 +46,10 @@ export default {
     currentPageProp: {
       type: Number,
       default: 1
+    },
+    total: {
+      type: Number,
+      default: 0
     }
   },
   data () {
@@ -59,12 +63,14 @@ export default {
   watch: {
     tableData (val) {
       this.data = val
-      this.totalNum = val.length
       let page = sessionStorage.getItem('currentPage') ? Number(sessionStorage.getItem('currentPage')) : 1
       this.handleCurrentPageChange(page)
     },
     size (val) {
       this.handlePageSizeChange(val * 2)
+    },
+    total (val) {
+      this.totalNum = val
     }
   },
   computed: {
@@ -89,9 +95,8 @@ export default {
     },
     returnTableData () {
       let start = (this.currentPage - 1) * this.pageSize
-      let end = this.currentPage * this.pageSize
-      let currentPageData = this.data.slice(start, end)
-      this.$emit('getCurrentPageData', currentPageData, this.pageSize, start)
+      // let end = this.currentPage * this.pageSize
+      this.$emit('getCurrentPageData', this.data, this.pageSize, start)
     }
   },
   beforeMount () {

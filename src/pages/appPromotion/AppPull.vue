@@ -59,6 +59,12 @@
         <div v-if="hackReset">
           <AppStoreDetail
             @setSelectedItems="setSelectedItems"
+            @getOrder="getOrder"
+            @getProp="getProp"
+            @getCurPageSize="getCurPageSize"
+            @getOffsetPaget="getoffsetPage"
+            @getAppName="appName"
+            :total="total"
             :data="currentTableData"
           />
         </div>
@@ -96,10 +102,36 @@ export default {
       currentTableData: [],
       appPackageData: [],
       hackReset: false,
-      hasActiveDefault: false
+      hasActiveDefault: false,
+      curPageSize: 10,
+      offsetPage: 0,
+      appStoreName: '',
+      prop: 'createTime',
+      order: 'desc',
+      appName: '',
+      total: 0,
+      opType: 'pull'
+
     }
   },
   methods: {
+    getOrder (data) {
+      this.order = data
+      console.log(this.order)
+    },
+    getProp (data) {
+      this.prop = data
+      console.log(this.prop)
+    },
+    getCurPageSize (data) {
+      this.curPageSize = data
+    },
+    getOffsetPage (data) {
+      this.offsetPage = data
+    },
+    getAppName (data) {
+      this.appName = data
+    },
     rebuileComponents () {
       this.hackReset = false
       this.$nextTick(() => {
@@ -163,8 +195,9 @@ export default {
     },
     getProviders () {
       return new Promise((resolve, reject) => {
-        promProviderInfo().then((res) => {
-          let data = res.data
+        promProviderInfo(this.curPageSize, this.offsetPage, this.appStoreName).then((res) => {
+          let data = res.data.results
+          this.total = res.data.total
           let index = 1
           for (let item of data) {
             let providerItem = {
@@ -193,9 +226,10 @@ export default {
     getAllPullApps () {
       this.getProviders().then((resAppstore) => {
         for (let resAppstoreItem of resAppstore) {
-          getAppByAppstoreId(resAppstoreItem.appStoreId).then((res) => {
+          getAppByAppstoreId(resAppstoreItem.appStoreId, this.curPageSize, this.offsetPage, this.appName, this.order, this.prop, this.opType).then((res) => {
             let appStoreToApps = []
-            let data = res.data
+            let data = res.data.results
+            this.total = res.data.total
             if (data !== '') {
               data.forEach(
                 (item) => {
