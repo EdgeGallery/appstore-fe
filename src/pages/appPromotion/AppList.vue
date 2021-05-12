@@ -298,6 +298,9 @@ export default {
       this.appPackageData = []
       this.findAppData = []
       this.appName = this.nameQuery.toLowerCase()
+      if (this.prop === 'name') {
+        this.prop = 'appName'
+      }
       getAppPromTableApi(this.curPageSize, this.offsetPage, this.appName, this.order, this.prop).then((res) => {
         this.total = res.data.total
         this.appPackageData = res.data.results

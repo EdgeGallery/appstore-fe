@@ -60,7 +60,6 @@
           <el-table-column
             prop="type"
             :label="$t('appPull.appType')"
-            sortable="custom"
           />
           <el-table-column
             prop="createTime"
@@ -246,7 +245,6 @@ export default {
       }
       this.$emit('getOrder', this.order)
       this.$emit('getProp', this.prop)
-      this.$parent.getAppData()
     },
     newFunction (fieldArr, typePa, appSort) {
       fieldArr.forEach((fieldItem) => {

@@ -30,7 +30,7 @@ const URL_PREFIXV2 = '/mec-appstore/mec/appstore/v2/'
 
 function getCommentsApi (appId, limit, offset) {
   let url = 'apps/' + appId + '/comments?limit=' + limit + '&offset=' + offset
-  return GET(url)
+  return GETV2(url)
 }
 
 function getAppDetailTableApi (appId, limit, offset) {
@@ -39,8 +39,8 @@ function getAppDetailTableApi (appId, limit, offset) {
 }
 
 // 查询所有可推广的应用
-function getAppPromTableApi (limitSize, offsetPage, appName, order, prop, opType) {
-  let url = 'packages/pushable?limitSize=' + limitSize + '&offsetPage=' + offsetPage + '&appName=' + appName + '&order=' + order + '&prop=' + prop
+function getAppPromTableApi (limit, offset, appName, sortType, sortItem) {
+  let url = 'packages/pushable?limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=' + sortType + '&sortItem=' + sortItem
   return GETV2(url, '')
 }
 
@@ -51,15 +51,15 @@ function getAppdownAnaApiChart () {
 }
 
 // 获取操作信息
-function getAppdownAnaApi (messageType, limit, offset, appName, prop, order) {
-  let url = 'messages?messageType=' + messageType + '&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&prop=' + prop + '&order=' + order
+function getAppdownAnaApi (messageType, limit, offset, appName, sortItem, sortType) {
+  let url = 'messages?messageType=' + messageType + '&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortItem=' + sortItem + '&sortType=' + sortType
   return GETV2(url, '')
 }
 
 // 获取可以推送的平台信息
-function promProviderInfo (curPageSize, offsetPage, appStoreName) {
-  let url = 'appstores?limitSize=' + curPageSize + '&offsetPage=' + offsetPage + '&appStoreName=' + appStoreName
-  return GET(url, '')
+function promProviderInfo (curPageSize, offset, appStoreName) {
+  let url = 'appstores?limit=' + curPageSize + '&offset=' + offset + '&appStoreName=' + appStoreName
+  return GETV2(url, '')
 }
 
 // 推送任务
@@ -82,7 +82,7 @@ function deleteMsg (messageId) {
 
 // 获取类型为notice的消息
 function getAppdownAnaApiByType (limit, offset, appName) {
-  let url = 'messages' + '?messageType=NOTICE&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&order=desc&prop=time'
+  let url = 'messages' + '?messageType=NOTICE&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=desc&sortItem=time'
   return GETV2(url, '')
 }
 
@@ -105,8 +105,8 @@ function getAppByAppstoreIdV1 (appstoreId) {
 }
 
 // 根据appstoreid获取可以拉取app
-function getAppByAppstoreId (appstoreId, limitSize, offsetPage, appName, order, prop, opType) {
-  let url = 'packages/' + appstoreId + '/pullable?limitSize=' + limitSize + '&offsetPage=' + offsetPage + '&appName=' + appName + '&order=' + order + '&prop=' + prop
+function getAppByAppstoreId (appstoreId, limit, offset, appName, sortType, sortItem) {
+  let url = 'packages/' + appstoreId + '/pullable?limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=' + sortType + '&sortItem=' + sortItem
   return GETV2(url, '')
 }
 
@@ -115,8 +115,8 @@ function getAppDetailFileApi (path, id) {
   return GET(url)
 }
 
-function getAppTableApi (limitSize, offsetPage, userId, appName, order, prop) {
-  let url = 'apps?limitSize=' + limitSize + '&offsetPage=' + offsetPage + '&userId=' + userId + '&appName=' + appName + '&order=' + order + '&prop=' + prop
+function getAppTableApi (limit, offset, userId, appName, sortType, sortItem) {
+  let url = 'apps?limit=' + limit + '&offset=' + offset + '&userId=' + userId + '&appName=' + appName + '&sortType=' + sortType + '&sortItem=' + sortItem
   return GETV2(url)
 }
 
@@ -320,9 +320,9 @@ let myAppStore = {
     return PUT(url, params)
   },
   // 获取我的appstore
-  getMyAppApi: function (curPageSize, offsetPage, appStoreName) {
-    let url = 'appstores?limitSize=' + curPageSize + '&offsetPage=' + offsetPage + '&appStoreName=' + appStoreName
-    return GET(url, '')
+  getMyAppApi: function (curPageSize, offset, appStoreName) {
+    let url = 'appstores?limit=' + curPageSize + '&offset=' + offset + '&appStoreName=' + appStoreName
+    return GETV2(url, '')
   },
   deleteAppStoreApi: function (appStoreId) {
     let url = 'appstores/' + appStoreId
@@ -347,8 +347,8 @@ let myApp = {
   //   return GET(url)
   // },
   // 获取我的应用包
-  getMyAppPackageApi: function (userId, limitSize, offsetPage, appName, prop, order) {
-    let url = 'packages?userId=' + userId + '&limitSize=' + limitSize + '&offsetPage=' + offsetPage + '&appName=' + appName + '&prop=' + prop + '&order=' + order
+  getMyAppPackageApi: function (userId, limit, offset, appName, sortItem, sortType) {
+    let url = 'packages?userId=' + userId + '&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortItem=' + sortItem + '&sortType=' + sortType
     return GETV2(url)
   },
   getMyAppPackageApiPage: function (userId) {

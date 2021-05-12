@@ -88,6 +88,15 @@
             width="140"
           />
           <el-table-column
+            prop="deployMode"
+            :label="$t('store.workloadType')"
+            width="80"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="createTime"
             :label="$t('common.uploadTime')"
             width="160"

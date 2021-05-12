@@ -117,10 +117,12 @@ export default {
     getOrder (data) {
       this.order = data
       console.log(this.order)
+      this.getAllPullApps()
     },
     getProp (data) {
       this.prop = data
       console.log(this.prop)
+      this.getAllPullApps()
     },
     getCurPageSize (data) {
       this.curPageSize = data
@@ -225,6 +227,9 @@ export default {
     getAllPullApps () {
       this.getProviders().then((resAppstore) => {
         for (let resAppstoreItem of resAppstore) {
+          if (this.prop === 'name') {
+            this.prop = 'appName'
+          }
           getAppByAppstoreId(resAppstoreItem.appStoreId, this.curPageSize, this.offsetPage, this.appName, this.order, this.prop).then((res) => {
             let appStoreToApps = []
             let data = res.data.results

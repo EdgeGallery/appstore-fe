@@ -301,9 +301,6 @@ export default {
       this.currentPageData = []
       this.findAppData = []
       return new Promise((resolve, reject) => {
-        // this.appName = this.nameQuery.toLowerCase()
-        console.log(this.curPageSize)
-        console.log(this.offsetPage)
         getAppdownAnaApi(this.messageType, this.curPageSize, this.offsetPage, this.appName, this.prop, this.order).then((res) => {
           let data = res.data.results
           this.total = res.data.total
@@ -496,42 +493,6 @@ export default {
         }
       }
       this.getTableEx()
-      console.log(column)
-      // let sortTime = (a, b) => {
-      //   let timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
-      //   let timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
-      //   return timeValueA - timeValueB
-      // }
-      // let findApp = (typePa) => {
-      //   let fieldArr = []
-      //   let appSort = []
-      //   console.log(this.findAppData)
-      //   this.findAppData.forEach((item) => {
-      //     if (typePa === 'name' || typePa === 'version' || typePa === 'provider' || typePa === 'messageType') {
-      //       fieldArr.push(item[typePa].toLowerCase())
-      //     } else {
-      //       fieldArr.push(item[typePa])
-      //     }
-      //   })
-      //   if (typePa === 'time') {
-      //     fieldArr.sort(sortTime)
-      //     if (column.order === 'descending') {
-      //       fieldArr.reverse()
-      //     }
-      //   } else {
-      //     fieldArr.sort()
-      //     if (column.order === 'descending') {
-      //       fieldArr.reverse()
-      //     }
-      //   }
-      //   const set = new Set(fieldArr)
-      //   fieldArr = [...set]
-      //   this.filterSort(fieldArr, typePa, appSort)
-      //   return appSort
-      // }
-
-      // let type = column.prop
-      // this.findAppData = findApp(type)
     },
     filterSort (fieldArr, typePa, appSort) {
       fieldArr.forEach((fieldItem) => {
