@@ -26,6 +26,7 @@
           <el-input
             suffix-icon="el-icon-search"
             v-model="nameQueryVal"
+            @change="queryAppStore"
             :placeholder="$t('common.appStoreName')"
             class="search_input"
           />
@@ -149,7 +150,7 @@
         />
         <eg-pagination
           class="paginationStyle"
-          :page-num="pageNum"
+          :page-num="pageNumCache"
           :page-size="curPageSize"
           :page-sizes="pageSizes"
           :total="total"
@@ -277,6 +278,7 @@ export default {
       tableData: [],
       userId: '',
       appPackageData: [],
+      currentPageData: [],
       dataLoading: false,
       interval: '',
       dialogVisible: false,
@@ -296,6 +298,8 @@ export default {
       pageNumCache: 1,
       pageSizes: [8, 16, 24],
       curPageSize: 8,
+      offsetPage: sessionStorage.getItem('offsetAppstore') || 0,
+      total: 0,
       language: localStorage.getItem('language'),
       bannerImg: 'images/appstorecn.png'
     }
@@ -306,6 +310,9 @@ export default {
     },
     currentChange (val) {
       this.pageNumCache = val
+      this.offsetPage = this.curPageSize * (this.pageNumCache - 1)
+      sessionStorage.setItem('offsetAppstore', this.offsetPage)
+      this.getAppPackageData()
     },
     hiddenClass (row) {
       if (row.columnIndex === 5 || row.columnIndex === 0) {
@@ -317,10 +324,18 @@ export default {
       this.$refs.form.resetFields()
       this.dialogVisible = false
     },
+    queryAppStore () {
+      if (this.nameQueryVal.toLowerCase()) {
+        this.pageNumCache = 1
+      }
+      this.getAppPackageData()
+    },
     getAppPackageData () {
+      let name = this.nameQueryVal.toLowerCase()
       this.appPackageData = []
-      myAppStore.getMyAppApi(this.userId).then(res => {
-        this.appPackageData = res.data
+      myAppStore.getMyAppApi(this.curPageSize, this.offsetPage, name).then(res => {
+        this.currentPageData = this.appPackageData = res.data.results
+        this.total = res.data.total
         this.dataLoading = false
       }).catch(() => {
         this.dataLoading = false
@@ -459,6 +474,13 @@ export default {
     },
     updateBreadCrumbData () {
       this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.appShare'), path: '/appShare' }, { name: this.$t('nav.externalAppManagement'), path: '' }]
+    },
+    refreshCurrentData () {
+      this.$nextTick(function () {
+        this.offsetPage = this.curPageSize * (this.pageNumCache - 1)
+        this.currentPageData = []
+        this.currentPageData = this.appPackageData
+      })
     }
   },
   mounted () {
@@ -498,38 +520,28 @@ export default {
           { required: true, message: this.$t('apppromotion.descriptionCheck'), trigger: 'blur' }
         ]
       }
-    },
-    findedData: function () {
-      if (!this.nameQueryVal) {
-        return this.appPackageData
-      } else {
-        return this.appPackageData.filter((item) => {
-          let itemName = item.appStoreName.toLowerCase()
-          return itemName.indexOf(this.nameQueryVal.toLowerCase()) !== -1
-        })
-      }
-    },
-    total: function () {
-      return this.findedData.length
-    },
-    pageNum: function () {
-      if (this.curPageSize * (this.pageNumCache - 1) >= this.total) {
-        return 1
-      }
-      return this.pageNumCache
-    },
-    currentPageData: function () {
-      let calPageNum = this.curPageSize * (this.pageNumCache - 1) >= this.total ? 1 : this.pageNumCache
-      let start = this.curPageSize * (calPageNum - 1)
-      let end = this.curPageSize * calPageNum
-      return this.findedData.slice(start, end)
     }
+    // currentPageData: function () {
+    //   // let calPageNum = this.curPageSize * (this.pageNumCache - 1) >= this.total ? 1 : this.pageNumCache
+    //   // let start = this.curPageSize * (calPageNum - 1)
+    //   // let end = this.curPageSize * calPageNum
+    //   return this.refreshCurrentData()
+    // }
   },
   watch: {
     '$i18n.locale': function () {
       this.updateBreadCrumbData()
       this.language = localStorage.getItem('language')
       this.bannerImg = this.language === 'cn' ? 'images/appstorecn.png' : 'images/appstoreen.png'
+    },
+    curPageSize: function () {
+      this.getAppPackageData()
+    },
+    offsetPage: function () {
+      this.getAppPackageData()
+    },
+    appPackageData: function () {
+      this.refreshCurrentData()
     }
   },
   beforeDestroy () {

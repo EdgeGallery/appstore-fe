@@ -52,7 +52,7 @@
           <el-input
             suffix-icon="el-icon-search"
             v-model="nameQuery"
-            @change="handleNameQuery"
+            @change="queryApp"
             :placeholder="$t('common.appName')"
             class="search_input"
           />
@@ -91,12 +91,10 @@
           <el-table-column
             prop="provider"
             :label="$t('apppromotion.provider')"
-            sortable="custom"
           />
           <el-table-column
             prop="version"
             :label="$t('apppromotion.version')"
-            sortable="custom"
           />
           <el-table-column
             prop="messageType"
@@ -209,21 +207,26 @@
           </p>
         </div>
       </el-drawer>
-      <pagination
-        style="margin-bottom: 20px;"
-        :table-data="findAppData"
-        @getCurrentPageData="getCurrentPageData"
+      <eg-pagination
+        class="rt"
+        :page-num="pageNum"
+        :page-size="curPageSize"
+        :page-sizes="pageSizes"
+        :total="total"
+        @sizeChange="sizeChange"
+        @currentChange="currentChange"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { getAppdownAnaApi } from '../../tools/api.js'
-import pagination from '../../components/common/Pagination.vue'
+import { getAppdownAnaApi, getAppdownAnaApiChart } from '../../tools/api.js'
+// import pagination from '../../components/common/Pagination.vue'
+import egPagination from 'eg-view/src/components/EgPagination.vue'
 export default {
   components: {
-    pagination
+    egPagination
   },
   data () {
     return {
@@ -231,12 +234,25 @@ export default {
       visible: false,
       appData: [],
       appPackageData: [],
+      appPackageDataChart: [],
       currentPageData: [],
       middleData: [],
       nameQuery: '',
       findAppData: [],
-      language: localStorage.getItem('language')
+      pageSizes: [10, 20, 30],
+      curPageSize: 10,
+      total: 0,
+      limitSize: 10,
+      offsetPage: 0,
+      language: localStorage.getItem('language'),
+      appName: '',
+      pageNum: 1,
+      messageType: '',
+      prop: 'time',
+      order: 'desc'
     }
+  },
+  computed: {
   },
   methods: {
     hiddenClass (row) {
@@ -260,9 +276,6 @@ export default {
         this.$refs.multipleTable.clearSelection()
       }
     },
-    getCurrentPageData (data) {
-      this.currentPageData = data
-    },
     getMessageType (messageType) {
       switch (messageType) {
         case 'PULL':
@@ -277,12 +290,20 @@ export default {
           return this.$t('apppromotion.messageUnknow')
       }
     },
+    queryApp () {
+      sessionStorage.setItem('currentPage', 1)
+      this.getTableEx()
+    },
 
     getTableEx () {
+      this.appName = this.nameQuery.toLowerCase()
+      this.appPackageData = []
+      this.currentPageData = []
+      this.findAppData = []
       return new Promise((resolve, reject) => {
-        this.appPackageData = []
-        getAppdownAnaApi().then((res) => {
-          let data = res.data
+        getAppdownAnaApi(this.messageType, this.curPageSize, this.offsetPage, this.appName, this.prop, this.order).then((res) => {
+          let data = res.data.results
+          this.total = res.data.total
           data.forEach(
             (item) => {
               let appDataItem = {
@@ -302,11 +323,11 @@ export default {
                 detailInfo: this.$t('apppromotion.checkDetail'),
                 messageId: item.messageId
               }
-              this.appData.push(appDataItem)
+              // this.appData.push(appDataItem)
               this.appPackageData.push(appDataItem)
             }
           )
-          this.findAppData = this.appPackageData
+          this.currentPageData = this.findAppData = this.appPackageData
           resolve(res)
         }).catch(() => {
           this.$message({
@@ -317,6 +338,13 @@ export default {
         })
       })
     },
+    refreshCurrentData () {
+      this.$nextTick(function () {
+        this.offsetPage = this.curPageSize * (this.pageNum - 1)
+        this.currentPageData = []
+        this.currentPageData = this.appPackageData
+      })
+    },
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
@@ -324,25 +352,25 @@ export default {
       this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
     },
-    getAppStoreNames (appPackageData) {
+    getAppStoreNames (appPackageDataChart) {
       let set = new Set()
-      this.appPackageData.forEach(
+      this.appPackageDataChart.forEach(
         (item) => {
           set.add(item.targetAppStore)
         })
       return set
     },
-    getTargetAppStoreSet (appPackageData) {
+    getTargetAppStoreSet (appPackageDataChart) {
       let set = new Set()
-      this.appPackageData.forEach(
+      this.appPackageDataChart.forEach(
         (item) => {
           set.add(item.targetAppStore)
         })
       return set
     },
-    getPushNum (name, appPackageData) {
+    getPushNum (name, appPackageDataChart) {
       let number = 0
-      appPackageData.forEach(
+      appPackageDataChart.forEach(
         (item) => {
           if (name === item.targetAppStore && item.messageType === this.getMessageType('PUSH')) {
             number++
@@ -351,17 +379,17 @@ export default {
       )
       return number
     },
-    getIndustryNames (appPackageData) {
+    getIndustryNames (appPackageDataChart) {
       let industryNameSet = new Set()
-      this.appPackageData.forEach(
+      this.appPackageDataChart.forEach(
         (item) => {
           industryNameSet.add(item.industry)
         })
       return industryNameSet
     },
-    getIndustryPullNum (name, appPackageData) {
+    getIndustryPullNum (name, appPackageDataChart) {
       let number = 0
-      appPackageData.forEach(
+      appPackageDataChart.forEach(
         (item) => {
           if (name === item.industry && item.messageType === this.getMessageType('BE_DOWNLOADED')) {
             number++
@@ -411,7 +439,7 @@ export default {
       return recent7daysStr
     },
     // 获取最近七天的pull app数量
-    getPullAppNum (name, appPackageData) {
+    getPullAppNum (name, appPackageDataChart) {
       let day1 = 0
       let day2 = 0
       let day3 = 0
@@ -419,7 +447,7 @@ export default {
       let day5 = 0
       let day6 = 0
       let day7 = 0
-      appPackageData.forEach(
+      appPackageDataChart.forEach(
         (item) => {
           if (name === item.targetAppStore && item.messageType === this.getMessageType('PULL')) {
             let days = this.getDateValue(item.time.split(' ')[0])
@@ -452,49 +480,19 @@ export default {
       )
       return [day7, day6, day5, day4, day3, day2, day1]
     },
-    handleNameQuery () {
-      this.findAppData = this.appPackageData
-      this.findAppData = this.findAppData.filter((item) => {
-        let itemName = item.name.toLowerCase()
-        return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
-      })
-      if (!this.nameQuery) this.findAppData = this.appPackageData
-    },
     sortChanged (column) {
-      let sortTime = (a, b) => {
-        let timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
-        let timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
-        return timeValueA - timeValueB
-      }
-      let findApp = (typePa) => {
-        let fieldArr = []
-        let appSort = []
-        this.findAppData.forEach((item) => {
-          if (typePa === 'name' || typePa === 'version' || typePa === 'provider' || typePa === 'messageType') {
-            fieldArr.push(item[typePa].toLowerCase())
-          } else {
-            fieldArr.push(item[typePa])
-          }
-        })
-        if (typePa === 'time') {
-          fieldArr.sort(sortTime)
-          if (column.order === 'descending') {
-            fieldArr.reverse()
-          }
+      if (column.prop == null || column.order == null) {
+        this.prop = 'time'
+        this.order = 'desc'
+      } else {
+        this.prop = column.prop
+        if (column.order === 'ascending') {
+          this.order = 'asc'
         } else {
-          fieldArr.sort()
-          if (column.order === 'descending') {
-            fieldArr.reverse()
-          }
+          this.order = 'desc'
         }
-        const set = new Set(fieldArr)
-        fieldArr = [...set]
-        this.filterSort(fieldArr, typePa, appSort)
-        return appSort
       }
-
-      let type = column.prop
-      this.findAppData = findApp(type)
+      this.getTableEx()
     },
     filterSort (fieldArr, typePa, appSort) {
       fieldArr.forEach((fieldItem) => {
@@ -510,25 +508,79 @@ export default {
           }
         })
       })
+    },
+    sizeChange (val) {
+      this.curPageSize = val
+    },
+    currentChange (val) {
+      this.pageNum = val
+      this.offsetPage = this.curPageSize * (this.pageNum - 1)
+      sessionStorage.setItem('offsetOpera', this.offsetPage)
+    },
+    getTableExChart () {
+      return new Promise((resolve, reject) => {
+        this.appPackageDataChart = []
+        getAppdownAnaApiChart().then((res) => {
+          let data = res.data
+          data.forEach(
+            (item) => {
+              let appDataItem = {
+                name: item.basicInfo.name,
+                provider: item.basicInfo.provider,
+                version: item.basicInfo.version,
+                affinity: item.basicInfo.affinity,
+                type: item.basicInfo.type,
+                shortDesc: item.basicInfo.shortDesc,
+                messageType: this.getMessageType(item.messageType),
+                sourceAppStore: item.sourceAppStore,
+                targetAppStore: item.targetAppStore,
+                time: item.time,
+                atpTestStatus: item.atpTestStatus,
+                description: item.description,
+                industry: item.basicInfo.industry,
+                detailInfo: this.$t('apppromotion.checkDetail'),
+                messageId: item.messageId
+              }
+              // this.appData.push(appDataItem)
+              this.appPackageDataChart.push(appDataItem)
+            }
+          )
+          // this.findAppData = this.appPackageData
+          resolve(res)
+        }).catch(() => {
+          this.$message({
+            duration: 2000,
+            message: this.$t('apppromotion.getOperatorInfoFailed'),
+            type: 'warning'
+          })
+        })
+      })
     }
 
   },
   mounted () {
-    this.getTableEx().then((res) => {
+    sessionStorage.removeItem('offsetOpera')
+    this.getTableEx()
+    this.getTableExChart().then((res) => {
+      console.log(res.data)
+      console.log(this.appPackageDataChart)
       if (res.data.length <= 0) {
         return
       }
       const myCharts1 = this.$echarts.init(this.$refs.myCharts1)
       const myCharts2 = this.$echarts.init(this.$refs.myCharts2)
       const myCharts3 = this.$echarts.init(this.$refs.myCharts3)
-
+      console.log(myCharts1)
+      console.log(myCharts2)
+      console.log(myCharts3)
       // echart1
       let industryArr = []
       let nameArr = []
-      let industryNames = this.getIndustryNames(this.appPackageData)
+      let industryNames = this.getIndustryNames(this.appPackageDataChart)
       industryNames.forEach(
         (item) => {
-          let industryPullNum = this.getIndustryPullNum(item, this.appPackageData)
+          let industryPullNum = this.getIndustryPullNum(item, this.appPackageDataChart)
+          console.log(industryPullNum)
           if (industryPullNum > 0) {
             nameArr.push(item)
             let providerInfo = {
@@ -539,6 +591,7 @@ export default {
           }
         }
       )
+
       if (industryArr < 1) {
         let defaultData = {
           value: 0,
@@ -546,7 +599,7 @@ export default {
         }
         industryArr.push(defaultData)
       }
-
+      console.log(industryArr)
       let options1 = {
         title: {
           text: this.$t('apppromotion.hotIndustry'),
@@ -591,17 +644,21 @@ export default {
       let appStorePushArr = []
 
       let statisticArr = []
-      let appStoreNames = this.getAppStoreNames(this.appPackageData)
+      let appStoreNames = this.getAppStoreNames(this.appPackageDataChart)
+      console.log(this.appPackageDataChart)
       appStoreNames.forEach(
         (item) => {
-          let pushNum = this.getPushNum(item, this.appPackageData)
+          let pushNum = this.getPushNum(item, this.appPackageDataChart)
+          console.log(pushNum)
           if (pushNum > 0) {
             appStorePushArr.push(pushNum)
+            console.log(appStorePushArr)
             let tempObj = {
               name: item,
               count: pushNum
             }
             statisticArr.push(tempObj)
+            console.log(statisticArr)
           }
         }
       )
@@ -627,6 +684,7 @@ export default {
         }
       }
       top5Name = top5Name.slice(0, 5)
+      console.log(top5Name)
 
       let options2 = {
         title: {
@@ -682,11 +740,11 @@ export default {
       // echart3
       let targetAppStorePullArr = []
       let targetAppStoreArr = []
-      let targetAppStoreSet = this.getTargetAppStoreSet(this.appPackageData)
+      let targetAppStoreSet = this.getTargetAppStoreSet(this.appPackageDataChart)
       let recent7days = this.getRecent7days()
       targetAppStoreSet.forEach(
         (item) => {
-          let pullAppNum = this.getPullAppNum(item, this.appPackageData)
+          let pullAppNum = this.getPullAppNum(item, this.appPackageDataChart)
           for (let pullAppNumItem of pullAppNum) {
             if (pullAppNumItem > 0) {
               targetAppStoreArr.push(item)
@@ -697,6 +755,7 @@ export default {
                 data: pullAppNum
               }
               targetAppStorePullArr.push(pullInfo)
+              console.log(targetAppStorePullArr)
               break
             }
           }
@@ -736,6 +795,9 @@ export default {
         },
         series: targetAppStorePullArr
       }
+      console.log(options1)
+      console.log(options2)
+      console.log(options3)
       myCharts1.setOption(options1)
       myCharts2.setOption(options2)
       myCharts3.setOption(options3)
@@ -753,6 +815,15 @@ export default {
       let language = localStorage.getItem('language')
       this.language = language
       this.$router.replace('/refresh')
+    },
+    curPageSize: function () {
+      this.getTableEx()
+    },
+    offsetPage: function () {
+      this.getTableEx()
+    },
+    appPackageData: function () {
+      this.refreshCurrentData()
     }
   }
 }

@@ -518,7 +518,13 @@ export default {
       scoreHighDataLoading: true,
       scoreHighestDataBe: [],
       showWechat: false,
-      addAnimationTop: false
+      addAnimationTop: false,
+      limitSize: 100,
+      appName: '',
+      offsetPage: 0,
+      prop: 'createTime',
+      order: 'desc',
+      userId: sessionStorage.getItem('userId')
     }
   },
   methods: {
@@ -599,10 +605,10 @@ export default {
       }
     },
     getAppData () {
-      getAppTableApi().then(
+      getAppTableApi(this.limitSize, this.offsetPage, this.userId, this.appName, this.order, this.prop).then(
         (res) => {
           this.newAppDataBe = []
-          let data = res.data
+          let data = res.data.results
           data.sort(function (a, b) {
             return a.score < b.score ? 1 : -1
           })

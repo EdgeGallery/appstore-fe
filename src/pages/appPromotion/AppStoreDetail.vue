@@ -48,23 +48,28 @@
           <el-table-column
             prop="provider"
             :label="$t('appPull.provider')"
-            sortable="custom"
           />
           <el-table-column
             prop="version"
             :label="$t('appPull.version')"
-            sortable="custom"
           />
           <el-table-column
             prop="industry"
             :label="$t('appPull.appIndustry')"
-            sortable="custom"
           />
           <el-table-column
             prop="type"
             :label="$t('appPull.appType')"
-            sortable="custom"
           />
+          <el-table-column
+            prop="deployMode"
+            :label="$t('store.workloadType')"
+            width="125"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
+            </template>
+          </el-table-column>
           <el-table-column
             prop="createTime"
             :label="$t('appPull.appCreateTime')"
@@ -97,6 +102,7 @@
         class="paginationStyle"
         :page-num="pageNum"
         :page-size="pageSize"
+        :page-sizes="pageSizes"
         :total="total"
         @sizeChange="sizeChange"
         @currentChange="currentChange"
@@ -115,6 +121,11 @@ export default {
     data: {
       required: true,
       type: Array
+    },
+    total: {
+      required: false,
+      default: 0,
+      type: Number
     }
   },
   data () {
@@ -126,18 +137,26 @@ export default {
       nameQuery: '',
       pageNum: 1,
       pageSize: 10,
-      total: 0,
+      // total: 0,
       curPageSize: 10,
+      pageSizes: [10, 20, 30],
+      limitSize: 10,
+      offsetPage: 0,
       selectFlag: false,
-      sortActionFlag: false
+      sortActionFlag: false,
+      prop: 'createTime',
+      order: 'desc'
     }
   },
   methods: {
     sizeChange (val) {
       this.curPageSize = val
+      sessionStorage.setItem('pullAppPageSize', val)
     },
     currentChange (val) {
       this.pageNum = val
+      this.offsetPage = this.curPageSize * (this.pageNum - 1)
+      sessionStorage.setItem('offsetOpera', this.offsetPage)
     },
     unique (arr) {
       if (!Array.isArray(arr)) {
@@ -189,10 +208,11 @@ export default {
       this.$emit('setSelectedItems', finalData)
     },
     refreshCurrentData () {
-      let start = this.curPageSize * (this.pageNum - 1)
-      let end = this.curPageSize * this.pageNum
-      this.currentPageData = this.findAppData.slice(start, end)
-
+      // let start = this.curPageSize * (this.pageNum - 1)
+      // let end = this.curPageSize * this.pageNum
+      // this.offsetPage = this.curPageSize * (this.pageNumCache - 1)
+      // this.currentPageData = this.findAppData.slice(start, end)
+      this.currentPageData = this.findAppData
       this.$nextTick(function () {
         for (let appItem of this.currentPageData) {
           if (appItem.isSelectToPull === true) {
@@ -204,58 +224,36 @@ export default {
     },
     handleNameQuery () {
       this.findAppData = this.appPackageData
-      this.findAppData = this.findAppData.filter((item) => {
-        let itemName = item.name.toLowerCase()
-        return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
-      })
-      if (!this.nameQuery) this.findAppData = this.appPackageData
-      this.total = this.findAppData.length
+      // this.findAppData = this.findAppData.filter((item) => {
+      //   let itemName = item.name.toLowerCase()
+      //   return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
+      // })
+      // if (!this.nameQuery) this.findAppData = this.appPackageData
+      // this.total = this.findAppData.length
+      if (this.nameQuery.toLowerCase()) {
+        this.offsetPage = 0
+        this.pageNum = 1
+        sessionStorage.setItem('pullAppPageNum', this.pageNum)
+      }
+      this.$emit('getCurPageSize', this.curPageSize)
+      this.$emit('getOffsetPage', this.offsetPage)
+      this.$emit('getAppName', this.nameQuery.toLowerCase())
+      this.$parent.getAllPullApps()
     },
     sortChanged (column) {
-      let sortTime = (a, b) => {
-        let timeValueA = 0
-        let timeValueB = 0
-        if (a === null) {
-          timeValueA = 946656000000
+      if (column.prop == null || column.order == null) {
+        this.prop = 'createTime'
+        this.order = 'desc'
+      } else {
+        this.prop = column.prop
+        if (column.order === 'ascending') {
+          this.order = 'asc'
         } else {
-          timeValueA = new Date(Date.parse(a.replace(/-/g, '/'))).getTime()
+          this.order = 'desc'
         }
-        if (b === null) {
-          timeValueB = 946656000000
-        } else {
-          timeValueB = new Date(Date.parse(b.replace(/-/g, '/'))).getTime()
-        }
-        return timeValueA - timeValueB
       }
-      let findApp = (typePa) => {
-        let fieldArr = []
-        let appSort = []
-        this.findAppData.forEach((item) => {
-          if (typePa === 'name' || typePa === 'version' || typePa === 'provider' || typePa === 'industry' || typePa === 'type') {
-            fieldArr.push(item[typePa].toLowerCase())
-          } else {
-            fieldArr.push(item[typePa])
-          }
-        })
-        if (typePa === 'createTime') {
-          fieldArr.sort(sortTime)
-          if (column.order === 'descending') {
-            fieldArr.reverse()
-          }
-        } else {
-          fieldArr.sort()
-          if (column.order === 'descending') {
-            fieldArr.reverse()
-          }
-        }
-        const set = new Set(fieldArr)
-        fieldArr = [...set]
-        this.newFunction(fieldArr, typePa, appSort)
-        return appSort
-      }
-
-      let type = column.prop
-      this.findAppData = findApp(type)
+      this.$emit('getOrder', this.order)
+      this.$emit('getProp', this.prop)
     },
     newFunction (fieldArr, typePa, appSort) {
       fieldArr.forEach((fieldItem) => {
@@ -296,9 +294,17 @@ export default {
   },
   watch: {
     curPageSize: function () {
+      // this.offsetPage = this.curPageSize * (this.pageNum - 1)
+      this.$emit('curPageSize', this.curPageSize)
+      this.$emit('offsetPage', this.offsetPage)
+      this.$parent.getAllPullApps()
       this.refreshCurrentData()
     },
     pageNum: function () {
+      this.$emit('curPageSize', this.curPageSize)
+      this.$emit('offsetPage', this.offsetPage)
+      this.$parent.getAllPullApps()
+      this.refreshCurrentData()
       this.refreshCurrentData()
     },
     findAppData: function () {

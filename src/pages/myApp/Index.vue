@@ -29,6 +29,7 @@
         <el-input
           suffix-icon="el-icon-search"
           v-model="nameQueryVal"
+          @change="queryApp"
           :placeholder="$t('common.appName')"
           class="search_input"
         />
@@ -70,26 +71,31 @@
             prop="provider"
             :label="$t('common.provider')"
             width="130"
-            sortable="custom"
           />
           <el-table-column
             prop="version"
             :label="$t('common.version')"
             width="120"
-            sortable="custom"
           />
           <el-table-column
             prop="type"
             :label="$t('common.type')"
             width="150"
-            sortable="custom"
           />
           <el-table-column
             prop="affinity"
             :label="$t('common.architecture')"
-            sortable="custom"
             width="140"
           />
+          <el-table-column
+            prop="deployMode"
+            :label="$t('store.workloadType')"
+            width="80"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
+            </template>
+          </el-table-column>
           <el-table-column
             prop="createTime"
             :label="$t('common.uploadTime')"
@@ -123,7 +129,7 @@
             prop="status"
             width="130"
             :label="$t('myApp.status')"
-            :filters="[{text: 'Upload', value: 'Upload'}, {text: 'Test_created', value: 'Test_created'}, {text: 'Test_create_failed', value: 'Test_create_failed'}, {text: 'Test_running', value: 'Test_running'}, {text: 'Test_waiting', value: 'Test_waiting'},{text: 'Test_failed', value: 'Test_failed'}, {text: 'Test_success', value: 'Test_success'}, {text: 'Published', value: 'Published'}]"
+            :filters="[{text: 'Upload', value: 'Upload'}, {text: 'Test_created', value: 'Test_created'}, {text: 'Test_running', value: 'Test_running'}, {text: 'Test_waiting', value: 'Test_waiting'},{text: 'Test_failed', value: 'Test_failed'}, {text: 'Test_success', value: 'Test_success'}, {text: 'Published', value: 'Published'}]"
             :filtered-value="filterValue.status"
           />
           <el-table-column
@@ -209,19 +215,116 @@ export default {
       pageSizes: [10, 20, 30],
       curPageSize: 10,
       pageNumCache: 1,
+      offsetPage: sessionStorage.getItem('offsetMyApp') || 0,
       language: localStorage.getItem('language'),
       filterValue: { status: [] },
       nameQueryVal: '',
-      defaultSort: { prop: 'createTime', order: 'descending' }
+      appName: '',
+      prop: 'createTime',
+      order: 'desc',
+      defaultSort: { prop: 'createTime', order: 'descending' },
+      typeList: [
+        {
+          labelEn: 'Video Application',
+          labelCn: '视频应用'
+        },
+        {
+          labelEn: 'game',
+          labelCn: '游戏'
+        },
+        {
+          labelEn: 'Video Surveillance',
+          labelCn: '视频监控'
+        },
+        {
+          labelEn: 'Safety',
+          labelCn: '安全'
+        },
+        {
+          labelEn: 'Blockchain',
+          labelCn: '区块链'
+        },
+        {
+          labelEn: 'Smart Device',
+          labelCn: '智能设备'
+        },
+        {
+          labelEn: 'Internet of Things',
+          labelCn: '物联网'
+        },
+        {
+          labelEn: 'Big Data',
+          labelCn: '大数据'
+        },
+        {
+          labelEn: 'AR/VR',
+          labelCn: 'AR/VR'
+        },
+        {
+          labelEn: 'API',
+          labelCn: 'API'
+        },
+        {
+          labelEn: 'SDK',
+          labelCn: 'SDK'
+        },
+        {
+          labelEn: 'MEP',
+          labelCn: 'MEP'
+        }
+      ],
+      statusList: [
+        {
+          labelEn: 'Upload',
+          labelCn: '已上传'
+        },
+        {
+          labelEn: 'Test_created',
+          labelCn: '测试任务已创建'
+        },
+        {
+          labelEn: 'Test_running',
+          labelCn: '测试中'
+        },
+        {
+          labelEn: 'Test_waiting',
+          labelCn: '等待测试'
+        },
+        {
+          labelEn: 'Test_failed',
+          labelCn: '测试失败'
+        },
+        {
+          labelEn: 'Test_success',
+          labelCn: '测试成功'
+        },
+        {
+          labelEn: 'Published',
+          labelCn: '已发布'
+        }
+      ]
+
     }
   },
   methods: {
     sortChange (column) {
+      if (column.prop == null || column.order == null) {
+        this.prop = 'createTime'
+        this.order = 'desc'
+      } else {
+        this.prop = column.prop
+        if (column.order === 'ascending') {
+          this.order = 'asc'
+        } else {
+          this.order = 'desc'
+        }
+      }
       this.defaultSort = {
-        prop: column.prop,
-        order: column.order
+        prop: this.prop,
+        order: this.order
       }
       sessionStorage.setItem('myAppSortVal', JSON.stringify(this.defaultSort))
+      this.getAppData()
     },
     filterChange (filters) {
       this.filterValue = filters
@@ -236,13 +339,28 @@ export default {
     },
     currentChange (val) {
       this.pageNumCache = val
+      this.offsetPage = this.curPageSize * (this.pageNumCache - 1)
+      console.log(this.offsetPage)
+      sessionStorage.setItem('offsetMyApp', this.offsetPage)
+      sessionStorage.setItem('myAppPageNum', this.pageNumCache)
+      this.getAppData()
+    },
+    queryApp () {
+      if (this.nameQueryVal.toLowerCase()) {
+        this.offsetPage = 0
+        this.pageNumCache = 1
+        sessionStorage.setItem('myAppPageNum', this.pageNumCache)
+      }
+      this.getAppData()
     },
     // 只调用一个接口
     getAppData () {
       this.appPackageData = []
-      myApp.getMyAppPackageApi(this.userId)
+      this.appName = this.nameQueryVal.toLowerCase()
+      myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, this.prop, this.order)
         .then(res => {
-          this.appPackageData = res.data
+          this.appPackageData = res.data.results
+          this.total = res.data.total
           this.appPackageData.forEach(item => {
             let formatedTime = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = formatedTime
@@ -431,21 +549,46 @@ export default {
       if (row.columnIndex === 5 || row.columnIndex === 0) {
         return 'hiddenClass'
       }
+    },
+    changeLanguege () {
+      this.appPackageData.forEach(item => {
+        for (let status of this.statusList) {
+          if (this.language === 'cn' && status.labelEn === item.status) {
+            item.status = status.labelCn
+          } else if (this.language === 'en' && status.labelEn === item.status) {
+            item.status = status.labelEn
+          }
+          // item.status = this.language === 'cn' && status.labelEn === item.status ? status.labelCn : status.labelEn
+        }
+        for (let type of this.typeList) {
+          if (this.language === 'cn' && type.labelEn === item.type) {
+            item.type = type.labelCn
+          } else if (this.language === 'en' && type.labelEn === item.type) {
+            item.type = type.labelEn
+          }
+        }
+      })
     }
   },
   watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
+      this.getAppData()
+    }
+
   },
   computed: {
+    getLanguage () {
+      let language
+      this.language === 'cn' ? language = 'English' : language = '中文'
+      return language
+    },
     findedData: function () {
       sessionStorage.setItem('myAppNameQueryVal', this.nameQueryVal)
-      if (!this.nameQueryVal) {
-        return this.appPackageData
-      } else {
-        return this.appPackageData.filter((item) => {
-          let itemName = item.name.toLowerCase()
-          return itemName.indexOf(this.nameQueryVal.toLowerCase()) !== -1
-        })
-      }
+      // let tempAppPackageData = this.appPackageData
+      this.changeLanguege()
+      return this.appPackageData
     },
     filteredData: function () {
       if (this.filterValue.status.length === 0) {
@@ -481,9 +624,6 @@ export default {
       })
       return tempData
     },
-    total: function () {
-      return this.sortedData.length
-    },
     pageNum: function () {
       if (this.curPageSize * (this.pageNumCache - 1) >= this.total) {
         sessionStorage.setItem('myAppPageNum', 1)
@@ -492,11 +632,16 @@ export default {
       sessionStorage.setItem('myAppPageNum', this.pageNumCache)
       return this.pageNumCache
     },
+    // offsetPage: function () {
+    //   let calPageNum = this.curPageSize * (this.pageNumCache - 1) >= this.total ? 1 : this.pageNumCache
+    //   return this.curPageSize * (calPageNum - 1)
+    // },
+    // 暂时删除
     currentPageData: function () {
-      let calPageNum = this.curPageSize * (this.pageNumCache - 1) >= this.total ? 1 : this.pageNumCache
-      let start = this.curPageSize * (calPageNum - 1)
-      let end = this.curPageSize * calPageNum
-      return this.sortedData.slice(start, end)
+      // let calPageNum = this.curPageSize * (this.pageNumCache - 1) >= this.total ? 1 : this.pageNumCache
+      // let start = this.curPageSize * (calPageNum - 1)
+      // let end = this.curPageSize * calPageNum
+      return this.sortedData
     }
   },
   beforeMount () {

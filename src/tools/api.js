@@ -16,6 +16,7 @@
 
 import {
   GET,
+  GETV2,
   POST,
   PUT,
   DELETE,
@@ -25,33 +26,40 @@ import {
 import axios from 'axios'
 
 const URL_PREFIX = '/mec-appstore/mec/appstore/v1/'
+const URL_PREFIXV2 = '/mec-appstore/mec/appstore/v2/'
 
-function getCommentsApi (appId) {
-  let url = 'apps/' + appId + '/comments'
-  return GET(url)
+function getCommentsApi (appId, limit, offset) {
+  let url = 'apps/' + appId + '/comments?limit=' + limit + '&offset=' + offset
+  return GETV2(url)
 }
 
-function getAppDetailTableApi (appId) {
-  let url = 'apps/' + appId + '/packages/'
-  return GET(url)
+function getAppDetailTableApi (appId, limit, offset) {
+  let url = 'apps/' + appId + '/packages?limit=' + limit + '&offset=' + offset
+  return GETV2(url)
 }
 
 // 查询所有可推广的应用
-function getAppPromTableApi () {
-  let url = 'packages/pushable'
-  return GET(url, '')
+function getAppPromTableApi (limit, offset, appName, sortType, sortItem) {
+  let url = 'packages/pushable?limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=' + sortType + '&sortItem=' + sortItem
+  return GETV2(url, '')
 }
 
-// 获取操作信息
-function getAppdownAnaApi () {
+// 获取图标全量操作信息
+function getAppdownAnaApiChart () {
   let url = 'messages'
   return GET(url, '')
 }
 
+// 获取操作信息
+function getAppdownAnaApi (messageType, limit, offset, appName, sortItem, sortType) {
+  let url = 'messages?messageType=' + messageType + '&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortItem=' + sortItem + '&sortType=' + sortType
+  return GETV2(url, '')
+}
+
 // 获取可以推送的平台信息
-function promProviderInfo () {
-  let url = 'appstores'
-  return GET(url, '')
+function promProviderInfo (curPageSize, offset, appStoreName) {
+  let url = 'appstores?limit=' + curPageSize + '&offset=' + offset + '&appStoreName=' + appStoreName
+  return GETV2(url, '')
 }
 
 // 推送任务
@@ -73,9 +81,9 @@ function deleteMsg (messageId) {
 }
 
 // 获取类型为notice的消息
-function getAppdownAnaApiByType () {
-  let url = 'messages' + '?messageType=NOTICE'
-  return GET(url, '')
+function getAppdownAnaApiByType (limit, offset, appName) {
+  let url = 'messages' + '?messageType=NOTICE&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=desc&sortItem=time'
+  return GETV2(url, '')
 }
 
 // 更新msg读取状态
@@ -91,9 +99,15 @@ function pullApp (packageId, param) {
 }
 
 // 根据appstoreid获取可以拉取app
-function getAppByAppstoreId (appstoreId) {
+function getAppByAppstoreIdV1 (appstoreId) {
   let url = 'packages/' + appstoreId + '/pullable'
   return GET(url, '')
+}
+
+// 根据appstoreid获取可以拉取app
+function getAppByAppstoreId (appstoreId, limit, offset, appName, sortType, sortItem) {
+  let url = 'packages/' + appstoreId + '/pullable?limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=' + sortType + '&sortItem=' + sortItem
+  return GETV2(url, '')
 }
 
 function getAppDetailFileApi (path, id) {
@@ -101,9 +115,9 @@ function getAppDetailFileApi (path, id) {
   return GET(url)
 }
 
-function getAppTableApi (params) {
-  let url = 'apps'
-  return GET(url, params)
+function getAppTableApi (limit, offset, userId, appName, sortType, sortItem) {
+  let url = 'apps?limit=' + limit + '&offset=' + offset + '&userId=' + userId + '&appName=' + appName + '&sortType=' + sortType + '&sortItem=' + sortItem
+  return GETV2(url)
 }
 
 function getAppListApi (appId) {
@@ -124,6 +138,11 @@ function getTaskListApi (params, userId) {
 function getSubTasksApi (appId, taskId) {
   let url = 'mec/developer/v1/apps/' + appId + '/task/' + taskId + '/subtasks'
   return GET(url, '', 'developer')
+}
+
+function modifyAppPackageDetailApi (csarId, params) {
+  let url = 'csars/' + csarId + '/modifymd'
+  return POST(url, params)
 }
 
 function submitAppCommentApi (appId, params, userId, userName) {
@@ -301,9 +320,9 @@ let myAppStore = {
     return PUT(url, params)
   },
   // 获取我的appstore
-  getMyAppApi: function () {
-    let url = 'appstores'
-    return GET(url, '')
+  getMyAppApi: function (curPageSize, offset, appStoreName) {
+    let url = 'appstores?limit=' + curPageSize + '&offset=' + offset + '&appStoreName=' + appStoreName
+    return GETV2(url, '')
   },
   deleteAppStoreApi: function (appStoreId) {
     let url = 'appstores/' + appStoreId
@@ -328,7 +347,11 @@ let myApp = {
   //   return GET(url)
   // },
   // 获取我的应用包
-  getMyAppPackageApi: function (userId) {
+  getMyAppPackageApi: function (userId, limit, offset, appName, sortItem, sortType) {
+    let url = 'packages?userId=' + userId + '&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortItem=' + sortItem + '&sortType=' + sortType
+    return GETV2(url)
+  },
+  getMyAppPackageApiPage: function (userId) {
     let url = 'packages?userId=' + userId
     return GET(url)
   },
@@ -346,11 +369,6 @@ let myApp = {
   getPackageDetailApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId
     return GET(url)
-  },
-  // 修改应用
-  modifyAppAttr: function (appId, packageId) {
-    let url = 'apps/' + appId + '/package/' + packageId
-    return PUT(url)
   }
 }
 export {
@@ -361,17 +379,19 @@ export {
   startTestApi,
   getTaskListApi,
   getSubTasksApi,
+  modifyAppPackageDetailApi,
   submitAppCommentApi,
   incAppDownloadTimesApi,
   uploadAppTaskApi,
   deleteAppApi,
   deleteAppPackageApi,
   getDocsApi,
-
+  getAppByAppstoreIdV1,
   getInterface,
   getAppFileContentApi,
   downloadAppPakageApi,
   URL_PREFIX,
+  URL_PREFIXV2,
   getUserInfo,
   logoutApi,
   uploadAppApi,
@@ -380,6 +400,7 @@ export {
   getAppPromTableApi,
   getAppdownAnaApi,
   promTaskApi,
+  getAppdownAnaApiChart,
   getAppdownAnaApiByType,
   promProviderInfo,
   acceptMsg,

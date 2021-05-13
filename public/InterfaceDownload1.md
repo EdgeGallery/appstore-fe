@@ -8,6 +8,15 @@
 |-----|-----|----|------|-----|
 |appId | path |Y| String | app id |
 
+#### 请求代码
+
+    Optional<App> app = appMapper.findByAppId(appId).map(AppPo::toDomainModel);
+        if (app.isPresent()) {
+            List<Release> releases = packageMapper.findAllByAppId(appId).stream().map(AppReleasePo::toDomainModel)
+                .collect(Collectors.toList());
+            app.get().setReleases(releases);
+        }
+
 #### 返回数据
 |返回码  |描述|
 |-----|-----|
