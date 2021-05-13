@@ -106,6 +106,15 @@
               :label="$t('apppromotion.version')"
             />
             <el-table-column
+              prop="deployMode"
+              :label="$t('store.workloadType')"
+              width="125"
+            >
+              <template slot-scope="scope">
+                {{ scope.row.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
+              </template>
+            </el-table-column>
+            <el-table-column
               :label="$t('apppromotion.testRepo')"
             >
               <template slot-scope="scope">
