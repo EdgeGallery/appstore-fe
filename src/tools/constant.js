@@ -188,6 +188,21 @@ const AFFINITY = [
   }
 ]
 
+const DEPLOYMODE = [
+  {
+    label: ['容器', 'container'],
+    value: 'container',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['虚拟机', 'vm'],
+    value: 'vm',
+    selected: false,
+    type: 'types'
+  }
+]
+
 const SORT_BY = [
   {
     label: ['下载量', 'Most'],
@@ -216,5 +231,5 @@ const SORT_BY = [
 ]
 
 export {
-  TYPES, AFFINITY, SORT_BY, INDUSTRY, TTYPES
+  TYPES, AFFINITY, SORT_BY, INDUSTRY, TTYPES, DEPLOYMODE
 }

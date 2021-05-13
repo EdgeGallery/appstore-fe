@@ -133,6 +133,21 @@
             </div>
           </div>
           <div
+            class="sort-type"
+            :class="{'sort-type-en':language==='en'}"
+          >
+            <strong>{{ $t('store.workloadType') }}</strong>
+            <div
+              v-for="(item, index) in workloadType"
+              :key="index"
+              class="box curp"
+              :class="{selected: item.selected}"
+              @click="selectedCondition('workloadType', index)"
+            >
+              <span>{{ language==='cn'?item.label[0]:item.label[1] }}</span>
+            </div>
+          </div>
+          <div
             class="sort-type underline"
             :class="{'sort-type-en':language==='en'}"
           >
@@ -181,7 +196,7 @@
 </template>
 
 <script>
-import { TYPES, AFFINITY, SORT_BY, INDUSTRY } from '../../tools/constant.js'
+import { TYPES, AFFINITY, SORT_BY, INDUSTRY, DEPLOYMODE } from '../../tools/constant.js'
 import { getAppTableApi } from '../../tools/api'
 import uploadPackage from './UploadPackage.vue'
 import appGrid from './AppGrid.vue'
@@ -214,6 +229,7 @@ export default {
       affinity: AFFINITY,
       sortBy: SORT_BY,
       industry: INDUSTRY,
+      workloadType: DEPLOYMODE,
       currentComponent: 'appGrid',
       currentPageData: [],
       appData: [],
@@ -343,14 +359,17 @@ export default {
       this.selectedConditions.forEach((condition) => {
         conditionsTypes.push(condition.type)
         let type = condition.label.toString()
+        console.log(type)
         let conformData = []
+        console.log(this.appData)
         this.appData.forEach(item => {
-          if (type.indexOf(item.industry) !== -1 || type.indexOf(item.type) !== -1 || type.indexOf(item.affinity) !== -1) {
+          if (type.indexOf(item.industry) !== -1 || type.indexOf(item.type) !== -1 || type.indexOf(item.affinity) !== -1 || type.indexOf(item.deployMode) !== -1) {
             conformData.push(item)
           }
         })
         if (
-          conditionsTypes.indexOf('types') !== -1 || conditionsTypes.indexOf('affinity') !== -1 || conditionsTypes.indexOf('industry') !== -1
+          conditionsTypes.indexOf('types') !== -1 || conditionsTypes.indexOf('affinity') !== -1 ||
+          conditionsTypes.indexOf('industry') !== -1 || conditionsTypes.indexOf('workloadType') !== -1
         ) {
           this.findAppData = [...this.findAppData, ...conformData]
         } else if (
@@ -378,9 +397,10 @@ export default {
     },
     doQuery () {
       this.selectedConditions = []
-      let types = ['types', 'affinity', 'sortBy', 'industry']
+      let types = ['types', 'affinity', 'sortBy', 'industry', 'workloadType']
       types.forEach((item) => {
         this[item].forEach((condition) => {
+          console.log(item)
           if (condition.selected) this.selectedConditions.push(condition)
         })
       })
