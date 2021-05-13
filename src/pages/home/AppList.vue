@@ -177,6 +177,7 @@ export default {
         } else {
           this.order = 'desc'
         }
+        this.prop = column.prop
       }
       this.$emit('getOrder', this.order)
       this.$emit('getProp', this.prop)
