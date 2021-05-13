@@ -99,7 +99,6 @@
           <el-table-column
             prop="messageType"
             :label="$t('apppromotion.messageType')"
-            sortable="custom"
             width="150"
           />
           <el-table-column
@@ -300,6 +299,9 @@ export default {
       this.appPackageData = []
       this.currentPageData = []
       this.findAppData = []
+      if (this.prop === 'name') {
+        this.prop = 'appName'
+      }
       return new Promise((resolve, reject) => {
         getAppdownAnaApi(this.messageType, this.curPageSize, this.offsetPage, this.appName, this.prop, this.order).then((res) => {
           let data = res.data.results
