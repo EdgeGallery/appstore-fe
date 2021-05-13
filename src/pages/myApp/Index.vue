@@ -229,7 +229,7 @@ export default {
           labelCn: '视频应用'
         },
         {
-          labelEn: 'game',
+          labelEn: 'Game',
           labelCn: '游戏'
         },
         {
@@ -555,14 +555,6 @@ export default {
     },
     changeLanguege () {
       this.appPackageData.forEach(item => {
-        for (let status of this.statusList) {
-          if (this.language === 'cn' && status.labelEn === item.status) {
-            item.status = status.labelCn
-          } else if (this.language === 'en' && status.labelEn === item.status) {
-            item.status = status.labelEn
-          }
-          // item.status = this.language === 'cn' && status.labelEn === item.status ? status.labelCn : status.labelEn
-        }
         for (let type of this.typeList) {
           if (this.language === 'cn' && type.labelEn === item.type) {
             item.type = type.labelCn
