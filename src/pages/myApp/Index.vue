@@ -70,7 +70,7 @@
           <el-table-column
             prop="provider"
             :label="$t('common.provider')"
-            width="130"
+            width="120"
           />
           <el-table-column
             prop="version"
@@ -135,7 +135,7 @@
           <el-table-column
             fixed="right"
             :label="$t('myApp.operation')"
-            width="210"
+            width="220"
           >
             <template slot-scope="scope">
               <el-button
@@ -162,6 +162,13 @@
               </el-button>
               <span class="buttonRight" />
               <el-button
+                @click="appModify(scope.row)"
+                type="text"
+              >
+                {{ $t('common.appModify') }}
+              </el-button>
+              <span class="buttonRight" />
+              <el-button
                 :disabled="scope.row.status == 'Test_running' || scope.row.status == 'Test_waiting'"
                 @click="getDelete(scope.row)"
                 type="text"
@@ -182,6 +189,13 @@
           </template>
         </el-table>
       </div>
+      <div v-if="isShowModifyDlg">
+        <appModify
+          v-model="isShowModifyDlg"
+          :row-app-modify-info="rowAppModifyInfo"
+          @reloadData="isReloadData"
+        />
+      </div>
       <eg-pagination
         class="rt"
         :page-num="pageNum"
@@ -200,9 +214,11 @@
 import { myApp, deleteAppPackageApi } from '../../tools/api.js'
 import timeFormatTools from '../../tools/timeFormatTools.js'
 import egPagination from 'eg-view/src/components/EgPagination.vue'
+import appModify from './AppModify.vue'
 export default {
   components: {
-    egPagination
+    egPagination,
+    appModify
   },
   data () {
     return {
@@ -223,6 +239,8 @@ export default {
       prop: 'createTime',
       order: 'desc',
       defaultSort: { prop: 'createTime', order: 'descending' },
+      isShowModifyDlg: false,
+      rowAppModifyInfo: {},
       typeList: [
         {
           labelEn: 'Video Application',
@@ -353,6 +371,11 @@ export default {
       }
       this.getAppData()
     },
+    isReloadData (value) {
+      if (value) {
+        this.getAppData()
+      }
+    },
     // 只调用一个接口
     getAppData () {
       this.appPackageData = []
@@ -366,7 +389,7 @@ export default {
             item.createTime = formatedTime
           })
           this.dataLoading = false
-        }, () => {
+        }).catch(() => {
           this.dataLoading = false
           this.$message({
             duration: 2000,
@@ -510,6 +533,10 @@ export default {
           type: 'success'
         })
       })
+    },
+    appModify (row) {
+      this.rowAppModifyInfo = row
+      this.isShowModifyDlg = true
     },
     getDelete (row) {
       this.$confirm(this.$t('promptMessage.deletePrompt'), this.$t('promptMessage.prompt'), {
