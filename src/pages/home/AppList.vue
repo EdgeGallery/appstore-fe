@@ -65,7 +65,7 @@
       <el-table-column
         prop="deployMode"
         :label="$t('store.workloadType')"
-        width="125"
+        width="120"
       >
         <template slot-scope="scope">
           {{ scope.row.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
@@ -110,7 +110,7 @@
         prop="score"
         :label="$t('store.score')"
         sortable="custom"
-        width="70"
+        width="75"
       />
       <el-table-column
         :label="$t('common.operation')"

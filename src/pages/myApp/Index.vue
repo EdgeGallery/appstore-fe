@@ -357,6 +357,9 @@ export default {
     getAppData () {
       this.appPackageData = []
       this.appName = this.nameQueryVal.toLowerCase()
+      if (this.prop === 'name') {
+        this.prop = 'appName'
+      }
       myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, this.prop, this.order)
         .then(res => {
           this.appPackageData = res.data.results
