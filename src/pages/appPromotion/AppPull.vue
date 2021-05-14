@@ -31,6 +31,7 @@
         <template>
           <el-select
             v-model="value"
+            v-if="appStoreList.length > 0"
             :placeholder="$t('apppromotion.targetPaltform')"
             class="selectStyle"
           >
