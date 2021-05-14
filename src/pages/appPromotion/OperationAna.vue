@@ -302,6 +302,9 @@ export default {
       if (this.prop === 'name') {
         this.prop = 'appName'
       }
+      this.$nextTick(function () {
+        this.updateTableExChart()
+      })
       return new Promise((resolve, reject) => {
         getAppdownAnaApi(this.messageType, this.curPageSize, this.offsetPage, this.appName, this.prop, this.order).then((res) => {
           let data = res.data.results
@@ -557,260 +560,257 @@ export default {
           })
         })
       })
-    }
+    },
+    updateTableExChart () {
+      this.getTableExChart().then((res) => {
+        console.log(res.data)
+        console.log(this.appPackageDataChart)
+        if (res.data.length <= 0) {
+          return
+        }
+        const myCharts1 = this.$echarts.init(this.$refs.myCharts1)
+        const myCharts2 = this.$echarts.init(this.$refs.myCharts2)
+        const myCharts3 = this.$echarts.init(this.$refs.myCharts3)
+        console.log(myCharts1)
+        console.log(myCharts2)
+        console.log(myCharts3)
+        // echart1
+        let industryArr = []
+        let nameArr = []
+        let industryNames = this.getIndustryNames(this.appPackageDataChart)
+        industryNames.forEach(
+          (item) => {
+            let industryPullNum = this.getIndustryPullNum(item, this.appPackageDataChart)
+            console.log(industryPullNum)
+            if (industryPullNum > 0) {
+              nameArr.push(item)
+              let providerInfo = {
+                value: industryPullNum,
+                name: item
+              }
+              industryArr.push(providerInfo)
+            }
+          }
+        )
 
+        if (industryArr < 1) {
+          let defaultData = {
+            value: 0,
+            name: 'No Data'
+          }
+          industryArr.push(defaultData)
+        }
+        console.log(industryArr)
+        let options1 = {
+          title: {
+            text: this.$t('apppromotion.hotIndustry'),
+            left: 'center'
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)'
+          },
+          legend: {
+            orient: 'vertical',
+            left: 10,
+            top: 20,
+            data: nameArr
+          },
+          series: [
+            {
+              name: 'Hot edge APP Distribution',
+              type: 'pie',
+              radius: ['50%', '70%'],
+              avoidLabelOverlap: false,
+              label: {
+                show: false,
+                position: 'center'
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                  fontSize: '30',
+                  fontWeight: 'bold'
+                }
+              },
+              labelLine: {
+                show: false
+              },
+              data: industryArr
+            }
+          ]
+        }
+
+        // echart2
+        let appStorePushArr = []
+
+        let statisticArr = []
+        let appStoreNames = this.getAppStoreNames(this.appPackageDataChart)
+        console.log(this.appPackageDataChart)
+        appStoreNames.forEach(
+          (item) => {
+            let pushNum = this.getPushNum(item, this.appPackageDataChart)
+            console.log(pushNum)
+            if (pushNum > 0) {
+              appStorePushArr.push(pushNum)
+              console.log(appStorePushArr)
+              let tempObj = {
+                name: item,
+                count: pushNum
+              }
+              statisticArr.push(tempObj)
+              console.log(statisticArr)
+            }
+          }
+        )
+        let sortNumber = (a, b) => {
+          return b - a
+        }
+        // 统计top5 推送应用的仓库
+        let top5Name = []
+        appStorePushArr.sort(sortNumber)
+        appStorePushArr = appStorePushArr.slice(0, 5)
+        let finalNumArr = []
+        for (let numItem of appStorePushArr) {
+          if (finalNumArr.indexOf(numItem) === -1) {
+            finalNumArr.push(numItem)
+          }
+        }
+
+        for (let num of finalNumArr) {
+          for (let item of statisticArr) {
+            if (item.count === num) {
+              top5Name.push(item.name)
+            }
+          }
+        }
+        top5Name = top5Name.slice(0, 5)
+        console.log(top5Name)
+
+        let options2 = {
+          title: {
+            text: this.$t('apppromotion.appPushStatistic')
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            }
+          },
+          grid: {
+            left: '6%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: [
+            {
+              type: 'category',
+              axisLabel: {
+                interval: 0,
+                formatter: function (value, index) {
+                  var v = value.substring(0, 6) + '...'
+                  return value.length > 9 ? v : value
+                }
+              },
+              data: top5Name
+            }
+          ],
+          yAxis: [
+            {
+              type: 'value',
+              name: this.$t('apppromotion.pushChartUnit')
+            }
+          ],
+          series: [
+            {
+              name: 'PUSH',
+              type: 'bar',
+              stack: 'name',
+              barWidth: 40,
+              data: appStorePushArr,
+              itemStyle: {
+                normal: {
+                  color: '#2f4554'
+                }
+              }
+            }
+          ]
+        }
+
+        // echart3
+        let targetAppStorePullArr = []
+        let targetAppStoreArr = []
+        let targetAppStoreSet = this.getTargetAppStoreSet(this.appPackageDataChart)
+        let recent7days = this.getRecent7days()
+        targetAppStoreSet.forEach(
+          (item) => {
+            let pullAppNum = this.getPullAppNum(item, this.appPackageDataChart)
+            for (let pullAppNumItem of pullAppNum) {
+              if (pullAppNumItem > 0) {
+                targetAppStoreArr.push(item)
+                let pullInfo = {
+                  name: item,
+                  type: 'line',
+                  stack: this.$t('apppromotion.totalNum'),
+                  data: pullAppNum
+                }
+                targetAppStorePullArr.push(pullInfo)
+                console.log(targetAppStorePullArr)
+                break
+              }
+            }
+          }
+        )
+
+        let options3 = {
+          title: {
+            text: this.$t('apppromotion.appDownloadTrend')
+          },
+          tooltip: {
+            trigger: 'axis'
+          },
+          legend: {
+            data: targetAppStoreArr,
+            right: 30,
+            top: 30
+          },
+          grid: {
+            left: '6%',
+            right: '5%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            axisLabel: {
+              interval: 0
+            },
+            data: recent7days
+          },
+          yAxis: {
+            type: 'value',
+            minInterval: 1,
+            name: this.$t('apppromotion.pushChartUnit')
+          },
+          series: targetAppStorePullArr
+        }
+        console.log(options1)
+        console.log(options2)
+        console.log(options3)
+        myCharts1.setOption(options1)
+        myCharts2.setOption(options2)
+        myCharts3.setOption(options3)
+      })
+    }
   },
   mounted () {
     sessionStorage.removeItem('offsetOpera')
-    this.getTableEx()
-    this.getTableExChart().then((res) => {
-      console.log(res.data)
-      console.log(this.appPackageDataChart)
-      if (res.data.length <= 0) {
-        return
-      }
-      const myCharts1 = this.$echarts.init(this.$refs.myCharts1)
-      const myCharts2 = this.$echarts.init(this.$refs.myCharts2)
-      const myCharts3 = this.$echarts.init(this.$refs.myCharts3)
-      console.log(myCharts1)
-      console.log(myCharts2)
-      console.log(myCharts3)
-      // echart1
-      let industryArr = []
-      let nameArr = []
-      let industryNames = this.getIndustryNames(this.appPackageDataChart)
-      industryNames.forEach(
-        (item) => {
-          let industryPullNum = this.getIndustryPullNum(item, this.appPackageDataChart)
-          console.log(industryPullNum)
-          if (industryPullNum > 0) {
-            nameArr.push(item)
-            let providerInfo = {
-              value: industryPullNum,
-              name: item
-            }
-            industryArr.push(providerInfo)
-          }
-        }
-      )
-
-      if (industryArr < 1) {
-        let defaultData = {
-          value: 0,
-          name: 'No Data'
-        }
-        industryArr.push(defaultData)
-      }
-      console.log(industryArr)
-      let options1 = {
-        title: {
-          text: this.$t('apppromotion.hotIndustry'),
-          left: 'center'
-        },
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b}: {c} ({d}%)'
-        },
-        legend: {
-          orient: 'vertical',
-          left: 10,
-          top: 20,
-          data: nameArr
-        },
-        series: [
-          {
-            name: 'Hot edge APP Distribution',
-            type: 'pie',
-            radius: ['50%', '70%'],
-            avoidLabelOverlap: false,
-            label: {
-              show: false,
-              position: 'center'
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: '30',
-                fontWeight: 'bold'
-              }
-            },
-            labelLine: {
-              show: false
-            },
-            data: industryArr
-          }
-        ]
-      }
-
-      // echart2
-      let appStorePushArr = []
-
-      let statisticArr = []
-      let appStoreNames = this.getAppStoreNames(this.appPackageDataChart)
-      console.log(this.appPackageDataChart)
-      appStoreNames.forEach(
-        (item) => {
-          let pushNum = this.getPushNum(item, this.appPackageDataChart)
-          console.log(pushNum)
-          if (pushNum > 0) {
-            appStorePushArr.push(pushNum)
-            console.log(appStorePushArr)
-            let tempObj = {
-              name: item,
-              count: pushNum
-            }
-            statisticArr.push(tempObj)
-            console.log(statisticArr)
-          }
-        }
-      )
-      let sortNumber = (a, b) => {
-        return b - a
-      }
-      // 统计top5 推送应用的仓库
-      let top5Name = []
-      appStorePushArr.sort(sortNumber)
-      appStorePushArr = appStorePushArr.slice(0, 5)
-      let finalNumArr = []
-      for (let numItem of appStorePushArr) {
-        if (finalNumArr.indexOf(numItem) === -1) {
-          finalNumArr.push(numItem)
-        }
-      }
-
-      for (let num of finalNumArr) {
-        for (let item of statisticArr) {
-          if (item.count === num) {
-            top5Name.push(item.name)
-          }
-        }
-      }
-      top5Name = top5Name.slice(0, 5)
-      console.log(top5Name)
-
-      let options2 = {
-        title: {
-          text: this.$t('apppromotion.appPushStatistic')
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'shadow'
-          }
-        },
-        grid: {
-          left: '6%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: [
-          {
-            type: 'category',
-            axisLabel: {
-              interval: 0,
-              formatter: function (value, index) {
-                var v = value.substring(0, 6) + '...'
-                return value.length > 9 ? v : value
-              }
-            },
-            data: top5Name
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value',
-            name: this.$t('apppromotion.pushChartUnit')
-          }
-        ],
-        series: [
-          {
-            name: 'PUSH',
-            type: 'bar',
-            stack: 'name',
-            barWidth: 40,
-            data: appStorePushArr,
-            itemStyle: {
-              normal: {
-                color: '#2f4554'
-              }
-            }
-          }
-        ]
-      }
-
-      // echart3
-      let targetAppStorePullArr = []
-      let targetAppStoreArr = []
-      let targetAppStoreSet = this.getTargetAppStoreSet(this.appPackageDataChart)
-      let recent7days = this.getRecent7days()
-      targetAppStoreSet.forEach(
-        (item) => {
-          let pullAppNum = this.getPullAppNum(item, this.appPackageDataChart)
-          for (let pullAppNumItem of pullAppNum) {
-            if (pullAppNumItem > 0) {
-              targetAppStoreArr.push(item)
-              let pullInfo = {
-                name: item,
-                type: 'line',
-                stack: this.$t('apppromotion.totalNum'),
-                data: pullAppNum
-              }
-              targetAppStorePullArr.push(pullInfo)
-              console.log(targetAppStorePullArr)
-              break
-            }
-          }
-        }
-      )
-
-      let options3 = {
-        title: {
-          text: this.$t('apppromotion.appDownloadTrend')
-        },
-        tooltip: {
-          trigger: 'axis'
-        },
-        legend: {
-          data: targetAppStoreArr,
-          right: 30,
-          top: 30
-        },
-        grid: {
-          left: '6%',
-          right: '5%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          axisLabel: {
-            interval: 0
-          },
-          data: recent7days
-        },
-        yAxis: {
-          type: 'value',
-          minInterval: 1,
-          name: this.$t('apppromotion.pushChartUnit')
-        },
-        series: targetAppStorePullArr
-      }
-      console.log(options1)
-      console.log(options2)
-      console.log(options3)
-      myCharts1.setOption(options1)
-      myCharts2.setOption(options2)
-      myCharts3.setOption(options3)
-    }).catch(() => {
-      this.$message({
-        showClose: true,
-        duration: 2000,
-        message: this.$t('apppromotion.getOperatorInfoFailed'),
-        type: 'warning'
-      })
+    this.$nextTick(function () {
+      this.updateTableExChart()
     })
+    this.getTableEx()
   },
   watch: {
     '$i18n.locale': function () {
