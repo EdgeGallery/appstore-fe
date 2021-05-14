@@ -73,7 +73,7 @@
               :key="item"
             >
               <img
-                :src="getAppIcon(item)"
+                :src="getAppIcon(appModifyInfo)"
                 alt=""
               >
               <em
@@ -216,7 +216,7 @@
 
 <script>
 import { TYPES, AFFINITY, INDUSTRY } from '../../tools/constant.js'
-import { myApp } from '../../tools/api.js'
+import { myApp, URL_PREFIX } from '../../tools/api.js'
 export default {
   props: {
     rowAppModifyInfo: {
@@ -270,8 +270,7 @@ export default {
   },
   methods: {
     getAppIcon (item) {
-      // return URL_PREFIX + 'apps/' + item.appId + '/icon'
-      return item
+      return URL_PREFIX + 'apps/' + item.appId + '/icon'
     },
     handleClose () {
       this.$emit('input', false)
