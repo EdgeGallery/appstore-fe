@@ -369,6 +369,11 @@ let myApp = {
   getPackageDetailApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId
     return GET(url)
+  },
+  // 修改应用
+  modifyAppAttr: function (param, appId, packageId) {
+    let url = 'apps/' + appId + '/package/' + packageId
+    return PUT(url, param)
   }
 }
 export {

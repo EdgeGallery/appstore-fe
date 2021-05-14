@@ -111,7 +111,8 @@ const cn = {
     company: '公司',
     pageTotalNum: '总条数',
     noData: '暂无数据',
-    displaySwitch: '展示切换'
+    displaySwitch: '展示切换',
+    appModify: '修改'
   },
   promptMessage: {
     guestUser: 'guest用户无权操作! 请登录',

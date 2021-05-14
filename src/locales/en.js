@@ -108,7 +108,8 @@ const en = {
     modifyApp: 'Modify',
     pageTotalNum: 'Total',
     noData: 'No Data',
-    displaySwitch: 'display switch'
+    displaySwitch: 'display switch',
+    appModify: 'Modify'
   },
   promptMessage: {
     guestUser: 'The guest user has no right to operate. please log in first!',
