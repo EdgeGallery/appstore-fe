@@ -73,7 +73,7 @@
               :key="item"
             >
               <img
-                :src="getAppIcon(appModifyInfo)"
+                :src="getAppIcon(item)"
                 alt=""
               >
               <em
@@ -265,12 +265,18 @@ export default {
       appTypes: TYPES,
       appAffinitys: AFFINITY,
       appIndustrys: INDUSTRY,
-      showErr: false
+      showErr: false,
+      isFirstShowModifyDlg: true
     }
   },
   methods: {
     getAppIcon (item) {
-      return URL_PREFIX + 'apps/' + item.appId + '/icon'
+      if (this.isFirstShowModifyDlg) {
+        this.isFirstShowModifyDlg = false
+        return URL_PREFIX + 'apps/' + this.appModifyInfo.appId + '/icon'
+      } else {
+        return item
+      }
     },
     handleClose () {
       this.$emit('input', false)
