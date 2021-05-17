@@ -221,7 +221,6 @@
 
 <script>
 import { getAppdownAnaApi, getAppdownAnaApiChart } from '../../tools/api.js'
-// import pagination from '../../components/common/Pagination.vue'
 import egPagination from 'eg-view/src/components/EgPagination.vue'
 export default {
   components: {
@@ -357,7 +356,7 @@ export default {
       this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
     },
-    getAppStoreNames (appPackageDataChart) {
+    getAppStoreNames () {
       let set = new Set()
       this.appPackageDataChart.forEach(
         (item) => {
@@ -365,7 +364,7 @@ export default {
         })
       return set
     },
-    getTargetAppStoreSet (appPackageDataChart) {
+    getTargetAppStoreSet () {
       let set = new Set()
       this.appPackageDataChart.forEach(
         (item) => {
@@ -373,9 +372,9 @@ export default {
         })
       return set
     },
-    getPushNum (name, appPackageDataChart) {
+    getPushNum (name) {
       let number = 0
-      appPackageDataChart.forEach(
+      this.appPackageDataChart.forEach(
         (item) => {
           if (name === item.targetAppStore && item.messageType === this.getMessageType('PUSH')) {
             number++
@@ -384,7 +383,7 @@ export default {
       )
       return number
     },
-    getIndustryNames (appPackageDataChart) {
+    getIndustryNames () {
       let industryNameSet = new Set()
       this.appPackageDataChart.forEach(
         (item) => {
@@ -392,9 +391,9 @@ export default {
         })
       return industryNameSet
     },
-    getIndustryPullNum (name, appPackageDataChart) {
+    getIndustryPullNum (name) {
       let number = 0
-      appPackageDataChart.forEach(
+      this.appPackageDataChart.forEach(
         (item) => {
           if (name === item.industry && item.messageType === this.getMessageType('BE_DOWNLOADED')) {
             number++
@@ -563,25 +562,19 @@ export default {
     },
     updateTableExChart () {
       this.getTableExChart().then((res) => {
-        console.log(res.data)
-        console.log(this.appPackageDataChart)
         if (res.data.length <= 0) {
           return
         }
         const myCharts1 = this.$echarts.init(this.$refs.myCharts1)
         const myCharts2 = this.$echarts.init(this.$refs.myCharts2)
         const myCharts3 = this.$echarts.init(this.$refs.myCharts3)
-        console.log(myCharts1)
-        console.log(myCharts2)
-        console.log(myCharts3)
         // echart1
         let industryArr = []
         let nameArr = []
-        let industryNames = this.getIndustryNames(this.appPackageDataChart)
+        let industryNames = this.getIndustryNames()
         industryNames.forEach(
           (item) => {
-            let industryPullNum = this.getIndustryPullNum(item, this.appPackageDataChart)
-            console.log(industryPullNum)
+            let industryPullNum = this.getIndustryPullNum(item)
             if (industryPullNum > 0) {
               nameArr.push(item)
               let providerInfo = {
@@ -600,7 +593,6 @@ export default {
           }
           industryArr.push(defaultData)
         }
-        console.log(industryArr)
         let options1 = {
           title: {
             text: this.$t('apppromotion.hotIndustry'),
@@ -645,21 +637,17 @@ export default {
         let appStorePushArr = []
 
         let statisticArr = []
-        let appStoreNames = this.getAppStoreNames(this.appPackageDataChart)
-        console.log(this.appPackageDataChart)
+        let appStoreNames = this.getAppStoreNames()
         appStoreNames.forEach(
           (item) => {
-            let pushNum = this.getPushNum(item, this.appPackageDataChart)
-            console.log(pushNum)
+            let pushNum = this.getPushNum(item)
             if (pushNum > 0) {
               appStorePushArr.push(pushNum)
-              console.log(appStorePushArr)
               let tempObj = {
                 name: item,
                 count: pushNum
               }
               statisticArr.push(tempObj)
-              console.log(statisticArr)
             }
           }
         )
@@ -685,7 +673,6 @@ export default {
           }
         }
         top5Name = top5Name.slice(0, 5)
-        console.log(top5Name)
 
         let options2 = {
           title: {
@@ -741,7 +728,7 @@ export default {
         // echart3
         let targetAppStorePullArr = []
         let targetAppStoreArr = []
-        let targetAppStoreSet = this.getTargetAppStoreSet(this.appPackageDataChart)
+        let targetAppStoreSet = this.getTargetAppStoreSet()
         let recent7days = this.getRecent7days()
         targetAppStoreSet.forEach(
           (item) => {
@@ -756,7 +743,6 @@ export default {
                   data: pullAppNum
                 }
                 targetAppStorePullArr.push(pullInfo)
-                console.log(targetAppStorePullArr)
                 break
               }
             }
@@ -796,9 +782,6 @@ export default {
           },
           series: targetAppStorePullArr
         }
-        console.log(options1)
-        console.log(options2)
-        console.log(options3)
         myCharts1.setOption(options1)
         myCharts2.setOption(options2)
         myCharts3.setOption(options3)

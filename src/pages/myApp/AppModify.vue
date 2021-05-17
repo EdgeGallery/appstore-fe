@@ -557,6 +557,7 @@ export default {
   },
   mounted () {
     this.initModifyData(this.rowAppModifyInfo)
+    this.isFirstShowModifyDlg = true
     this.changeIcon(this.rowAppModifyInfo.type)
   }
 }

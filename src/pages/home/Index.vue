@@ -359,9 +359,7 @@ export default {
       this.selectedConditions.forEach((condition) => {
         conditionsTypes.push(condition.type)
         let type = condition.label.toString()
-        console.log(type)
         let conformData = []
-        console.log(this.appData)
         this.appData.forEach(item => {
           if (type.indexOf(item.industry) !== -1 || type.indexOf(item.type) !== -1 || type.indexOf(item.affinity) !== -1 || type.indexOf(item.deployMode) !== -1) {
             conformData.push(item)
@@ -400,7 +398,6 @@ export default {
       let types = ['types', 'affinity', 'sortBy', 'industry', 'workloadType']
       types.forEach((item) => {
         this[item].forEach((condition) => {
-          console.log(item)
           if (condition.selected) this.selectedConditions.push(condition)
         })
       })

@@ -358,7 +358,6 @@ export default {
     currentChange (val) {
       this.pageNumCache = val
       this.offsetPage = this.curPageSize * (this.pageNumCache - 1)
-      console.log(this.offsetPage)
       sessionStorage.setItem('offsetMyApp', this.offsetPage)
       sessionStorage.setItem('myAppPageNum', this.pageNumCache)
       this.getAppData()
