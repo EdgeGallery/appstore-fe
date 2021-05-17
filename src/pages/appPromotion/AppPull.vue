@@ -117,12 +117,10 @@ export default {
   methods: {
     getOrder (data) {
       this.order = data
-      console.log(this.order)
       this.getAllPullApps()
     },
     getProp (data) {
       this.prop = data
-      console.log(this.prop)
       this.getAllPullApps()
     },
     getCurPageSize (data) {
