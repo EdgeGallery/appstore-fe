@@ -61,7 +61,7 @@
               ref="myCharts3"
             />
             <div class="chartDesc">
-              <span class="desc-font">{{ $t("apppromotion.appPublishStatisticDesc") }}</span>
+              <span class="desc-font">{{ $t("apppromotion.appNoticeStatisticDesc") }}</span>
             </div>
           </div>
           <div class="mychartDiv2">
