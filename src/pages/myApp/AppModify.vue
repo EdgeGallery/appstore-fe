@@ -414,7 +414,7 @@ export default {
         this.$message({
           duration: 2000,
           message: this.$t('promptMessage.modifyFail'),
-          type: 'success'
+          type: 'warning'
         })
       })
     },
@@ -529,6 +529,7 @@ export default {
         data.checkboxList = ['innerPublic', 'public']
       }
       this.appModifyInfo = {
+        name: data.name,
         industry: data.industry,
         type: data.type,
         appIcon: data.appIcon,
