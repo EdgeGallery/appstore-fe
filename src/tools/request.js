@@ -100,6 +100,23 @@ function POST (url, params) {
   })
 }
 
+function POSTV2 (url, params) {
+  let baseUrl = URL_PREFIXV2 + url
+  return new Promise((resolve, reject) => {
+    axios.post(baseUrl, params, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+      }
+    }).then((res) => {
+      resolve(res)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
+
 function PUT (url, params) {
   let baseUrl = URL_PREFIX + url
   return new Promise((resolve, reject) => {
@@ -120,6 +137,7 @@ function PUT (url, params) {
 export {
   GET,
   GETV2,
+  POSTV2,
   POST,
   PUT,
   DELETE,

@@ -244,7 +244,24 @@ export default {
       offsetPage: sessionStorage.getItem('offsetRepo') || 0,
       total: 0,
       prop: 'createTime',
-      order: 'desc'
+      order: 'asc',
+      searchCondition: {
+        appName: '',
+        types: [],
+        affinity: [],
+        industry: [],
+        status: '',
+        workloadType: [],
+        createTime: '',
+        userId: '',
+        queryCtrl: {
+          offset: this.offsetPage,
+          limit: this.limitSize,
+          sortItem: this.prop,
+          sortType: this.order,
+          createTime: 'createTime'
+        }
+      }
     }
   },
   methods: {
@@ -398,10 +415,85 @@ export default {
       let types = ['types', 'affinity', 'sortBy', 'industry', 'workloadType']
       types.forEach((item) => {
         this[item].forEach((condition) => {
+          if (!condition.selected) {
+            // this.searchCondition
+            console.log(condition)
+          }
           if (condition.selected) this.selectedConditions.push(condition)
+          console.log(this.selectedConditions)
         })
       })
-      this.queryAppByCondition()
+      this.searchCondition.appName = this.nameQuery.toLowerCase()
+      console.log(this.selectedConditions)
+      this.searchCondition = {
+        appName: '',
+        types: [],
+        affinity: [],
+        industry: [],
+        status: '',
+        workloadType: [],
+        createTime: '',
+        userId: '',
+        queryCtrl: {
+          offset: this.offsetPage,
+          limit: this.limitSize,
+          sortItem: this.prop,
+          sortType: this.order,
+          createTime: 'createTime'
+        }
+      }
+      this.selectedConditions.forEach(
+        (item) => {
+          console.log(item)
+          switch (item.type) {
+            case 'affinity':
+              this.searchCondition.affinity.push(item.label)
+              break
+            case 'types':
+              this.searchCondition.types.push(item.label[1])
+              break
+            case 'industry':
+              this.searchCondition.industry.push(item.label[1])
+              break
+            case 'workloadType':
+              this.searchCondition.workloadType.push(item.label[1])
+              break
+            case 'sortBy':
+              console.log(item.value)
+              switch (item.value) {
+                case 'Most':
+                  this.prop = this.searchCondition.queryCtrl.sortItem = 'downloadCount'
+                  break
+                case 'Score':
+                  this.prop = this.searchCondition.queryCtrl.sortItem = 'score'
+                  break
+                case 'Name':
+                  this.prop = this.searchCondition.queryCtrl.sortItem = 'appName'
+                  break
+                case 'UploadTime':
+                  this.prop = this.searchCondition.queryCtrl.sortItem = 'createTime'
+                  break
+              }
+              break
+            default:
+          }
+        })
+
+      this.getAppData()
+    },
+    buildQueryReq () {
+      let _queryReq = this.searchCondition
+
+      this.searchCondition.queryCtrl = {
+        'offset': this.offsetPage,
+        'limit': this.limitSize,
+        'sortItem': this.prop,
+        'sortType': this.order,
+        'createTime': 'createTime'
+      }
+      // _queryReq.queryCtrl = this.queryCtrl
+
+      return _queryReq
     },
     selectedCondition (type, index) {
       this[type][index].selected = !this[type][index].selected
@@ -454,13 +546,16 @@ export default {
     },
     queryApp () {
       sessionStorage.setItem('currentPage', 1)
+      this.searchCondition.appName = this.nameQuery.toLowerCase()
       this.getAppData()
     },
+
     getAppData () {
       this.uploadDiaVis = false
       this.currentComponent = sessionStorage.getItem('currentComponent') || 'appGrid'
-      this.appName = this.nameQuery.toLowerCase()
-      getAppTableApi(this.limitSize, this.offsetPage, this.userId, this.appName, this.order, this.prop).then(
+      this.searchCondition.appName = this.nameQuery.toLowerCase()
+      // this.searchCondition.userId = sessionStorage.getItem('userId')
+      getAppTableApi(this.buildQueryReq()).then(
         (res) => {
           this.appData = this.findAppData = res.data.results
           this.total = res.data.total
@@ -469,7 +564,7 @@ export default {
             item.createTime = newDateBegin
           })
 
-          this.queryAppByCondition()
+          // this.queryAppByCondition()
           this.checkProjectData()
         },
         () => {
@@ -504,6 +599,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.searchCondition)
     if (sessionStorage.getItem('userNameRole') === 'guest') {
       this.ifShow = false
     }
@@ -543,7 +639,10 @@ export default {
     }
     this.getAppData()
     this.ifFromDetail()
-    this.queryAppByCondition()
+    // this.queryAppByCondition()
+  },
+  destroyed () {
+    this.searchCondition = {}
   }
 }
 </script>

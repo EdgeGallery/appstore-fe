@@ -17,6 +17,7 @@
 import {
   GET,
   GETV2,
+  POSTV2,
   POST,
   PUT,
   DELETE,
@@ -38,7 +39,7 @@ function getAppDetailTableApi (appId, limit, offset) {
   return GETV2(url)
 }
 
-// 查询所有可推广的应用
+// 查询所有可推广的应�?
 function getAppPromTableApi (limit, offset, appName, sortType, sortItem) {
   let url = 'packages/pushable?limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=' + sortType + '&sortItem=' + sortItem
   return GETV2(url, '')
@@ -62,31 +63,31 @@ function promProviderInfo (curPageSize, offset, appStoreName) {
   return GETV2(url, '')
 }
 
-// 推送任务
+// 推送任�?
 function promTaskApi (packageId, param) {
   let url = 'packages/' + packageId + '/action/push'
   return POST(url, param)
 }
 
-// 接收app推送信息
+// 接收app推送信�?
 function acceptMsg (messageId) {
   let url = 'messages/' + messageId + '/action/download'
   return GET(url, '')
 }
 
-// 删除app推送信息
+// 删除app推送信�?
 function deleteMsg (messageId) {
   let url = 'messages/' + messageId
   return DELETE(url, '')
 }
 
-// 获取类型为notice的消息
+// 获取类型为notice的消�?
 function getAppdownAnaApiByType (limit, offset, appName) {
   let url = 'messages' + '?messageType=NOTICE&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=desc&sortItem=time'
   return GETV2(url, '')
 }
 
-// 更新msg读取状态
+// 更新msg读取状�?
 function updateStatus (messageId) {
   let url = 'messages/' + messageId + '/action/readed'
   return PUT(url, '')
@@ -115,9 +116,9 @@ function getAppDetailFileApi (path, id) {
   return GET(url)
 }
 
-function getAppTableApi (limit, offset, userId, appName, sortType, sortItem) {
-  let url = 'apps?limit=' + limit + '&offset=' + offset + '&userId=' + userId + '&appName=' + appName + '&sortType=' + sortType + '&sortItem=' + sortItem
-  return GETV2(url)
+function getAppTableApi (params) {
+  let url = 'appsV2'
+  return POSTV2(url, params)
 }
 
 function getAppListApi (appId) {

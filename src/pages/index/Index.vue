@@ -19,7 +19,7 @@
     class="apphome"
     ref="apphome"
   >
-    <!-- 新上车应用 -->
+    <!-- 新上车应�?-->
     <div class="banner">
       <home-swiper />
     </div>
@@ -131,7 +131,7 @@
         </li>
       </ul>
     </div>
-    <!-- 评分最高 -->
+    <!-- 评分最�?-->
     <div class="score home_content">
       <h3 class="home_tit">
         {{ $t('store.higherScore') }}
@@ -408,7 +408,7 @@ export default {
   },
   data () {
     return {
-      aletMsg: '建议使用Google Chrome及IE9以上浏览器浏览',
+      aletMsg: '建议使用Google Chrome及IE9以上浏览器浏',
       displayStsates: 'none',
       selectedConditions: [],
       uploadDiaVis: false,
@@ -437,14 +437,14 @@ export default {
         {
           imgSrc: require('../../assets/images/home_recommend_pic2.jpg'),
           title: '智慧园区',
-          content: '利用大数据、物联网、云计算、<br/>人工智能等先进手段为园区赋能<br/>打造安全高效的园区',
+          content: '利用大数据、物联网、云计算�?br/>人工智能等先进手段为园区赋能<br/>打造安全高效的园区',
           type: 'industry',
           index: 0
         },
         {
           imgSrc: require('../../assets/images/home_recommend_pic3.jpg'),
           title: 'AI',
-          content: '最佳创意的AI应用<br/>这些应用帮你启发灵感、<br/>挥洒创意',
+          content: '最佳创意的AI应用<br/>这些应用帮你启发灵感�?br/>挥洒创意',
           type: 'industry',
           index: 7
         }
@@ -523,8 +523,26 @@ export default {
       appName: '',
       offsetPage: 0,
       prop: 'createTime',
-      order: 'desc',
-      userId: sessionStorage.getItem('userId')
+      order: 'asc',
+      userId: sessionStorage.getItem('userId'),
+      searchCondition: {
+        appName: '',
+        type: [],
+        affinity: [],
+        industry: [],
+        status: '',
+        deployMode: [],
+        workloadType: [],
+        createTime: '',
+        userId: '',
+        queryCtrl: {
+          offset: this.offsetPage,
+          limit: this.limitSize,
+          sortItem: this.prop,
+          sortType: this.order,
+          createTime: 'createTime'
+        }
+      }
     }
   },
   methods: {
@@ -604,8 +622,22 @@ export default {
         this.recommendData[2].content = '最佳创意的AI应用<br/>这些应用帮你启发灵感、<br/>挥洒创意'
       }
     },
+    buildQueryReq () {
+      let _queryReq = this.searchCondition
+
+      this.searchCondition.queryCtrl = {
+        'offset': this.offsetPage,
+        'limit': this.limitSize,
+        'sortItem': this.prop,
+        'sortType': this.order,
+        'createTime': 'createTime'
+      }
+      // _queryReq.queryCtrl = this.queryCtrl
+
+      return _queryReq
+    },
     getAppData () {
-      getAppTableApi(this.limitSize, this.offsetPage, this.userId, this.appName, this.order, this.prop).then(
+      getAppTableApi(this.buildQueryReq()).then(
         (res) => {
           this.newAppDataBe = []
           let data = res.data.results
