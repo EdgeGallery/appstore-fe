@@ -16,38 +16,69 @@
 
 <template>
   <div class="my-app padding56">
+    <div class="chart-content">
+      <div
+        class="analyseAnaNoData"
+        v-if="appPackageData.length < 1"
+      >
+        <p>{{ $t('apppromotion.haveNoAnaData') }}</p>
+        <img
+          src="../../assets/images/construct.png"
+          alt="a"
+        >
+      </div>
+      <div
+        class="analyseAna"
+        v-else
+      >
+        <div class="levelTop">
+          <div class="mychartDiv1">
+            <div
+              class="mychart"
+              id="myCharts1"
+              ref="myCharts1"
+            />
+            <div class="chartDesc">
+              <span class="desc-font">{{ $t("apppromotion.appHotIndustryDesc") }}</span>
+            </div>
+          </div>
+          <div class="mychartDiv2">
+            <div
+              class="mychart"
+              id="myCharts2"
+              ref="myCharts2"
+            />
+            <div class="chartDesc">
+              <span class="desc-font">{{ $t("apppromotion.appPushStatisticDesc") }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="levelBottom">
+          <div class="mychartDiv1">
+            <div
+              class="mychart"
+              id="myCharts3"
+              ref="myCharts3"
+            />
+            <div class="chartDesc">
+              <span class="desc-font">{{ $t("apppromotion.appNoticeStatisticDesc") }}</span>
+            </div>
+          </div>
+          <div class="mychartDiv2">
+            <div
+              class="mychart"
+              id="myCharts4"
+              ref="myCharts4"
+            />
+            <div class="chartDesc">
+              <span class="desc-font">{{ $t("apppromotion.appPullStatisticDesc") }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="my-app-content">
       <div class="app-list">
-        <div
-          class="analyseAnaNoData"
-          v-if="appPackageData.length < 1"
-        >
-          <p>{{ $t('apppromotion.haveNoAnaData') }}</p>
-          <img
-            src="../../assets/images/construct.png"
-            alt="a"
-          >
-        </div>
-        <div
-          class="analyseAna"
-          v-else
-        >
-          <div
-            class="mychart1"
-            id="myCharts1"
-            ref="myCharts1"
-          />
-          <div
-            class="mychart2"
-            id="myCharts2"
-            ref="myCharts2"
-          />
-          <div
-            class="mychart2"
-            id="myCharts3"
-            ref="myCharts3"
-          />
-        </div>
         <div class="searchRow clearfix">
           <el-input
             suffix-icon="el-icon-search"
@@ -327,7 +358,6 @@ export default {
                 detailInfo: this.$t('apppromotion.checkDetail'),
                 messageId: item.messageId
               }
-              // this.appData.push(appDataItem)
               this.appPackageData.push(appDataItem)
             }
           )
@@ -356,7 +386,7 @@ export default {
       this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
     },
-    getAppStoreNames () {
+    getTargetAppStoreSet () {
       let set = new Set()
       this.appPackageDataChart.forEach(
         (item) => {
@@ -364,11 +394,11 @@ export default {
         })
       return set
     },
-    getTargetAppStoreSet () {
+    getSourceAppStoreSet () {
       let set = new Set()
       this.appPackageDataChart.forEach(
         (item) => {
-          set.add(item.targetAppStore)
+          set.add(item.sourceAppStore)
         })
       return set
     },
@@ -383,6 +413,17 @@ export default {
       )
       return number
     },
+    getNoticeNum (name) {
+      let number = 0
+      this.appPackageDataChart.forEach(
+        (item) => {
+          if (name === item.sourceAppStore && item.messageType === this.getMessageType('NOTICE')) {
+            number++
+          }
+        }
+      )
+      return number
+    },
     getIndustryNames () {
       let industryNameSet = new Set()
       this.appPackageDataChart.forEach(
@@ -391,7 +432,7 @@ export default {
         })
       return industryNameSet
     },
-    getIndustryPullNum (name) {
+    getIndustrybeDownloadNum (name) {
       let number = 0
       this.appPackageDataChart.forEach(
         (item) => {
@@ -443,7 +484,7 @@ export default {
       return recent7daysStr
     },
     // 获取最近七天的pull app数量
-    getPullAppNum (name, appPackageDataChart) {
+    getPullAppNum (name) {
       let day1 = 0
       let day2 = 0
       let day3 = 0
@@ -451,9 +492,9 @@ export default {
       let day5 = 0
       let day6 = 0
       let day7 = 0
-      appPackageDataChart.forEach(
+      this.appPackageDataChart.forEach(
         (item) => {
-          if (name === item.targetAppStore && item.messageType === this.getMessageType('PULL')) {
+          if (name === item.sourceAppStore && item.messageType === this.getMessageType('PULL')) {
             let days = this.getDateValue(item.time.split(' ')[0])
             switch (days) {
               case 1:
@@ -545,11 +586,9 @@ export default {
                 detailInfo: this.$t('apppromotion.checkDetail'),
                 messageId: item.messageId
               }
-              // this.appData.push(appDataItem)
               this.appPackageDataChart.push(appDataItem)
             }
           )
-          // this.findAppData = this.appPackageData
           resolve(res)
         }).catch(() => {
           this.$message({
@@ -568,13 +607,14 @@ export default {
         const myCharts1 = this.$echarts.init(this.$refs.myCharts1)
         const myCharts2 = this.$echarts.init(this.$refs.myCharts2)
         const myCharts3 = this.$echarts.init(this.$refs.myCharts3)
+        const myCharts4 = this.$echarts.init(this.$refs.myCharts4)
         // echart1
         let industryArr = []
         let nameArr = []
         let industryNames = this.getIndustryNames()
         industryNames.forEach(
           (item) => {
-            let industryPullNum = this.getIndustryPullNum(item)
+            let industryPullNum = this.getIndustrybeDownloadNum(item)
             if (industryPullNum > 0) {
               nameArr.push(item)
               let providerInfo = {
@@ -596,7 +636,12 @@ export default {
         let options1 = {
           title: {
             text: this.$t('apppromotion.hotIndustry'),
-            left: 'center'
+            align: 'left',
+            textStyle: {
+              color: '#280B4E',
+              fontWeight: 'bold',
+              fontSize: 14
+            }
           },
           tooltip: {
             trigger: 'item',
@@ -604,8 +649,8 @@ export default {
           },
           legend: {
             orient: 'vertical',
-            left: 10,
-            top: 20,
+            left: '430',
+            top: '50',
             data: nameArr
           },
           series: [
@@ -614,6 +659,7 @@ export default {
               type: 'pie',
               radius: ['50%', '70%'],
               avoidLabelOverlap: false,
+              center: [ '33%', '50%' ],
               label: {
                 show: false,
                 position: 'center'
@@ -626,7 +672,7 @@ export default {
                 }
               },
               labelLine: {
-                show: false
+                show: true
               },
               data: industryArr
             }
@@ -635,9 +681,8 @@ export default {
 
         // echart2
         let appStorePushArr = []
-
-        let statisticArr = []
-        let appStoreNames = this.getAppStoreNames()
+        let statisticPushArr = []
+        let appStoreNames = this.getTargetAppStoreSet()
         appStoreNames.forEach(
           (item) => {
             let pushNum = this.getPushNum(item)
@@ -647,14 +692,14 @@ export default {
                 name: item,
                 count: pushNum
               }
-              statisticArr.push(tempObj)
+              statisticPushArr.push(tempObj)
             }
           }
         )
         let sortNumber = (a, b) => {
           return b - a
         }
-        // 统计top5 推送应用的仓库
+        // 统计top5推送应用的目标仓库
         let top5Name = []
         appStorePushArr.sort(sortNumber)
         appStorePushArr = appStorePushArr.slice(0, 5)
@@ -666,7 +711,7 @@ export default {
         }
 
         for (let num of finalNumArr) {
-          for (let item of statisticArr) {
+          for (let item of statisticPushArr) {
             if (item.count === num) {
               top5Name.push(item.name)
             }
@@ -676,7 +721,12 @@ export default {
 
         let options2 = {
           title: {
-            text: this.$t('apppromotion.appPushStatistic')
+            text: this.$t('apppromotion.appPushStatistic'),
+            textStyle: {
+              color: '#280B4E',
+              fontWeight: 'bold',
+              fontSize: 14
+            }
           },
           tooltip: {
             trigger: 'axis',
@@ -718,7 +768,7 @@ export default {
               data: appStorePushArr,
               itemStyle: {
                 normal: {
-                  color: '#2f4554'
+                  color: '#688EF3'
                 }
               }
             }
@@ -726,38 +776,139 @@ export default {
         }
 
         // echart3
-        let targetAppStorePullArr = []
-        let targetAppStoreArr = []
-        let targetAppStoreSet = this.getTargetAppStoreSet()
-        let recent7days = this.getRecent7days()
-        targetAppStoreSet.forEach(
+        let appStoreNoticeArr = []
+        let statisticNoticeArr = []
+        let noticeAppStoreNames = this.getSourceAppStoreSet()
+        noticeAppStoreNames.forEach(
           (item) => {
-            let pullAppNum = this.getPullAppNum(item, this.appPackageDataChart)
+            let noticeNum = this.getNoticeNum(item)
+            if (noticeNum > 0) {
+              appStoreNoticeArr.push(noticeNum)
+              let tempNoticeObj = {
+                name: item,
+                count: noticeNum
+              }
+              statisticNoticeArr.push(tempNoticeObj)
+            }
+          }
+        )
+        let noticeSortNumber = (a, b) => {
+          return b - a
+        }
+        // 统计top5收到推送应用的源仓库
+        let top5NoticeName = []
+        appStoreNoticeArr.sort(noticeSortNumber)
+        appStoreNoticeArr = appStoreNoticeArr.slice(0, 5)
+        let noticeFinalNumArr = []
+        for (let numItem of appStoreNoticeArr) {
+          if (noticeFinalNumArr.indexOf(numItem) === -1) {
+            noticeFinalNumArr.push(numItem)
+          }
+        }
+
+        for (let num of noticeFinalNumArr) {
+          for (let item of statisticNoticeArr) {
+            if (item.count === num) {
+              top5NoticeName.push(item.name)
+            }
+          }
+        }
+        top5NoticeName = top5NoticeName.slice(0, 5)
+
+        let options3 = {
+          title: {
+            text: this.$t('apppromotion.appNoticeStatistic'),
+            textStyle: {
+              color: '#280B4E',
+              fontWeight: 'bold',
+              fontSize: 14
+            }
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            }
+          },
+          grid: {
+            left: '6%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: [
+            {
+              type: 'category',
+              axisLabel: {
+                interval: 0,
+                formatter: function (value, index) {
+                  var v = value.substring(0, 6) + '...'
+                  return value.length > 9 ? v : value
+                }
+              },
+              data: top5NoticeName
+            }
+          ],
+          yAxis: [
+            {
+              type: 'value',
+              name: this.$t('apppromotion.pushChartUnit')
+            }
+          ],
+          series: [
+            {
+              name: 'NOTICE',
+              type: 'bar',
+              stack: 'name',
+              barWidth: 40,
+              data: appStoreNoticeArr,
+              itemStyle: {
+                normal: {
+                  color: '#BB9AF5'
+                }
+              }
+            }
+          ]
+        }
+
+        // echart4
+        let sourceAppStorePullArr = []
+        let sourceAppStoreArr = []
+        let sourceAppStoreSet = this.getSourceAppStoreSet()
+        let recent7days = this.getRecent7days()
+        sourceAppStoreSet.forEach(
+          (item) => {
+            let pullAppNum = this.getPullAppNum(item)
             for (let pullAppNumItem of pullAppNum) {
               if (pullAppNumItem > 0) {
-                targetAppStoreArr.push(item)
+                sourceAppStoreArr.push(item)
                 let pullInfo = {
                   name: item,
                   type: 'line',
                   stack: this.$t('apppromotion.totalNum'),
                   data: pullAppNum
                 }
-                targetAppStorePullArr.push(pullInfo)
+                sourceAppStorePullArr.push(pullInfo)
                 break
               }
             }
           }
         )
 
-        let options3 = {
+        let options4 = {
           title: {
-            text: this.$t('apppromotion.appDownloadTrend')
+            text: this.$t('apppromotion.appDownloadTrend'),
+            textStyle: {
+              color: '#280B4E',
+              fontWeight: 'bold',
+              fontSize: 14
+            }
           },
           tooltip: {
             trigger: 'axis'
           },
           legend: {
-            data: targetAppStoreArr,
+            data: sourceAppStoreArr,
             right: 30,
             top: 30
           },
@@ -780,11 +931,12 @@ export default {
             minInterval: 1,
             name: this.$t('apppromotion.pushChartUnit')
           },
-          series: targetAppStorePullArr
+          series: sourceAppStorePullArr
         }
         myCharts1.setOption(options1)
         myCharts2.setOption(options2)
         myCharts3.setOption(options3)
+        myCharts4.setOption(options4)
       })
     }
   },
@@ -815,9 +967,128 @@ export default {
 </script>
 <style lang="less">
 .my-app {
+  .chart-content{
+    background: #F2F3F5;
+    height: 700px;
+    width: 1416px;
+    margin: auto;
+    .analyseAna{
+      width: 100%;
+      height: 750px;
+      background: #F2F3F5;
+      display: inline-block;
+      overflow-x: auto;
+      overflow-y: hidden;
+      text-align: center;
+      .levelTop{
+        width: 1416px;
+        height: 375px;
+        margin: auto;
+        .mychartDiv1{
+          height: 375px;
+          width: 693px;
+          display: inline-block;
+          .mychart{
+            height: 325px;
+            background: #FFFFFF;
+            margin: auto;
+          }
+          .chartDesc{
+            width: 300px;
+            height: 30px;
+            margin: auto;
+            margin-top: 10px;
+            .desc-font{
+              font-size: 14px;
+              color: #B2B2B2;
+              font-family: FZLTXIHJW--GB1-0, sans-serif;
+            }
+          }
+        }
+        .mychartDiv2{
+          height: 375px;
+          width: 693px;
+          display: inline-block;
+          margin-left: 30px;
+          .mychart{
+            height: 325px;
+            background: #FFFFFF;
+            margin: auto;
+          }
+          .chartDesc{
+            width: 300px;
+            height: 30px;
+            margin: auto;
+            margin-top: 10px;
+            .desc-font{
+              font-size: 14px;
+              color: #B2B2B2;
+              font-family: FZLTXIHJW--GB1-0, sans-serif;
+            }
+          }
+        }
+      }
+      .levelBottom{
+        width: 1416px;
+        height: 375px;
+        margin: auto;
+        .mychartDiv1{
+          height: 375px;
+          width: 693px;
+          display: inline-block;
+          .mychart{
+            height: 325px;
+            background: #FFFFFF;
+            margin: auto;
+          }
+          .chartDesc{
+            width: 300px;
+            height: 30px;
+            margin: auto;
+            margin-top: 10px;
+            .desc-font{
+              font-size: 14px;
+              color: #B2B2B2;
+              font-family: FZLTXIHJW--GB1-0, sans-serif;
+            }
+          }
+        }
+        .mychartDiv2{
+          height: 375px;
+          width: 693px;
+          display: inline-block;
+          margin-left: 30px;
+          .mychart{
+            height: 325px;
+            background: #FFFFFF;
+            margin: auto;
+          }
+          .chartDesc{
+            width: 300px;
+            height: 30px;
+            margin: auto;
+            margin-top: 10px;
+            .desc-font{
+              font-size: 14px;
+              color: #B2B2B2;
+              font-family: FZLTXIHJW--GB1-0, sans-serif;
+            }
+          }
+        }
+      }
+    }
+    .analyseAnaNoData{
+      width: 100%;
+      height: 400px;
+      text-align: center;
+      line-height: 25px;
+    }
+  }
   .my-app-content {
     background: white;
     padding: 20px;
+    width: 1416px;
+    margin: auto;
   }
   .pagination {
     margin: 20px;
@@ -837,31 +1108,6 @@ export default {
       float: right;
       width: 200px;
     }
-  }
-  .analyseAna{
-    width: 100%;
-    height: 310px;
-    display: inline-block;
-    overflow-x: auto;
-    overflow-y: hidden;
-    text-align: center;
-    .mychart1{
-      width: 25%;
-      height: 300px;
-      display: inline-block;
-    }
-    .mychart2{
-      width: 34%;
-      height: 300px;
-      display: inline-block;
-      margin-left: 40px;
-    }
-  }
-  .analyseAnaNoData{
-    width: 100%;
-    height: 400px;
-    text-align: center;
-    line-height: 25px;
   }
   .detailInfo{
     height: 110px;
