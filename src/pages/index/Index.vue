@@ -437,14 +437,14 @@ export default {
         {
           imgSrc: require('../../assets/images/home_recommend_pic2.jpg'),
           title: '智慧园区',
-          content: '利用大数据、物联网、云计算<br/>人工智能等先进手段为园区赋能<br/>打造安全高效的园区',
+          content: '利用大数据、物联网、云计算、<br/>人工智能等先进手段为园区赋能<br/>打造安全高效的园区',
           type: 'industry',
           index: 0
         },
         {
           imgSrc: require('../../assets/images/home_recommend_pic3.jpg'),
           title: 'AI',
-          content: '最佳创意的AI应用<br/>这些应用帮你启发灵感<br/>挥洒创意',
+          content: '最佳创意的AI应用<br/>这些应用帮你启发灵感<br/>、挥洒创意',
           type: 'industry',
           index: 7
         }
