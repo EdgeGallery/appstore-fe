@@ -45,7 +45,7 @@ function getAppPromTableApi (limit, offset, appName, sortType, sortItem) {
   return GETV2(url, '')
 }
 
-// 获取图标全量操作信息
+// 获取全量操作分析数据
 function getAppdownAnaApiChart () {
   let url = 'messages'
   return GET(url, '')
@@ -149,11 +149,6 @@ function modifyAppPackageDetailApi (csarId, params) {
 function submitAppCommentApi (appId, params, userId, userName) {
   let url = 'apps/' + appId + '/comments?userId=' + userId + '&userName=' + userName
   return POST(url, params)
-}
-
-function incAppDownloadTimesApi (appId, csarId) {
-  let url = 'apps/' + appId + '/packages/' + csarId + '/action/download'
-  return GET(url)
 }
 
 function uploadAppApi (params) {
@@ -265,11 +260,6 @@ function getDocsApi (language, activeName) {
     }
   }
   return axios.get(url)
-}
-
-function getAppFileContentApi (appId, packageId, params) {
-  let url = 'apps/' + appId + '/packages/' + packageId + '/files/'
-  return POST(url, params)
 }
 
 function downloadAppPakageApi (appId, row) {
@@ -388,14 +378,12 @@ export {
   getSubTasksApi,
   modifyAppPackageDetailApi,
   submitAppCommentApi,
-  incAppDownloadTimesApi,
   uploadAppTaskApi,
   deleteAppApi,
   deleteAppPackageApi,
   getDocsApi,
   getAppByAppstoreIdV1,
   getInterface,
-  getAppFileContentApi,
   downloadAppPakageApi,
   URL_PREFIX,
   URL_PREFIXV2,
