@@ -18,7 +18,6 @@ import {
   GET,
   GETV2,
   POSTV2,
-  GETRESCODE,
   POST,
   PUT,
   DELETE,
@@ -29,7 +28,6 @@ import axios from 'axios'
 
 const URL_PREFIX = '/mec-appstore/mec/appstore/v1/'
 const URL_PREFIXV2 = '/mec-appstore/mec/appstore/v2/'
-// const URL_PREFIX_GATEWAY = '/mec/res/'
 
 function getCommentsApi (appId, limit, offset) {
   let url = 'apps/' + appId + '/comments?limit=' + limit + '&offset=' + offset
@@ -335,12 +333,6 @@ let myAppStore = {
 
 let myApp = {
 
-  // 调用webgateWay获取接口响应信息
-  // getPesponseCodeInfo: function () {
-  //   let url = 'errInfo/appstore'
-  //   return GETRESCODE(url, '')
-  // },
-
   // 首页上传接口
   uploadAppPackageApi: function (params) {
     let url = 'apps'
@@ -407,7 +399,6 @@ export {
   downloadAppPakageApi,
   URL_PREFIX,
   URL_PREFIXV2,
-  // URL_PREFIX_GATEWAY,
   getUserInfo,
   logoutApi,
   uploadAppApi,
