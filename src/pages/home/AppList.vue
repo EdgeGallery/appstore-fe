@@ -163,7 +163,7 @@ export default {
       ifDelete: 'true',
       userId: sessionStorage.getItem('userId'),
       prop: 'createTime',
-      order: 'desc'
+      order: 'asc'
     }
   },
   methods: {

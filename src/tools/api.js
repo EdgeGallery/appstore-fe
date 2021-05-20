@@ -17,6 +17,7 @@
 import {
   GET,
   GETV2,
+  POSTV2,
   POST,
   PUT,
   DELETE,
@@ -115,9 +116,9 @@ function getAppDetailFileApi (path, id) {
   return GET(url)
 }
 
-function getAppTableApi (limit, offset, userId, appName, sortType, sortItem) {
-  let url = 'apps?limit=' + limit + '&offset=' + offset + '&userId=' + userId + '&appName=' + appName + '&sortType=' + sortType + '&sortItem=' + sortItem
-  return GETV2(url)
+function getAppTableApi (params) {
+  let url = 'query/apps'
+  return POSTV2(url, params)
 }
 
 function getAppListApi (appId) {
@@ -331,6 +332,7 @@ let myAppStore = {
 }
 
 let myApp = {
+
   // 首页上传接口
   uploadAppPackageApi: function (params) {
     let url = 'apps'

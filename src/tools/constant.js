@@ -193,13 +193,13 @@ const DEPLOYMODE = [
     label: ['容器', 'container'],
     value: 'container',
     selected: false,
-    type: 'types'
+    type: 'workloadType'
   },
   {
     label: ['虚拟机', 'vm'],
     value: 'vm',
     selected: false,
-    type: 'types'
+    type: 'workloadType'
   }
 ]
 

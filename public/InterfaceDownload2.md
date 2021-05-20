@@ -8,14 +8,19 @@
 |-----|-----|----|------|-----|
 |appId | path |Y| String | app id |
 
-#### 请求代码
 
-    Optional<App> app = appMapper.findByAppId(appId).map(AppPo::toDomainModel);
-            if (app.isPresent()) {
-                List<Release> releases = packageMapper.findAllByAppId(appId).stream().map(AppReleasePo::toDomainModel)
-                    .collect(Collectors.toList());
-                app.get().setReleases(releases);
-            }
+#### 样例数据
+##### 请求数据
+    {"packageId": "String"}
+##### 响应数据
+    {
+    "data": "string",
+	"resCode": int,
+	"params": [string],
+	"errMsg": "string",
+	"messge": "string"
+    }
+
 
 #### 返回数据
 |返回码  |描述|

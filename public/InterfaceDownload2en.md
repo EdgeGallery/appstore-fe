@@ -8,14 +8,18 @@ Download the app icon based on the app ID
 |-----|-----|----|------|-----|
 |appId | path |Y| String | app id |
 
-#### Request code
-
-    Optional<App> app = appMapper.findByAppId(appId).map(AppPo::toDomainModel);
-            if (app.isPresent()) {
-                List<Release> releases = packageMapper.findAllByAppId(appId).stream().map(AppReleasePo::toDomainModel)
-                    .collect(Collectors.toList());
-                app.get().setReleases(releases);
-            }
+#### Sample data
+##### Request date
+    {"packageId": "String"}
+    
+##### Response date
+    {
+    "data": "string",
+	"resCode": int,
+	"params": [string],
+	"errMsg": "string",
+	"messge": "string"
+    }
 
 #### Return data
 |Return Code |Description|
