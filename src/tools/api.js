@@ -18,6 +18,7 @@ import {
   GET,
   GETV2,
   POSTV2,
+  GETRESCODE,
   POST,
   PUT,
   DELETE,
@@ -28,6 +29,7 @@ import axios from 'axios'
 
 const URL_PREFIX = '/mec-appstore/mec/appstore/v1/'
 const URL_PREFIXV2 = '/mec-appstore/mec/appstore/v2/'
+// const URL_PREFIX_GATEWAY = '/mec/res/'
 
 function getCommentsApi (appId, limit, offset) {
   let url = 'apps/' + appId + '/comments?limit=' + limit + '&offset=' + offset
@@ -39,7 +41,7 @@ function getAppDetailTableApi (appId, limit, offset) {
   return GETV2(url)
 }
 
-// 查询所有可推广的应�?
+// 查询所有可推广的应用
 function getAppPromTableApi (limit, offset, appName, sortType, sortItem) {
   let url = 'packages/pushable?limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=' + sortType + '&sortItem=' + sortItem
   return GETV2(url, '')
@@ -63,31 +65,31 @@ function promProviderInfo (curPageSize, offset, appStoreName) {
   return GETV2(url, '')
 }
 
-// 推送任�?
+// 推送任务
 function promTaskApi (packageId, param) {
   let url = 'packages/' + packageId + '/action/push'
   return POST(url, param)
 }
 
-// 接收app推送信�?
+// 接收app推送信息
 function acceptMsg (messageId) {
   let url = 'messages/' + messageId + '/action/download'
   return GET(url, '')
 }
 
-// 删除app推送信�?
+// 删除app推送信息
 function deleteMsg (messageId) {
   let url = 'messages/' + messageId
   return DELETE(url, '')
 }
 
-// 获取类型为notice的消�?
+// 获取类型为notice的消息
 function getAppdownAnaApiByType (limit, offset, appName) {
   let url = 'messages' + '?messageType=NOTICE&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=desc&sortItem=time'
   return GETV2(url, '')
 }
 
-// 更新msg读取状�?
+// 更新msg读取状态
 function updateStatus (messageId) {
   let url = 'messages/' + messageId + '/action/readed'
   return PUT(url, '')
@@ -332,6 +334,13 @@ let myAppStore = {
 }
 
 let myApp = {
+
+  // 调用webgateWay获取接口响应信息
+  // getPesponseCodeInfo: function () {
+  //   let url = 'errInfo/appstore'
+  //   return GETRESCODE(url, '')
+  // },
+
   // 首页上传接口
   uploadAppPackageApi: function (params) {
     let url = 'apps'
@@ -398,6 +407,7 @@ export {
   downloadAppPakageApi,
   URL_PREFIX,
   URL_PREFIXV2,
+  // URL_PREFIX_GATEWAY,
   getUserInfo,
   logoutApi,
   uploadAppApi,
