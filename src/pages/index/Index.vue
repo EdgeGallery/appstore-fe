@@ -408,7 +408,7 @@ export default {
   },
   data () {
     return {
-      aletMsg: '建议使用Google Chrome及IE9以上浏览器浏',
+      aletMsg: '建议使用Google Chrome及IE9以上浏览器浏览',
       displayStsates: 'none',
       selectedConditions: [],
       uploadDiaVis: false,
