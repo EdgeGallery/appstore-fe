@@ -117,7 +117,7 @@ function getAppDetailFileApi (path, id) {
 }
 
 function getAppTableApi (params) {
-  let url = 'appsV2'
+  let url = 'query/apps'
   return POSTV2(url, params)
 }
 
