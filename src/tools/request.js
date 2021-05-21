@@ -16,7 +16,7 @@
  */
 
 import axios from 'axios'
-import { URL_PREFIX, URL_PREFIXV2 } from './api'
+import { URL_PREFIX, URL_PREFIXV2, URL_PREFIX_GATEWAY } from './api'
 
 function getCookie (name) {
   let arr = []
@@ -31,6 +31,24 @@ function getCookie (name) {
 
 function GET (url, params) {
   let baseUrl = URL_PREFIX + url
+  return new Promise((resolve, reject) => {
+    axios.get(baseUrl, {
+      params: params,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+      }
+    }).then(res => {
+      resolve(res)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
+
+function GETRESCODE (url, params) {
+  let baseUrl = URL_PREFIX_GATEWAY + url
   return new Promise((resolve, reject) => {
     axios.get(baseUrl, {
       params: params,
@@ -138,6 +156,7 @@ export {
   GET,
   GETV2,
   POSTV2,
+  GETRESCODE,
   POST,
   PUT,
   DELETE,

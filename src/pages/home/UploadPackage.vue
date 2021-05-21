@@ -394,6 +394,8 @@ export default {
       name: '',
       mergerUrl: '',
       mergerUrlHttp: '',
+      zhData: JSON.parse(sessionStorage.getItem('resCodeInfo')).zh_CN,
+      enData: JSON.parse(sessionStorage.getItem('resCodeInfo')).en_US,
       options: {
         testChunks: false,
         headers: {},
@@ -581,6 +583,7 @@ export default {
       this.$router.push('/myapp')
     },
     handleExceptionMsg (error) {
+      console.log(error.response.data.retCode)
       if (error.response.data.code === 403) {
         this.$message({
           duration: 2000,
@@ -733,9 +736,15 @@ export default {
       fd.append('userName', userName)
       fd.append('demoVideo', packageForm.videoFile[0])
       myApp.uploadAppPackageApi(fd).then(res => {
+        // 成功情况进行判断，传递 res 参数
+        // this.showChangeMessageSuccess(res)
+        // 使用新定义错误逻辑展示，所以老的逻辑注释
         this.handleUploadSuccess()
       }).catch(error => {
-        this.handleExceptionMsg(error)
+        // 失败情况进行判断，传递 error 参数
+        this.showChangeErrorMessage(error)
+        // 使用新定义错误逻辑展示，所以老的逻辑注释
+        // this.handleExceptionMsg(error)
       })
     },
     // confirm to submit
@@ -855,8 +864,77 @@ export default {
         this.packageForm.checkList = ['innerPublic', 'public']
         this.packageForm.isSelectInnerPublic = true
       }
+    },
+    showChangeMessageSuccess (res) {
+      console.log(res)
+      let rescodeData = sessionStorage.getItem('resCodeInfo')
+      console.log(rescodeData)
+      // 由于成功每一个resCode都可以获取到，所以不用判断是否可以获取到resCode
+      // 解析res.data 里面的resCode h和params,
+      // 调用gatreway获取到接口化数据
+      let resCode = res.data.resCode
+      let params = res.data.params
+      this.commonShowMessage(resCode, params)
+    },
+    commonShowMessage (retCode, params) {
+      let zhMap = new Map(Object.entries(this.zhData))
+      let enMap = new Map(Object.entries(this.enData))
+      if (this.language === 'cn') {
+        for (let code of zhMap.keys()) {
+          console.log(code)
+          if (retCode === Number(code)) {
+            let para = zhMap.get(code)
+            if (para.indexOf('%s') !== -1) {
+              for (let param of params) {
+                para = para.replace('%s', param)
+              }
+            }
+            this.$message({
+              duration: 2000,
+              message: para,
+              type: 'warning'
+            })
+            this.handleClose()
+          }
+        }
+      } else {
+        // 判断英文错误
+
+        for (let code of enMap.keys()) {
+          if (retCode === Number(code)) {
+            let para = enMap.get(code)
+            if (para.indexOf('%s') !== -1) {
+              for (let param of params) {
+                para = para.replace('%s', param)
+              }
+            }
+            this.$message({
+              duration: 2000,
+              message: para,
+              type: 'warning'
+            })
+            this.handleClose()
+          }
+        }
+      }
+    },
+    showChangeErrorMessage (error) {
+      // let recodeData = sessionStorage.getItem('resCodeInfo')
+
+      let retCode = error.response.data.retCode
+      let params = error.response.data.params
+      // 首先获取retCode，和列表码进行比较，判断retCode是否存在
+
+      if (retCode) {
+        // 判断是哪种语言
+        this.commonShowMessage(retCode, params)
+      } else {
+        // retCode没有，将会获取error里面的message进行展示
+        this.handleExceptionMsg()
+      }
     }
   },
+
   destroyed () {
     this.clearForm()
   },
@@ -872,6 +950,8 @@ export default {
     }
   },
   mounted () {
+    // this.showChangeErrorMessage()
+
     let language = localStorage.getItem('language')
     this.changeCnEn(language)
     this.showErr = this.logoFileList
