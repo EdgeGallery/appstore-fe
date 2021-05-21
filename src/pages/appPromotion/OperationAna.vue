@@ -253,6 +253,7 @@
 <script>
 import { getAppdownAnaApi, getAppdownAnaApiChart } from '../../tools/api.js'
 import egPagination from 'eg-view/src/components/EgPagination.vue'
+import eCharts from 'echarts'
 export default {
   components: {
     egPagination
@@ -564,8 +565,8 @@ export default {
     },
     getTableExChart () {
       return new Promise((resolve, reject) => {
-        this.appPackageDataChart = []
         getAppdownAnaApiChart().then((res) => {
+          this.appPackageDataChart = []
           let data = res.data
           data.forEach(
             (item) => {
@@ -633,7 +634,9 @@ export default {
           }
           industryArr.push(defaultData)
         }
+        let colors = ['#688EF3', '#754BAC', '#1FCAA8', '#FAC858', '#EE6666']
         let options1 = {
+          color: colors,
           title: {
             text: this.$t('apppromotion.hotIndustry'),
             align: 'left',
@@ -886,7 +889,26 @@ export default {
                   name: item,
                   type: 'line',
                   stack: this.$t('apppromotion.totalNum'),
-                  data: pullAppNum
+                  data: pullAppNum,
+                  areaStyle: {
+                    normal: {
+                      color: new eCharts.graphic.LinearGradient(
+                        0, 0, 0, 1, [
+                          {
+                            offset: 0,
+                            color: '#E0DDFC'
+                          },
+                          {
+                            offset: 0.5,
+                            color: '#F2F1FE'
+                          },
+                          {
+                            offset: 1,
+                            color: '#FFFFFF'
+                          }
+                        ])
+                    }
+                  }
                 }
                 sourceAppStorePullArr.push(pullInfo)
                 break

@@ -272,7 +272,9 @@ export default {
   methods: {
     getAppIcon (item) {
       if (this.isFirstShowModifyDlg) {
-        this.isFirstShowModifyDlg = false
+        setTimeout(() => {
+          this.isFirstShowModifyDlg = false
+        }, 500)
         return URL_PREFIX + 'apps/' + this.appModifyInfo.appId + '/icon'
       } else {
         return item
