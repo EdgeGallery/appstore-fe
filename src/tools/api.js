@@ -326,7 +326,7 @@ let myAppStore = {
 let myApp = {
 
   // 调用webgateWay获取接口响应信息
-  getPesponseCodeInfo: function (params) {
+  getResponseCodeInfo: function (params) {
     let url = 'error-info?modules=' + params
     return GETRESCODE(url, '')
   },

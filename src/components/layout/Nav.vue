@@ -463,8 +463,8 @@ export default {
       }
     },
     getResCodeInfo () {
-      let datas = '[appstore]'
-      myApp.getPesponseCodeInfo(encodeURI(datas))
+      let datas = '[appstore,atp]'
+      myApp.getResponseCodeInfo(encodeURI(datas))
         .then(res => {
           console.log(res)
           // let resCodeInfo = res.data

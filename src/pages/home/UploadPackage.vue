@@ -737,9 +737,9 @@ export default {
       fd.append('demoVideo', packageForm.videoFile[0])
       myApp.uploadAppPackageApi(fd).then(res => {
         // 成功情况进行判断，传递 res 参数
-        this.showChangeMessageSuccess(res)
+        // this.showChangeMessageSuccess(res)
         // 使用新定义错误逻辑展示，所以老的逻辑注释
-        // this.handleUploadSuccess()
+        this.handleUploadSuccess()
       }).catch(error => {
         // 失败情况进行判断，传递 error 参数
         this.showChangeErrorMessage(error)
@@ -873,9 +873,10 @@ export default {
       // 解析res.data 里面的resCode h和params,
       // 调用gatreway获取到接口化数据
       let resCode = res.data.resCode
-      this.commonShowMessage(resCode)
+      let params = res.data.params
+      this.commonShowMessage(resCode, params)
     },
-    commonShowMessage (retCode) {
+    commonShowMessage (retCode, params) {
       let zhMap = new Map(Object.entries(this.zhData))
       let enMap = new Map(Object.entries(this.enData))
       if (this.language === 'cn') {
@@ -883,17 +884,14 @@ export default {
           console.log(code)
           if (retCode === Number(code)) {
             let para = zhMap.get(code)
-            let msg = ''
             if (para.indexOf('%s') !== -1) {
-              msg = para.replace('%s', ' res.data.params ')
-            } else {
-              msg = para
+              for (let param of params) {
+                para = para.replace('%s', param)
+              }
             }
-            console.log(para)
-            console.log(msg)
             this.$message({
               duration: 2000,
-              message: msg,
+              message: para,
               type: 'warning'
             })
             this.handleClose()
@@ -905,15 +903,14 @@ export default {
         for (let code of enMap.keys()) {
           if (retCode === Number(code)) {
             let para = enMap.get(code)
-            let msg = ''
             if (para.indexOf('%s') !== -1) {
-              msg = para.replace('%s', ' res.data.params ')
-            } else {
-              msg = para
+              for (let param of params) {
+                para = para.replace('%s', param)
+              }
             }
             this.$message({
               duration: 2000,
-              message: msg,
+              message: para,
               type: 'warning'
             })
             this.handleClose()
@@ -925,20 +922,15 @@ export default {
       // let recodeData = sessionStorage.getItem('resCodeInfo')
 
       let retCode = error.response.data.retCode
-
+      let params = error.response.data.params
       // 首先获取retCode，和列表码进行比较，判断retCode是否存在
+
       if (retCode) {
         // 判断是哪种语言
-        this.commonShowMessage(retCode)
+        this.commonShowMessage(retCode, params)
       } else {
         // retCode没有，将会获取error里面的message进行展示
-        let message = error.response.data.message
-        this.$message({
-          duration: 2000,
-          message: message,
-          type: 'warning'
-        })
-        this.handleClose()
+        this.handleExceptionMsg()
       }
     }
   },
@@ -958,12 +950,6 @@ export default {
     }
   },
   mounted () {
-    let zhMap = new Map(Object.entries(this.zhData))
-    for (let key of zhMap.keys()) {
-      console.log(key) // map.get(key)可得value值。
-      console.log(zhMap.get(key))
-    }
-    console.log(zhMap)
     // this.showChangeErrorMessage()
 
     let language = localStorage.getItem('language')
