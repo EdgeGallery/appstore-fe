@@ -196,7 +196,7 @@
 </template>
 
 <script>
-import { getUserInfo, logoutApi } from '../../tools/api.js'
+import { getUserInfo, logoutApi, myApp } from '../../tools/api.js'
 import messageDialog from '../../pages/msgCenter/MessageDialog.vue'
 export default {
   name: 'HeaderComp',
@@ -461,11 +461,24 @@ export default {
       } else if (pathPa === '/apppromote' || pathPa === '/appStore') {
         this.isActive = 4
       }
+    },
+    getResCodeInfo () {
+      let datas = '[appstore]'
+      myApp.getPesponseCodeInfo(encodeURI(datas))
+        .then(res => {
+          console.log(res)
+          // let resCodeInfo = res.data
+          console.log(res.data)
+          sessionStorage.setItem('resCodeInfo', JSON.stringify(res.data))
+        }).catch(error => {
+          this.handleExceptionMsg(error)
+        })
     }
 
   },
 
   mounted () {
+    this.getResCodeInfo()
     localStorage.setItem('language', 'cn')
     let path = this.$route.path
     this.judgeRoute(path)
