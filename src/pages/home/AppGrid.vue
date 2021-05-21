@@ -179,7 +179,7 @@ export default {
             float: left;
           }
           .app-name {
-            max-width: calc(100% - 53px);
+            max-width: calc(100% - 54px);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
