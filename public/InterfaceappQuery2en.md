@@ -1,16 +1,16 @@
 ## Interface list
 
-### /{packageId}/action/pull
+### /mec/appstore/v2/packages/{packageId}/pullable
 ### GET
 Get a list of all available applications in this warehouse
 #### Request parameters
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
-|name | path |N| String | App name |
-|provider | path |N| String | app provider |
-|type | path |N| String | app type |
-|affinity | path |N| String | app affinity |
-|userId | path |N| String | userId|
+|appName | path |N| String | app name |
+|limit | path |Y| int | data limit |
+|offset | path |Y| int | data offset |
+|sortType | path |Y| String | app sortType |
+|sortItem | path |Y| String | app sortItem|
 
 #### Sample data
 ##### Request data
@@ -82,3 +82,7 @@ Get a list of all available applications in this warehouse
 |industry | Industry |
 |type | Application Type |
 |createTime | Creation time |
+|resCode | response code |
+|params | response parameter |
+|errMsg | response error message |
+|messge | response message |

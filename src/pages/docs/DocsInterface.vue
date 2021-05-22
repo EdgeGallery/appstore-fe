@@ -28,9 +28,26 @@
           @select="handleSelect"
           background-color="#eee"
         >
-          <el-menu-item index="2">
-            {{ $t('nav.appQuery2') }}
-          </el-menu-item>
+          <el-submenu index="2">
+            <template slot="title">
+              {{ $t('nav.appQuery2') }}
+            </template>
+            <el-menu-item index="2-1">
+              {{ $t('nav.appQuery21') }}
+            </el-menu-item>
+            <el-menu-item index="2-2">
+              {{ $t('nav.appQuery22') }}
+            </el-menu-item>
+            <el-menu-item index="2-3">
+              {{ $t('nav.appQuery23') }}
+            </el-menu-item>
+            <el-menu-item index="2-4">
+              {{ $t('nav.appQuery24') }}
+            </el-menu-item>
+            <el-menu-item index="2-5">
+              {{ $t('nav.appQuery25') }}
+            </el-menu-item>
+          </el-submenu>
           <el-submenu index="3">
             <template slot="title">
               {{ $t('nav.appDownload3') }}
@@ -125,8 +142,20 @@ export default {
         case '1':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appMessage1'), path: '' }]
           break
-        case '2':
-          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery2'), path: '' }]
+        case '2-1':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery21'), path: '' }]
+          break
+        case '2-2':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery22'), path: '' }]
+          break
+        case '2-3':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery23'), path: '' }]
+          break
+        case '2-4':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery24'), path: '' }]
+          break
+        case '2-5':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery25'), path: '' }]
           break
         case '3-1':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appDownload31'), path: '' }]

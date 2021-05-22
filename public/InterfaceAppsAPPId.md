@@ -1,16 +1,22 @@
 ## 接口清单
 
-### /mec/appstore/v2/packages/pullable
+### /mec/appstore/v1/apps
 ###  GET
 获取本仓库所有可拉取的应用列表
 #### 请求参数
 |参数 |位置 | 是否必选 | 类型 |说明|
 |-----|-----|----|------|-----|
-|appName | path |N| String | app name |
-|limit | path |Y| int | data limit |
-|offset | path |Y| int | data offset |
+|appName | path |N| String | App name |
+|limit | path |Y| String | app limit |
+|offset | path |Y| String | app offset |
 |sortType | path |Y| String | app sortType |
-|sortItem | path |Y| String | app sortItem|
+|sortItem | path |N| String | app sortItem|
+|type | path |N| String | app type|
+|affinity | path |N| String | affinity|
+|industry | path |N| String | industry|
+|createTime | path |N| String | createTime|
+|downloadCount | path |N| String | downloadCount|
+|score | path |N| String | score|
 
 #### 样例数据
 ##### 请求数据
@@ -19,7 +25,13 @@
     "offset": 0,
     "appName": "String",
     "sortType": "desc",
-    "sortItem": "createTime"
+    "type": "string",
+	"affinity": "string",
+	"sortItem": "string",
+	"industry": "industry",
+	"createTime": "string",
+	"downloadCount": "string",
+	"score": "string"
     }
 ##### 响应数据
         {
@@ -64,25 +76,22 @@
 
 |返回字段  |描述|
 |-----|-----|
-|PushablePackageDto | 返回实体类 |
-|appId | 应用 id |
-|packageId | 应用包 id  |
-|name | 名称 |
+|appId | 应用 id |
+|name | 应用名 |
 |provider | 提供者 |
+|iconUrl | icon路径 |
 |version | 版本 |
-|atpTestStatus | atp测试状态 |
-|atpTestTaskId | atp测试任务id |
-|atpTestReportUrl | atp测试url |
-|latestPushTime | 最后推送时间 |
-|pushTimes | 推送时间 |
-|sourcePlatform | 源平台 |
-|targetPlatform | 目标平台 |
-|affinity | 亲和性 |
+|affinity | 架构 |
 |shortDesc | 描述 |
 |industry | 行业 |
 |type | 应用类型 |
+|showType | 展示类型 |
 |createTime | 创建时间 |
-|resCode | 响应码 |
-|params | 响应参数 |
-|errMsg | 响应错误信息 |
-|messge | 响应信息 |
+|details | 详情 |
+|downloadCount |下载量 |
+|contact | 联系方式 |
+|score | 分数 |
+|userId | 用户id |
+|userName | 用户名 |
+|status | 状态 |
+|deployMode | 负载类型 |

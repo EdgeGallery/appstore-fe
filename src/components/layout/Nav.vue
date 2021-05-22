@@ -467,7 +467,6 @@ export default {
       myApp.getResponseCodeInfo(encodeURI(datas))
         .then(res => {
           console.log(res)
-          // let resCodeInfo = res.data
           console.log(res.data)
           sessionStorage.setItem('resCodeInfo', JSON.stringify(res.data))
         }).catch(error => {

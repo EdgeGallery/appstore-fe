@@ -132,7 +132,7 @@
           <el-link
             class="interface-title"
             :underline="false"
-            @click="jumpTointerface('2')"
+            @click="jumpTointerface('2-1')"
           >
             <h5 class="title-font">
               {{ $t("nav.appQuery2") }}
