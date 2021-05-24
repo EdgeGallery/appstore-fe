@@ -3,6 +3,7 @@
 ### /mec/appstore/v2/apps/{appId}/packages
 ###  GET
 Get the application package list by application ID.
+### Request
 #### Request parameters
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
@@ -12,43 +13,18 @@ Get the application package list by application ID.
 |appId | path |N| String | appId|
 |request | path |N| String | 请求提|
 
-#### Sample data
-##### Request data
+#### Example request
+```
 {
-	"limit": 10,
-	"offset": 0,
-	"appId": "string",
-	"userId": "string"
+    "limit": 10,
+    "offset": 0,
+    "appId": "string",
+    "userId": "string"
 }
-##### Response data
-    {
-    	"results": [{
-    		"packageId": "string",
-    		"userName": "string",
-    		"status": "string",
-    		"shortDesc": "string",
-    		"provider": "string",
-    		"testTaskId": "string",
-    		"size": "string",
-    		"demoVideoName": "string",
-    		"createTime": "string",
-    		"name": "string",
-    		"version": "string",
-    		"type": "string",
-    		"details": "string",
-    		"affinity": "string",
-    		"industry": "string",
-    		"contact": "string",
-    		"appId": "string",
-    		"userId": "string",
-    		"deployMode": "string"
-    	}],
-    	"limit": 10,
-    	"offset": 0,
-    	"total": 1
-    }
+```
 
-#### Return data
+### Response
+#### Response parameters
 |Return Code  |Description|
 |-----|-----|
 |200 | Success |
@@ -77,3 +53,33 @@ Get the application package list by application ID.
 |status | status |
 |demoVideoName | demoVideoName |
 |deployMode | deployMode |
+
+#### Example response
+```
+{
+    "results": [{
+        "packageId": "string",
+        "userName": "string",
+        "status": "string",
+        "shortDesc": "string",
+        "provider": "string",
+        "testTaskId": "string",
+        "size": "string",
+        "demoVideoName": "string",
+        "createTime": "string",
+        "name": "string",
+        "version": "string",
+        "type": "string",
+        "details": "string",
+        "affinity": "string",
+        "industry": "string",
+        "contact": "string",
+        "appId": "string",
+        "userId": "string",
+        "deployMode": "string"
+    }],
+    "limit": 10,
+    "offset": 0,
+    "total": 1
+}
+```

@@ -3,41 +3,13 @@
 ### /mec/appstore/v2/messages
 ### POST
 Add message
+### Request
 #### Request parameters
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
 |dto | path |Y| String | MessageReqDto |
 
-#### Sample data
-##### Request date
-    {
-    	"BasicMessageInfo": {
-    		"name": "string",
-    		"provider": "string",
-    		"version": "string",
-    		"affinity": "string",
-    		"shortDesc": "string",
-    		"industry": "string",
-    		"type": "string"
-    	},
-    	"sourceAppStore": "string",
-    	"targetAppStore": "string",
-    	"atpTestStatus": "string",
-    	"atpTestTaskId": "string",
-    	"atpTestReportUrl": "string",
-    	"packageDownloadUrl": "string",
-    	"iconDownloadUrl": "string"
-    }
-##### Response date
-    {
-    	"data": "string",
-    	"retCode": int,
-    	"params": [string],
-    	"messge": "string"
-    }
-
-
-#### Request parameter MessageReqDto
+##### MessageReqDto
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
 |BasicMessageInfo | path |Y| Object | Basic Information |
@@ -49,7 +21,7 @@ Add message
 |packageDownloadUrl | path |Y| String | Application package download path |
 |iconDownloadUrl | path |Y| String | Icon download path |
 
-#### Request parameter BasicMessageInfo
+##### BasicMessageInfo
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
 |name | path |Y| String | Attribute |
@@ -60,8 +32,41 @@ Add message
 |industry | path |Y| String | Industry |
 |type | path |Y| String | Type |
 
-#### Return data
+#### Example request
+```
+{
+    "BasicMessageInfo": {
+        "name": "string",
+        "provider": "string",
+        "version": "string",
+        "affinity": "string",
+        "shortDesc": "string",
+        "industry": "string",
+        "type": "string"
+    },
+    "sourceAppStore": "string",
+    "targetAppStore": "string",
+    "atpTestStatus": "string",
+    "atpTestTaskId": "string",
+    "atpTestReportUrl": "string",
+    "packageDownloadUrl": "string",
+    "iconDownloadUrl": "string"
+}
+```
+
+### Response
+#### Response parameters
 |Return Code |Description|
 |-----|-----|
 |200 | Success |
 |500 | Resource grant error |
+
+#### Example response
+```
+{
+    "data": "string",
+    "retCode": int,
+    "params": [string],
+    "messge": "string"
+}
+```

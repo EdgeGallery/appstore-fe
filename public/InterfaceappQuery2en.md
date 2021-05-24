@@ -3,6 +3,7 @@
 ### /mec/appstore/v2/packages/{packageId}/pullable
 ### GET
 Get a list of all available applications in this warehouse
+### Request
 #### Request parameters
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
@@ -12,45 +13,19 @@ Get a list of all available applications in this warehouse
 |sortType | path |Y| String | app sortType |
 |sortItem | path |Y| String | app sortItem|
 
-#### Sample data
-
-##### Request data
-    {
-    	"limit": 10,
-    	"offset": 0,
-    	"appName": "String",
-    	"sortType": "desc",
-    	"sortItem": "createTime"
-    }
-
-##### Response data
+#### Example request
+```
 {
-	"results": [{
-		"appId": "String",
-		"packageId": "String",
-		"name": "String",
-		"provider": "PROVIDER",
-		"version": "version",
-		"atpTestStatus": "success",
-		"atpTestTaskId": "String",
-		"atpTestReportUrl": "String",
-		"latestPushTime": null,
-		"pushTimes": 0,
-		"sourcePlatform": null,
-		"targetPlatform": null,
-		"affinity": "affinity",
-		"shortDesc": "shortdesc",
-		"industry": "industry",
-		"type": "game",
-		"createTime": "2021-04-29 19:56:44",
-		"deployMode": "container"
-	}],
-	"limit": 10,
-	"offset": 0,
-	"total": 1
+    "limit": 10,
+    "offset": 0,
+    "appName": "String",
+    "sortType": "desc",
+    "sortItem": "createTime"
 }
+```
 
-#### Return data
+### Response
+#### Response parameters
 |Return Code |Description|
 |-----|-----|
 |200 | Success |
@@ -82,3 +57,32 @@ Get a list of all available applications in this warehouse
 |params | response parameter |
 |errMsg | response error message |
 |messge | response message |
+
+#### Example response
+```
+{
+    "results": [{
+        "appId": "String",
+        "packageId": "String",
+        "name": "String",
+        "provider": "PROVIDER",
+        "version": "version",
+        "atpTestStatus": "success",
+        "atpTestTaskId": "String",
+        "atpTestReportUrl": "String",
+        "latestPushTime": null,
+        "pushTimes": 0,
+        "sourcePlatform": null,
+        "targetPlatform": null,
+        "affinity": "affinity",
+        "shortDesc": "shortdesc",
+        "industry": "industry",
+        "type": "game",
+        "createTime": "2021-04-29 19:56:44",
+        "deployMode": "container"
+    }],
+    "limit": 10,
+    "offset": 0,
+    "total": 1
+}
+```

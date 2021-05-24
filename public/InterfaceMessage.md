@@ -3,41 +3,13 @@
 ### /mec/appstore/v2/messages
 ###  POST
 添加消息
+### 请求
 #### 请求参数
 |参数 |位置 | 是否必选 | 类型 |说明|
 |-----|-----|----|------|-----|
 |dto | path |Y| Object | MessageReqDto |
 
-#### 样例数据
-##### 请求数据
-    {
-    	"BasicMessageInfo": {
-    		"name": "string",
-    		"provider": "string",
-    		"version": "string",
-    		"affinity": "string",
-    		"shortDesc": "string",
-    		"industry": "string",
-    		"type": "string"
-    	},
-    	"sourceAppStore": "string",
-    	"targetAppStore": "string",
-    	"atpTestStatus": "string",
-    	"atpTestTaskId": "string",
-    	"atpTestReportUrl": "string",
-    	"packageDownloadUrl": "string",
-    	"iconDownloadUrl": "string"
-    }
-##### 响应数据
-    {
-    	"data": "string",
-    	"retCode": int,
-    	"params": [string],
-    	"message": "string"
-    }
-
-
-#### 请求参数 MessageReqDto
+##### MessageReqDto
 |参数 |位置 | 是否必选 | 类型 |说明|
 |-----|-----|----|------|-----|
 |BasicMessageInfo | path |Y| Object | 基本信息 |
@@ -49,7 +21,7 @@
 |packageDownloadUrl | path |Y| String | 应用包下载路径 |
 |iconDownloadUrl | path |Y| String | 图标下载路径 |
 
-#### 请求参数 BasicMessageInfo
+##### BasicMessageInfo
 |参数 |位置 | 是否必选 | 类型 |说明|
 |-----|-----|----|------|-----|
 |name | path |Y| String | 属性 |
@@ -60,9 +32,41 @@
 |industry | path |Y| String | 行业 |
 |type | path |Y| String | 类型 |
 
+#### 请求示例
+```
+{
+    "BasicMessageInfo": {
+        "name": "string",
+        "provider": "string",
+        "version": "string",
+        "affinity": "string",
+        "shortDesc": "string",
+        "industry": "string",
+        "type": "string"
+    },
+    "sourceAppStore": "string",
+    "targetAppStore": "string",
+    "atpTestStatus": "string",
+    "atpTestTaskId": "string",
+    "atpTestReportUrl": "string",
+    "packageDownloadUrl": "string",
+    "iconDownloadUrl": "string"
+}
+```
 
-#### 返回数据
+### 响应
+#### 响应参数
 |返回码  |描述|
 |-----|-----|
 |200 | Success |
 |500 | Resource grant error |
+
+#### 响应示例
+```
+{
+    "data": "string",
+    "retCode": int,
+    "params": [string],
+    "message": "string"
+}
+```

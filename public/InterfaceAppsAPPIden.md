@@ -3,47 +3,22 @@
 ### /mec/appstore/v2/apps/{appId}
 ###  GET
 get app detail
+### Request
 #### Request parameters
 
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
 |appId | path |N| String | App id |
 
-#### Sample data
-##### Request data
-    {
-	    "appId": "string"
-    }
-##### Response date
-    {
-    	"data": {
-    		"appId": "String",
-    		"name": "String",
-    		"provider": "String",
-    		"iconUrl": "string",
-    		"version": "string",
-    		"affinity": "string",
-    		"shortDesc": "String",
-    		"industry": "String",
-    		"type": null,
-    		"showType": 0,
-    		"score": int,
-    		"details": null,
-    		"affinity": "affinity",
-    		"shortDesc": "shortdesc",
-    		"downloadCount": int "contact": "string",
-    		"createTime": "2021-04-29 19:56:44",
-    		"deployMode": "container",
-    		"userId": "string",
-    		"userName": "string",
-    		"status": "string"
-    	},
-    	"retCode": int,
-    	"params": string[],
-    	"message": "string"
-    }
+#### Example request
+```
+{
+    "appId": "string"
+}
+```
 
-#### Return data
+### Response
+#### Response parameters
 |Return Code  |Description|
 |-----|-----|
 |200 | Success |
@@ -72,3 +47,34 @@ get app detail
 |userName | userName |
 |status | status |
 |deployMode | workloadType |
+
+#### Example response
+```
+{
+    "data": {
+        "appId": "String",
+        "name": "String",
+        "provider": "String",
+        "iconUrl": "string",
+        "version": "string",
+        "affinity": "string",
+        "shortDesc": "String",
+        "industry": "String",
+        "type": null,
+        "showType": 0,
+        "score": int,
+        "details": null,
+        "affinity": "affinity",
+        "shortDesc": "shortdesc",
+        "downloadCount": int "contact": "string",
+        "createTime": "2021-04-29 19:56:44",
+        "deployMode": "container",
+        "userId": "string",
+        "userName": "string",
+        "status": "string"
+    },
+    "retCode": int,
+    "params": string[],
+    "message": "string"
+}
+```

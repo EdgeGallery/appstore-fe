@@ -30,7 +30,7 @@
         >
           <el-submenu index="2">
             <template slot="title">
-              {{ $t('nav.appQuery21') }}
+              {{ $t('nav.appQuery2') }}
             </template>
             <el-menu-item index="2">
               {{ $t('nav.appQuery21') }}
