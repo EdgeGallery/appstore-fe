@@ -1,6 +1,6 @@
 ## Interface list
 
-### /apps/{appId}/icon
+### /mec/appstore/v1/apps/{appId}/icon
 ### GET
 Download the app icon based on the app ID
 #### Request parameters
@@ -10,16 +10,13 @@ Download the app icon based on the app ID
 
 #### Sample data
 ##### Request date
-    {"packageId": "String"}
-    
-##### Response date
     {
-    "data": "string",
-	"resCode": int,
-	"params": [string],
-	"errMsg": "string",
-	"messge": "string"
+    	"packageId": "String"
     }
+##### Response Data
+    200 OK
+    binary output
+
 
 #### Return data
 |Return Code |Description|

@@ -1,6 +1,6 @@
 ## Interface list
 
-### /mec/appstore/v1/messages
+### /mec/appstore/v2/messages
 ### POST
 Add message
 #### Request parameters
@@ -11,30 +11,29 @@ Add message
 #### Sample data
 ##### Request date
     {
-	"basicInfo": {
-		"name": "string",
-		"provider": "string",
-		"version": "string",
-		"affinity": "string",
-		"shortDesc": "string",
-		"industry": "string",
-		"type": "string"
-	},
-	"sourceAppStore": "string",
-	"targetAppStore": "string",
-	"atpTestStatus": "string",
-	"atpTestTaskId": "string",
-	"atpTestReportUrl": "string",
-	"packageDownloadUrl": "string",
-	"iconDownloadUrl": "string"
-}
+    	"BasicMessageInfo": {
+    		"name": "string",
+    		"provider": "string",
+    		"version": "string",
+    		"affinity": "string",
+    		"shortDesc": "string",
+    		"industry": "string",
+    		"type": "string"
+    	},
+    	"sourceAppStore": "string",
+    	"targetAppStore": "string",
+    	"atpTestStatus": "string",
+    	"atpTestTaskId": "string",
+    	"atpTestReportUrl": "string",
+    	"packageDownloadUrl": "string",
+    	"iconDownloadUrl": "string"
+    }
 ##### Response date
     {
-    "data": "string",
-	"resCode": int,
-	"params": [string],
-	"errMsg": "string",
-	"messge": "string"
+    	"data": "string",
+    	"retCode": int,
+    	"params": [string],
+    	"messge": "string"
     }
 
 

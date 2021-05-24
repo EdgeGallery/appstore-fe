@@ -1,58 +1,54 @@
 ## Interface list
 
-### /{packageId}/action/pull
+### /mec/appstore/v2/packages/{packageId}/pullable
 ### GET
 Get a list of all available applications in this warehouse
 #### Request parameters
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
-|name | path |N| String | App name |
-|provider | path |N| String | app provider |
-|type | path |N| String | app type |
-|affinity | path |N| String | app affinity |
-|userId | path |N| String | userId|
+|appName | path |N| String | app name |
+|limit | path |Y| int | data limit |
+|offset | path |Y| int | data offset |
+|sortType | path |Y| String | app sortType |
+|sortItem | path |Y| String | app sortItem|
 
 #### Sample data
+
 ##### Request data
     {
-    "limit": 10,
-    "offset": 0,
-    "appName": "String",
-    "sortType": "desc",
-    "sortItem": "createTime"
+    	"limit": 10,
+    	"offset": 0,
+    	"appName": "String",
+    	"sortType": "desc",
+    	"sortItem": "createTime"
     }
-##### Response date
-        {
-        "data": {
-        	"results": [{
-        		"appId": "String",
-        		"packageId": "String",
-        		"name": "String",
-        		"provider": "PROVIDER",
-        		"version": "version",
-        		"atpTestStatus": "success",
-        		"atpTestTaskId": "String",
-        		"atpTestReportUrl": "String",
-        		"latestPushTime": null,
-        		"pushTimes": 0,
-        		"sourcePlatform": null,
-        		"targetPlatform": null,
-        		"affinity": "affinity",
-        		"shortDesc": "shortdesc",
-        		"industry": "industry",
-        		"type": "game",
-        		"createTime": "2021-04-29 19:56:44",
-        		"deployMode": "container"
-        	}],
-        	"limit": 10,
-        	"offset": 0,
-        	"total": 1
-        },
-    	"resCode": int,
-    	"params": string[],
-    	"errMsg": "string",
-    	"messge": "string"
-        }
+
+##### Response data
+{
+	"results": [{
+		"appId": "String",
+		"packageId": "String",
+		"name": "String",
+		"provider": "PROVIDER",
+		"version": "version",
+		"atpTestStatus": "success",
+		"atpTestTaskId": "String",
+		"atpTestReportUrl": "String",
+		"latestPushTime": null,
+		"pushTimes": 0,
+		"sourcePlatform": null,
+		"targetPlatform": null,
+		"affinity": "affinity",
+		"shortDesc": "shortdesc",
+		"industry": "industry",
+		"type": "game",
+		"createTime": "2021-04-29 19:56:44",
+		"deployMode": "container"
+	}],
+	"limit": 10,
+	"offset": 0,
+	"total": 1
+}
 
 #### Return data
 |Return Code |Description|
@@ -82,3 +78,7 @@ Get a list of all available applications in this warehouse
 |industry | Industry |
 |type | Application Type |
 |createTime | Creation time |
+|resCode | response code |
+|params | response parameter |
+|errMsg | response error message |
+|messge | response message |

@@ -950,8 +950,6 @@ export default {
     }
   },
   mounted () {
-    // this.showChangeErrorMessage()
-
     let language = localStorage.getItem('language')
     this.changeCnEn(language)
     this.showErr = this.logoFileList

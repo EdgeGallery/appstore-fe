@@ -1,6 +1,6 @@
 ## 接口清单
 
-### /mec/appstore/v1/messages
+### /mec/appstore/v2/messages
 ###  POST
 添加消息
 #### 请求参数
@@ -11,30 +11,29 @@
 #### 样例数据
 ##### 请求数据
     {
-	"BasicMessageInfo": {
-		"name": "string",
-		"provider": "string",
-		"version": "string",
-		"affinity": "string",
-		"shortDesc": "string",
-		"industry": "string",
-		"type": "string"
-	},
-	"sourceAppStore": "string",
-	"targetAppStore": "string",
-	"atpTestStatus": "string",
-	"atpTestTaskId": "string",
-	"atpTestReportUrl": "string",
-	"packageDownloadUrl": "string",
-	"iconDownloadUrl": "string"
-}
+    	"BasicMessageInfo": {
+    		"name": "string",
+    		"provider": "string",
+    		"version": "string",
+    		"affinity": "string",
+    		"shortDesc": "string",
+    		"industry": "string",
+    		"type": "string"
+    	},
+    	"sourceAppStore": "string",
+    	"targetAppStore": "string",
+    	"atpTestStatus": "string",
+    	"atpTestTaskId": "string",
+    	"atpTestReportUrl": "string",
+    	"packageDownloadUrl": "string",
+    	"iconDownloadUrl": "string"
+    }
 ##### 响应数据
     {
-    "data": "string",
-	"resCode": int,
-	"params": [string],
-	"errMsg": "string",
-	"messge": "string"
+    	"data": "string",
+    	"retCode": int,
+    	"params": [string],
+    	"message": "string"
     }
 
 
