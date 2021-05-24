@@ -39,6 +39,20 @@ Download application package by application ID and application package ID
 |appId | path |Y| String | app id |
 |packageId | path |Y| String | package Id |
 
+#### Sample data
+##### Request date
+    {"packageId": "String"}
+    
+##### Response date
+    {
+    "data": "string",
+	"resCode": int,
+	"params": [string],
+	"errMsg": "string",
+	"messge": "string"
+    }
+
+
 #### Return data
 |Return Code |Description|
 |-----|-----|

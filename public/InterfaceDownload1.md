@@ -10,6 +10,20 @@
 |appId | path |Y| String | app id |
 |packageId | path |Y| String | package Id |
 
+#### 样例数据
+##### 请求数据
+    {"packageId": "String"}
+##### 响应数据
+    {
+    "data": "string",
+	"resCode": int,
+	"params": [string],
+	"errMsg": "string",
+	"messge": "string"
+    }
+
+
+
 #### 返回数据
 |返回码  |描述|
 |-----|-----|
