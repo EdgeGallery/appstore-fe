@@ -1,70 +1,48 @@
 ## 接口清单
 
-### /mec/appstore/v1/apps
+### /mec/appstore/v2/apps/{appId}
 ###  GET
-获取本仓库所有可拉取的应用列表
+获取应用详情
 #### 请求参数
 |参数 |位置 | 是否必选 | 类型 |说明|
 |-----|-----|----|------|-----|
-|appName | path |N| String | App name |
-|limit | path |Y| String | app limit |
-|offset | path |Y| String | app offset |
-|sortType | path |Y| String | app sortType |
-|sortItem | path |N| String | app sortItem|
-|type | path |N| String | app type|
-|affinity | path |N| String | affinity|
-|industry | path |N| String | industry|
-|createTime | path |N| String | createTime|
-|downloadCount | path |N| String | downloadCount|
-|score | path |N| String | score|
+|appId | path |N| String | App id |
 
 #### 样例数据
 ##### 请求数据
     {
-    "limit": 10,
-    "offset": 0,
-    "appName": "String",
-    "sortType": "desc",
-    "type": "string",
-	"affinity": "string",
-	"sortItem": "string",
-	"industry": "industry",
-	"createTime": "string",
-	"downloadCount": "string",
-	"score": "string"
+	    "appId": "string"
     }
+
 ##### 响应数据
-        {
-        "data": {
-        	"results": [{
-        		"appId": "String",
-        		"packageId": "String",
-        		"name": "String",
-        		"provider": "PROVIDER",
-        		"version": "version",
-        		"atpTestStatus": "success",
-        		"atpTestTaskId": "String",
-        		"atpTestReportUrl": "String",
-        		"latestPushTime": null,
-        		"pushTimes": 0,
-        		"sourcePlatform": null,
-        		"targetPlatform": null,
-        		"affinity": "affinity",
-        		"shortDesc": "shortdesc",
-        		"industry": "industry",
-        		"type": "game",
-        		"createTime": "2021-04-29 19:56:44",
-        		"deployMode": "container"
-        	}],
-        	"limit": 10,
-        	"offset": 0,
-        	"total": 1
-        },
+    {
+    	"data": {
+    		"appId": "String",
+    		"name": "String",
+    		"provider": "String",
+    		"iconUrl": "string",
+    		"version": "string",
+    		"affinity": "string",
+    		"shortDesc": "String",
+    		"industry": "String",
+    		"type": null,
+    		"showType": 0,
+    		"score": int,
+    		"details": null,
+    		"affinity": "affinity",
+    		"shortDesc": "shortdesc",
+    		"downloadCount": int "contact": "string",
+    		"createTime": "2021-04-29 19:56:44",
+    		"deployMode": "container",
+    		"userId": "string",
+    		"userName": "string",
+    		"status": "string"
+    	},
     	"resCode": int,
     	"params": string[],
     	"errMsg": "string",
     	"messge": "string"
-        }
+    }
 
 #### 返回数据
 |返回码  |描述|

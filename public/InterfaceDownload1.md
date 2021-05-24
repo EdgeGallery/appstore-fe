@@ -1,7 +1,7 @@
 ## 接口清单
 
 
-### /apps/{appId}/packages/{packageId}/action/download
+### /mec/appstore/v1/apps/{appId}/packages/{packageId}/action/download
 ###  GET
 通过应用ID和应用包ID下载应用包
 #### 请求参数
@@ -12,14 +12,13 @@
 
 #### 样例数据
 ##### 请求数据
-    {"packageId": "String"}
+    {
+    	"packageId": "String"
+    }
 ##### 响应数据
     {
-    "data": "string",
-	"resCode": int,
-	"params": [string],
-	"errMsg": "string",
-	"messge": "string"
+    	"code": int,
+    	"status": "string"
     }
 
 

@@ -21,53 +21,53 @@
 #### 样例数据
 ##### 请求数据
     {
-    "limit": 10,
-    "offset": 0,
-    "appName": "String",
-    "sortType": "desc",
-    "type": "string",
-	"affinity": "string",
-	"sortItem": "string",
-	"industry": "industry",
-	"createTime": "string",
-	"downloadCount": "string",
-	"score": "string"
+    	"limit": 10,
+    	"offset": 0,
+    	"appName": "String",
+    	"sortType": "desc",
+    	"type": "string",
+    	"affinity": "string",
+    	"sortItem": "string",
+    	"industry": "industry",
+    	"createTime": "string",
+    	"downloadCount": "string",
+    	"score": "string"
     }
+
 ##### 响应数据
-        {
-        "data": {
-        	"results": [ {
-        		"appId": "String",
-        		"name": "String",
-        		"provider": "String",
-        		"iconUrl": "string",
-        		"version": "string",
-        		"affinity": "string",
-        		"shortDesc": "String",
-        		"industry": "String",
-        		"type": null,
-        		"showType": 0,
-        		"score": int,
-        		"details": null,
-        		"affinity": "affinity",
-        		"shortDesc": "shortdesc",
-        		"downloadCount": int
-        		"contact": "string",
-        		"createTime": "2021-04-29 19:56:44",
-        		"deployMode": "container",
-						"userId":"string",
-						"userName":"string",
-						"status":"string"
-        	}],
-        	"limit": 10,
-        	"offset": 0,
-        	"total": 1
-        },
+    {
+    	"data": {
+    		"results": [{
+    			"appId": "String",
+    			"name": "String",
+    			"provider": "String",
+    			"iconUrl": "string",
+    			"version": "string",
+    			"affinity": "string",
+    			"shortDesc": "String",
+    			"industry": "String",
+    			"type": null,
+    			"showType": 0,
+    			"score": int,
+    			"details": null,
+    			"affinity": "affinity",
+    			"shortDesc": "shortdesc",
+    			"downloadCount": int "contact": "string",
+    			"createTime": "2021-04-29 19:56:44",
+    			"deployMode": "container",
+    			"userId": "string",
+    			"userName": "string",
+    			"status": "string"
+    		}],
+    		"limit": 10,
+    		"offset": 0,
+    		"total": 1
+    	},
     	"resCode": int,
     	"params": string[],
     	"errMsg": "string",
     	"messge": "string"
-        }
+    }
 
 
 #### 返回数据

@@ -30,9 +30,9 @@
         >
           <el-submenu index="2">
             <template slot="title">
-              {{ $t('nav.appQuery2') }}
+              {{ $t('nav.appQuery21') }}
             </template>
-            <el-menu-item index="2-1">
+            <el-menu-item index="2">
               {{ $t('nav.appQuery21') }}
             </el-menu-item>
             <el-menu-item index="2-2">
@@ -142,7 +142,7 @@ export default {
         case '1':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appMessage1'), path: '' }]
           break
-        case '2-1':
+        case '2':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery21'), path: '' }]
           break
         case '2-2':

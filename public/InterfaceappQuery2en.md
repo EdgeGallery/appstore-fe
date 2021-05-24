@@ -13,14 +13,16 @@ Get a list of all available applications in this warehouse
 |sortItem | path |Y| String | app sortItem|
 
 #### Sample data
+
 ##### Request data
     {
-    "limit": 10,
-    "offset": 0,
-    "appName": "String",
-    "sortType": "desc",
-    "sortItem": "createTime"
+    	"limit": 10,
+    	"offset": 0,
+    	"appName": "String",
+    	"sortType": "desc",
+    	"sortItem": "createTime"
     }
+
 ##### Response date
         {
         "data": {

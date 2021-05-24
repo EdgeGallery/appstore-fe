@@ -1,6 +1,6 @@
 ## Interface list
 
-### /mec/appstore/v1/apps/{appId}
+### /mec/appstore/v2/apps/{appId}
 ###  GET
 get app detail
 #### Request parameters
@@ -12,39 +12,37 @@ get app detail
 #### Sample data
 ##### Request data
     {
-	"appId": "string"
+	    "appId": "string"
     }
 ##### Response date
-        {
-        "data": {
-        		"appId": "String",
-        		"name": "String",
-        		"provider": "String",
-        		"iconUrl": "string",
-        		"version": "string",
-        		"affinity": "string",
-        		"shortDesc": "String",
-        		"industry": "String",
-        		"type": null,
-        		"showType": 0,
-        		"score": int,
-        		"details": null,
-        		"affinity": "affinity",
-        		"shortDesc": "shortdesc",
-        		"downloadCount": int
-        		"contact": "string",
-        		"createTime": "2021-04-29 19:56:44",
-        		"deployMode": "container",
-				"userId":"string",
-				"userName":"string",
-				"status":"string"
-        	},
-        },
+    {
+    	"data": {
+    		"appId": "String",
+    		"name": "String",
+    		"provider": "String",
+    		"iconUrl": "string",
+    		"version": "string",
+    		"affinity": "string",
+    		"shortDesc": "String",
+    		"industry": "String",
+    		"type": null,
+    		"showType": 0,
+    		"score": int,
+    		"details": null,
+    		"affinity": "affinity",
+    		"shortDesc": "shortdesc",
+    		"downloadCount": int "contact": "string",
+    		"createTime": "2021-04-29 19:56:44",
+    		"deployMode": "container",
+    		"userId": "string",
+    		"userName": "string",
+    		"status": "string"
+    	},
     	"resCode": int,
     	"params": string[],
     	"errMsg": "string",
     	"messge": "string"
-        }
+    }
 
 #### Return data
 |Return Code  |Description|

@@ -182,7 +182,7 @@ function getInterface (language, activeName) {
       case '1':
         url = './InterfaceMessage.md'
         break
-      case '2-1':
+      case '2':
         url = './InterfaceappQueryApps.md'
         break
       case '2-2':
@@ -210,7 +210,7 @@ function getInterface (language, activeName) {
       case '1':
         url = './InterfaceMessageen.md'
         break
-      case '2-1':
+      case '2':
         url = './InterfaceappQueryAppsen.md'
         break
       case '2-2':

@@ -1,6 +1,6 @@
 ## Interface list
 
-### /mec/appstore/v1/apps/{appId}/packages/{packageId}
+### /mec/appstore/v2/apps/{appId}/packages/{packageId}
 ###  GET
 Get the application package list by application ID.
 #### Request parameters
@@ -16,16 +16,15 @@ Get the application package list by application ID.
     "userId": "string"
     }
 ##### Response date
-        {
-        "data": {
-        	"results": [{
+    {
+    	"data": {
     		"packageId": "string",
-   			 "userName": "string",
+    		"userName": "string",
     		"status": "string",
     		"shortDesc": "string",
     		"provider": "string",
     		"testTaskId": "string",
-   	 		"size": "string",
+    		"size": "string",
     		"demoVideoName": "string",
     		"createTime": "string",
     		"name": "string",
@@ -37,9 +36,13 @@ Get the application package list by application ID.
     		"contact": "string",
     		"appId": "string",
     		"userId": "string",
-			"deployMode":"string"
-  				},
-        }
+    		"deployMode": "string"
+    	}
+    	"resCode": int,
+    	"params": string[],
+    	"errMsg": "string",
+    	"messge": "string"
+    }
 
 #### Return data
 |Return Code  |Description|

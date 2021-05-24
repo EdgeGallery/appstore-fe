@@ -14,45 +14,45 @@
 
 #### 样例数据
 ##### 请求数据
-    {
-    "limit": 10,
-    "offset": 0,
-    "appId": "string",
-    "userId": "string"
-    }
+{
+	"limit": 10,
+	"offset": 0,
+	"appId": "string",
+	"userId": "string"
+}
 ##### 响应数据
-        {
-        "data": {
-        	"results": [{
-    		"packageId": "string",
-   			 "userName": "string",
-    		"status": "string",
-    		"shortDesc": "string",
-    		"provider": "string",
-    		"testTaskId": "string",
-   	 		"size": "string",
-    		"demoVideoName": "string",
-    		"createTime": "string",
-    		"name": "string",
-    		"version": "string",
-    		"type": "string",
-    		"details": "string",
-    		"affinity": "string",
-    		"industry": "string",
-    		"contact": "string",
-    		"appId": "string",
-    		"userId": "string",
-			"deployMode":"string"
-  }],
-        	"limit": 10,
-        	"offset": 0,
-        	"total": 1
-        },
+    {
+    	"data": {
+    		"results": [{
+    			"packageId": "string",
+    			"userName": "string",
+    			"status": "string",
+    			"shortDesc": "string",
+    			"provider": "string",
+    			"testTaskId": "string",
+    			"size": "string",
+    			"demoVideoName": "string",
+    			"createTime": "string",
+    			"name": "string",
+    			"version": "string",
+    			"type": "string",
+    			"details": "string",
+    			"affinity": "string",
+    			"industry": "string",
+    			"contact": "string",
+    			"appId": "string",
+    			"userId": "string",
+    			"deployMode": "string"
+    		}],
+    		"limit": 10,
+    		"offset": 0,
+    		"total": 1
+    	},
     	"resCode": int,
     	"params": string[],
     	"errMsg": "string",
     	"messge": "string"
-        }
+    }
 
 #### 返回数据
 |返回码  |描述|

@@ -1,6 +1,6 @@
 ## 接口清单
 
-### /apps/{appId}/icon
+### /mec/appstore/v1/apps/{appId}/icon
 ###  GET
 根据应用ID下载应用图标
 #### 请求参数
@@ -11,14 +11,13 @@
 
 #### 样例数据
 ##### 请求数据
-    {"packageId": "String"}
+    {
+    	"packageId": "String"
+    }
 ##### 响应数据
     {
-    "data": "string",
-	"resCode": int,
-	"params": [string],
-	"errMsg": "string",
-	"messge": "string"
+    	"code": int,
+    	"status": "string"
     }
 
 

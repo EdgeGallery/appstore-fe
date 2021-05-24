@@ -1,6 +1,6 @@
 ## 接口清单
 
-### /mec/appstore/v1/apps/{appId}/packages/{packageId}
+### /mec/appstore/v2/apps/{appId}/packages/{packageId}
 ###  GET
 通过应用ID和应用包ID获取应用包。。
 #### 请求参数
@@ -11,20 +11,20 @@
 
 #### 样例数据
 ##### 请求数据
-    {
-    "appId": "string",
-    "packageId": "string"
-    }
+{
+	"appId": "string",
+	"packageId": "string"
+}
 ##### 响应数据
-        {
-        "data": {
+    {
+    	"data": {
     		"packageId": "string",
-   			 "userName": "string",
+    		"userName": "string",
     		"status": "string",
     		"shortDesc": "string",
     		"provider": "string",
     		"testTaskId": "string",
-   	 		"size": "string",
+    		"size": "string",
     		"demoVideoName": "string",
     		"createTime": "string",
     		"name": "string",
@@ -36,9 +36,13 @@
     		"contact": "string",
     		"appId": "string",
     		"userId": "string",
-			"deployMode":"string"
-       			 }
-        }
+    		"deployMode": "string"
+    	}
+    	"resCode": int,
+    	"params": string[],
+    	"errMsg": "string",
+    	"messge": "string"
+    }
 
 #### 返回数据
 |返回码  |描述|
