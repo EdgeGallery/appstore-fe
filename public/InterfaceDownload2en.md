@@ -13,10 +13,10 @@ Download the app icon based on the app ID
     {
     	"packageId": "String"
     }
-##### Response date
-    {
-    	"data": Blob
-    }
+##### Response Data
+    200 OK
+    binary output
+
 
 #### Return data
 |Return Code |Description|

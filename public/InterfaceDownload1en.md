@@ -14,10 +14,10 @@ Download application package by application ID and application package ID
     {
     	"packageId": "String"
     }
-##### Response date
-    {
-    	"data": Blob
-    }
+##### Response Data
+    200 OK
+    binary output
+
 
 
 #### Return data

@@ -15,9 +15,9 @@
     	"packageId": "String"
     }
 ##### 响应数据
-    {
-    	"data": Blob
-    }
+    200 OK
+    binary output
+
 
 
 #### 返回数据
