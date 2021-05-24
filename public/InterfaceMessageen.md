@@ -30,11 +30,36 @@ Add message
     }
 ##### Response date
     {
-    	"data": "string",
-    	"resCode": int,
+    	"data": {
+    		"results": [{
+    			"messageId": "string",
+    			"basicInfo": {
+    				"name": "test_zhang",
+    				"provider": "Huawei",
+    				"version": "1.0",
+    				"affinity": "X86",
+    				"shortDesc": "tttest",
+    				"industry": "Smart Park",
+    				"type": "Video Application"
+    			},
+    			"messageType": "NOTICE",
+    			"sourceAppStore": "EdgeGallery AppStore",
+    			"targetAppStore": "string",
+    			"time": "2021-04-19 16:39:43",
+    			"description": "string.",
+    			"atpTestStatus": "success",
+    			"atpTestTaskId": "string",
+    			"atpTestReportUrl": "string",
+    			"iconDownloadUrl": "string",
+    			"readed": true
+    		}],
+    		"limit": 100,
+    		"offset": 0,
+    		"total": 1
+    	},
+    	"retCode": int,
     	"params": [string],
-    	"errMsg": "string",
-    	"messge": "string"
+    	"message": "string"
     }
 
 

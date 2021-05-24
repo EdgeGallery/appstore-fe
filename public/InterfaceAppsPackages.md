@@ -22,32 +22,30 @@
 }
 ##### 响应数据
     {
-    	"data": {
-    		"results": [{
-    			"packageId": "string",
-    			"userName": "string",
-    			"status": "string",
-    			"shortDesc": "string",
-    			"provider": "string",
-    			"testTaskId": "string",
-    			"size": "string",
-    			"demoVideoName": "string",
-    			"createTime": "string",
-    			"name": "string",
-    			"version": "string",
-    			"type": "string",
-    			"details": "string",
-    			"affinity": "string",
-    			"industry": "string",
-    			"contact": "string",
-    			"appId": "string",
-    			"userId": "string",
-    			"deployMode": "string"
-    		}],
-    		"limit": 10,
-    		"offset": 0,
-    		"total": 1
-    	}
+    	"results": [{
+    		"packageId": "string",
+    		"userName": "string",
+    		"status": "string",
+    		"shortDesc": "string",
+    		"provider": "string",
+    		"testTaskId": "string",
+    		"size": "string",
+    		"demoVideoName": "string",
+    		"createTime": "string",
+    		"name": "string",
+    		"version": "string",
+    		"type": "string",
+    		"details": "string",
+    		"affinity": "string",
+    		"industry": "string",
+    		"contact": "string",
+    		"appId": "string",
+    		"userId": "string",
+    		"deployMode": "string"
+    	}],
+    	"limit": 10,
+    	"offset": 0,
+    	"total": 1
     }
 
 #### 返回数据

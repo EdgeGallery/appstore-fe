@@ -38,10 +38,9 @@
     		"userName": "string",
     		"status": "string"
     	},
-    	"resCode": int,
+    	"retCode": int,
     	"params": string[],
-    	"errMsg": "string",
-    	"messge": "string"
+    	"message": "string"
     }
 
 #### 返回数据

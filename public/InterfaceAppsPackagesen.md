@@ -20,34 +20,32 @@ Get the application package list by application ID.
 	"appId": "string",
 	"userId": "string"
 }
-##### Response date
+##### Response data
     {
-    	"data": {
-    		"results": [{
-    			"packageId": "string",
-    			"userName": "string",
-    			"status": "string",
-    			"shortDesc": "string",
-    			"provider": "string",
-    			"testTaskId": "string",
-    			"size": "string",
-    			"demoVideoName": "string",
-    			"createTime": "string",
-    			"name": "string",
-    			"version": "string",
-    			"type": "string",
-    			"details": "string",
-    			"affinity": "string",
-    			"industry": "string",
-    			"contact": "string",
-    			"appId": "string",
-    			"userId": "string",
-    			"deployMode": "string"
-    		}],
-    		"limit": 10,
-    		"offset": 0,
-    		"total": 1
-    	}
+    	"results": [{
+    		"packageId": "string",
+    		"userName": "string",
+    		"status": "string",
+    		"shortDesc": "string",
+    		"provider": "string",
+    		"testTaskId": "string",
+    		"size": "string",
+    		"demoVideoName": "string",
+    		"createTime": "string",
+    		"name": "string",
+    		"version": "string",
+    		"type": "string",
+    		"details": "string",
+    		"affinity": "string",
+    		"industry": "string",
+    		"contact": "string",
+    		"appId": "string",
+    		"userId": "string",
+    		"deployMode": "string"
+    	}],
+    	"limit": 10,
+    	"offset": 0,
+    	"total": 1
     }
 
 #### Return data

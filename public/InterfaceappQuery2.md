@@ -22,33 +22,31 @@
     	"sortItem": "createTime"
     }
 ##### 响应数据
-    {
-    	"data": {
-    		"results": [{
-    			"appId": "String",
-    			"packageId": "String",
-    			"name": "String",
-    			"provider": "PROVIDER",
-    			"version": "version",
-    			"atpTestStatus": "success",
-    			"atpTestTaskId": "String",
-    			"atpTestReportUrl": "String",
-    			"latestPushTime": null,
-    			"pushTimes": 0,
-    			"sourcePlatform": null,
-    			"targetPlatform": null,
-    			"affinity": "affinity",
-    			"shortDesc": "shortdesc",
-    			"industry": "industry",
-    			"type": "game",
-    			"createTime": "2021-04-29 19:56:44",
-    			"deployMode": "container"
-    		}],
-    		"limit": 10,
-    		"offset": 0,
-    		"total": 1
-    	}
-    }
+{
+	"results": [{
+		"appId": "String",
+		"packageId": "String",
+		"name": "String",
+		"provider": "PROVIDER",
+		"version": "version",
+		"atpTestStatus": "success",
+		"atpTestTaskId": "String",
+		"atpTestReportUrl": "String",
+		"latestPushTime": null,
+		"pushTimes": 0,
+		"sourcePlatform": null,
+		"targetPlatform": null,
+		"affinity": "affinity",
+		"shortDesc": "shortdesc",
+		"industry": "industry",
+		"type": "game",
+		"createTime": "2021-04-29 19:56:44",
+		"deployMode": "container"
+	}],
+	"limit": 10,
+	"offset": 0,
+	"total": 1
+}
 
 #### 返回数据
 |返回码  |描述|

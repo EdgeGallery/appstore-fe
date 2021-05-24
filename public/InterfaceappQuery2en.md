@@ -23,34 +23,32 @@ Get a list of all available applications in this warehouse
     	"sortItem": "createTime"
     }
 
-##### Response date
-    {
-    	"data": {
-    		"results": [{
-    			"appId": "String",
-    			"packageId": "String",
-    			"name": "String",
-    			"provider": "PROVIDER",
-    			"version": "version",
-    			"atpTestStatus": "success",
-    			"atpTestTaskId": "String",
-    			"atpTestReportUrl": "String",
-    			"latestPushTime": null,
-    			"pushTimes": 0,
-    			"sourcePlatform": null,
-    			"targetPlatform": null,
-    			"affinity": "affinity",
-    			"shortDesc": "shortdesc",
-    			"industry": "industry",
-    			"type": "game",
-    			"createTime": "2021-04-29 19:56:44",
-    			"deployMode": "container"
-    		}],
-    		"limit": 10,
-    		"offset": 0,
-    		"total": 1
-    	}
-    }
+##### Response data
+{
+	"results": [{
+		"appId": "String",
+		"packageId": "String",
+		"name": "String",
+		"provider": "PROVIDER",
+		"version": "version",
+		"atpTestStatus": "success",
+		"atpTestTaskId": "String",
+		"atpTestReportUrl": "String",
+		"latestPushTime": null,
+		"pushTimes": 0,
+		"sourcePlatform": null,
+		"targetPlatform": null,
+		"affinity": "affinity",
+		"shortDesc": "shortdesc",
+		"industry": "industry",
+		"type": "game",
+		"createTime": "2021-04-29 19:56:44",
+		"deployMode": "container"
+	}],
+	"limit": 10,
+	"offset": 0,
+	"total": 1
+}
 
 #### Return data
 |Return Code |Description|

@@ -38,10 +38,9 @@ get app detail
     		"userName": "string",
     		"status": "string"
     	},
-    	"resCode": int,
+    	"retCode": int,
     	"params": string[],
-    	"errMsg": "string",
-    	"messge": "string"
+    	"message": "string"
     }
 
 #### Return data

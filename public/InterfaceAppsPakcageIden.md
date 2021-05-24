@@ -38,10 +38,9 @@ Get the application package list by application ID.
     		"userId": "string",
     		"deployMode": "string"
     	}
-    	"resCode": int,
+    	"retCode": int,
     	"params": string[],
-    	"errMsg": "string",
-    	"messge": "string"
+    	"message": "string"
     }
 
 #### Return data
