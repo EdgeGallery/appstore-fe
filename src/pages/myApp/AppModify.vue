@@ -395,7 +395,9 @@ export default {
       let fd = new FormData()
       fd.append('industry', this.appModifyInfo.industry)
       fd.append('type', this.appModifyInfo.type)
-      fd.append('icon', this.appModifyInfo.appIcon.length > 0 ? this.appModifyInfo.appIcon[0] : this.defaultIconFile)
+      if (this.isChangeAppType) {
+        fd.append('icon', this.appModifyInfo.appIcon.length > 0 ? this.appModifyInfo.appIcon[0] : this.defaultIconFile)
+      }
       fd.append('vedio', this.appModifyInfo.videoFile[0])
       fd.append('affinity', this.appModifyInfo.affinity)
       fd.append('shortDesc', this.appModifyInfo.shortDesc)
