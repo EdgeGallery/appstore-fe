@@ -51,7 +51,7 @@
           <el-select
             v-model="appModifyInfo.type"
             :placeholder="$t('common.type')"
-            @change="changeIcon"
+            @change="changeIcon($event, true)"
           >
             <el-option
               v-for="(item,index) in appTypes"
@@ -266,15 +266,12 @@ export default {
       appAffinitys: AFFINITY,
       appIndustrys: INDUSTRY,
       showErr: false,
-      isFirstShowModifyDlg: true
+      isChangeAppType: false
     }
   },
   methods: {
     getAppIcon (item) {
-      if (this.isFirstShowModifyDlg) {
-        setTimeout(() => {
-          this.isFirstShowModifyDlg = false
-        }, 500)
+      if (!this.isChangeAppType) {
         return URL_PREFIX + 'apps/' + this.appModifyInfo.appId + '/icon'
       } else {
         return item
@@ -466,7 +463,8 @@ export default {
         }
       })
     },
-    changeIcon (val) {
+    changeIcon (val, isChangeAppType) {
+      this.isChangeAppType = isChangeAppType
       this.appModifyInfo.base64Session = true
       this.defaultIconFile = []
       this.appModifyInfo.defaultActive = 0
@@ -560,8 +558,7 @@ export default {
   },
   mounted () {
     this.initModifyData(this.rowAppModifyInfo)
-    this.isFirstShowModifyDlg = true
-    this.changeIcon(this.rowAppModifyInfo.type)
+    this.changeIcon(this.rowAppModifyInfo.type, false)
   }
 }
 </script>
