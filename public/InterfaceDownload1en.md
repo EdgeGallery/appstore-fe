@@ -16,8 +16,7 @@ Download application package by application ID and application package ID
     }
 ##### Response date
     {
-    	"code": int,
-    	"status": "string"
+    	"data": Blob
     }
 
 

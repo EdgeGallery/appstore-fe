@@ -47,11 +47,7 @@
     		"limit": 10,
     		"offset": 0,
     		"total": 1
-    	},
-    	"resCode": int,
-    	"params": string[],
-    	"errMsg": "string",
-    	"messge": "string"
+    	}
     }
 
 #### 返回数据

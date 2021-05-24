@@ -16,8 +16,7 @@
     }
 ##### 响应数据
     {
-    	"code": int,
-    	"status": "string"
+    	"data": Blob
     }
 
 

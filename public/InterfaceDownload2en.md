@@ -15,8 +15,7 @@ Download the app icon based on the app ID
     }
 ##### Response date
     {
-    	"code": int,
-    	"status": "string"
+    	"data": Blob
     }
 
 #### Return data
