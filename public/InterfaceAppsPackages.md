@@ -3,6 +3,7 @@
 ### /mec/appstore/v2/apps/{appId}/packages
 ###  GET
 通过应用ID获取应用包列表。
+### 请求
 #### 请求参数
 |参数 |位置 | 是否必选 | 类型 |说明|
 |-----|-----|----|------|-----|
@@ -12,43 +13,18 @@
 |appId | path |N| String | appId|
 |request | path |N| String | 请求提|
 
-#### 样例数据
-##### 请求数据
+#### 请求示例
+```
 {
-	"limit": 10,
-	"offset": 0,
-	"appId": "string",
-	"userId": "string"
+    "limit": 10,
+    "offset": 0,
+    "appId": "string",
+    "userId": "string"
 }
-##### 响应数据
-    {
-    	"results": [{
-    		"packageId": "string",
-    		"userName": "string",
-    		"status": "string",
-    		"shortDesc": "string",
-    		"provider": "string",
-    		"testTaskId": "string",
-    		"size": "string",
-    		"demoVideoName": "string",
-    		"createTime": "string",
-    		"name": "string",
-    		"version": "string",
-    		"type": "string",
-    		"details": "string",
-    		"affinity": "string",
-    		"industry": "string",
-    		"contact": "string",
-    		"appId": "string",
-    		"userId": "string",
-    		"deployMode": "string"
-    	}],
-    	"limit": 10,
-    	"offset": 0,
-    	"total": 1
-    }
+```
 
-#### 返回数据
+### 响应
+#### 响应参数
 |返回码  |描述|
 |-----|-----|
 |200 | Success |
@@ -77,3 +53,33 @@
 |status | 状态 |
 |demoVideoName | 视频名称 |
 |deployMode | 负载类型 |
+
+#### 响应示例
+```
+{
+    "results": [{
+        "packageId": "string",
+        "userName": "string",
+        "status": "string",
+        "shortDesc": "string",
+        "provider": "string",
+        "testTaskId": "string",
+        "size": "string",
+        "demoVideoName": "string",
+        "createTime": "string",
+        "name": "string",
+        "version": "string",
+        "type": "string",
+        "details": "string",
+        "affinity": "string",
+        "industry": "string",
+        "contact": "string",
+        "appId": "string",
+        "userId": "string",
+        "deployMode": "string"
+    }],
+    "limit": 10,
+    "offset": 0,
+    "total": 1
+}
+```

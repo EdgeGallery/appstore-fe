@@ -3,47 +3,23 @@
 ### /mec/appstore/v2/apps/{appId}/packages/{packageId}
 ###  GET
 Get the application package list by application ID.
+### Request
 #### Request parameters
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
 |appId | path |N| String | appId|
 |packageId | path |N| String | packageId|
 
-#### Sample data
-##### Request data
-    {
+#### Example request
+```
+{
     "packageId": "string",
     "userId": "string"
-    }
-##### Response date
-    {
-    	"data": {
-    		"packageId": "string",
-    		"userName": "string",
-    		"status": "string",
-    		"shortDesc": "string",
-    		"provider": "string",
-    		"testTaskId": "string",
-    		"size": "string",
-    		"demoVideoName": "string",
-    		"createTime": "string",
-    		"name": "string",
-    		"version": "string",
-    		"type": "string",
-    		"details": "string",
-    		"affinity": "string",
-    		"industry": "string",
-    		"contact": "string",
-    		"appId": "string",
-    		"userId": "string",
-    		"deployMode": "string"
-    	}
-    	"retCode": int,
-    	"params": string[],
-    	"message": "string"
-    }
+}
+```
 
-#### Return data
+### Response
+#### Response parameters
 |Return Code  |Description|
 |-----|-----|
 |200 | Success |
@@ -72,3 +48,33 @@ Get the application package list by application ID.
 |status | status |
 |demoVideoName | demoVideoName |
 |deployMode | deployMode |
+
+#### Example response
+```
+{
+    "data": {
+        "packageId": "string",
+        "userName": "string",
+        "status": "string",
+        "shortDesc": "string",
+        "provider": "string",
+        "testTaskId": "string",
+        "size": "string",
+        "demoVideoName": "string",
+        "createTime": "string",
+        "name": "string",
+        "version": "string",
+        "type": "string",
+        "details": "string",
+        "affinity": "string",
+        "industry": "string",
+        "contact": "string",
+        "appId": "string",
+        "userId": "string",
+        "deployMode": "string"
+    }
+    "retCode": int,
+    "params": string[],
+    "message": "string"
+}
+```

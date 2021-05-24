@@ -3,47 +3,21 @@
 ### /mec/appstore/v2/apps/{appId}
 ###  GET
 获取应用详情
+### 请求
 #### 请求参数
 |参数 |位置 | 是否必选 | 类型 |说明|
 |-----|-----|----|------|-----|
 |appId | path |N| String | App id |
 
-#### 样例数据
-##### 请求数据
-    {
-	    "appId": "string"
-    }
+#### 请求示例
+```
+{
+    "appId": "string"
+}
+```
 
-##### 响应数据
-    {
-    	"data": {
-    		"appId": "String",
-    		"name": "String",
-    		"provider": "String",
-    		"iconUrl": "string",
-    		"version": "string",
-    		"affinity": "string",
-    		"shortDesc": "String",
-    		"industry": "String",
-    		"type": null,
-    		"showType": 0,
-    		"score": int,
-    		"details": null,
-    		"affinity": "affinity",
-    		"shortDesc": "shortdesc",
-    		"downloadCount": int "contact": "string",
-    		"createTime": "2021-04-29 19:56:44",
-    		"deployMode": "container",
-    		"userId": "string",
-    		"userName": "string",
-    		"status": "string"
-    	},
-    	"retCode": int,
-    	"params": string[],
-    	"message": "string"
-    }
-
-#### 返回数据
+### 响应
+#### 响应参数
 |返回码  |描述|
 |-----|-----|
 |200 | Success |
@@ -72,3 +46,34 @@
 |userName | 用户名 |
 |status | 状态 |
 |deployMode | 负载类型 |
+
+#### 响应示例
+```
+{
+    "data": {
+        "appId": "String",
+        "name": "String",
+        "provider": "String",
+        "iconUrl": "string",
+        "version": "string",
+        "affinity": "string",
+        "shortDesc": "String",
+        "industry": "String",
+        "type": null,
+        "showType": 0,
+        "score": int,
+        "details": null,
+        "affinity": "affinity",
+        "shortDesc": "shortdesc",
+        "downloadCount": int "contact": "string",
+        "createTime": "2021-04-29 19:56:44",
+        "deployMode": "container",
+        "userId": "string",
+        "userName": "string",
+        "status": "string"
+    },
+    "retCode": int,
+    "params": string[],
+    "message": "string"
+}
+```
