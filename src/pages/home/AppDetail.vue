@@ -222,6 +222,27 @@
         </el-tab-pane>
       </el-tabs>
     </div>
+    <el-dialog
+      :title="$t('store.ifDownloadImage')"
+      :visible.sync="isShowDownload"
+      width="700px"
+    >
+      {{ $t('store.downloadImageTip') }}
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button @click="cancelImage(currentData)">
+          {{ $t('store.noNeed') }}
+        </el-button>
+        <el-button
+          type="primary"
+          @click="confirmImage(currentData)"
+        >
+          {{ $t('store.need') }}
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -245,7 +266,10 @@ export default {
       details: '',
       appId: '',
       tableData: [],
-      currentData: {},
+      isDownloadImage: false,
+      isShowDownload: false,
+      currentData: {
+      },
       activeName: 'introduction',
       comments: {
         score: 0,
@@ -413,8 +437,26 @@ export default {
           (s > 9 ? s : '0' + s)
       }
     },
+    cancelImage (row) {
+      this.isDownloadImage = false
+      downloadAppPakageApi(this.appId, row, this.isDownloadImage)
+      this.isShowDownload = false
+      this.isDownloadImage = false
+    },
+    confirmImage (row) {
+      this.isDownloadImage = true
+      downloadAppPakageApi(this.appId, row, this.isDownloadImage)
+      this.isShowDownload = false
+      this.isDownloadImage = false
+    },
+    ifDownloadImage (currentData, row) {
+      if (this.currentData.deployMode === 'vm') {
+        this.isShowDownload = true
+      }
+    },
     download (row) {
-      downloadAppPakageApi(this.appId, row)
+      console.log(this.currentData)
+      this.ifDownloadImage(this.currentData, row)
       this.getAppData()
     },
     checkProjectData () {

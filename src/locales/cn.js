@@ -208,7 +208,7 @@ const cn = {
     uploadLogo: '上传图标',
     appPackage: '应用程序',
     dragPackage: '拖动应用程序包文件到这里或点击上传',
-    onlyCsar: '只能上传 .csar 文件.',
+    onlyCsar: '只能上传.csar;.zip文件.',
     packageSizeLimit: '文件大小不超过10M',
     appIcon: '应用图标',
     appVideo: '应用视频',
@@ -244,7 +244,11 @@ const cn = {
     downloadNum: '次下载',
     workloadType: '负载类型',
     deployContainer: '容器',
-    deployVM: '虚拟机'
+    deployVM: '虚拟机',
+    ifDownloadImage: '是否需要下载应用镜像',
+    downloadImageTip: '镜像文件较大，下载耗时较长，请耐心等待',
+    need: '需 要',
+    noNeed: '不 需 要'
   },
   docs: {
     // step1: '开源MEP平台',
@@ -383,7 +387,7 @@ const cn = {
     applicationName: '应用名称',
     appPackage: '应用包',
     uploadApp: '上传应用',
-    onlyCsar: '只能上传 .csar 文件.',
+    onlyCsar: '只能上传.csar;.zip文件.',
     packageSizeLimit: '文件大小不超过10M'
   },
   apppromotion: {

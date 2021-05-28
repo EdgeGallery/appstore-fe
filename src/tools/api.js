@@ -288,8 +288,8 @@ function getDocsApi (language, activeName) {
   return axios.get(url)
 }
 
-function downloadAppPakageApi (appId, row) {
-  let url = 'apps/' + appId + '/packages/' + row.packageId + '/action/download'
+function downloadAppPakageApi (appId, row, isDownloadImage) {
+  let url = 'apps/' + appId + '/packages/' + row.packageId + '/action/download?isDownloadImage=' + isDownloadImage
   let URL = URL_PREFIX + url
   window.open(URL)
 }
@@ -358,7 +358,7 @@ let myApp = {
   // 首页上传接口
   uploadAppPackageApi: function (params) {
     let url = 'apps'
-    return POST(url, params)
+    return POSTV2(url, params)
   },
   // 首页上传大文件接口
   uploadVMAppApi: function (params) {
