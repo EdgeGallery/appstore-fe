@@ -324,7 +324,8 @@ const cn = {
     publish: '发布',
     addApp: '添加外部仓库',
     modifyAppStore: '编辑外部仓库',
-    provider: '供应商'
+    provider: '供应商',
+    appModify: '应用修改'
   },
   report: {
     version: '版本',
@@ -518,6 +519,13 @@ const cn = {
     appstorePull: '展示可拉取的应用信息，选择需要拉取的应用可进行批量拉取。',
     appstoreMsg: '查看通知信息，可以接受来自不同运营商推送的APP信息。',
     appstoreOperAna: '可以查看拉取、下载、推送等类型的消息，并从多个维度进行统计分析。'
+  },
+  appManager: {
+    reSetting: '重设',
+    appCreateTime: '创建时间',
+    hotAppSetTipMsg: '有且只能设置6个热门应用',
+    storeAppSetTipMsg: '设置应用为仓库可见',
+    pushAppSetTipMsg: '设置应用为可对外推送'
   },
   about: {},
   ...zhLocale

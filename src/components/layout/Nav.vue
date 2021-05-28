@@ -290,10 +290,19 @@ export default {
           labelEn: 'Docs',
           labelCn: '文档',
           route: '/docs',
-          pageId: '2.1.2',
+          pageId: '2.1.7',
           display: true,
           link: '',
-          index: '2'
+          index: '6'
+        },
+        {
+          labelEn: 'APP Manager',
+          labelCn: '应用管理',
+          route: '/appManager',
+          pageId: '2.1.8',
+          display: true,
+          link: '',
+          index: '7'
         }
       ],
       isActive: 0,

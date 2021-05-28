@@ -53,7 +53,6 @@
             <template slot-scope="scope">
               <el-popover
                 placement="bottom"
-
                 trigger="hover"
                 v-if="scope.row.name.length>20"
               >
@@ -382,7 +381,7 @@ export default {
       if (this.prop === 'name') {
         this.prop = 'appName'
       }
-      myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, this.prop, this.order)
+      myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, null, this.prop, this.order)
         .then(res => {
           this.appPackageData = res.data.results
           this.total = res.data.total

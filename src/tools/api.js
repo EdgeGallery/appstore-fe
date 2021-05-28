@@ -21,6 +21,7 @@ import {
   GETRESCODE,
   POST,
   PUT,
+  PUTV2,
   DELETE,
   getCookie
 } from './request.js'
@@ -371,8 +372,8 @@ let myApp = {
   //   return GET(url)
   // },
   // 获取我的应用包
-  getMyAppPackageApi: function (userId, limit, offset, appName, sortItem, sortType) {
-    let url = 'packages?userId=' + userId + '&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortItem=' + sortItem + '&sortType=' + sortType
+  getMyAppPackageApi: function (userId, limit, offset, appName, status, sortItem, sortType) {
+    let url = 'packages?userId=' + userId + '&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&status=' + status + '&sortItem=' + sortItem + '&sortType=' + sortType
     return GETV2(url)
   },
   getMyAppPackageApiPage: function (userId) {
@@ -398,6 +399,11 @@ let myApp = {
   modifyAppAttr: function (param, appId, packageId) {
     let url = 'apps/' + appId + '/package/' + packageId
     return PUT(url, param)
+  },
+  // 修改热门应用
+  setHotApp: function (appIds) {
+    let url = 'apps/hotapps'
+    return PUTV2(url, appIds)
   }
 }
 export {

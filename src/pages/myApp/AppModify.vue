@@ -17,7 +17,7 @@
 <template>
   <div class="appModify">
     <el-dialog
-      :title="$t('apppromotion.appPromotion') + appModifyInfo.name"
+      :title="$t('myApp.appModify') + appModifyInfo.name"
       :visible.sync="dialogVisible"
       :before-close="handleClose"
       :close-on-click-modal="false"
@@ -266,7 +266,8 @@ export default {
       appAffinitys: AFFINITY,
       appIndustrys: INDUSTRY,
       showErr: false,
-      isChangeAppType: false
+      isChangeAppType: false,
+      isChangeAppIcon: false
     }
   },
   methods: {
@@ -355,6 +356,7 @@ export default {
         } else {
           this.logoFileList.push(file)
           listTemp.push(file.raw)
+          this.isChangeAppIcon = true
           this.appModifyInfo.appIcon = listTemp
           this.uploadIcon = true
         }
@@ -395,7 +397,7 @@ export default {
       let fd = new FormData()
       fd.append('industry', this.appModifyInfo.industry)
       fd.append('type', this.appModifyInfo.type)
-      if (this.isChangeAppType) {
+      if (this.isChangeAppType || this.isChangeAppIcon) {
         fd.append('icon', this.appModifyInfo.appIcon.length > 0 ? this.appModifyInfo.appIcon[0] : this.defaultIconFile)
       }
       fd.append('vedio', this.appModifyInfo.videoFile[0])
