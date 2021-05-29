@@ -29,7 +29,6 @@
             >
               <hotAppManager
                 v-model="activeTabIndex"
-                :hot-app-list-info="hotAppListInfo"
               />
             </div>
           </el-tab-pane>
@@ -40,7 +39,6 @@
             >
               <storeAppManager
                 v-model="activeTabIndex"
-                :store-app-list-info="storeAppListInfo"
               />
             </div>
           </el-tab-pane>
@@ -51,7 +49,6 @@
             >
               <pushAppManager
                 v-model="activeTabIndex"
-                :push-app-list-info="pushAppListInfo"
               />
             </div>
           </el-tab-pane>
@@ -73,67 +70,7 @@ export default {
   },
   data () {
     return {
-      activeTabIndex: '0',
-      hotAppListInfo: [{
-        appId: '883d17f3c58946dc92e0d4255e309111',
-        iconUrl: null,
-        name: 'HOT APP joomla',
-        provider: 'OpenSource',
-        type: 'Big Data',
-        shortDesc: 'Joomla! is a Content',
-        showType: 'public',
-        createTime: '2021-03-30 21:23:23',
-        details: 'detail',
-        downloadCount: 0,
-        affinity: 'X86',
-        industry: 'Open Source',
-        contact: null,
-        score: 5.0,
-        userId: '39937079-99fe-4cd8-881f-04ca8c4fe09d',
-        userName: 'admin',
-        status: 'Published',
-        deployMode: 'container'
-      }],
-      storeAppListInfo: [{
-        appId: '883d17f3c58946dc92e0d4255e309222',
-        iconUrl: null,
-        name: 'Store APP joomla',
-        provider: 'OpenSource',
-        type: 'Big Data',
-        shortDesc: 'Joomla! is a Content',
-        showType: 'public',
-        createTime: '2021-03-30 21:23:23',
-        details: 'detail',
-        downloadCount: 0,
-        affinity: 'X86',
-        industry: 'Open Source',
-        contact: null,
-        score: 5.0,
-        userId: '39937079-99fe-4cd8-881f-04ca8c4fe09d',
-        userName: 'admin',
-        status: 'Published',
-        deployMode: 'container'
-      }],
-      pushAppListInfo: [{
-        appId: '883d17f3c58946dc92e0d4255e309333',
-        iconUrl: null,
-        name: 'Push App joomla',
-        provider: 'OpenSource',
-        type: 'Big Data',
-        shortDesc: 'Joomla! is a Content',
-        showType: 'public',
-        createTime: '2021-03-30 21:23:23',
-        details: 'detail',
-        downloadCount: 0,
-        affinity: 'X86',
-        industry: 'Open Source',
-        contact: null,
-        score: 5.0,
-        userId: '39937079-99fe-4cd8-881f-04ca8c4fe09d',
-        userName: 'admin',
-        status: 'Published',
-        deployMode: 'container'
-      }]
+      activeTabIndex: '0'
     }
   },
   methods: {
