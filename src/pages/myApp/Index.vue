@@ -381,7 +381,7 @@ export default {
       if (this.prop === 'name') {
         this.prop = 'appName'
       }
-      myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, null, this.prop, this.order)
+      myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, '', this.prop, this.order)
         .then(res => {
           this.appPackageData = res.data.results
           this.total = res.data.total
