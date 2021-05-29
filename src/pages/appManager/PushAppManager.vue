@@ -51,6 +51,7 @@
         @sort-change="sortChange"
         @selection-change="selectionLineChangeHandle"
         @filter-change="filterChange"
+        ref="multipleTable"
       >
         <el-table-column
           type="selection"
@@ -158,11 +159,33 @@ export default {
       status: 'Published',
       searchCondition: {},
       appPackageData: [],
-      currentPageData: []
+      currentPageData: [],
+      defaultSelectedIds: [],
+      defaultSelectedItems: [],
+      changedItems: [],
+      nameQueryVal: ''
     }
   },
   methods: {
+    sortChange (column) {
+      if (column.prop == null || column.order == null) {
+        this.prop = 'createTime'
+        this.order = 'desc'
+      } else {
+        this.prop = column.prop
+        if (column.order === 'ascending') {
+          this.order = 'asc'
+        } else {
+          this.order = 'desc'
+        }
+      }
+      this.getTableData()
+    },
+    queryApp () {
+      this.getTableData()
+    },
     getTableData () {
+      this.appName = this.nameQueryVal
       myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, this.status, this.prop, this.order)
         .then(res => {
           this.appPackageData = res.data.results
@@ -173,11 +196,20 @@ export default {
           })
           this.currentPageData = this.appPackageData
           this.dataLoading = false
+          this.$nextTick(function () {
+            for (let item of this.currentPageData) {
+              if (item.showType === 'public') {
+                this.$refs.multipleTable.toggleRowSelection(item, true)
+                this.defaultSelectedIds.push(item.packageId)
+                this.defaultSelectedItems.push(item)
+              }
+            }
+          })
         }).catch(() => {
           this.dataLoading = false
           this.$message({
             duration: 2000,
-            message: this.$t('promptMessage.getMyAppFail'),
+            message: this.$t('appManager.queryAppFailed'),
             type: 'warning'
           })
           this.clearInterval()
@@ -192,24 +224,35 @@ export default {
     sizeChange (val) {
       this.curPageSize = val
     },
-    sortChange (column) {
-      if (column.prop == null || column.order == null) {
-        this.prop = 'latestPushTime'
-        this.order = 'desc'
-      } else {
-        this.prop = column.prop
-        if (column.order === 'ascending') {
-          this.order = 'asc'
-        } else {
-          this.order = 'desc'
+    calculateChangedItem () {
+      let selectedItemIds = []
+      for (let item of this.selectDataList) {
+        selectedItemIds.push(item.packageId)
+      }
+      for (let item of this.selectDataList) {
+        if (this.defaultSelectedIds.indexOf(item.packageId) === -1) {
+          this.changedItems.push(item)
         }
       }
-      this.getTableData()
+      for (let item of this.defaultSelectedItems) {
+        if (this.selectedItemIds.indexOf(item.packageId) === -1) {
+          this.changedItems.push(item)
+        }
+      }
     },
     setPushApp () {
-      let fd = new FormData()
-      fd.append('showType', 'public')
-      for (let item of this.selectDataList) {
+      this.calculateChangedItem()
+      let fdAdd = new FormData()
+      fdAdd.append('showType', 'public')
+      let fdRemove = new FormData()
+      fdRemove.append('showType', 'inner-public')
+      for (let item of this.changedItems) {
+        let fd = null
+        if (item.showType === 'public') {
+          fd = fdRemove
+        } else {
+          fd = fdAdd
+        }
         myApp.modifyAppAttr(fd, item.appId, item.packageId).then(res => {
           this.$message({
             duration: 2000,

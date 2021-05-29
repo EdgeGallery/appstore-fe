@@ -22,6 +22,7 @@
         type="primary"
         class="rt"
         @click="setStoreApp"
+        :disabled="btnChangeEnable"
       >
         {{ $t('appManager.reSetting') }}
       </el-button>
@@ -50,6 +51,7 @@
         @sort-change="sortChange"
         @selection-change="selectionLineChangeHandle"
         @filter-change="filterChange"
+        ref="multipleTable"
       >
         <el-table-column
           type="selection"
@@ -157,40 +159,14 @@ export default {
       appName: '',
       status: 'Published',
       searchCondition: {},
-      appPackageData: []
+      appPackageData: [],
+      defaultSelectedIds: [],
+      defaultSelectedItems: [],
+      changedItems: [],
+      nameQueryVal: ''
     }
   },
   methods: {
-    getTableData () {
-      myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, this.status, this.prop, this.order)
-        .then(res => {
-          this.appPackageData = res.data.results
-          this.total = res.data.total
-          this.appPackageData.forEach(item => {
-            let formatedTime = timeFormatTools.formatDateTime(item.createTime)
-            item.createTime = formatedTime
-          })
-          this.currentPageData = this.appPackageData
-          this.dataLoading = false
-        }).catch(() => {
-          this.dataLoading = false
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.getMyAppFail'),
-            type: 'warning'
-          })
-          this.clearInterval()
-        })
-    },
-    currentChange (val) {
-      this.pageNum = val
-      this.offsetPage = this.curPageSize * (this.pageNum - 1)
-      sessionStorage.setItem('offsetAppPush', this.offsetPage)
-      this.getTableData()
-    },
-    sizeChange (val) {
-      this.curPageSize = val
-    },
     sortChange (column) {
       if (column.prop == null || column.order == null) {
         this.prop = 'createTime'
@@ -205,10 +181,78 @@ export default {
       }
       this.getTableData()
     },
-    setStoreApp () {
-      let fd = new FormData()
-      fd.append('showType', 'inner-public')
+    queryApp () {
+      this.getTableData()
+    },
+    getTableData () {
+      this.appName = this.nameQueryVal
+      myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, this.status, this.prop, this.order)
+        .then(res => {
+          this.appPackageData = res.data.results
+          this.total = res.data.total
+          this.appPackageData.forEach(item => {
+            let formatedTime = timeFormatTools.formatDateTime(item.createTime)
+            item.createTime = formatedTime
+          })
+          this.currentPageData = this.appPackageData
+          this.dataLoading = false
+          this.$nextTick(function () {
+            for (let item of this.currentPageData) {
+              if (item.showType === 'public' || item.showType === 'inner-public') {
+                this.$refs.multipleTable.toggleRowSelection(item, true)
+                this.defaultSelectedIds.push(item.packageId)
+                this.defaultSelectedItems.push(item)
+              }
+            }
+          })
+        }).catch(() => {
+          this.dataLoading = false
+          this.$message({
+            duration: 2000,
+            message: this.$t('appManager.queryAppFailed'),
+            type: 'warning'
+          })
+          this.clearInterval()
+        })
+    },
+    currentChange (val) {
+      this.pageNum = val
+      this.offsetPage = this.curPageSize * (this.pageNum - 1)
+      sessionStorage.setItem('offsetAppPush', this.offsetPage)
+      this.getTableData()
+    },
+    sizeChange (val) {
+      this.curPageSize = val
+    },
+    calculateChangedItem () {
+      let selectedItemIds = []
       for (let item of this.selectDataList) {
+        selectedItemIds.push(item.packageId)
+      }
+      for (let item of this.selectDataList) {
+        if (this.defaultSelectedIds.indexOf(item.packageId) === -1) {
+          this.changedItems.push(item)
+        }
+      }
+      for (let item of this.defaultSelectedItems) {
+        if (this.selectedItemIds.indexOf(item.packageId) === -1) {
+          this.changedItems.push(item)
+        }
+      }
+    },
+    setStoreApp () {
+      this.calculateChangedItem()
+      let fdAdd = new FormData()
+      fdAdd.append('showType', 'inner-public')
+      let fdRemove = new FormData()
+      fdRemove.append('showType', 'private')
+      for (let item of this.changedItems) {
+        let fd = null
+        if (item.showType === 'public' || item.showType === 'inner-public') {
+          fd = fdRemove
+        } else {
+          fd = fdAdd
+        }
         myApp.modifyAppAttr(fd, item.appId, item.packageId).then(res => {
           this.$message({
             duration: 2000,

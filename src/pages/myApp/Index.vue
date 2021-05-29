@@ -606,7 +606,6 @@ export default {
     },
     findedData: function () {
       sessionStorage.setItem('myAppNameQueryVal', this.nameQueryVal)
-      // let tempAppPackageData = this.appPackageData
       this.changeLanguege()
       return this.appPackageData
     },

@@ -22,6 +22,7 @@
         type="primary"
         class="rt"
         @click="setHotApp"
+        :disabled="btnChangeEnable"
       >
         {{ $t('appManager.reSetting') }}
       </el-button>
@@ -50,6 +51,7 @@
         @sort-change="sortChange"
         @selection-change="selectionLineChangeHandle"
         @filter-change="filterChange"
+        ref="multipleTable"
       >
         <el-table-column
           type="selection"
@@ -158,24 +160,45 @@ export default {
       status: 'Published',
       searchCondition: {},
       appPackageData: [],
-      changedAppIds: []
+      defaultSelectedIds: [],
+      changedAppIds: [],
+      nameQueryVal: ''
     }
   },
   methods: {
+    sortChange (column) {
+      if (column.prop == null || column.order == null) {
+        this.prop = 'createTime'
+        this.order = 'desc'
+      } else {
+        this.prop = column.prop
+        if (column.order === 'ascending') {
+          this.order = 'asc'
+        } else {
+          this.order = 'desc'
+        }
+      }
+      this.getTableData()
+    },
+    queryApp () {
+      this.getTableData()
+    },
     getTableData () {
       let queryCtrl = {
-        'offset': this.offsetPage,
-        'limit': this.limitSize,
-        'sortItem': this.prop,
-        'sortType': this.order,
-        'createTime': 'createTime'
+        offset: this.offsetPage,
+        limit: this.limitSize,
+        sortItem: this.prop,
+        sortType: this.order,
+        createTime: 'createTime'
       }
       let params = {
-        'queryCtrl': queryCtrl,
-        'showType': ['inner-public', 'public']
+        queryCtrl: queryCtrl,
+        showType: ['inner-public', 'public'],
+        appName: this.nameQueryVal
       }
       getAppTableApi(params)
         .then(res => {
+          this.defaultSelectedIds = []
           this.appPackageData = res.data.results
           this.total = res.data.total
           this.appPackageData.forEach(item => {
@@ -184,40 +207,66 @@ export default {
           })
           this.currentPageData = this.appPackageData
           this.dataLoading = false
+          this.$nextTick(function () {
+            for (let item of this.currentPageData) {
+              if (item.hotApp) {
+                this.$refs.multipleTable.toggleRowSelection(item, true)
+                this.defaultSelectedIds.push(item.appId)
+              }
+            }
+          })
         }).catch(() => {
           this.dataLoading = false
           this.$message({
             duration: 2000,
-            message: this.$t('promptMessage.getMyAppFail'),
+            message: this.$t('appManager.queryAppFailed'),
             type: 'warning'
           })
         })
     },
-    setHotApp () {
-      for (let item of this.selectDataList) {
-        // 临时验证用,传入变更的appIds
-        this.changedAppIds.push(item.appId)
-        myApp.setHotApp(this.changedAppIds).then(res => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.modifySuccess'),
-            type: 'success'
-          })
-        }).catch(() => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.modifyFail'),
-            type: 'warning'
-          })
-        })
+    calculateChangedItem () {
+      for (let item of this.selectedAppIds) {
+        if (this.defaultSelectedIds.indexOf(item) === -1) {
+          this.changedAppIds.push(item)
+        }
+      }
+      for (let item of this.defaultSelectedIds) {
+        if (this.selectedAppIds.indexOf(item) === -1) {
+          this.changedAppIds.push(item)
+        }
       }
     },
+    setHotApp () {
+      this.changedAppIds = []
+      let selectedAppIds = []
+      for (let appItem of this.selectDataList) {
+        selectedAppIds.push(appItem.appId)
+      }
+      this.calculateChangedItem()
+      myApp.setHotApp(this.changedAppIds).then(res => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('promptMessage.modifySuccess'),
+          type: 'success'
+        })
+      }).catch(() => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('promptMessage.modifyFail'),
+          type: 'warning'
+        })
+      })
+    },
     selectionLineChangeHandle (val) {
-      this.selectDataList = val
-      if (this.selectDataList.length === 0) {
-        this.btnChangeEnable = true
+      if (val.length <= 6) {
+        this.selectDataList = val
+        if (this.selectDataList.length === 0) {
+          this.btnChangeEnable = true
+        } else {
+          this.btnChangeEnable = false
+        }
       } else {
-        this.btnChangeEnable = false
+        this.btnChangeEnable = true
       }
     }
 
@@ -286,6 +335,11 @@ export default {
       margin: 0 5px;
       background: #dfe1e6;
     }
+  }
+  .paginationStyle{
+    float: right;
+    margin-top: 20px;
+    margin-right: 30px;
   }
 }
 </style>

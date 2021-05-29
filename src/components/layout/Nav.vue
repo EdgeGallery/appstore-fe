@@ -510,6 +510,7 @@ export default {
       }
       if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1 || res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
         this.isAdmin = false
+        this.list.splice(5, 1)
         this.list.splice(3, 1)
       } else {
         this.isAdmin = true

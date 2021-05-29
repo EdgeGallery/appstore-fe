@@ -503,7 +503,9 @@ const en = {
     appCreateTime: 'create time',
     hotAppSetTipMsg: 'Only six hot apps can be set',
     storeAppSetTipMsg: 'Set the app to be visible to appStore',
-    pushAppSetTipMsg: 'Set the app to be pushable'
+    pushAppSetTipMsg: 'Set the app to be pushable',
+    queryHotAppFailed: 'Failed to get hot apps',
+    queryAppFailed: 'Failed to get apps'
   },
   about: {
   },

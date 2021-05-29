@@ -525,7 +525,9 @@ const cn = {
     appCreateTime: '创建时间',
     hotAppSetTipMsg: '有且只能设置6个热门应用',
     storeAppSetTipMsg: '设置应用为仓库可见',
-    pushAppSetTipMsg: '设置应用为可对外推送'
+    pushAppSetTipMsg: '设置应用为可对外推送',
+    queryHotAppFailed: '获取热门应用失败',
+    queryAppFailed: '获取应用失败'
   },
   about: {},
   ...zhLocale
