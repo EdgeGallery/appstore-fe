@@ -302,7 +302,8 @@ const en = {
     publish: 'Publish',
     addApp: 'Add External Warehouse',
     provider: 'Provider',
-    modifyAppStore: 'Edit External Warehouse'
+    modifyAppStore: 'Edit External Warehouse',
+    appModify: 'APP Modify'
   },
   report: {
     version: 'Version',
@@ -496,6 +497,15 @@ const en = {
     appstorePull: 'View the application information that can be pulled from various external warehouses, and select the applications that need to be pulled for batch pulling.',
     appstoreMsg: 'View notification information, you can accept APP information that needs to be pushed from different operators.',
     appstoreOperAna: 'You can view pull, download, push and other types of messages, and perform statistical analysis from multiple dimensions.'
+  },
+  appManager: {
+    reSetting: 'reset',
+    appCreateTime: 'create time',
+    hotAppSetTipMsg: 'Only six hot apps can be set',
+    storeAppSetTipMsg: 'Set the app to be visible to appStore',
+    pushAppSetTipMsg: 'Set the app to be pushable',
+    queryHotAppFailed: 'Failed to get hot apps',
+    queryAppFailed: 'Failed to get apps'
   },
   about: {
   },

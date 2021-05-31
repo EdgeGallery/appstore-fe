@@ -250,7 +250,8 @@ export default {
         types: [],
         affinity: [],
         industry: [],
-        status: '',
+        status: 'Published',
+        showType: ['public', 'inner-public'],
         workloadType: [],
         createTime: '',
         userId: '',
@@ -430,7 +431,8 @@ export default {
         types: [],
         affinity: [],
         industry: [],
-        status: '',
+        status: 'Published',
+        showType: ['public', 'inner-public'],
         workloadType: [],
         createTime: '',
         userId: '',
@@ -483,7 +485,6 @@ export default {
     },
     buildQueryReq () {
       let _queryReq = this.searchCondition
-
       this.searchCondition.queryCtrl = {
         'offset': this.offsetPage,
         'limit': this.limitSize,
@@ -491,8 +492,6 @@ export default {
         'sortType': this.order,
         'createTime': 'createTime'
       }
-      // _queryReq.queryCtrl = this.queryCtrl
-
       return _queryReq
     },
     selectedCondition (type, index) {
@@ -554,7 +553,6 @@ export default {
       this.uploadDiaVis = false
       this.currentComponent = sessionStorage.getItem('currentComponent') || 'appGrid'
       this.searchCondition.appName = this.nameQuery.toLowerCase()
-      // this.searchCondition.userId = sessionStorage.getItem('userId')
       getAppTableApi(this.buildQueryReq()).then(
         (res) => {
           this.appData = this.findAppData = res.data.results
@@ -563,8 +561,6 @@ export default {
             let newDateBegin = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = newDateBegin
           })
-
-          // this.queryAppByCondition()
           this.checkProjectData()
         },
         () => {

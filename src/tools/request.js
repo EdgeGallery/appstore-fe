@@ -83,6 +83,23 @@ function GETV2 (url, params) {
   })
 }
 
+function PUTV2 (url, params) {
+  let baseUrl = URL_PREFIXV2 + url
+  return new Promise((resolve, reject) => {
+    axios.put(baseUrl, params, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+      }
+    }).then((res) => {
+      resolve(res)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
+
 function DELETE (url, params) {
   let baseUrl = URL_PREFIX + url
   return new Promise((resolve, reject) => {
@@ -155,6 +172,7 @@ function PUT (url, params) {
 export {
   GET,
   GETV2,
+  PUTV2,
   POSTV2,
   GETRESCODE,
   POST,

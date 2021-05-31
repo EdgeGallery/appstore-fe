@@ -360,6 +360,14 @@ export default new Router({
           meta: {
             id: '2.10'
           }
+        },
+        {
+          path: 'appManager',
+          name: 'appManager',
+          component: () => import('./pages/appManager/Index.vue'),
+          meta: {
+            id: '2.11'
+          }
         }
       ]
     }

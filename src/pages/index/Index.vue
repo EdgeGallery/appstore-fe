@@ -530,7 +530,7 @@ export default {
         type: [],
         affinity: [],
         industry: [],
-        status: '',
+        status: 'Published',
         deployMode: [],
         workloadType: [],
         createTime: '',
@@ -624,17 +624,52 @@ export default {
     },
     buildQueryReq () {
       let _queryReq = this.searchCondition
-
       this.searchCondition.queryCtrl = {
-        'offset': this.offsetPage,
-        'limit': this.limitSize,
-        'sortItem': this.prop,
-        'sortType': this.order,
-        'createTime': 'createTime'
+        offset: this.offsetPage,
+        limit: this.limitSize,
+        sortItem: this.prop,
+        sortType: this.order,
+        createTime: 'createTime'
       }
-      // _queryReq.queryCtrl = this.queryCtrl
-
       return _queryReq
+    },
+    getHotAppData () {
+      let queryCtrl = {
+        offset: 0,
+        limit: 10,
+        sortItem: 'isHotApp',
+        sortType: 'desc',
+        createTime: 'createTime'
+      }
+      let params = {
+        queryCtrl: queryCtrl,
+        showType: ['inner-public', 'public']
+      }
+      getAppTableApi(params)
+        .then(res => {
+          let hotDatas = res.data.results
+          if (hotDatas.length >= 6) {
+            for (let item of hotDatas) {
+              if (item.hotApp) {
+                this.newAppDataBe.push(item)
+              }
+            }
+            if (this.newAppDataBe.length === 6) {
+              this.showDefaultData = false
+            } else {
+              this.showDefaultData = true
+            }
+          } else {
+            this.showDefaultData = true
+          }
+          this.newAppDataLoading = false
+        }).catch(() => {
+          this.$message({
+            duration: 2000,
+            message: this.$t('appManager.queryHotAppFailed'),
+            type: 'warning'
+          })
+        })
     },
     getAppData () {
       getAppTableApi(this.buildQueryReq()).then(
@@ -644,23 +679,6 @@ export default {
           data.sort(function (a, b) {
             return a.score < b.score ? 1 : -1
           })
-          if (data.length >= 6) {
-            let appName = ['cras', 'fnapp', 'kingsoftcloud', 'ktmedia', 'TcsaeAnalysis', 'ananmeeting']
-            data.forEach(item => {
-              if (appName.indexOf(item.name) !== -1) {
-                this.newAppDataBe.push(item)
-              }
-            })
-            if (this.newAppDataBe.length === 6) {
-              this.showDefaultData = false
-            } else {
-              this.showDefaultData = true
-            }
-          } else {
-            this.showDefaultData = true
-          }
-
-          this.newAppDataLoading = false
           this.scoreHighestDataBe = []
           if (data.length >= 8) {
             for (let i = 0; i <= 7; i++) {
@@ -710,6 +728,7 @@ export default {
   },
   mounted () {
     this.getAppData()
+    this.getHotAppData()
     this.changeEnCn(this.language)
     this.alertDia(this.aletMsg)
     this.refreshCondition()
