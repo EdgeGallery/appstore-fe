@@ -187,10 +187,19 @@ export default {
     queryApp () {
       this.getTableData()
     },
+    currentChange (val) {
+      this.pageNum = val
+      this.offsetPage = this.curPageSize * (this.pageNum - 1)
+      sessionStorage.setItem('offsetAppPush', this.offsetPage)
+      this.getTableData()
+    },
+    sizeChange (val) {
+      this.curPageSize = val
+    },
     getTableData () {
       let queryCtrl = {
         offset: this.offsetPage,
-        limit: this.limitSize,
+        limit: this.curPageSize,
         sortItem: this.prop,
         sortType: this.order,
         createTime: 'createTime'
@@ -262,13 +271,9 @@ export default {
       })
     },
     selectionLineChangeHandle (val) {
-      if (val.length <= 6) {
+      if (val.length === 6) {
         this.selectDataList = val
-        if (this.selectDataList.length === 0) {
-          this.btnChangeEnable = true
-        } else {
-          this.btnChangeEnable = false
-        }
+        this.btnChangeEnable = false
       } else {
         this.btnChangeEnable = true
       }
@@ -299,7 +304,7 @@ export default {
     }
     .hotTipIcon{
       margin-left: 40px;
-      margin-top: 9px;
+      margin-top: 11px;
       float: left;
     }
     .hotSettingTipDiv{
@@ -310,6 +315,7 @@ export default {
       .hotSettingTip{
         color: #999999;
         font-size: 16px;
+        font-family: SimHei, sans-serif;
       }
     }
     .search_input{

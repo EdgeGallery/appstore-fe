@@ -306,7 +306,7 @@ export default {
     }
     .pushTipIcon{
       margin-left: 40px;
-      margin-top: 9px;
+      margin-top: 11px;
       float: left;
     }
     .pushSettingTipDiv{
@@ -317,6 +317,7 @@ export default {
       .pushSettingTip{
         color: #999999;
         font-size: 16px;
+        font-family: SimHei, sans-serif;
       }
     }
     .search_input{

@@ -287,18 +287,18 @@ export default {
           ]
         },
         {
-          labelEn: 'Docs',
-          labelCn: '文档',
-          route: '/docs',
+          labelEn: 'APP Manager',
+          labelCn: '应用管理',
+          route: '/appManager',
           pageId: '2.1.7',
           display: true,
           link: '',
           index: '6'
         },
         {
-          labelEn: 'APP Manager',
-          labelCn: '应用管理',
-          route: '/appManager',
+          labelEn: 'Docs',
+          labelCn: '文档',
+          route: '/docs',
           pageId: '2.1.8',
           display: true,
           link: '',
@@ -510,7 +510,7 @@ export default {
       }
       if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1 || res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
         this.isAdmin = false
-        this.list.splice(5, 1)
+        this.list.splice(4, 1)
         this.list.splice(3, 1)
       } else {
         this.isAdmin = true

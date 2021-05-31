@@ -307,7 +307,7 @@ export default {
     }
     .storeTipIcon{
       margin-left: 40px;
-      margin-top: 9px;
+      margin-top: 11px;
       float: left;
     }
     .storeSettingTipDiv{
@@ -318,6 +318,7 @@ export default {
       .storeSettingTip{
         color: #999999;
         font-size: 16px;
+        font-family: SimHei, sans-serif;
       }
     }
     .search_input{

@@ -531,7 +531,10 @@ const cn = {
     storeAppSetTipMsg: '设置应用为仓库可见',
     pushAppSetTipMsg: '设置应用为可对外推送',
     queryHotAppFailed: '获取热门应用失败',
-    queryAppFailed: '获取应用失败'
+    queryAppFailed: '获取应用失败',
+    hotAppTitle: '近期热门应用管理',
+    storeAppTitle: '应用展示仓库应用列表管理',
+    pushAppTitle: '可推广应用列表管理'
   },
   about: {},
   ...zhLocale

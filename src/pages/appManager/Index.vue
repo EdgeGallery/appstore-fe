@@ -16,13 +16,13 @@
 
 <template>
   <div class="myApp padding56">
-    <div class="myApp-content">
+    <div class="appManager-content">
       <div class="appManagerTabs">
         <el-tabs
           type="border-card"
           @tab-click="handleClick"
         >
-          <el-tab-pane label="近期热门应用管理">
+          <el-tab-pane :label="$t('appManager.hotAppTitle')">
             <div
               v-if="activeTabIndex==='0'"
               class="appManagerTab"
@@ -32,7 +32,7 @@
               />
             </div>
           </el-tab-pane>
-          <el-tab-pane label="应用展示仓库应用列表管理">
+          <el-tab-pane :label="$t('appManager.storeAppTitle')">
             <div
               v-if="activeTabIndex==='1'"
               class="appManagerTab"
@@ -42,7 +42,7 @@
               />
             </div>
           </el-tab-pane>
-          <el-tab-pane label="可推广应用列表管理">
+          <el-tab-pane :label="$t('appManager.pushAppTitle')">
             <div
               v-if="activeTabIndex==='2'"
               class="appManagerTab"
@@ -96,7 +96,7 @@ export default {
 </script>
 <style lang='less'>
 .myApp {
-  .myApp-content {
+  .appManager-content {
     background: white;
     margin: 95px auto;
     width: 1416px;
