@@ -171,7 +171,11 @@ export default {
         this.prop = 'createTime'
         this.order = 'desc'
       } else {
-        this.prop = column.prop
+        if (column.prop === 'name') {
+          this.prop = 'appName'
+        } else {
+          this.prop = column.prop
+        }
         if (column.order === 'ascending') {
           this.order = 'asc'
         } else {
@@ -225,23 +229,23 @@ export default {
         })
     },
     calculateChangedItem () {
-      for (let item of this.selectedAppIds) {
-        if (this.defaultSelectedIds.indexOf(item) === -1) {
-          this.changedAppIds.push(item)
-        }
-      }
-      for (let item of this.defaultSelectedIds) {
-        if (this.selectedAppIds.indexOf(item) === -1) {
-          this.changedAppIds.push(item)
-        }
-      }
-    },
-    setHotApp () {
       this.changedAppIds = []
       let selectedAppIds = []
       for (let appItem of this.selectDataList) {
         selectedAppIds.push(appItem.appId)
       }
+      for (let item of selectedAppIds) {
+        if (this.defaultSelectedIds.indexOf(item) === -1) {
+          this.changedAppIds.push(item)
+        }
+      }
+      for (let item of this.defaultSelectedIds) {
+        if (selectedAppIds.indexOf(item) === -1) {
+          this.changedAppIds.push(item)
+        }
+      }
+    },
+    setHotApp () {
       this.calculateChangedItem()
       myApp.setHotApp(this.changedAppIds).then(res => {
         this.$message({

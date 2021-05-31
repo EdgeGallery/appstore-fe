@@ -172,7 +172,11 @@ export default {
         this.prop = 'createTime'
         this.order = 'desc'
       } else {
-        this.prop = column.prop
+        if (column.prop === 'name') {
+          this.prop = 'appName'
+        } else {
+          this.prop = column.prop
+        }
         if (column.order === 'ascending') {
           this.order = 'asc'
         } else {
@@ -225,6 +229,7 @@ export default {
       this.curPageSize = val
     },
     calculateChangedItem () {
+      this.changedItems = []
       let selectedItemIds = []
       for (let item of this.selectDataList) {
         selectedItemIds.push(item.packageId)
@@ -235,7 +240,7 @@ export default {
         }
       }
       for (let item of this.defaultSelectedItems) {
-        if (this.selectedItemIds.indexOf(item.packageId) === -1) {
+        if (selectedItemIds.indexOf(item.packageId) === -1) {
           this.changedItems.push(item)
         }
       }
