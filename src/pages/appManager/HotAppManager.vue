@@ -207,6 +207,7 @@ export default {
       let params = {
         queryCtrl: queryCtrl,
         showType: ['inner-public', 'public'],
+        status: this.status,
         appName: this.nameQueryVal
       }
       getAppTableApi(params)
