@@ -227,7 +227,11 @@ const en = {
     downloadNum: ' Downloads',
     workloadType: 'Workload Type',
     deployContainer: 'Container',
-    deployVM: 'VM'
+    deployVM: 'VM',
+    ifDownloadImage: 'Do you need to download application attachments',
+    downloadImageTip: 'Merge files are merged, download time-consuming supplements, please be patient',
+    need: 'Need',
+    noNeed: 'No need'
   },
   docs: {
     step1: 'Open source MEP platform',

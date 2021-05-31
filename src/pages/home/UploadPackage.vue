@@ -43,8 +43,8 @@
               :on-remove="handleDelte"
               :file-list="packageForm.fileList"
               :auto-upload="false"
-              accept=".csar"
               v-show="ifUploadMin"
+              accept=".csar,.zip"
             >
               <el-button
                 slot="trigger"
@@ -428,18 +428,18 @@ export default {
       this.packageForm.types = 'Video Application'
       this.packageForm.affinity = 'X86'
     },
-    checkFileType (file, packageFormKey, fileType) {
+    checkFileType (file, packageFormKey, fileTypeArr) {
       let type = file.raw.name.split('.')
       let fileSize = file.size / 1024 / 1024
       type = type[type.length - 1]
-      if (type === fileType) {
+      if (fileTypeArr.indexOf(type.toLowerCase()) !== -1) {
         this.packageForm[packageFormKey].push(file.raw)
       } else {
         this.packageForm[packageFormKey] = []
         this.$message({
           duration: 2000,
           type: 'warning',
-          message: this.$t('promptMessage.canOnlyUpload') + fileType + this.$t('promptMessage.files')
+          message: this.$t('promptMessage.canOnlyUpload') + fileTypeArr + this.$t('promptMessage.files')
         })
       }
       if (fileSize > 10) {
@@ -452,13 +452,16 @@ export default {
       }
     },
     handleChange (file, fileList) {
-      this.checkFileType(file, 'fileList', 'csar')
+      let fileTypeArr = ['zip', 'csar']
+      this.checkFileType(file, 'fileList', fileTypeArr)
     },
     handleChangeVideo (file) {
-      this.checkFileType(file, 'videoFile', 'mp4')
+      let fileTypeArr = ['mp4']
+      this.checkFileType(file, 'videoFile', fileTypeArr)
     },
     handleChangeApi (file, fileList) {
-      this.checkFileType(file, 'apiFileList', 'json')
+      let fileTypeArr = ['json']
+      this.checkFileType(file, 'apiFileList', fileTypeArr)
     },
     removeUploadLogo (file) {
       this.uploadIcon = false
