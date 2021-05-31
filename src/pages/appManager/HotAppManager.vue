@@ -187,10 +187,19 @@ export default {
     queryApp () {
       this.getTableData()
     },
+    currentChange (val) {
+      this.pageNum = val
+      this.offsetPage = this.curPageSize * (this.pageNum - 1)
+      sessionStorage.setItem('offsetAppPush', this.offsetPage)
+      this.getTableData()
+    },
+    sizeChange (val) {
+      this.curPageSize = val
+    },
     getTableData () {
       let queryCtrl = {
         offset: this.offsetPage,
-        limit: this.limitSize,
+        limit: this.curPageSize,
         sortItem: this.prop,
         sortType: this.order,
         createTime: 'createTime'

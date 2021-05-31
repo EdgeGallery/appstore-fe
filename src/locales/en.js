@@ -505,7 +505,10 @@ const en = {
     storeAppSetTipMsg: 'Set the app to be visible to appStore',
     pushAppSetTipMsg: 'Set the app to be pushable',
     queryHotAppFailed: 'Failed to get hot apps',
-    queryAppFailed: 'Failed to get apps'
+    queryAppFailed: 'Failed to get apps',
+    hotAppTitle: 'Recent hot APP management',
+    storeAppTitle: 'APP display store APP list management',
+    pushAppTitle: 'Pushbale APP list management'
   },
   about: {
   },
