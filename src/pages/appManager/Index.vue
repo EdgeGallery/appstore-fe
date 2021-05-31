@@ -16,7 +16,7 @@
 
 <template>
   <div class="myApp padding56">
-    <div class="myApp-content">
+    <div class="appManager-content">
       <div class="appManagerTabs">
         <el-tabs
           type="border-card"
@@ -96,7 +96,7 @@ export default {
 </script>
 <style lang='less'>
 .myApp {
-  .myApp-content {
+  .appManager-content {
     background: white;
     margin: 95px auto;
     width: 1416px;

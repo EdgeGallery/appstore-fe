@@ -271,13 +271,9 @@ export default {
       })
     },
     selectionLineChangeHandle (val) {
-      if (val.length <= 6) {
+      if (val.length === 6) {
         this.selectDataList = val
-        if (this.selectDataList.length === 0) {
-          this.btnChangeEnable = true
-        } else {
-          this.btnChangeEnable = false
-        }
+        this.btnChangeEnable = false
       } else {
         this.btnChangeEnable = true
       }
@@ -308,7 +304,7 @@ export default {
     }
     .hotTipIcon{
       margin-left: 40px;
-      margin-top: 9px;
+      margin-top: 11px;
       float: left;
     }
     .hotSettingTipDiv{
@@ -319,6 +315,7 @@ export default {
       .hotSettingTip{
         color: #999999;
         font-size: 16px;
+        font-family: SimHei, sans-serif;
       }
     }
     .search_input{
