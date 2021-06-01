@@ -57,12 +57,12 @@
           :span="14"
           v-loading="newAppDataLoading"
           class="new_app_right"
-          v-if="showDefaultData"
         >
           <div
             v-for="(item,index) in newAppData"
             :key="index"
             class="new_app_icon"
+            v-show="showDefaultData"
           >
             <img
               :src="item"
@@ -70,17 +70,11 @@
               @click="jumpToAppList"
             >
           </div>
-        </div>
-        <div
-          :span="14"
-          v-loading="newAppDataLoading"
-          class="new_app_right"
-          v-else
-        >
           <div
             v-for="(item,index) in newAppDataBe"
             :key="index"
             class="new_app_icon"
+            v-show="!showDefaultData"
           >
             <img
               :src="getImageUrl(item.appId)"
@@ -517,7 +511,7 @@ export default {
       developerUrl: '',
       language: localStorage.getItem('language'),
       mecmUrl: '',
-      showDefaultData: true,
+      showDefaultData: false,
       newAppDataLoading: true,
       newAppDataBe: [],
       showDefaultScoreData: false,
@@ -661,18 +655,14 @@ export default {
               }
             }
             if (this.newAppDataBe.length === 6) {
-              this.$nextTick(function () {
-                this.showDefaultData = false
-                this.newAppDataLoading = false
-              })
+              this.showDefaultData = false
             } else {
               this.showDefaultData = true
-              this.newAppDataLoading = false
             }
           } else {
             this.showDefaultData = true
-            this.newAppDataLoading = false
           }
+          this.newAppDataLoading = false
         }).catch(() => {
           this.$message({
             duration: 2000,
