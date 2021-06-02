@@ -674,7 +674,6 @@ export default {
     getAppData () {
       getAppTableApi(this.buildQueryReq()).then(
         (res) => {
-          this.newAppDataBe = []
           let data = res.data.results
           data.sort(function (a, b) {
             return a.score < b.score ? 1 : -1
