@@ -452,6 +452,9 @@ export default {
     ifDownloadImage (currentData, row) {
       if (this.currentData.deployMode === 'vm') {
         this.isShowDownload = true
+      } else {
+        this.isDownloadImage = false
+        downloadAppPakageApi(this.appId, row, this.isDownloadImage)
       }
     },
     download (row) {
@@ -499,7 +502,7 @@ export default {
         }
       )
     },
-    // 从“我的应用”进入，根据packageId查询当前版本的详情
+    // 从“我的应用”进入，根据packageId查询当前版本的详�?
     getMyAppData () {
       myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
         let data = res.data
