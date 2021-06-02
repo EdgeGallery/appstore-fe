@@ -486,7 +486,6 @@ export default {
         }
       })
     },
-    // 从“我的应用”进入无评分，根据appId查询整体评分
     getAppData () {
       getAppListApi(this.appId).then(
         (res) => {
@@ -502,7 +501,6 @@ export default {
         }
       )
     },
-    // 从“我的应用”进入，根据packageId查询当前版本的详�?
     getMyAppData () {
       myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
         let data = res.data
