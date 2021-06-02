@@ -483,6 +483,9 @@ export default {
       })
     }
   },
+  beforeDestroy () {
+      sessionStorage.removeItem('offsetAppstore')
+  },
   mounted () {
     this.userId = sessionStorage.getItem('userId')
     this.getAppPackageData()
