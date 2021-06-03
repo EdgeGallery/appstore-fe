@@ -141,7 +141,7 @@ export default {
       curPageSize: 10,
       pageSizes: [10, 20, 30],
       limitSize: 10,
-      offsetPage: sessionStorage.getItem('offsetOpera') || 0,
+      offsetPage: sessionStorage.getItem('offsetPull') || 0,
       selectFlag: false,
       sortActionFlag: false,
       prop: 'createTime',
@@ -156,7 +156,7 @@ export default {
     currentChange (val) {
       this.pageNum = val
       this.offsetPage = this.curPageSize * (this.pageNum - 1)
-      sessionStorage.setItem('offsetOpera', this.offsetPage)
+      sessionStorage.setItem('offsetPull', this.offsetPage)
     },
     unique (arr) {
       if (!Array.isArray(arr)) {
@@ -283,8 +283,8 @@ export default {
       }, 500)
     }
   },
-  beforeDestroy () {
-    sessionStorage.removeItem('offsetOpera')
+  destroyed () {
+    sessionStorage.removeItem('offsetPull')
   },
   mounted () {
     this.appPackageData = this.data

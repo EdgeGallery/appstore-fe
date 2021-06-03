@@ -678,8 +678,10 @@ export default {
       this.getAppStatus()
     }, 10000)
   },
-  beforeDestroy () {
+  destroyed () {
     sessionStorage.removeItem('offsetMyApp')
+  },
+  beforeDestroy () {
     this.clearInterval()
   }
 }
