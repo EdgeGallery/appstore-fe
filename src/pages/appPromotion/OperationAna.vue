@@ -984,6 +984,9 @@ export default {
     appPackageData: function () {
       this.refreshCurrentData()
     }
+  },
+  destroyed () {
+    sessionStorage.removeItem('offsetOpera')
   }
 }
 </script>

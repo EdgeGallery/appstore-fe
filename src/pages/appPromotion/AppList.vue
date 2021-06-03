@@ -405,7 +405,7 @@ export default {
       }, 500)
     }
   },
-  beforeDestroy () {
+  destroyed () {
     sessionStorage.removeItem('offsetAppPush')
   },
   mounted () {
