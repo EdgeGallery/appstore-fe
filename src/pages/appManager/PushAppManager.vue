@@ -154,7 +154,6 @@ export default {
       total: 0,
       prop: 'createTime',
       order: 'desc',
-      userId: sessionStorage.getItem('userId'),
       appName: '',
       status: 'Published',
       searchCondition: {},
@@ -190,7 +189,7 @@ export default {
     },
     getTableData () {
       this.appName = this.nameQueryVal
-      myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, this.status, this.prop, this.order)
+      myApp.getMyAppPackageApi('', this.curPageSize, this.offsetPage, this.appName, this.status, this.prop, this.order)
         .then(res => {
           this.appPackageData = res.data.results
           this.total = res.data.total
