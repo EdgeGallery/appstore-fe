@@ -68,23 +68,15 @@ export default {
     }
   },
   methods: {
-    timeCompute (time) {
-      var dateBegin = new Date(time.replace(/-/g, '/'))
-      var dateEnd = new Date()
-      var dateDiff = dateEnd.getTime() - dateBegin.getTime()
-      return Math.floor(dateDiff / (24 * 3600 * 1000))
-    },
     getMessage () {
       getAppdownAnaApiByType(this.limitSize, this.offsetPage, this.appName).then((res) => {
         this.msgs = []
-        let data = res.data
+        let data = res.data.results
         data.forEach(item => {
-          item.timeResult = this.timeCompute(item.time)
           if (item.readed === false) {
             this.msgs.push(item)
           }
         })
-
         if (this.msgs.length > 0) {
           this.$emit('msgEvent', this.msgs.length)
         } else {
