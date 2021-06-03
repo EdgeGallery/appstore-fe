@@ -594,6 +594,9 @@ export default {
       this.getAppData()
     }
   },
+  beforeDestroy () {
+    sessionStorage.removeItem('offsetRepo')
+  },
   mounted () {
     console.log(this.searchCondition)
     if (sessionStorage.getItem('userNameRole') === 'guest') {

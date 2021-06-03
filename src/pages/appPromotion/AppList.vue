@@ -405,6 +405,9 @@ export default {
       }, 500)
     }
   },
+  beforeDestroy () {
+    sessionStorage.removeItem('offsetAppPush')
+  },
   mounted () {
     this.getTableData()
     this.getProviders()

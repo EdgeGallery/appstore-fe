@@ -679,6 +679,7 @@ export default {
     }, 10000)
   },
   beforeDestroy () {
+    sessionStorage.removeItem('offsetMyApp')
     this.clearInterval()
   }
 }

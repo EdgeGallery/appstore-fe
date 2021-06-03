@@ -545,6 +545,7 @@ export default {
     }
   },
   beforeDestroy () {
+    sessionStorage.removeItem('offsetAppstore')
     this.clearInterval()
     clearInterval(this.timer)
   }
