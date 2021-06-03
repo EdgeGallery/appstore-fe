@@ -366,11 +366,6 @@ let myApp = {
     let url = 'apps/vm-register'
     return POST(url, params)
   },
-  // 获取我的应用
-  // getMyAppApi: function (userId) {
-  //   let url = 'apps?userId=' + userId
-  //   return GET(url)
-  // },
   // 获取我的应用包
   getMyAppPackageApi: function (userId, limit, offset, appName, status, sortItem, sortType) {
     let url = 'packages?userId=' + userId + '&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&status=' + status + '&sortItem=' + sortItem + '&sortType=' + sortType
