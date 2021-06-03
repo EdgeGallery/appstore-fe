@@ -595,7 +595,7 @@ export default {
     }
   },
   beforeDestroy () {
-      sessionStorage.removeItem('offsetRepo')
+    sessionStorage.removeItem('offsetRepo')
   },
   mounted () {
     console.log(this.searchCondition)

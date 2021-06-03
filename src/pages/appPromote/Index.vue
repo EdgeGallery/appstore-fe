@@ -484,7 +484,7 @@ export default {
     }
   },
   beforeDestroy () {
-      sessionStorage.removeItem('offsetAppstore')
+    sessionStorage.removeItem('offsetAppstore')
   },
   mounted () {
     this.userId = sessionStorage.getItem('userId')

@@ -598,9 +598,6 @@ export default {
     }
 
   },
-    beforeDestroy () {
-      sessionStorage.removeItem('offsetMyApp')
-  },
   computed: {
     getLanguage () {
       let language
@@ -682,6 +679,7 @@ export default {
     }, 10000)
   },
   beforeDestroy () {
+    sessionStorage.removeItem('offsetMyApp')
     this.clearInterval()
   }
 }

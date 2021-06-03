@@ -141,7 +141,7 @@ export default {
       curPageSize: 10,
       pageSizes: [10, 20, 30],
       limitSize: 10,
-      offsetPage:  sessionStorage.getItem('offsetOpera') || 0,
+      offsetPage: sessionStorage.getItem('offsetOpera') || 0,
       selectFlag: false,
       sortActionFlag: false,
       prop: 'createTime',
@@ -283,9 +283,8 @@ export default {
       }, 500)
     }
   },
-  
   beforeDestroy () {
-      sessionStorage.removeItem('offsetOpera')
+    sessionStorage.removeItem('offsetOpera')
   },
   mounted () {
     this.appPackageData = this.data
