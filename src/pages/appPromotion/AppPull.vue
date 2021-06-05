@@ -31,7 +31,7 @@
         <template>
           <el-select
             v-if="appStoreList.length > 0"
-            v-model="value"
+            v-model="activeAppStore"
             :placeholder="$t('apppromotion.targetPaltform')"
             class="selectStyle"
           >
@@ -40,7 +40,7 @@
               :key="item.title"
               :label="item.name"
               :value="item.title"
-              @click.native="getSelectAppstoreData(item.name)"
+              @click.native="getSelectAppstoreData(item)"
             />
           </el-select>
         </template>
@@ -59,14 +59,9 @@
 
         <div v-if="hackReset">
           <AppStoreDetail
-            @setSelectedItems="setSelectedItems"
-            @getOrder="getOrder"
-            @getProp="getProp"
-            @getCurPageSize="getCurPageSize"
-            @getOffsetPaget="getoffsetPage"
-            @getAppName="appName"
+            @getAppPullInfo="getAppPullInfo"
             :total="total"
-            :data="currentTableData"
+            :select-app-store-info="selectAppStoreInfo"
           />
         </div>
       </div>
@@ -76,6 +71,7 @@
           ref="childItem"
           v-model="isShowDialog"
           :app-pull-result-data="appPullResultData"
+          :all-selections-app="allSelectionsApp"
         />
       </div>
     </div>
@@ -85,7 +81,7 @@
 <script>
 import appPullResultDlg from './AppPullResultDlg.vue'
 import AppStoreDetail from './AppStoreDetail'
-import { promProviderInfo, getAppByAppstoreId } from '../../tools/api.js'
+import { promProviderInfo } from '../../tools/api.js'
 export default {
   components: {
     AppStoreDetail,
@@ -96,41 +92,28 @@ export default {
       allSelectionsApp: [],
       isShowDialog: false,
       appPullResultData: [],
-      appStoreArr: [],
       btnChangeEnable: true,
-      value: '',
+      activeAppStore: '',
       appStoreList: [],
-      currentTableData: [],
-      appPackageData: [],
+      selectAppStoreInfo: {},
       hackReset: false,
-      hasActiveDefault: false,
       curPageSize: 10,
       offsetPage: 0,
       appStoreName: '',
       prop: 'createTime',
       order: 'desc',
-      appName: '',
+      nameQuery: '',
       total: 0
-
     }
   },
   methods: {
-    getOrder (data) {
-      this.order = data
-      this.getAllPullApps()
-    },
-    getProp (data) {
-      this.prop = data
-      this.getAllPullApps()
-    },
-    getCurPageSize (data) {
-      this.curPageSize = data
-    },
-    getOffsetPage (data) {
-      this.offsetPage = data
-    },
-    getAppName (data) {
-      this.appName = data
+    getAppPullInfo (data) {
+      if (data.length > 0) {
+        this.allSelectionsApp = data
+        this.btnChangeEnable = false
+      } else {
+        this.btnChangeEnable = true
+      }
     },
     rebuileComponents () {
       this.hackReset = false
@@ -138,52 +121,16 @@ export default {
         this.hackReset = true
       })
     },
-    getSelectAppstoreData (name) {
-      for (let appStoreItem of this.appStoreList) {
-        if (appStoreItem.name === name) {
-          this.currentTableData = appStoreItem.content
-          this.rebuileComponents()
-        }
-      }
+    getSelectAppstoreData (item) {
+      this.selectAppStoreInfo = item
+      this.rebuileComponents()
     },
-    setSelectedItems (value) {
-      this.setPullButtonValue(value)
-      this.setAllAppSeclectValueToFalse()
-      for (let selectItem of value) {
-        for (let appStoreItem of this.appStoreList) {
-          if (selectItem.sourceStoreName === appStoreItem.name) {
-            for (let appItem of appStoreItem.content) {
-              if (selectItem.packageId === appItem.packageId) {
-                appItem['isSelectToPull'] = true
-                break
-              }
-            }
-            break
-          }
-        }
-      }
-    },
-    setPullButtonValue (value) {
-      if (value.length > 0) {
-        this.btnChangeEnable = false
-      } else {
-        this.btnChangeEnable = true
-      }
-    },
-    setAllAppSeclectValueToFalse () {
-      for (let appStoreListItem of this.appStoreList) {
-        for (let appItem of appStoreListItem.content) {
-          appItem.isSelectToPull = false
-        }
-      }
-    },
-    showPullAppDialog (row) {
+    showPullAppDialog () {
       this.appPullResultData = []
-      let tempData = JSON.parse(sessionStorage.getItem('allAppPullInfo'))
-      for (let tempDataArr of tempData) {
+      for (let item of this.allSelectionsApp) {
         let pullResult = {
-          name: tempDataArr.name,
-          appstoreName: tempDataArr.sourceStoreName,
+          name: item.name,
+          appstoreName: item.sourceStoreName,
           result: 'start'
         }
         this.appPullResultData.push(pullResult)
@@ -194,103 +141,31 @@ export default {
       }, 500)
     },
     getProviders () {
-      return new Promise((resolve, reject) => {
-        promProviderInfo(this.curPageSize, this.offsetPage, this.appStoreName).then((res) => {
-          let data = res.data.results
-          this.total = res.data.total
-          let index = 1
-          for (let item of data) {
-            let providerItem = {
-              number: index,
-              appStoreId: '',
-              label: ''
-            }
-            providerItem.appStoreId = item.appStoreId
-            providerItem.label = item.appStoreName
-            this.appStoreArr.push(providerItem)
-            index++
+      promProviderInfo(this.curPageSize, this.offsetPage, this.appStoreName).then((res) => {
+        let data = res.data.results
+        this.total = res.data.total
+        for (let item of data) {
+          let tempdata = {
+            name: item.appStoreName,
+            title: item.appStoreName,
+            appStoreId: item.appStoreId
           }
-          if (data.length > 0) {
-            resolve(this.appStoreArr)
-          }
-        }).catch((error) => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('pullApp.getAppStoreException'),
-            type: 'warning'
-          })
-          reject(error)
-        })
-      })
-    },
-    getAllPullApps () {
-      this.getProviders().then((resAppstore) => {
-        for (let resAppstoreItem of resAppstore) {
-          if (this.prop === 'name') {
-            this.prop = 'appName'
-          }
-          getAppByAppstoreId(resAppstoreItem.appStoreId, this.curPageSize, this.offsetPage, this.appName, this.order, this.prop).then((res) => {
-            let appStoreToApps = []
-            let data = res.data.results
-            this.total = res.data.total
-            if (data !== '') {
-              data.forEach(
-                (item) => {
-                  let appDataItem = {
-                    name: item.name,
-                    provider: item.provider,
-                    version: item.version,
-                    atpTestReportUrl: item.atpTestReportUrl,
-                    packageId: item.packageId,
-                    sourceStoreId: resAppstoreItem.appStoreId,
-                    affinity: item.affinity,
-                    industry: item.industry,
-                    shortDesc: item.shortDesc,
-                    type: item.type,
-                    createTime: item.createTime,
-                    atpTestStatus: item.atpTestStatus,
-                    sourceStoreName: resAppstoreItem.label,
-                    isSelectToPull: false
-                  }
-                  appStoreToApps.push(appDataItem)
-                }
-              )
-              let tempdata = {
-                name: resAppstoreItem.label,
-                title: resAppstoreItem.label,
-                content: appStoreToApps
-              }
-              this.appStoreList.push(tempdata)
-            }
-            if (!this.hasActiveDefault && this.appStoreList.length > 0) {
-              this.currentTableData = this.appStoreList[0].content
-              this.value = this.appStoreList[0].name
-              this.hasActiveDefault = true
-              this.rebuileComponents()
-            }
-          }).catch(() => {
-            this.$message({
-              duration: 2000,
-              message: this.$t('appPull.getPullAppException'),
-              type: 'warning'
-            })
-          })
+          this.appStoreList.push(tempdata)
         }
+        this.selectAppStoreInfo = this.appStoreList[0]
+        this.activeAppStore = this.appStoreList[0].name
+        this.rebuileComponents()
       }).catch(() => {
         this.$message({
           duration: 2000,
-          message: this.$t('appPull.getAppStoreException'),
+          message: this.$t('pullApp.getAppStoreException'),
           type: 'warning'
         })
       })
     }
   },
   mounted () {
-    this.getAllPullApps()
-    sessionStorage.setItem(
-      'allAppPullInfo',
-      JSON.stringify([])
-    )
+    this.getProviders()
   }
 }
 
