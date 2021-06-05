@@ -897,8 +897,6 @@ export default {
           }
         }
       } else {
-        // 判断英文错误
-
         for (let code of enMap.keys()) {
           if (retCode === Number(code)) {
             let para = enMap.get(code)
@@ -918,17 +916,11 @@ export default {
       }
     },
     showChangeErrorMessage (error) {
-      // let recodeData = sessionStorage.getItem('resCodeInfo')
-
       let retCode = error.response.data.retCode
       let params = error.response.data.params
-      // 首先获取retCode，和列表码进行比较，判断retCode是否存在
-
       if (retCode) {
-        // 判断是哪种语言
         this.commonShowMessage(retCode, params)
       } else {
-        // retCode没有，将会获取error里面的message进行展示
         this.handleExceptionMsg()
       }
     }
