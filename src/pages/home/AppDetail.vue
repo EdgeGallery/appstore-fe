@@ -458,7 +458,6 @@ export default {
       }
     },
     download (row) {
-      console.log(this.currentData)
       this.ifDownloadImage(this.currentData, row)
       this.getAppData()
     },

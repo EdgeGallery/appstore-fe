@@ -416,16 +416,10 @@ export default {
       let types = ['types', 'affinity', 'sortBy', 'industry', 'workloadType']
       types.forEach((item) => {
         this[item].forEach((condition) => {
-          if (!condition.selected) {
-            // this.searchCondition
-            console.log(condition)
-          }
           if (condition.selected) this.selectedConditions.push(condition)
-          console.log(this.selectedConditions)
         })
       })
       this.searchCondition.appName = this.nameQuery.toLowerCase()
-      console.log(this.selectedConditions)
       this.searchCondition = {
         appName: '',
         types: [],
@@ -446,7 +440,6 @@ export default {
       }
       this.selectedConditions.forEach(
         (item) => {
-          console.log(item)
           switch (item.type) {
             case 'affinity':
               this.searchCondition.affinity.push(item.label)
@@ -461,7 +454,6 @@ export default {
               this.searchCondition.workloadType.push(item.label[1])
               break
             case 'sortBy':
-              console.log(item.value)
               switch (item.value) {
                 case 'Most':
                   this.prop = this.searchCondition.queryCtrl.sortItem = 'downloadCount'
