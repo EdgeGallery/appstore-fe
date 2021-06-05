@@ -869,9 +869,6 @@ export default {
       }
     },
     showChangeMessageSuccess (res) {
-      console.log(res)
-      let rescodeData = sessionStorage.getItem('resCodeInfo')
-      console.log(rescodeData)
       // 由于成功每一个resCode都可以获取到，所以不用判断是否可以获取到resCode
       // 解析res.data 里面的resCode h和params,
       // 调用gatreway获取到接口化数据
@@ -884,7 +881,6 @@ export default {
       let enMap = new Map(Object.entries(this.enData))
       if (this.language === 'cn') {
         for (let code of zhMap.keys()) {
-          console.log(code)
           if (retCode === Number(code)) {
             let para = zhMap.get(code)
             if (para.indexOf('%s') !== -1) {
@@ -901,8 +897,6 @@ export default {
           }
         }
       } else {
-        // 判断英文错误
-
         for (let code of enMap.keys()) {
           if (retCode === Number(code)) {
             let para = enMap.get(code)
@@ -922,17 +916,11 @@ export default {
       }
     },
     showChangeErrorMessage (error) {
-      // let recodeData = sessionStorage.getItem('resCodeInfo')
-
       let retCode = error.response.data.retCode
       let params = error.response.data.params
-      // 首先获取retCode，和列表码进行比较，判断retCode是否存在
-
       if (retCode) {
-        // 判断是哪种语言
         this.commonShowMessage(retCode, params)
       } else {
-        // retCode没有，将会获取error里面的message进行展示
         this.handleExceptionMsg()
       }
     }

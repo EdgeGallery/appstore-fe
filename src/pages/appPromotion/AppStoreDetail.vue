@@ -160,7 +160,6 @@ export default {
     },
     unique (arr) {
       if (!Array.isArray(arr)) {
-        console.log('type error!')
         return
       }
       var array = []
@@ -208,10 +207,6 @@ export default {
       this.$emit('setSelectedItems', finalData)
     },
     refreshCurrentData () {
-      // let start = this.curPageSize * (this.pageNum - 1)
-      // let end = this.curPageSize * this.pageNum
-      // this.offsetPage = this.curPageSize * (this.pageNumCache - 1)
-      // this.currentPageData = this.findAppData.slice(start, end)
       this.currentPageData = this.findAppData
       this.$nextTick(function () {
         for (let appItem of this.currentPageData) {
@@ -224,12 +219,6 @@ export default {
     },
     handleNameQuery () {
       this.findAppData = this.appPackageData
-      // this.findAppData = this.findAppData.filter((item) => {
-      //   let itemName = item.name.toLowerCase()
-      //   return itemName.indexOf(this.nameQuery.toLowerCase()) !== -1
-      // })
-      // if (!this.nameQuery) this.findAppData = this.appPackageData
-      // this.total = this.findAppData.length
       if (this.nameQuery.toLowerCase()) {
         this.offsetPage = 0
         this.pageNum = 1
