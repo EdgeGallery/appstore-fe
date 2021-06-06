@@ -22,16 +22,17 @@
           <el-input
             suffix-icon="el-icon-search"
             v-model="nameQuery"
-            @change="handleNameQuery"
+            @change="queryApp"
             :placeholder="$t('common.appName')"
             class="search_input"
           />
         </div>
         <el-table
+          v-loading="dataLoading"
           :data="currentPageData"
           @selection-change="selectionLineChangeHandle"
           :default-sort="{prop: 'createTime', order: 'descending'}"
-          @sort-change="sortChanged"
+          @sort-change="sortChange"
           ref="multipleTable"
           style="width: 100%"
           header-cell-class-name="headerStyle"
@@ -102,7 +103,6 @@
         class="paginationStyle"
         :page-num="pageNum"
         :page-size="pageSize"
-        :page-sizes="pageSizes"
         :total="total"
         @sizeChange="sizeChange"
         @currentChange="currentChange"
@@ -113,194 +113,136 @@
 
 <script>
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
+import { getAppByAppstoreId } from '../../tools/api.js'
 export default {
   components: {
     EgPagination
   },
   props: {
-    data: {
+    selectAppStoreInfo: {
       required: true,
-      type: Array
-    },
-    total: {
-      required: false,
-      default: 0,
-      type: Number
+      type: Object
     }
   },
   data () {
     return {
-      appPackageData: [],
-      currentAppStoreId: '',
-      findAppData: [],
-      currentPageData: [],
-      nameQuery: '',
-      pageNum: 1,
+      btnChangeEnable: true,
+      dataLoading: true,
       pageSize: 10,
-      // total: 0,
       curPageSize: 10,
-      pageSizes: [10, 20, 30],
-      limitSize: 10,
-      offsetPage: sessionStorage.getItem('offsetPull') || 0,
-      selectFlag: false,
-      sortActionFlag: false,
+      offsetPage: 0,
+      pageNum: 1,
+      total: 0,
       prop: 'createTime',
-      order: 'desc'
+      order: 'desc',
+      searchCondition: {},
+      appPackageData: [],
+      currentPageData: [],
+      defaultSelectedIds: [],
+      defaultSelectedItems: [],
+      changedItems: [],
+      nameQuery: '',
+      selectDataIdList: [],
+      selectDataList: []
     }
   },
   methods: {
-    sizeChange (val) {
-      this.curPageSize = val
-      sessionStorage.setItem('pullAppPageSize', val)
-    },
-    currentChange (val) {
-      this.pageNum = val
-      this.offsetPage = this.curPageSize * (this.pageNum - 1)
-      sessionStorage.setItem('offsetPull', this.offsetPage)
-    },
-    unique (arr) {
-      if (!Array.isArray(arr)) {
-        return
-      }
-      var array = []
-      for (var arrData of arr) {
-        if (array.indexOf(arrData) === -1) {
-          array.push(arrData)
-        }
-      }
-      return array
-    },
-    selectionLineChangeHandle (val) {
-      // 动态的把勾选的app信息添加到总的allSelectionsApp中
-      if (this.sortActionFlag) {
-        this.sortActionFlag = false
-        return
-      }
-      if (this.selectFlag) {
-        this.selectFlag = false
-        return
-      }
-
-      let tempData = JSON.parse(sessionStorage.getItem('allAppPullInfo'))
-      if (!tempData) {
-        tempData = []
-      }
-      let finalData = []
-      let packageIds = []
-      for (let tempDataItem of tempData) {
-        if (this.currentAppStoreId !== tempDataItem.sourceStoreId) {
-          finalData.push(tempDataItem)
-          packageIds.push(tempDataItem.packageId)
-        }
-      }
-      for (let varArrItem of val) {
-        if (packageIds.indexOf(varArrItem.packageId) === -1) {
-          packageIds.push(varArrItem.packageId)
-          finalData.push(varArrItem)
-        }
-      }
-      sessionStorage.setItem(
-        'allAppPullInfo',
-        JSON.stringify(finalData)
-      )
-
-      this.$emit('setSelectedItems', finalData)
-    },
-    refreshCurrentData () {
-      this.currentPageData = this.findAppData
-      this.$nextTick(function () {
-        for (let appItem of this.currentPageData) {
-          if (appItem.isSelectToPull === true) {
-            this.selectFlag = true
-            this.$refs.multipleTable.toggleRowSelection(appItem, this.selectFlag)
-          }
-        }
-      })
-    },
-    handleNameQuery () {
-      this.findAppData = this.appPackageData
-      if (this.nameQuery.toLowerCase()) {
-        this.offsetPage = 0
-        this.pageNum = 1
-        sessionStorage.setItem('pullAppPageNum', this.pageNum)
-      }
-      this.$emit('getCurPageSize', this.curPageSize)
-      this.$emit('getOffsetPage', this.offsetPage)
-      this.$emit('getAppName', this.nameQuery.toLowerCase())
-      this.$parent.getAllPullApps()
-    },
-    sortChanged (column) {
+    sortChange (column) {
       if (column.prop == null || column.order == null) {
         this.prop = 'createTime'
         this.order = 'desc'
       } else {
-        this.prop = column.prop
+        if (column.prop === 'name') {
+          this.prop = 'appName'
+        } else {
+          this.prop = column.prop
+        }
         if (column.order === 'ascending') {
           this.order = 'asc'
         } else {
           this.order = 'desc'
         }
       }
-      this.$emit('getOrder', this.order)
-      this.$emit('getProp', this.prop)
+      this.getTableData(this.selectAppStoreInfo)
     },
-    newFunction (fieldArr, typePa, appSort) {
-      fieldArr.forEach((fieldItem) => {
-        this.findAppData.forEach((item) => {
-          if (typePa === 'name' || typePa === 'provider' || typePa === 'version' || typePa === 'messageType') {
-            if (item[typePa].toLowerCase() === fieldItem) {
-              appSort.push(item)
-            }
-          } else {
-            if (item[typePa] === fieldItem) {
-              appSort.push(item)
-            }
+    queryApp () {
+      this.getTableData(this.selectAppStoreInfo)
+    },
+    selectionLineChangeHandle (val) {
+      if (this.selectDataList.length === 0) {
+        this.selectDataList = val
+        for (let item of this.selectDataList) {
+          this.selectDataIdList.push(item.appId)
+        }
+      } else {
+        for (let item of val) {
+          if (this.selectDataIdList.indexOf(item.appId) === -1) {
+            this.selectDataIdList.push(item.appId)
+            this.selectDataList.push(item)
           }
+        }
+      }
+      this.$emit('getAppPullInfo', this.selectDataList)
+    },
+    getTableData (selectAppStoreInfo) {
+      getAppByAppstoreId(selectAppStoreInfo.appStoreId, this.curPageSize, this.offsetPage, this.nameQuery, this.order, this.prop).then((res) => {
+        let data = res.data.results
+        this.total = res.data.total
+        if (data !== '') {
+          data.forEach(
+            (item) => {
+              let appDataItem = {
+                name: item.name,
+                provider: item.provider,
+                version: item.version,
+                atpTestReportUrl: item.atpTestReportUrl,
+                packageId: item.packageId,
+                sourceStoreId: selectAppStoreInfo.appStoreId,
+                affinity: item.affinity,
+                industry: item.industry,
+                shortDesc: item.shortDesc,
+                type: item.type,
+                createTime: item.createTime,
+                atpTestStatus: item.atpTestStatus,
+                sourceStoreName: selectAppStoreInfo.name,
+                isSelectToPull: false
+              }
+              this.currentPageData.push(appDataItem)
+            }
+          )
+          this.$nextTick(function () {
+            for (let item of this.currentPageData) {
+              if (this.selectDataIdList.indexOf(item.packageId)) {
+                this.$refs.multipleTable.toggleRowSelection(item, true)
+              }
+            }
+          })
+        }
+        this.dataLoading = false
+      }).catch(() => {
+        this.dataLoading = false
+        this.$message({
+          duration: 2000,
+          message: this.$t('appPull.getPullAppException'),
+          type: 'warning'
         })
       })
     },
-    defaultSort () {
-      setTimeout(() => {
-        if (this.currentPageData.length > 0) {
-          // 排序会触发勾选bug
-          this.sortActionFlag = true
-          this.$refs.multipleTable.sort('createTime', 'descending')
-          setTimeout(() => {
-            this.sortActionFlag = false
-          }, 500)
-        }
-      }, 500)
+    currentChange (val) {
+      this.pageNum = val
+      this.offsetPage = this.curPageSize * (this.pageNum - 1)
+      this.getTableData(this.selectAppStoreInfo)
+    },
+    sizeChange (val) {
+      this.curPageSize = val
     }
-  },
-  destroyed () {
-    sessionStorage.removeItem('offsetPull')
   },
   mounted () {
-    this.appPackageData = this.data
-    this.findAppData = this.appPackageData
-    this.total = this.findAppData.length
-    if (this.appPackageData.length > 0) {
-      this.currentAppStoreId = this.appPackageData[0].sourceStoreId
-    }
-    this.defaultSort()
+    this.getTableData(this.selectAppStoreInfo)
   },
   watch: {
     curPageSize: function () {
-      // this.offsetPage = this.curPageSize * (this.pageNum - 1)
-      this.$emit('curPageSize', this.curPageSize)
-      this.$emit('offsetPage', this.offsetPage)
-      this.$parent.getAllPullApps()
-      this.refreshCurrentData()
-    },
-    pageNum: function () {
-      this.$emit('curPageSize', this.curPageSize)
-      this.$emit('offsetPage', this.offsetPage)
-      this.$parent.getAllPullApps()
-      this.refreshCurrentData()
-      this.refreshCurrentData()
-    },
-    findAppData: function () {
-      this.refreshCurrentData()
+      this.getTableData(this.selectAppStoreInfo)
     }
   }
 }

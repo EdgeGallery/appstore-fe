@@ -86,6 +86,10 @@ export default {
     appPullResultData: {
       required: true,
       type: Array
+    },
+    allSelectionsApp: {
+      required: true,
+      type: Array
     }
   },
   data () {
@@ -104,11 +108,11 @@ export default {
     },
     handleExecute () {
       this.appPullResultData = []
-      let tempData = JSON.parse(sessionStorage.getItem('allAppPullInfo'))
-      for (let tempDataArr of tempData) {
+      let tempData = this.allSelectionsApp
+      for (let item of tempData) {
         let pullResult = {
-          name: tempDataArr.name,
-          appstoreName: tempDataArr.sourceStoreName,
+          name: item.name,
+          appstoreName: item.sourceStoreName,
           result: 'inProgress'
         }
         this.appPullResultData.push(pullResult)
