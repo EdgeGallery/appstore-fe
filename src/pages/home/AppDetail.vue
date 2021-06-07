@@ -283,7 +283,7 @@ export default {
       appId: '',
       tableData: [],
       isDownloadImage: false,
-      isShowDownload: true,
+      isShowDownload: false,
       currentData: {
         packageId: 'b415e520e00a48ed9721fefa99187f01',
         deployMode: 'vm'
