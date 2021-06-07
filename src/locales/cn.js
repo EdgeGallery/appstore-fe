@@ -245,8 +245,9 @@ const cn = {
     workloadType: '负载类型',
     deployContainer: '容器',
     deployVM: '虚拟机',
-    ifDownloadImage: '是否需要下载应用镜像',
-    downloadImageTip: '镜像文件较大，下载耗时较长，请耐心等待',
+    ifDownloadImage: '是否需要下载应用镜像?',
+    downloadImageTip: '镜像文件较大',
+    downloadImageTip2: '下载耗时较长，请耐心等待',
     need: '需 要',
     noNeed: '不 需 要'
   },
