@@ -229,7 +229,7 @@ const en = {
     deployContainer: 'Container',
     deployVM: 'VM',
     ifDownloadImage: 'Do you need to download application attachments?',
-    downloadImageTip: 'Merge files are merged',
+    downloadImageTip: 'Image files is large',
     downloadImageTip2: 'Download time-consuming supplements, please be patient',
     need: 'Need',
     noNeed: 'No need'
