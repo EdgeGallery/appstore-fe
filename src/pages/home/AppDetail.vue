@@ -284,10 +284,7 @@ export default {
       tableData: [],
       isDownloadImage: false,
       isShowDownload: false,
-      currentData: {
-        packageId: 'b415e520e00a48ed9721fefa99187f01',
-        deployMode: 'vm'
-      },
+      currentData: {},
       activeName: 'introduction',
       comments: {
         score: 0,
