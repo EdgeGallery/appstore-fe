@@ -223,19 +223,35 @@
       </el-tabs>
     </div>
     <el-dialog
-      :title="$t('store.ifDownloadImage')"
       :visible.sync="isShowDownload"
-      width="700px"
+      center="true"
+      :show-close="false"
+      class="detail_dialog_cn"
+      :class="{'detail_dialog_en':language==='en'}"
     >
-      {{ $t('store.downloadImageTip') }}
+      <p class="infoTile">
+        {{ $t('store.ifDownloadImage') }}
+      </p>
+      <p class="info">
+        {{ $t('store.downloadImageTip') }}
+      </p>
+      <p class="info1">
+        {{ $t('store.downloadImageTip2') }}
+      </p>
       <div
         slot="footer"
         class="dialog-footer"
       >
-        <el-button @click="cancelImage(currentData)">
+        <el-button
+          style="text-align:center"
+          @click="cancelImage(currentData)"
+          class="button1"
+        >
           {{ $t('store.noNeed') }}
         </el-button>
         <el-button
+          style="text-align:center"
+          class="button2"
           type="primary"
           @click="confirmImage(currentData)"
         >
@@ -267,8 +283,10 @@ export default {
       appId: '',
       tableData: [],
       isDownloadImage: false,
-      isShowDownload: false,
+      isShowDownload: true,
       currentData: {
+        packageId: 'b415e520e00a48ed9721fefa99187f01',
+        deployMode: 'vm'
       },
       activeName: 'introduction',
       comments: {
@@ -458,6 +476,7 @@ export default {
       }
     },
     download (row) {
+      console.log(this.currentData)
       this.ifDownloadImage(this.currentData, row)
       this.getAppData()
     },
@@ -546,6 +565,64 @@ export default {
 
 <style lang="less">
 .app_detail{
+  .detail_dialog_cn{
+    .el-dialog__header {
+      background: url('../../assets/images/downloadImage.png') !important;
+      overflow: auto;
+      border-radius: 11px;
+    }
+  }
+  .detail_dialog_en{
+    .el-dialog__header {
+      background: url('../../assets/images/downloadImageen.png') !important;
+      overflow: auto;
+      border-radius: 11px;
+    }
+  }
+  .el-dialog {
+    .el-dialog__header {
+      height: 87px;
+    }
+    top: 20%;
+    width: 355px;
+    border-radius: 11px;
+    .infoTile {
+      font-size: 16px;
+      color: #3052ab;
+      text-align: center;
+      margin-bottom: 6px;
+      margin-top: 4%;
+    }
+    .dialog-footer{
+      text-align: center;
+      margin-top: 2%;
+    }
+    .button1 {
+      font-size: 14px;
+      background: #d0dbf7;
+      color: #587fe7;
+      align-content: center;
+    }
+    .button2 {
+      font-size: 14px;
+      background: #587fe7;
+      color: #ffffff;
+      align-content: center;
+      margin-left: 30px;
+    }
+    .info {
+      text-align: center;
+      color: #ea6b6b;
+      font-size: 12px;
+    }
+    .info1 {
+      text-align: center;
+      color: #ea6b6b;
+      font-size: 12px;
+      margin-top: 1%;
+    }
+
+  }
   p{
     margin-bottom: 0;
     font-size: 14px;

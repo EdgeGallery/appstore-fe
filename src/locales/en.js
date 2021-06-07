@@ -228,8 +228,9 @@ const en = {
     workloadType: 'Workload Type',
     deployContainer: 'Container',
     deployVM: 'VM',
-    ifDownloadImage: 'Do you need to download application attachments',
-    downloadImageTip: 'Merge files are merged, download time-consuming supplements, please be patient',
+    ifDownloadImage: 'Do you need to download application attachments?',
+    downloadImageTip: 'Merge files are merged',
+    downloadImageTip2: 'Download time-consuming supplements, please be patient',
     need: 'Need',
     noNeed: 'No need'
   },
