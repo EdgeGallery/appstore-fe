@@ -310,6 +310,7 @@ export default {
       userName: '',
       loginPage: '',
       userCenterPage: '',
+      forceModifyPwPage: '',
       ifGuest: true,
       isAdmin: false,
       menu_small: false,
@@ -449,6 +450,17 @@ export default {
     openUserAccountCenter () {
       window.open(this.userCenterPage)
     },
+    jumpToForceModifyPw () {
+      if (this.ifGuest) {
+        return false
+      }
+      if (this.forceModifyPwPage) {
+        window.location.href = this.forceModifyPwPage
+        return true
+      }
+
+      return false
+    },
     judgePath (toPath, fromPath) {
       if ((toPath.path === '/detail' && fromPath.path === '/myapp') || (toPath.path === '/app/test/task' && fromPath.path === '/myapp') || (toPath.path === '/atpreport' && fromPath.path === '/myapp') ||
       (toPath.path === '/myappdetail' && fromPath.path === '/myapp') || (toPath.path === '/atpprocess' && fromPath.path === '/myapp') || (toPath.path === '/atptestcase' && fromPath.path === '/myapp')) {
@@ -503,10 +515,10 @@ export default {
       } else {
         sessionStorage.setItem('userNameRole', 'guest')
       }
-      if (res.data.userName === 'guest') {
-        this.ifGuest = true
-      } else {
-        this.ifGuest = false
+      this.ifGuest = res.data.userName === 'guest'
+      this.forceModifyPwPage = res.data.forceModifyPwPage
+      if (this.jumpToForceModifyPw()) {
+        return
       }
       if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1 || res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
         this.isAdmin = false
