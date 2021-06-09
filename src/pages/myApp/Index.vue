@@ -579,9 +579,10 @@ export default {
       }
     },
     changeLanguege () {
+      // 切英文
       let curLabelKey = 'labelCn'
       let nextLabelKey = 'labelEn'
-      if (this.language === 'en') {
+      if (this.language === 'cn') { // 切中文
         curLabelKey = 'labelEn'
         nextLabelKey = 'labelCn'
       }
