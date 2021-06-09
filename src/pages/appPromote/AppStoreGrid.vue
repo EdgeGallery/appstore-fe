@@ -17,8 +17,7 @@
 <template>
   <div class="app-grid">
     <div
-      class="curp content"
-      :class="{'both-border': index % 4 !== 0 && index % 4 !== 3, 'right-border': index % 4 === 0, 'left-border': index % 4 === 3}"
+      class="curp content lm-rm-15"
       v-for="(item, index) in appData"
       :key="index"
       :id="item.appStoreId"
@@ -172,21 +171,15 @@ export default {
 .no-display {
   display: none;
 }
-.both-border {
-  padding: 0 15px;
-}
-.left-border {
-  padding: 0 0 0 15px;
-}
-.right-border {
-  padding: 0 15px 0 0;
+.lm-rm-15 {
+  margin: 0 15px;
 }
 .app-grid {
   display: flex;
-  padding: 20px 0;
+  margin: 20px -15px;
   flex-wrap: wrap;
   .content {
-    width: 25%;
+    width: calc(25% - 30px);
     box-sizing: border-box;
     padding-bottom: 20px;
     .application {
@@ -284,6 +277,16 @@ export default {
         opacity: 0.8;
       }
     }
+  }
+}
+@media screen and (max-width:1890px) {
+  .content{
+    width: calc(33.33% - 30px)!important;
+  }
+}
+@media screen and (max-width:1417px) {
+  .content{
+    width: calc(50% - 30px)!important;
   }
 }
 </style>
