@@ -579,12 +579,17 @@ export default {
       }
     },
     changeLanguege () {
+      let curLabelKey = 'labelCn'
+      let nextLabelKey = 'labelEn'
+      if (this.language === 'en') {
+        curLabelKey = 'labelEn'
+        nextLabelKey = 'labelCn'
+      }
       this.appPackageData.forEach(item => {
         for (let type of this.typeList) {
-          if (this.language === 'cn' && type.labelEn === item.type) {
-            item.type = type.labelCn
-          } else if (this.language === 'en' && type.labelEn === item.type) {
-            item.type = type.labelEn
+          if (item.type === type[curLabelKey]) {
+            item.type = type[nextLabelKey]
+            break
           }
         }
       })
