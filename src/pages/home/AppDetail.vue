@@ -238,7 +238,7 @@
         </el-radio>
         <p class="p_bot">
           <em class="el-icon-warning" />
-          {{ $t('store.noNeed') }}
+          {{ $t('store.downloadImageTip') }}
         </p>
         <el-radio :label="true">
           {{ $t('store.downloadImageTip') }}
@@ -573,7 +573,7 @@ export default {
    background: transparent !important;
  }
   .down_radio{
-    padding: 20px 30px;
+    padding: 18px 30px;
     width: 350px;
     .el-radio{
       width: 350px;
@@ -586,7 +586,7 @@ export default {
     }
     .p_bot{
       width: 400px;
-      margin:0 0 30px 25px;
+      margin:0 0 30px 20px;
       color: #aaa;
       font-size: 14px;
     }
