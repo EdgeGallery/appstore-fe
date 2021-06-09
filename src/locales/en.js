@@ -228,11 +228,11 @@ const en = {
     workloadType: 'Workload Type',
     deployContainer: 'Container',
     deployVM: 'VM',
-    ifDownloadImage: 'Do you need to download application attachments?',
-    downloadImageTip: 'Image file is large',
-    downloadImageTip2: 'Download time-consuming supplements, please be patient',
-    need: 'Need',
-    noNeed: 'No need'
+    downloadImage: 'Application package download',
+    downloadImageTip: 'Mirror download link in the application package',
+    downloadImageTip2: 'The mirror is in the application, the mirror file, the download package lasts for a long time, please wait patiently',
+    need: 'App package with mirror',
+    noNeed: 'Application package not mirrored'
   },
   docs: {
     step1: 'Open source MEP platform',

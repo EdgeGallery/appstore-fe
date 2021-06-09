@@ -245,11 +245,11 @@ const cn = {
     workloadType: '负载类型',
     deployContainer: '容器',
     deployVM: '虚拟机',
-    ifDownloadImage: '是否需要下载应用镜像?',
-    downloadImageTip: '镜像文件较大',
-    downloadImageTip2: '下载耗时较长，请耐心等待',
-    need: '需 要',
-    noNeed: '不 需 要'
+    downloadImage: '应用包下载',
+    downloadImageTip: ' 应用包内有镜像下载链接',
+    downloadImageTip2: ' 镜像在应用包里，镜像文件较大，下载耗时长，请耐心等待',
+    need: '带镜像的应用包',
+    noNeed: '不带镜像的应用包'
   },
   docs: {
     // step1: '开源MEP平台',

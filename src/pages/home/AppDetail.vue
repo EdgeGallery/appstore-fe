@@ -223,41 +223,44 @@
       </el-tabs>
     </div>
     <el-dialog
+      :title="$t('store.downloadImage')"
       :visible.sync="isShowDownload"
-      center="true"
       :show-close="false"
-      class="detail_dialog_cn"
-      :class="{'detail_dialog_en':language==='en'}"
+      center
     >
-      <p class="infoTile">
-        {{ $t('store.ifDownloadImage') }}
-      </p>
-      <p class="info">
-        {{ $t('store.downloadImageTip') }}
-      </p>
-      <p class="info1">
-        {{ $t('store.downloadImageTip2') }}
-      </p>
-      <div
+      <el-radio-group
+        v-model="isDownloadImage"
+        @change="handleSlect()"
+        class="down_radio"
+      >
+        <el-radio :label="false">
+          {{ $t('store.noNeed') }}
+        </el-radio>
+        <p class="p_bot">
+          <em class="el-icon-warning" />
+          {{ $t('store.noNeed') }}
+        </p>
+        <el-radio :label="true">
+          {{ $t('store.downloadImageTip') }}
+        </el-radio>
+        <p class="p_bot">
+          <em class="el-icon-warning" />
+          {{ $t('store.downloadImageTip2') }}
+        </p>
+      </el-radio-group>
+      <span
         slot="footer"
         class="dialog-footer"
       >
         <el-button
-          style="text-align:center"
           @click="cancelImage(currentData)"
-          class="button1"
-        >
-          {{ $t('store.noNeed') }}
-        </el-button>
+          class="cancle_btn"
+        >取 消</el-button>
         <el-button
-          style="text-align:center"
-          class="button2"
           type="primary"
           @click="confirmImage(currentData)"
-        >
-          {{ $t('store.need') }}
-        </el-button>
-      </div>
+        >确 定</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -454,12 +457,9 @@ export default {
     },
     cancelImage (row) {
       this.isDownloadImage = false
-      downloadAppPakageApi(this.appId, row, this.isDownloadImage)
       this.isShowDownload = false
-      this.isDownloadImage = false
     },
     confirmImage (row) {
-      this.isDownloadImage = true
       downloadAppPakageApi(this.appId, row, this.isDownloadImage)
       this.isShowDownload = false
       this.isDownloadImage = false
@@ -562,63 +562,42 @@ export default {
 
 <style lang="less">
 .app_detail{
-  .detail_dialog_cn{
-    .el-dialog__header {
-      background: url('../../assets/images/downloadImage.png') !important;
-      overflow: auto;
-      border-radius: 11px;
-    }
+  .el-dialog{
+  text-align: left;
+    box-shadow: 2px 5px 23px 10px rgba(104, 142, 243, 0.2) inset;
+    width: 535px;
+    height: 333px;
   }
-  .detail_dialog_en{
-    .el-dialog__header {
-      background: url('../../assets/images/downloadImageen.png') !important;
-      overflow: auto;
-      border-radius: 11px;
+ .el-dialog__header{
+   border-bottom: 2px solid #e0e0e0;
+   background: transparent !important;
+ }
+  .down_radio{
+    padding: 20px 30px;
+    width: 350px;
+    .el-radio{
+      width: 350px;
+      .el-radio__label{
+        font-size: 20px;
+      }
+      .el-radio__input.is-checked + .el-radio__label{
+        color: #606266;
+      }
     }
-  }
-  .el-dialog {
-    .el-dialog__header {
-      height: 87px;
-    }
-    top: 20%;
-    width: 355px;
-    border-radius: 11px;
-    .infoTile {
-      font-size: 16px;
-      color: #3052ab;
-      text-align: center;
-      margin-bottom: 6px;
-      margin-top: 4%;
-    }
-    .dialog-footer{
-      text-align: center;
-      margin-top: 2%;
-    }
-    .button1 {
+    .p_bot{
+      width: 400px;
+      margin:0 0 30px 25px;
+      color: #aaa;
       font-size: 14px;
+    }
+  }
+  .dialog-footer {
+    text-align: center;
+    .cancle_btn{
       background: #d0dbf7;
       color: #587fe7;
-      align-content: center;
+      margin-right: 30px !important;
     }
-    .button2 {
-      font-size: 14px;
-      background: #587fe7;
-      color: #ffffff;
-      align-content: center;
-      margin-left: 30px;
-    }
-    .info {
-      text-align: center;
-      color: #ea6b6b;
-      font-size: 12px;
-    }
-    .info1 {
-      text-align: center;
-      color: #ea6b6b;
-      font-size: 12px;
-      margin-top: 1%;
-    }
-
   }
   p{
     margin-bottom: 0;
