@@ -247,7 +247,7 @@ const cn = {
     deployVM: '虚拟机',
     downloadImage: '应用包下载',
     downloadImageTip: ' 应用包内有镜像下载链接',
-    downloadImageTip2: ' 镜像在应用包里，镜像文件较大，下载耗时长，请耐心等待',
+    downloadImageTip2: ' 镜像在应用包里，镜像文件较大，下载耗时较长，请耐心等待',
     need: '带镜像的应用包',
     noNeed: '不带镜像的应用包'
   },
