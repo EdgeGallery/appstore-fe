@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <!-- hotApp -->
+  <!-- HotApp -->
   <div class="hotAppManager">
     <div class="clearbtAndSearch">
       <el-button
