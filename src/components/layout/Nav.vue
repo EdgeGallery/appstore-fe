@@ -20,7 +20,7 @@
       :gutter="10"
     >
       <el-col
-        :lg="6"
+        :lg="5"
         :md="4"
         :sm="14"
         :xs="13"
@@ -34,7 +34,7 @@
         </div>
       </el-col>
       <el-col
-        :lg="12"
+        :lg="14"
         :md="12"
         class="navList"
       >
@@ -85,7 +85,7 @@
         </el-menu>
       </el-col>
       <el-col
-        :lg="6"
+        :lg="5"
         :md="8"
         :sm="10"
         :xs="11"
