@@ -241,7 +241,7 @@
           {{ $t('store.downloadImageTip') }}
         </p>
         <el-radio :label="true">
-          {{ $t('store.downloadImageTip') }}
+          {{ $t('store.need') }}
         </el-radio>
         <p class="p_bot">
           <em class="el-icon-warning" />
