@@ -255,11 +255,11 @@
         <el-button
           @click="cancelImage(currentData)"
           class="cancle_btn"
-        >取 消</el-button>
+        >{{ $t('atp.cancel') }}</el-button>
         <el-button
           type="primary"
           @click="confirmImage(currentData)"
-        >确 定</el-button>
+        >{{ $t('atp.confirm') }}</el-button>
       </span>
     </el-dialog>
   </div>
