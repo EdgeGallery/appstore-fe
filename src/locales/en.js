@@ -229,10 +229,10 @@ const en = {
     deployContainer: 'Container',
     deployVM: 'VM',
     downloadImage: 'Application package download',
-    downloadImageTip: 'Mirror download link in the application package',
-    downloadImageTip2: 'The mirror is in the application, the mirror file, the download package lasts for a long time, please wait patiently',
-    need: 'App package with mirror',
-    noNeed: 'Application package not mirrored'
+    downloadImageTip: 'Image download link is included in the package',
+    downloadImageTip2: 'Image is included in the package,which may cost longer time to download,please keep patient',
+    need: 'App package with image',
+    noNeed: 'App package without image'
   },
   docs: {
     step1: 'Open source MEP platform',
