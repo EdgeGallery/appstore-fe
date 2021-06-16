@@ -107,11 +107,11 @@ export default {
       } else {
         this.selectData.push(tempData)
       }
-      // 获取appstoreid和apstoreName
+      // Get appstoreid and apstoreName
       this.platformData = this.appStoreListProp
       this.selectData.forEach(selectItem => {
         this.platformData.forEach(platformItem => {
-          // 全部赋值成start
+          // Assign 'start' value to all attribute
           let attr = platformItem.label
           selectItem[attr] = 'start'
         })

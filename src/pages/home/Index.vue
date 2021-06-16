@@ -185,7 +185,7 @@
         </el-col>
       </el-row>
     </div>
-    <!-- 上传组件 -->
+    <!-- Upload components -->
     <div v-if="uploadDiaVis">
       <uploadPackage
         v-model="uploadDiaVis"

@@ -19,7 +19,7 @@
     class="apphome"
     ref="apphome"
   >
-    <!-- 新上车应用-->
+    <!-- New App -->
     <div class="banner">
       <home-swiper />
     </div>
@@ -85,7 +85,7 @@
         </div>
       </div>
     </div>
-    <!-- 特别推荐 -->
+    <!-- Recommendation app -->
     <div class="recommend home_content">
       <h3 class="home_tit">
         {{ $t('store.reCommendColletion') }}
@@ -131,7 +131,7 @@
         </li>
       </ul>
     </div>
-    <!-- 评分最高-->
+    <!-- Highest rate-->
     <div class="score home_content">
       <h3 class="home_tit">
         {{ $t('store.higherScore') }}
@@ -219,7 +219,7 @@
         </swiper>
       </div>
     </div>
-    <!-- 接入你的应用 -->
+    <!-- Access your application -->
     <div class="app_upload home_content">
       <h3 class="home_tit">
         {{ $t('store.addYourApp') }}
@@ -266,7 +266,7 @@
         </div>
       </div>
     </div>
-    <!-- 底部 -->
+    <!-- bottom -->
     <div class="footer home_content">
       <div class="footer_list">
         <ul class="footer_ul">
@@ -384,7 +384,7 @@
         </div>
       </div>
     </div>
-    <!-- 上传组件 -->
+    <!-- Upload component -->
     <div v-show="uploadDiaVis">
       <uploadPackage
         v-model="uploadDiaVis"
@@ -883,7 +883,7 @@ export default {
       }
       @keyframes toTop {
         0% {
-          will-change: scroll-position;/*优化动画卡顿1*/
+          will-change: scroll-position;/*Optimize animation freeze*/
           opacity: 0;
           transform:translateY(100px);
         }

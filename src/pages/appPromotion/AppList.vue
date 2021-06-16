@@ -336,7 +336,7 @@ export default {
       })
     },
     getSelectAppstoreData (item) {
-      // 去勾选
+      // Uncheck
       if (this.value.indexOf(item) === -1) {
         if (item === 'All') {
           setTimeout(() => {

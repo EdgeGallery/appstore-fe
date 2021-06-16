@@ -42,73 +42,73 @@ function getAppDetailTableApi (appId, limit, offset) {
   return GETV2(url)
 }
 
-// 查询所有可推广的应用
+// Inquire about all the applications that can be promoted
 function getAppPromTableApi (limit, offset, appName, sortType, sortItem) {
   let url = 'packages/pushable?limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=' + sortType + '&sortItem=' + sortItem
   return GETV2(url, '')
 }
 
-// 获取全量操作分析数据
+// Get full operation analysis data
 function getAppdownAnaApiChart () {
   let url = 'messages'
   return GET(url, '')
 }
 
-// 获取操作信息
+// Get operation information
 function getAppdownAnaApi (messageType, limit, offset, appName, sortItem, sortType) {
   let url = 'messages?messageType=' + messageType + '&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortItem=' + sortItem + '&sortType=' + sortType
   return GETV2(url, '')
 }
 
-// 获取可以推送的平台信息
+// Get platform information that can be pushed
 function promProviderInfo (curPageSize, offset, appStoreName) {
   let url = 'appstores?limit=' + curPageSize + '&offset=' + offset + '&appStoreName=' + appStoreName
   return GETV2(url, '')
 }
 
-// 推送任务
+// Push task
 function promTaskApi (packageId, param) {
   let url = 'packages/' + packageId + '/action/push'
   return POST(url, param)
 }
 
-// 接收app推送信息
+// Receive app push information
 function acceptMsg (messageId) {
   let url = 'messages/' + messageId + '/action/download'
   return GET(url, '')
 }
 
-// 删除app推送信息
+// Delete app push information
 function deleteMsg (messageId) {
   let url = 'messages/' + messageId
   return DELETE(url, '')
 }
 
-// 获取类型为notice的消息
+// Get the message of type notice
 function getAppdownAnaApiByType (limit, offset, appName) {
   let url = 'messages' + '?messageType=NOTICE&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=desc&sortItem=time'
   return GETV2(url, '')
 }
 
-// 更新msg读取状态
+// Update msg read status
 function updateStatus (messageId) {
   let url = 'messages/' + messageId + '/action/readed'
   return PUT(url, '')
 }
 
-// 拉取app
+// Pull app
 function pullApp (packageId, param) {
   let url = 'packages/' + packageId + '/action/pull'
   return POST(url, param)
 }
 
-// 根据appstoreid获取可以拉取app
+// App can be pulled according to appstoreid
 function getAppByAppstoreIdV1 (appstoreId) {
   let url = 'packages/' + appstoreId + '/pullable'
   return GET(url, '')
 }
 
-// 根据appstoreid获取可以拉取app
+// App can be pulled according to appstoreid
 function getAppByAppstoreId (appstoreId, limit, offset, appName, sortType, sortItem) {
   let url = 'packages/' + appstoreId + '/pullable?limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=' + sortType + '&sortItem=' + sortItem
   return GETV2(url, '')
@@ -327,17 +327,17 @@ function logoutApi () {
 }
 
 let myAppStore = {
-  // 新增appstore接口
+  // Add appstore 
   addAppStoreApi: function (params) {
     let url = 'appstores'
     return POST(url, params)
   },
-  // 编辑appstore接口
+  // Edit appstore
   modifyAppStoreApi: function (params, appStoreId) {
     let url = 'appstores/' + appStoreId
     return PUT(url, params)
   },
-  // 获取我的appstore
+  // get my appstore
   getMyAppApi: function (curPageSize, offset, appStoreName) {
     let url = 'appstores?limit=' + curPageSize + '&offset=' + offset + '&appStoreName=' + appStoreName
     return GETV2(url, '')
@@ -350,23 +350,23 @@ let myAppStore = {
 
 let myApp = {
 
-  // 调用webgateWay获取接口响应信息
+  // Call webgateWay to get interface response information
   getResponseCodeInfo: function (params) {
     let url = 'error-info?modules=' + params
     return GETRESCODE(url, '')
   },
 
-  // 首页上传接口
+  // Homepage upload interface
   uploadAppPackageApi: function (params) {
     let url = 'apps'
     return POSTV2(url, params)
   },
-  // 首页上传大文件接口
+  // Homepage upload large file interface
   uploadVMAppApi: function (params) {
     let url = 'apps/vm-register'
     return POST(url, params)
   },
-  // 获取我的应用包
+  // Get my app package
   getMyAppPackageApi: function (userId, limit, offset, appName, status, sortItem, sortType) {
     let url = 'packages?userId=' + userId + '&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&status=' + status + '&sortItem=' + sortItem + '&sortType=' + sortType
     return GETV2(url)
@@ -375,27 +375,27 @@ let myApp = {
     let url = 'packages?userId=' + userId
     return GET(url)
   },
-  // 测试应用
+  // Test application
   testPackageApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId + '/action/test'
     return POST(url)
   },
-  // 发布应用
+  // Publish the application
   publishAppApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId + '/action/publish'
     return POST(url)
   },
-  // 包的详情
+  // Get package detail
   getPackageDetailApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId
     return GET(url)
   },
-  // 修改应用
+  // Modify the application
   modifyAppAttr: function (param, appId, packageId) {
     let url = 'apps/' + appId + '/package/' + packageId
     return PUT(url, param)
   },
-  // 修改热门应用
+  // Edit popular apps
   setHotApp: function (appIds) {
     let url = 'apps/hotapps'
     return PUTV2(url, appIds)

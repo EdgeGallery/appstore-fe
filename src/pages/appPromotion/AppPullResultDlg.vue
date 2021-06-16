@@ -121,7 +121,7 @@ export default {
       setTimeout(() => {
         let flagNumber = 0
         for (let i = 0; i < tempData.length; i++) {
-        // 每次拉取一个app
+        // Pull one app at a time
           let userId = sessionStorage.getItem('userId')
           let userName = sessionStorage.getItem('userName')
           let param = {

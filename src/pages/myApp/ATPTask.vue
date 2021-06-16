@@ -49,9 +49,9 @@ export default {
       }
     },
     rebuileComponents () {
-      // 销毁子标签
+      // Destroy subtag
       this.isRouterAlive = false
-      // 重新创建子标签
+      // Recreate the subtag
       this.$nextTick(() => {
         this.isRouterAlive = true
       })

@@ -261,7 +261,7 @@ export default {
           }
           this.allRightDetailData.push(item)
         })
-        // 默认是选中今天数据
+        // The default is to select today's data
         this.allRightDetailData.forEach(item => {
           if (item.timeResult === 1) {
             if (item.readed) {
