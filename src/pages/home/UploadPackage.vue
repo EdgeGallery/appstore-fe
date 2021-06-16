@@ -56,7 +56,7 @@
               </el-button>
             </el-upload>
           </div>
-          <!-- 上传大文件 -->
+          <!-- Upload large files -->
           <div class="uploadMin">
             <uploader
               :options="options"
@@ -400,8 +400,8 @@ export default {
         testChunks: false,
         headers: {},
         forceChunkSize: true,
-        simultaneousUploads: 5, // 并发数
-        chunkSize: 8 * 1024 * 1024// 块大小
+        simultaneousUploads: 5, // Concurrency
+        chunkSize: 8 * 1024 * 1024// Block size
       }
     }
   },
@@ -475,7 +475,7 @@ export default {
       }
     },
 
-    // 上传图标
+    // Upload icon
     handleChangeLogo (file) {
       let listTemp = []
       this.packageForm.base64Session = true
@@ -659,7 +659,7 @@ export default {
       }
       this.checkProjectData()
     },
-    // 选择默认图标
+    // Choose the default icon
     chooseDefaultIcon (file, index) {
       this.logoFileList = []
       this.uploadIcon = false
@@ -679,9 +679,9 @@ export default {
       let image = new Image()
       image.src = file
       image.onload = () => {
-        // 将静态图片转化为base64
+        // Convert static images intobase64
         let base64 = this.getBase64Image(image)
-        // base64转化为文件流
+        // Convert base64 to file stream
         this.defaultIconFile.push(this.base64toFile(base64))
         this.packageForm.appIcon = this.defaultIconFile
         this.showErr = !this.defaultIconFile
@@ -739,20 +739,14 @@ export default {
       fd.append('userName', userName)
       fd.append('demoVideo', packageForm.videoFile[0])
       myApp.uploadAppPackageApi(fd).then(res => {
-        // 成功情况进行判断，传递 res 参数
-        // this.showChangeMessageSuccess(res)
-        // 使用新定义错误逻辑展示，所以老的逻辑注释
         this.handleUploadSuccess()
       }).catch(error => {
-        // 失败情况进行判断，传递 error 参数
+        // Judge the failure and pass the error parameter
         this.showChangeErrorMessage(error)
-        // 使用新定义错误逻辑展示，所以老的逻辑注释
-        // this.handleExceptionMsg(error)
       })
     },
     // confirm to submit
     submitPackage () {
-      // this.uploadBtnLoading = true
       // judgement of if file is exist
       let appFileIcon = (this.packageForm.appIcon.length || this.defaultIconFile)
       let appFilePackage
@@ -869,9 +863,9 @@ export default {
       }
     },
     showChangeMessageSuccess (res) {
-      // 由于成功每一个resCode都可以获取到，所以不用判断是否可以获取到resCode
-      // 解析res.data 里面的resCode h和params,
-      // 调用gatreway获取到接口化数据
+      // Since every resCode can be obtained successfully, there is no need to judge whether the resCode can be obtained
+      // Parse resCode and params in res.data
+      // Call gatreway to get interface data
       let resCode = res.data.resCode
       let params = res.data.params
       this.commonShowMessage(resCode, params)

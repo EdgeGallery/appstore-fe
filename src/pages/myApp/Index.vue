@@ -374,7 +374,7 @@ export default {
         this.getAppData()
       }
     },
-    // 只调用一个接口
+    // Only call one interface
     getAppData () {
       this.appPackageData = []
       this.appName = this.nameQueryVal.toLowerCase()
@@ -438,7 +438,7 @@ export default {
             cancelButtonText: this.$t('common.cancel'),
             type: 'warning'
           }).then(() => {
-          // 跳转atp首页加参数taskId,
+          // Jump to the atp homepage and add the parameter taskId
             this.testPackage(row.appId, row.packageId)
           })
           break
@@ -458,7 +458,7 @@ export default {
           }).then(() => {
             this.jumperToTestRepo(testTaskId)
           }).catch(action => {
-          // 再次测试,首页+taskId，
+          // Test again, home page + taskId,
             if (action === 'cancel') {
               this.testPackage(row.appId, row.packageId)
             }
@@ -479,7 +479,7 @@ export default {
             cancelButtonText: this.$t('common.cancel'),
             type: 'warning'
           }).then(() => {
-          // 跳转测试进展页面，—+taskId
+          // Jump to the test progress page, —+taskId
             this.$router.push({ name: 'atpprocess', params: { taskId: testTaskId } })
           })
           break
@@ -489,7 +489,7 @@ export default {
             cancelButtonText: this.$t('common.cancel'),
             type: 'warning'
           }).then(() => {
-          // 跳转测试进展页面，—+taskId
+          // Jump to the test progress page, —+taskId
             this.$router.push({ name: 'atpprocess', params: { taskId: testTaskId } })
           })
           break
@@ -499,8 +499,7 @@ export default {
             cancelButtonText: this.$t('common.cancel'),
             type: 'warning'
           }).then(() => {
-          // 跳转首页页面，—+taskId+直接运行；
-          // this.$router.push({ name: 'atptestcase', params: { taskId: testTaskId } })
+          // Jump to the home page, —+taskId+ run directly
             this.$router.push({ name: 'selectscene', params: { taskId: testTaskId } })
           })
           break
@@ -553,7 +552,7 @@ export default {
             message: this.$t('promptMessage.deleteSuccess'),
             type: 'success'
           })
-          // 刷新数据
+          // Refresh data
           this.getAppData()
         }).catch(() => {
           this.$message({
@@ -579,10 +578,10 @@ export default {
       }
     },
     changeLanguege () {
-      // 切英文
+      // translate to English
       let curLabelKey = 'labelCn'
       let nextLabelKey = 'labelEn'
-      if (this.language === 'cn') { // 切中文
+      if (this.language === 'cn') { // translate to Chinese
         curLabelKey = 'labelEn'
         nextLabelKey = 'labelCn'
       }

@@ -484,7 +484,7 @@ export default {
       recent7daysStr.push(day1)
       return recent7daysStr
     },
-    // 获取最近七天的pull app数量
+    // Get the last seven days pull app counts
     getPullAppNum (name) {
       let day1 = 0
       let day2 = 0
@@ -702,7 +702,7 @@ export default {
         let sortNumber = (a, b) => {
           return b - a
         }
-        // 统计top5推送应用的目标仓库
+        // Count the target warehouses of top 5 push applications
         let top5Name = []
         appStorePushArr.sort(sortNumber)
         appStorePushArr = appStorePushArr.slice(0, 5)
@@ -798,7 +798,7 @@ export default {
         let noticeSortNumber = (a, b) => {
           return b - a
         }
-        // 统计top5收到推送应用的源仓库
+        // Count the source warehouses of top 5 received push applications
         let top5NoticeName = []
         appStoreNoticeArr.sort(noticeSortNumber)
         appStoreNoticeArr = appStoreNoticeArr.slice(0, 5)

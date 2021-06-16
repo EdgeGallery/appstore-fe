@@ -131,12 +131,12 @@ a{
   z-index: 99999 !important;
 }
 
-/* 导航栏组件归一化 */
+/* Normalization of navigation bar components */
 
-/* 导航栏归一化 */
+/* Navigation bar normalization */
 
-/* 搜索框、按钮组件归一化 */
-  /* 搜索框input添加类名search_input */
+/* Normalization of search box and button components */
+  /* Search box input add class search_input */
 .search_input .el-input__inner{
   height: 32px;
   line-height: 32px;
@@ -148,7 +148,7 @@ a{
 .el-button{
   padding: 8px 24px;
 }
-  /* 重要按钮样式，带背景色 */
+  /* Important button style with background color */
 .el-button--primary{
   background-color: #688ef3;
   border-color: #688ef3;
@@ -157,7 +157,7 @@ a{
   background-color: #86a5f5;
   border-color: #86a5f5;
 }
-  /* 文本按钮样式 */
+  /* Text button style */
 .el-button--text{
   padding: 3px 0;
   color: #688ef3;

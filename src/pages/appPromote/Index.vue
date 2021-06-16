@@ -457,7 +457,7 @@ export default {
             message: this.$t('promptMessage.deleteSuccess'),
             type: 'success'
           })
-          // 刷新页面
+          // Refresh page
           this.getAppPackageData()
         }).catch(() => {
           this.$message({
