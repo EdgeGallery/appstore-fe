@@ -327,7 +327,7 @@ function logoutApi () {
 }
 
 let myAppStore = {
-  // Add appstore 
+  // Add appstore
   addAppStoreApi: function (params) {
     let url = 'appstores'
     return POST(url, params)

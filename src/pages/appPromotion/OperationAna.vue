@@ -798,7 +798,7 @@ export default {
         let noticeSortNumber = (a, b) => {
           return b - a
         }
-        // Count the source warehouses of top 5 received push applications 
+        // Count the source warehouses of top 5 received push applications
         let top5NoticeName = []
         appStoreNoticeArr.sort(noticeSortNumber)
         appStoreNoticeArr = appStoreNoticeArr.slice(0, 5)
