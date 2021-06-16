@@ -155,12 +155,8 @@ export default {
         this.selectAppStoreInfo = this.appStoreList[0]
         this.activeAppStore = this.appStoreList[0].name
         this.rebuileComponents()
-      }).catch(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('pullApp.getAppStoreException'),
-          type: 'warning'
-        })
+      }).catch((error) => {
+        console.log(error)
       })
     }
   },
