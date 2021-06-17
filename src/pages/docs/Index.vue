@@ -217,6 +217,7 @@ export default {
   }
 }
 </script>
+
 <style lang='less'>
 body, html{
   width: 100%;
@@ -427,16 +428,9 @@ body, html{
        background-color: red;
 
           }
-  // .banner {
-  //   img {
-  //     width: 100%;
-  //     height: 500px;
-  //   }
-  // }
   .el-tabs__nav-scroll{
-    // text-align: center;
     display: flex;
-    justify-content: center;
+
   }
   .el-tabs__nav{
     float: none;
