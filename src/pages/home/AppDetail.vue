@@ -42,6 +42,7 @@
             >
               {{ data.version }}
             </option>
+            <!-- test-wangjunling -->
           </select>
           <span v-show="pathSource==='myapp'">{{ currentData.version }}</span>
           <span class="fg" />
