@@ -650,7 +650,6 @@ export default {
           let hotDatas = res.data.results
           if (hotDatas.length >= 6) {
             this.newAppDataBe = hotDatas.slice(0, 6)
-            console.log(this.newAppDataBe.length)
             this.showDefaultData = false
           } else {
             this.showDefaultData = true
