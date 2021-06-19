@@ -17,23 +17,6 @@
 <template>
   <div class="hotAppManager">
     <div class="clearbtAndSearch">
-      <el-button
-        id="hotAppManager_resetting"
-        type="primary"
-        class="rt"
-        @click="setHotApp"
-        :disabled="btnChangeEnable"
-      >
-        {{ $t('appManager.reSetting') }}
-      </el-button>
-      <img
-        class="hotTipIcon"
-        :src="appSetTipIcon"
-        alt=""
-      >
-      <div class="hotSettingTipDiv">
-        <span class="hotSettingTip">{{ $t('appManager.hotAppSetTipMsg') }}</span>
-      </div>
       <el-input
         suffix-icon="el-icon-search"
         v-model="nameQueryVal"
@@ -49,14 +32,9 @@
         header-cell-class-name="headerStyle"
         :default-sort="defaultSort"
         @sort-change="sortChange"
-        @selection-change="selectionLineChangeHandle"
         @filter-change="filterChange"
         ref="multipleTable"
       >
-        <el-table-column
-          type="selection"
-          width="70"
-        />
         <el-table-column
           prop="name"
           :label="$t('common.appName')"
@@ -85,6 +63,10 @@
           :label="$t('common.provider')"
         />
         <el-table-column
+          prop="version"
+          :label="$t('common.version')"
+        />
+        <el-table-column
           prop="industry"
           :label="$t('common.industry')"
         />
@@ -93,16 +75,26 @@
           :label="$t('common.type')"
         />
         <el-table-column
-          prop="shortDesc"
-          :label="$t('common.description')"
-          width="320"
-        />
-        <el-table-column
           prop="createTime"
           :label="$t('appManager.appCreateTime')"
           width="220"
           sortable="custom"
         />
+        <el-table-column
+          :label="$t('appManager.hotSwitch')"
+          width="120"
+        >
+          <template slot-scope="scope">
+            <el-switch
+              v-model="scope.row.selectStatus"
+              :active-value="1"
+              :inactive-value="0"
+              @change="switchChange($event, scope.$index, scope.row)"
+              active-color="#688EF3"
+              inactive-color="#C1C1C1"
+            />
+          </template>
+        </el-table-column>
         <template slot="empty">
           <div>
             <img
@@ -127,7 +119,6 @@
 </template>
 
 <script>
-import appSetTipIcon from '@/assets/images/app_set_tip_icon.png'
 import { myApp, getAppTableApi } from '../../tools/api.js'
 import timeFormatTools from '../../tools/timeFormatTools.js'
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
@@ -143,10 +134,7 @@ export default {
   },
   data () {
     return {
-      appSetTipIcon: appSetTipIcon,
       currentPageData: [],
-      selectDataList: [],
-      btnChangeEnable: true,
       dataLoading: true,
       pageSize: 10,
       curPageSize: 10,
@@ -161,7 +149,6 @@ export default {
       searchCondition: {},
       appPackageData: [],
       defaultSelectedIds: [],
-      changedAppIds: [],
       nameQueryVal: ''
     }
   },
@@ -218,17 +205,14 @@ export default {
           this.appPackageData.forEach(item => {
             let formatedTime = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = formatedTime
+            if (item.hotApp) {
+              item.selectStatus = 1
+            } else {
+              item.selectStatus = 0
+            }
           })
           this.currentPageData = this.appPackageData
           this.dataLoading = false
-          this.$nextTick(function () {
-            for (let item of this.currentPageData) {
-              if (item.hotApp) {
-                this.$refs.multipleTable.toggleRowSelection(item, true)
-                this.defaultSelectedIds.push(item.appId)
-              }
-            }
-          })
         }).catch(() => {
           this.dataLoading = false
           this.$message({
@@ -238,26 +222,11 @@ export default {
           })
         })
     },
-    calculateChangedItem () {
-      this.changedAppIds = []
-      let selectedAppIds = []
-      for (let appItem of this.selectDataList) {
-        selectedAppIds.push(appItem.appId)
-      }
-      for (let item of selectedAppIds) {
-        if (this.defaultSelectedIds.indexOf(item) === -1) {
-          this.changedAppIds.push(item)
-        }
-      }
-      for (let item of this.defaultSelectedIds) {
-        if (selectedAppIds.indexOf(item) === -1) {
-          this.changedAppIds.push(item)
-        }
-      }
-    },
-    setHotApp () {
-      this.calculateChangedItem()
-      myApp.setHotApp(this.changedAppIds).then(res => {
+    switchChange (value, index, data) {
+      let modifyAppIds = []
+      modifyAppIds.push(data.appId)
+      myApp.setHotApp(modifyAppIds).then(res => {
+        this.$set(this.currentPageData, index, data)
         this.$message({
           duration: 2000,
           message: this.$t('promptMessage.modifySuccess'),
@@ -270,16 +239,7 @@ export default {
           type: 'warning'
         })
       })
-    },
-    selectionLineChangeHandle (val) {
-      if (val.length === 6) {
-        this.selectDataList = val
-        this.btnChangeEnable = false
-      } else {
-        this.btnChangeEnable = true
-      }
     }
-
   },
   watch: {
     curPageSize: function () {
@@ -297,28 +257,8 @@ export default {
   margin: auto;
   .clearbtAndSearch{
     height: 40px;
-    margin-top: 30px;
+    margin-top: 10px;
     margin-bottom: 10px;
-    .el-button{
-      float: left;
-      font-size: 14px;
-    }
-    .hotTipIcon{
-      margin-left: 40px;
-      margin-top: 11px;
-      float: left;
-    }
-    .hotSettingTipDiv{
-      margin-top: 5px;
-      margin-left: 5px;
-      width: 500px;
-      float: left;
-      .hotSettingTip{
-        color: #999999;
-        font-size: 16px;
-        font-family: SimHei, sans-serif;
-      }
-    }
     .search_input{
       float: right;
       width: 200px;

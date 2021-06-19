@@ -535,7 +535,10 @@ const cn = {
     queryAppFailed: '获取应用失败',
     hotAppTitle: '近期热门应用管理',
     storeAppTitle: '应用展示仓库应用列表管理',
-    pushAppTitle: '可推广应用列表管理'
+    pushAppTitle: '可推广应用列表管理',
+    pushSwitch: '可推广',
+    repoSwitch: '可展示',
+    hotSwitch: '热门'
   },
   about: {},
   ...zhLocale

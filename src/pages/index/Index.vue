@@ -649,16 +649,8 @@ export default {
         .then(res => {
           let hotDatas = res.data.results
           if (hotDatas.length >= 6) {
-            for (let item of hotDatas) {
-              if (item.hotApp) {
-                this.newAppDataBe.push(item)
-              }
-            }
-            if (this.newAppDataBe.length === 6) {
-              this.showDefaultData = false
-            } else {
-              this.showDefaultData = true
-            }
+            this.newAppDataBe = hotDatas.slice(0, 6)
+            this.showDefaultData = false
           } else {
             this.showDefaultData = true
           }

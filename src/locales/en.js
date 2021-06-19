@@ -506,14 +506,14 @@ const en = {
   appManager: {
     reSetting: 'reset',
     appCreateTime: 'create time',
-    hotAppSetTipMsg: 'Only six hot apps can be set',
-    storeAppSetTipMsg: 'Set the app to be visible to appStore',
-    pushAppSetTipMsg: 'Set the app to be pushable',
-    queryHotAppFailed: 'Failed to get hot apps',
+    queryHotAppFailed: 'Failed to get recently popular apps',
     queryAppFailed: 'Failed to get apps',
-    hotAppTitle: 'Recent hot APP management',
-    storeAppTitle: 'APP display store APP list management',
-    pushAppTitle: 'Pushbale APP list management'
+    hotAppTitle: 'Recently popular apps management',
+    storeAppTitle: 'Appstore displayed apps management',
+    pushAppTitle: 'Shareable apps management',
+    pushSwitch: 'Shareable',
+    repoSwitch: 'Displayable',
+    hotSwitch: 'Popular'
   },
   about: {
   },
