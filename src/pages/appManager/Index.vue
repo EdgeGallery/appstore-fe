@@ -22,7 +22,8 @@
           type="border-card"
           @tab-click="handleClick"
         >
-          <el-tab-pane :label="$t('appManager.hotAppTitle')">
+          <el-tab-pane>
+            <span slot="label"><i class="el-icon-star-on" /> {{ $t('appManager.hotAppTitle') }}</span>
             <div
               v-if="activeTabIndex==='0'"
               class="appManagerTab"
@@ -32,7 +33,8 @@
               />
             </div>
           </el-tab-pane>
-          <el-tab-pane :label="$t('appManager.storeAppTitle')">
+          <el-tab-pane>
+            <span slot="label"><i class="el-icon-s-data" /> {{ $t('appManager.storeAppTitle') }}</span>
             <div
               v-if="activeTabIndex==='1'"
               class="appManagerTab"
@@ -42,7 +44,8 @@
               />
             </div>
           </el-tab-pane>
-          <el-tab-pane :label="$t('appManager.pushAppTitle')">
+          <el-tab-pane>
+            <span slot="label"><i class="el-icon-s-promotion" /> {{ $t('appManager.pushAppTitle') }}</span>
             <div
               v-if="activeTabIndex==='2'"
               class="appManagerTab"
@@ -105,8 +108,8 @@ export default {
       width: 1416px;
       text-align: left;
       .el-tabs__item.is-active{
-        background-color: #688EF3;
-        color: #ffffff;
+        background-color: #FEFEFE;
+        color: #7390E3;
       }
       .el-tabs__item{
         font-size: 16px;
