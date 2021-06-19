@@ -17,23 +17,6 @@
 <template>
   <div class="pushAppManager">
     <div class="clearbtAndSearch">
-      <el-button
-        id="pushAppManager_resetting"
-        type="primary"
-        class="rt"
-        @click="setPushApp"
-        :disabled="btnChangeEnable"
-      >
-        {{ $t('appManager.reSetting') }}
-      </el-button>
-      <img
-        class="pushTipIcon"
-        :src="appSetTipIcon"
-        alt=""
-      >
-      <div class="pushSettingTipDiv">
-        <span class="pushSettingTip">{{ $t('appManager.pushAppSetTipMsg') }}</span>
-      </div>
       <el-input
         suffix-icon="el-icon-search"
         v-model="nameQueryVal"
@@ -49,14 +32,9 @@
         header-cell-class-name="headerStyle"
         :default-sort="defaultSort"
         @sort-change="sortChange"
-        @selection-change="selectionLineChangeHandle"
         @filter-change="filterChange"
         ref="multipleTable"
       >
-        <el-table-column
-          type="selection"
-          width="70"
-        />
         <el-table-column
           prop="name"
           :label="$t('common.appName')"
@@ -85,6 +63,10 @@
           :label="$t('common.provider')"
         />
         <el-table-column
+          prop="version"
+          :label="$t('common.version')"
+        />
+        <el-table-column
           prop="industry"
           :label="$t('common.industry')"
         />
@@ -93,16 +75,26 @@
           :label="$t('common.type')"
         />
         <el-table-column
-          prop="shortDesc"
-          :label="$t('common.description')"
-          width="320"
-        />
-        <el-table-column
           prop="createTime"
           :label="$t('appManager.appCreateTime')"
           width="220"
           sortable="custom"
         />
+        <el-table-column
+          :label="$t('appManager.pushSwitch')"
+          width="120"
+        >
+          <template slot-scope="scope">
+            <el-switch
+              v-model="scope.row.selectStatus"
+              :active-value="1"
+              :inactive-value="0"
+              @change="switchChange($event, scope.$index, scope.row)"
+              active-color="#688EF3"
+              inactive-color="#C1C1C1"
+            />
+          </template>
+        </el-table-column>
         <template slot="empty">
           <div>
             <img
@@ -127,7 +119,6 @@
 </template>
 
 <script>
-import appSetTipIcon from '@/assets/images/app_set_tip_icon.png'
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
 import { myApp } from '../../tools/api.js'
 import timeFormatTools from '../../tools/timeFormatTools.js'
@@ -143,10 +134,7 @@ export default {
   },
   data () {
     return {
-      selectDataList: [],
-      btnChangeEnable: true,
       dataLoading: true,
-      appSetTipIcon: appSetTipIcon,
       pageSize: 10,
       curPageSize: 10,
       offsetPage: 0,
@@ -159,9 +147,6 @@ export default {
       searchCondition: {},
       appPackageData: [],
       currentPageData: [],
-      defaultSelectedIds: [],
-      defaultSelectedItems: [],
-      changedItems: [],
       nameQueryVal: ''
     }
   },
@@ -196,18 +181,14 @@ export default {
           this.appPackageData.forEach(item => {
             let formatedTime = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = formatedTime
+            if (item.showType === 'public') {
+              item.selectStatus = 1
+            } else {
+              item.selectStatus = 0
+            }
           })
           this.currentPageData = this.appPackageData
           this.dataLoading = false
-          this.$nextTick(function () {
-            for (let item of this.currentPageData) {
-              if (item.showType === 'public') {
-                this.$refs.multipleTable.toggleRowSelection(item, true)
-                this.defaultSelectedIds.push(item.packageId)
-                this.defaultSelectedItems.push(item)
-              }
-            }
-          })
         }).catch(() => {
           this.dataLoading = false
           this.$message({
@@ -227,58 +208,27 @@ export default {
     sizeChange (val) {
       this.curPageSize = val
     },
-    calculateChangedItem () {
-      this.changedItems = []
-      let selectedItemIds = []
-      for (let item of this.selectDataList) {
-        selectedItemIds.push(item.packageId)
-      }
-      for (let item of this.selectDataList) {
-        if (this.defaultSelectedIds.indexOf(item.packageId) === -1) {
-          this.changedItems.push(item)
-        }
-      }
-      for (let item of this.defaultSelectedItems) {
-        if (selectedItemIds.indexOf(item.packageId) === -1) {
-          this.changedItems.push(item)
-        }
-      }
-    },
-    setPushApp () {
-      this.calculateChangedItem()
-      let fdAdd = new FormData()
-      fdAdd.append('showType', 'public')
-      let fdRemove = new FormData()
-      fdRemove.append('showType', 'inner-public')
-      for (let item of this.changedItems) {
-        let fd = null
-        if (item.showType === 'public') {
-          fd = fdRemove
-        } else {
-          fd = fdAdd
-        }
-        myApp.modifyAppAttr(fd, item.appId, item.packageId).then(res => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.modifySuccess'),
-            type: 'success'
-          })
-        }).catch(() => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.modifyFail'),
-            type: 'warning'
-          })
-        })
-      }
-    },
-    selectionLineChangeHandle (val) {
-      this.selectDataList = val
-      if (this.selectDataList.length === 0) {
-        this.btnChangeEnable = true
+    switchChange (value, index, data) {
+      let fd = new FormData()
+      if (value === 1) {
+        fd.append('showType', 'public')
       } else {
-        this.btnChangeEnable = false
+        fd.append('showType', 'inner-public')
       }
+      myApp.modifyAppAttr(fd, data.appId, data.packageId).then(res => {
+        this.$set(this.currentPageData, index, data)
+        this.$message({
+          duration: 2000,
+          message: this.$t('promptMessage.modifySuccess'),
+          type: 'success'
+        })
+      }).catch(() => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('promptMessage.modifyFail'),
+          type: 'warning'
+        })
+      })
     }
   },
   watch: {
@@ -297,28 +247,8 @@ export default {
   margin: auto;
   .clearbtAndSearch{
     height: 40px;
-    margin-top: 30px;
+    margin-top: 10px;
     margin-bottom: 10px;
-    .el-button{
-      float: left;
-      font-size: 14px;
-    }
-    .pushTipIcon{
-      margin-left: 40px;
-      margin-top: 11px;
-      float: left;
-    }
-    .pushSettingTipDiv{
-      margin-top: 5px;
-      margin-left: 5px;
-      width: 500px;
-      float: left;
-      .pushSettingTip{
-        color: #999999;
-        font-size: 16px;
-        font-family: SimHei, sans-serif;
-      }
-    }
     .search_input{
       float: right;
       width: 200px;

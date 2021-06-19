@@ -513,7 +513,10 @@ const en = {
     queryAppFailed: 'Failed to get apps',
     hotAppTitle: 'Recent hot APP management',
     storeAppTitle: 'APP display store APP list management',
-    pushAppTitle: 'Pushbale APP list management'
+    pushAppTitle: 'Pushbale APP list management',
+    pushSwitch: 'can promote',
+    repoSwitch: 'can display',
+    hotSwitch: 'hot App'
   },
   about: {
   },
