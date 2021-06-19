@@ -512,7 +512,7 @@ const en = {
     storeAppTitle: 'Appstore displayed apps management',
     pushAppTitle: 'Shareable apps management',
     pushSwitch: 'Shareable',
-    repoSwitch: 'Promoted',
+    repoSwitch: 'Displayable',
     hotSwitch: 'Popular'
   },
   about: {
