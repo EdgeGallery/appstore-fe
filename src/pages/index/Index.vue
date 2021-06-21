@@ -633,23 +633,53 @@ export default {
       }
       return _queryReq
     },
+    getRandomArrayElements (arr, count) {
+      let shuffled = arr.slice(0); let i = arr.length; let min = i - count; let temp; let index
+      while (i-- > min) {
+        index = Math.floor((i + 1) * Math.random())
+        temp = shuffled[index]
+        shuffled[index] = shuffled[i]
+        shuffled[i] = temp
+      }
+      return shuffled.slice(min)
+    },
     getHotAppData () {
       let queryCtrl = {
         offset: 0,
-        limit: 10,
+        limit: 100,
         sortItem: 'isHotApp',
         sortType: 'desc',
         createTime: 'createTime'
       }
       let params = {
         queryCtrl: queryCtrl,
-        showType: ['inner-public', 'public']
+        showType: ['inner-public', 'public'],
+        status: 'Published'
       }
       getAppTableApi(params)
         .then(res => {
-          let hotDatas = res.data.results
-          if (hotDatas.length >= 6) {
-            this.newAppDataBe = hotDatas.slice(0, 6)
+          let resDatas = res.data.results
+          if (resDatas.length >= 6) {
+            let tempPopularApp = []
+            let tempDisplayApp = []
+            for (let item of resDatas) {
+              if (item.hotApp) {
+                tempPopularApp.push(item)
+              } else {
+                tempDisplayApp.push(item)
+              }
+            }
+            if (tempPopularApp.length >= 6) {
+              this.newAppDataBe = this.getRandomArrayElements(tempPopularApp, 6)
+            } else {
+              if (tempPopularApp.length > 0) {
+                let part1 = this.getRandomArrayElements(tempPopularApp, tempPopularApp.length)
+                let part2 = this.getRandomArrayElements(tempDisplayApp, 6 - tempPopularApp.length)
+                this.newAppDataBe = part1.concat(part2)
+              } else {
+                this.newAppDataBe = this.getRandomArrayElements(tempDisplayApp, 6)
+              }
+            }
             this.showDefaultData = false
           } else {
             this.showDefaultData = true
