@@ -1019,7 +1019,7 @@ export default {
             margin: auto;
           }
           .chartDesc{
-            width: 300px;
+            width: 500px;
             height: 30px;
             margin: auto;
             margin-top: 10px;
@@ -1041,7 +1041,7 @@ export default {
             margin: auto;
           }
           .chartDesc{
-            width: 300px;
+            width: 500px;
             height: 30px;
             margin: auto;
             margin-top: 10px;
@@ -1067,7 +1067,7 @@ export default {
             margin: auto;
           }
           .chartDesc{
-            width: 300px;
+            width: 500px;
             height: 30px;
             margin: auto;
             margin-top: 10px;
@@ -1089,7 +1089,7 @@ export default {
             margin: auto;
           }
           .chartDesc{
-            width: 300px;
+            width: 500px;
             height: 30px;
             margin: auto;
             margin-top: 10px;
