@@ -42,7 +42,6 @@
             >
               {{ data.version }}
             </option>
-            <!-- test-wangjunling -->
           </select>
           <span v-show="pathSource==='myapp'">{{ currentData.version }}</span>
           <span class="fg" />
@@ -221,6 +220,178 @@
             />
           </div>
         </el-tab-pane>
+        <el-tab-pane
+          v-if="ifExperience"
+          :label="$t('store.showOnline')"
+          name="showOnline"
+        >
+          <div class="show_app clearfix">
+            <div
+              class="show_common lt"
+            >
+              <img
+                class="status3-pic"
+                :src="appTry"
+                alt=""
+              >
+              <p class="show_btn">
+                <el-button
+                  type="primary"
+                  class="batchProButton"
+                  style="width:110px;height:35px;"
+                  :disabled="btnInstantiate"
+                  @click="getNodePort(currentData)"
+                >
+                  {{ $t('store.showOnline') }}
+                </el-button>
+                <el-button
+                  type="primary"
+                  class="batchProButton"
+                  style="width:110px;height:35px;margin-left:40px;"
+                  :disabled="btnClean"
+                  @click="cleanTestEnv(currentData)"
+                >
+                  {{ $t('store.releaseResource') }}
+                </el-button>
+              </p>
+            </div>
+
+            <div class="show_step lt">
+              <p class="top_titile">
+                {{ $t('store.experiencePhase') }}
+              </p>
+              <div
+                class="card_content"
+              >
+                <el-timeline class="timeline-class">
+                  <el-timeline>
+                    <el-timeline-item
+                      placement="top"
+                      :type="primary"
+                      :autofocus="true"
+                      :icon="iconStart"
+                      class="line_top"
+                    />
+                    <el-timeline-item
+                      placement="top"
+                      :class="{'line_list':btnType==='primary'}"
+                    >
+                      <el-button
+                        :plain="true"
+                        :type="btnType"
+                        @click="step1"
+                        :autofocus="true"
+                        style="width:170px;margin-bottom:15px;"
+                        :icon="el-icon-check"
+                      >
+                        {{ $t('store.assignTestNodes') }}
+                      </el-button>
+
+                      <p v-show="tip11">
+                        {{ $t('store.step11') }}
+                      </p>
+                      <p v-show="tip12">
+                        {{ $t('store.step12') }}
+                      </p>
+                      <p v-show="tip13">
+                        {{ $t('store.step13') }}
+                      </p>
+                    </el-timeline-item>
+                    <el-timeline-item
+                      placement="top"
+                      :class="{'line_list':btnType1==='primary'}"
+                    >
+                      <el-button
+                        :plain="true"
+                        :type="btnType2"
+                        @click="step2"
+                        :autofocus="true"
+                        style="width:170px;margin-bottom:15px;"
+                      >
+                        {{ $t('store.instantiateApplication') }}
+                      </el-button>
+
+                      <p v-show="tip21">
+                        {{ $t('store.pleaseInstantiateApp') }}
+                      </p>
+                      <p v-show="tip22">
+                        {{ $t('store.waitInstantiatedApp') }}
+                      </p>
+                      <p v-show="tip23">
+                        {{ $t('store.StartDeployApp') }}
+                      </p>
+                    </el-timeline-item>
+                    <el-timeline-item
+                      placement="top"
+                      :class="{'line_list':btnType2==='primary'}"
+                    >
+                      <el-button
+                        :plain="true"
+                        :type="btnType2"
+                        @click="step3"
+                        style="width:170px;margin-bottom:15px;"
+                      >
+                        {{ $t('store.getDeploymentStatus') }}
+                      </el-button>
+                      <p v-show="tip31">
+                        {{ $t('store.queryDeployStatus') }}
+                      </p>
+                      <p v-show="tip32">
+                        {{ $t('store.waitQueryStatus') }}
+                      </p>
+                      <p v-show="tip33">
+                        {{ $t('store.deployFinished') }}
+                      </p>
+                    </el-timeline-item>
+                    <el-timeline-item
+                      :icon="iconStart"
+                      placement="top"
+                      class="line_top"
+                    />
+                  </el-timeline>
+                </el-timeline>
+              </div>
+              <p class="bottom_titile">
+                {{ $t('store.tryAppDes') }}
+              </p>
+              <div class="footer_title">
+                <p class="bottom_titile1">
+                  {{ $t('store.serviceNodeInfo') }}
+                </p>
+                <div
+                  class="el-upload__tip"
+                  slot="tip"
+                >
+                  <em class="el-icon-warning" />
+                  {{ $t('store.releaseAppResource') }}
+                </div>
+              </div>
+              <div class="experienceData">
+                <el-table
+                  v-loading="dataLoading"
+                  :data="experienceData"
+                  header-cell-class-name="headerStyle"
+                >
+                  <el-table-column
+                    prop="serviceName"
+                    :label="$t('store.serviceName')"
+                    width="235"
+                  />
+                  <el-table-column
+                    prop="mecHost"
+                    :label="$t('store.Ip')"
+                    width="235"
+                  />
+                  <el-table-column
+                    prop="nodePort"
+                    :label="$t('store.port')"
+                    width="235"
+                  />
+                </el-table>
+              </div>
+            </div>
+          </div>
+        </el-tab-pane>
       </el-tabs>
     </div>
     <el-dialog
@@ -277,11 +448,17 @@ import {
   myApp
 } from '../../tools/api.js'
 import { INDUSTRY, TYPES } from '../../tools/constant.js'
+import appTry from '@/assets/images/apptry.png'
+import startTry from '@/assets/images/startTry.png'
 export default {
   name: '',
   data () {
     return {
+      ifExperience: true,
+      appTry: appTry,
+      startTry: startTry,
       ifDownload: 'true',
+      ifCarousel: true,
       userId: sessionStorage.getItem('userId'),
       details: '',
       appId: '',
@@ -311,7 +488,40 @@ export default {
       packageId: '',
       downloadNum: 0,
       limit: 100,
-      offset: 0
+      offset: 0,
+      name: '',
+      ip: '',
+      nodePort: '',
+      experienceData: [
+        {
+          serviceName: '',
+          nodePort: '',
+          mecHost: ''
+        }
+      ],
+      btnInstantiate: false,
+      btnClean: true,
+      deployStatus: 'NOTDEPLOY',
+      workStatus: '',
+      instantiateInfo: '',
+      btnType: 'info',
+      btnType1: 'info',
+      btnType2: 'info',
+      tip11: true,
+      tip12: false,
+      tip13: false,
+
+      tip21: true,
+      tip22: false,
+      tip23: false,
+
+      tip31: true,
+      tip32: false,
+      tip33: false,
+      iconStart: 'el-icon-more',
+      icon1: 'el-icon-more',
+      icon2: 'el-icon-more',
+      icon3: 'el-icon-more'
     }
   },
   watch: {
@@ -524,13 +734,124 @@ export default {
         data.createTime = newDateBegin
         this.handleTableTada(data)
         this.tableData.push(data)
+        let experienceAble = data.experienceAble
+        if (experienceAble) {
+          this.ifExperience = true
+        }
         if (data) {
           this.source = data.details
         }
       })
+    },
+    step () {
+      // sleep 3 s
+      this.tip11 = false
+      this.tip12 = true
+      setTimeout(() => this.step1(), 3000)
+    },
+    step1 () {
+      this.btnType = 'primary'
+      this.tip12 = false
+      this.tip13 = true
+      this.tip21 = false
+      this.tip22 = true
+      setTimeout(() => this.step2(), 3000)
+    },
+    step2 () {
+      this.btnType1 = 'primary'
+      this.tip22 = false
+      this.tip23 = true
+      this.tip31 = false
+      this.tip32 = true
+      setTimeout(() => this.step3(), 3000)
+    },
+    step3 () {
+      setTimeout(3000)
+      this.btnType2 = 'primary'
+      this.tip32 = false
+      this.tip33 = true
+    },
+    stepClean () {
+      this.tip33 = false
+      this.tip31 = true
+      this.tip23 = false
+      this.tip21 = true
+      this.tip13 = false
+      this.tip11 = true
+    },
+    getNodePort () {
+      this.step()
+      myApp.getNodePort(this.packageId, this.userId, this.name, this.ip).then(
+        (res) => {
+          // this.nodePort = res.data
+          let experienceInfo = res.data.data
+          if (experienceInfo) {
+            let tmpExperienceData = experienceInfo.split(':')
+            console.log(tmpExperienceData)
+            this.experienceData[0].serviceName = tmpExperienceData[0]
+            this.experienceData[0].nodePort = tmpExperienceData[1]
+            this.experienceData[0].mecHost = tmpExperienceData[2]
+          }
+        },
+        () => {
+          this.$message({
+            duration: 2000,
+            type: 'warning',
+            message: this.$t('promptMessage.getNodePortFail')
+          })
+        }
+      )
+      this.btnInstantiate = true
+      this.btnClean = false
+    },
+    cleanTestEnv () {
+      this.btnClean = true
+      this.btnInstantiate = false
+      this.stepClean()
+      myApp.cleanTestEnv(this.packageId, this.userId, this.name, this.ip).then(
+        (res) => {
+          this.score = res.data.score
+          this.nodePort = res.data.getNodePort
+        },
+        () => {
+          this.$message({
+            duration: 2000,
+            type: 'warning',
+            message: this.$t('promptMessage.cleanTestEnvFail')
+          })
+        }
+      )
+    },
+    initStatus () {
+      myApp.getNodeStatus(this.packageId, this.userId, this.name, this.ip).then(
+        (res) => {
+          // this.nodePort = res.data.data
+          let experienceInfo = res.data.data
+          if (experienceInfo) {
+            let tmpExperienceData = experienceInfo.split(':')
+            console.log(tmpExperienceData)
+            this.experienceData[0].serviceName = tmpExperienceData[0]
+            this.experienceData[0].nodePort = tmpExperienceData[1]
+            this.experienceData[0].mecHost = tmpExperienceData[2]
+            this.btnInstantiate = true
+            this.btnClean = false
+          } else {
+            this.btnInstantiate = false
+            this.btnClean = true
+          }
+        },
+        () => {
+          this.$message({
+            duration: 2000,
+            type: 'warning',
+            message: this.$t('promptMessage.getNodePortFail')
+          })
+        }
+      )
     }
   },
   mounted () {
+    this.initStatus()
     if ((sessionStorage.getItem('userNameRole') === 'guest') || (sessionStorage.getItem('userNameRole') === 'tenant')) {
       this.ifDownload = false
     } else {
@@ -674,6 +995,7 @@ export default {
         }
       }
     }
+
     .app_score{
       width: 180px;
       .download_num{
@@ -683,6 +1005,7 @@ export default {
         text-align: center;
         margin-bottom: 5px;
       }
+
       .score_num{
         float: left;
         text-align: center;
@@ -766,6 +1089,88 @@ export default {
         .el-button{
           border-radius: 0;
         }
+      }
+    }
+    .show_app {
+      .show_common {
+        display: inline-block;
+        width: 43%;
+        margin-top: 20px;
+        text-align: center;
+        .show_btn{
+          // width: 25%;
+          display: inline-block;
+        }
+      }
+      .show_step{
+        display: inline-block;
+        width: 57%;
+        .top_titile{
+          font-size: 18px;
+          font-family: Microsoft YaHei;
+          font-weight: bold;
+          color: #282B33;
+          margin-bottom: 20px;
+          margin-top: 35px;
+        }
+        .bottom_titile{
+          font-size: 14px;
+          font-family: Microsoft YaHei;
+          font-weight: 400;
+          color: #A680D7;
+          margin-bottom: 20px;
+        }
+        .footer_title{
+          width: 575px;
+          .bottom_titile1{
+          width: 20%;
+          font-size: 18px;
+          font-family: Microsoft YaHei;
+          font-weight: bold;
+          color: #282B33;
+          }
+          .el-upload__tip{
+            width: 86%;
+            font-size: 14px;
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            color: #8E8E8E;
+          }
+        }
+        .nodePortTable{
+          .el-table .cell {
+            text-align: center;
+          }
+        }
+        .card_content{
+          margin-left: 30px;
+          margin-bottom: 20px;
+          .line_top{
+            background: url('../../assets/images/startTry.png') left top no-repeat;
+            .el-timeline-item__node{
+              background: none;
+            }
+            .el-timeline-item__tail{
+              top: 12px;
+            }
+          }
+          .line_list{
+            .el-timeline-item__node--normal{
+              background: url('../../assets/images/inprogressTry.png') left top no-repeat;
+            }
+          }
+          .el-timeline-item__tail{
+            border-left: 1px dashed #7093EF;
+          }
+          .el-timeline-item__node--normal{
+            width: 20px;
+            height: 20px;
+          }
+          .el-timeline-item__tail{
+            left: 9px;
+          }
+        }
+
       }
     }
     .no_comment{

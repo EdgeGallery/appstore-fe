@@ -637,6 +637,24 @@ export default {
 
 <style lang="less" scoped>
 .home {
+  .el-dialog {
+    height: 333px;
+    width: 535px;
+    .el-dialog__header {
+      font-size: 16px;
+      text-decoration: overline
+    }
+    .el-dialog__body{
+      font-size: 20px;
+    }
+    .info1 {
+      font-size: 20px;
+    }
+    .dialog-footer{
+      text-align: center;
+      margin-top: 2%;
+    }
+  }
   margin-top: 65px;
   .el-form-item {
     margin-bottom: 0;

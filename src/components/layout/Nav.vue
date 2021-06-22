@@ -287,13 +287,32 @@ export default {
           ]
         },
         {
-          labelEn: 'APP Manager',
-          labelCn: '应用管理',
-          route: '/appManager',
+          labelEn: 'System',
+          labelCn: '系统',
+          route: '/system',
           pageId: '2.1.7',
           display: true,
           link: '',
-          index: '6'
+          index: '6',
+          children: [
+            {
+              labelEn: 'APP Manager',
+              labelCn: '应用管理',
+              route: '/appManager',
+              pageId: '2.1.7.1',
+              display: true,
+              link: '',
+              index: '6.1'
+            }, {
+              labelEn: 'SystemHost',
+              labelCn: '沙箱管理',
+              route: '/systemHost',
+              pageId: '2.1.6.2',
+              display: true,
+              link: '',
+              index: '6.2'
+            }
+          ]
         },
         {
           labelEn: 'Docs',
