@@ -190,10 +190,6 @@ let System = {
     let url = 'system/hosts/' + hostId
     return DELETE(url)
   },
-  deleteService: function (params) {
-    let url = 'system/capability'
-    return DELETE(url, params)
-  },
   getLogData: function (hostId) {
     let url = 'system/hosts/' + hostId + '/log'
     return GET(url)
