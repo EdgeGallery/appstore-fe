@@ -450,10 +450,6 @@ import {
 import { INDUSTRY, TYPES } from '../../tools/constant.js'
 import appTry from '@/assets/images/apptry.png'
 import startTry from '@/assets/images/startTry.png'
-import appTryStep1 from '@/assets/images/appTryStep1.png'
-import appTryStep2 from '@/assets/images/appTryStep2.png'
-import appTryStep3 from '@/assets/images/appTryStep3.png'
-import appTryStep4 from '@/assets/images/appTryStep4.png'
 export default {
   name: '',
   data () {
@@ -461,10 +457,6 @@ export default {
       ifExperience: true,
       appTry: appTry,
       startTry: startTry,
-      appTryStep1: appTryStep1,
-      appTryStep2: appTryStep2,
-      appTryStep3: appTryStep3,
-      appTryStep4: appTryStep4,
       ifDownload: 'true',
       ifCarousel: true,
       userId: sessionStorage.getItem('userId'),
