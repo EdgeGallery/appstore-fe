@@ -454,7 +454,7 @@ export default {
   name: '',
   data () {
     return {
-      ifExperience: true,
+      ifExperience: false,
       appTry: appTry,
       startTry: startTry,
       ifDownload: 'true',
@@ -735,7 +735,8 @@ export default {
         this.handleTableTada(data)
         this.tableData.push(data)
         let experienceAble = data.experienceAble
-        if (experienceAble) {
+        let deployMode = data.deployMode
+        if (experienceAble || deployMode === 'container') {
           this.ifExperience = true
         }
         if (data) {
