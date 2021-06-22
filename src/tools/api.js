@@ -177,7 +177,6 @@ function deleteAppPackageApi (appId, csarId, userId, userName) {
 }
 
 let Workspace = {
-  // �ϴ�Api�ļ�
   submitApiFileApi: function (userId, params) {
     // Post('mec/developer/v1/files?userId=' + userId, params)
     let url = 'files?userId=' + userId
@@ -199,11 +198,6 @@ let System = {
     const path = params.hostId ? `system/hosts/${params.hostId}` : 'system/hosts'
     const data = { ...params }
     return func(path, data)
-  },
-  saveService: function (params) {
-    const func = POST
-    const path = 'mec-appstore/mec/appstore/v1/system/capability'
-    return func(path, params)
   },
   getHosts: function (params) {
     let url = 'system/hosts'
