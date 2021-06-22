@@ -368,6 +368,14 @@ export default new Router({
           meta: {
             id: '2.11'
           }
+        },
+        {
+          path: 'systemHost',
+          name: 'systemHost',
+          component: () => import('./pages/systemManager/HostList.vue'),
+          meta: {
+            id: '2.11'
+          }
         }
       ]
     }

@@ -230,6 +230,19 @@ const SORT_BY = [
   }
 ]
 
+const Architecture = [
+  {
+    value: 'X86',
+    label: 'X86'
+  }, {
+    value: 'ARM64',
+    label: 'ARM64'
+  }, {
+    value: 'ARM32',
+    label: 'ARM32'
+  }
+]
+
 export {
-  TYPES, AFFINITY, SORT_BY, INDUSTRY, TTYPES, DEPLOYMODE
+  TYPES, AFFINITY, SORT_BY, INDUSTRY, TTYPES, DEPLOYMODE, Architecture
 }

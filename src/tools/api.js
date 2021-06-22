@@ -176,6 +176,49 @@ function deleteAppPackageApi (appId, csarId, userId, userName) {
   return DELETE(url)
 }
 
+let Workspace = {
+  // �ϴ�Api�ļ�
+  submitApiFileApi: function (userId, params) {
+    // Post('mec/developer/v1/files?userId=' + userId, params)
+    let url = 'files?userId=' + userId
+    return POST(url, params)
+  }
+
+}
+let System = {
+  deleteHost: function (hostId) {
+    let url = 'system/hosts/' + hostId
+    return DELETE(url)
+  },
+  deleteService: function (params) {
+    let url = 'system/capability'
+    return DELETE(url, params)
+  },
+  getLogData: function (hostId) {
+    let url = 'system/hosts/' + hostId + '/log'
+    return GET(url)
+  },
+  saveHostInfo: function (params) {
+    const func = params.hostId ? PUT : POST
+    const path = params.hostId ? `system/hosts/${params.hostId}` : 'system/hosts'
+    const data = { ...params }
+    return func(path, data)
+  },
+  saveService: function (params) {
+    const func = POST
+    const path = 'mec-appstore/mec/appstore/v1/system/capability'
+    return func(path, params)
+  },
+  getHosts: function (params) {
+    let url = 'system/hosts'
+    return GET(url, params)
+  },
+  getSerives: function (params) {
+    let url = 'system/capability'
+    return GET(url, params)
+  }
+}
+
 function getInterface (language, activeName) {
   let url = ''
   if (language === 'cn') {
@@ -390,7 +433,23 @@ let myApp = {
     let url = 'apps/' + appId + '/packages/' + packageId
     return GET(url)
   },
-  // Modify the application
+  // getNodePort
+  getNodePort: function (packageId, userId, name, ip) {
+    let url = 'apps/show?packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
+    return GET(url)
+  },
+
+  // getNodePortStatus
+  getNodeStatus: function (packageId, userId, name, ip) {
+    let url = 'query/container/workStatus?packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
+    return GET(url)
+  },
+
+  // clean test env
+  cleanTestEnv: function (packageId, userId, name, ip) {
+    let url = 'apps/action/clean?packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
+    return POST(url)
+  },
   modifyAppAttr: function (param, appId, packageId) {
     let url = 'apps/' + appId + '/package/' + packageId
     return PUT(url, param)
@@ -402,6 +461,8 @@ let myApp = {
   }
 }
 export {
+  System,
+  Workspace,
   getCommentsApi,
   getAppDetailTableApi,
   getAppDetailFileApi,

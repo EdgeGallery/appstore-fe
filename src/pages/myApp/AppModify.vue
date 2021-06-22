@@ -400,7 +400,7 @@ export default {
       if (this.isChangeAppType || this.isChangeAppIcon) {
         fd.append('icon', this.appModifyInfo.appIcon.length > 0 ? this.appModifyInfo.appIcon[0] : this.defaultIconFile)
       }
-      fd.append('vedio', this.appModifyInfo.videoFile[0])
+      fd.append('video', this.appModifyInfo.videoFile[0])
       fd.append('affinity', this.appModifyInfo.affinity)
       fd.append('shortDesc', this.appModifyInfo.shortDesc)
       fd.append('showType', this.appModifyInfo.checkboxList.length === 0 ? 'private' : (this.appModifyInfo.checkboxList.length === 1 ? 'inner-public' : 'public'))

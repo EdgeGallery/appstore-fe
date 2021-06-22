@@ -280,6 +280,26 @@
             </el-checkbox-group>
           </div>
         </el-form-item>
+        <el-form-item
+          class="showType"
+          :label="$t('common.experienceable')"
+        >
+          <div class="showTypeCheckbox">
+            <el-switch
+              v-model="packageForm.experienceAble"
+              active-color="#13ce66"
+              active-text="支持"
+              inactive-text="不支持"
+            />
+            <div
+              class="el-upload__tip"
+              slot="tip"
+            >
+              <em class="el-icon-warning" />
+              {{ $t('store.tryAppTip') }}
+            </div>
+          </div>
+        </el-form-item>
       </el-form>
       <span
         slot="footer"
@@ -354,7 +374,8 @@ export default {
         types: 'Video Application',
         affinity: 'X86',
         base64Session: false,
-        defaultActive: ''
+        defaultActive: '',
+        experienceAble: false
       },
       logoFileList: [],
       types: TYPES,
@@ -717,6 +738,7 @@ export default {
       fd.append('userId', userId)
       fd.append('userName', userName)
       fd.append('demoVideo', packageForm.videoFile[0])
+      fd.append('experienceAble', packageForm.experienceAble)
       myApp.uploadVMAppApi(fd).then(res => {
         this.handleUploadSuccess()
       }).catch(error => {
@@ -738,7 +760,11 @@ export default {
       fd.append('userId', userId)
       fd.append('userName', userName)
       fd.append('demoVideo', packageForm.videoFile[0])
+      fd.append('experienceAble', packageForm.experienceAble)
       myApp.uploadAppPackageApi(fd).then(res => {
+        // 成功情况进行判断，传递 res 参数
+        // this.showChangeMessageSuccess(res)
+        // 使用新定义错误逻辑展示，所以老的逻辑注释
         this.handleUploadSuccess()
       }).catch(error => {
         // Judge the failure and pass the error parameter
