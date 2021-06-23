@@ -600,7 +600,11 @@ export default {
       })
     },
     getTableData () {
-      getAppDetailTableApi(this.appId, this.limit, this.offset).then(res => {
+      let userId = null
+      if (this.pathSource === 'myapp') {
+        userId = sessionStorage.getItem('userId')
+      }
+      getAppDetailTableApi(this.appId, userId, this.limit, this.offset).then(res => {
         let data = res.data
         this.handleTableTada(data)
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {

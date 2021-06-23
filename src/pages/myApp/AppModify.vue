@@ -291,7 +291,7 @@ export default {
       this.appModifyInfo.appIcon = []
       this.appModifyInfo.shortDesc = ''
       this.appModifyInfo.industry = 'Smart Park'
-      this.appModifyInfo.types = 'Video Application'
+      this.appModifyInfo.type = 'Video Application'
       this.appModifyInfo.affinity = 'X86'
     },
     handleChangeVideo (file) {
@@ -462,8 +462,8 @@ export default {
         }
       })
       TYPES.forEach(itemFe => {
-        if (this.appModifyInfo.types === itemFe.label[0]) {
-          this.appModifyInfo.types = itemFe.label[1]
+        if (this.appModifyInfo.type === itemFe.label[0]) {
+          this.appModifyInfo.type = itemFe.label[1]
         }
       })
     },

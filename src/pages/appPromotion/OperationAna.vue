@@ -330,9 +330,6 @@ export default {
       this.appPackageData = []
       this.currentPageData = []
       this.findAppData = []
-      if (this.prop === 'name') {
-        this.prop = 'appName'
-      }
       this.$nextTick(function () {
         this.updateTableExChart()
       })

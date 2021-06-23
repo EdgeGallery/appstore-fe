@@ -148,7 +148,6 @@ export default {
       .img-icon{
         width: 14px;
         height: 14px;
-        margin-bottom: 2px;
       }
       .el-tabs__item.is-active{
         background-color: #FEFEFE;
