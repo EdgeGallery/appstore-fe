@@ -288,8 +288,6 @@
             <el-switch
               v-model="packageForm.experienceAble"
               active-color="#13ce66"
-              active-text="支持"
-              inactive-text="不支持"
             />
             <div
               class="el-upload__tip"

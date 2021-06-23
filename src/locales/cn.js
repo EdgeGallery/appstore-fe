@@ -246,7 +246,7 @@ const cn = {
     noData: '暂无数据',
     displaySwitch: '展示切换',
     appModify: '修改',
-    experienceable: '是否支持体验'
+    experienceable: '支持体验'
   },
   promptMessage: {
     hostErrorInfo: '请输入正确的Host地址',
@@ -317,7 +317,12 @@ const cn = {
     addAppStoreSuccess: '添加AppStore成功',
     editAppStoreSuccess: '编辑AppStore成功',
     cleanTestEnvFail: '清除测试环境失败。',
-    getNodePortFail: '获取体验信息失败。'
+    getNodePortFail: '获取体验信息失败。',
+    registerHost: '请注册可供体验的沙箱',
+    instantiateFailed: '实例化应用失败',
+    getNodePortFailed: '获取服务节点信息失败',
+    cleanEnvFailed: '释放资源失败',
+    cleanEnvSuccess: '释放资源成功'
   },
   store: {
     advancedSearch: '高级搜索',
@@ -385,7 +390,7 @@ const cn = {
     noNeed: '不带镜像的应用包',
     showOnline: '在线体验',
     releaseResource: '释放资源',
-    tryAppTip: '需要提供可供体验的前台界面，可在描述里面添加具体详情',
+    tryAppTip: '需要提供可供体验的前台界面，并在描述里面添加界面访问的URL',
     releaseAppResource: '体验完成后请技师释放资源，避免资源占用，否则系统24小时后自动释放',
     serviceName: '服务名称',
     Ip: 'IP',
