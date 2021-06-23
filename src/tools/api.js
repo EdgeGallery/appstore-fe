@@ -38,7 +38,12 @@ function getCommentsApi (appId, limit, offset) {
 }
 
 function getAppDetailTableApi (appId, userId, limit, offset) {
-  let url = 'apps/' + appId + '/packages?userId=' + userId + '&limit=' + limit + '&offset=' + offset
+  let url = ''
+  if (userId == null) {
+    url = 'apps/' + appId + '/packages?limit=' + limit + '&offset=' + offset
+  } else {
+    url = 'apps/' + appId + '/packages?userId=' + userId + '&limit=' + limit + '&offset=' + offset
+  }
   return GETV2(url)
 }
 
