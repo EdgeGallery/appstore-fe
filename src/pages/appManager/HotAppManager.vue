@@ -172,12 +172,12 @@ export default {
       this.getTableData()
     },
     queryApp () {
+      this.offsetPage = 0
       this.getTableData()
     },
     currentChange (val) {
       this.pageNum = val
       this.offsetPage = this.curPageSize * (this.pageNum - 1)
-      sessionStorage.setItem('offsetAppPush', this.offsetPage)
       this.getTableData()
     },
     sizeChange (val) {
