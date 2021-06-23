@@ -390,7 +390,10 @@ export default {
       })
     },
     getTableData () {
-      let userId = sessionStorage.getItem('userId')
+      let userId = null
+      if (this.pathSource === 'myapp') {
+        userId = sessionStorage.getItem('userId')
+      }
       getAppDetailTableApi(this.appId, userId, this.limit, this.offset).then(res => {
         let data = res.data
         this.handleTableTada(data)
