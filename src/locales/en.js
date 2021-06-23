@@ -303,7 +303,12 @@ const en = {
     testRunning: 'The test task is running, please go to check the test progress!',
     testWaiting: 'The test task is waiting to run, please go to check the test progress!',
     testCreated: 'The test task has been created, please go to run the test task!',
-    deleteAppStore: 'This operation will permanently delete the external warehouse. Do you want to continue?'
+    deleteAppStore: 'This operation will permanently delete the external warehouse. Do you want to continue?',
+    registerHost: 'Please register for the sandbox to experience',
+    instantiateFailed: 'Failed to instantiate the application',
+    getNodePortFailed: 'Failed to obtain service borrowing point information',
+    cleanEnvFailed: 'Release resource failed',
+    cleanEnvSuccess: 'Release resource Success'
   },
   store: {
     advancedSearch: 'Advanced Search',
@@ -366,7 +371,7 @@ const en = {
     noNeed: 'App package without image',
     showOnline: 'Try it online',
     releaseResource: 'Release Resource',
-    tryAppTip: 'Need to provide a page for experience, add specific details in the description',
+    tryAppTip: 'Need to provide a front-end interface for experience, and add the URL of the interface access in the descriptionn',
     releaseAppResource: 'After the experience is complete, please ask the technician to release resources to avoid resource occupation, otherwise the system will automatically release after 24 hours',
     serviceName: 'ServiceName',
     Ip: 'IP',

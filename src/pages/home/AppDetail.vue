@@ -454,7 +454,7 @@ export default {
   name: '',
   data () {
     return {
-      ifExperience: true,
+      ifExperience: false,
       appTry: appTry,
       startTry: startTry,
       ifDownload: 'true',
@@ -734,14 +734,16 @@ export default {
     getMyAppData () {
       myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
         let data = res.data
+        let experienceAble = data.experienceAble
+        let deployMode = data.deployMode
+        if (experienceAble && deployMode === 'container') {
+          this.ifExperience = true
+        }
         let newDateBegin = this.dateChange(data.createTime)
         data.createTime = newDateBegin
         this.handleTableTada(data)
         this.tableData.push(data)
-        let experienceAble = data.experienceAble
-        if (experienceAble) {
-          this.ifExperience = true
-        }
+
         if (data) {
           this.source = data.details
         }
@@ -776,55 +778,99 @@ export default {
       this.tip33 = true
     },
     stepClean () {
+      this.btnClean = true
+      this.btnInstantiate = false
+
       this.tip33 = false
       this.tip31 = true
+      this.btnType = 'info'
       this.tip23 = false
       this.tip21 = true
+      this.btnType1 = 'info'
       this.tip13 = false
       this.tip11 = true
+      this.btnType2 = 'info'
     },
     getNodePort () {
-      this.step()
       myApp.getNodePort(this.packageId, this.userId, this.name, this.ip).then(
         (res) => {
           // this.nodePort = res.data
-          let experienceInfo = res.data.data
-          if (experienceInfo) {
-            let tmpExperienceData = experienceInfo.split(':')
-            console.log(tmpExperienceData)
-            this.experienceData[0].serviceName = tmpExperienceData[0]
-            this.experienceData[0].nodePort = tmpExperienceData[1]
-            this.experienceData[0].mecHost = tmpExperienceData[2]
+          let experienceInfo = res.data
+
+          if (experienceInfo.message.indexOf('please register host') !== -1) {
+            this.stepClean()
+            this.$message({
+              duration: 2000,
+              type: 'warning',
+              message: this.$t('promptMessage.registerHost')
+            })
+          } else if (experienceInfo.message.indexOf('instantiate application failed.') !== -1) {
+            this.stepClean()
+            this.$message({
+              duration: 2000,
+              type: 'warning',
+              message: this.$t('promptMessage.instantiateFailed')
+            })
+          } else if (experienceInfo.message.indexOf('get app nodeport url failed.') !== -1) {
+            this.stepClean()
+            this.$message({
+              duration: 2000,
+              type: 'warning',
+              message: this.$t('promptMessage.getNodePortFailed')
+            })
+          } else {
+            this.step()
+            if (experienceInfo.data) {
+              let tmpExperienceData = experienceInfo.data.split(':')
+              console.log(tmpExperienceData)
+              this.experienceData[0].serviceName = tmpExperienceData[0]
+              this.experienceData[0].nodePort = tmpExperienceData[1]
+              this.experienceData[0].mecHost = tmpExperienceData[2]
+            }
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.subCommentFail'),
+              type: 'warning'
+            })
           }
-        },
-        () => {
-          this.$message({
-            duration: 2000,
-            type: 'warning',
-            message: this.$t('promptMessage.getNodePortFail')
-          })
-        }
-      )
+        })
+
       this.btnInstantiate = true
       this.btnClean = false
     },
+    getExperienceInfo (experienceInfo) {
+      let tmpExperienceData = experienceInfo.data.split(':')
+      console.log(tmpExperienceData)
+      this.experienceData[0].serviceName = tmpExperienceData[0]
+      this.experienceData[0].nodePort = tmpExperienceData[1]
+      this.experienceData[0].mecHost = tmpExperienceData[2]
+    },
     cleanTestEnv () {
-      this.btnClean = true
-      this.btnInstantiate = false
-      this.stepClean()
       myApp.cleanTestEnv(this.packageId, this.userId, this.name, this.ip).then(
         (res) => {
-          this.score = res.data.score
-          this.nodePort = res.data.getNodePort
-        },
-        () => {
-          this.$message({
-            duration: 2000,
-            type: 'warning',
-            message: this.$t('promptMessage.cleanTestEnvFail')
-          })
-        }
-      )
+          let result = res.data
+          if (result) {
+            this.stepClean()
+            this.experienceData = [
+              {
+                serviceName: '',
+                nodePort: '',
+                mecHost: ''
+              }
+            ]
+            this.$message({
+              duration: 2000,
+              type: 'warning',
+              message: this.$t('promptMessage.cleanEnvSuccess')
+            })
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.cleanEnvFailed'),
+              type: 'warning'
+            })
+          }
+        })
     },
     initStatus () {
       myApp.getNodeStatus(this.packageId, this.userId, this.name, this.ip).then(

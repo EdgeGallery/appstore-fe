@@ -197,6 +197,24 @@
             </el-checkbox-group>
           </div>
         </el-form-item>
+        <el-form-item
+          class="showType"
+          :label="$t('common.experienceable')"
+        >
+          <div class="showTypeCheckbox">
+            <el-switch
+              v-model="appModifyInfo.experienceAble"
+              active-color="#13ce66"
+            />
+            <div
+              class="el-upload__tip"
+              slot="tip"
+            >
+              <em class="el-icon-warning" />
+              {{ $t('store.tryAppTip') }}
+            </div>
+          </div>
+        </el-form-item>
       </el-form>
       <span
         slot="footer"
@@ -239,7 +257,8 @@ export default {
         defaultActive: '',
         videoFile: [],
         appId: '',
-        packageId: ''
+        packageId: '',
+        experienceAble: false
       },
       defaultIcon: [
         require('../../assets/images/project_videoapp.png')
@@ -403,6 +422,7 @@ export default {
       fd.append('video', this.appModifyInfo.videoFile[0])
       fd.append('affinity', this.appModifyInfo.affinity)
       fd.append('shortDesc', this.appModifyInfo.shortDesc)
+      fd.append('experienceAble', this.appModifyInfo.experienceAble)
       fd.append('showType', this.appModifyInfo.checkboxList.length === 0 ? 'private' : (this.appModifyInfo.checkboxList.length === 1 ? 'inner-public' : 'public'))
       myApp.modifyAppAttr(fd, this.appModifyInfo.appId, this.appModifyInfo.packageId).then(res => {
         this.$message({
