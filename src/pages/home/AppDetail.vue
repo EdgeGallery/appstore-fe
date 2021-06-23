@@ -816,30 +816,44 @@ export default {
             })
           } else {
             this.step()
+            if (experienceInfo.data) {
+              let tmpExperienceData = experienceInfo.data.split(':')
+              console.log(tmpExperienceData)
+              this.experienceData[0].serviceName = tmpExperienceData[0]
+              this.experienceData[0].nodePort = tmpExperienceData[1]
+              this.experienceData[0].mecHost = tmpExperienceData[2]
+            }
             this.$message({
               duration: 2000,
               message: this.$t('promptMessage.subCommentFail'),
               type: 'warning'
             })
           }
-          if (experienceInfo.data) {
-            let tmpExperienceData = experienceInfo.data.split(':')
-            console.log(tmpExperienceData)
-            this.experienceData[0].serviceName = tmpExperienceData[0]
-            this.experienceData[0].nodePort = tmpExperienceData[1]
-            this.experienceData[0].mecHost = tmpExperienceData[2]
-          }
         })
 
       this.btnInstantiate = true
       this.btnClean = false
     },
+    getExperienceInfo (experienceInfo) {
+      let tmpExperienceData = experienceInfo.data.split(':')
+      console.log(tmpExperienceData)
+      this.experienceData[0].serviceName = tmpExperienceData[0]
+      this.experienceData[0].nodePort = tmpExperienceData[1]
+      this.experienceData[0].mecHost = tmpExperienceData[2]
+    },
     cleanTestEnv () {
-      this.stepClean()
       myApp.cleanTestEnv(this.packageId, this.userId, this.name, this.ip).then(
         (res) => {
           let result = res.data
           if (result) {
+            this.stepClean()
+            this.experienceData = [
+              {
+                serviceName: '',
+                nodePort: '',
+                mecHost: ''
+              }
+            ]
             this.$message({
               duration: 2000,
               type: 'warning',
@@ -853,13 +867,6 @@ export default {
             })
           }
         })
-      this.experienceData = [
-        {
-          serviceName: '',
-          nodePort: '',
-          mecHost: ''
-        }
-      ]
     },
     initStatus () {
       myApp.getNodeStatus(this.packageId, this.userId, this.name, this.ip).then(
