@@ -145,6 +145,7 @@ export default {
       })
     },
     handleAccept (messageId) {
+      this.updateMsgStatus(messageId)
       acceptMsg(messageId).then((res) => {
         this.$message.success(this.$t('apppromotion.acceptSuccess'))
       }).catch((error) => {
