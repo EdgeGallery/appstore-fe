@@ -318,11 +318,12 @@ const cn = {
     editAppStoreSuccess: '编辑AppStore成功',
     cleanTestEnvFail: '清除测试环境失败。',
     getNodePortFail: '获取体验信息失败。',
-    registerHost: '请注册可供体验的沙箱',
+    registerHost: '请联系管理员添加可供体验的沙箱环境',
     instantiateFailed: '实例化应用失败',
     getNodePortFailed: '获取服务节点信息失败',
     cleanEnvFailed: '释放资源失败',
-    cleanEnvSuccess: '释放资源成功'
+    cleanEnvSuccess: '释放资源成功',
+    portRange: '范围30000 - 32000'
   },
   store: {
     advancedSearch: '高级搜索',

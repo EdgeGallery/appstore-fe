@@ -602,6 +602,13 @@ export default {
     getTableData () {
       getAppDetailTableApi(this.appId, this.limit, this.offset).then(res => {
         let data = res.data
+        data.forEach(item => {
+          let experienceAble = item.experienceAble
+          let deployMode = item.deployMode
+          if (experienceAble && deployMode === 'container') {
+            this.ifExperience = true
+          }
+        })
         this.handleTableTada(data)
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
