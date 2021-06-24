@@ -604,6 +604,7 @@ export default {
         let data = res.data
         data.forEach(item => {
           let experienceAble = item.experienceAble
+          this.packageId = item.packageId
           let deployMode = item.deployMode
           if (experienceAble && deployMode === 'container') {
             this.ifExperience = true
