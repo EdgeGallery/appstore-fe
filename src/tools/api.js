@@ -194,10 +194,6 @@ let System = {
     let url = 'system/hosts/' + hostId
     return DELETE(url)
   },
-  getLogData: function (hostId) {
-    let url = 'system/hosts/' + hostId + '/log'
-    return GET(url)
-  },
   saveHostInfo: function (params) {
     const func = params.hostId ? PUT : POST
     const path = params.hostId ? `system/hosts/${params.hostId}` : 'system/hosts'

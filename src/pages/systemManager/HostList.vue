@@ -330,14 +330,6 @@
               :loading="loading"
               size="medium"
               type="text"
-              @click="getLogData(scope.row)"
-            >
-              {{ $t('system.useDetail') }}
-            </el-button>
-            <el-button
-              :loading="loading"
-              size="medium"
-              type="text"
               @click="handleDelete(scope.row)"
             >
               {{ $t('system.delete') }}
@@ -546,16 +538,6 @@ export default {
       System.getHosts({ name: this.enterQuery, offset: this.offsetPage, limit: this.limitSize }).then(res => {
         this.allListData = res.data.results || []
         this.listTotal = res.data.total
-      }).finally(() => {
-        this.loading = false
-      })
-    },
-    getLogData ({ hostId }) {
-      this.loading = true
-      System.getLogData(hostId).then(res => {
-        this.logData = res.data || []
-        this.showLog = true
-        this.visible = true
       }).finally(() => {
         this.loading = false
       })
