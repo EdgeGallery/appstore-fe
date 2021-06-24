@@ -425,8 +425,8 @@ let myApp = {
     return GET(url)
   },
   // getNodePort
-  getNodePort: function (packageId, userId, name, ip) {
-    let url = 'apps/show?packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
+  getNodePort: function (appId, packageId, userId, name, ip) {
+    let url = 'apps/show?appId=' + appId + '&packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
     return GET(url)
   },
 

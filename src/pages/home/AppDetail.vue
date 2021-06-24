@@ -800,7 +800,7 @@ export default {
       this.btnType2 = 'info'
     },
     getNodePort () {
-      myApp.getNodePort(this.packageId, this.userId, this.name, this.ip).then(
+      myApp.getNodePort(this.appId, this.packageId, this.userId, this.name, this.ip).then(
         (res) => {
           // this.nodePort = res.data
           let experienceInfo = res.data
