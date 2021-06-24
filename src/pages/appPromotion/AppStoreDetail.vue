@@ -172,12 +172,12 @@ export default {
       if (this.selectDataList.length === 0) {
         this.selectDataList = val
         for (let item of this.selectDataList) {
-          this.selectDataIdList.push(item.appId)
+          this.selectDataIdList.push(item.packageId)
         }
       } else {
         for (let item of val) {
-          if (this.selectDataIdList.indexOf(item.appId) === -1) {
-            this.selectDataIdList.push(item.appId)
+          if (this.selectDataIdList.indexOf(item.packageId) === -1) {
+            this.selectDataIdList.push(item.packageId)
             this.selectDataList.push(item)
           }
         }
@@ -212,7 +212,7 @@ export default {
           )
           this.$nextTick(function () {
             for (let item of this.currentPageData) {
-              if (this.selectDataIdList.indexOf(item.packageId)) {
+              if (this.selectDataIdList.indexOf(item.packageId) !== -1) {
                 this.$refs.multipleTable.toggleRowSelection(item, true)
               }
             }
