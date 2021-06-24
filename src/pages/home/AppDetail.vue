@@ -765,7 +765,6 @@ export default {
       this.tip13 = true
       this.tip21 = false
       this.tip22 = true
-      setTimeout(() => this.step2(), 3000)
     },
     step2 () {
       this.btnType1 = 'primary'
@@ -796,6 +795,7 @@ export default {
       this.btnType2 = 'info'
     },
     getNodePort () {
+      this.step ()
       myApp.getNodePort(this.appId, this.packageId, this.userId, this.name, this.ip).then(
         (res) => {
           // this.nodePort = res.data
@@ -823,7 +823,7 @@ export default {
               message: this.$t('promptMessage.getNodePortFailed')
             })
           } else {
-            this.step()
+            this.step2()
             if (experienceInfo.data) {
               let tmpExperienceData = experienceInfo.data.split(':')
               console.log(tmpExperienceData)
@@ -838,7 +838,6 @@ export default {
             })
           }
         })
-
       this.btnInstantiate = true
       this.btnClean = false
     },
