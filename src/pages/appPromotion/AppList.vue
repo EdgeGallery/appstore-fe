@@ -22,7 +22,7 @@
           <el-select
             multiple
             @remove-tag="removeTag($event)"
-            v-model="value"
+            v-model="promAppstoreList"
             :placeholder="$t('apppromotion.targetPaltform')"
             class="selectStyle"
           >
@@ -151,7 +151,7 @@
             ref="promItem"
             v-model="uploadDiaVis"
             @refreshAppPromInfo="refreshPromData"
-            :app-store-list-prop="promProviderList"
+            :prom-store-list="promStoreList"
           />
         </div>
       </div>
@@ -184,7 +184,7 @@ export default {
       appPackageData: [],
       currentPageData: [],
       appStoreList: [],
-      value: ['All'],
+      promAppstoreList: ['All'],
       isEnLan: true,
       btnChangeEnable: true,
       nameQuery: '',
@@ -198,7 +198,7 @@ export default {
       curPageSize: 10,
       appName: '',
       language: localStorage.getItem('language'),
-      promProviderList: [],
+      promStoreList: [],
       order: 'desc',
       prop: 'latestPushTime'
     }
@@ -262,16 +262,24 @@ export default {
       })
     },
     showPushAppDialog (row) {
-      this.promProviderList = []
-      if (this.value.length === 1 && this.value[0] === 'All') {
-        for (let arr of this.appStoreList) {
-          this.promProviderList.push(arr)
+      this.promStoreList = []
+      if (this.promAppstoreList.length === 1 && this.promAppstoreList[0] === 'All') {
+        if (this.appStoreList.length === 0) {
+          this.$message({
+            duration: 2000,
+            message: this.$t('apppromotion.promoteFailed'),
+            type: 'warning'
+          })
+          return
+        }
+        for (let item of this.appStoreList) {
+          this.promStoreList.push(item)
         }
       } else {
-        for (let len of this.value) {
-          for (let arr of this.appStoreList) {
-            if (arr.value === len) {
-              this.promProviderList.push(arr)
+        for (let idItem of this.promAppstoreList) {
+          for (let item of this.appStoreList) {
+            if (item.value === idItem) {
+              this.promStoreList.push(item)
               break
             }
           }
@@ -330,32 +338,18 @@ export default {
     refreshCurrentData () {
       this.$nextTick(function () {
         this.offsetPage = this.curPageSize * (this.pageNum - 1)
-        // let end = this.curPageSize * this.pageNum
         this.currentPageData = []
         this.currentPageData = this.findAppData
       })
     },
     getSelectAppstoreData (item) {
-      // Uncheck
-      if (this.value.indexOf(item) === -1) {
+      if (this.promAppstoreList.indexOf(item) === -1) {
         if (item === 'All') {
-          setTimeout(() => {
-            this.value = []
-          }, 100)
+          this.promAppstoreList = []
         }
       } else {
         if (item === 'All') {
-          setTimeout(() => {
-            this.value = ['All']
-          }, 100)
-        } else {
-          let temp = JSON.parse(JSON.stringify(this.value))
-          this.value = []
-          for (let tempArr of temp) {
-            if (tempArr !== 'All') {
-              this.value.push(tempArr)
-            }
-          }
+          this.promAppstoreList = ['All']
         }
       }
     },

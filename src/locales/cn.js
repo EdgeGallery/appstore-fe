@@ -585,6 +585,7 @@ const cn = {
     getPromInfoFailed: '获取推送信息失败!',
     getOperatorInfoFailed: '获取操作信息失败!',
     promoteFailed: '推送app失败!',
+    promoteFailedForNoExistStore: '推送app失败,请先添加外部应用仓库',
     viewTestRepo: '查看报告',
     msgNum: '未读消息',
     checkAllMsg: '查看全部',

@@ -36,7 +36,7 @@
             :label="$t('apppromotion.appName')"
           />
           <el-table-column
-            v-for="item in providers"
+            v-for="item in promStoreList"
             :key="item.number"
             :label="item.label"
             :prop="item.label"
@@ -84,7 +84,7 @@
 import { promTaskApi } from '../../tools/api.js'
 export default {
   props: {
-    appStoreListProp: {
+    promStoreList: {
       required: true,
       type: Array
     }
@@ -93,9 +93,7 @@ export default {
     return {
       dialogVisible: true,
       appData: [],
-      providers: [],
       packageIds: [],
-      platformData: [],
       selectData: []
     }
   },
@@ -107,10 +105,8 @@ export default {
       } else {
         this.selectData.push(tempData)
       }
-      // Get appstoreid and apstoreName
-      this.platformData = this.appStoreListProp
       this.selectData.forEach(selectItem => {
-        this.platformData.forEach(platformItem => {
+        this.promStoreList.forEach(platformItem => {
           // Assign 'start' value to all attribute
           let attr = platformItem.label
           selectItem[attr] = 'start'
@@ -131,8 +127,8 @@ export default {
     },
     changeToProcess () {
       for (let i = 0; i < this.appData.length; i++) {
-        for (let j = 0; j < this.platformData.length; j++) {
-          this.appData[i][this.platformData[j].label] = 'inProgress'
+        for (let j = 0; j < this.promStoreList.length; j++) {
+          this.appData[i][this.promStoreList[j].label] = 'inProgress'
         }
       }
       let tempTableData = JSON.parse(JSON.stringify(this.appData))
@@ -152,12 +148,12 @@ export default {
     fillResultData (index, result) {
       let reData = result.join(',').split(',')
       for (let j = 0; j < reData.length; j++) {
-        this.appData[index][this.platformData[j].label] = reData[j]
+        this.appData[index][this.promStoreList[j].label] = reData[j]
       }
     },
     promTask () {
       let target = []
-      this.platformData.forEach(item => {
+      this.promStoreList.forEach(item => {
         target.push(item.value)
       })
       let param = {
@@ -190,7 +186,6 @@ export default {
     }
   },
   mounted () {
-    this.providers = this.appStoreListProp
     this.getTableData()
   }
 }

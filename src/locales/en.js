@@ -558,6 +558,7 @@ const en = {
     getPromInfoFailed: 'failed to get promote information!',
     getOperatorInfoFailed: 'failed to get operator information!',
     promoteFailed: 'failed to promote app!',
+    promoteFailedForNoExistStore: 'failed to promote app,please add an external Appstore first',
     msgNum: 'Unread Messages',
     checkAllMsg: 'Check All',
     hotIndustry: '■ Popular edge app industry distribution',
