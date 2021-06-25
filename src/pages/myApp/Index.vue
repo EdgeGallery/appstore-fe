@@ -214,6 +214,7 @@ import { myApp, deleteAppPackageApi } from '../../tools/api.js'
 import timeFormatTools from '../../tools/timeFormatTools.js'
 import egPagination from 'eg-view/src/components/EgPagination.vue'
 import appModify from './AppModify.vue'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   components: {
     egPagination,
@@ -526,12 +527,18 @@ export default {
           type: 'success'
         })
         this.getAppData()
-      }).catch(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('promptMessage.operationFailed'),
-          type: 'warning'
-        })
+      }).catch(error => {
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        if (retCode) {
+          commonUtil.showTipMsg(this.language, retCode, params)
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.operationFailed'),
+            type: 'warning'
+          })
+        }
       })
     },
     appModify (row) {

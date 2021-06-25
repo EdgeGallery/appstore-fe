@@ -321,6 +321,7 @@ import { TYPES, AFFINITY, INDUSTRY } from '../../tools/constant.js'
 import { myApp, URL_PREFIX } from '../../tools/api.js'
 import { getCookie } from '../../tools/request.js'
 import axios from 'axios'
+import commonUtil from '../../tools/commonUtil.js'
 
 export default {
   props: {
@@ -890,54 +891,17 @@ export default {
       // Since every resCode can be obtained successfully, there is no need to judge whether the resCode can be obtained
       // Parse resCode and params in res.data
       // Call gatreway to get interface data
-      let resCode = res.data.resCode
+      let retCode = res.data.resCode
       let params = res.data.params
-      this.commonShowMessage(resCode, params)
-    },
-    commonShowMessage (retCode, params) {
-      let zhMap = new Map(Object.entries(this.zhData))
-      let enMap = new Map(Object.entries(this.enData))
-      if (this.language === 'cn') {
-        for (let code of zhMap.keys()) {
-          if (retCode === Number(code)) {
-            let para = zhMap.get(code)
-            if (para.indexOf('%s') !== -1) {
-              for (let param of params) {
-                para = para.replace('%s', param)
-              }
-            }
-            this.$message({
-              duration: 2000,
-              message: para,
-              type: 'warning'
-            })
-            this.handleClose()
-          }
-        }
-      } else {
-        for (let code of enMap.keys()) {
-          if (retCode === Number(code)) {
-            let para = enMap.get(code)
-            if (para.indexOf('%s') !== -1) {
-              for (let param of params) {
-                para = para.replace('%s', param)
-              }
-            }
-            this.$message({
-              duration: 2000,
-              message: para,
-              type: 'warning'
-            })
-            this.handleClose()
-          }
-        }
-      }
+      commonUtil.showTipMsg(this.language, retCode, params)
+      this.handleClose()
     },
     showChangeErrorMessage (error) {
       let retCode = error.response.data.retCode
       let params = error.response.data.params
       if (retCode) {
-        this.commonShowMessage(retCode, params)
+        commonUtil.showTipMsg(this.language, retCode, params)
+        this.handleClose()
       } else {
         this.handleExceptionMsg()
       }
