@@ -769,7 +769,6 @@ export default {
       this.tip13 = true
       this.tip21 = false
       this.tip22 = true
-      setTimeout(() => this.step2(), 3000)
     },
     step2 () {
       this.btnType1 = 'primary'
@@ -777,7 +776,7 @@ export default {
       this.tip23 = true
       this.tip31 = false
       this.tip32 = true
-      setTimeout(() => this.step3(), 3000)
+      setTimeout(() => this.step3(), 2000)
     },
     step3 () {
       setTimeout(3000)
@@ -891,8 +890,7 @@ export default {
             this.experienceData[0].serviceName = tmpExperienceData[0]
             this.experienceData[0].nodePort = tmpExperienceData[1]
             this.experienceData[0].mecHost = tmpExperienceData[2]
-            this.btnInstantiate = true
-            this.btnClean = false
+            this.initeStatus()
           } else {
             this.btnInstantiate = false
             this.btnClean = true
@@ -906,6 +904,22 @@ export default {
           })
         }
       )
+    },
+    initeStatus () {
+      this.btnInstantiate = true
+      this.btnClean = false
+      this.btnType = 'primary'
+      this.btnType1 = 'primary'
+      this.btnType2 = 'primary'
+      this.tip11 = false
+      this.tip21 = false
+      this.tip31 = false
+      this.tip12 = false
+      this.tip22 = false
+      this.tip32 = false
+      this.tip13 = true
+      this.tip23 = true
+      this.tip33 = true
     }
   },
   mounted () {
