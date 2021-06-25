@@ -152,11 +152,18 @@ export default {
           }
           this.appStoreList.push(tempdata)
         }
-        this.selectAppStoreInfo = this.appStoreList[0]
-        this.activeAppStore = this.appStoreList[0].name
-        this.rebuileComponents()
+        if (this.appStoreList.length > 0) {
+          this.selectAppStoreInfo = this.appStoreList[0]
+          this.activeAppStore = this.appStoreList[0].name
+          this.rebuileComponents()
+        }
       }).catch((error) => {
         console.log(error)
+        this.$message({
+          duration: 2000,
+          message: this.$t('appPull.getAppStoreException'),
+          type: 'warning'
+        })
       })
     }
   },
