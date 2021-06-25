@@ -959,7 +959,9 @@ export default {
     this.getComments()
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
     this.checkProjectData()
-    this.initStatus()
+    if (this.ifExperience) {
+      this.initStatus()
+    }
   }
 }
 </script>
