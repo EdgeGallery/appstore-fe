@@ -600,7 +600,11 @@ export default {
       })
     },
     getTableData () {
-      getAppDetailTableApi(this.appId, this.limit, this.offset).then(res => {
+      let userId = null
+      if (this.pathSource === 'myapp') {
+        userId = sessionStorage.getItem('userId')
+      }
+      getAppDetailTableApi(this.appId, userId, this.limit, this.offset).then(res => {
         let data = res.data
         data.forEach(item => {
           let experienceAble = item.experienceAble
@@ -765,6 +769,7 @@ export default {
       this.tip13 = true
       this.tip21 = false
       this.tip22 = true
+      setTimeout(() => this.step2(), 3000)
     },
     step2 () {
       this.btnType1 = 'primary'
@@ -772,7 +777,7 @@ export default {
       this.tip23 = true
       this.tip31 = false
       this.tip32 = true
-      setTimeout(() => this.step3(), 2000)
+      setTimeout(() => this.step3(), 3000)
     },
     step3 () {
       setTimeout(3000)
@@ -795,7 +800,6 @@ export default {
       this.btnType2 = 'info'
     },
     getNodePort () {
-      this.step()
       myApp.getNodePort(this.appId, this.packageId, this.userId, this.name, this.ip).then(
         (res) => {
           // this.nodePort = res.data
@@ -823,7 +827,7 @@ export default {
               message: this.$t('promptMessage.getNodePortFailed')
             })
           } else {
-            this.step2()
+            this.step()
             if (experienceInfo.data) {
               let tmpExperienceData = experienceInfo.data.split(':')
               console.log(tmpExperienceData)
@@ -833,7 +837,7 @@ export default {
             }
             this.$message({
               duration: 2000,
-              message: this.$t('promptMessage.deployFinished'),
+              message: this.$t('promptMessage.subCommentFail'),
               type: 'warning'
             })
           }
@@ -887,7 +891,8 @@ export default {
             this.experienceData[0].serviceName = tmpExperienceData[0]
             this.experienceData[0].nodePort = tmpExperienceData[1]
             this.experienceData[0].mecHost = tmpExperienceData[2]
-            this.initeStatus()
+            this.btnInstantiate = true
+            this.btnClean = false
           } else {
             this.btnInstantiate = false
             this.btnClean = true
@@ -901,22 +906,6 @@ export default {
           })
         }
       )
-    },
-    initeStatus () {
-      this.btnInstantiate = true
-      this.btnClean = false
-      this.btnType = 'primary'
-      this.btnType1 = 'primary'
-      this.btnType2 = 'primary'
-      this.tip11 = false
-      this.tip21 = false
-      this.tip31 = false
-      this.tip12 = false
-      this.tip22 = false
-      this.tip32 = false
-      this.tip13 = true
-      this.tip23 = true
-      this.tip33 = true
     }
   },
   mounted () {
