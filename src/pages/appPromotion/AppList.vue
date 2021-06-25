@@ -350,6 +350,11 @@ export default {
       } else {
         if (item === 'All') {
           this.promAppstoreList = ['All']
+        } else {
+          let pos = this.promAppstoreList.indexOf('All')
+          if (pos !== -1) {
+            this.promAppstoreList.splice(pos, 1)
+          }
         }
       }
     },
