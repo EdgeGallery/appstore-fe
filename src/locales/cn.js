@@ -323,7 +323,8 @@ const cn = {
     getNodePortFailed: '获取服务节点信息失败',
     cleanEnvFailed: '释放资源失败',
     cleanEnvSuccess: '释放资源成功',
-    portRange: '范围30000 - 32000'
+    portRange: '范围30000 - 32000',
+    getReleaseDataFail: '获取体验初始化信息失败'
   },
   store: {
     advancedSearch: '高级搜索',

@@ -883,9 +883,9 @@ export default {
       myApp.getNodeStatus(this.packageId, this.userId, this.name, this.ip).then(
         (res) => {
           // this.nodePort = res.data.data
-          let experienceInfo = res.data.data
-          if (experienceInfo) {
-            let tmpExperienceData = experienceInfo.split(':')
+          let experienceInfo = res.data
+          if (experienceInfo.data) {
+            let tmpExperienceData = experienceInfo.data.split(':')
             console.log(tmpExperienceData)
             this.experienceData[0].serviceName = tmpExperienceData[0]
             this.experienceData[0].nodePort = tmpExperienceData[1]
@@ -895,15 +895,25 @@ export default {
             this.btnInstantiate = false
             this.btnClean = true
           }
-        },
-        () => {
-          this.$message({
-            duration: 2000,
-            type: 'warning',
-            message: this.$t('promptMessage.getNodePortFail')
-          })
-        }
-      )
+          if (experienceInfo.message.indexOf('please register host.') !== -1) {
+            this.$message({
+              duration: 2000,
+              type: 'warning',
+              message: this.$t('promptMessage.registerHost')
+            })
+          } else if (experienceInfo.message.indexOf('get app url failed.') !== -1) {
+            this.$message({
+              duration: 2000,
+              type: 'warning',
+              message: this.$t('promptMessage.getReleaseDataFail')
+            })
+          } else {
+            this.$message({
+              duration: 2000,
+              type: 'warning'
+            })
+          }
+        })
     },
     initeStatus () {
       this.btnInstantiate = true
@@ -923,7 +933,6 @@ export default {
     }
   },
   mounted () {
-    this.initStatus()
     if ((sessionStorage.getItem('userNameRole') === 'guest') || (sessionStorage.getItem('userNameRole') === 'tenant')) {
       this.ifDownload = false
     } else {
@@ -950,6 +959,9 @@ export default {
     this.getComments()
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
     this.checkProjectData()
+    if (this.ifExperience) {
+      this.initStatus()
+    }
   }
 }
 </script>
