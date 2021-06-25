@@ -44,7 +44,7 @@ function showTipMsg (language, zhData, enData, retCode, params) {
             para = para.replace('%s', param)
           }
         }
-        this.$message({
+        Vue.prototype.$message({
           duration: 2000,
           message: para,
           type: 'warning'
