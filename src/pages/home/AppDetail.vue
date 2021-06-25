@@ -836,7 +836,7 @@ export default {
             }
             this.$message({
               duration: 2000,
-              message: this.$t('promptMessage.deployFinished'),
+              message: this.$t('store.deployFinished'),
               type: 'warning'
             })
           }
