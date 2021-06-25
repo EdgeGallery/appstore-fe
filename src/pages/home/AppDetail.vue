@@ -836,7 +836,7 @@ export default {
             }
             this.$message({
               duration: 2000,
-              message: this.$t('promptMessage.subCommentFail'),
+              message: this.$t('promptMessage.deployFinished'),
               type: 'warning'
             })
           }
