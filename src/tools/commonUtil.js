@@ -14,7 +14,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
+import Vue from 'vue'
 function showTipMsg (language, zhData, enData, retCode, params) {
   let zhMap = new Map(Object.entries(zhData))
   let enMap = new Map(Object.entries(enData))
@@ -27,7 +27,7 @@ function showTipMsg (language, zhData, enData, retCode, params) {
             para = para.replace('%s', param)
           }
         }
-        this.$message({
+        Vue.prototype.$message({
           duration: 2000,
           message: para,
           type: 'warning'
@@ -44,7 +44,7 @@ function showTipMsg (language, zhData, enData, retCode, params) {
             para = para.replace('%s', param)
           }
         }
-        this.$message({
+        Vue.prototype.$message({
           duration: 2000,
           message: para,
           type: 'warning'
