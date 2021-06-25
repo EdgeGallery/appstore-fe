@@ -186,6 +186,7 @@ export default {
     },
     getTableData (selectAppStoreInfo) {
       getAppByAppstoreId(selectAppStoreInfo.appStoreId, this.curPageSize, this.offsetPage, this.nameQuery, this.order, this.prop).then((res) => {
+        this.currentPageData = []
         let data = res.data.results
         this.total = res.data.total
         if (data !== '') {
