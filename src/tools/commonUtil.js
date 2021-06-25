@@ -15,9 +15,9 @@
  *  limitations under the License.
  */
 
-function showTipMsg (language, retCode, params) {
-  let zhMap = new Map(Object.entries(this.zhData))
-  let enMap = new Map(Object.entries(this.enData))
+function showTipMsg (language, zhData, enData, retCode, params) {
+  let zhMap = new Map(Object.entries(zhData))
+  let enMap = new Map(Object.entries(enData))
   if (language === 'cn') {
     for (let code of zhMap.keys()) {
       if (retCode === Number(code)) {

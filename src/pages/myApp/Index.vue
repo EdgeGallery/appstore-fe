@@ -241,6 +241,8 @@ export default {
       defaultSort: { prop: 'createTime', order: 'descending' },
       isShowModifyDlg: false,
       rowAppModifyInfo: {},
+      zhData: JSON.parse(sessionStorage.getItem('resCodeInfo')).zh_CN,
+      enData: JSON.parse(sessionStorage.getItem('resCodeInfo')).en_US,
       typeList: [
         {
           labelEn: 'Video Application',
@@ -531,7 +533,7 @@ export default {
         let retCode = error.response.data.retCode
         let params = error.response.data.params
         if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params)
+          commonUtil.showTipMsg(this.language, this.zhData, this.enData, retCode, params)
         } else {
           this.$message({
             duration: 2000,

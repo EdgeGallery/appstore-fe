@@ -893,14 +893,14 @@ export default {
       // Call gatreway to get interface data
       let retCode = res.data.resCode
       let params = res.data.params
-      commonUtil.showTipMsg(this.language, retCode, params)
+      commonUtil.showTipMsg(this.language, this.zhData, this.enData, retCode, params)
       this.handleClose()
     },
     showChangeErrorMessage (error) {
       let retCode = error.response.data.retCode
       let params = error.response.data.params
       if (retCode) {
-        commonUtil.showTipMsg(this.language, retCode, params)
+        commonUtil.showTipMsg(this.language, this.zhData, this.enData, retCode, params)
         this.handleClose()
       } else {
         this.handleExceptionMsg()

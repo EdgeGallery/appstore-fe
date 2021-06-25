@@ -105,6 +105,7 @@
 </template>
 <script>
 import { acceptMsg, deleteMsg, updateStatus } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   components: {
   },
@@ -118,7 +119,9 @@ export default {
     return {
       allTabsMsg: [],
       activeName: 'unReadedMsg',
-      operationType: 1
+      operationType: 1,
+      zhData: JSON.parse(sessionStorage.getItem('resCodeInfo')).zh_CN,
+      enData: JSON.parse(sessionStorage.getItem('resCodeInfo')).en_US
     }
   },
   methods: {
@@ -149,11 +152,17 @@ export default {
       acceptMsg(messageId).then((res) => {
         this.$message.success(this.$t('apppromotion.acceptSuccess'))
       }).catch((error) => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('apppromotion.acceptFailed') + error.response.data.message,
-          type: 'warning'
-        })
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        if (retCode) {
+          commonUtil.showTipMsg(this.language, this.zhData, this.enData, retCode, params)
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.acceptFailed'),
+            type: 'warning'
+          })
+        }
       })
     },
     handleDelete (messageId) {
