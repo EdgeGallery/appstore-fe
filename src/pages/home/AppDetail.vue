@@ -303,7 +303,7 @@
                     >
                       <el-button
                         :plain="true"
-                        :type="btnType2"
+                        :type="btnType1"
                         @click="step2"
                         :autofocus="true"
                         style="width:170px;margin-bottom:15px;"
@@ -351,43 +351,47 @@
                   </el-timeline>
                 </el-timeline>
               </div>
-              <p class="bottom_titile">
-                {{ $t('store.tryAppDes') }}
-              </p>
-              <div class="footer_title">
-                <p class="bottom_titile1">
-                  {{ $t('store.serviceNodeInfo') }}
+              <div v-if="displayDom">
+                <p class="bottom_titile">
+                  {{ $t('store.tryAppDes') }}
                 </p>
-                <div
-                  class="el-upload__tip"
-                  slot="tip"
-                >
-                  <em class="el-icon-warning" />
-                  {{ $t('store.releaseAppResource') }}
+                <div class="footer_title">
+                  <p class="bottom_titile1">
+                    {{ $t('store.serviceNodeInfo') }}
+                  </p>
+                  <div
+                    class="el-upload__tip"
+                    slot="tip"
+                  >
+                    <em class="el-icon-warning" />
+                    {{ $t('store.releaseAppResource') }}
+                  </div>
                 </div>
-              </div>
-              <div class="experienceData">
-                <el-table
-                  v-loading="dataLoading"
-                  :data="experienceData"
-                  header-cell-class-name="headerStyle"
+                <div
+                  class="experienceData"
                 >
-                  <el-table-column
-                    prop="serviceName"
-                    :label="$t('store.serviceName')"
-                    width="235"
-                  />
-                  <el-table-column
-                    prop="mecHost"
-                    :label="$t('store.Ip')"
-                    width="235"
-                  />
-                  <el-table-column
-                    prop="nodePort"
-                    :label="$t('store.port')"
-                    width="235"
-                  />
-                </el-table>
+                  <el-table
+                    v-loading="dataLoading"
+                    :data="experienceData"
+                    header-cell-class-name="headerStyle"
+                  >
+                    <el-table-column
+                      prop="serviceName"
+                      :label="$t('store.serviceName')"
+                      width="235"
+                    />
+                    <el-table-column
+                      prop="mecHost"
+                      :label="$t('store.Ip')"
+                      width="235"
+                    />
+                    <el-table-column
+                      prop="nodePort"
+                      :label="$t('store.port')"
+                      width="235"
+                    />
+                  </el-table>
+                </div>
               </div>
             </div>
           </div>
@@ -521,7 +525,8 @@ export default {
       iconStart: 'el-icon-more',
       icon1: 'el-icon-more',
       icon2: 'el-icon-more',
-      icon3: 'el-icon-more'
+      icon3: 'el-icon-more',
+      displayDom: false
     }
   },
   watch: {
@@ -758,52 +763,21 @@ export default {
       })
     },
     step () {
-      // sleep 3 s
+      this.btnType = 'primary'
       this.tip11 = false
       this.tip12 = true
       setTimeout(() => this.step1(), 3000)
-    },
-    step1 () {
-      this.btnType = 'primary'
       this.tip12 = false
       this.tip13 = true
+    },
+    step1 () {
+      this.btnType1 = 'primary'
       this.tip21 = false
       this.tip22 = true
-    },
-    step2 () {
-      this.btnType1 = 'primary'
-      this.tip22 = false
-      this.tip23 = true
-      this.tip31 = false
-      this.tip32 = true
-      setTimeout(() => this.step3(), 3000)
-    },
-    step3 () {
-      setTimeout(3000)
-      this.btnType2 = 'primary'
-      this.tip32 = false
-      this.tip33 = true
-    },
-    stepClean () {
-      this.btnClean = true
-      this.btnInstantiate = false
-
-      this.tip33 = false
-      this.tip31 = true
-      this.btnType = 'info'
-      this.tip23 = false
-      this.tip21 = true
-      this.btnType1 = 'info'
-      this.tip13 = false
-      this.tip11 = true
-      this.btnType2 = 'info'
-    },
-    getNodePort () {
       myApp.getNodePort(this.appId, this.packageId, this.userId, this.name, this.ip).then(
         (res) => {
           // this.nodePort = res.data
           let experienceInfo = res.data
-
           if (experienceInfo.message.indexOf('please register host') !== -1) {
             this.stepClean()
             this.$message({
@@ -826,21 +800,47 @@ export default {
               message: this.$t('promptMessage.getNodePortFailed')
             })
           } else {
-            this.step()
-            if (experienceInfo.data) {
-              let tmpExperienceData = experienceInfo.data.split(':')
-              console.log(tmpExperienceData)
-              this.experienceData[0].serviceName = tmpExperienceData[0]
-              this.experienceData[0].nodePort = tmpExperienceData[1]
-              this.experienceData[0].mecHost = tmpExperienceData[2]
-            }
-            this.$message({
-              duration: 2000,
-              message: this.$t('store.deployFinished'),
-              type: 'warning'
-            })
+            setTimeout(() => this.step2(experienceInfo), 3000)
           }
         })
+    },
+    step2 (experienceInfo) {
+      this.tip22 = false
+      this.tip23 = true
+      this.tip31 = false
+      this.tip32 = true
+      this.btnType2 = 'primary'
+      setTimeout(() => this.step3(experienceInfo), 1000)
+    },
+    step3 (experienceInfo) {
+      this.tip32 = false
+      this.tip33 = true
+      if (experienceInfo.data) {
+        let tmpExperienceData = experienceInfo.data.split(':')
+        console.log(tmpExperienceData)
+        this.experienceData[0].serviceName = tmpExperienceData[0]
+        this.experienceData[0].nodePort = tmpExperienceData[1]
+        this.experienceData[0].mecHost = tmpExperienceData[2]
+        this.displayDom = true
+      }
+    },
+    stepClean () {
+      this.btnClean = true
+      this.btnInstantiate = false
+
+      this.tip33 = false
+      this.tip31 = true
+      this.btnType = 'info'
+      this.tip23 = false
+      this.tip22 = false
+      this.tip21 = true
+      this.btnType1 = 'info'
+      this.tip13 = false
+      this.tip11 = true
+      this.btnType2 = 'info'
+    },
+    getNodePort () {
+      this.step()
 
       this.btnInstantiate = true
       this.btnClean = false
@@ -865,6 +865,7 @@ export default {
                 mecHost: ''
               }
             ]
+            this.displayDom = false
             this.$message({
               duration: 2000,
               type: 'warning',
@@ -882,38 +883,31 @@ export default {
     initStatus () {
       myApp.getNodeStatus(this.packageId, this.userId, this.name, this.ip).then(
         (res) => {
-          // this.nodePort = res.data.data
           let experienceInfo = res.data
-          if (experienceInfo.data) {
-            let tmpExperienceData = experienceInfo.data.split(':')
-            console.log(tmpExperienceData)
-            this.experienceData[0].serviceName = tmpExperienceData[0]
-            this.experienceData[0].nodePort = tmpExperienceData[1]
-            this.experienceData[0].mecHost = tmpExperienceData[2]
-            this.initeStatus()
-          } else {
-            this.btnInstantiate = false
-            this.btnClean = true
-          }
+          this.initeData(experienceInfo)
           if (experienceInfo.message.indexOf('please register host.') !== -1) {
             this.$message({
               duration: 2000,
               type: 'warning',
               message: this.$t('promptMessage.registerHost')
             })
-          } else if (experienceInfo.message.indexOf('get app url failed.') !== -1) {
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.getReleaseDataFail')
-            })
           } else {
-            this.$message({
-              duration: 2000,
-              type: 'warning'
-            })
+            this.initeData(experienceInfo)
           }
         })
+    },
+    initeData (experienceInfo) {
+      if (experienceInfo.data) {
+        let tmpExperienceData = experienceInfo.data.split(':')
+        console.log(tmpExperienceData)
+        this.experienceData[0].serviceName = tmpExperienceData[0]
+        this.experienceData[0].nodePort = tmpExperienceData[1]
+        this.experienceData[0].mecHost = tmpExperienceData[2]
+        this.initeStatus()
+      } else {
+        this.btnInstantiate = false
+        this.btnClean = true
+      }
     },
     initeStatus () {
       this.btnInstantiate = true
