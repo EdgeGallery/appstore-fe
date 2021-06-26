@@ -66,11 +66,13 @@
             @sort-change="sortChanged"
             @selection-change="selectionLineChangeHandle"
             ref="multipleTable"
+            :row-key="getRowKeys"
             style="width: 100%"
             header-cell-class-name="headerStyle"
           >
             <el-table-column
               type="selection"
+              :reserve-selection="true"
               width="70"
             />
             <el-table-column
@@ -218,17 +220,8 @@ export default {
         return 'hiddenClass'
       }
     },
-    toggleSelection (rows) {
-      if (rows) {
-        rows.forEach((row) => {
-          this.$refs.multipleTable.toggleRowSelection(row)
-        })
-      } else {
-        this.$refs.multipleTable.clearSelection()
-      }
-    },
-    handleSelectionChange (val) {
-      this.multipleSelection = val
+    getRowKeys (row) {
+      return row.packageId
     },
     selectionLineChangeHandle (val) {
       this.dataonLineListSelections = val
@@ -350,6 +343,11 @@ export default {
       } else {
         if (item === 'All') {
           this.promAppstoreList = ['All']
+        } else {
+          let pos = this.promAppstoreList.indexOf('All')
+          if (pos !== -1) {
+            this.promAppstoreList.splice(pos, 1)
+          }
         }
       }
     },
@@ -405,10 +403,6 @@ export default {
   mounted () {
     this.getTableData()
     this.getProviders()
-    sessionStorage.setItem(
-      'appstordetail',
-      JSON.stringify(this.dataonLineListSelections)
-    )
     let language = localStorage.getItem('language')
     this.isEnLan = language === 'en'
     this.defaultSort()
