@@ -506,8 +506,6 @@ export default {
       let datas = '[appstore,atp]'
       myApp.getResponseCodeInfo(encodeURI(datas))
         .then(res => {
-          console.log(res)
-          console.log(res.data)
           sessionStorage.setItem('resCodeInfo', JSON.stringify(res.data))
         }).catch(error => {
           this.handleExceptionMsg(error)
