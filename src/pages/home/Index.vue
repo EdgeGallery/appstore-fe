@@ -170,8 +170,6 @@
           <component
             :is="currentComponent"
             :app-data="currentPageData"
-            @getOrder="getOrder"
-            @getProp="getProp"
             @getAppData="getAppData"
           />
           <pagination
@@ -244,7 +242,7 @@ export default {
       offsetPage: sessionStorage.getItem('offsetRepo') || 0,
       total: 0,
       prop: 'createTime',
-      order: 'asc',
+      order: 'desc',
       searchCondition: {
         appName: '',
         types: [],
@@ -266,14 +264,6 @@ export default {
     }
   },
   methods: {
-    getOrder (data) {
-      this.order = data
-      this.getAppData()
-    },
-    getProp (data) {
-      this.prop = data
-      this.getAppData()
-    },
     ifFromDetail () {
       let fromPath = sessionStorage.getItem('fromPath') || ''
       if (fromPath === '/detail') {
@@ -324,92 +314,12 @@ export default {
         sessionStorage.setItem('currentComponent', 'appGrid')
       }
     },
-    sortByApp () {
-      let sortNumber = (a, b) => {
-        return b - a
-      }
-      // order by app name
-      let findApp = (fieldName, type) => {
-        let fieldArr = []
-        let appSort = []
-        this.findAppData.forEach((item) => {
-          if (type === 'Name') {
-            fieldArr.push(item[fieldName].toLowerCase())
-            fieldArr = fieldArr.sort()
-          } else {
-            fieldArr.push(item[fieldName])
-            fieldArr = fieldArr.sort(sortNumber)
-          }
-        })
-        const set = new Set(fieldArr)
-        fieldArr = [...set]
-        fieldArr.forEach((fieldItem) => {
-          this.findAppData.forEach((item) => {
-            if (type === 'Name') {
-              if (item[fieldName].toLowerCase() === fieldItem) {
-                appSort.push(item)
-              }
-            } else {
-              if (item[fieldName] === fieldItem) {
-                appSort.push(item)
-              }
-            }
-          })
-        })
-        return appSort
-      }
-      this.selectedConditions.forEach((item) => {
-        let type = item.value
-        if (type === 'Name') {
-          this.findAppData = findApp('name', type)
-        } else if (type === 'Most') {
-          this.findAppData = findApp('downloadCount', type)
-        } else if (type === 'Score') {
-          this.findAppData = findApp('score', type)
-        } else if (type === 'UploadTime') {
-          this.findAppData = findApp('uploadTime', type)
-        }
-      })
-    },
-    queryAppByCondition () {
-      this.findAppData = []
-      let conditionsTypes = []
-      this.selectedConditions.forEach((condition) => {
-        conditionsTypes.push(condition.type)
-        let type = condition.label.toString()
-        let conformData = []
-        this.appData.forEach(item => {
-          if (type.indexOf(item.industry) !== -1 || type.indexOf(item.type) !== -1 || type.indexOf(item.affinity) !== -1 || type.indexOf(item.deployMode) !== -1) {
-            conformData.push(item)
-          }
-        })
-        if (
-          conditionsTypes.indexOf('types') !== -1 || conditionsTypes.indexOf('affinity') !== -1 ||
-          conditionsTypes.indexOf('industry') !== -1 || conditionsTypes.indexOf('workloadType') !== -1
-        ) {
-          this.findAppData = [...this.findAppData, ...conformData]
-        } else if (
-          conditionsTypes.indexOf('sortBy') === -1
-        ) {
-          this.findAppData = this.findAppData.filter((item) => {
-            return conformData.indexOf(item) !== -1
-          })
-        }
-      })
-      if (!this.selectedConditions.length) this.findAppData = this.appData
-      conditionsTypes = [...new Set(conditionsTypes)]
-      if (conditionsTypes.length === 1 && conditionsTypes[0] === 'sortBy') {
-        this.findAppData = this.appData
-      }
-      // filter of type and affinity
-      this.findAppData = this.filterFindAppData(this.findAppData)
-    },
+
     changeSelectedConditions () {
       this.doQuery()
     },
     changeSelectedConditions2 () {
       this.doQuery()
-      this.sortByApp(this.findAppData)
     },
     doQuery () {
       this.selectedConditions = []
@@ -442,16 +352,16 @@ export default {
         (item) => {
           switch (item.type) {
             case 'affinity':
-              this.searchCondition.affinity.push(item.label)
+              this.searchCondition.affinity.push(item.value)
               break
             case 'types':
-              this.searchCondition.types.push(item.label[1])
+              this.searchCondition.types.push(item.value)
               break
             case 'industry':
-              this.searchCondition.industry.push(item.label[1])
+              this.searchCondition.industry.push(item.value)
               break
             case 'workloadType':
-              this.searchCondition.workloadType.push(item.label[1])
+              this.searchCondition.workloadType.push(item.value)
               break
             case 'sortBy':
               switch (item.value) {
@@ -477,6 +387,9 @@ export default {
     },
     buildQueryReq () {
       let _queryReq = this.searchCondition
+      if (this.prop === 'appName') {
+        this.order = 'asc'
+      }
       this.searchCondition.queryCtrl = {
         'offset': this.offsetPage,
         'limit': this.limitSize,
@@ -626,7 +539,6 @@ export default {
     }
     this.getAppData()
     this.ifFromDetail()
-    // this.queryAppByCondition()
   },
   destroyed () {
     sessionStorage.removeItem('offsetRepo')
