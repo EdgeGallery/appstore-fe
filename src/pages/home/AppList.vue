@@ -18,15 +18,12 @@
   <div class="app-list">
     <el-table
       :data="appData"
-      :default-sort="{prop: 'createTime', order: 'descending'}"
-      @sort-change="sortChange"
       style="width: 100%"
       header-cell-class-name="headerStyle"
     >
       <el-table-column
         prop="name"
         :label="$t('common.appName')"
-        sortable="custom"
         width="220"
         :cell-class-name="hiddenClass"
       >
@@ -74,7 +71,6 @@
       <el-table-column
         prop="createTime"
         :label="$t('common.uploadTime')"
-        sortable="custom"
         width="150"
       />
       <el-table-column
@@ -103,13 +99,11 @@
       <el-table-column
         prop="downloadCount"
         :label="$t('store.most')"
-        sortable="custom"
         width="90"
       />
       <el-table-column
         prop="score"
         :label="$t('store.score')"
-        sortable="custom"
         width="75"
       />
       <el-table-column
@@ -161,27 +155,10 @@ export default {
     return {
 
       ifDelete: 'true',
-      userId: sessionStorage.getItem('userId'),
-      prop: 'createTime',
-      order: 'asc'
+      userId: sessionStorage.getItem('userId')
     }
   },
   methods: {
-    sortChange (column) {
-      if (column.prop == null || column.order == null) {
-        this.prop = 'createTime'
-        this.order = 'desc'
-      } else {
-        if (column.order === 'ascending') {
-          this.order = 'asc'
-        } else {
-          this.order = 'desc'
-        }
-        this.prop = column.prop
-      }
-      this.$emit('getOrder', this.order)
-      this.$emit('getProp', this.prop)
-    },
     detail (item) {
       this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
