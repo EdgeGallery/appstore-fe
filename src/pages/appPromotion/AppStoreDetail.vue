@@ -203,6 +203,7 @@ export default {
                 industry: item.industry,
                 shortDesc: item.shortDesc,
                 type: item.type,
+                deployMode: item.deployMode,
                 createTime: item.createTime,
                 atpTestStatus: item.atpTestStatus,
                 sourceStoreName: selectAppStoreInfo.name,
