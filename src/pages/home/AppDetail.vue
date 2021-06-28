@@ -62,6 +62,9 @@
           <span class="type">
             {{ currentData.type }}
           </span>
+          <span class="type">
+            {{ currentData.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
+          </span>
         </p>
       </div>
       <div class="app_score">
@@ -1069,6 +1072,10 @@ export default {
         }
         .type{
           background: url('../../assets/images/app_detail_type_bg.png') center right no-repeat #a680d7;
+          background-size: contain;
+        }
+        .deployMode{
+          background: url('../../assets/images/app_detail_industry_bg.png') center right no-repeat #1ececa;
           background-size: contain;
         }
       }
