@@ -195,12 +195,12 @@ export default {
   },
   mounted () {
     this.language = localStorage.getItem('language')
-    this.bannerImg = this.language === 'cn' ? 'images/sharebannercn.png' : 'images/sharebanneren.png'
+    this.bannerImg = this.language === 'cn' ? 'images/sharebannercn.png' : 'images/sharebanneren.jpg'
   },
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
-      this.bannerImg = this.language === 'cn' ? 'images/sharebannercn.png' : 'images/sharebanneren.png'
+      this.bannerImg = this.language === 'cn' ? 'images/sharebannercn.png' : 'images/sharebanneren.jpg'
     }
   }
 }
@@ -250,7 +250,6 @@ export default {
               background: linear-gradient(to bottom, white 0%,white 50%, #c2f1f0 50%, #c2f1f0 100%);
               font-weight: bold;
               font-size: 20px;
-              font-family: Microsoft YaHei , sans-serif;
             }
           }
           .content-detail{
@@ -307,7 +306,6 @@ export default {
               background: linear-gradient(to bottom, white 0%,white 50%, #c2f1f0 50%, #c2f1f0 100%);
               font-weight: bold;
               font-size: 18px;
-              font-family: Microsoft YaHei , sans-serif;
             }
           }
           .content-detail{

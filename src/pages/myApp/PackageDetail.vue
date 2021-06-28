@@ -420,7 +420,6 @@ export default {
         color: black !important;
         line-height: 23px;
         font-weight: 700;
-        font-family: "Microsoft Yahei", "simsun", "arial", "tahoma", sans-serif;
       }
       span {
         display: inline-block;
@@ -527,7 +526,6 @@ export default {
         background-color:#fff;
         border-radius: 4px;
         font-size: 14px;
-        font-family: '微软雅黑',arail, sans-serif;
         cursor: pointer;
         .download-button {
           flex-direction: column;
