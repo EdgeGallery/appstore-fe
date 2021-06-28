@@ -1023,7 +1023,6 @@ export default {
             .desc-font{
               font-size: 14px;
               color: #B2B2B2;
-              font-family: FZLTXIHJW--GB1-0, sans-serif;
             }
           }
         }
@@ -1045,7 +1044,6 @@ export default {
             .desc-font{
               font-size: 14px;
               color: #B2B2B2;
-              font-family: FZLTXIHJW--GB1-0, sans-serif;
             }
           }
         }
@@ -1071,7 +1069,6 @@ export default {
             .desc-font{
               font-size: 14px;
               color: #B2B2B2;
-              font-family: FZLTXIHJW--GB1-0, sans-serif;
             }
           }
         }
@@ -1093,7 +1090,6 @@ export default {
             .desc-font{
               font-size: 14px;
               color: #B2B2B2;
-              font-family: FZLTXIHJW--GB1-0, sans-serif;
             }
           }
         }

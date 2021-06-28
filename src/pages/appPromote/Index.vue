@@ -301,7 +301,7 @@ export default {
       offsetPage: sessionStorage.getItem('offsetAppstore') || 0,
       total: 0,
       language: localStorage.getItem('language'),
-      bannerImg: 'images/appstorecn.png'
+      bannerImg: 'images/appstorecn.jpg'
     }
   },
   methods: {
@@ -488,7 +488,7 @@ export default {
     this.getAppPackageData()
     this.updateBreadCrumbData()
     this.language = localStorage.getItem('language')
-    this.bannerImg = this.language === 'cn' ? 'images/appstorecn.png' : 'images/appstoreen.png'
+    this.bannerImg = this.language === 'cn' ? 'images/appstorecn.jpg' : 'images/appstoreen.jpg'
   },
   computed: {
     title () {
@@ -532,7 +532,7 @@ export default {
     '$i18n.locale': function () {
       this.updateBreadCrumbData()
       this.language = localStorage.getItem('language')
-      this.bannerImg = this.language === 'cn' ? 'images/appstorecn.png' : 'images/appstoreen.png'
+      this.bannerImg = this.language === 'cn' ? 'images/appstorecn.jpg' : 'images/appstoreen.jpg'
     },
     curPageSize: function () {
       this.getAppPackageData()

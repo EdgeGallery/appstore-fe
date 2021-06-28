@@ -1192,7 +1192,6 @@ export default {
         width: 57%;
         .top_titile{
           font-size: 18px;
-          font-family: Microsoft YaHei;
           font-weight: bold;
           color: #282B33;
           margin-bottom: 20px;
@@ -1200,7 +1199,6 @@ export default {
         }
         .bottom_titile{
           font-size: 14px;
-          font-family: Microsoft YaHei;
           font-weight: 400;
           color: #A680D7;
           margin-bottom: 20px;
@@ -1210,14 +1208,12 @@ export default {
           .bottom_titile1{
           width: 20%;
           font-size: 18px;
-          font-family: Microsoft YaHei;
           font-weight: bold;
           color: #282B33;
           }
           .el-upload__tip{
             width: 86%;
             font-size: 14px;
-            font-family: Microsoft YaHei;
             font-weight: 400;
             color: #8E8E8E;
           }
