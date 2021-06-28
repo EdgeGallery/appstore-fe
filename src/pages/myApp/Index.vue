@@ -630,33 +630,6 @@ export default {
         return this.findedData.filter(item => this.filterValue.status.includes(item.status))
       }
     },
-    sortedData: function () {
-      let tempData = [].concat(this.filteredData)
-      let sortProp = this.defaultSort.prop
-      let sortOrder = this.defaultSort.order
-      tempData.sort((a, b) => {
-        let aProp = a[sortProp].toLowerCase()
-        let bProp = b[sortProp].toLowerCase()
-        if (sortOrder === 'descending') {
-          if (aProp > bProp) {
-            return -1
-          }
-          if (aProp < bProp) {
-            return 1
-          }
-          return 0
-        } else {
-          if (aProp > bProp) {
-            return 1
-          }
-          if (aProp < bProp) {
-            return -1
-          }
-          return 0
-        }
-      })
-      return tempData
-    },
     pageNum: function () {
       if (this.curPageSize * (this.pageNumCache - 1) >= this.total) {
         sessionStorage.setItem('myAppPageNum', 1)
@@ -665,16 +638,8 @@ export default {
       sessionStorage.setItem('myAppPageNum', this.pageNumCache)
       return this.pageNumCache
     },
-    // offsetPage: function () {
-    //   let calPageNum = this.curPageSize * (this.pageNumCache - 1) >= this.total ? 1 : this.pageNumCache
-    //   return this.curPageSize * (calPageNum - 1)
-    // },
-    // 暂时删除
     currentPageData: function () {
-      // let calPageNum = this.curPageSize * (this.pageNumCache - 1) >= this.total ? 1 : this.pageNumCache
-      // let start = this.curPageSize * (calPageNum - 1)
-      // let end = this.curPageSize * calPageNum
-      return this.sortedData
+      return this.filteredData
     }
   },
   beforeMount () {
