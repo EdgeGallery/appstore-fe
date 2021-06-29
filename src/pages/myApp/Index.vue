@@ -373,6 +373,7 @@ export default {
       this.total = 0
       this.processInvoices(invoices.status)
         .then(result => {
+          // This is intentional
         })
         .catch((err) => {
           console.log('err: ' + err)
@@ -427,13 +428,7 @@ export default {
           })
           this.dataLoading = false
         }).catch(() => {
-          this.dataLoading = false
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.getMyAppFail'),
-            type: 'warning'
-          })
-          this.clearInterval()
+          this.showErrorAndClearInterval()
         })
     },
     getAppDataByStatus (status) {
@@ -459,15 +454,18 @@ export default {
             resolve(resultData)
             this.dataLoading = false
           }).catch(() => {
-            this.dataLoading = false
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.getMyAppFail'),
-              type: 'warning'
-            })
-            this.clearInterval()
+            this.showErrorAndClearInterval()
           })
       })
+    },
+    showErrorAndClearInterval () {
+      this.dataLoading = false
+      this.$message({
+        duration: 2000,
+        message: this.$t('promptMessage.getMyAppFail'),
+        type: 'warning'
+      })
+      this.clearInterval()
     },
     getAppStatus () {
       this.appPackageData.forEach((item, index) => {
