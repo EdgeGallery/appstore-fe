@@ -7,7 +7,7 @@
 #### 请求参数
 |参数 |位置 | 是否必选 | 类型 |说明|
 |-----|-----|----|------|-----|
-|appId | path |N| String | App id |
+|appId | path |Y| String | App id |
 
 #### 请求示例
 ```

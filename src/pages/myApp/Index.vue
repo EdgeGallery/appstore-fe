@@ -231,6 +231,7 @@ export default {
       pageSizes: [10, 20, 30],
       curPageSize: 10,
       pageNumCache: 1,
+      status: '',
       offsetPage: sessionStorage.getItem('offsetMyApp') || 0,
       language: localStorage.getItem('language'),
       filterValue: { status: [] },
@@ -348,8 +349,36 @@ export default {
     },
     filterChange (filters) {
       this.filterValue = filters
+      if (filters.status.length > 0) {
+        this.getFilterStatusData(this.filterValue)
+      } else {
+        this.getAppData()
+      }
       sessionStorage.setItem('myAppStatusFilterValue', JSON.stringify(this.filterValue))
     },
+    processInvoices (statusArr) {
+      return Promise.all(
+        statusArr.map(status => (
+          this.getAppDataByStatus(status)
+            .then(res => {
+              this.appPackageData = this.appPackageData.concat(res.data)
+              this.total += res.total
+              if (!res) throw new Error('Failed to get data:' + status)
+            })
+        ))
+      )
+    },
+    getFilterStatusData (invoices) {
+      this.appPackageData = []
+      this.total = 0
+      this.processInvoices(invoices.status)
+        .then(result => {
+        })
+        .catch((err) => {
+          console.log('err: ' + err)
+        })
+    },
+
     filterStatus (val, row) {
       return row.status === val
     },
@@ -362,7 +391,11 @@ export default {
       this.offsetPage = this.curPageSize * (this.pageNumCache - 1)
       sessionStorage.setItem('offsetMyApp', this.offsetPage)
       sessionStorage.setItem('myAppPageNum', this.pageNumCache)
-      this.getAppData()
+      if (this.filterValue.status.length > 0) {
+        this.getFilterStatusData(this.filterValue)
+      } else {
+        this.getAppData()
+      }
     },
     queryApp () {
       if (this.nameQueryVal.toLowerCase()) {
@@ -402,6 +435,39 @@ export default {
           })
           this.clearInterval()
         })
+    },
+    getAppDataByStatus (status) {
+      return new Promise((resolve, reject) => {
+        this.appPackageData = []
+        this.appName = this.nameQueryVal.toLowerCase()
+        if (this.prop === 'name') {
+          this.prop = 'appName'
+        }
+        if (status) {
+          this.status = status
+        }
+        myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, this.status, this.prop, this.order)
+          .then(res => {
+            this.appPackageData.forEach(item => {
+              let formatedTime = timeFormatTools.formatDateTime(item.createTime)
+              item.createTime = formatedTime
+            })
+            let resultData = {
+              data: res.data.results,
+              total: res.data.total
+            }
+            resolve(resultData)
+            this.dataLoading = false
+          }).catch(() => {
+            this.dataLoading = false
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.getMyAppFail'),
+              type: 'warning'
+            })
+            this.clearInterval()
+          })
+      })
     },
     getAppStatus () {
       this.appPackageData.forEach((item, index) => {

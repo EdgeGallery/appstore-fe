@@ -8,7 +8,7 @@ get app detail
 
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
-|appId | path |N| String | App id |
+|appId | path |Y| String | App id |
 
 #### Example request
 ```
