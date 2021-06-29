@@ -190,6 +190,7 @@ export default {
     },
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
+        // This is intentional
       }).catch(() => {
         this.$message({
           duration: 2000,

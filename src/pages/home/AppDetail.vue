@@ -1242,13 +1242,11 @@ export default {
           }
           .el-timeline-item__tail{
             border-left: 1px dashed #7093EF;
+            left: 9px;
           }
           .el-timeline-item__node--normal{
             width: 20px;
             height: 20px;
-          }
-          .el-timeline-item__tail{
-            left: 9px;
           }
         }
 

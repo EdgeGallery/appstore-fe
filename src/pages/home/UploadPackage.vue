@@ -722,6 +722,12 @@ export default {
         this.defaultIconFile = this.getFileStream(image)
       }
     },
+    getShowType (packageForm) {
+      if (packageForm.checkList.length === 0) {
+        return 'private'
+      }
+      return packageForm.checkList.length === 1 ? 'inner-public' : 'public'
+    },
     upload () {
       let userId = sessionStorage.getItem('userId')
       let userName = sessionStorage.getItem('userName')
@@ -733,7 +739,7 @@ export default {
       fd.append('type', packageForm.types)
       fd.append('affinity', packageForm.affinity)
       fd.append('shortDesc', packageForm.shortDesc ? packageForm.shortDesc : '')
-      fd.append('showType', packageForm.checkList.length === 0 ? 'private' : (packageForm.checkList.length === 1 ? 'inner-public' : 'public'))
+      fd.append('showType', this.getShowType(packageForm))
       fd.append('userId', userId)
       fd.append('userName', userName)
       fd.append('demoVideo', packageForm.videoFile[0])
@@ -755,7 +761,7 @@ export default {
       fd.append('type', packageForm.types)
       fd.append('affinity', packageForm.affinity)
       fd.append('shortDesc', packageForm.shortDesc ? packageForm.shortDesc : '')
-      fd.append('showType', packageForm.checkList.length === 0 ? 'private' : (packageForm.checkList.length === 1 ? 'inner-public' : 'public'))
+      fd.append('showType', this.getShowType(packageForm))
       fd.append('userId', userId)
       fd.append('userName', userName)
       fd.append('demoVideo', packageForm.videoFile[0])
@@ -874,18 +880,20 @@ export default {
     },
     showTypeChange (val) {
       if (val.length === 0) {
-        this.packageForm.checkList = []
-        this.packageForm.isSelectInnerPublic = false
+        this.clearCheckList()
       } else if (val.length === 1 && val[0] === 'innerPublic') {
         this.packageForm.checkList = ['innerPublic']
         this.packageForm.isSelectInnerPublic = true
       } else if (val.length === 1 && val[0] === 'public') {
-        this.packageForm.checkList = []
-        this.packageForm.isSelectInnerPublic = false
+        this.clearCheckList()
       } else {
         this.packageForm.checkList = ['innerPublic', 'public']
         this.packageForm.isSelectInnerPublic = true
       }
+    },
+    clearCheckList () {
+      this.packageForm.checkList = []
+      this.packageForm.isSelectInnerPublic = false
     },
     showChangeMessageSuccess (res) {
       // Since every resCode can be obtained successfully, there is no need to judge whether the resCode can be obtained

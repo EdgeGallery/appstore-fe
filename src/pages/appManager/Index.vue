@@ -121,12 +121,6 @@ export default {
       this.getAppData()
     }
 
-  },
-
-  mounted () {
-
-  },
-  beforeDestroy () {
   }
 }
 </script>

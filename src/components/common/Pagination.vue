@@ -95,7 +95,6 @@ export default {
     },
     returnTableData () {
       let start = (this.currentPage - 1) * this.pageSize
-      // let end = this.currentPage * this.pageSize
       this.$emit('getCurrentPageData', this.data, this.pageSize, start)
     }
   },
