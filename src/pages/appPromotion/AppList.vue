@@ -269,22 +269,25 @@ export default {
           this.promStoreList.push(item)
         }
       } else {
-        for (let idItem of this.promAppstoreList) {
-          for (let item of this.appStoreList) {
-            if (item.value === idItem) {
-              this.promStoreList.push(item)
-              break
-            }
-          }
-        }
+        this.setPromAppstoreList()
       }
       this.uploadDiaVis = true
       setTimeout(() => {
         this.$refs.promItem.handleExecute()
       }, 500)
-      this.newFunction(row)
+      this.savePromData(row)
     },
-    newFunction (row) {
+    setPromAppstoreList () {
+      for (let idItem of this.promAppstoreList) {
+        for (let item of this.appStoreList) {
+          if (item.value === idItem) {
+            this.promStoreList.push(item)
+            break
+          }
+        }
+      }
+    },
+    savePromData (row) {
       if (!(row instanceof MouseEvent)) {
         sessionStorage.setItem(
           'appstordetail',

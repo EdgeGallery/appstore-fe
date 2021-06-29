@@ -611,10 +611,8 @@ export default {
   }
 
   .list {
-    // padding: 0 10%;
     min-height: 500px;
     background-color: white;
-    padding-bottom: 20px;
     padding: 20px;
     .title{
       display: flex;

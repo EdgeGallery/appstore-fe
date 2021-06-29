@@ -19,40 +19,33 @@ function showTipMsg (language, zhData, enData, retCode, params) {
   let zhMap = new Map(Object.entries(zhData))
   let enMap = new Map(Object.entries(enData))
   if (language === 'cn') {
-    for (let code of zhMap.keys()) {
-      if (retCode === Number(code)) {
-        let para = zhMap.get(code)
-        if (para.indexOf('%s') !== -1) {
-          for (let param of params) {
-            para = para.replace('%s', param)
-          }
-        }
-        Vue.prototype.$message({
-          duration: 2000,
-          message: para,
-          type: 'warning'
-        })
-        return
-      }
-    }
+    getTipMsg(zhMap, retCode, params)
   } else {
-    for (let code of enMap.keys()) {
-      if (retCode === Number(code)) {
-        let para = enMap.get(code)
-        if (para.indexOf('%s') !== -1) {
-          for (let param of params) {
-            para = para.replace('%s', param)
-          }
+    getTipMsg(enMap, retCode, params)
+  }
+}
+
+function getTipMsg (LanguMap, retCode, params) {
+  for (let code of LanguMap.keys()) {
+    if (retCode === Number(code)) {
+      let para = LanguMap.get(code)
+      if (para.indexOf('%s') !== -1) {
+        for (let param of params) {
+          para = para.replace('%s', param)
         }
-        Vue.prototype.$message({
-          duration: 2000,
-          message: para,
-          type: 'warning'
-        })
-        return
       }
+      showWarningDlg(para)
+      return
     }
   }
+}
+
+function showWarningDlg (msg) {
+  Vue.prototype.$message({
+    duration: 2000,
+    message: msg,
+    type: 'warning'
+  })
 }
 
 export default {

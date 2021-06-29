@@ -399,18 +399,26 @@ export default {
     },
     showTypeChange (val) {
       if (val.length === 0) {
-        this.appModifyInfo.checkboxList = []
-        this.appModifyInfo.isSelectInnerPublic = false
+        this.clearShowTypeSelection()
       } else if (val.length === 1 && val[0] === 'innerPublic') {
         this.appModifyInfo.checkboxList = ['innerPublic']
         this.appModifyInfo.isSelectInnerPublic = true
       } else if (val.length === 1 && val[0] === 'public') {
-        this.appModifyInfo.checkboxList = []
-        this.appModifyInfo.isSelectInnerPublic = false
+        this.clearShowTypeSelection()
       } else {
         this.appModifyInfo.checkboxList = ['innerPublic', 'public']
         this.appModifyInfo.isSelectInnerPublic = true
       }
+    },
+    clearShowTypeSelection () {
+      this.appModifyInfo.checkboxList = []
+      this.appModifyInfo.isSelectInnerPublic = false
+    },
+    setShowTypeValue () {
+      if (this.appModifyInfo.checkboxList.length === 0) {
+        return 'private'
+      }
+      return this.appModifyInfo.checkboxList.length === 1 ? 'inner-public' : 'public'
     },
     confirmButtonAction () {
       let fd = new FormData()
@@ -423,7 +431,7 @@ export default {
       fd.append('affinity', this.appModifyInfo.affinity)
       fd.append('shortDesc', this.appModifyInfo.shortDesc)
       fd.append('experienceAble', this.appModifyInfo.experienceAble)
-      fd.append('showType', this.appModifyInfo.checkboxList.length === 0 ? 'private' : (this.appModifyInfo.checkboxList.length === 1 ? 'inner-public' : 'public'))
+      fd.append('showType', this.setShowTypeValue())
       myApp.modifyAppAttr(fd, this.appModifyInfo.appId, this.appModifyInfo.packageId).then(res => {
         this.$message({
           duration: 2000,

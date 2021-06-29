@@ -341,33 +341,9 @@ export default {
   watch: {
     $route (to, from) {
       this.activeIndex = to.path
-      if (to.path === '/detail' && from.path === '/index') {
-        this.activeIndex = '/index'
-      }
-      if (to.path === '/detail' && from.path === '/home') {
-        this.activeIndex = '/home'
-      } else if (to.path === '/docsInterface' && from.path === '/docs') {
-        this.activeIndex = '/docs'
-      } else if (to.path === '/docsAPPD' && from.path === '/docs') {
-        this.activeIndex = '/docs'
-      } else if (to.path === '/docsBeginnerGuide' && from.path === '/docs') {
-        this.activeIndex = '/docs'
-      }
-      this.judgePath(to, from)
+      this.judgeActiveRouter(to.path, from.path)
       let path = this.$route.path
-      if (path === '/index') {
-        this.isActive = 0
-      } else if (path === '/docs') {
-        this.isActive = 1
-      } else if (path === '/myapp' || path === '/app/test/task' || path === '/atpreport' || path === '/myappdetail' || path === '/atpprocess' || path === '/atptestcase') {
-        this.isActive = 2
-      } else if (path === '/about') {
-        this.isActive = 0
-      } else if (path === '/appShare' || path === '/apppromote' || path === '/apppromotion' || path === '/msgCenter' || path === '/right_panel' || path === 'app/prom/task') {
-        this.isActive = 4
-      } else {
-        this.isActive = 0
-      }
+      this.judgeActiveIndex(path)
     }
   },
   computed: {
@@ -480,12 +456,39 @@ export default {
 
       return false
     },
-    judgePath (toPath, fromPath) {
-      if ((toPath.path === '/detail' && fromPath.path === '/myapp') || (toPath.path === '/app/test/task' && fromPath.path === '/myapp') || (toPath.path === '/atpreport' && fromPath.path === '/myapp') ||
-      (toPath.path === '/myappdetail' && fromPath.path === '/myapp') || (toPath.path === '/atpprocess' && fromPath.path === '/myapp') || (toPath.path === '/atptestcase' && fromPath.path === '/myapp')) {
+    judgeActiveIndex (path) {
+      if (path === '/index') {
+        this.isActive = 0
+      } else if (path === '/docs') {
+        this.isActive = 1
+      } else if (path === '/myapp' || path === '/app/test/task' || path === '/atpreport' || path === '/myappdetail' || path === '/atpprocess' || path === '/atptestcase') {
+        this.isActive = 2
+      } else if (path === '/about') {
+        this.isActive = 0
+      } else if (path === '/appShare' || path === '/apppromote' || path === '/apppromotion' || path === '/msgCenter' || path === '/right_panel' || path === 'app/prom/task') {
+        this.isActive = 4
+      } else {
+        this.isActive = 0
+      }
+    },
+    judgeActiveRouter (toPath, fromPath) {
+      if (toPath === '/detail' && fromPath === '/index') {
+        this.activeIndex = '/index'
+      }
+      if (toPath === '/detail' && fromPath === '/home') {
+        this.activeIndex = '/home'
+      } else if (toPath === '/docsInterface' && fromPath === '/docs') {
+        this.activeIndex = '/docs'
+      } else if (toPath === '/docsAPPD' && fromPath === '/docs') {
+        this.activeIndex = '/docs'
+      } else if (toPath === '/docsBeginnerGuide' && fromPath === '/docs') {
+        this.activeIndex = '/docs'
+      }
+      if ((toPath === '/detail' && fromPath === '/myapp') || (toPath === '/app/test/task' && fromPath === '/myapp') || (toPath === '/atpreport' && fromPath === '/myapp') ||
+      (toPath === '/myappdetail' && fromPath === '/myapp') || (toPath === '/atpprocess' && fromPath === '/myapp') || (toPath === '/atptestcase' && fromPath === '/myapp')) {
         this.activeIndex = '/myapp'
       }
-      if (toPath.path === '/appShare') {
+      if (toPath === '/appShare') {
         this.activeIndex = '/apppromote'
       }
     },

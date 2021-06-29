@@ -29,10 +29,9 @@ function getCookie (name) {
   }
 }
 
-function GET (url, params) {
-  let baseUrl = URL_PREFIX + url
+function commonGetRequest (url, params) {
   return new Promise((resolve, reject) => {
-    axios.get(baseUrl, {
+    axios.get(url, {
       params: params,
       withCredentials: true,
       headers: {
@@ -45,59 +44,60 @@ function GET (url, params) {
       reject(error)
     })
   })
+}
+
+function commonPostRequest (url, params) {
+  return new Promise((resolve, reject) => {
+    axios.post(url, {
+      params: params,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+      }
+    }).then(res => {
+      resolve(res)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
+
+function commonPutRequest (url, params) {
+  return new Promise((resolve, reject) => {
+    axios.put(url, {
+      params: params,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+      }
+    }).then(res => {
+      resolve(res)
+    }).catch(error => {
+      reject(error)
+    })
+  })
+}
+
+function GET (url, params) {
+  let baseUrl = URL_PREFIX + url
+  return commonGetRequest(baseUrl, params)
 }
 
 function GETRESCODE (url, params) {
   let baseUrl = URL_PREFIX_GATEWAY + url
-  return new Promise((resolve, reject) => {
-    axios.get(baseUrl, {
-      params: params,
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
-      }
-    }).then(res => {
-      resolve(res)
-    }).catch(error => {
-      reject(error)
-    })
-  })
+  return commonGetRequest(baseUrl, params)
 }
 
 function GETV2 (url, params) {
   let baseUrl = URL_PREFIXV2 + url
-  return new Promise((resolve, reject) => {
-    axios.get(baseUrl, {
-      params: params,
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
-      }
-    }).then(res => {
-      resolve(res)
-    }).catch(error => {
-      reject(error)
-    })
-  })
+  return commonGetRequest(baseUrl, params)
 }
 
 function PUTV2 (url, params) {
   let baseUrl = URL_PREFIXV2 + url
-  return new Promise((resolve, reject) => {
-    axios.put(baseUrl, params, {
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
-      }
-    }).then((res) => {
-      resolve(res)
-    }).catch(error => {
-      reject(error)
-    })
-  })
+  return commonPutRequest(baseUrl, params)
 }
 
 function DELETE (url, params) {
@@ -120,53 +120,17 @@ function DELETE (url, params) {
 
 function POST (url, params) {
   let baseUrl = URL_PREFIX + url
-  return new Promise((resolve, reject) => {
-    axios.post(baseUrl, params, {
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
-      }
-    }).then((res) => {
-      resolve(res)
-    }).catch(error => {
-      reject(error)
-    })
-  })
+  return commonPostRequest(baseUrl, params)
 }
 
 function POSTV2 (url, params) {
   let baseUrl = URL_PREFIXV2 + url
-  return new Promise((resolve, reject) => {
-    axios.post(baseUrl, params, {
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
-      }
-    }).then((res) => {
-      resolve(res)
-    }).catch(error => {
-      reject(error)
-    })
-  })
+  return commonPostRequest(baseUrl, params)
 }
 
 function PUT (url, params) {
   let baseUrl = URL_PREFIX + url
-  return new Promise((resolve, reject) => {
-    axios.put(baseUrl, params, {
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
-      }
-    }).then((res) => {
-      resolve(res)
-    }).catch(error => {
-      reject(error)
-    })
-  })
+  return commonPutRequest(baseUrl, params)
 }
 
 export {
