@@ -165,7 +165,7 @@ export default {
   },
   data () {
     return {
-      bannerImg: 'images/sharebannercn.png',
+      bannerImg: 'images/sharebannercn.jpg',
       enDetailButton: enDetailButton,
       cnDetailButton: cnDetailButton,
       language: localStorage.getItem('language')
@@ -195,12 +195,12 @@ export default {
   },
   mounted () {
     this.language = localStorage.getItem('language')
-    this.bannerImg = this.language === 'cn' ? 'images/sharebannercn.png' : 'images/sharebanneren.jpg'
+    this.bannerImg = this.language === 'cn' ? 'images/sharebannercn.jpg' : 'images/sharebanneren.jpg'
   },
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
-      this.bannerImg = this.language === 'cn' ? 'images/sharebannercn.png' : 'images/sharebanneren.jpg'
+      this.bannerImg = this.language === 'cn' ? 'images/sharebannercn.jpg' : 'images/sharebanneren.jpg'
     }
   }
 }
