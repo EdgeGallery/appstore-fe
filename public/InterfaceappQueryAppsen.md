@@ -1,7 +1,7 @@
 ## Interface list
 
-### /mec/appstore/v2/apps
-###  GET
+### /mec/appstore/v2/query/apps
+###  POST
 
 get app list
 
@@ -10,17 +10,17 @@ get app list
 
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
-|appName | path |N| String | App name |
-|limit | path |Y| String | app limit |
-|offset | path |Y| String | app offset |
-|sortType | path |Y| String | app sortType |
-|sortItem | path |N| String | app sortItem|
-|type | path |N| String | app type|
-|affinity | path |N| String | affinity|
-|industry | path |N| String | industry|
-|createTime | path |N| String | createTime|
-|downloadCount | path |N| String | downloadCount|
-|score | path |N| String | score|
+|appName | requestBody |N| String | App name |
+|limit | requestBody |Y| String | app limit |
+|offset | requestBody |Y| String | app offset |
+|sortType | requestBody |Y| String | app sortType |
+|sortItem | requestBody |N| String | app sortItem|
+|type | requestBody |N| String | app type|
+|affinity | requestBody |N| String | affinity|
+|industry | requestBody |N| String | industry|
+|createTime | requestBody |N| String | createTime|
+|downloadCount | requestBody |N| String | downloadCount|
+|score | requestBody |N| String | score|
 
 #### Example request
 ```
