@@ -622,7 +622,7 @@ export default {
         industryArr.push(defaultData)
       }
       let colors = ['#688EF3', '#754BAC', '#1FCAA8', '#FAC858', '#EE6666']
-      let options1 = {
+      return {
         color: colors,
         title: {
           text: this.$t('apppromotion.hotIndustry'),
@@ -668,7 +668,6 @@ export default {
           }
         ]
       }
-      return options1
     },
     initChart2 () {
       let appStorePushArr = []
@@ -710,7 +709,7 @@ export default {
       }
       top5Name = top5Name.slice(0, 5)
 
-      let options2 = {
+      return {
         title: {
           text: this.$t('apppromotion.appPushStatistic'),
           textStyle: {
@@ -765,7 +764,6 @@ export default {
           }
         ]
       }
-      return options2
     },
     initChart3 () {
       let appStoreNoticeArr = []
@@ -807,7 +805,7 @@ export default {
       }
       top5NoticeName = top5NoticeName.slice(0, 5)
 
-      let options3 = {
+      return {
         title: {
           text: this.$t('apppromotion.appNoticeStatistic'),
           textStyle: {
@@ -862,7 +860,6 @@ export default {
           }
         ]
       }
-      return options3
     },
     initChart4 () {
       let sourceAppStorePullArr = []
@@ -907,7 +904,7 @@ export default {
         }
       )
 
-      let options4 = {
+      return {
         title: {
           text: this.$t('apppromotion.appDownloadTrend'),
           textStyle: {
@@ -945,7 +942,6 @@ export default {
         },
         series: sourceAppStorePullArr
       }
-      return options4
     },
     updateTableExChart () {
       this.getTableExChart().then((res) => {

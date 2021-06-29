@@ -251,14 +251,12 @@ export default {
         status: 'Published',
         showType: ['public', 'inner-public'],
         workloadType: [],
-        createTime: '',
         userId: '',
         queryCtrl: {
           offset: this.offsetPage,
           limit: this.limitSize,
           sortItem: this.prop,
-          sortType: this.order,
-          createTime: 'createTime'
+          sortType: this.order
         }
       }
     }
@@ -389,13 +387,14 @@ export default {
       let _queryReq = this.searchCondition
       if (this.prop === 'appName') {
         this.order = 'asc'
+      } else {
+        this.order = 'desc'
       }
       this.searchCondition.queryCtrl = {
         'offset': this.offsetPage,
         'limit': this.limitSize,
         'sortItem': this.prop,
-        'sortType': this.order,
-        'createTime': 'createTime'
+        'sortType': this.order
       }
       return _queryReq
     },
@@ -458,6 +457,7 @@ export default {
       this.uploadDiaVis = false
       this.currentComponent = sessionStorage.getItem('currentComponent') || 'appGrid'
       this.searchCondition.appName = this.nameQuery.toLowerCase()
+      console.log(this.buildQueryReq())
       getAppTableApi(this.buildQueryReq()).then(
         (res) => {
           this.appData = this.findAppData = res.data.results

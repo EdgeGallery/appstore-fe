@@ -347,28 +347,16 @@
           </div>
         </template>
       </el-table>
-      <div class="pagebar">
-        <pagination
-          :table-data="allListData"
-          :total="listTotal"
-          @getCurrentPageData="getCurrentPageData"
-          ref="pagination"
-        />
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import pagination from '../../components/common/Pagination.vue'
 import { Workspace, System } from '../../tools/api'
 import { Architecture } from '../../tools/constant.js'
 
 export default {
   name: 'HostList',
-  components: {
-    pagination
-  },
   data () {
     const validate = (v, callback, errorMsg, rules) => {
       if (rules) {
@@ -387,8 +375,6 @@ export default {
     return {
       showLog: false,
       configId_file_list: [],
-      limitSize: 2,
-      offsetPage: 0,
       listTotal: 0,
       logData: [],
       protocolOptions: [
@@ -478,14 +464,6 @@ export default {
     },
     $route (to, from) {
       this.getListData()
-    },
-    offsetPage (val, oldVal) {
-      this.offsetPage = val
-      this.getListData()
-    },
-    limitSize (val, oldVal) {
-      this.limitSize = val
-      this.getListData()
     }
   },
   methods: {
@@ -535,9 +513,8 @@ export default {
     // 获取列表
     getListData () {
       this.loading = true
-      System.getHosts({ name: this.enterQuery, offset: this.offsetPage, limit: this.limitSize }).then(res => {
-        this.allListData = res.data.results || []
-        this.listTotal = res.data.total
+      System.getHosts({ name: this.enterQuery }).then(res => {
+        this.allListData = res.data || []
       }).finally(() => {
         this.loading = false
       })
@@ -587,10 +564,6 @@ export default {
       this.$nextTick(() => {
         this.$refs.form.clearValidate()
       })
-    },
-    getCurrentPageData (val, pageSize, start) {
-      this.limitSize = pageSize
-      this.offsetPage = start
     }
   }
 }
@@ -613,6 +586,7 @@ export default {
   .list {
     min-height: 500px;
     background-color: white;
+    padding-bottom: 20px;
     padding: 20px;
     .title{
       display: flex;

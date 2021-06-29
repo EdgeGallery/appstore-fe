@@ -48,14 +48,13 @@ function commonGetRequest (url, params) {
 
 function commonPostRequest (url, params) {
   return new Promise((resolve, reject) => {
-    axios.post(url, {
-      params: params,
+    axios.post(url, params, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
         'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
       }
-    }).then(res => {
+    }).then((res) => {
       resolve(res)
     }).catch(error => {
       reject(error)
@@ -65,14 +64,13 @@ function commonPostRequest (url, params) {
 
 function commonPutRequest (url, params) {
   return new Promise((resolve, reject) => {
-    axios.put(url, {
-      params: params,
+    axios.put(url, params, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
         'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
       }
-    }).then(res => {
+    }).then((res) => {
       resolve(res)
     }).catch(error => {
       reject(error)
