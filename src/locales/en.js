@@ -651,7 +651,8 @@ const en = {
     getAppStoreException: 'get Appstore Exception',
     getPullAppException: 'get pull App Exception',
     viewTestRepo: 'view report',
-    haveNoPullData: 'No data is pulled'
+    haveNoPullData: 'There is no External AppStore to pull apps,Please ',
+    addApppromote: 'add an External AppStore first'
   },
   appShare: {
     manager: 'External AppStore Management',

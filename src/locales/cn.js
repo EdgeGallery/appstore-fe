@@ -678,7 +678,8 @@ const cn = {
     getAppStoreException: '获取appStore异常',
     getPullAppException: '获取拉取app信息异常',
     viewTestRepo: '查看报告',
-    haveNoPullData: '暂无拉取数据！'
+    haveNoPullData: '暂无可拉取应用的外部仓库，请先',
+    addApppromote: '添加外部仓库'
   },
   appShare: {
     manager: '外部应用仓库管理',
