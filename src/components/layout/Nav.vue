@@ -485,11 +485,7 @@ export default {
       this.judgeMyApp(toPath, fromPath)
     },
     judgeDocs (toPath, fromPath) {
-      if (toPath === '/docsInterface' && fromPath === '/docs') {
-        this.activeIndex = '/docs'
-      } else if (toPath === '/docsAPPD' && fromPath === '/docs') {
-        this.activeIndex = '/docs'
-      } else if (toPath === '/docsBeginnerGuide' && fromPath === '/docs') {
+      if ((toPath === '/docsInterface' || toPath === '/docsAPPD' || toPath === '/docsBeginnerGuide') && fromPath === '/docs') {
         this.activeIndex = '/docs'
       }
     },
