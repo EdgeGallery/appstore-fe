@@ -477,19 +477,26 @@ export default {
       }
       if (toPath === '/detail' && fromPath === '/home') {
         this.activeIndex = '/home'
-      } else if (toPath === '/docsInterface' && fromPath === '/docs') {
+      }
+      if (toPath === '/appShare') {
+        this.activeIndex = '/apppromote'
+      }
+      this.judgeDocs(toPath, fromPath)
+      this.judgeMyApp(toPath, fromPath)
+    },
+    judgeDocs (toPath, fromPath) {
+      if (toPath === '/docsInterface' && fromPath === '/docs') {
         this.activeIndex = '/docs'
       } else if (toPath === '/docsAPPD' && fromPath === '/docs') {
         this.activeIndex = '/docs'
       } else if (toPath === '/docsBeginnerGuide' && fromPath === '/docs') {
         this.activeIndex = '/docs'
       }
+    },
+    judgeMyApp (toPath, fromPath) {
       if ((toPath === '/detail' && fromPath === '/myapp') || (toPath === '/app/test/task' && fromPath === '/myapp') || (toPath === '/atpreport' && fromPath === '/myapp') ||
       (toPath === '/myappdetail' && fromPath === '/myapp') || (toPath === '/atpprocess' && fromPath === '/myapp') || (toPath === '/atptestcase' && fromPath === '/myapp')) {
         this.activeIndex = '/myapp'
-      }
-      if (toPath === '/appShare') {
-        this.activeIndex = '/apppromote'
       }
     },
     judgeRoute (pathPa) {
