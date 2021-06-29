@@ -233,10 +233,6 @@ export default {
           text-align: center;
           margin: 60px 0 30px;
           font-size: 17px;
-          .el-link{
-            font-size: 17px;
-            line-height: 25px;
-          }
           .noData-prompt-alink {
             cursor: pointer;
           }
