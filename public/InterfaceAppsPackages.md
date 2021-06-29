@@ -10,7 +10,7 @@
 |limit | path |Y| String | app limit |
 |offset | path |Y| String | app offset |
 |userId | path |N| String | userId|
-|appId | path |N| String | appId|
+|appId | path |Y| String | appId|
 |request | path |N| String | 请求提|
 
 #### 请求示例
