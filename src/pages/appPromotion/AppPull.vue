@@ -22,11 +22,12 @@
           class="pullNoData"
           v-if="appStoreList.length < 1"
         >
-          <p>{{ $t('appPull.haveNoPullData') }}</p>
           <img
             src="../../assets/images/construct.png"
             alt="a"
           >
+          <p class="noData-prompt">{{$t('appPull.haveNoPullData')}}<a @click="jumpToApppromote" class="noData-prompt-alink">{{$t('appPull.addApppromote') }}</a>
+          </p>
         </div>
         <template>
           <el-select
@@ -107,6 +108,9 @@ export default {
     }
   },
   methods: {
+    jumpToApppromote () {
+      this.$router.push('/apppromote')
+    },
     getAppPullInfo (data) {
       if (data.length > 0) {
         this.allSelectionsApp = data
@@ -222,9 +226,29 @@ export default {
       }
       .pullNoData{
         width:100%;
-        height:400px;
+        height:600px;
         text-align: center;
         line-height: 25px;
+        .noData-prompt {
+          text-align: center;
+          margin: 60px 0 30px;
+          font-size: 17px;
+          .noData-prompt-alink {
+            cursor: pointer;
+          }
+          .noData-prompt-alink:link {
+            text-decoration:none;
+          }
+          .noData-prompt-alink:visited {
+            text-decoration: none;
+          }
+          .noData-prompt-alink:hover {
+            text-emphasis: underline;
+          }
+          .noData-prompt-alink:active{
+            text-decoration: underline;
+          }
+        }
       }
     }
   }
