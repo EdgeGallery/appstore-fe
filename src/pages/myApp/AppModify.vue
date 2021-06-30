@@ -573,7 +573,8 @@ export default {
         defaultActive: '',
         videoFile: [],
         appId: data.appId,
-        packageId: data.packageId
+        packageId: data.packageId,
+        experienceAble: data.experienceAble
       }
     }
   },

@@ -374,7 +374,7 @@ const en = {
     showOnline: 'Try it online',
     releaseResource: 'Release resources',
     tryAppTip: 'Need to provide a front-end interface for experience, and add the URL of the interface access in the descriptionn',
-    releaseAppResource: 'After the experience is complete, please ask the technician to release resources to avoid resource occupation, otherwise the system will automatically release after 24 hours',
+    releaseAppResource: 'After the experience is completed, please release the resources in time to avoid resource occupation, otherwise the system will release automatically after 24 hours',
     serviceName: 'ServiceName',
     Ip: 'IP',
     port: 'Port',

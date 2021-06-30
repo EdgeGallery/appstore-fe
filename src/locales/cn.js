@@ -393,7 +393,7 @@ const cn = {
     showOnline: '在线体验',
     releaseResource: '释放资源',
     tryAppTip: '需要提供可供体验的前台界面，并在描述里面添加界面访问的URL',
-    releaseAppResource: '体验完成后请技师释放资源，避免资源占用，否则系统24小时后自动释放',
+    releaseAppResource: '体验完成后请及时释放资源，避免资源占用，否则系统24小时后自动释放',
     serviceName: '服务名称',
     Ip: 'IP',
     port: '端口',
