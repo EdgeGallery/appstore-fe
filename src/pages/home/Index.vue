@@ -481,6 +481,7 @@ export default {
       item.selected = false
       if (item.value === this.selectedConditions[0].label[1]) {
         item.selected = true
+        this.doQuery()
       }
     }
   },
