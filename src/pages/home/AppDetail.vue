@@ -1084,7 +1084,7 @@ export default {
           background-size: contain;
         }
         .deployMode{
-          background: url('../../assets/images/app_detail_industry_bg.png') center right no-repeat #1ececa;
+          background: url('../../assets/images/app_detail_Mode_bg.png') center right no-repeat #6086ed;
           background-size: contain;
         }
       }
