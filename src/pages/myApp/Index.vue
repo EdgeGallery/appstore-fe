@@ -39,7 +39,7 @@
           v-loading="dataLoading"
           :data="currentPageData"
           header-cell-class-name="headerStyle"
-          :default-sort="defaultSort"
+          :default-sort="{ prop: 'createTime', order: 'descending' }"
           @sort-change="sortChange"
           @filter-change="filterChange"
         >
@@ -239,7 +239,6 @@ export default {
       appName: '',
       prop: 'createTime',
       order: 'desc',
-      defaultSort: { prop: 'createTime', order: 'descending' },
       isShowModifyDlg: false,
       rowAppModifyInfo: {},
       zhData: JSON.parse(sessionStorage.getItem('resCodeInfo')).zh_CN,
@@ -340,11 +339,6 @@ export default {
           this.order = 'desc'
         }
       }
-      this.defaultSort = {
-        prop: this.prop,
-        order: this.order
-      }
-      sessionStorage.setItem('myAppSortVal', JSON.stringify(this.defaultSort))
       this.getAppData()
     },
     filterChange (filters) {
@@ -711,7 +705,6 @@ export default {
     this.curPageSize = sessionStorage.getItem('myAppPageSize') ? parseInt(sessionStorage.getItem('myAppPageSize'), 10) : this.curPageSize
     this.filterValue = JSON.parse(sessionStorage.getItem('myAppStatusFilterValue')) ? JSON.parse(sessionStorage.getItem('myAppStatusFilterValue')) : this.filterValue
     this.nameQueryVal = sessionStorage.getItem('myAppNameQueryVal') ? sessionStorage.getItem('myAppNameQueryVal') : ''
-    this.defaultSort = JSON.parse(sessionStorage.getItem('myAppSortVal')) ? JSON.parse(sessionStorage.getItem('myAppSortVal')) : this.defaultSort
   },
   mounted () {
     sessionStorage.removeItem('currentPage')
