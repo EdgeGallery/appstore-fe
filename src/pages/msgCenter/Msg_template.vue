@@ -119,7 +119,7 @@ import enDayMsg from '@/assets/images/enDayMsg.png'
 import enWeekMsg from '@/assets/images/enWeekMsg.png'
 import enMonthMsg from '@/assets/images/enMonthMsg.png'
 import moreMsg from '@/assets/images/moreMsg.png'
-import { getAppdownAnaApiByType, updateStatus, acceptMsg, deleteMsg } from '../../tools/api.js'
+import { getNoticeMessage, updateStatus, acceptMsg, deleteMsg } from '../../tools/api.js'
 export default {
   components: {
     RightContent,
@@ -257,7 +257,7 @@ export default {
       }
     },
     getAppData (param) {
-      getAppdownAnaApiByType(this.limitSize, this.offsetPage, this.appName).then((res) => {
+      getNoticeMessage(this.limitSize, this.offsetPage, this.appName).then((res) => {
         if (param) {
           this.isShowDlg = true
           this.currentDetailMsg = param

@@ -56,7 +56,7 @@
 
 <script>
 
-import { getAppdownAnaApiByType } from '../../tools/api.js'
+import { getNoticeMessage } from '../../tools/api.js'
 export default {
   data () {
     return {
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     getMessage () {
-      getAppdownAnaApiByType(this.limitSize, this.offsetPage, this.appName).then((res) => {
+      getNoticeMessage(this.limitSize, this.offsetPage, this.appName).then((res) => {
         this.msgs = []
         let data = res.data.results
         data.forEach(item => {

@@ -19,7 +19,7 @@
     <div class="chart-content">
       <div
         class="analyseAnaNoData"
-        v-if="appPackageData.length < 1"
+        v-if="appPackageDataChart.length < 1"
       >
         <p>{{ $t('apppromotion.haveNoAnaData') }}</p>
         <img
@@ -251,7 +251,7 @@
 </template>
 
 <script>
-import { getAppdownAnaApi, getAppdownAnaApiChart } from '../../tools/api.js'
+import { getOperatorMessages, getAllMessages } from '../../tools/api.js'
 import egPagination from 'eg-view/src/components/EgPagination.vue'
 import eCharts from 'echarts'
 export default {
@@ -321,20 +321,17 @@ export default {
       }
     },
     queryApp () {
-      sessionStorage.setItem('currentPage', 1)
-      this.getTableEx()
+      this.offsetPage = 0
+      this.getTableData()
     },
 
-    getTableEx () {
+    getTableData () {
       this.appName = this.nameQuery.toLowerCase()
       this.appPackageData = []
       this.currentPageData = []
       this.findAppData = []
-      this.$nextTick(function () {
-        this.updateTableExChart()
-      })
       return new Promise((resolve, reject) => {
-        getAppdownAnaApi(this.messageType, this.curPageSize, this.offsetPage, this.appName, this.prop, this.order).then((res) => {
+        getOperatorMessages(this.messageType, this.curPageSize, this.offsetPage, this.appName, this.prop, this.order).then((res) => {
           let data = res.data.results
           this.total = res.data.total
           data.forEach(
@@ -373,19 +370,8 @@ export default {
         type: 'warning'
       })
     },
-    refreshCurrentData () {
-      this.$nextTick(function () {
-        this.offsetPage = this.curPageSize * (this.pageNum - 1)
-        this.currentPageData = []
-        this.currentPageData = this.appPackageData
-      })
-    },
     handleSelectionChange (val) {
       this.multipleSelection = val
-    },
-    detail (item) {
-      this.$router.push({ name: 'appstordetail', params: { item } })
-      sessionStorage.setItem('appstordetail', JSON.stringify(item))
     },
     getTargetAppStoreSet () {
       let set = new Set()
@@ -538,7 +524,7 @@ export default {
           this.order = 'desc'
         }
       }
-      this.getTableEx()
+      this.getTableData()
     },
     filterSort (fieldArr, typePa, appSort) {
       fieldArr.forEach((fieldItem) => {
@@ -561,11 +547,11 @@ export default {
     currentChange (val) {
       this.pageNum = val
       this.offsetPage = this.curPageSize * (this.pageNum - 1)
-      sessionStorage.setItem('offsetOpera', this.offsetPage)
+      this.getTableData()
     },
-    getTableExChart () {
+    getChartData () {
       return new Promise((resolve, reject) => {
-        getAppdownAnaApiChart().then((res) => {
+        getAllMessages().then((res) => {
           this.appPackageDataChart = []
           let data = res.data
           data.forEach(
@@ -943,8 +929,8 @@ export default {
         series: sourceAppStorePullArr
       }
     },
-    updateTableExChart () {
-      this.getTableExChart().then((res) => {
+    initOperationAnaChart () {
+      this.getChartData().then((res) => {
         if (res.data.length <= 0) {
           return
         }
@@ -960,11 +946,10 @@ export default {
     }
   },
   mounted () {
-    sessionStorage.removeItem('offsetOpera')
     this.$nextTick(function () {
-      this.updateTableExChart()
+      this.initOperationAnaChart()
     })
-    this.getTableEx()
+    this.getTableData()
   },
   watch: {
     '$i18n.locale': function () {
@@ -973,17 +958,8 @@ export default {
       this.$router.replace('/refresh')
     },
     curPageSize: function () {
-      this.getTableEx()
-    },
-    offsetPage: function () {
-      this.getTableEx()
-    },
-    appPackageData: function () {
-      this.refreshCurrentData()
+      this.getTableData()
     }
-  },
-  destroyed () {
-    sessionStorage.removeItem('offsetOpera')
   }
 }
 </script>
