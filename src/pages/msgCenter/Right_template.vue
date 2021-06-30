@@ -18,6 +18,7 @@
   <div>
     <el-tabs
       v-model="activeName"
+      @tab-click="handleClick"
     >
       <el-tab-pane
         v-for="(item) in allTabsMsg"
@@ -28,7 +29,7 @@
         <template>
           <div>
             <el-table
-              :data="item.content"
+              :data="currentTabData"
               :row-style="{height: '80px'}"
               :show-header="false"
             >
@@ -88,7 +89,7 @@
                             src="../../assets/images/deleteMsg.png"
                             alt=""
                             class="operatorLine"
-                            @click.stop="handleDelete(scope.row.messageId)"
+                            @click.stop="handleDelete(scope.$index, scope.row.messageId)"
                           >
                         </el-tooltip>
                       </div>
@@ -119,7 +120,8 @@ export default {
     return {
       allTabsMsg: [],
       activeName: 'unReadedMsg',
-      operationType: 1,
+      currentTabData: [],
+      deletedMsgIds: [],
       zhData: JSON.parse(sessionStorage.getItem('resCodeInfo')).zh_CN,
       enData: JSON.parse(sessionStorage.getItem('resCodeInfo')).en_US
     }
@@ -166,8 +168,10 @@ export default {
         }
       })
     },
-    handleDelete (messageId) {
+    handleDelete (index, messageId) {
       deleteMsg(messageId).then((res) => {
+        this.deletedMsgIds.push(messageId)
+        this.currentTabData.splice(index, 1)
         this.$message.success(this.$t('apppromotion.deleteMsgSuccess'))
       }).catch((error) => {
         this.$message({
@@ -176,10 +180,38 @@ export default {
           type: 'warning'
         })
       })
+    },
+    handleClick (tab, event) {
+      for (let item of this.allTabsMsg) {
+        if (item.name === tab.name) {
+          this.currentTabData = this.filterDeleteData(item.content)
+        }
+      }
+    },
+    filterDeleteData (data) {
+      let tempData = []
+      for (let item of data) {
+        if (this.deletedMsgIds.indexOf(item.messageId) === -1) {
+          tempData.push(item)
+        }
+      }
+      return tempData
+    },
+    parentMsg (curentPeriodData, msgId) {
+      if (msgId) {
+        this.deletedMsgIds.push(msgId)
+      }
+      this.allTabsMsg = curentPeriodData
+      for (let item of this.allTabsMsg) {
+        if (item.name === this.activeName) {
+          this.currentTabData = this.filterDeleteData(item.content)
+        }
+      }
     }
   },
   mounted () {
     this.allTabsMsg = this.data
+    this.currentTabData = this.filterDeleteData(this.data[0].content)
   }
 }
 </script>

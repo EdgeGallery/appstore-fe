@@ -235,6 +235,8 @@ export default {
     handleDelete () {
       deleteMsg(this.data.messageId).then((res) => {
         this.$message.success(this.$t('apppromotion.deleteMsgSuccess'))
+        this.$emit('deletedMsgId', this.data.messageId)
+        this.$emit('isShowDetailMsgDlg', false)
       }).catch((error) => {
         this.$message({
           duration: 2000,
