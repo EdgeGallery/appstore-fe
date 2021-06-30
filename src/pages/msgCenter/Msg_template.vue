@@ -90,10 +90,10 @@
       v-show="!isShowDlg"
     >
       <RightContent
-        v-if="hackReset"
         @clickMsgItemEvent="getDetailMsg"
         @isShowDetailMsgDlg="isShowDetailDlg"
         :data="rightDetailData"
+        ref="rightTabPanel"
       />
     </div>
     <div
@@ -103,6 +103,7 @@
       <DetailMsgDlg
         :data="currentDetailMsg"
         @isShowDetailMsgDlg="isShowDetailDlg"
+        @deletedMsgId="deletedMsgId"
       />
     </div>
   </div>
@@ -133,7 +134,6 @@ export default {
       enWeekMsg: enWeekMsg,
       enMonthMsg: enMonthMsg,
       moreMsg: moreMsg,
-      hackReset: true,
       activeValue: 1,
       currentDetailMsg: {},
       isShowDlg: false,
@@ -169,24 +169,34 @@ export default {
     isShowDetailDlg (value) {
       this.isShowDlg = value
     },
+    deletedMsgId (msgId) {
+      this.$refs.rightTabPanel.parentMsg(this.rightDetailData, msgId)
+    },
     doClick (value) {
       this.activeValue = value
-      this.setCurrentTimeData(value)
+      this.setCurrentTimeData()
+      this.isShowDlg = true
+      this.$nextTick(() => {
+        this.isShowDlg = false
+      })
     },
-    setCurrentTimeData (value) {
-      this.rightDetailData[0].content = []
-      this.rightDetailData[1].content = []
-      this.rightDetailData[2].content = []
+    setCurrentTimeData () {
+      let tempRightDetailData = this.rightDetailData
+      tempRightDetailData[0].content = []
+      tempRightDetailData[1].content = []
+      tempRightDetailData[2].content = []
       this.allRightDetailData.forEach(item => {
         if (item.timeResult === this.activeValue) {
           if (item.readed) {
-            this.rightDetailData[1].content.push(item)
+            tempRightDetailData[1].content.push(item)
           } else {
-            this.rightDetailData[0].content.push(item)
+            tempRightDetailData[0].content.push(item)
           }
-          this.rightDetailData[2].content.push(item)
+          tempRightDetailData[2].content.push(item)
         }
       })
+      this.rightDetailData = tempRightDetailData
+      this.$refs.rightTabPanel.parentMsg(this.rightDetailData)
     },
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
@@ -273,6 +283,7 @@ export default {
             this.rightDetailData[2].content.push(item)
           }
         })
+        this.$refs.rightTabPanel.parentMsg(this.rightDetailData)
       }).catch((err) => {
         if (err.response.data.code === 403) {
           this.$message({
