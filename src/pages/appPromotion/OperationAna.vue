@@ -322,6 +322,7 @@ export default {
     },
     queryApp () {
       this.offsetPage = 0
+      this.pageNum = 1
       this.getTableData()
     },
 
