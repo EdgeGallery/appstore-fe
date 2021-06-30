@@ -184,7 +184,7 @@ function deleteAppPackageApi (appId, csarId, userId, userName) {
 let Workspace = {
   submitApiFileApi: function (userId, params) {
     // Post('mec/developer/v1/files?userId=' + userId, params)
-    let url = 'files?userId=' + userId
+    let url = 'system/host/files?userId=' + userId
     return POST(url, params)
   }
 
@@ -426,19 +426,19 @@ let myApp = {
   },
   // getNodePort
   getNodePort: function (appId, packageId, userId, name, ip) {
-    let url = 'apps/show?appId=' + appId + '&packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
+    let url = 'experience/deploy?appId=' + appId + '&packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
     return GET(url)
   },
 
   // getNodePortStatus
   getNodeStatus: function (packageId, userId, name, ip) {
-    let url = 'query/container/workStatus?packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
+    let url = 'experience/container/workStatus?packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
     return GET(url)
   },
 
   // clean test env
   cleanTestEnv: function (packageId, userId, name, ip) {
-    let url = 'apps/action/clean?packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
+    let url = 'experience/clean?packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
     return POST(url)
   },
   modifyAppAttr: function (param, appId, packageId) {

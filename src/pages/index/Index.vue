@@ -533,14 +533,12 @@ export default {
         status: 'Published',
         deployMode: [],
         workloadType: [],
-        createTime: '',
         userId: '',
         queryCtrl: {
           offset: this.offsetPage,
           limit: this.limitSize,
           sortItem: this.prop,
-          sortType: this.order,
-          createTime: 'createTime'
+          sortType: this.order
         }
       }
     }
@@ -628,8 +626,7 @@ export default {
         offset: this.offsetPage,
         limit: this.limitSize,
         sortItem: this.prop,
-        sortType: this.order,
-        createTime: 'createTime'
+        sortType: this.order
       }
       return _queryReq
     },
@@ -648,8 +645,7 @@ export default {
         offset: 0,
         limit: 1000,
         sortItem: 'isHotApp',
-        sortType: 'desc',
-        createTime: 'createTime'
+        sortType: 'desc'
       }
       let params = {
         queryCtrl: queryCtrl,

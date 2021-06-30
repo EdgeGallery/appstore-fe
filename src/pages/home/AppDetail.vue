@@ -620,6 +620,7 @@ export default {
           let deployMode = item.deployMode
           if (experienceAble && deployMode === 'container') {
             this.ifExperience = true
+            this.initStatus()
           }
         })
         this.handleTableTada(data)
@@ -754,6 +755,7 @@ export default {
         let deployMode = data.deployMode
         if (experienceAble && deployMode === 'container') {
           this.ifExperience = true
+          this.initStatus()
         }
         let newDateBegin = this.dateChange(data.createTime)
         data.createTime = newDateBegin
