@@ -30,7 +30,7 @@
         v-loading="dataLoading"
         :data="currentPageData"
         header-cell-class-name="headerStyle"
-        :default-sort="defaultSort"
+        :default-sort="{ prop: 'createTime', order: 'descending' }"
         @sort-change="sortChange"
         @filter-change="filterChange"
         ref="multipleTable"
