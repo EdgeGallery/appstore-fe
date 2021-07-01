@@ -54,13 +54,13 @@ function getAppPromTableApi (limit, offset, appName, sortType, sortItem) {
 }
 
 // Get full operation analysis data
-function getAppdownAnaApiChart () {
+function getAllMessages () {
   let url = 'messages'
   return GET(url, '')
 }
 
 // Get operation information
-function getAppdownAnaApi (messageType, limit, offset, appName, sortItem, sortType) {
+function getOperatorMessages (messageType, limit, offset, appName, sortItem, sortType) {
   let url = 'messages?messageType=' + messageType + '&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortItem=' + sortItem + '&sortType=' + sortType
   return GETV2(url, '')
 }
@@ -90,7 +90,7 @@ function deleteMsg (messageId) {
 }
 
 // Get the message of type notice
-function getAppdownAnaApiByType (limit, offset, appName) {
+function getNoticeMessage (limit, offset, appName) {
   let url = 'messages' + '?messageType=NOTICE&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&sortType=desc&sortItem=time'
   return GETV2(url, '')
 }
@@ -479,10 +479,10 @@ export {
   myApp,
   myAppStore,
   getAppPromTableApi,
-  getAppdownAnaApi,
+  getOperatorMessages,
   promTaskApi,
-  getAppdownAnaApiChart,
-  getAppdownAnaApiByType,
+  getAllMessages,
+  getNoticeMessage,
   promProviderInfo,
   acceptMsg,
   deleteMsg,
