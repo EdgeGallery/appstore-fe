@@ -225,7 +225,7 @@
                   <el-option
                     v-for="(item,index) in types"
                     :key="index"
-                    :value="item.value"
+                    :value="language === 'cn' ? item.value :item.label[1]"
                   />
                 </el-select>
               </el-form-item>
@@ -551,6 +551,7 @@ export default {
     this.clearInterval()
     clearInterval(this.timer)
   }
+
 }
 </script>
 <style lang='less'>

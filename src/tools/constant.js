@@ -142,25 +142,25 @@ const TYPES = [
 
 const TTYPES = [
   {
-    label: ['转换器1', '联通_APPD_2.0'],
+    label: ['联通_APPD_2.0', 'Unicom_APPD_2.0'],
     value: '联通_APPD_2.0',
     selected: false,
     type: 'types'
   },
   {
-    label: ['转换器2', '移动_APPD_2.0'],
+    label: ['移动_APPD_2.0', 'Mobile_APPD_2.0'],
     value: '移动_APPD_2.0',
     selected: false,
     type: 'types'
   },
   {
-    label: ['转换器3', '电信_APPD_2.0'],
+    label: ['电信_APPD_2.0', 'Telecom_APPD_2.0'],
     value: '电信_APPD_2.0',
     selected: false,
     type: 'types'
   },
   {
-    label: ['转换器4', '社区_APPD_2.0'],
+    label: ['社区_APPD_2.0', 'Community_APPD_2.0'],
     value: '社区_APPD_2.0',
     selected: false,
     type: 'types'
