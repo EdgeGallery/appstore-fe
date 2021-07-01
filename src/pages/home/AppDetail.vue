@@ -809,8 +809,15 @@ export default {
               type: 'warning',
               message: this.$t('promptMessage.getNodePortFailed')
             })
-          } else {
+          } else if (experienceInfo.message.indexOf('get app url success.') !== -1) {
             setTimeout(() => this.step2(experienceInfo), 3000)
+          } else {
+            this.stepClean()
+            this.$message({
+              duration: 2000,
+              type: 'warning',
+              message: experienceInfo.message
+            })
           }
         })
     },
