@@ -586,7 +586,6 @@ export default {
   .list {
     min-height: 500px;
     background-color: white;
-    padding-bottom: 20px;
     padding: 20px;
     .title{
       display: flex;
