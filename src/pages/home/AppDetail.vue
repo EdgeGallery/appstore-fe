@@ -62,7 +62,7 @@
           <span class="type">
             {{ currentData.type }}
           </span>
-          <span class="type">
+          <span class="deployMode">
             {{ currentData.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
           </span>
         </p>
