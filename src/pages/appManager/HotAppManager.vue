@@ -63,10 +63,6 @@
           :label="$t('common.provider')"
         />
         <el-table-column
-          prop="version"
-          :label="$t('common.version')"
-        />
-        <el-table-column
           prop="industry"
           :label="$t('common.industry')"
         />
