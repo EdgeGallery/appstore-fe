@@ -63,7 +63,6 @@ const en = {
     pleaseUpload: 'Please upload',
     address: 'Address',
     username: 'Username',
-    password: 'Password',
     char: 'characters',
     correct: 'correct',
     useDetail: 'Log',

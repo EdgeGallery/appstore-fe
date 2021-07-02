@@ -67,7 +67,6 @@ const cn = {
     correct: '正确',
     address: '部署区域',
     username: '用户名',
-    password: '密码',
     char: '字符',
     useDetail: '使用详情',
     deleteConfirm: '确定删除吗？',

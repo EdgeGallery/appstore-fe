@@ -506,7 +506,7 @@ export default {
       types: TYPES,
       affinity: AFFINITY,
       sortBy: SORT_BY,
-      contactUrl: 'http://www.edgegallery.org',
+      contactUrl: 'https://www.edgegallery.org',
       giteeUrl: 'https://gitee.com/edgegallery',
       developerUrl: '',
       language: localStorage.getItem('language'),
