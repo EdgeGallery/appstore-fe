@@ -30,6 +30,7 @@
         <el-table
           v-loading="dataLoading"
           :data="currentPageData"
+          @select="onTableSelect"
           @selection-change="selectionLineChangeHandle"
           :default-sort="{prop: 'createTime', order: 'descending'}"
           @sort-change="sortChange"
@@ -183,6 +184,14 @@ export default {
         }
       }
       this.$emit('getAppPullInfo', this.selectDataList)
+    },
+    onTableSelect (rows, row) {
+      let selected = rows.length && rows.indexOf(row) !== -1
+      if (!selected || selected === 0) {
+        let index = this.selectDataIdList.indexOf(row.packageId)
+        this.selectDataList.splice(index, 1)
+        this.selectDataIdList.splice(index, 1)
+      }
     },
     getTableData (selectAppStoreInfo) {
       getAppByAppstoreId(selectAppStoreInfo.appStoreId, this.curPageSize, this.offsetPage, this.nameQuery, this.order, this.prop).then((res) => {
