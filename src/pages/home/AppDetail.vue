@@ -753,7 +753,6 @@ export default {
         }
         let newDateBegin = this.dateChange(data.createTime)
         data.createTime = newDateBegin
-        this.handleTableTada(data)
         this.tableData.push(data)
 
         if (data) {
@@ -885,7 +884,7 @@ export default {
             this.displayDom = false
             this.$message({
               duration: 2000,
-              type: 'warning',
+              type: 'success',
               message: this.$t('promptMessage.cleanEnvSuccess')
             })
           } else {
