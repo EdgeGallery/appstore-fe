@@ -144,7 +144,7 @@ export default {
       prop: 'createTime',
       order: 'desc',
       appName: '',
-      status: 'Published',
+      status: ['Published'],
       searchCondition: {},
       appPackageData: [],
       nameQueryVal: ''
