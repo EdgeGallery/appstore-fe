@@ -198,8 +198,7 @@
       <eg-pagination
         class="rt"
         :page-num="pageNum"
-        :page-size="curPageSize"
-        :page-sizes="pageSizes"
+        :page-size="pageSize"
         :total="total"
         @sizeChange="sizeChange"
         @currentChange="currentChange"
@@ -225,14 +224,15 @@ export default {
       userId: '',
       appData: [],
       appPackageData: [],
+      currentPageData: [],
       dataLoading: true,
       taskId: '',
       interval: '',
-      pageSizes: [10, 20, 30],
+      pageSize: 10,
       curPageSize: 10,
-      pageNumCache: 1,
-      status: '',
-      offsetPage: sessionStorage.getItem('offsetMyApp') || 0,
+      pageNum: 1,
+      status: [],
+      offsetPage: 0,
       language: localStorage.getItem('language'),
       filterValue: { status: [] },
       nameQueryVal: '',
@@ -343,61 +343,22 @@ export default {
     },
     filterChange (filters) {
       this.filterValue = filters
-      if (filters.status.length > 0) {
-        this.getFilterStatusData(this.filterValue)
-      } else {
-        this.getAppData()
-      }
-      sessionStorage.setItem('myAppStatusFilterValue', JSON.stringify(this.filterValue))
-    },
-    processInvoices (statusArr) {
-      return Promise.all(
-        statusArr.map(status => (
-          this.getAppDataByStatus(status)
-            .then(res => {
-              this.appPackageData = this.appPackageData.concat(res.data)
-              this.total += res.total
-              if (!res) throw new Error('Failed to get data:' + status)
-            })
-        ))
-      )
-    },
-    getFilterStatusData (invoices) {
-      this.appPackageData = []
-      this.total = 0
-      this.processInvoices(invoices.status)
-        .then(result => {
-          // This is intentional
-        })
-        .catch((err) => {
-          console.log('err: ' + err)
-        })
-    },
-
-    filterStatus (val, row) {
-      return row.status === val
+      this.offsetPage = 0
+      this.pageNum = 1
+      this.status = filters.status
+      this.getAppData()
     },
     sizeChange (val) {
       this.curPageSize = val
-      sessionStorage.setItem('myAppPageSize', val)
     },
     currentChange (val) {
-      this.pageNumCache = val
-      this.offsetPage = this.curPageSize * (this.pageNumCache - 1)
-      sessionStorage.setItem('offsetMyApp', this.offsetPage)
-      sessionStorage.setItem('myAppPageNum', this.pageNumCache)
-      if (this.filterValue.status.length > 0) {
-        this.getFilterStatusData(this.filterValue)
-      } else {
-        this.getAppData()
-      }
+      this.pageNum = val
+      this.offsetPage = this.curPageSize * (this.pageNum - 1)
+      this.getAppData()
     },
     queryApp () {
-      if (this.nameQueryVal.toLowerCase()) {
-        this.offsetPage = 0
-        this.pageNumCache = 1
-        sessionStorage.setItem('myAppPageNum', this.pageNumCache)
-      }
+      this.offsetPage = 0
+      this.pageNum = 1
       this.getAppData()
     },
     isReloadData (value) {
@@ -412,7 +373,7 @@ export default {
       if (this.prop === 'name') {
         this.prop = 'appName'
       }
-      myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, '', this.prop, this.order)
+      myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, this.status, this.prop, this.order)
         .then(res => {
           this.appPackageData = res.data.results
           this.total = res.data.total
@@ -420,37 +381,11 @@ export default {
             let formatedTime = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = formatedTime
           })
+          this.currentPageData = this.appPackageData
           this.dataLoading = false
         }).catch(() => {
           this.showErrorAndClearInterval()
         })
-    },
-    getAppDataByStatus (status) {
-      return new Promise((resolve, reject) => {
-        this.appPackageData = []
-        this.appName = this.nameQueryVal.toLowerCase()
-        if (this.prop === 'name') {
-          this.prop = 'appName'
-        }
-        if (status) {
-          this.status = status
-        }
-        myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, this.status, this.prop, this.order)
-          .then(res => {
-            this.appPackageData.forEach(item => {
-              let formatedTime = timeFormatTools.formatDateTime(item.createTime)
-              item.createTime = formatedTime
-            })
-            let resultData = {
-              data: res.data.results,
-              total: res.data.total
-            }
-            resolve(resultData)
-            this.dataLoading = false
-          }).catch(() => {
-            this.showErrorAndClearInterval()
-          })
-      })
     },
     showErrorAndClearInterval () {
       this.dataLoading = false
@@ -475,9 +410,16 @@ export default {
       })
     },
     getDetail (item) {
-      this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
       sessionStorage.setItem('pathSource', 'myapp')
+      sessionStorage.setItem('myAppCurPageSize', this.curPageSize)
+      sessionStorage.setItem('myAppOffsetPage', this.offsetPage)
+      sessionStorage.setItem('myAppPageNum', this.pageNum)
+      sessionStorage.setItem('myAppAppName', this.appName)
+      sessionStorage.setItem('myAppStatus', this.status)
+      sessionStorage.setItem('myAppProp', this.prop)
+      sessionStorage.setItem('myAppOrder', this.order)
+      this.$router.push({ name: 'appstordetail', params: { item } })
     },
     jumperToTestRepo (testTaskId) {
       let currUrl = window.location.host
@@ -662,60 +604,38 @@ export default {
       })
     }
   },
+  beforeMount () {
+    this.curPageSize = sessionStorage.getItem('myAppCurPageSize') ? parseInt(sessionStorage.getItem('myAppCurPageSize'), 10) : this.curPageSize
+    this.offsetPage = sessionStorage.getItem('myAppOffsetPage') ? parseInt(sessionStorage.getItem('myAppOffsetPage'), 10) : this.offsetPage
+    this.pageNum = sessionStorage.getItem('myAppPageNum') ? parseInt(sessionStorage.getItem('myAppPageNum'), 10) : this.pageNum
+    this.appName = sessionStorage.getItem('myAppAppName') ? sessionStorage.getItem('myAppAppName') : this.appName
+    this.status = sessionStorage.getItem('myAppStatus') ? sessionStorage.getItem('myAppStatus') : this.status
+    this.prop = sessionStorage.getItem('myAppProp') ? sessionStorage.getItem('myAppProp') : this.prop
+    this.order = sessionStorage.getItem('myAppOrder') ? sessionStorage.getItem('myAppOrder') : this.order
+    window.sessionStorage.removeItem('myAppCurPageSize')
+    window.sessionStorage.removeItem('myAppOffsetPage')
+    window.sessionStorage.removeItem('myAppPageNum')
+    window.sessionStorage.removeItem('myAppAppName')
+    window.sessionStorage.removeItem('myAppStatus')
+    window.sessionStorage.removeItem('myAppProp')
+    window.sessionStorage.removeItem('myAppOrder')
+  },
   watch: {
     '$i18n.locale': function () {
       let language = localStorage.getItem('language')
       this.language = language
       this.getAppData()
+    },
+    curPageSize: function () {
+      this.getAppData()
     }
-
-  },
-  computed: {
-    getLanguage () {
-      let language
-      this.language === 'cn' ? language = 'English' : language = '中文'
-      return language
-    },
-    findedData: function () {
-      sessionStorage.setItem('myAppNameQueryVal', this.nameQueryVal)
-      this.changeLanguege()
-      return this.appPackageData
-    },
-    filteredData: function () {
-      if (this.filterValue.status.length === 0) {
-        return this.findedData
-      } else {
-        return this.findedData.filter(item => this.filterValue.status.includes(item.status))
-      }
-    },
-    pageNum: function () {
-      if (this.curPageSize * (this.pageNumCache - 1) >= this.total) {
-        sessionStorage.setItem('myAppPageNum', 1)
-        return 1
-      }
-      sessionStorage.setItem('myAppPageNum', this.pageNumCache)
-      return this.pageNumCache
-    },
-    currentPageData: function () {
-      return this.filteredData
-    }
-  },
-  beforeMount () {
-    this.pageNumCache = sessionStorage.getItem('myAppPageNum') ? parseInt(sessionStorage.getItem('myAppPageNum'), 10) : this.pageNumCache
-    this.curPageSize = sessionStorage.getItem('myAppPageSize') ? parseInt(sessionStorage.getItem('myAppPageSize'), 10) : this.curPageSize
-    this.filterValue = JSON.parse(sessionStorage.getItem('myAppStatusFilterValue')) ? JSON.parse(sessionStorage.getItem('myAppStatusFilterValue')) : this.filterValue
-    this.nameQueryVal = sessionStorage.getItem('myAppNameQueryVal') ? sessionStorage.getItem('myAppNameQueryVal') : ''
   },
   mounted () {
-    sessionStorage.removeItem('currentPage')
     this.userId = sessionStorage.getItem('userId')
     this.getAppData()
     this.interval = setInterval(() => {
       this.getAppStatus()
     }, 10000)
-  },
-  destroyed () {
-    sessionStorage.removeItem('offsetMyApp')
   },
   beforeDestroy () {
     this.clearInterval()
