@@ -187,7 +187,6 @@ export default {
       currentPageData: [],
       appStoreList: [],
       promAppstoreList: ['All'],
-      isEnLan: true,
       btnChangeEnable: true,
       nameQuery: '',
       findAppData: [],
@@ -406,8 +405,6 @@ export default {
   mounted () {
     this.getTableData()
     this.getProviders()
-    let language = localStorage.getItem('language')
-    this.isEnLan = language === 'en'
     this.defaultSort()
   },
   watch: {
