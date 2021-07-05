@@ -529,6 +529,7 @@ export default {
         item.selected = false
         if (item.value === this.selectedConditions[0].label) {
           item.selected = true
+          this.doQuery()
         }
       })
       this.sortBy.forEach((item) => {
