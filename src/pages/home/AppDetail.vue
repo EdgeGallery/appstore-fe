@@ -615,7 +615,11 @@ export default {
       getAppDetailTableApi(this.appId, userId, this.limit, this.offset).then(res => {
         let data = res.data
         data.forEach(item => {
-          this.packageId = item.packageId
+          if (this.pathSource !== 'myapp' && item.status === 'Published' && item.experienceAble && item.deployMode === 'container') {
+            this.ifExperience = true
+            this.packageId = item.packageId
+            this.initStatus()
+          }
         })
         this.handleTableTada(data)
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
@@ -757,17 +761,6 @@ export default {
 
         if (data) {
           this.source = data.details
-        }
-      })
-    },
-    getExperienceAbleInfo () {
-      myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
-        let data = res.data
-        let experienceAble = data.experienceAble
-        let deployMode = data.deployMode
-        if (experienceAble && deployMode === 'container') {
-          this.ifExperience = true
-          this.initStatus()
         }
       })
     },
@@ -962,8 +955,6 @@ export default {
       if (this.pathSource === 'myapp') {
         this.source = this.details.details
         this.getMyAppData()
-      } else {
-        this.getExperienceAbleInfo()
       }
     }
     this.getAppData()
@@ -971,9 +962,6 @@ export default {
     this.getComments()
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
     this.checkProjectData()
-    if (this.ifExperience) {
-      this.initStatus()
-    }
   }
 }
 </script>

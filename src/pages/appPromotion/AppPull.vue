@@ -26,7 +26,11 @@
             src="../../assets/images/construct.png"
             alt="a"
           >
-          <p class="noData-prompt">{{$t('appPull.haveNoPullData')}}<a @click="jumpToApppromote" class="noData-prompt-alink">{{$t('appPull.addApppromote') }}</a>
+          <p class="noData-prompt">
+            {{ $t('appPull.haveNoPullData') }}<a
+              @click="jumpToApppromote"
+              class="noData-prompt-alink"
+            >{{ $t('appPull.addApppromote') }}</a>
           </p>
         </div>
         <template>

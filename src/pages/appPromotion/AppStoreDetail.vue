@@ -83,7 +83,7 @@
           >
             <template slot-scope="scope">
               <a
-                :href="scope.row.atpTestReportUrl"
+                :href="scope.row.atpTestReportUrl + (language === 'cn' ? '&language=cn' : '&language=en')"
                 target="_blank"
               >{{ $t('appPull.viewTestRepo') }}</a>
             </template>
@@ -144,7 +144,8 @@ export default {
       changedItems: [],
       nameQuery: '',
       selectDataIdList: [],
-      selectDataList: []
+      selectDataList: [],
+      language: localStorage.getItem('language')
     }
   },
   methods: {
@@ -252,6 +253,10 @@ export default {
     this.getTableData(this.selectAppStoreInfo)
   },
   watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
+    },
     curPageSize: function () {
       this.getTableData(this.selectAppStoreInfo)
     }
