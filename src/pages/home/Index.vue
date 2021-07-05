@@ -498,6 +498,13 @@ export default {
     limitSize (val, oldVal) {
       this.limitSize = val
       this.getAppData()
+    },
+    total (val, oldVal) {
+      if (this.limitSize > val) {
+        this.currentPage = 1
+        sessionStorage.setItem('currentPage', 1)
+        this.offsetPage = 0
+      }
     }
   },
   mounted () {
