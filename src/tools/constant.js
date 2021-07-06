@@ -137,6 +137,12 @@ const TYPES = [
     value: 'MEP',
     selected: false,
     type: 'types'
+  },
+  {
+    label: ['其他', 'Other'],
+    value: 'Other',
+    selected: false,
+    type: 'types'
   }
 ]
 
