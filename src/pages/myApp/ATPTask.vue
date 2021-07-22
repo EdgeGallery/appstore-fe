@@ -40,12 +40,13 @@ export default {
   methods: {
     getAtpUrl () {
       let language = localStorage.getItem('language')
-      let currUrl = window.location.href
+      let currUrl = window.location.origin
       if (currUrl.indexOf('30091') !== -1) {
-        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/app/test/task' + '?language=' + language
+        let originUrl = currUrl.replace('30091', '30094')
+        this.srcUrl = originUrl + '/#/app/test/task' + '?language=' + language
       } else {
         this.srcUrl = currUrl.replace('appstore', 'atp')
-        this.srcUrl = this.srcUrl + '?language=' + language
+        this.srcUrl = this.srcUrl + '/#/app/test/task' + '?language=' + language
       }
     },
     rebuileComponents () {

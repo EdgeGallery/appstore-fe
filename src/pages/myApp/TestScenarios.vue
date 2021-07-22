@@ -48,12 +48,14 @@ export default {
   methods: {
     getAtpUrl () {
       let language = localStorage.getItem('language')
-      let currUrl = window.location.href
+      let currUrl = window.location.origin
       if (currUrl.indexOf('30091') !== -1) {
-        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/selectscene' + '?taskid=' + this.taskId + '&language=' + language
+        let originUrl = currUrl.replace('30091', '30094')
+        this.srcUrl = originUrl + '/#/selectscene?taskid=' + this.taskId + '&language=' + language
+        console.log(this.srcUrl)
       } else {
         this.srcUrl = currUrl.replace('appstore', 'atp')
-        this.srcUrl = this.srcUrl + '?taskid=' + this.taskId + '&language=' + language
+        this.srcUrl = this.srcUrl + '/#/selectscene?taskid=' + this.taskId + '&language=' + language
       }
     },
     jumpToMyapp () {

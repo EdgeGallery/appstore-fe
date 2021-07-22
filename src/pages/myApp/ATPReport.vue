@@ -37,12 +37,13 @@ export default {
   },
   methods: {
     getAtpUrl () {
-      let currUrl = window.location.href
+      let currUrl = window.location.origin
       if (currUrl.indexOf('30091') !== -1) {
-        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/atpreport' + '?taskid=' + this.taskId
+        let originUrl = currUrl.replace('30091', '30094')
+        this.srcUrl = originUrl + '/#/atpreport' + '?taskid=' + this.taskId
       } else {
         this.srcUrl = currUrl.replace('appstore', 'atp')
-        this.srcUrl = this.srcUrl + '?taskid=' + this.taskId
+        this.srcUrl = this.srcUrl + '/#/atpreport' + '?taskid=' + this.taskId
       }
     }
   },
