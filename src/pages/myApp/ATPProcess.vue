@@ -46,12 +46,13 @@ export default {
   methods: {
     getAtpUrl () {
       let language = localStorage.getItem('language')
-      let currUrl = window.location.href
+      let currUrl = window.location.origin
       if (currUrl.indexOf('30091') !== -1) {
-        this.srcUrl = 'https://' + currUrl.split('//')[1].split(':')[0] + ':30094' + '/#/atpprocess' + '?taskId=' + this.taskId + '&language=' + language
+        let originUrl = currUrl.replace('30091', '30094')
+        this.srcUrl = originUrl + '/#/atpprocess' + '?taskId=' + this.taskId + '&language=' + language
       } else {
         this.srcUrl = currUrl.replace('appstore', 'atp')
-        this.srcUrl = this.srcUrl + '?taskId=' + this.taskId + '&language=' + language
+        this.srcUrl = this.srcUrl + '/#/atpprocess' + '?taskId=' + this.taskId + '&language=' + language
       }
     },
     jumpToMyapp () {
