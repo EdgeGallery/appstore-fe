@@ -529,7 +529,8 @@ export default {
       icon1: 'el-icon-more',
       icon2: 'el-icon-more',
       icon3: 'el-icon-more',
-      displayDom: false
+      displayDom: false,
+      version: ''
     }
   },
   watch: {
@@ -615,7 +616,7 @@ export default {
       getAppDetailTableApi(this.appId, userId, this.limit, this.offset).then(res => {
         let data = res.data
         data.forEach(item => {
-          if (this.pathSource !== 'myapp' && item.status === 'Published' && item.experienceAble && item.deployMode === 'container') {
+          if (this.pathSource !== 'myapp' && item.status === 'Published' && item.experienceAble) {
             this.ifExperience = true
             this.packageId = item.packageId
             this.initStatus()
@@ -750,8 +751,7 @@ export default {
       myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
         let data = res.data
         let experienceAble = data.experienceAble
-        let deployMode = data.deployMode
-        if (experienceAble && deployMode === 'container') {
+        if (experienceAble) {
           this.ifExperience = true
           this.initStatus()
         }
