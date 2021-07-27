@@ -422,13 +422,14 @@ export default {
       this.$router.push({ name: 'appstordetail', params: { item } })
     },
     jumperToTestRepo (testTaskId) {
-      let currUrl = window.location.host
+      let currUrl = window.location.origin
       let language = localStorage.getItem('language')
       if (currUrl.indexOf('30091') !== -1) {
-        currUrl = 'https://' + currUrl.split(':')[0] + ':30094' + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
+        let originUrl = currUrl.replace('30091', '30094')
+        currUrl = originUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
       } else {
         currUrl = currUrl.replace('appstore', 'atp')
-        currUrl = 'https://' + currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
+        currUrl = currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
       }
       window.open(currUrl, '_blank')
     },
@@ -463,7 +464,7 @@ export default {
           }).catch(action => {
           // Test again, home page + taskId,
             if (action === 'cancel') {
-              this.testPackage(row.appId, row.packageId)
+              this.$router.push({ name: 'selectscene', params: { taskId: testTaskId } })
             }
           })
           break

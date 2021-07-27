@@ -52,7 +52,6 @@ export default {
       if (currUrl.indexOf('30091') !== -1) {
         let originUrl = currUrl.replace('30091', '30094')
         this.srcUrl = originUrl + '/#/selectscene?taskid=' + this.taskId + '&language=' + language
-        console.log(this.srcUrl)
       } else {
         this.srcUrl = currUrl.replace('appstore', 'atp')
         this.srcUrl = this.srcUrl + '/#/selectscene?taskid=' + this.taskId + '&language=' + language
