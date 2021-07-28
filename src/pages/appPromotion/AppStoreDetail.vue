@@ -236,17 +236,9 @@ export default {
         this.dataLoading = false
         let retCode = error.response.data.retCode
         let params = error.response.data.params
+        let errMsg = error.response.data.message
         if (retCode) {
-          if (retCode === 1) {
-            let errMsg = error.response.data.message
-            this.$message({
-              duration: 2000,
-              message: errMsg,
-              type: 'warning'
-            })
-          } else {
-            commonUtil.showTipMsg(this.language, retCode, params)
-          }
+          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
         } else {
           this.$message({
             duration: 2000,

@@ -15,23 +15,31 @@
  *  limitations under the License.
  */
 import Vue from 'vue'
-function showTipMsg (language, retCode, params) {
-  let data = null
-  let map = null
-  if (language === 'cn') {
-    data = JSON.parse(sessionStorage.getItem('resCodeInfo')).zh_CN
-    map = new Map(Object.entries(data))
+function showTipMsg (language, retCode, params, errMsg) {
+  if (retCode === 1) {
+    Vue.prototype.$message({
+      duration: 2000,
+      message: errMsg,
+      type: 'warning'
+    })
   } else {
-    data = JSON.parse(sessionStorage.getItem('resCodeInfo')).en_US
-    map = new Map(Object.entries(data))
+    let resData = null
+    let resMap = null
+    if (language === 'cn') {
+      resData = JSON.parse(sessionStorage.getItem('resCodeInfo')).zh_CN
+      resMap = new Map(Object.entries(resData))
+    } else {
+      resData = JSON.parse(sessionStorage.getItem('resCodeInfo')).en_US
+      resMap = new Map(Object.entries(resData))
+    }
+    getTipMsg(resMap, retCode, params)
   }
-  getTipMsg(map, retCode, params)
 }
 
-function getTipMsg (LanguMap, retCode, params) {
-  for (let code of LanguMap.keys()) {
+function getTipMsg (resMap, retCode, params) {
+  for (let code of resMap.keys()) {
     if (retCode === Number(code)) {
-      let msg = LanguMap.get(code)
+      let msg = resMap.get(code)
       if (msg.indexOf('%s') !== -1 && params !== null) {
         for (let param of params) {
           msg.splice(msg.indexOf('%s'), 1, param)
