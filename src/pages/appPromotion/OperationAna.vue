@@ -254,6 +254,7 @@
 import { getOperatorMessages, getAllMessages } from '../../tools/api.js'
 import egPagination from 'eg-view/src/components/EgPagination.vue'
 import eCharts from 'echarts'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   components: {
     egPagination
@@ -359,16 +360,28 @@ export default {
           )
           this.currentPageData = this.findAppData = this.appPackageData
           resolve(res)
-        }).catch(() => {
-          this.showGetInfoFailedDlg()
+        }).catch((error) => {
+          let retCode = error.response.data.retCode
+          let params = error.response.data.params
+          if (retCode) {
+            if (retCode === 1) {
+              let errMsg = error.response.data.message
+              this.$message({
+                duration: 2000,
+                message: errMsg,
+                type: 'warning'
+              })
+            } else {
+              commonUtil.showTipMsg(this.language, retCode, params)
+            }
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('apppromotion.getOperatorInfoFailed'),
+              type: 'warning'
+            })
+          }
         })
-      })
-    },
-    showGetInfoFailedDlg () {
-      this.$message({
-        duration: 2000,
-        message: this.$t('apppromotion.getOperatorInfoFailed'),
-        type: 'warning'
       })
     },
     handleSelectionChange (val) {
@@ -578,8 +591,27 @@ export default {
             }
           )
           resolve(res)
-        }).catch(() => {
-          this.showGetInfoFailedDlg()
+        }).catch((error) => {
+          let retCode = error.response.data.retCode
+          let params = error.response.data.params
+          if (retCode) {
+            if (retCode === 1) {
+              let errMsg = error.response.data.message
+              this.$message({
+                duration: 2000,
+                message: errMsg,
+                type: 'warning'
+              })
+            } else {
+              commonUtil.showTipMsg(this.language, retCode, params)
+            }
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('apppromotion.getOperatorInfoFailed'),
+              type: 'warning'
+            })
+          }
         })
       })
     },

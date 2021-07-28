@@ -81,6 +81,7 @@
 </template>
 <script>
 import { pullApp } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   props: {
     appPullResultData: {
@@ -94,7 +95,8 @@ export default {
   },
   data () {
     return {
-      dialogVisible: true
+      dialogVisible: true,
+      language: localStorage.getItem('language')
     }
   },
   methods: {
@@ -149,15 +151,36 @@ export default {
                 this.appPullResultData.push(tempResArr)
               }
             }
-          }).catch(() => {
-            this.$message({
-              duration: 2000,
-              message: this.$t('appPull.pullFailed'),
-              type: 'warning'
-            })
+          }).catch((error) => {
+            let retCode = error.response.data.retCode
+            let params = error.response.data.params
+            if (retCode) {
+              if (retCode === 1) {
+                let errMsg = error.response.data.message
+                this.$message({
+                  duration: 2000,
+                  message: errMsg,
+                  type: 'warning'
+                })
+              } else {
+                commonUtil.showTipMsg(this.language, retCode, params)
+              }
+            } else {
+              this.$message({
+                duration: 2000,
+                message: this.$t('appPull.pullFailed'),
+                type: 'warning'
+              })
+            }
           })
         }
       }, 2000)
+    }
+  },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
     }
   }
 }

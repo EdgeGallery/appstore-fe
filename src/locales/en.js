@@ -242,7 +242,8 @@ const en = {
     noData: 'No Data',
     displaySwitch: 'display switch',
     appModify: 'Modify',
-    experienceable: 'Experienceable'
+    experienceable: 'Experienceable',
+    getResInfoFailed: 'Failed to get resource information'
   },
   promptMessage: {
     hostErrorInfo: 'Please enter the correct Host address',

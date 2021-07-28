@@ -200,6 +200,7 @@
 
 <script>
 import { acceptMsg, deleteMsg } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   components: {
 
@@ -225,11 +226,26 @@ export default {
       acceptMsg(this.data.messageId).then((res) => {
         this.$message.success(this.$t('apppromotion.acceptSuccess'))
       }).catch((error) => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('apppromotion.acceptFailed') + error.response.data.message,
-          type: 'warning'
-        })
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        if (retCode) {
+          if (retCode === 1) {
+            let errMsg = error.response.data.message
+            this.$message({
+              duration: 2000,
+              message: errMsg,
+              type: 'warning'
+            })
+          } else {
+            commonUtil.showTipMsg(this.language, retCode, params)
+          }
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('apppromotion.acceptFailed') + error.response.data.message,
+            type: 'warning'
+          })
+        }
       })
     },
     handleDelete () {
@@ -238,11 +254,26 @@ export default {
         this.$emit('deletedMsgId', this.data.messageId)
         this.$emit('isShowDetailMsgDlg', false)
       }).catch((error) => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('apppromotion.deleteMsgFailed') + error.response.data.message,
-          type: 'warning'
-        })
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        if (retCode) {
+          if (retCode === 1) {
+            let errMsg = error.response.data.message
+            this.$message({
+              duration: 2000,
+              message: errMsg,
+              type: 'warning'
+            })
+          } else {
+            commonUtil.showTipMsg(this.language, retCode, params)
+          }
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('apppromotion.deleteMsgFailed'),
+            type: 'warning'
+          })
+        }
       })
     }
 

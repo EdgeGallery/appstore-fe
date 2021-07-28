@@ -414,8 +414,6 @@ export default {
       name: '',
       mergerUrl: '',
       mergerUrlHttp: '',
-      zhData: JSON.parse(sessionStorage.getItem('resCodeInfo')).zh_CN,
-      enData: JSON.parse(sessionStorage.getItem('resCodeInfo')).en_US,
       options: {
         testChunks: false,
         headers: {},
@@ -747,6 +745,26 @@ export default {
       myApp.uploadVMAppApi(fd).then(res => {
         this.handleUploadSuccess()
       }).catch(error => {
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        if (retCode) {
+          if (retCode === 1) {
+            let errMsg = error.response.data.message
+            this.$message({
+              duration: 2000,
+              message: errMsg,
+              type: 'warning'
+            })
+          } else {
+            commonUtil.showTipMsg(this.language, retCode, params)
+          }
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.modifyFail'),
+            type: 'warning'
+          })
+        }
         this.handleExceptionMsg(error)
       })
     },
@@ -767,13 +785,9 @@ export default {
       fd.append('demoVideo', packageForm.videoFile[0])
       fd.append('experienceAble', packageForm.experienceAble)
       myApp.uploadAppPackageApi(fd).then(res => {
-        // 成功情况进行判断，传递 res 参数
-        // this.showChangeMessageSuccess(res)
-        // 使用新定义错误逻辑展示，所以老的逻辑注释
         this.handleUploadSuccess()
       }).catch(error => {
-        // Judge the failure and pass the error parameter
-        this.showChangeErrorMessage(error)
+        this.showErrorMessage(error)
       })
     },
     // confirm to submit
@@ -841,10 +855,6 @@ export default {
         }
       }
     },
-    changeDataLanguage () {
-      let language = localStorage.getItem('language')
-      this.language = language
-    },
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {
         let pos = this.packageForm.industry.indexOf(itemFe.label[0])
@@ -895,20 +905,20 @@ export default {
       this.packageForm.checkList = []
       this.packageForm.isSelectInnerPublic = false
     },
-    showChangeMessageSuccess (res) {
-      // Since every resCode can be obtained successfully, there is no need to judge whether the resCode can be obtained
-      // Parse resCode and params in res.data
-      // Call gatreway to get interface data
-      let retCode = res.data.resCode
-      let params = res.data.params
-      commonUtil.showTipMsg(this.language, this.zhData, this.enData, retCode, params)
-      this.handleClose()
-    },
-    showChangeErrorMessage (error) {
+    showErrorMessage (error) {
       let retCode = error.response.data.retCode
       let params = error.response.data.params
       if (retCode) {
-        commonUtil.showTipMsg(this.language, this.zhData, this.enData, retCode, params)
+        if (retCode === 1) {
+          let errMsg = error.response.data.message
+          this.$message({
+            duration: 2000,
+            message: errMsg,
+            type: 'error'
+          })
+        } else {
+          commonUtil.showTipMsg(this.language, retCode, params)
+        }
         this.handleClose()
       } else {
         this.handleExceptionMsg()
@@ -924,7 +934,6 @@ export default {
       let language = localStorage.getItem('language')
       this.language = language
       this.changeCnEn(language)
-      this.changeDataLanguage()
     },
     value: function (newVal) {
       this.dialogVisible = newVal

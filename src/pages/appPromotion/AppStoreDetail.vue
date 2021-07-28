@@ -115,6 +115,7 @@
 <script>
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
 import { getAppByAppstoreId } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   components: {
     EgPagination
@@ -231,13 +232,28 @@ export default {
           })
         }
         this.dataLoading = false
-      }).catch(() => {
+      }).catch((error) => {
         this.dataLoading = false
-        this.$message({
-          duration: 2000,
-          message: this.$t('appPull.getPullAppException'),
-          type: 'warning'
-        })
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        if (retCode) {
+          if (retCode === 1) {
+            let errMsg = error.response.data.message
+            this.$message({
+              duration: 2000,
+              message: errMsg,
+              type: 'warning'
+            })
+          } else {
+            commonUtil.showTipMsg(this.language, retCode, params)
+          }
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('appPull.getPullAppException'),
+            type: 'warning'
+          })
+        }
       })
     },
     currentChange (val) {

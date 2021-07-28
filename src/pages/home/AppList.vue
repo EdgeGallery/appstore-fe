@@ -144,6 +144,7 @@
 
 <script>
 import { deleteAppApi } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   props: {
     appData: {
@@ -153,7 +154,7 @@ export default {
   },
   data () {
     return {
-
+      language: localStorage.getItem('language'),
       ifDelete: 'true',
       userId: sessionStorage.getItem('userId')
     }
@@ -179,21 +180,40 @@ export default {
             message: this.$t('promptMessage.deleteSuccess'),
             type: 'success'
           })
-        }).catch(() => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.operationFailed'),
-            type: 'warning'
-          })
+        }).catch((error) => {
+          let retCode = error.response.data.retCode
+          let params = error.response.data.params
+          if (retCode) {
+            if (retCode === 1) {
+              let errMsg = error.response.data.message
+              this.$message({
+                duration: 2000,
+                message: errMsg,
+                type: 'warning'
+              })
+            } else {
+              commonUtil.showTipMsg(this.language, retCode, params)
+            }
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.operationFailed'),
+              type: 'warning'
+            })
+          }
         })
-      }).catch((error) => {
-        console.log(error)
       })
     },
     hiddenClass (row) {
       if (row.columnIndex === 5 || row.columnIndex === 0) {
         return 'hiddenClass'
       }
+    }
+  },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
     }
   },
   mounted () {

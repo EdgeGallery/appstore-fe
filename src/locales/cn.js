@@ -245,7 +245,8 @@ const cn = {
     noData: '暂无数据',
     displaySwitch: '展示切换',
     appModify: '修改',
-    experienceable: '支持体验'
+    experienceable: '支持体验',
+    getResInfoFailed: '获取资源信息失败'
   },
   promptMessage: {
     hostErrorInfo: '请输入正确的Host地址',

@@ -118,6 +118,7 @@
 import { myApp, getAppTableApi } from '../../tools/api.js'
 import timeFormatTools from '../../tools/timeFormatTools.js'
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   props: {
     hotAppListInfo: {
@@ -145,7 +146,8 @@ export default {
       searchCondition: {},
       appPackageData: [],
       defaultSelectedIds: [],
-      nameQueryVal: ''
+      nameQueryVal: '',
+      language: localStorage.getItem('language')
     }
   },
   methods: {
@@ -210,13 +212,28 @@ export default {
           })
           this.currentPageData = this.appPackageData
           this.dataLoading = false
-        }).catch(() => {
+        }).catch((error) => {
           this.dataLoading = false
-          this.$message({
-            duration: 2000,
-            message: this.$t('appManager.queryAppFailed'),
-            type: 'warning'
-          })
+          let retCode = error.response.data.retCode
+          let params = error.response.data.params
+          if (retCode) {
+            if (retCode === 1) {
+              let errMsg = error.response.data.message
+              this.$message({
+                duration: 2000,
+                message: errMsg,
+                type: 'warning'
+              })
+            } else {
+              commonUtil.showTipMsg(this.language, retCode, params)
+            }
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('appManager.queryAppFailed'),
+              type: 'warning'
+            })
+          }
         })
     },
     switchChange (value, index, data) {
@@ -229,18 +246,37 @@ export default {
           message: this.$t('promptMessage.modifySuccess'),
           type: 'success'
         })
-      }).catch(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('promptMessage.modifyFail'),
-          type: 'warning'
-        })
+      }).catch((error) => {
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        if (retCode) {
+          if (retCode === 1) {
+            let errMsg = error.response.data.message
+            this.$message({
+              duration: 2000,
+              message: errMsg,
+              type: 'warning'
+            })
+          } else {
+            commonUtil.showTipMsg(this.language, retCode, params)
+          }
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.modifyFail'),
+            type: 'warning'
+          })
+        }
       })
     }
   },
   watch: {
     curPageSize: function () {
       this.getTableData()
+    },
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
     }
   },
   mounted () {

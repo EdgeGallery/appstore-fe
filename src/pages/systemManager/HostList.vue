@@ -354,6 +354,7 @@
 <script>
 import { Workspace, System } from '../../tools/api'
 import { Architecture } from '../../tools/constant.js'
+import commonUtil from '../../tools/commonUtil.js'
 
 export default {
   name: 'HostList',
@@ -497,8 +498,27 @@ export default {
             } else {
               throw new Error()
             }
-          }).catch(() => {
-            this.$message.error(this.$t('system.saveFail'))
+          }).catch((error) => {
+            let retCode = error.response.data.retCode
+            let params = error.response.data.params
+            if (retCode) {
+              if (retCode === 1) {
+                let errMsg = error.response.data.message
+                this.$message({
+                  duration: 2000,
+                  message: errMsg,
+                  type: 'warning'
+                })
+              } else {
+                commonUtil.showTipMsg(this.language, retCode, params)
+              }
+            } else {
+              this.$message({
+                duration: 2000,
+                message: this.$t('system.saveFail'),
+                type: 'warning'
+              })
+            }
           }).finally(() => {
             this.loading = false
             this.getListData()
@@ -543,10 +563,27 @@ export default {
           throw new Error()
         }
       }).catch((error) => {
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
         if (error && error.response && error.response.data.code === 403) {
-          this.$message.error(this.$t('system.guestPrompt'))
+          this.$message.warning(this.$t('system.guestPrompt'))
+        } else if (retCode) {
+          if (retCode === 1) {
+            let errMsg = error.response.data.message
+            this.$message({
+              duration: 2000,
+              message: errMsg,
+              type: 'warning'
+            })
+          } else {
+            commonUtil.showTipMsg(this.language, retCode, params)
+          }
         } else {
-          this.$message.error(this.$t('system.uploadFailure'))
+          this.$message({
+            duration: 2000,
+            message: this.$t('system.uploadFailure'),
+            type: 'warning'
+          })
         }
         this.handleRemove(key)
       }).finally(() => {

@@ -15,26 +15,29 @@
  *  limitations under the License.
  */
 import Vue from 'vue'
-function showTipMsg (language, zhData, enData, retCode, params) {
-  let zhMap = new Map(Object.entries(zhData))
-  let enMap = new Map(Object.entries(enData))
+function showTipMsg (language, retCode, params) {
+  let data = null
+  let map = null
   if (language === 'cn') {
-    getTipMsg(zhMap, retCode, params)
+    data = JSON.parse(sessionStorage.getItem('resCodeInfo')).zh_CN
+    map = new Map(Object.entries(data))
   } else {
-    getTipMsg(enMap, retCode, params)
+    data = JSON.parse(sessionStorage.getItem('resCodeInfo')).en_US
+    map = new Map(Object.entries(data))
   }
+  getTipMsg(map, retCode, params)
 }
 
 function getTipMsg (LanguMap, retCode, params) {
   for (let code of LanguMap.keys()) {
     if (retCode === Number(code)) {
-      let para = LanguMap.get(code)
-      if (para.indexOf('%s') !== -1) {
+      let msg = LanguMap.get(code)
+      if (msg.indexOf('%s') !== -1 && params !== null) {
         for (let param of params) {
-          para = para.replace('%s', param)
+          msg.splice(msg.indexOf('%s'), 1, param)
         }
       }
-      showWarningDlg(para)
+      showWarningDlg(msg)
       return
     }
   }

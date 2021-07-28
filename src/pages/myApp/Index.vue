@@ -241,8 +241,6 @@ export default {
       order: 'desc',
       isShowModifyDlg: false,
       rowAppModifyInfo: {},
-      zhData: JSON.parse(sessionStorage.getItem('resCodeInfo')).zh_CN,
-      enData: JSON.parse(sessionStorage.getItem('resCodeInfo')).en_US,
       typeList: [
         {
           labelEn: 'Video Application',
@@ -383,18 +381,30 @@ export default {
           })
           this.currentPageData = this.appPackageData
           this.dataLoading = false
-        }).catch(() => {
-          this.showErrorAndClearInterval()
+        }).catch((error) => {
+          this.dataLoading = false
+          let retCode = error.response.data.retCode
+          let params = error.response.data.params
+          if (retCode) {
+            if (retCode === 1) {
+              let errMsg = error.response.data.message
+              this.$message({
+                duration: 2000,
+                message: errMsg,
+                type: 'warning'
+              })
+            } else {
+              commonUtil.showTipMsg(this.language, retCode, params)
+            }
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.getMyAppFail'),
+              type: 'warning'
+            })
+          }
+          this.clearInterval()
         })
-    },
-    showErrorAndClearInterval () {
-      this.dataLoading = false
-      this.$message({
-        duration: 2000,
-        message: this.$t('promptMessage.getMyAppFail'),
-        type: 'warning'
-      })
-      this.clearInterval()
     },
     getAppStatus () {
       this.appPackageData.forEach((item, index) => {
@@ -462,7 +472,6 @@ export default {
           }).then(() => {
             this.jumperToTestRepo(testTaskId)
           }).catch(action => {
-          // Test again, home page + taskId,
             if (action === 'cancel') {
               this.$router.push({ name: 'selectscene', params: { taskId: testTaskId } })
             }
@@ -514,12 +523,27 @@ export default {
       myApp.testPackageApi(appId, packageId).then(res => {
         this.taskId = res.data.atpTaskId
         this.$router.push({ name: 'selectscene', params: { taskId: this.taskId } })
-      }).catch(() => {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.createFail')
-        })
+      }).catch((error) => {
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        if (retCode) {
+          if (retCode === 1) {
+            let errMsg = error.response.data.message
+            this.$message({
+              duration: 2000,
+              message: errMsg,
+              type: 'warning'
+            })
+          } else {
+            commonUtil.showTipMsg(this.language, retCode, params)
+          }
+        } else {
+          this.$message({
+            duration: 2000,
+            type: 'warning',
+            message: this.$t('promptMessage.createFail')
+          })
+        }
       })
     },
     publishPackage (row) {
@@ -534,7 +558,16 @@ export default {
         let retCode = error.response.data.retCode
         let params = error.response.data.params
         if (retCode) {
-          commonUtil.showTipMsg(this.language, this.zhData, this.enData, retCode, params)
+          if (retCode === 1) {
+            let errMsg = error.response.data.message
+            this.$message({
+              duration: 2000,
+              message: errMsg,
+              type: 'error'
+            })
+          } else {
+            commonUtil.showTipMsg(this.language, retCode, params)
+          }
         } else {
           this.$message({
             duration: 2000,
@@ -564,15 +597,30 @@ export default {
           })
           // Refresh data
           this.getAppData()
-        }).catch(() => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.operationFailed'),
-            type: 'warning'
-          })
+        }).catch((error) => {
+          let retCode = error.response.data.retCode
+          let params = error.response.data.params
+          if (retCode) {
+            if (retCode === 1) {
+              let errMsg = error.response.data.message
+              this.$message({
+                duration: 2000,
+                message: errMsg,
+                type: 'warning'
+              })
+            } else {
+              commonUtil.showTipMsg(this.language, retCode, params)
+            }
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.operationFailed'),
+              type: 'warning'
+            })
+          }
         })
-      }).catch((error) => {
-        console.log(error)
+      }).catch(() => {
+        // cancel
       })
     },
     jumpTo () {

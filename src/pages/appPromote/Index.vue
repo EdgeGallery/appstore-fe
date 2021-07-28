@@ -265,6 +265,7 @@ import appStoreGrid from './AppStoreGrid.vue'
 import EgBanner from 'eg-view/src/components/EgBanner.vue'
 import EgBreadCrumb from 'eg-view/src/components/EgBreadCrumb.vue'
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   components: {
     appStoreGrid,
@@ -337,13 +338,28 @@ export default {
         this.currentPageData = this.appPackageData = res.data.results
         this.total = res.data.total
         this.dataLoading = false
-      }).catch(() => {
+      }).catch((error) => {
         this.dataLoading = false
-        this.$message({
-          duration: 2000,
-          message: this.$t('promptMessage.getMyAppFail'),
-          type: 'warning'
-        })
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        if (retCode) {
+          if (retCode === 1) {
+            let errMsg = error.response.data.message
+            this.$message({
+              duration: 2000,
+              message: errMsg,
+              type: 'warning'
+            })
+          } else {
+            commonUtil.showTipMsg(this.language, retCode, params)
+          }
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.getMyAppFail'),
+            type: 'warning'
+          })
+        }
         this.clearInterval()
       })
     },
@@ -459,12 +475,27 @@ export default {
           })
           // Refresh page
           this.getAppPackageData()
-        }).catch(() => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.operationFailed'),
-            type: 'warning'
-          })
+        }).catch((error) => {
+          let retCode = error.response.data.retCode
+          let params = error.response.data.params
+          if (retCode) {
+            if (retCode === 1) {
+              let errMsg = error.response.data.message
+              this.$message({
+                duration: 2000,
+                message: errMsg,
+                type: 'warning'
+              })
+            } else {
+              commonUtil.showTipMsg(this.language, retCode, params)
+            }
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.operationFailed'),
+              type: 'warning'
+            })
+          }
         })
       })
     },
@@ -521,12 +552,6 @@ export default {
         ]
       }
     }
-    // currentPageData: function () {
-    //   // let calPageNum = this.curPageSize * (this.pageNumCache - 1) >= this.total ? 1 : this.pageNumCache
-    //   // let start = this.curPageSize * (calPageNum - 1)
-    //   // let end = this.curPageSize * calPageNum
-    //   return this.refreshCurrentData()
-    // }
   },
   watch: {
     '$i18n.locale': function () {

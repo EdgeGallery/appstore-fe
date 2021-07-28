@@ -122,8 +122,7 @@ export default {
       activeName: 'unReadedMsg',
       currentTabData: [],
       deletedMsgIds: [],
-      zhData: JSON.parse(sessionStorage.getItem('resCodeInfo')).zh_CN,
-      enData: JSON.parse(sessionStorage.getItem('resCodeInfo')).en_US
+      language: localStorage.getItem('language')
     }
   },
   methods: {
@@ -142,12 +141,27 @@ export default {
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
         // This is intentional
-      }).catch(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('messageCenter.updateMsgFailed'),
-          type: 'warning'
-        })
+      }).catch((error) => {
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        if (retCode) {
+          if (retCode === 1) {
+            let errMsg = error.response.data.message
+            this.$message({
+              duration: 2000,
+              message: errMsg,
+              type: 'warning'
+            })
+          } else {
+            commonUtil.showTipMsg(this.language, retCode, params)
+          }
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('messageCenter.updateMsgFailed'),
+            type: 'warning'
+          })
+        }
       })
     },
     handleAccept (messageId) {
@@ -158,7 +172,16 @@ export default {
         let retCode = error.response.data.retCode
         let params = error.response.data.params
         if (retCode) {
-          commonUtil.showTipMsg(this.language, this.zhData, this.enData, retCode, params)
+          if (retCode === 1) {
+            let errMsg = error.response.data.message
+            this.$message({
+              duration: 2000,
+              message: errMsg,
+              type: 'error'
+            })
+          } else {
+            commonUtil.showTipMsg(this.language, retCode, params)
+          }
         } else {
           this.$message({
             duration: 2000,
@@ -174,11 +197,26 @@ export default {
         this.currentTabData.splice(index, 1)
         this.$message.success(this.$t('apppromotion.deleteMsgSuccess'))
       }).catch((error) => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('apppromotion.deleteMsgFailed') + error.response.data.message,
-          type: 'warning'
-        })
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        if (retCode) {
+          if (retCode === 1) {
+            let errMsg = error.response.data.message
+            this.$message({
+              duration: 2000,
+              message: errMsg,
+              type: 'warning'
+            })
+          } else {
+            commonUtil.showTipMsg(this.language, retCode, params)
+          }
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('apppromotion.deleteMsgFailed'),
+            type: 'warning'
+          })
+        }
       })
     },
     handleClick (tab, event) {
@@ -207,6 +245,12 @@ export default {
           this.currentTabData = this.filterDeleteData(item.content)
         }
       }
+    }
+  },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
     }
   },
   mounted () {
