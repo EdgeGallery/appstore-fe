@@ -235,6 +235,7 @@
 <script>
 import { TYPES, AFFINITY, INDUSTRY } from '../../tools/constant.js'
 import { myApp, URL_PREFIX } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   props: {
     rowAppModifyInfo: {
@@ -441,12 +442,19 @@ export default {
         this.$emit('reloadData', true)
         this.$emit('input', false)
         this.dialogVisible = false
-      }).catch(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('promptMessage.modifyFail'),
-          type: 'warning'
-        })
+      }).catch((error) => {
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        let errMsg = error.response.data.message
+        if (retCode) {
+          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.modifyFail'),
+            type: 'warning'
+          })
+        }
       })
     },
     conversionIcon (file) {
@@ -585,7 +593,6 @@ export default {
     '$i18n.locale': function () {
       let language = localStorage.getItem('language')
       this.language = language
-      this.changeCnEn(language)
       this.changeDataLanguage()
     }
   },

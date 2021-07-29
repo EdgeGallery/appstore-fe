@@ -198,6 +198,7 @@
 <script>
 import { getUserInfo, logoutApi, myApp } from '../../tools/api.js'
 import messageDialog from '../../pages/msgCenter/MessageDialog.vue'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   name: 'HeaderComp',
   components: {
@@ -513,11 +514,21 @@ export default {
       myApp.getResponseCodeInfo(encodeURI(datas))
         .then(res => {
           sessionStorage.setItem('resCodeInfo', JSON.stringify(res.data))
-        }).catch(error => {
-          this.handleExceptionMsg(error)
+        }).catch((error) => {
+          let retCode = error.response.data.retCode
+          let params = error.response.data.params
+          let errMsg = error.response.data.message
+          if (retCode) {
+            commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('common.getResInfoFailed'),
+              type: 'warning'
+            })
+          }
         })
     }
-
   },
 
   mounted () {

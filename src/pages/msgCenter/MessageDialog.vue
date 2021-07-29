@@ -57,6 +57,7 @@
 <script>
 
 import { getNoticeMessage } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   data () {
     return {
@@ -64,7 +65,8 @@ export default {
       interval: '',
       limitSize: 1000,
       offsetPage: 0,
-      appName: ''
+      appName: '',
+      language: localStorage.getItem('language')
     }
   },
   methods: {
@@ -82,8 +84,13 @@ export default {
         } else {
           this.$emit('msgEvent', 0)
         }
-      }).catch(() => {
-        console.log('get messages error')
+      }).catch((error) => {
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        let errMsg = error.response.data.message
+        if (retCode) {
+          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+        }
       })
     },
     jumpToMsgDialog (item) {
@@ -96,6 +103,12 @@ export default {
     },
     clearInterval () {
       this.interval = null
+    }
+  },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
     }
   },
   mounted () {

@@ -173,6 +173,7 @@
 import { getAppPromTableApi, promProviderInfo } from '../../tools/api.js'
 import promTask from './PromTask.vue'
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   components: {
     promTask,
@@ -245,12 +246,19 @@ export default {
           this.appStoreList.push(providerItem)
           index++
         })
-      }).catch(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('apppromotion.promoteFailed'),
-          type: 'warning'
-        })
+      }).catch((error) => {
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        let errMsg = error.response.data.message
+        if (retCode) {
+          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('apppromotion.promoteFailed'),
+            type: 'warning'
+          })
+        }
       })
     },
     showPushAppDialog (row) {
@@ -322,12 +330,19 @@ export default {
           item.targetPlatform = ['All']
         })
         this.currentPageData = this.findAppData = this.appPackageData
-      }).catch(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('apppromotion.getPromInfoFailed'),
-          type: 'warning'
-        })
+      }).catch((error) => {
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        let errMsg = error.response.data.message
+        if (retCode) {
+          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('apppromotion.getPromInfoFailed'),
+            type: 'warning'
+          })
+        }
       })
     },
     refreshCurrentData () {

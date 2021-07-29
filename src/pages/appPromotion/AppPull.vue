@@ -87,6 +87,7 @@
 import appPullResultDlg from './AppPullResultDlg.vue'
 import AppStoreDetail from './AppStoreDetail'
 import { promProviderInfo } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   components: {
     AppStoreDetail,
@@ -108,7 +109,8 @@ export default {
       prop: 'createTime',
       order: 'desc',
       nameQuery: '',
-      total: 0
+      total: 0,
+      language: localStorage.getItem('language')
     }
   },
   methods: {
@@ -166,13 +168,25 @@ export default {
           this.rebuileComponents()
         }
       }).catch((error) => {
-        console.log(error)
-        this.$message({
-          duration: 2000,
-          message: this.$t('appPull.getAppStoreException'),
-          type: 'warning'
-        })
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        let errMsg = error.response.data.message
+        if (retCode) {
+          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('appPull.getAppStoreException'),
+            type: 'warning'
+          })
+        }
       })
+    }
+  },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
     }
   },
   mounted () {

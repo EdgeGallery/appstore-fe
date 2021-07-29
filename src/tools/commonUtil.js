@@ -15,26 +15,37 @@
  *  limitations under the License.
  */
 import Vue from 'vue'
-function showTipMsg (language, zhData, enData, retCode, params) {
-  let zhMap = new Map(Object.entries(zhData))
-  let enMap = new Map(Object.entries(enData))
-  if (language === 'cn') {
-    getTipMsg(zhMap, retCode, params)
+function showTipMsg (language, retCode, params, errMsg) {
+  if (retCode === 1) {
+    Vue.prototype.$message({
+      duration: 2000,
+      message: errMsg,
+      type: 'warning'
+    })
   } else {
-    getTipMsg(enMap, retCode, params)
+    let resData = null
+    let resMap = null
+    if (language === 'cn') {
+      resData = JSON.parse(sessionStorage.getItem('resCodeInfo')).zh_CN
+      resMap = new Map(Object.entries(resData))
+    } else {
+      resData = JSON.parse(sessionStorage.getItem('resCodeInfo')).en_US
+      resMap = new Map(Object.entries(resData))
+    }
+    getTipMsg(resMap, retCode, params)
   }
 }
 
-function getTipMsg (LanguMap, retCode, params) {
-  for (let code of LanguMap.keys()) {
+function getTipMsg (resMap, retCode, params) {
+  for (let code of resMap.keys()) {
     if (retCode === Number(code)) {
-      let para = LanguMap.get(code)
-      if (para.indexOf('%s') !== -1) {
+      let msg = resMap.get(code)
+      if (msg.indexOf('%s') !== -1 && params !== null) {
         for (let param of params) {
-          para = para.replace('%s', param)
+          msg.splice(msg.indexOf('%s'), 1, param)
         }
       }
-      showWarningDlg(para)
+      showWarningDlg(msg)
       return
     }
   }

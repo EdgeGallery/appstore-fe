@@ -199,6 +199,7 @@ import {
   myApp,
   URL_PREFIX
 } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   components: {
   },
@@ -267,13 +268,20 @@ export default {
             type: 'success'
           })
         })
-        .catch(() => {
+        .catch((error) => {
           this.editorStatus = true
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.operationFailed'),
-            type: 'warning'
-          })
+          let retCode = error.response.data.retCode
+          let params = error.response.data.params
+          let errMsg = error.response.data.message
+          if (retCode) {
+            commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.operationFailed'),
+              type: 'warning'
+            })
+          }
         })
     },
     getTableData (callback) {
@@ -348,15 +356,22 @@ export default {
           })
           this.dataReload()
           this.$router.push('/myapp')
-        }).catch(() => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.operationFailed'),
-            type: 'warning'
-          })
+        }).catch((error) => {
+          let retCode = error.response.data.retCode
+          let params = error.response.data.params
+          let errMsg = error.response.data.message
+          if (retCode) {
+            commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.operationFailed'),
+              type: 'warning'
+            })
+          }
         })
-      }).catch((error) => {
-        console.log(error)
+      }).catch(() => {
+        // cancel
       })
     },
     dataReload () {

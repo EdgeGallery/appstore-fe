@@ -82,6 +82,7 @@
 
 <script>
 import { promTaskApi } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   props: {
     promStoreList: {
@@ -94,7 +95,8 @@ export default {
       dialogVisible: true,
       appData: [],
       packageIds: [],
-      selectData: []
+      selectData: [],
+      language: localStorage.getItem('language')
     }
   },
   methods: {
@@ -172,9 +174,19 @@ export default {
             if (flagNumber === tempData.length) {
               this.updateResult()
             }
-          }).catch((err) => {
-            this.$message.error(this.$t('promptMessage.operationFailed'))
-            console.log(err)
+          }).catch((error) => {
+            let retCode = error.response.data.retCode
+            let params = error.response.data.params
+            let errMsg = error.response.data.message
+            if (retCode) {
+              commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+            } else {
+              this.$message({
+                duration: 2000,
+                message: this.$t('promptMessage.operationFailed'),
+                type: 'warning'
+              })
+            }
           })
         }
       }, 2000)
@@ -183,6 +195,10 @@ export default {
   watch: {
     value: function (newVal) {
       this.dialogVisible = newVal
+    },
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
     }
   },
   mounted () {

@@ -399,6 +399,7 @@ import { INDUSTRY, TYPES, AFFINITY, SORT_BY } from '../../tools/constant.js'
 import HomeSwiper from '../../components/common/Swipers.vue'
 import uploadPackage from '../home/UploadPackage.vue'
 import { mapState } from 'vuex'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   name: 'Home',
   components: {
@@ -681,12 +682,19 @@ export default {
             this.showDefaultData = true
           }
           this.newAppDataLoading = false
-        }).catch(() => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('appManager.queryHotAppFailed'),
-            type: 'warning'
-          })
+        }).catch((error) => {
+          let retCode = error.response.data.retCode
+          let params = error.response.data.params
+          let errMsg = error.response.data.message
+          if (retCode) {
+            commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('appManager.queryHotAppFailed'),
+              type: 'warning'
+            })
+          }
         })
     },
     getAppData () {
