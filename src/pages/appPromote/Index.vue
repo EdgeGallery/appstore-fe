@@ -532,7 +532,7 @@ export default {
           { required: true, message: this.$t('apppromotion.appdCheck'), trigger: 'change' }
         ],
         shortDesc: [
-          { required: true, message: this.$t('apppromotion.descriptionCheck'), trigger: 'blur' }
+          { required: true, message: this.$t('apppromotion.descriptionCheck'), trigger: 'change' }
         ]
       }
     }
