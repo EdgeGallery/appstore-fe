@@ -407,7 +407,7 @@ export default {
           { required: true, message: 'Icon is required', trigger: 'change' }
         ],
         shortDesc: [
-          { required: true, message: '描述不能为空', trigger: 'blur' }
+          { required: true, message: '描述不能为空', trigger: 'change' }
         ]
       },
       fileAddress: '',
@@ -1123,7 +1123,9 @@ export default {
       margin-top: 11px;
     }
   }
-
+}
+.el-form-item__error{
+  padding-top: 1px;
 }
 .uploader-file[status=success] .uploader-file-remove{
   display: block !important;
