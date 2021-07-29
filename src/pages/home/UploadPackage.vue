@@ -1123,7 +1123,9 @@ export default {
       margin-top: 11px;
     }
   }
-
+}
+.el-form-item__error{
+  padding-top: 1px;
 }
 .uploader-file[status=success] .uploader-file-remove{
   display: block !important;
