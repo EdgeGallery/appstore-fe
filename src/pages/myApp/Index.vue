@@ -383,18 +383,8 @@ export default {
           this.dataLoading = false
         }).catch((error) => {
           this.dataLoading = false
-          let retCode = error.response.data.retCode
-          let params = error.response.data.params
-          let errMsg = error.response.data.message
-          if (retCode) {
-            commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-          } else {
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.getMyAppFail'),
-              type: 'warning'
-            })
-          }
+          let defaultMsg = this.$t('promptMessage.getMyAppFail')
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
           this.clearInterval()
         })
     },
@@ -407,6 +397,9 @@ export default {
             let data = res.data
             data.createTime = timeFormatTools.formatDateTime(data.createTime)
             this.appPackageData.splice(index, 1, data)
+          }).catch((error) => {
+            let defaultMsg = this.$t('myApp.getStatusFailed')
+            commonUtil.showTipMsg(this.language, error, defaultMsg)
           })
         }
       })
@@ -516,18 +509,8 @@ export default {
         this.taskId = res.data.atpTaskId
         this.$router.push({ name: 'selectscene', params: { taskId: this.taskId } })
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            type: 'warning',
-            message: this.$t('promptMessage.createFail')
-          })
-        }
+        let defaultMsg = this.$t('promptMessage.createFail')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     publishPackage (row) {
@@ -574,18 +557,8 @@ export default {
           // Refresh data
           this.getAppData()
         }).catch((error) => {
-          let retCode = error.response.data.retCode
-          let params = error.response.data.params
-          let errMsg = error.response.data.message
-          if (retCode) {
-            commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-          } else {
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.operationFailed'),
-              type: 'warning'
-            })
-          }
+          let defaultMsg = this.$t('promptMessage.operationFailed')
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
         })
       }).catch(() => {
         // cancel

@@ -202,18 +202,8 @@ export default {
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('messageCenter.updateMsgFailed'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('messageCenter.updateMsgFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     locateMessage (message) {
@@ -228,18 +218,8 @@ export default {
       acceptMsg(this.msgs[index].messageId).then((res) => {
         this.$message.success(this.$t('apppromotion.acceptSuccess'))
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('apppromotion.acceptFailed'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('apppromotion.acceptFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     handleDelete (index) {
@@ -248,18 +228,8 @@ export default {
           this.$message.success(this.$t('apppromotion.deleteMsgSuccess'))
           this.$router.go(0)
         }).catch((error) => {
-          let retCode = error.response.data.retCode
-          let params = error.response.data.params
-          let errMsg = error.response.data.message
-          if (retCode) {
-            commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-          } else {
-            this.$message({
-              duration: 2000,
-              message: this.$t('apppromotion.deleteMsgFailed'),
-              type: 'warning'
-            })
-          }
+          let defaultMsg = this.$t('apppromotion.deleteMsgFailed')
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
         })
       }, 500)
     },
@@ -306,25 +276,8 @@ export default {
         })
         this.$refs.rightTabPanel.parentMsg(this.rightDetailData)
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('apppromotion.getNoticeFailed'),
-            type: 'warning'
-          })
-        }
-        if (error.response.data.code === 403) {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.guestUser'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('apppromotion.getNoticeFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     }
 

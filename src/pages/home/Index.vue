@@ -205,6 +205,7 @@ import appgridLogo from '@/assets/images/appgrid.png'
 import applistLogo from '@/assets/images/applist.png'
 import HomeSwiper from '../../components/common/Swipers.vue'
 import timeFormatTools from '../../tools/timeFormatTools.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   name: 'Home',
   components: {
@@ -468,12 +469,9 @@ export default {
           })
           this.checkProjectData()
         },
-        () => {
-          this.$message({
-            duration: 2000,
-            type: 'warning',
-            message: this.$t('promptMessage.reLogin')
-          })
+        (error) => {
+          let defaultMsg = this.$t('promptMessage.getAppFail')
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
         }
       )
     },

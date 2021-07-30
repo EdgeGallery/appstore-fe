@@ -98,7 +98,7 @@ const en = {
     saveSuccess: 'Saved successfully!',
     saveFail: 'Save failed!',
     uploadSuccess: 'Upload success!',
-    uploadFailure: 'Upload failure!',
+    uploadFailed: 'Upload failure!',
     guestPrompt: 'The guest user has no right to operate, please log in first!',
     modify: 'Modify',
     noDataNotice: 'No data available',
@@ -243,7 +243,12 @@ const en = {
     displaySwitch: 'display switch',
     appModify: 'Modify',
     experienceable: 'Experienceable',
-    getResInfoFailed: 'Failed to get resource information'
+    getResInfoFailed: 'Failed to get resource information',
+    exception400: 'Request error',
+    exception401: 'Request is not authorized',
+    exception403: 'Request denied access',
+    exceptionxxx: 'Request exception, please check',
+    exceptionServer: 'Service abnormal, please check'
   },
   promptMessage: {
     hostErrorInfo: 'Please enter the correct Host address',
@@ -465,7 +470,8 @@ const en = {
     addApp: 'Add External Warehouse',
     provider: 'Provider',
     modifyAppStore: 'Edit External Warehouse',
-    appModify: 'APP Modify'
+    appModify: 'APP Modify',
+    getStatusFailed: 'failed to get app status'
   },
   report: {
     version: 'Version',

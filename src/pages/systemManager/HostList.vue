@@ -499,18 +499,8 @@ export default {
               throw new Error()
             }
           }).catch((error) => {
-            let retCode = error.response.data.retCode
-            let params = error.response.data.params
-            let errMsg = error.response.data.message
-            if (retCode) {
-              commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-            } else {
-              this.$message({
-                duration: 2000,
-                message: this.$t('system.saveFail'),
-                type: 'warning'
-              })
-            }
+            let defaultMsg = this.$t('system.saveFail')
+            commonUtil.showTipMsg(this.language, error, defaultMsg)
           }).finally(() => {
             this.loading = false
             this.getListData()
@@ -555,20 +545,8 @@ export default {
           throw new Error()
         }
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (error && error.response && error.response.data.code === 403) {
-          this.$message.warning(this.$t('system.guestPrompt'))
-        } else if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('system.uploadFailure'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('system.uploadFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
         this.handleRemove(key)
       }).finally(() => {
         this.loading = false

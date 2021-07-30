@@ -234,18 +234,8 @@ export default {
         this.dataLoading = false
       }).catch((error) => {
         this.dataLoading = false
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('appPull.getPullAppException'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('appPull.getPullAppException')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     currentChange (val) {

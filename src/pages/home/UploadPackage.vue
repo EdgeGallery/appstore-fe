@@ -603,31 +603,6 @@ export default {
       this.handleClose()
       this.$router.push('/myapp')
     },
-    handleExceptionMsg (error) {
-      console.log(error.response.data.retCode)
-      if (error.response.data.code === 403) {
-        this.$message({
-          duration: 2000,
-          message: this.$t('promptMessage.guestUser'),
-          type: 'warning'
-        })
-        this.handleClose()
-      } else if (error.response.data.message) {
-        this.$message({
-          duration: 2000,
-          message: error.response.data.message,
-          type: 'warning'
-        })
-        this.handleClose()
-      } else {
-        this.$message({
-          duration: 2000,
-          message: this.$t('promptMessage.uploadFailed'),
-          type: 'warning'
-        })
-        this.handleClose()
-      }
-    },
     changeIcon (val) {
       this.packageForm.base64Session = true
       this.defaultIconFile = []
@@ -744,20 +719,10 @@ export default {
       fd.append('experienceAble', packageForm.experienceAble)
       myApp.uploadVMAppApi(fd).then(res => {
         this.handleUploadSuccess()
-      }).catch(error => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.modifyFail'),
-            type: 'warning'
-          })
-        }
-        this.handleExceptionMsg(error)
+      }).catch((error) => {
+        let defaultMsg = this.$t('promptMessage.uploadFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
+        this.handleClose()
       })
     },
     uploadMin () {
@@ -865,8 +830,8 @@ export default {
       let url = this.mergerUrl + file.name + '&guid=' + arguments[0].uniqueIdentifier
       axios.get(url).then(response => {
         this.fileAddress = response.data
-      }).catch(error => {
-        console.log(error)
+      }).catch(() => {
+        // This is intentional
       })
     },
     changeCnEn (language) {
@@ -903,10 +868,11 @@ export default {
       let errMsg = error.response.data.message
       if (retCode) {
         commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        this.handleClose()
       } else {
-        this.handleExceptionMsg()
+        let defaultMsg = this.$t('promptMessage.uploadFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       }
+      this.handleClose()
     }
   },
 

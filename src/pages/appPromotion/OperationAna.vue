@@ -361,18 +361,8 @@ export default {
           this.currentPageData = this.findAppData = this.appPackageData
           resolve(res)
         }).catch((error) => {
-          let retCode = error.response.data.retCode
-          let params = error.response.data.params
-          let errMsg = error.response.data.message
-          if (retCode) {
-            commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-          } else {
-            this.$message({
-              duration: 2000,
-              message: this.$t('apppromotion.getOperatorInfoFailed'),
-              type: 'warning'
-            })
-          }
+          let defaultMsg = this.$t('apppromotion.getOperatorInfoFailed')
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
         })
       })
     },
@@ -584,18 +574,8 @@ export default {
           )
           resolve(res)
         }).catch((error) => {
-          let retCode = error.response.data.retCode
-          let params = error.response.data.params
-          let errMsg = error.response.data.message
-          if (retCode) {
-            commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-          } else {
-            this.$message({
-              duration: 2000,
-              message: this.$t('apppromotion.getOperatorInfoFailed'),
-              type: 'warning'
-            })
-          }
+          let defaultMsg = this.$t('apppromotion.getOperatorInfoFailed')
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
         })
       })
     },

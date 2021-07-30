@@ -101,7 +101,7 @@ const cn = {
     saveSuccess: '保存成功！',
     saveFail: '保存失败！',
     uploadSuccess: '上传成功！',
-    uploadFailure: '上传失败！',
+    uploadFailed: '上传失败！',
     guestPrompt: 'Guest用户无权操作，请先登录！',
     modify: '修改',
     noDataNotice: '暂无数据',
@@ -246,7 +246,12 @@ const cn = {
     displaySwitch: '展示切换',
     appModify: '修改',
     experienceable: '支持体验',
-    getResInfoFailed: '获取资源信息失败'
+    getResInfoFailed: '获取资源信息失败',
+    exception400: '请求错误',
+    exception401: '请求未授权',
+    exception403: '请求被拒绝访问',
+    exceptionxxx: '请求异常，请检查',
+    exceptionServer: '服务异常，请检查'
   },
   promptMessage: {
     hostErrorInfo: '请输入正确的Host地址',
@@ -492,7 +497,8 @@ const cn = {
     addApp: '添加外部仓库',
     modifyAppStore: '编辑外部仓库',
     provider: '供应商',
-    appModify: '应用修改'
+    appModify: '应用修改',
+    getStatusFailed: '获取应用状态失败'
   },
   report: {
     version: '版本',

@@ -340,18 +340,8 @@ export default {
         this.dataLoading = false
       }).catch((error) => {
         this.dataLoading = false
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.getMyAppFail'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('promptMessage.getMyAppFail')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
         this.clearInterval()
       })
     },
@@ -468,18 +458,8 @@ export default {
           // Refresh page
           this.getAppPackageData()
         }).catch((error) => {
-          let retCode = error.response.data.retCode
-          let params = error.response.data.params
-          let errMsg = error.response.data.message
-          if (retCode) {
-            commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-          } else {
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.operationFailed'),
-              type: 'warning'
-            })
-          }
+          let defaultMsg = this.$t('promptMessage.operationFailed')
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
         })
       })
     },
