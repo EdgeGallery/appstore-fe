@@ -457,10 +457,12 @@ import {
 import { INDUSTRY, TYPES } from '../../tools/constant.js'
 import appTry from '@/assets/images/apptry.png'
 import startTry from '@/assets/images/startTry.png'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   name: '',
   data () {
     return {
+      deployMode: '',
       ifExperience: false,
       appTry: appTry,
       startTry: startTry,
@@ -615,19 +617,15 @@ export default {
       }
       getAppDetailTableApi(this.appId, userId, this.limit, this.offset).then(res => {
         let data = res.data
-        data.forEach(item => {
-          if (this.pathSource !== 'myapp' && item.status === 'Published' && item.experienceAble) {
-            this.ifExperience = true
-            this.packageId = item.packageId
-            this.initStatus()
-          }
-        })
         this.handleTableTada(data)
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
           this.checkProjectData()
         }
+        data.forEach(item => {
+          this.packageId = item.packageId
+        })
       })
     },
     handleTableTada (data) {
@@ -651,6 +649,7 @@ export default {
       })
     },
     updateData () {
+      this.ifExperience = this.currentData.experienceAble
       this.source = this.currentData.details
     },
     handleDate () {
@@ -751,6 +750,7 @@ export default {
       myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
         let data = res.data
         let experienceAble = data.experienceAble
+        this.deployMode = data.deployMode
         if (experienceAble) {
           this.ifExperience = true
           this.initStatus()
@@ -761,6 +761,17 @@ export default {
 
         if (data) {
           this.source = data.details
+        }
+      })
+    },
+    getExperienceAbleInfo () {
+      myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
+        let data = res.data
+        let experienceAble = data.experienceAble
+        this.deployMode = data.deployMode
+        if (experienceAble) {
+          this.ifExperience = true
+          this.initStatus()
         }
       })
     },
@@ -832,6 +843,7 @@ export default {
         this.experienceData[0].mecHost = tmpExperienceData[2]
         this.displayDom = true
       }
+      this.handleUploadSuccess()
     },
     stepClean () {
       this.btnClean = true
@@ -850,7 +862,6 @@ export default {
     },
     getNodePort () {
       this.step()
-
       this.btnInstantiate = true
       this.btnClean = false
     },
@@ -878,6 +889,7 @@ export default {
             this.$message({
               duration: 2000,
               type: 'success',
+              class: 'btnPasses',
               message: this.$t('promptMessage.cleanEnvSuccess')
             })
           } else {
@@ -933,6 +945,52 @@ export default {
       this.tip13 = true
       this.tip23 = true
       this.tip33 = true
+    },
+    handleUploadSuccess () {
+      this.$message({
+        duration: 2000,
+        message: this.$t('promptMessage.getNodePortSuccess'),
+        type: 'success'
+      })
+    },
+    step1bak () {
+      this.btnType1 = 'primary'
+      this.tip21 = false
+      this.tip22 = true
+      myApp.getNodePort(this.appId, this.packageId, this.userId, this.name, this.ip).then(
+        (res) => {
+          let experienceInfo = res.data
+          setTimeout(() => this.step2(experienceInfo), 3000)
+        }).catch(error => {
+        this.showChangeErrorMessage(error)
+      })
+    },
+    handleExceptionMsg (error) {
+      console.log(error.response.data.retCode)
+      if (error.response.data.code === 403) {
+        this.$message({
+          duration: 2000,
+          message: this.$t('promptMessage.guestUser'),
+          type: 'warning'
+        })
+      } else {
+        this.$message({
+          duration: 2000,
+          message: error.response.data.message,
+          type: 'warning'
+        })
+      }
+    },
+    showChangeErrorMessage (error) {
+      this.stepClean()
+      let retCode = error.response.data.retCode
+      let params = error.response.data.params
+      let errMsg = error.response.data.message
+      if (retCode) {
+        commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+      } else {
+        this.handleExceptionMsg()
+      }
     }
   },
   mounted () {
@@ -955,6 +1013,8 @@ export default {
       if (this.pathSource === 'myapp') {
         this.source = this.details.details
         this.getMyAppData()
+      } else {
+        this.getExperienceAbleInfo()
       }
     }
     this.getAppData()
@@ -962,12 +1022,20 @@ export default {
     this.getComments()
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
     this.checkProjectData()
+    if (this.ifExperience && this.deployMode === 'container') {
+      this.initStatus()
+    }
+    console.log(this.currentData)
   }
 }
 </script>
 
 <style lang="less">
 .app_detail{
+  .btnPasses{
+    background: #fff !important;
+    color:#67C23A !important;
+  }
   .el-dialog{
   text-align: left;
     box-shadow: 2px 5px 23px 10px rgba(104, 142, 243, 0.2) inset;
