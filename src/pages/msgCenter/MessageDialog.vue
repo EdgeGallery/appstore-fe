@@ -85,12 +85,8 @@ export default {
           this.$emit('msgEvent', 0)
         }
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        }
+        let defaultMsg = this.$t('apppromotion.getNoticeFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     jumpToMsgDialog (item) {

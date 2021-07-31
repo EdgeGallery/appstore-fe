@@ -168,18 +168,8 @@ export default {
           this.rebuileComponents()
         }
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('appPull.getAppStoreException'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('appPull.getAppStoreException')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     }
   },

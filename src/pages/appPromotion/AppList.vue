@@ -247,18 +247,8 @@ export default {
           index++
         })
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('apppromotion.promoteFailed'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('apppromotion.promoteFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     showPushAppDialog (row) {
@@ -331,18 +321,8 @@ export default {
         })
         this.currentPageData = this.findAppData = this.appPackageData
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('apppromotion.getPromInfoFailed'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('apppromotion.getPromInfoFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     refreshCurrentData () {

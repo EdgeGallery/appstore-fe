@@ -15,11 +15,23 @@
  *  limitations under the License.
  */
 import Vue from 'vue'
-function showTipMsg (language, retCode, params, errMsg) {
+import i18n from '../locales/i18n.js'
+
+function showTipMsg (language, error, defaultMsg) {
+  let retCode = error.response.data.retCode
+  let params = error.response.data.params
+  if (retCode) {
+    showRetCodeTipMsg(language, retCode, params)
+  } else {
+    showFilterExceptionTip(error, defaultMsg)
+  }
+}
+
+function showRetCodeTipMsg (language, retCode, params) {
   if (retCode === 1) {
     Vue.prototype.$message({
       duration: 2000,
-      message: errMsg,
+      message: i18n.t('common.exceptionServer'),
       type: 'warning'
     })
   } else {
@@ -57,6 +69,25 @@ function showWarningDlg (msg) {
     message: msg,
     type: 'warning'
   })
+}
+
+function showFilterExceptionTip (error, defaultMsg) {
+  let errorCode = error.response.data.code
+  let msg = ''
+  switch (errorCode) {
+    case 400:
+      msg = i18n.t('common.exception400')
+      break
+    case 401:
+      msg = i18n.t('common.exception401')
+      break
+    case 403:
+      msg = i18n.t('common.exception403')
+      break
+    default:
+      msg = defaultMsg
+  }
+  showWarningDlg(msg)
 }
 
 export default {

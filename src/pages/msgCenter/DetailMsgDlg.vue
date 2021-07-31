@@ -226,18 +226,8 @@ export default {
       acceptMsg(this.data.messageId).then((res) => {
         this.$message.success(this.$t('apppromotion.acceptSuccess'))
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('apppromotion.acceptFailed') + error.response.data.message,
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('apppromotion.acceptFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     handleDelete () {
@@ -246,18 +236,8 @@ export default {
         this.$emit('deletedMsgId', this.data.messageId)
         this.$emit('isShowDetailMsgDlg', false)
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('apppromotion.deleteMsgFailed'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('apppromotion.deleteMsgFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     }
 

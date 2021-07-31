@@ -683,18 +683,8 @@ export default {
           }
           this.newAppDataLoading = false
         }).catch((error) => {
-          let retCode = error.response.data.retCode
-          let params = error.response.data.params
-          let errMsg = error.response.data.message
-          if (retCode) {
-            commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-          } else {
-            this.$message({
-              duration: 2000,
-              message: this.$t('appManager.queryHotAppFailed'),
-              type: 'warning'
-            })
-          }
+          let defaultMsg = this.$t('appManager.queryHotAppFailed')
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
         })
     },
     getAppData () {

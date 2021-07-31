@@ -142,18 +142,8 @@ export default {
       updateStatus(messageId).then((res) => {
         // This is intentional
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('messageCenter.updateMsgFailed'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('messageCenter.updateMsgFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     handleAccept (messageId) {
@@ -161,18 +151,8 @@ export default {
       acceptMsg(messageId).then((res) => {
         this.$message.success(this.$t('apppromotion.acceptSuccess'))
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.acceptFailed'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('promptMessage.acceptFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     handleDelete (index, messageId) {
@@ -181,18 +161,8 @@ export default {
         this.currentTabData.splice(index, 1)
         this.$message.success(this.$t('apppromotion.deleteMsgSuccess'))
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('apppromotion.deleteMsgFailed'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('apppromotion.deleteMsgFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     handleClick (tab, event) {

@@ -443,18 +443,8 @@ export default {
         this.$emit('input', false)
         this.dialogVisible = false
       }).catch((error) => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.modifyFail'),
-            type: 'warning'
-          })
-        }
+        let defaultMsg = this.$t('promptMessage.modifyFail')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     conversionIcon (file) {
