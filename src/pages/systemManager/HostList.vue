@@ -209,7 +209,13 @@
           <el-input
             size="small"
             v-model="form.parameter"
-          />
+          >
+            <em
+              slot="suffix"
+              class="el-icon-s-order"
+              @click="addMore"
+            />
+          </el-input>
         </el-form-item>
         <el-form-item
           prop="configId"
@@ -233,6 +239,53 @@
             </el-button>
           </el-upload>
         </el-form-item>
+        <el-dialog
+          :title="$t('system.other')"
+          :visible.sync="innerVisible"
+          :close-on-click-modal="false"
+          append-to-body
+          class="other_setting"
+        >
+          <div class="innerVisible_div">
+            <p class="operation_btn">
+              <em
+                class="el-icon-plus"
+                @click="addListData"
+              />
+            </p>
+            <p
+              v-for="(item,index) in otherData"
+              :key="index"
+              class="container clear"
+            >
+              <el-input
+                type="text"
+                size="small"
+                v-model="item.name"
+              />
+              <span class="equal">=</span>
+              <el-input
+                type="text"
+                size="small"
+                v-model="item.value"
+              />
+              <em
+                class="el-icon-delete"
+                @click="deleteListData(index)"
+              />
+            </p>
+          </div>
+          <span
+            slot="footer"
+            class="dialog-footer"
+          >
+            <el-button @click="innerVisible = false">{{ $t('common.cancel') }}</el-button>
+            <el-button
+              type="primary"
+              @click="confirmData"
+            >{{ $t('common.confirm') }}</el-button>
+          </span>
+        </el-dialog>
       </el-form>
       <div
         v-show="!showLog && visible"
@@ -390,6 +443,7 @@ export default {
       architectureOptions: Architecture,
       formLabelWidth: '110px',
       form: {
+        port: 31252,
         portRangeMin: '30000',
         portRangeMax: '32000',
         architecture: 'X86',
@@ -398,12 +452,25 @@ export default {
         os: 'K8S'
       },
       defaultForm: {
+        port: 31252,
         portRangeMin: '30000',
         portRangeMax: '32000',
         architecture: 'X86',
         protocol: 'https',
         status: 'NORMAL',
-        os: 'K8S'
+        os: 'K8S',
+        parameter: `DC_ID=FS_M:Manger_VPC;
+az_dc=nova;
+mep_certificate=YHXGFTWU!@$%@&%#(DH(122479+_);
+app_mp1_ip=192.168.226.201;app_mp1_mask=255.255.255.0;app_mp1_gw=192.168.226.1;
+app_n6_ip=192.168.225.202;app_n6_mask=255.255.255.0;app_n6_gw=192.168.225.1;
+app_internet_ip=192.168.227.203;app_internet_mask=255.255.255.0;app_internet_gw=192.168.227.1;
+mep_ip=119.8.47.5;mep_port=8443;
+network_name_mep=mec_network_mep;network_mep_physnet=physnet2;network_mep_vlanid=2653;
+network_name_n6=mec_network_n6;network_n6_physnet=physnet2;network_n6_vlanid=2652;
+network_name_internet=mec_network_internet;network_internet_physnet=physnet2;network_internet_vlanid=2651;
+ue_ip_segment=0.0.0.0/0;
+mec_internet_ip=0.0.0.0`
       },
       rules: {
         // configId: [{ required: true, validator: (r, v, callback) => { validate(['configId'], callback, this.$t('system.pleaseUpload')) } }],
@@ -453,7 +520,9 @@ export default {
       loading: false,
       userName: sessionStorage.getItem('userName'),
       userId: sessionStorage.getItem('userId'),
-      language: localStorage.getItem('language')
+      language: localStorage.getItem('language'),
+      innerVisible: false,
+      otherData: []
     }
   },
   mounted () {
@@ -468,6 +537,51 @@ export default {
     }
   },
   methods: {
+    addMore () {
+      this.innerVisible = true
+      this.otherData = []
+      let str = this.form.parameter
+      if (str) {
+        let arrTemp = str.split(';')
+        arrTemp.forEach(item => {
+          let obj = {
+            name: '',
+            value: ''
+          }
+          obj.name = item.split('=')[0]
+          obj.value = item.split('=')[1]
+          this.otherData.push(obj)
+        })
+      }
+    },
+    addListData () {
+      let obj = {
+        name: '',
+        value: ''
+      }
+      this.otherData.unshift(obj)
+    },
+    deleteListData (index) {
+      this.otherData.splice(index, 1)
+    },
+    confirmData () {
+      let nullMum = 0
+      this.otherData.forEach(item => {
+        if (item.name === '' || item.value === '') {
+          nullMum++
+        }
+      })
+      if (nullMum === 0) {
+        let str = ''
+        this.otherData.forEach(item => {
+          str += item.name + '=' + item.value + ';'
+        })
+        this.form.parameter = str.substr(0, str.length - 1)
+        this.innerVisible = false
+      } else {
+        this.$message.warning(this.$t('system.completeInfo'))
+      }
+    },
     handleDelete ({ hostId }) {
       this.$confirm(this.$t('system.deleteConfirm'), {
         confirmButtonText: this.$t('common.confirm'),
@@ -569,6 +683,51 @@ export default {
 </script>
 
 <style lang="less">
+.other_setting{
+  .el-dialog{
+    width: 600px;
+  }
+  .el-dialog__body{
+    max-height: 625px;
+    overflow: auto;
+  }
+}
+.innerVisible_div{
+  .operation_btn{
+    text-align: right;
+    .el-icon-plus{
+      font-size: 16px;
+      cursor: pointer;
+    }
+  }
+  .container{
+    padding-top: 10px;
+    .el-input{
+      float: left;
+      width: calc((100% - 65px)/2);
+    }
+    .equal{
+      float: left;
+      width: 15px;
+      height: 32px;
+      line-height: 32px;
+      margin: 0 10px;
+    }
+    .el-icon-delete{
+      color: #ccc;
+      width: 30px;
+      height: 32px;
+      line-height: 32px;
+      font-size: 16px;
+      text-align: right;
+    }
+    .el-icon-delete:hover{
+      cursor: pointer;
+      color: #5b7ede;
+    }
+  }
+
+}
 .hostManagement {
   padding: 0 10%!important;
   .w50 {

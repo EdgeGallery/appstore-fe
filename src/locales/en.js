@@ -315,7 +315,8 @@ const en = {
     cleanEnvFailed: 'Release resource failed',
     cleanEnvSuccess: 'Release resource Success',
     portRange: 'Range 30000-32000',
-    getReleaseDataFail: 'failed to get experience initialization information'
+    getReleaseDataFail: 'Failed to get experience initialization information',
+    getNodePortSuccess: 'Success to obtain service borrowing point information'
   },
   store: {
     advancedSearch: 'Advanced Search',
