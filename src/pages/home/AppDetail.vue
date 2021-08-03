@@ -839,7 +839,7 @@ export default {
         let tmpExperienceData = experienceInfo.data.split(':')
         console.log(tmpExperienceData)
         this.experienceData[0].serviceName = tmpExperienceData[0]
-        this.experienceData[0].nodePort = tmpExperienceData[1]
+        this.experienceData[0].nodePort = tmpExperienceData[1] === '' ? this.$t('promptMessage.uninvolved') : tmpExperienceData[1]
         this.experienceData[0].mecHost = tmpExperienceData[2]
         this.displayDom = true
       }
@@ -869,7 +869,7 @@ export default {
       let tmpExperienceData = experienceInfo.data.split(':')
       console.log(tmpExperienceData)
       this.experienceData[0].serviceName = tmpExperienceData[0]
-      this.experienceData[0].nodePort = tmpExperienceData[1]
+      this.experienceData[0].nodePort = tmpExperienceData[1] === '' ? this.$t('promptMessage.uninvolved') : tmpExperienceData[1]
       this.experienceData[0].mecHost = tmpExperienceData[2]
     },
     cleanTestEnv () {
