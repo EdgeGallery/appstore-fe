@@ -17,13 +17,21 @@
 <template>
   <div class="appModify">
     <el-dialog
-      :title="$t('myApp.appModify') + appModifyInfo.name"
       :visible.sync="dialogVisible"
       :before-close="handleClose"
       :close-on-click-modal="false"
       @close="clearForm"
-      width="40%"
     >
+      <div class="modify_header">
+        <span class="title_icon" />
+        <div
+          slot="title"
+          class="header-title"
+        >
+          {{ $t('myApp.appModify') + appModifyInfo.name }}
+        </div>
+      </div>
+
       <el-form
         :model="appModifyInfo"
         ref="form"
@@ -110,7 +118,7 @@
             :content="this.$t('store.limitition')"
             placement="right"
           >
-            <em class="el-icon-question" />
+            <em class="el-icon-warning" />
           </el-tooltip>
           <div
             class="el-form-error"
@@ -136,8 +144,9 @@
           >
             <el-button
               slot="trigger"
-              size="small"
+              size="big"
               type="primary"
+              class="app-upload"
               plain
             >
               {{ $t('store.uploadVideo') }}
@@ -147,8 +156,10 @@
               slot="tip"
             >
               <em class="el-icon-warning" />
-              {{ $t('store.onlyVideo') }}
-              {{ $t('store.videoSizeLimit') }}
+              <span class="warning-tip">
+                {{ $t('store.onlyVideo') }}
+                {{ $t('store.videoSizeLimit') }}
+              </span>
             </div>
           </el-upload>
         </el-form-item>
@@ -172,60 +183,67 @@
           :label="$t('common.description')"
         >
           <el-input
+            class="desc-input"
             id="appDescription"
+            type="textarea"
             v-model="appModifyInfo.shortDesc"
           />
         </el-form-item>
         <el-form-item
-          class="showType"
           :label="$t('common.appDisplay')"
         >
-          <div class="showTypeCheckbox">
+          <div class="showType">
             <el-checkbox-group
               v-model="appModifyInfo.checkboxList"
               @change="showTypeChange"
             >
               <el-checkbox label="innerPublic">
-                {{ $t('common.innerPublic') }}
+                <span class="warning-tip">
+                  {{ $t('common.innerPublic') }}
+                </span>
               </el-checkbox>
               <el-checkbox
                 label="public"
                 :disabled="appModifyInfo.isSelectInnerPublic=== true? false:true"
               >
-                {{ $t('common.public') }}
+                <span class="warning-tip">
+                  {{ $t('common.public') }}
+                </span>
               </el-checkbox>
             </el-checkbox-group>
           </div>
         </el-form-item>
         <el-form-item
-          class="showType"
           :label="$t('common.experienceable')"
         >
-          <div class="showTypeCheckbox">
+          <div class="experience-switch">
             <el-switch
               v-model="appModifyInfo.experienceAble"
-              active-color="#13ce66"
+              active-color="#61CDD0"
             />
             <div
               class="el-upload__tip"
               slot="tip"
             >
               <em class="el-icon-warning" />
-              {{ $t('store.tryAppTip') }}
+              <span class="warning-tip">
+                {{ $t('store.tryAppTip') }}
+              </span>
             </div>
           </div>
         </el-form-item>
       </el-form>
       <span
         slot="footer"
-        class="dialog-footer"
       >
         <el-button
           @click="handleClose"
+          class="footer-button"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
           type="primary"
           @click="confirmButtonAction"
+          class="footer-button"
         >{{ $t('common.confirm') }}</el-button>
       </span>
     </el-dialog>
@@ -592,8 +610,13 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" >
 .appModify {
+  .el-dialog{
+    width: 911px;
+    height: 635px;
+    border-radius: 20px;
+  }
   .app-icon{
     float: left;
     display: flex;
@@ -625,21 +648,16 @@ export default {
     z-index: 99;
   }
   .upIcon.active{
-    color: #409EFF;
+    color: #54C3D7;
   }
   .upload-demo{
     float: left;
     .el-button--primary{
-      background-color: #fff;
-      border-color: #688ef3;
+      background-color: #54C3D7;
+      border-radius: 20px;
       color: #688ef3;
       padding: 6px 20px;
       margin-top: 8px;
-    }
-    .el-icon-warning{
-      color: #688ef3;
-      margin-right: 5px;
-      font-size: 14px;
     }
     .el-upload{
       width: 34px;
@@ -647,6 +665,9 @@ export default {
       line-height: 34px;
       margin: 3px 15px 0 0;
       text-align: center;
+      background: #A59FC9;
+      color: #ffffff;
+      border: none;
     }
     .el-upload-list__item-preview{
       opacity: 0;
@@ -674,10 +695,88 @@ export default {
     margin: 0 15px 0 0;
   }
   .showType{
-    margin-top: -10px;
-    .showTypeCheckbox{
-      margin-top: 11px;
+    margin-top: 11px;
+    .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+      border-color: #54C3D7;
+      background-color:#54C3D7;
     }
+  }
+  .experience-switch{
+    margin-top: 5px;
+  }
+  .modify_header{
+    display: inline-flex;
+    margin-bottom: 20px;
+    .title_icon{
+      padding: 0 8px;
+      margin: 7px 5px 0px;
+      height: 16px;
+      background-image: linear-gradient(127deg, #54aaf3, #53dabd);
+    }
+    .header-title{
+      background: #EFEFEF;
+      margin-left: 10px;
+      color: #380879;
+      font-size: 20px;
+    }
+  }
+  .el-icon-warning{
+    color: #5844BE;
+    margin-right: 5px;
+    font-size: 12px;
+  }
+  .el-switch__core{
+    // active-color: #61CDD0 !important;
+  }
+  .el-dialog {
+    background: #EFEFEF;
+  }
+  .el-dialog__header {
+    background: #EFEFEF !important;
+    border-radius: 20px;
+  }
+  .el-form-item__label{
+    font-size: 16px;
+    color: #380879;
+  }
+  .el-form-item {
+    margin-bottom: 8px;
+    .app-upload{
+      background: #A59FC9;
+      border: none;
+      color: #FFFFFF;
+      width: 169px;
+      height: 36px;
+    }
+    .el-input__inner {
+      border-radius: 10px;
+      width: 656px;
+      color: #380879;
+    }
+    .el-input__suffix{
+      right: 79px;
+    }
+    .desc-input{
+      .el-textarea__inner {
+        height: 80px;
+        border-radius: 10px;
+        width: 656px;
+        color: #380879;
+      }
+    }
+  }
+  .warning-tip{
+    color: #380879;
+    font-size: 12px;
+  }
+  .footer-button{
+    background: #5844BE;
+    color: #FFFFFF;
+    border-radius: 10px;
+    border: none;
+  }
+  .el-dialog__body{
+    padding: 0px 20px 0 !important;
   }
 }
 </style>

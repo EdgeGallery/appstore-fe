@@ -118,7 +118,7 @@ a{
   cursor: pointer;
 }
 .padding56{
-  padding: 0 10%;
+  padding: 0 13%;
   padding-bottom: 25px;
   box-sizing: border-box;
 }
@@ -189,4 +189,57 @@ a{
   .bread-crumb{
     padding: 0 56px !important;
   }
+}
+.title_top{
+  padding: 60px 0 60px !important;
+  position: relative;
+}
+.title_left{
+  margin-left: 140px;
+  font-size: 36px;
+  color: #380879;
+}
+.defaultFontBlod{
+  font-family:defaultFontBlod, Arial, Helvetica, sans-serif;
+}
+.line_bot1{
+  display: block;
+  width: 88px;
+  height: 7px;
+  border-radius: 4px;
+  background: rgba(158, 123, 205, 0.2);
+  margin-top: 15px;
+  flex-shrink: 0;
+}
+.el-button.linearGradient{
+  background-image: linear-gradient(127deg, #54aaf3, #53dabd);
+  border: none;
+}
+.tableStyle.el-table th{
+  background: #edeef8;
+  font-size: 18px;
+  color: #62517a;
+  font-weight: normal;
+}
+.el-table__header-wrapper{
+  border-radius: 8px;
+}
+.tableStyle.el-table .cell {
+  padding: 0 0 0 30px !important;
+  word-wrap : break-word ;
+  word-break:keep-all;
+  max-height: 50px;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.tableStyle.el-table tbody td {
+  border-bottom: 2px solid #f5eeff;
+  padding: 10px 0 !important;
+}
+.tableStyle.el-table .el-button{
+  margin-bottom: 5px;
+  margin-right: 2px !important;
 }

@@ -498,8 +498,9 @@ const cn = {
     addApp: '添加外部仓库',
     modifyAppStore: '编辑外部仓库',
     provider: '供应商',
-    appModify: '应用修改',
-    getStatusFailed: '获取应用状态失败'
+    appModify: '修改',
+    getStatusFailed: '获取应用状态失败',
+    more: '更多'
   },
   report: {
     version: '版本',
