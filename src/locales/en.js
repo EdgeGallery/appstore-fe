@@ -471,8 +471,9 @@ const en = {
     addApp: 'Add External Warehouse',
     provider: 'Provider',
     modifyAppStore: 'Edit External Warehouse',
-    appModify: 'APP Modify',
-    getStatusFailed: 'failed to get app status'
+    appModify: 'Modify',
+    getStatusFailed: 'failed to get app status',
+    more: 'more'
   },
   report: {
     version: 'Version',

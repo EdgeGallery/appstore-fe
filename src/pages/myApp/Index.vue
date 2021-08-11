@@ -16,29 +16,37 @@
 
 <template>
   <div class="myApp padding56">
+    <div class="title_top title_left defaultFontBlod clear">
+      {{ $t('nav.myApp') }}
+      <span class="line_bot1" />
+      <el-button
+        class="checkTestTask_btn linearGradient"
+        id="myapp_checktest"
+        @click="jumpTo"
+      >
+        {{ $t('myApp.checkTest') }}
+      </el-button>
+    </div>
     <div class="myApp-content">
-      <div class="myApp-operArea">
-        <el-button
-          id="myapp_checktest"
-          type="primary"
-          class="rt"
-          @click="jumpTo"
-        >
-          {{ $t('myApp.checkTest') }}
-        </el-button>
-        <el-input
-          suffix-icon="el-icon-search"
-          v-model="nameQueryVal"
-          @change="queryApp"
-          :placeholder="$t('common.appName')"
-          class="search_input"
+      <el-input
+        v-model="nameQueryVal"
+        :placeholder="$t('common.appName')"
+        id="myAppSearch"
+        class="search_input"
+        @clear="queryApp"
+        @change="queryApp"
+      >
+        <em
+          slot="suffix"
+          class="search_icon"
+          @click="queryApp"
         />
-      </div>
+      </el-input>
       <div class="packageTable">
         <el-table
           v-loading="dataLoading"
           :data="currentPageData"
-          header-cell-class-name="headerStyle"
+          class="tableStyle"
           :default-sort="{ prop: 'createTime', order: 'descending' }"
           @sort-change="sortChange"
           @filter-change="filterChange"
@@ -47,7 +55,7 @@
             prop="name"
             :label="$t('common.appName')"
             sortable="custom"
-            width="210"
+            width="160"
             :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
@@ -69,12 +77,12 @@
           <el-table-column
             prop="provider"
             :label="$t('common.provider')"
-            width="120"
+            width="90"
           />
           <el-table-column
             prop="version"
             :label="$t('common.version')"
-            width="120"
+            width="80"
           />
           <el-table-column
             prop="type"
@@ -84,12 +92,12 @@
           <el-table-column
             prop="affinity"
             :label="$t('common.architecture')"
-            width="140"
+            width="70"
           />
           <el-table-column
             prop="deployMode"
             :label="$t('store.workloadType')"
-            width="80"
+            width="120"
           >
             <template slot-scope="scope">
               {{ scope.row.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
@@ -98,7 +106,7 @@
           <el-table-column
             prop="createTime"
             :label="$t('common.uploadTime')"
-            width="160"
+            width="140"
             sortable="custom"
           />
           <el-table-column
@@ -125,55 +133,109 @@
           </el-table-column>
           <el-table-column
             :column-key="'status'"
-            prop="status"
-            width="130"
+            width="150"
+            class="status-choose"
             :label="$t('myApp.status')"
             :filters="[{text: 'Upload', value: 'Upload'}, {text: 'Test_created', value: 'Test_created'}, {text: 'Test_running', value: 'Test_running'}, {text: 'Test_waiting', value: 'Test_waiting'},{text: 'Test_failed', value: 'Test_failed'}, {text: 'Test_success', value: 'Test_success'}, {text: 'Published', value: 'Published'}]"
             :filtered-value="filterValue.status"
-          />
-          <el-table-column
-            fixed="right"
-            :label="$t('myApp.operation')"
-            width="220"
           >
             <template slot-scope="scope">
-              <el-button
-                @click="getDetail(scope.row)"
-                type="text"
-              >
-                {{ $t('common.detail') }}
-              </el-button>
-              <span class="buttonRight" />
-              <el-button
-                :disabled="scope.row.status == 'Published'"
-                @click="testMessage(scope.row)"
-                type="text"
-              >
-                {{ $t('myApp.test') }}
-              </el-button>
-              <span class="buttonRight" />
-              <el-button
-                :disabled="scope.row.status !== 'Test_success'"
-                @click="publishPackage(scope.row)"
-                type="text"
-              >
-                {{ $t('myApp.publish') }}
-              </el-button>
-              <span class="buttonRight" />
-              <el-button
-                @click="appModify(scope.row)"
-                type="text"
-              >
-                {{ $t('common.appModify') }}
-              </el-button>
-              <span class="buttonRight" />
-              <el-button
-                :disabled="scope.row.status == 'Test_running' || scope.row.status == 'Test_waiting'"
-                @click="getDelete(scope.row)"
-                type="text"
-              >
-                {{ $t('common.delete') }}
-              </el-button>
+              <em
+                v-if="scope.row.status==='Upload'"
+                class="upload"
+              />
+              <em
+                v-if="scope.row.status==='Test_created'"
+                class="test_created"
+              />
+              <em
+                v-if="scope.row.status==='Test_running'"
+                class="test_running"
+              />
+              <em
+                v-if="scope.row.status==='Test_waiting'"
+                class="test_waiting"
+              />
+              <em
+                v-if="scope.row.status==='Test_failed'"
+                class="test_failed"
+              />
+              <em
+                v-if="scope.row.status==='Test_success'"
+                class="test_success"
+              />
+              <em
+                v-if="scope.row.status==='Published'"
+                class="published"
+              />
+              <span v-if="scope.row.status==='Upload'">Upload</span>
+              <span v-if="scope.row.status==='Test_created'">Test_created</span>
+              <span v-if="scope.row.status==='Test_running'">Test_running</span>
+              <span v-if="scope.row.status==='Test_waiting'">Test_waiting</span>
+              <span v-if="scope.row.status==='Test_failed'">Test_failed</span>
+              <span v-if="scope.row.status==='Test_success'">Test_success</span>
+              <span v-if="scope.row.status==='Published'">Published</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label="$t('myApp.operation')"
+            width="200"
+          >
+            <template slot-scope="scope">
+              <div>
+                <el-button
+                  class="operation_button"
+                  @click="getDetail(scope.row)"
+                  type="text"
+                >
+                  {{ $t('common.detail') }}
+                </el-button>
+                <el-button
+                  class="operation_button"
+                  @click="appModify(scope.row)"
+                  type="text"
+                >
+                  {{ $t('common.appModify') }}
+                </el-button>
+                <el-dropdown>
+                  <el-button
+                    class="operation_button"
+                    type="text"
+                  >
+                    {{ $t('myApp.more') }}<i class="el-icon-arrow-down el-icon--right" />
+                  </el-button>
+                  <el-dropdown-menu
+                    slot="dropdown"
+                    class="drop-menu"
+                    size="mini"
+                  >
+                    <el-dropdown-item
+                      class="operation_button"
+                      :disabled="scope.row.status !== 'Test_success'"
+                      @click.native="publishPackage(scope.row)"
+                      type="text"
+                    >
+                      {{ $t('myApp.publish') }}
+                    </el-dropdown-item>
+                    <el-dropdown-item
+                      class="operation_button"
+                      :disabled="scope.row.status == 'Published'"
+                      @click.native="testMessage(scope.row)"
+                      type="text"
+                    >
+                      {{ $t('myApp.test') }}
+                    </el-dropdown-item>
+                    <el-dropdown-item
+                      class="operation_button"
+                      :disabled="scope.row.status == 'Test_running' || scope.row.status == 'Test_waiting'"
+                      @click.native="getDelete(scope.row)"
+                      type="text"
+                    >
+                      {{ $t('common.delete') }}
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </div>
             </template>
           </el-table-column>
           <template slot="empty">
@@ -321,7 +383,6 @@ export default {
           labelCn: '已发布'
         }
       ]
-
     }
   },
   methods: {
@@ -634,41 +695,100 @@ export default {
 </script>
 <style lang='less'>
 .myApp {
+  .checkTestTask_btn{
+    position: absolute;
+    right: 0;
+    bottom: 30px;
+    height: 50px;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 25px;
+    padding: 0 35px;
+  }
   .myApp-content {
-    background: white;
-    margin-top: 95px;
-    padding: 20px;
-    // height: calc(100% - 10px);
-    .myApp-operArea {
-      height: 40px;
-      .el-button{
-        float: left;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px 60px;
+    .search_input {
+      float: left;
+      width: 200px;
+      .el-input__inner {
+        border: 1px solid #380879;
+        border-radius: 8px;
       }
-      .search_input{
-        float: right;
-        width: 200px;
+      .search_icon{
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background: url('../../assets/images/work_project_search_icon.png');
+        position: relative;
+        top: 5px;
+        cursor: pointer;
+        margin-right: 5px;
       }
     }
     .packageTable{
-      margin: 20px 0;
-      .headerStyle{
-        background: #e1e7f5;
-        color: #575d6c;
-        border-right: 2px solid #fff;
-        padding: 0;
-        height: 40px;
-        line-height: 40px;
-      }
+      margin: 50px 0;
       .el-table td{
         padding: 0;
         height: 60px;
         max-height: 60px;
         line-height: 60px;
       }
-      .buttonRight{
-        padding: 0 1px;
-        margin: 0 5px;
-        background: #dfe1e6;
+      .operation_button{
+        padding: 5px !important;
+        background: #efefef;
+        border: none;
+        color: #7a6e8a;
+        border-radius: 3px;
+        margin-left: 5px;
+      }
+      em {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        margin-right: 6px;
+        position: relative;
+        top: 3px;
+      }
+      .upload {
+        background: url('../../assets/images/status_upload.png') no-repeat;
+        background-size: cover;
+      }
+      .test_created {
+        background: url('../../assets/images/Test-created.png') no-repeat;
+        background-size: cover;
+      }
+      .test_running {
+        background: url('../../assets/images/Test-running.png') no-repeat;
+        background-size: cover;
+      }
+      .test_waiting {
+        background: url('../../assets/images/Test-waiting.png') no-repeat;
+        background-size: cover;
+      }
+      .test_failed {
+        background: url('../../assets/images/Test-failed.png') no-repeat;
+        background-size: cover;
+      }
+      .test_success {
+        background: url('../../assets/images/Test-success.png') no-repeat;
+        background-size: cover;
+      }
+      .published {
+        background: url('../../assets/images/Published.png') no-repeat;
+        background-size: cover;
+      }
+      .drop-menu{
+        width: 50px;
+        height: 200px;
+        background-color: #EFEFEF !important;
+      }
+      .status-choose{
+        .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+          border-color: #54C3D7;
+          background-color:#54C3D7 !important;
+        }
       }
     }
   }
