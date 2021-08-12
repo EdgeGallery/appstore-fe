@@ -340,6 +340,7 @@ const en = {
     uploadVideo: 'Upload Demo Video',
     appstore: 'App Store',
     appShare: 'App Share',
+    limitition: 'Please upload a file in .jpg or .png format, or select the default application icon, and the size does not exceed 2M',
     appPackage: 'App Package',
     dragPackage: 'Drag App package files here orclick to upload',
     onlyCsar: 'Can only upload .csar files.',
