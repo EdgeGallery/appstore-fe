@@ -55,7 +55,7 @@
             prop="name"
             :label="$t('common.appName')"
             sortable="custom"
-            width="160"
+            width="135"
             :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
@@ -82,22 +82,22 @@
           <el-table-column
             prop="version"
             :label="$t('common.version')"
-            width="80"
+            width="85"
           />
           <el-table-column
             prop="type"
             :label="$t('common.type')"
-            width="150"
+            width="100"
           />
           <el-table-column
             prop="affinity"
             :label="$t('common.architecture')"
-            width="70"
+            width="125"
           />
           <el-table-column
             prop="deployMode"
             :label="$t('store.workloadType')"
-            width="120"
+            width="145"
           >
             <template slot-scope="scope">
               {{ scope.row.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
@@ -106,13 +106,14 @@
           <el-table-column
             prop="createTime"
             :label="$t('common.uploadTime')"
-            width="140"
+            width="145"
             sortable="custom"
           />
           <el-table-column
             prop="shortDesc"
             :label="$t('common.description')"
             :cell-class-name="hiddenClass"
+            width="120"
           >
             <template slot-scope="scope">
               <el-popover
@@ -133,8 +134,7 @@
           </el-table-column>
           <el-table-column
             :column-key="'status'"
-            width="150"
-            class="status-choose"
+            width="125"
             :label="$t('myApp.status')"
             :filters="[{text: 'Upload', value: 'Upload'}, {text: 'Test_created', value: 'Test_created'}, {text: 'Test_running', value: 'Test_running'}, {text: 'Test_waiting', value: 'Test_waiting'},{text: 'Test_failed', value: 'Test_failed'}, {text: 'Test_success', value: 'Test_success'}, {text: 'Published', value: 'Published'}]"
             :filtered-value="filterValue.status"
@@ -179,7 +179,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('myApp.operation')"
-            width="200"
+            width="210"
           >
             <template slot-scope="scope">
               <div>
@@ -783,12 +783,6 @@ export default {
         width: 50px;
         height: 200px;
         background-color: #EFEFEF !important;
-      }
-      .status-choose{
-        .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
-          border-color: #54C3D7;
-          background-color:#54C3D7 !important;
-        }
       }
     }
   }

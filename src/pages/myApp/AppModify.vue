@@ -186,6 +186,7 @@
             class="desc-input"
             id="appDescription"
             type="textarea"
+            resize="none"
             v-model="appModifyInfo.shortDesc"
           />
         </el-form-item>

@@ -225,7 +225,6 @@ a{
   border-radius: 8px;
 }
 .tableStyle.el-table .cell {
-  padding: 0 0 0 30px !important;
   word-wrap : break-word ;
   word-break:keep-all;
   max-height: 50px;
@@ -242,4 +241,16 @@ a{
 .tableStyle.el-table .el-button{
   margin-bottom: 5px;
   margin-right: 2px !important;
+}
+.tableStyle.el-table .sort-caret.ascending {
+  border-bottom-color: #B5E8E9;
+}
+.tableStyle.el-table .ascending .sort-caret.ascending {
+  border-bottom-color: #61CDD0;
+}
+.tableStyle.el-table .sort-caret.descending {
+  border-top-color: #B5E8E9;
+}
+.tableStyle.el-table .descending .sort-caret.descending {
+  border-top-color: #61CDD0;
 }
