@@ -17,6 +17,7 @@
 <template>
   <div
     class="wrapper"
+    id="aaa"
   >
     <el-carousel
       indicator-position="outside"
