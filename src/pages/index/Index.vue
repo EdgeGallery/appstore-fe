@@ -335,6 +335,7 @@
                 <img
                   :src="item.imgSrc"
                   alt=""
+                  @click="jumpToAppList"
                 >
                 <p>{{ item.title }}</p>
               </div>
@@ -345,7 +346,8 @@
                 v-show="!showApp"
               >
                 <img
-                  :src="item.iconUrl"
+                  :src="getImageUrl(item.appId)"
+                  @click="jumpToDetai(item)"
                   alt=""
                 >
                 <p>{{ item.name }}</p>
@@ -883,6 +885,9 @@ export default {
           this.appData = res.data.results
           if (this.appData.length === 0) {
             this.showApp = true
+          } else if (this.appData.length > 0 && this.appData.length < 6) {
+            this.showApp = false
+            this.appData = this.getRandomArrayElements(this.appData, this.appData.length)
           } else {
             this.showApp = false
             this.appData = this.getRandomArrayElements(this.appData, 6)
@@ -1084,7 +1089,7 @@ export default {
       img{
         margin-top: 10px;
         width: 66.7%;
-        height: 120px;
+        height: 42.2%;
       }
       .high_name{
         font-size: 16px;
@@ -1311,6 +1316,9 @@ export default {
                 width: 8%;
                 height: 110px;
                 margin-right: 30px;
+                img:hover{
+                  cursor: pointer;
+                }
                 img{
                     width: 100%;
                     height: 60px;
@@ -1380,7 +1388,7 @@ export default {
       img{
         margin-top: 10px;
         width: 66.7%;
-        height: 70px;
+        height: 42.2%;
       }
       .el-rate {
           height: 14px;
