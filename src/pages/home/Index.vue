@@ -205,6 +205,7 @@ import appgridLogo from '@/assets/images/appgrid.png'
 import applistLogo from '@/assets/images/applist.png'
 import HomeSwiper from '../../components/common/Swipers.vue'
 import timeFormatTools from '../../tools/timeFormatTools.js'
+import { common } from '../../tools/comon.js'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
   name: 'Home',
@@ -244,6 +245,7 @@ export default {
       total: 0,
       prop: 'createTime',
       order: 'desc',
+      screenHeight: document.body.clientHeight,
       searchCondition: {
         appName: '',
         types: [],
@@ -263,6 +265,9 @@ export default {
     }
   },
   methods: {
+    setDivHeight () {
+      common.setDivHeightFun(this.screenHeight, 'home', 332)
+    },
     ifFromDetail () {
       let fromPath = sessionStorage.getItem('fromPath') || ''
       if (fromPath === '/detail') {
@@ -506,6 +511,7 @@ export default {
     }
   },
   mounted () {
+    this.setDivHeight()
     if (sessionStorage.getItem('userNameRole') === 'guest') {
       this.ifShow = false
     }

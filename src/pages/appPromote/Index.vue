@@ -20,7 +20,7 @@
       :image-url="bannerImg"
     />
     <eg-bread-crumb :data="breadCrumbData" />
-    <div class="padding56">
+    <div class="padding56 contents">
       <div class="my-app-content">
         <div class="batchProm">
           <el-input
@@ -260,6 +260,7 @@
 
 <script>
 import { TTYPES } from '../../tools/constant.js'
+import { common } from '../../tools/comon.js'
 import { myAppStore } from '../../tools/api.js'
 import appStoreGrid from './AppStoreGrid.vue'
 import EgBanner from 'eg-view/src/components/EgBanner.vue'
@@ -275,6 +276,7 @@ export default {
   },
   data () {
     return {
+      screenHeight: document.body.clientHeight,
       pointNum: 5,
       tableData: [],
       userId: '',
@@ -306,6 +308,9 @@ export default {
     }
   },
   methods: {
+    setDivHeight () {
+      common.setDivHeightFun(this.screenHeight, 'contents', 616)
+    },
     sizeChange (val) {
       this.curPageSize = val
     },
@@ -479,6 +484,7 @@ export default {
     }
   },
   mounted () {
+    this.setDivHeight()
     this.userId = sessionStorage.getItem('userId')
     this.getAppPackageData()
     this.updateBreadCrumbData()

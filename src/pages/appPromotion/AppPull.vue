@@ -16,10 +16,10 @@
 
 <template>
   <div class="app-pull padding56">
-    <div class="app-pull-content">
+    <div class="app-pull-content ">
       <div class="pull_container">
         <div
-          class="pullNoData"
+          class="pullNoData contents"
           v-if="appStoreList.length < 1"
         >
           <img
@@ -27,10 +27,10 @@
             alt="a"
           >
           <p class="noData-prompt">
-            {{ $t('appPull.haveNoPullData') }}<a
+            {{ $t('appPull.haveNoPullData') }} <a
               @click="jumpToApppromote"
               class="noData-prompt-alink"
-            >{{ $t('appPull.addApppromote') }}</a>
+            > {{ $t('appPull.addApppromote') }} </a>
           </p>
         </div>
         <template>
@@ -86,6 +86,7 @@
 <script>
 import appPullResultDlg from './AppPullResultDlg.vue'
 import AppStoreDetail from './AppStoreDetail'
+import { common } from '../../tools/comon.js'
 import { promProviderInfo } from '../../tools/api.js'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
@@ -95,6 +96,7 @@ export default {
   },
   data () {
     return {
+      screenHeight: document.body.clientHeight,
       allSelectionsApp: [],
       isShowDialog: false,
       appPullResultData: [],
@@ -114,6 +116,9 @@ export default {
     }
   },
   methods: {
+    setDivHeight () {
+      common.setDivHeightFun(this.screenHeight, 'contents', 332)
+    },
     jumpToApppromote () {
       this.$router.push('/apppromote')
     },
@@ -180,6 +185,7 @@ export default {
     }
   },
   mounted () {
+    this.setDivHeight()
     this.getProviders()
   }
 }

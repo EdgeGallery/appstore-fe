@@ -307,6 +307,7 @@ export default {
 
 }
 .leftMsg{
+  min-height:802px ;
   width: 25%;
   background: #ffffff;
   float: left;
@@ -379,6 +380,7 @@ export default {
 .rightMsg {
   float: left;
   width: 75%;
+  min-height:802px ;
   height: 100%;
   background: #FFFFFF;
   padding:25px 35px;

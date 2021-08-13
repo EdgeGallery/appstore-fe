@@ -224,7 +224,6 @@ body, html{
   height: 100%;
 }
 .works {
-  margin-top: 65px;
   .banner-image {
   width: 100%;
   position: relative;

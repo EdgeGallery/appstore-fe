@@ -43,8 +43,8 @@
           mode="horizontal"
           :unique-opened="true"
           router
-          text-color="#fff"
-          background-color="#282b33"
+          text-color="#C8BDEF"
+          background-color="#5e40c8"
           active-text-color="#6c92fa"
           :default-active="activeIndex"
         >
@@ -140,7 +140,11 @@
             class="curp"
             @click="logout()"
             v-if="ifGuest"
-          >{{ $t('nav.login') }}</span>
+          ><img
+            src="../../assets/images/icon_user.png"
+            alt=""
+            class="iconUser"
+          ></span>
           <span
             class="curp"
             @click="beforeLogout"
@@ -150,7 +154,10 @@
             @click="changeLanguage"
             class="curp"
           >
-            {{ getLanguage }}
+            <img
+              :src="flag== true ? require('@/assets/images/icon_en.png'): require('@/assets/images/icon_cn.png')"
+              class="iconLanguage"
+            >
           </span>
         </div>
         <div
@@ -207,6 +214,7 @@ export default {
   data () {
     return {
       language: 'cn',
+      flag: true,
       list: [
         {
           labelEn: 'Home',
@@ -371,8 +379,10 @@ export default {
     changeLanguage () {
       if (this.language === 'cn') {
         this.language = 'en'
+        this.flag = false
       } else {
         this.language = 'cn'
+        this.flag = true
       }
       localStorage.setItem('language', this.language)
       this.$i18n.locale = this.language
@@ -571,7 +581,7 @@ export default {
 .headerComp {
   height: 65px;
   color: white;
-  background: #282b33;
+  background: #5E40C8;
   position: fixed;
   z-index: 9999;
   width: 100%;
@@ -596,20 +606,28 @@ export default {
       .el-menu--horizontal>.el-menu-item {
         height: 65px;
         line-height: 65px;
-        font-size: 18px;
-        font-weight: 700;
+        font-size: 14px;
+        font-weight: 100;
         margin-right: 0px;
         vertical-align: bottom;
       }
       .el-submenu__title {
-        font-size: 18px;
-        font-weight: 700;
+        font-size: 14px;
+        font-weight: 100;
       }
       .el-menu--horizontal>.el-submenu .el-submenu__title {
         height: 65px;
         line-height: 65px;
     }
     }
+  .iconUser{
+        width: 24px;
+        height: 24px;
+      }
+  .iconLanguage{
+        width: 24px;
+        height: 24px;
+  }
   .nav-tabs {
     padding-right: 20px;
     //height: 65px;
@@ -622,6 +640,10 @@ export default {
       display: inline-block;
       padding: 0 6px;
       font-size: 14px;
+      display: flex;
+      height: 65px;
+      justify-content: center;
+      align-items: center;
     }
     .menu{
       display: none;
@@ -648,7 +670,7 @@ export default {
     .countStyleBig{
       color: #FFFFF2;
       font-size: 10px;
-      transform: translateY(-170%)
+      transform: translateY(-170%);
     }
   }
   .popUp{
@@ -681,6 +703,12 @@ export default {
       font-size: 16px;
     }
   }
+}
+.el-menu--horizontal > .el-menu-item.is-active {
+     color: #fff !important;
+}
+.el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
+    color: #fff !important;
 }
   @media only screen and (max-width: 991px){
     .nav-tabs{

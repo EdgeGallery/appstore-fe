@@ -27,30 +27,33 @@
         v-for="item in SwiperList"
         :key="item.id"
       >
-        <img
-          class="swiper-image"
-          :src="language === 'cn'?item.imgUrl:item.imgUrlEN"
-          alt=""
-        >
+        <div
+          class="banner_img"
+          :style="'background:url('+item.imgUrl+') center center'"
+        />
         <div
           class="home_text"
           :class="item.style"
         >
-          <p class="tit">
-            {{ $t('common.bannerTitle') }}
-          </p>
-          <p class="info">
-            {{ $t('common.bannerWord') }}
-          </p>
-          <p class="info">
-            {{ $t('common.bannerWord1') }}
-          </p>
+          <img
+            :src="language === 'cn' ? require('@/assets/images/banner1_cn.png'): require('@/assets/images/banner1_en.png')"
+            class="img_words"
+          >
           <el-button
             class="upload_app"
             @click="uploadPackage"
           >
             <em />{{ $t('store.uploadApp') }}
           </el-button>
+        </div>
+        <div
+          class="home_text"
+          :class="item.style2"
+        >
+          <img
+            :src="language === 'cn' ? require('@/assets/images/banner2_cn.png'): require('@/assets/images/banner2_en.png')"
+            class="img_words"
+          >
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -65,9 +68,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import missPic from '@/assets/images/missPic.png'
-import missPicEN from '@/assets/images/missPicEN.png'
 import uploadPackage from '../../pages/home/UploadPackage.vue'
+import { common } from '../../tools/comon.js'
 export default {
   name: 'HomeSwiper',
   components: {
@@ -77,29 +79,34 @@ export default {
   computed: {
     ...mapState(['language'])
   },
+  created () {
+  },
   data () {
     return {
       uploadDiaVis: false,
-      missPic: missPic,
-      missPicEN: missPicEN,
+      screenHeight: document.body.clientHeight,
       SwiperList: [
         {
           id: '0001',
-          imgUrl: require('../../assets/images/home_banner.png'),
-          imgUrlEN: require('../../assets/images/home_banner.png'),
-          style: 'block'
-
+          imgUrl: require('../../assets/images/banner1.png'),
+          style: 'block',
+          style2: 'none'
         },
         {
           id: '0002',
-          imgUrl: require('../../assets/images/missPic.png'),
-          imgUrlEN: require('../../assets/images/missPicEN.png'),
-          style: 'none'
-
+          imgUrl: require('../../assets/images/banner2.png'),
+          style: 'none',
+          style2: 'block'
         }]
     }
   },
+  mounted () {
+    this.setDivHeight()
+  },
   methods: {
+    setDivHeight () {
+      common.setDivHeightFun(this.screenHeight, 'el-carousel__container', 65)
+    },
     uploadPackage () {
       let userName = sessionStorage.getItem('userNameRole')
       if (userName === 'guest') {
@@ -114,9 +121,10 @@ export default {
 
 <style lang="less">
 .wrapper{
-  height: 330px;
+
   position: relative;
   .banner{
+      overflow: hidden;
     .home_text{
       position: absolute;
       top: 50px;
@@ -128,45 +136,26 @@ export default {
     .home_text.block{
       display: block;
     }
-    .tit{
-      font-size: 40px;
-      margin-bottom: 30px;
-    }
-    .info{
-      font-size: 20px;
-      margin-bottom: 5px;
-    }
     .upload_app{
-      border: 2px solid #9163cc;
+      height: 40px;
+      background: linear-gradient(-37deg, #53DABD, #54AAF3);
+      border-radius: 30px;
       color: #606266;
       border-radius: 15px;
       font-size: 16px;
-      padding: 6px 20px;
-      margin-top: 30px;
-      em{
-        display: inline-block;
-        width: 25px;
-        height: 25px;
-        background: url('../../assets/images/home_banner_upload_icon.png') center center no-repeat;
-        background-size: contain;
-        position: relative;
-        top: 7px;
-        margin-right: 7px;
-      }
-      span{
-        display: inline-block;
-        height: 30px;
-        line-height: 30px;
-        position: relative;
-        top: -5px;
-      }
+      text-align: center;
+      color: #FFFFFF;;
+      border: none;
+      margin: 80px 0px 0px 70px;
     }
   }
-  .el-carousel__container{
-    height: 330px;
+  .img_words{
+      width:80%;margin-top:200px;margin-left:60px;display:block
   }
   img{
-    width: 100%;
+    height: 100%;
+  }
+  .banner_img{
     height: 100%;
   }
   .el-carousel__item{
@@ -189,4 +178,17 @@ export default {
       background-color: #d3dce6;
     }
   }
+  .el-carousel__indicators--outside {
+    position: relative;
+    top: -100px;
+    left: -600px;
+}
+ @media (max-width: 1688px) and (min-width: 1200px){
+   .wrapper {
+    .img_words{
+        width:55%;margin-top:200px;margin-left:60px;display:block
+    }
+    }
+  }
+
 </style>
