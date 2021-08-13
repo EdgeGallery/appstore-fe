@@ -693,7 +693,7 @@ export default {
   }
 }
 </script>
-<style lang='less' >
+<style lang='less'>
 .myApp {
   .checkTestTask_btn{
     position: absolute;
