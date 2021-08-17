@@ -544,14 +544,14 @@ export default {
     min-width: 120px;
   }
   .users{
-    width: 27%;
+    width: 30%;
     min-width: 324px;
   }
 }
   .logo {
     height: 65px;
     width: 100%;
-    line-height: 65px;
+    margin-left: -12px;
     img {
       height: 65px;
       width: 100%;

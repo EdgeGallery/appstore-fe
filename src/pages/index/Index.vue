@@ -663,6 +663,8 @@ export default {
       }
     },
     dialogDetil (item) {
+      this.appData = []
+      console.log(this.appData)
       this.dialogVisible = true
       this.dialog_datas = item
       this.dialog_type = item.industry
@@ -859,25 +861,13 @@ export default {
         })
     },
     getDialogApp () {
-      this.appData = ''
-      let queryCtrl = {
-        appName: '',
-        type: '',
-        affinity: [],
-        industry: this.dialog_type,
-        status: 'Published',
-        deployMode: [],
-        workloadType: [],
-        userId: '',
+      let params = {
         queryCtrl: {
           offset: 0,
           limit: 1000,
           sortItem: '',
-          sortType: ''
-        }
-      }
-      let params = {
-        queryCtrl: queryCtrl,
+          sortType: '' },
+        industry: [this.dialog_type],
         showType: ['inner-public', 'public'],
         status: 'Published'
       }
@@ -894,6 +884,7 @@ export default {
             this.appData = this.getRandomArrayElements(this.appData, 6)
           }
         })
+      console.log(this.appData)
     },
     getAppData () {
       getAppTableApi(this.buildQueryReq()).then(
@@ -1149,7 +1140,6 @@ export default {
     width: 73.54%;
     margin-left:13.23%;
     margin-right: 13.23%;
-    background:#fff;
     .case_data{
         height:520px;
         width: 100%;
@@ -1157,7 +1147,7 @@ export default {
         justify-content: space-around;
         align-items: center;
       .oneCase:hover{
-        transform: scale( 1.1);
+        transform: scale( 1.05);
         transition: all 0.5s;
         cursor: pointer;
       }
@@ -1173,7 +1163,7 @@ export default {
            border-radius: 8px 8px 0px 0px;
         }
         .case_name{
-          margin: 20px 16px 0 20px;
+          margin: 36px 16px 0px 20px;
           display: flex;
           justify-content: space-between;
           .case_name1{
@@ -1190,19 +1180,19 @@ export default {
           }
         }
      .case_content{
-            margin: 0 20px 0 20px;
-            font-size: 16px;
-            font-family: HarmonyOS Sans SC;
-            font-weight: 400;
-            height: 80px;
-            line-height: 26px;
-            width: 90%;
-            color: #666666;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
-            overflow: hidden;
-            text-overflow: ellipsis;
+          margin: 0px 20px;
+          font-size: 16px;
+          font-family: HarmonyOS Sans SC;
+          font-weight: 400;
+          height: 60px;
+          line-height: 30px;
+          width: 90%;
+          color: #666666;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
@@ -1422,7 +1412,6 @@ export default {
     width: 73.54%;
     margin-left:13.23%;
     margin-right: 13.23%;
-    background:#fff;
     .case_data{
         height:360px;
         width: 100%;
@@ -1430,7 +1419,7 @@ export default {
         justify-content: space-around;
         align-items: center;
       .oneCase:hover{
-        transform: scale( 1.1);
+        transform: scale( 1.05);
         transition: all 0.5s;
         cursor: pointer;
       }
@@ -1446,7 +1435,7 @@ export default {
            border-radius: 8px 8px 0px 0px;
         }
         .case_name{
-          margin: 20px 16px 0 20px;
+          margin: 36px 16px 18px 20px;
           display: flex;
           justify-content: space-between;
           .case_name1{
@@ -1460,13 +1449,13 @@ export default {
           .case_name2{
             width: 24px;
             height: 24px;
-            margin-top: 6px;
+            margin-top: 2px;
           }
         }
      .case_content{
             font-size: 14px;
-            line-height: 20px;
-            height: 60px;
+            line-height: 26px;
+            height: 52px;
         }
       }
     }
