@@ -664,7 +664,6 @@ export default {
     },
     dialogDetil (item) {
       this.appData = []
-      console.log(this.appData)
       this.dialogVisible = true
       this.dialog_datas = item
       this.dialog_type = item.industry
@@ -884,7 +883,6 @@ export default {
             this.appData = this.getRandomArrayElements(this.appData, 6)
           }
         })
-      console.log(this.appData)
     },
     getAppData () {
       getAppTableApi(this.buildQueryReq()).then(
@@ -894,8 +892,8 @@ export default {
             return a.score < b.score ? 1 : -1
           })
           this.scoreHighestDataBe = []
-          if (data.length >= 8) {
-            for (let i = 0; i <= 7; i++) {
+          if (data.length >= 6) {
+            for (let i = 0; i <= 5; i++) {
               this.scoreHighestDataBe.push(data[i])
             }
           } else {
