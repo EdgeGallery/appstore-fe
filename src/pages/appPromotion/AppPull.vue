@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="app-pull padding56">
+  <div class="app-pull pullApp">
     <div class="app-pull-content ">
       <div class="pull_container">
         <div
@@ -33,7 +33,20 @@
             > {{ $t('appPull.addApppromote') }} </a>
           </p>
         </div>
-        <template>
+        <div class="btn_select">
+          <div
+            class="batch_pull"
+            v-if="appStoreList.length > 0"
+          >
+            <el-button
+              type="primary"
+              class="pullBtn"
+              :disabled="btnChangeEnable"
+              @click="showPullAppDialog"
+            >
+              {{ $t("appPull.batchPull") }}
+            </el-button>
+          </div>
           <el-select
             v-if="appStoreList.length > 0"
             v-model="activeAppStore"
@@ -48,20 +61,7 @@
               @click.native="getSelectAppstoreData(item)"
             />
           </el-select>
-        </template>
-        <div
-          class="batch_pull"
-          v-if="appStoreList.length > 0"
-        >
-          <el-button
-            type="primary"
-            :disabled="btnChangeEnable"
-            @click="showPullAppDialog"
-          >
-            {{ $t("appPull.batchPull") }}
-          </el-button>
         </div>
-
         <div v-if="hackReset">
           <AppStoreDetail
             @getAppPullInfo="getAppPullInfo"
@@ -117,7 +117,7 @@ export default {
   },
   methods: {
     setDivHeight () {
-      common.setDivHeightFun(this.screenHeight, 'contents', 332)
+      common.setDivHeightFun(this.screenHeight, 'pull_container', 332)
     },
     jumpToApppromote () {
       this.$router.push('/apppromote')
@@ -193,20 +193,37 @@ export default {
 </script>
 
 <style lang="less">
-.app-pull {
+.pullApp {
+  width: 100%;
+  margin-bottom: -100px;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  min-height: 800px;
   .app-pull-content {
+    width: 73.64%;
+    margin: 61px 13.18%;
+    min-width: 1200px;
+
     .pull_container {
       background: white;
       padding: 20px;
       .selectStyle{
         width: 260px;
-        float: left;
+        float:right;
+        margin-top: 43px;
       }
+      .btn_select{
       .batch_pull {
         margin-bottom: 15px;
         margin-top: 5px;
         margin-left: 10px;
-        float: left;
+        float: right;
+        .pullBtn{
+          height:40px;
+          margin-top: 38px;
+        }
+      }
       }
       .el-tabs__nav-scroll{
         display: flex;
@@ -266,5 +283,22 @@ export default {
       }
     }
   }
+}
+   .el-input__inner {
+    border-color: #5E40C8 !important;
+    height: 40px;
+}
+ .el-select__caret{
+  color: #5E40C8 !important;
+}
+  .el-select-dropdown.is-multiple .el-select-dropdown__item.selected.hover {
+    background-color: #9374FF !important;
+}
+ .search_input .el-input__icon {
+ color: #9374FF !important;
+}
+ .el-button--primary.is-disabled, .el-button--primary.is-disabled:hover, .el-button--primary.is-disabled:focus, .el-button--primary.is-disabled:active {
+    background-color:  #5E40C8  !important;
+    border-color:  #5E40C8 !important;
 }
 </style>

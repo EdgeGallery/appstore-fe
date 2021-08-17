@@ -18,7 +18,7 @@
   <div class="my-app pushApp">
     <div class="my-app-content contents">
       <p class="pushTitle">
-        应用推送
+        {{ $t("nav.appPush") }}
       </p>
       <div class="app-list">
         <div class="batchProm">
@@ -539,5 +539,8 @@ div /deep/ .el-table::before {
 div /deep/ .el-table::before, .el-table--group::after, .el-table--border::after {
     background-color: none  !important;
 
+}
+div /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color:#5E40C8 !important;
 }
 </style>

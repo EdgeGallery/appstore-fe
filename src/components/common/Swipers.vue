@@ -137,7 +137,8 @@ export default {
       display: block;
     }
     .upload_app{
-      height: 40px;
+      height: 48px;
+      width: 135px;
       background: linear-gradient(-37deg, #53DABD, #54AAF3);
       border-radius: 30px;
       color: #606266;
