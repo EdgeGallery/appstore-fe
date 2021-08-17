@@ -15,9 +15,21 @@
   -->
 
 <template>
-  <div class="my-app padding56">
+  <div class="my-app pushApp">
     <div class="my-app-content contents">
+      <p class="pushTitle">
+        应用推送
+      </p>
       <div class="app-list">
+        <div class="batchProm">
+          <el-button
+            type="primary"
+            :disabled="btnChangeEnable"
+            @click="showPushAppDialog"
+          >
+            {{ $t("apppromotion.batchPro") }}
+          </el-button>
+        </div>
         <template>
           <el-select
             multiple
@@ -40,16 +52,6 @@
             />
           </el-select>
         </template>
-        <div class="batchProm">
-          <el-button
-            type="primary"
-            :disabled="btnChangeEnable"
-            @click="showPushAppDialog"
-          >
-            {{ $t("apppromotion.batchPro") }}
-          </el-button>
-        </div>
-
         <div class="search_input">
           <el-input
             suffix-icon="el-icon-search"
@@ -427,36 +429,50 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.my-app {
+.pushApp {
+  width: 100%;
+  margin-bottom: -100px;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
   .my-app-content {
-    background: white;
-    padding: 20px;
-    .paginationStyle{
-      float: right;
-      margin-top: -20px;
+    width: 73.64%;
+    margin: 61px 13.18%;
+    min-width: 1200px;
+    .pushTitle{
+      font-size: 26px;
+      font-family: HarmonyHeiTi;
+      font-weight: 600;
+      color: #5E40C8;
+      line-height: 24px;
     }
   }
+  .paginationStyle{
+    float: right;
+  }
 }
+
 .app-list {
   background:#fff;
-  padding: 20px;
+  padding: 31px;
+
   .el-table {
     font-size: 14px;
   }
-  padding: 20px 0;
   .batchProm {
     margin-bottom: 15px;
-    margin-top: 5px;
     margin-left: 10px;
-    float: left;
+    float: right;
   }
   .search_input{
     width: 200px;
-    float: right;
+    float: left;
+    color: #999999;
   }
   .selectStyle{
     width: 260px;
-    float: left;
+    color: #333333;
+    float: right;
     margin-bottom: 10px;
   }
   .appPromPackageTable{
@@ -470,5 +486,58 @@ export default {
       color:#409eff;
     }
   }
+}
+ div /deep/   .el-input__inner {
+    border-color: #5E40C8 !important;
+}
+div /deep/ .el-select__caret{
+  color: #5E40C8 !important;
+}
+div /deep/  .el-select-dropdown.is-multiple .el-select-dropdown__item.selected.hover {
+    background-color: #9374FF !important;
+}
+div /deep/ .search_input .el-input__icon {
+ color: #9374FF !important;
+}
+div /deep/ .el-button--primary.is-disabled, .el-button--primary.is-disabled:hover, .el-button--primary.is-disabled:focus, .el-button--primary.is-disabled:active {
+    background-color:  #5E40C8  !important;
+    border-color:  #5E40C8 !important;
+}
+div /deep/ .el-button--primary {
+     background-color:  #5E40C8  !important;
+    border-color:  #5E40C8 !important;
+    height: 40px;
+}
+
+div /deep/ .headerStyle {
+     border-right: none !important;
+     background-color: #EDEEF8 !important;
+     color: #62517A !important;
+}
+div /deep/ .el-checkbox__input.is-disabled .el-checkbox__inner {
+    background-color:#61CDD0  !important;
+    border-color:#61CDD0  !important;
+}
+div /deep/ .el-checkbox__inner:after {
+    border-color: #fff !important;
+}
+div /deep/ .el-table .descending .sort-caret.descending {
+    border-top-color: #61CDD0 !important;
+}
+div /deep/.el-table .sort-caret.ascending {
+    border-bottom-color: #B5E8E9 !important;
+}
+div /deep/ .el-table .sort-caret.descending {
+    border-top-color: #B5E8E9 !important;
+}
+div /deep/ .el-table .ascending .sort-caret.ascending {
+    border-bottom-color:  #61CDD0 !important;
+}
+div /deep/ .el-table::before {
+     height: 0px !important;
+}
+div /deep/ .el-table::before, .el-table--group::after, .el-table--border::after {
+    background-color: none  !important;
+
 }
 </style>

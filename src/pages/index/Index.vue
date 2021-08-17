@@ -859,6 +859,7 @@ export default {
         })
     },
     getDialogApp () {
+      this.appData = ''
       let queryCtrl = {
         appName: '',
         type: '',
@@ -1231,6 +1232,7 @@ export default {
               font-family: HarmonyOS Sans SC;
               font-weight: 400;
               color: #380879;
+              margin-bottom: 10px;
             }
             img:hover{
               cursor: pointer;
@@ -1293,6 +1295,7 @@ export default {
                         background-color:#6625CA ;
                         border-radius:8px ;
                         font-family: HarmonyOS Sans SC;
+                        margin-top: 10px;
                       }
                     }
                 }
@@ -1526,7 +1529,7 @@ export default {
                     .content_tags{
                       font-size: 14px;
                       .dialog_label{
-                        margin-top:-10px ;
+                        margin-top:6px ;
                         margin-right:6px ;
                         min-width: 50px;
                         text-align: center;
