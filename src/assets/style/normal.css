@@ -27,6 +27,9 @@ html,body,p,h1,h2,h3,h4,h5,h6{
   margin:0;
   padding:0;
 }
+ul{
+  margin-bottom: 0 !important;
+}
 
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,acronym,
 address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,b,
@@ -146,6 +149,7 @@ a{
   height: 32px;
   line-height: 32px;
   min-width: 200px;
+  border-color: #5e40c8;
 }
 .search_input .el-input__icon{
   line-height: 32px;
