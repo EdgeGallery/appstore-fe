@@ -18,7 +18,7 @@
   <div class="app-pull">
     <div>
       <p class="pushTitle">
-        {{ $t("nav.appPush") }}
+        {{ $t("nav.appPull") }}
       </p>
       <div class="packageTable">
         <div

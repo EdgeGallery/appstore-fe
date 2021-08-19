@@ -192,7 +192,7 @@ export default {
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .pullApp {
   width: 100%;
   margin-bottom: -100px;
