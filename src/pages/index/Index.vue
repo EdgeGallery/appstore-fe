@@ -251,19 +251,21 @@
             :src="item.imgSrc"
             alt=""
           >
-          <div class="case_name">
-            <p class="case_name1">
-              {{ item.title }}
+          <div :class="{'addHeight':language==='en'}">
+            <div class="case_name">
+              <p class="case_name1">
+                {{ item.title }}
+              </p>
+              <img
+                src="../../assets/images/case_name2.png"
+                alt=""
+                class="case_name2"
+              >
+            </div>
+            <p class="case_content">
+              {{ item.content }}
             </p>
-            <img
-              src="../../assets/images/case_name2.png"
-              alt=""
-              class="case_name2"
-            >
           </div>
-          <p class="case_content">
-            {{ item.content }}
-          </p>
         </div>
       </div>
       <div class="more">
@@ -990,12 +992,11 @@ export default {
       border-radius:50% ;
     }
   }
-
   .home_more:hover{
     cursor: pointer;
     color: #5d3da0;
     border:1px solid #5d3da0 ;
-    background-color: #f4f1ff;
+    background-color: rgb(239, 230, 240);
   }
   .home_more{
       width: 148px;
@@ -1145,13 +1146,23 @@ export default {
         justify-content: space-around;
         align-items: center;
       .oneCase:hover{
-        transform: scale( 1.05);
+        transform: scale( 1.02);
         transition: all 0.5s;
         cursor: pointer;
       }
+     .oneCase:hover .addHeight{
+        border-top-left-radius:30px ;
+        border-top-right-radius:30px ;
+        transform: translateY(-80px);
+        background-color: #fff;
+        padding-top: 10px;
+     }
+      .oneCase:hover .case_content{
+        height: 120px;
+      }
       .oneCase{
         width: 28%;
-        height: 520px;
+        height: 500px;
         background: #FFFFFF;
         box-shadow: 0px 30px 50px 0px rgba(66, 36, 157, 0.15);
         border-radius: 4px;
@@ -1161,7 +1172,7 @@ export default {
            border-radius: 8px 8px 0px 0px;
         }
         .case_name{
-          margin: 36px 16px 0px 20px;
+          padding: 36px 16px 0px 20px;
           display: flex;
           justify-content: space-between;
           .case_name1{
@@ -1187,10 +1198,8 @@ export default {
           width: 90%;
           color: #666666;
           display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
           overflow: hidden;
-          text-overflow: ellipsis;
+
         }
       }
     }
@@ -1361,7 +1370,7 @@ export default {
      .high_score{
       display: flex;
       width: 100%;
-      height: 180px;
+      height: 160px;
       justify-content: space-between;
     .high_data:hover{
       box-shadow: 0px 30px 50px 0px rgba(66, 36, 157, 0.15);
@@ -1370,16 +1379,13 @@ export default {
     }
     .high_data{
       width: 12.7%;
-      height: 180px;
+      height: 160px;
       display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
       border-radius: 10px;
       img{
         margin-top: 10px;
         width: 66.7%;
-        height: 42.2%;
+        height: 44.2%;
       }
       .el-rate {
           height: 14px;
@@ -1402,10 +1408,6 @@ export default {
     }
   }
     .senceCase{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     height: 911px;
     width: 73.54%;
     margin-left:13.23%;
@@ -1414,12 +1416,8 @@ export default {
         height:360px;
         width: 100%;
         display: flex;
-        justify-content: space-around;
-        align-items: center;
-      .oneCase:hover{
-        transform: scale( 1.05);
-        transition: all 0.5s;
-        cursor: pointer;
+      .oneCase:hover .case_content{
+        height: 150px;
       }
       .oneCase{
         width: 28%;
@@ -1433,7 +1431,7 @@ export default {
            border-radius: 8px 8px 0px 0px;
         }
         .case_name{
-          margin: 36px 16px 18px 20px;
+          margin-bottom: 6px;
           display: flex;
           justify-content: space-between;
           .case_name1{
@@ -1553,8 +1551,18 @@ export default {
         }
     }
   }
-  }
 
+  }
+   @media (max-width: 1800px) and (min-width: 1400px) {
+       .high_score .high_data {
+    height: 221px;
+      img{
+        margin-top: 10px;
+        width: 66.7%;
+        height: 39.2%;
+      }
+    }
+   }
 }
 
 </style>

@@ -140,6 +140,7 @@ export default {
       height: 48px;
       width: 135px;
       background: linear-gradient(-37deg, #53DABD, #54AAF3);
+      box-shadow: 0px 12px 12px 0px rgba(83,218,189, 0.7);
       border-radius: 30px;
       color: #606266;
       border-radius: 15px;

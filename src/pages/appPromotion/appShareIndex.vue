@@ -243,6 +243,7 @@ export default {
       }
       .introduce_button:hover{
         cursor: pointer;
+        background-color: rgb(239, 230, 240);
       }
     }
     .intronduce_img{
@@ -252,8 +253,9 @@ export default {
       justify-content: center;
       align-items: center;
       img{
-        width: 60%;
-        height: 50%;
+        width: 55%;
+        height: 60%;
+        min-width: 360px;
       }
     }
   }
@@ -261,7 +263,7 @@ export default {
     .intronduce_img{
       margin-left: -10%;
       img{
-        height: 65%;
+        height: 60%;
       }
     }
   }
