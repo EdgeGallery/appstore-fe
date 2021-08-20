@@ -195,10 +195,10 @@ export default {
 <style lang="less" scoped>
 .pullApp {
   width: 100%;
+  margin-top:48px;
   margin-bottom: -100px;
   display: flex;
   justify-content: center;
-  background-color: #fff;
   min-height: 800px;
   .app-pull-content {
     width: 73.64%;
@@ -206,17 +206,18 @@ export default {
     min-width: 1200px;
 
     .pull_container {
+      border-radius:16px ;
       background: white;
-      padding: 20px;
+      padding: 31px;
       .selectStyle{
         width: 260px;
         float:right;
-        margin-top: 43px;
+        margin-top: 2px;
       }
       .btn_select{
       .batch_pull {
         margin-bottom: 15px;
-        margin-top: 5px;
+        margin-top: -36px;
         margin-left: 10px;
         float: right;
         .pullBtn{
@@ -284,7 +285,7 @@ export default {
     }
   }
 }
-   .el-input__inner {
+.el-input__inner {
     border-color: #5E40C8 !important;
     height: 40px;
 }

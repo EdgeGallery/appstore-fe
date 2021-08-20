@@ -17,108 +17,94 @@
 <template>
   <div class="app-grid">
     <div
-      class="curp content lm-rm-15"
+      class="application"
       v-for="(item, index) in appData"
       :key="index"
       :id="item.appStoreId"
     >
-      <div
-        class="application"
-      >
-        <div class="img-box">
-          <img
-            style="height: 100px;"
-            :src="require(`@/assets/images/liantong_store.png`)"
-            alt
-            v-if="item.appdTransId.indexOf('联通') > -1"
-          >
-          <img
-            style="height: 100px;"
-            :src="require(`@/assets/images/logo.png`)"
-            alt
-            v-else-if="item.appdTransId.indexOf('社区') > -1"
-          >
-          <img
-            style="height: 100px;"
-            :src="require(`@/assets/images/yidong_store.png`)"
-            alt
-            v-else-if="item.appdTransId.indexOf('移动') > -1"
-          >
-          <img
-            style="height: 100px;"
-            :src="require(`@/assets/images/dianxin_store.png`)"
-            alt
-            v-else-if="item.appdTransId.indexOf('电信') > -1"
-          >
-          <img
-            style="height: 100px;"
-            :src="require(`@/assets/images/appStoreDefault.svg`)"
-            alt
-            v-else-if="item.appdTransId.indexOf('联通') < 0 && item.appdTransId.indexOf('社区') < 0 && item.appdTransId.indexOf('移动') < 0 && item.appdTransId.indexOf('电信') < 0"
-          >
-          <img
-            :src="require(`@/assets/images/underlineOfstoreImg.png`)"
-            alt=""
-          >
-        </div>
-        <div class="intr">
-          <div class="type-size">
-            <div class="type">
-              {{ $t('common.appStoreName') }}
-            </div>
-            <div class="size">
-              {{ item.appStoreName?item.appStoreName:'' }}
-            </div>
+      <div class="img-box">
+        <img
+          :src="require(`@/assets/images/liantong_store.png`)"
+          alt
+          v-if="item.appdTransId.indexOf('联通') > -1"
+        >
+        <img
+          :src="require(`@/assets/images/logo.png`)"
+          alt
+          v-else-if="item.appdTransId.indexOf('社区') > -1"
+        >
+        <img
+          :src="require(`@/assets/images/yidong_store.png`)"
+          alt
+          v-else-if="item.appdTransId.indexOf('移动') > -1"
+        >
+        <img
+          :src="require(`@/assets/images/dianxin_store.png`)"
+          alt
+          v-else-if="item.appdTransId.indexOf('电信') > -1"
+        >
+        <img
+          :src="require(`@/assets/images/appStoreDefault.svg`)"
+          alt
+          v-else-if="item.appdTransId.indexOf('联通') < 0 && item.appdTransId.indexOf('社区') < 0 && item.appdTransId.indexOf('移动') < 0 && item.appdTransId.indexOf('电信') < 0"
+        >
+      </div>
+      <div class="intr">
+        <div class="type-size">
+          <div class="type">
+            {{ $t('common.appStoreName') }}:
           </div>
-          <p class="type-size">
-            <span class="type">
-              {{ $t('common.appStoreVersion') }}
-            </span>
-            <span class="size">
-              {{ item.appStoreVersion?item.appStoreVersion:'' }}
-            </span>
-          </p>
-          <p class="type-size">
-            <span class="type">
-              {{ $t('common.company') }}
-            </span>
-            <span class="size">
-              {{ item.company?item.company:'' }}
-            </span>
-          </p>
-          <p class="type-size">
-            <span class="type">
-              {{ $t('common.appdTransId') }}
-            </span>
-            <span class="size">
-              {{ item.appdTransId? item.appdTransId : '' }}
-            </span>
-          </p>
-          <p class="type-size">
-            <span class="type">
-              {{ $t('common.description') }}
-            </span>
-            <el-tooltip
-              v-if="item.description && item.description.length > 20"
-              effect="light"
-              :content="item.description"
-              placement="top"
-            >
-              <span class="size">{{ item.description?item.description:'' }}</span>
-            </el-tooltip>
-            <span
-              class="size"
-              v-else
-            >
-              {{ item.description?item.description:'' }}
-            </span>
-          </p>
+          <div class="size">
+            {{ item.appStoreName?item.appStoreName:'' }}
+          </div>
         </div>
-        <el-button-group class="no-display">
+        <p class="type-size">
+          <span class="type">
+            {{ $t('common.appStoreVersion') }}:
+          </span>
+          <span class="size">
+            {{ item.appStoreVersion?item.appStoreVersion:'' }}
+          </span>
+        </p>
+        <p class="type-size">
+          <span class="type">
+            {{ $t('common.company') }}:
+          </span>
+          <span class="size">
+            {{ item.company?item.company:'' }}
+          </span>
+        </p>
+        <p class="type-size">
+          <span class="type">
+            {{ $t('common.appdTransId') }}:
+          </span>
+          <span class="size">
+            {{ item.appdTransId? item.appdTransId : '' }}
+          </span>
+        </p>
+        <p class="type-size">
+          <span class="type">
+            {{ $t('common.description') }}:
+          </span>
+          <el-tooltip
+            v-if="item.description && item.description.length > 20"
+            effect="light"
+            :content="item.description"
+            placement="top"
+          >
+            <span class="size">{{ item.description?item.description:'' }}</span>
+          </el-tooltip>
+          <span
+            class="size"
+            v-else
+          >
+            {{ item.description?item.description:'' }}
+          </span>
+        </p>
+        <div class="btns">
           <el-button
             type="primary"
             plain
-            icon="el-icon-edit"
             @click="handleEdit(item)"
           >
             {{ $t('common.modifyApp') }}
@@ -126,12 +112,11 @@
           <el-button
             type="primary"
             plain
-            icon="el-icon-delete"
             @click="handleDelete(item)"
           >
             {{ $t('common.delete') }}
           </el-button>
-        </el-button-group>
+        </div>
       </div>
     </div>
   </div>
@@ -171,97 +156,86 @@ export default {
 .no-display {
   display: none;
 }
-.lm-rm-15 {
-  margin: 0 15px;
+p{
+  margin: 0;
 }
 .app-grid {
   display: flex;
-  margin: 20px -15px;
+  justify-content:flex-start;
+  align-items: center;
   flex-wrap: wrap;
-  .content {
-    width: calc(25% - 30px);
-    box-sizing: border-box;
-    padding-bottom: 20px;
+  width: 100%;
+  padding-left: 3.04%;
+  .application:hover .intr{
+        transform: translateY(0px);
+        cursor: pointer;
+        overflow: visible;
+        height: 280px;
+        z-index: 100;
+        padding-top: 30px;
+  }
+    .application:hover .img-box{
+        display: none;
+  }
     .application {
+     border-radius: 8px ;
+      height: 280px;
+      width: 22.2%;
+      margin-top: 40px;
       border: 1px solid #e6e6e6;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
-      transition: transform 0.3s ease-in;
       background: #fafafa;
-      .img-box {
-        box-sizing: border-box;
-        text-align: center;
+      margin-right: 2.5%;
+      .img-box{
+        height: 170px;
+        width: 100%;
+        img{
+          width: 51%;
+          height:75px;
+          margin: 50px  24.5%;
+        }
+      }
+      .intr{
+        width: 100%;
+        padding: 0 30px;
+        overflow:hidden;
+        background-color: #fff;
+        .type-size{
+          display: flex;
+          .type{
+            font-size: 14px;
+            font-family: HarmonyHeiTi;
+            font-weight: 300;
+            color: #380879;
+            line-height: 35px;
+            margin-right: 20px;
+            min-width: 70px;
+          }
+          .size{
+            font-size: 16px;
+            font-family: HarmonyHeiTi;
+            font-weight: bolder;
+            color: #380879;
+            line-height: 35px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+      .btns {
         width: 100%;
         display: flex;
-        flex-direction: inherit;
-        padding: 10px 0 5px 0;
-        img {
-          width: 50%;
-          display: block;
-          margin: 0 auto;
-        }
-      }
-      .intr {
-        width: 100%;
-        padding: 14px 32px;
-        h4 {
-          line-height: 34px;
-        }
-      p {
-        color: black;
-        line-height: 28px;
-      }
-      span {
-        display: inline-block;
-        height: 28px;
-      }
-      .name {
-        text-align: left;
-        .app-name {
-          width: 75%;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          font-size: 22px;
-        }
-        .app-version {
-          font-size: 14px;
-          color: #999999;
-        }
-      }
-      .type-size {
-        line-height: 28px;
-        text-align: left;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .type {
-          text-align: left;
-          width: 57%;
-          display: inline-block;
-          color: #949494
-        }
-        .size {
-          width: 70%;
-          padding-left: 10px;
-          display: inline-block;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-      }
-      .core {
-        display: flex;
-        align-items: center;
-        }
-      }
-      .el-button-group {
-        width: 100%;
+        justify-content:center;
+        margin-top: 20px;
         .el-button {
-          width: 50%;
+          width: 31%;
+          height: 30px;
           border: 1px solid #e6e6e6;
+          padding: 0;
         }
         .el-button.is-plain:focus {
           color: #688ef3!important;
@@ -271,14 +245,10 @@ export default {
     .application:hover{
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
       background-color: #fff;
-      .no-display {
-        display: block;
-        margin-top: -32px;
-        opacity: 0.8;
-      }
+
     }
   }
-}
+
 @media screen and (max-width:1890px) {
   .content{
     width: calc(33.33% - 30px)!important;

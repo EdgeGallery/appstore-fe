@@ -15,7 +15,10 @@
   -->
 
 <template>
-  <div class="my-app padding56">
+  <div class="my-app">
+    <p class="operTitle">
+      {{ $t("nav.operAna") }}
+    </p>
     <div class="chart-content">
       <div
         class="analyseAnaNoData"
@@ -85,7 +88,7 @@
             v-model="nameQuery"
             @change="queryApp"
             :placeholder="$t('common.appName')"
-            class="search_input"
+            class="search_input topSearch"
           />
         </div>
         <el-table
@@ -98,14 +101,14 @@
           <el-table-column
             prop="name"
             :label="$t('apppromotion.appName')"
-            width="300"
+            width="200"
             sortable="custom"
             :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
                 placement="bottom"
-                width="300"
+                width="200"
                 trigger="hover"
                 v-if="scope.row.name.length>20"
               >
@@ -135,13 +138,13 @@
           <el-table-column
             prop="description"
             :label="$t('apppromotion.description')"
-            width="300"
+            width="280"
             :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
                 placement="bottom"
-                width="300"
+                width="280"
                 trigger="hover"
                 v-if="scope.row.description.length>20"
               >
@@ -158,7 +161,7 @@
           <el-table-column
             prop="time"
             :label="$t('apppromotion.dateTime')"
-            width="210"
+            width="180"
             sortable="custom"
           />
           <el-table-column
@@ -237,8 +240,10 @@
           </p>
         </div>
       </el-drawer>
+    </div>
+    <div class="paginations">
       <eg-pagination
-        class="rt"
+        class="pagination"
         :page-num="pageNum"
         :page-size="curPageSize"
         :page-sizes="pageSizes"
@@ -960,117 +965,76 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .my-app {
+  width: 100%;
+  .operTitle{
+    font-size: 26px;
+    font-family: HarmonyHeiTi;
+    font-weight: 600;
+    color: #5E40C8;
+    margin-left: 13.18%;
+    margin-top:61px ;
+  }
   .chart-content{
-    background: #F2F3F5;
-    height: 700px;
-    width: 1416px;
+    width: 73.64%;
     margin: auto;
+    min-width: 1200px;
+    background: #F2F3F5;
     .analyseAna{
       width: 100%;
-      height: 750px;
       background: #F2F3F5;
       display: inline-block;
-      overflow-x: auto;
-      overflow-y: hidden;
-      text-align: center;
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
       .levelTop{
-        width: 1416px;
+        width: 100% ;
         height: 375px;
-        margin: auto;
-        .mychartDiv1{
-          height: 375px;
-          width: 693px;
-          display: inline-block;
-          .mychart{
-            height: 325px;
-            background: #FFFFFF;
-            margin: auto;
-          }
-          .chartDesc{
-            width: 500px;
-            height: 30px;
-            margin: auto;
-            margin-top: 10px;
-            .desc-font{
-              font-size: 14px;
-              color: #B2B2B2;
-            }
-          }
-        }
-        .mychartDiv2{
-          height: 375px;
-          width: 693px;
-          display: inline-block;
-          margin-left: 30px;
-          .mychart{
-            height: 325px;
-            background: #FFFFFF;
-            margin: auto;
-          }
-          .chartDesc{
-            width: 500px;
-            height: 30px;
-            margin: auto;
-            margin-top: 10px;
-            .desc-font{
-              font-size: 14px;
-              color: #B2B2B2;
-            }
-          }
-        }
+        display: flex;
+        justify-content: space-between;
+
       }
       .levelBottom{
-        width: 1416px;
+        width: 100% ;
         height: 375px;
-        margin: auto;
-        .mychartDiv1{
-          height: 375px;
-          width: 693px;
-          display: inline-block;
-          .mychart{
-            height: 325px;
-            background: #FFFFFF;
-            margin: auto;
-          }
-          .chartDesc{
-            width: 500px;
+        display: flex;
+        justify-content: space-between;
+
+      }
+      .chartDesc{
+            width: 100%;
             height: 30px;
             margin: auto;
+            text-align: center;
             margin-top: 10px;
             .desc-font{
               font-size: 14px;
               color: #B2B2B2;
             }
+        }
+      .mychartDiv1{
+          width: 48%;
+          height: 375px;
+          .mychart{
+            width: 100%;
+            height: 325px;
+            background: #FFFFFF;
           }
         }
         .mychartDiv2{
-          height: 375px;
-          width: 693px;
-          display: inline-block;
-          margin-left: 30px;
+          width: 48%;
+          height: 325px;
           .mychart{
-            height: 325px;
+            width: 100%;
+            height: 100%;
             background: #FFFFFF;
-            margin: auto;
-          }
-          .chartDesc{
-            width: 500px;
-            height: 30px;
-            margin: auto;
-            margin-top: 10px;
-            .desc-font{
-              font-size: 14px;
-              color: #B2B2B2;
-            }
           }
         }
-      }
     }
     .analyseAnaNoData{
       width: 100%;
-      height: 400px;
+      height: 471px;
       text-align: center;
       line-height: 25px;
     }
@@ -1078,11 +1042,22 @@ export default {
   .my-app-content {
     background: white;
     padding: 20px;
-    width: 1416px;
+    width: 73.64%;
     margin: auto;
+    min-width: 1200px;
   }
-  .pagination {
-    margin: 20px;
+  .paginations {
+    width:73.64%;
+    height: 60px;
+    margin: auto;
+    min-width: 1200px;
+    background-color: #fff;
+    position: relative;
+    .pagination{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    }
   }
 }
 .app-list {
@@ -1094,9 +1069,9 @@ export default {
     margin: 20px;
   }
   .searchRow {
-    margin: 15px 0;
+    margin-bottom: 25px ;
     .search_input{
-      float: right;
+      float: left;
       width: 200px;
     }
   }
@@ -1162,5 +1137,44 @@ export default {
     text-align: left;
     padding-right: 10px;
   }
+}
+div /deep/ .topSearch{
+      height: 40px;
+}
+div /deep/ .el-input__inner {
+    border-color: #5E40C8 !important;
+}
+
+div /deep/ .search_input .el-input__icon {
+ color: #9374FF !important;
+}
+div /deep/ .headerStyle {
+     border-right: none !important;
+     background-color: #EDEEF8 !important;
+     color: #62517A !important;
+}
+div /deep/ .el-table .descending .sort-caret.descending {
+    border-top-color: #61CDD0 !important;
+}
+div /deep/.el-table .sort-caret.ascending {
+    border-bottom-color: #B5E8E9 !important;
+}
+div /deep/ .el-table .sort-caret.descending {
+    border-top-color: #B5E8E9 !important;
+}
+div /deep/ .el-table .ascending .sort-caret.ascending {
+    border-bottom-color:  #61CDD0 !important;
+}
+div /deep/ .el-table::before {
+     height: 0px !important;
+}
+div /deep/ .el-table::before, .el-table--group::after, .el-table--border::after {
+    background-color: none  !important;
+}
+div /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color:#5E40C8 !important;
+}
+div /deep/ .el-table td .cell {
+     color: #7A6E8A;
 }
 </style>

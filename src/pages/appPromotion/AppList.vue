@@ -16,7 +16,7 @@
 
 <template>
   <div class="my-app pushApp">
-    <div class="my-app-content contents">
+    <div class="my-app-content">
       <p class="pushTitle">
         {{ $t("nav.appPush") }}
       </p>
@@ -158,15 +158,15 @@
             :prom-store-list="promStoreList"
           />
         </div>
+        <eg-pagination
+          class="paginationStyle"
+          :page-num="pageNum"
+          :page-size="pageSize"
+          :total="total"
+          @sizeChange="sizeChange"
+          @currentChange="currentChange"
+        />
       </div>
-      <eg-pagination
-        class="paginationStyle"
-        :page-num="pageNum"
-        :page-size="pageSize"
-        :total="total"
-        @sizeChange="sizeChange"
-        @currentChange="currentChange"
-      />
     </div>
   </div>
 </template>
@@ -434,13 +434,15 @@ export default {
   margin-bottom: -100px;
   display: flex;
   justify-content: center;
-  background-color: #fff;
   .my-app-content {
+    min-height: 500px;
     width: 73.64%;
     margin: 61px 13.18%;
     min-width: 1200px;
+
     .pushTitle{
       font-size: 26px;
+      margin-bottom: 30px;
       font-family: HarmonyHeiTi;
       font-weight: 600;
       color: #5E40C8;
@@ -448,14 +450,17 @@ export default {
     }
   }
   .paginationStyle{
-    float: right;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
   }
 }
 
 .app-list {
   background:#fff;
   padding: 31px;
-
+  position: relative;
+  border-radius:16px ;
   .el-table {
     font-size: 14px;
   }

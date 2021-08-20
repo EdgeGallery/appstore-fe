@@ -16,7 +16,7 @@
 
 <template>
   <div class="app-pull">
-    <div>
+    <div class="contents">
       <p class="pushTitle">
         {{ $t("nav.appPull") }}
       </p>
@@ -269,17 +269,19 @@ export default {
 </script>
 
 <style lang="less" scoped>
+  .contents{
+          position: relative;
+            min-height: 750px;
+  }
   .pushTitle{
       font-size: 26px;
       font-family: HarmonyHeiTi;
       font-weight: 600;
       color: #5E40C8;
       line-height: 24px;
-      margin:-24px 0  62px -20px ;
+      margin:-84px 0  48px -31px ;
   }
 .packageTable{
-  margin: 20px 0 40px 0;
-  min-height: 550px;
   .el-table thead{
     th {
       background-color: #eee;
@@ -287,18 +289,20 @@ export default {
   }
   .search_pull {
     margin-bottom: 15px;
-    margin-top: -20px;
+    margin-top: 0px;
     float:left;
     .search_input{
       width: 200px;
       float: right;
-      margin-bottom: 10px;
+      margin-top: -2px;
     }
   }
 }
 .paginationStyle{
-  float: right;
-  margin-bottom: 0px;
+    position: absolute;
+    right: 20px;
+    bottom: 0px;
+
 }
 .search_input /deep/ .el-input__inner {
     height: 40px !important;
