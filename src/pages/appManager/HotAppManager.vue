@@ -29,7 +29,7 @@
       <el-table
         v-loading="dataLoading"
         :data="currentPageData"
-        header-cell-class-name="headerStyle"
+        class="tableStyle"
         :default-sort="{ prop: 'createTime', order: 'descending' }"
         @sort-change="sortChange"
         @filter-change="filterChange"
@@ -86,8 +86,8 @@
               :active-value="1"
               :inactive-value="0"
               @change="switchChange($event, scope.$index, scope.row)"
-              active-color="#688EF3"
-              inactive-color="#C1C1C1"
+              active-color="#55D8BF"
+              inactive-color="#CECCDC"
             />
           </template>
         </el-table-column>
@@ -252,26 +252,20 @@ export default {
 .hotAppManager {
   width: 1416px;
   margin: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 31px 0 0 31px;
   .clearbtAndSearch{
     height: 40px;
-    margin-top: 10px;
     margin-bottom: 10px;
     .search_input{
-      float: right;
+      float: left;
       width: 200px;
       margin-right: 30px;
     }
   }
   .hotAppManagerTable{
     margin-right: 30px;
-    .headerStyle{
-      background: #e1e7f5;
-      color: #575d6c;
-      border-right: 2px solid #fff;
-      padding: 0;
-      height: 40px;
-      line-height: 40px;
-    }
     .el-table td{
       padding: 0;
       height: 60px;
