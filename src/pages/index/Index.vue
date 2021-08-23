@@ -38,6 +38,7 @@
           >
         </el-tooltip>
       </li>
+      <li class="lines" />
       <li class="li2">
         <el-tooltip
           class="item"
@@ -53,6 +54,7 @@
           >
         </el-tooltip>
       </li>
+      <li class="lines" />
       <li class="li3">
         <el-tooltip
           class="item"
@@ -88,6 +90,7 @@
           >
         </el-tooltip>
       </li>
+      <li class="lines" />
       <li class="li2">
         <el-tooltip
           class="item"
@@ -103,6 +106,7 @@
           >
         </el-tooltip>
       </li>
+      <li class="lines" />
       <li class="li3">
         <el-tooltip
           class="item"
@@ -138,6 +142,7 @@
           >
         </el-tooltip>
       </li>
+      <li class="lines" />
       <li class="li2">
         <el-tooltip
           class="item"
@@ -153,6 +158,7 @@
           >
         </el-tooltip>
       </li>
+      <li class="lines" />
       <li class="li3">
         <el-tooltip
           class="item"
@@ -174,59 +180,63 @@
     </div>
     <!-- Near Hot app -->
     <div
-      class="score"
-      id="nearHotApp"
-      ref="pronbit"
+      class="hot_background"
     >
-      <div class="titles">
-        <h3>
-          {{ $t('store.newUploadApp') }}
-        </h3>
-        <p class="lines" />
-      </div>
       <div
-        class="hot_data"
-        v-loading="newAppDataLoading"
+        class="score"
+        id="nearHotApp"
+        ref="pronbit"
       >
+        <div class="titles">
+          <h3>
+            {{ $t('store.newUploadApp') }}
+          </h3>
+          <p class="lines" />
+        </div>
         <div
-          v-for="(item,index) in newAppData"
-          :key="index"
-          class="hotApp_bg"
-          v-show="showDefaultData"
+          class="hot_data"
+          v-loading="newAppDataLoading"
         >
-          <img
-            :src="item.imgSrc"
-            alt=""
+          <div
+            v-for="(item,index) in newAppData"
+            :key="index"
+            class="hotApp_bg"
+            v-show="showDefaultData"
+          >
+            <img
+              :src="item.imgSrc"
+              alt=""
+              @click="jumpToAppList"
+            >
+            <p class="high_name">
+              {{ item.name }}
+            </p>
+          </div>
+          <div
+            v-for="(item,index) in newAppDataBe"
+            :key="index"
+            class="hotApp_bg"
+            v-show="!showDefaultData"
+          >
+            <img
+              :src="getImageUrl(item.appId)"
+              alt=""
+              @click="jumpToDetai(item)"
+            >
+            <p class="high_name">
+              {{ item.name }}
+            </p>
+          </div>
+        </div>
+        <div class="more">
+          <p
+            class="home_more"
+            :underline="false"
             @click="jumpToAppList"
           >
-          <p class="high_name">
-            {{ item.name }}
+            {{ $t('store.viewMore') }}
           </p>
         </div>
-        <div
-          v-for="(item,index) in newAppDataBe"
-          :key="index"
-          class="hotApp_bg"
-          v-show="!showDefaultData"
-        >
-          <img
-            :src="getImageUrl(item.appId)"
-            alt=""
-            @click="jumpToDetai(item)"
-          >
-          <p class="high_name">
-            {{ item.name }}
-          </p>
-        </div>
-      </div>
-      <div class="more">
-        <p
-          class="home_more"
-          :underline="false"
-          @click="jumpToAppList"
-        >
-          {{ $t('store.viewMore') }}
-        </p>
       </div>
     </div>
     <!-- Sence Case -->
@@ -365,7 +375,7 @@
       id="highScoreApp"
     >
       <div class="titles">
-        <h3>
+        <h3 class="highScoreTitle">
           {{ $t('store.higherScore') }}
         </h3>
         <p class="lines" />
@@ -984,6 +994,12 @@ export default {
       color: #CBCBCB;
       margin: -2px -6px -6px 6px
     }
+    .lines{
+      border-left: 1px solid #E3E3E3;
+      height: 20px;
+      width: 10px;
+      margin: -4px 0 4px 16px;
+    }
     .circle{
       display: block;
       width: 36px;
@@ -1042,16 +1058,26 @@ export default {
   .el-rate__decimal{
     color: rgb(239,242,247);
   }
+  .hot_background{
+      width: 100%;
+      height: 590px;
+      background-image: url(../../assets/images/hotAppBackground.png);
+      background-repeat: no-repeat;
+      background-size: 100% 60%;
+      background-position: 0 200px;
+      z-index:1000;
+  }
+
   .score{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     height: 590px;
-    width: 73.54%;
+    width: 73.64%;
     margin-left:13.23%;
     margin-right: 13.23%;
-    background:#f3f3f8;
+    // background:#f3f3f8;
     .hot_data{
       display: flex;
       width: 100%;
@@ -1290,7 +1316,7 @@ export default {
                         text-align: center;
                         padding: 2px 4px;
                         background-color:#6625CA ;
-                        border-radius:8px ;
+                        border-radius:10px ;
                         font-family: HarmonyOS Sans SC;
                         margin-top: 10px;
                       }
@@ -1345,13 +1371,13 @@ export default {
          display: none;
     }
   }
+  .highScoreTitle{
+    margin-top: 50px;
+  }
   @media screen and (max-width: 1380px){
     .home_content{
       padding: 50px 8%;
     }
-    .upload_fgx{
-        background: url('../../assets/images/home_upload_fgx.png') center 50px no-repeat;
-      }
   }
   @media (max-width: 1400px) and (min-width: 1200px) {
   .hotApp_bg{
@@ -1456,9 +1482,6 @@ export default {
       }
     }
   }
-  .el-carousel__indicators--outside {
-    left: -500px;
-}
   }
   @media (max-width: 1600px) and (min-width: 1200px) {
   .sence_dialog{
@@ -1551,7 +1574,6 @@ export default {
         }
     }
   }
-
   }
    @media (max-width: 1800px) and (min-width: 1400px) {
        .high_score .high_data {

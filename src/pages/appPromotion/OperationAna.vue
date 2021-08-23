@@ -170,12 +170,13 @@
             width="180"
           >
             <template slot-scope="scope">
-              <el-button
+              <p
+                class="loolReport"
                 @click="showDrawer(scope.row)"
                 type="text"
               >
                 {{ $t('apppromotion.checkDetail') }}
-              </el-button>
+              </p>
             </template>
           </el-table-column>
           <template slot="empty">
@@ -974,7 +975,8 @@ export default {
     font-weight: 600;
     color: #5E40C8;
     margin-left: 13.18%;
-    margin-top:61px ;
+    margin-top:50px ;
+    margin-bottom: 20px;
   }
   .chart-content{
     width: 73.64%;
@@ -1176,5 +1178,12 @@ div /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
 }
 div /deep/ .el-table td .cell {
      color: #7A6E8A;
+}
+.lookReport{
+  text-decoration: none;
+  color: #7A6E8A;
+  padding: 4px 12px;
+  background: #EFEFEF;
+  border-radius: 12px;
 }
 </style>

@@ -208,7 +208,7 @@ export default {
       padding: 106px 5.6% ;
       .introduce_name{
         height: 40px;
-        font-size: 32px;
+        font-size: 36px;
         font-family: HarmonyHeiTi;
         font-weight: bold;
         color: #5D3DA0;
@@ -223,11 +223,11 @@ export default {
         margin-bottom: 40px;
       }
       .introduce_content{
-        font-size: 18px;
+        font-size: 22px;
         font-family: HarmonyOS Sans SC;
         font-weight: 400;
         color: #666666;
-        line-height: 32px;
+        line-height: 40px;
         margin-bottom: 90px;
       }
       .introduce_button{
