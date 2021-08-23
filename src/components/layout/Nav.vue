@@ -240,7 +240,50 @@ export default {
           pageId: '2.1.6',
           display: true,
           link: '',
-          index: '5'
+          index: '5',
+          children: [
+            {
+              labelEn: 'External AppStore Management',
+              labelCn: '外部应用仓库管理',
+              route: '/apppromote',
+              pageId: '2.1.6.1',
+              display: true,
+              link: '',
+              index: '5.1'
+            }, {
+              labelEn: 'App Promote',
+              labelCn: '应用推送',
+              route: '/apppromotion',
+              pageId: '2.1.6.2',
+              display: true,
+              link: '',
+              index: '5.2'
+            }, {
+              labelEn: 'App Pull',
+              labelCn: '应用拉取',
+              route: '/appPull',
+              pageId: '2.1.6.3',
+              display: true,
+              link: '',
+              index: '5.3'
+            }, {
+              labelEn: 'Message Center',
+              labelCn: '消息中心',
+              route: '/msgCenter',
+              pageId: '2.1.6.4',
+              display: true,
+              link: '',
+              index: '5.4'
+            }, {
+              labelEn: 'Operation Analyse',
+              labelCn: '操作分析',
+              route: '/operationAnalyse',
+              pageId: '2.1.6.5',
+              display: true,
+              link: '',
+              index: '5.5'
+            }
+          ]
         },
         {
           labelEn: 'System',

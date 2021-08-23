@@ -15,12 +15,21 @@
   -->
 
 <template>
-  <div class="my-app">
-    <eg-banner
-      :image-url="bannerImg"
-    />
-    <eg-bread-crumb :data="breadCrumbData" />
-    <div class="padding56 contents">
+  <div class="my-app outHouse">
+    <div class="outHouseTop">
+      <p class="outHouseTitle">
+        {{ $t("nav.externalAppManagement") }}
+      </p>
+      <el-button
+        id="addAppBtn"
+        type="primary"
+        class="batchProButton"
+        @click="register"
+      >
+        {{ $t('myApp.addApp') }}
+      </el-button>
+    </div>
+    <div class="contents">
       <div class="my-app-content">
         <div class="batchProm">
           <el-input
@@ -30,14 +39,6 @@
             :placeholder="$t('common.appStoreName')"
             class="search_input"
           />
-          <el-button
-            id="addAppBtn"
-            type="primary"
-            class="batchProButton"
-            @click="register"
-          >
-            {{ $t('myApp.addApp') }}
-          </el-button>
         </div>
         <div class="packageTable">
           <el-table
@@ -148,8 +149,10 @@
           @modifyApp="modifyApp"
           @deleteApp="getDelete"
         />
+        <div class="clearfix" />
+      </div>
+      <div class="paginationStyle">
         <eg-pagination
-          class="paginationStyle"
           :page-num="pageNumCache"
           :page-size="curPageSize"
           :page-sizes="pageSizes"
@@ -157,16 +160,20 @@
           @sizeChange="sizeChange"
           @currentChange="currentChange"
         />
-        <div class="clearfix" />
       </div>
       <el-dialog
-        :title="title"
         :visible.sync="dialogVisible"
         width="45%"
         :before-close="handleClose"
         :close-on-click-modal="false"
         @close="clearForm"
       >
+        <div class="dialogTitle">
+          <p class="dialogTitle1" />
+          <p class="dialogTitle2">
+            {{ this.title }}
+          </p>
+        </div>
         <el-row>
           <el-col>
             <el-form
@@ -263,15 +270,11 @@ import { TTYPES } from '../../tools/constant.js'
 import { common } from '../../tools/comon.js'
 import { myAppStore } from '../../tools/api.js'
 import appStoreGrid from './AppStoreGrid.vue'
-import EgBanner from 'eg-view/src/components/EgBanner.vue'
-import EgBreadCrumb from 'eg-view/src/components/EgBreadCrumb.vue'
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
   components: {
     appStoreGrid,
-    EgBanner,
-    EgBreadCrumb,
     EgPagination
   },
   data () {
@@ -549,11 +552,42 @@ export default {
 
 }
 </script>
-<style lang='less'>
-.my-app {
+<style lang='less' scoped>
+.outHouse {
+  width: 100%;
+  .outHouseTop{
+    width: 73.64%;
+    margin: 61px 13.18% 0 13.18%;
+    min-width: 1200px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .outHouseTitle{
+      font-size: 26px;
+      line-height: 50px;
+      font-family: HarmonyHeiTi;
+      font-weight: 600;
+      color: #5E40C8;
+      margin: 0;
+  }
+  }
+  .contents {
+    width: 73.64%;
+    margin: 23px  auto;
+    min-width: 1200px;
   .my-app-content {
+    border-radius:16px ;
+    position: relative;
+    min-height: 568px;
     background:#fff;
     padding: 20px;
+    .batchProm{
+      width: 200px;
+      .el-input{
+            margin-left: 40px;
+      }
+    }
     .packageTable{
       margin: 20px 0;
       display: none;
@@ -563,19 +597,17 @@ export default {
         }
       }
     }
-    .paginationStyle{
-      float: right;
-      margin-top: -20px;
-    }
-    .batchProm {
-      margin-bottom: 5px;
-      margin-top: 5px;
-      .search_input{
-        width: 200px;
-        float: right;
-      }
-    }
   }
+  .pagination {
+    background-color: #fff;
+    float: right;
+    justify-content: flex-end;
+    display: flex;
+    width: 100%;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+   }
   .space>div{
     background: #000;
     height: 300px;
@@ -583,5 +615,66 @@ export default {
   .el-dialog__footer {
     text-align: center;
   }
+}
+.dialogTitle{
+  display: flex;
+  margin-left:30px ;
+  .dialogTitle1{
+    width:15px;
+    height:15px;
+    background-color:#55D8BF;
+    margin-right: 14px;
+    margin-top: 8px;
+  }
+  .dialogTitle2{
+      font-size: 20px;
+      font-family: HarmonyHeiTi;
+      font-weight: 300;
+      color: #380879;
+    }
+}
+.outHouseTop /deep/ .el-button--primary{
+    height: 40px !important;
+    border-radius:20px ;
+    background:  linear-gradient(to right, #4444D0, #6724CB) !important;
+}
+div /deep/ .el-button{
+     background-color:  #5E40C8  !important;
+    border-color:  #5E40C8 !important;
+    border-radius:10px ;
+    span{
+      color: #fff;
+    }
+}
+div /deep/.el-input__inner {
+    border-color: #5E40C8 !important;
+}
+ div /deep/.el-select__caret{
+  color: #5E40C8 !important;
+}
+div /deep/ .search_input .el-input__icon {
+    color: #5E40C8 !important;
+}
+div /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: #5E40C8 !important;
+}
+div /deep/ .el-dialog__title {
+    color: #5E40C8 !important;
+}
+div /deep/.el-form-item__label {
+    color: #5E40C8 !important;
+}
+div /deep/ .el-icon-close:before {
+     color: #5E40C8 !important;
+}
+div /deep/.el-dialog{
+    background-color: #f6f5f8 !important;
+}
+div /deep/.el-dialog__header {
+    background-color: #f6f5f8 !important;
+}
+div /deep/.el-dialog__body {
+    padding: 10px 68px 0 0 !important;
+
 }
 </style>
