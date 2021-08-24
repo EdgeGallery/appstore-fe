@@ -343,6 +343,7 @@ const cn = {
     createTime: '创建时间',
     download: '下载',
     synchronize: '同步',
+    synchronizedwaiting: '需要一定时间上传应用包',
     comments: '评论',
     introduction: '应用详情',
     demo: '视频',

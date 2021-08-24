@@ -329,6 +329,7 @@ const en = {
     createTime: 'Create Time',
     download: 'Download',
     synchronize: 'Synchronize',
+    synchronizedwaiting: 'Uploading package takes a long time.',
     comments: 'Comments',
     introduction: 'Application Details',
     demo: 'Video',

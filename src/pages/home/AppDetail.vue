@@ -718,7 +718,27 @@ export default {
       this.getAppData()
     },
     synchronizePackage (row) {
-      synchronizedPakageApi(this.appId, row)
+      synchronizedPakageApi(this.appId, row).then(res => {
+        this.$message({
+          duration: 2000,
+          message: this.$t('store.synchronizedwaiting'),
+          type: 'success'
+        })
+        this.getAppData()
+      }).catch(error => {
+        let retCode = error.response.data.retCode
+        let params = error.response.data.params
+        let errMsg = error.response.data.message
+        if (retCode) {
+          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+        } else {
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.operationFailed'),
+            type: 'warning'
+          })
+        }
+      })
     },
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {
