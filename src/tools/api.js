@@ -329,6 +329,11 @@ function downloadAppPakageApi (appId, row, isDownloadImage) {
   window.open(URL)
 }
 
+function synchronizedPakageApi (appId, row) {
+  let url = 'apps/' + appId + '/packages/' + row.packageId + '/action/sync'
+  return GET(url)
+}
+
 function getUserInfo () {
   let url = '/auth/login-info'
   return new Promise((resolve, reject) => {
@@ -470,6 +475,7 @@ export {
   getAppByAppstoreIdV1,
   getInterface,
   downloadAppPakageApi,
+  synchronizedPakageApi,
   URL_PREFIX,
   URL_PREFIXV2,
   URL_PREFIX_GATEWAY,
