@@ -16,14 +16,9 @@
 
 <template>
   <div class="headerComp">
-    <el-row
-      :gutter="10"
-    >
-      <el-col
-        :lg="5"
-        :md="4"
-        :sm="14"
-        :xs="13"
+    <div class="headers">
+      <div
+        class="logos"
       >
         <div class="logo">
           <img
@@ -32,10 +27,8 @@
             alt
           >
         </div>
-      </el-col>
-      <el-col
-        :lg="14"
-        :md="12"
+      </div>
+      <div
         class="navList"
       >
         <el-menu
@@ -43,8 +36,8 @@
           mode="horizontal"
           :unique-opened="true"
           router
-          text-color="#fff"
-          background-color="#282b33"
+          text-color="#C8BDEF"
+          background-color="#5e40c8"
           active-text-color="#6c92fa"
           :default-active="activeIndex"
         >
@@ -83,12 +76,9 @@
             </el-menu-item>
           </template>
         </el-menu>
-      </el-col>
-      <el-col
-        :lg="5"
-        :md="8"
-        :sm="10"
-        :xs="11"
+      </div>
+      <div
+        class="users"
       >
         <div class="nav-tabs">
           <div class="menu">
@@ -140,7 +130,11 @@
             class="curp"
             @click="logout()"
             v-if="ifGuest"
-          >{{ $t('nav.login') }}</span>
+          ><img
+            src="../../assets/images/icon_user.png"
+            alt=""
+            class="iconUser"
+          ></span>
           <span
             class="curp"
             @click="beforeLogout"
@@ -150,7 +144,10 @@
             @click="changeLanguage"
             class="curp"
           >
-            {{ getLanguage }}
+            <img
+              :src="flag== true ? require('@/assets/images/icon_en.png'): require('@/assets/images/icon_cn.png')"
+              class="iconLanguage"
+            >
           </span>
         </div>
         <div
@@ -165,39 +162,40 @@
             @msgCheckAllEvent="checkAllMsg"
           />
         </div>
-      </el-col>
-    </el-row>
-    <el-collapse-transition>
-      <div
-        v-show="menu_small"
-        id="menu-div"
-        class="main-sidebar-small"
-      >
-        <el-menu
-          @select="handleSelect"
-          router
-          text-color="#fff"
-          background-color="#282b33"
-          active-text-color="#6c92fa"
-          :default-active="activeIndex"
-        >
-          <el-menu-item
-            v-for="(item, index) in list"
-            :key="item.pageId"
-            @click="jumpTo(item.route, index, item.link, item.display)"
-            :index="item.route"
-          >
-            {{ language === 'cn' ? item.labelCn : item.labelEn }}
-          </el-menu-item>
-        </el-menu>
       </div>
-    </el-collapse-transition>
+      <el-collapse-transition>
+        <div
+          v-show="menu_small"
+          id="menu-div"
+          class="main-sidebar-small"
+        >
+          <el-menu
+            @select="handleSelect"
+            router
+            text-color="#fff"
+            background-color="#282b33"
+            active-text-color="#6c92fa"
+            :default-active="activeIndex"
+          >
+            <el-menu-item
+              v-for="(item, index) in list"
+              :key="item.pageId"
+              @click="jumpTo(item.route, index, item.link, item.display)"
+              :index="item.route"
+            >
+              {{ language === 'cn' ? item.labelCn : item.labelEn }}
+            </el-menu-item>
+          </el-menu>
+        </div>
+      </el-collapse-transition>
+    </div>
   </div>
 </template>
 
 <script>
 import { getUserInfo, logoutApi, myApp } from '../../tools/api.js'
 import messageDialog from '../../pages/msgCenter/MessageDialog.vue'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   name: 'HeaderComp',
   components: {
@@ -206,6 +204,7 @@ export default {
   data () {
     return {
       language: 'cn',
+      flag: true,
       list: [
         {
           labelEn: 'Home',
@@ -241,50 +240,7 @@ export default {
           pageId: '2.1.6',
           display: true,
           link: '',
-          index: '5',
-          children: [
-            {
-              labelEn: 'External AppStore Management',
-              labelCn: '外部应用仓库管理',
-              route: '/apppromote',
-              pageId: '2.1.6.1',
-              display: true,
-              link: '',
-              index: '5.1'
-            }, {
-              labelEn: 'App Promote',
-              labelCn: '应用推送',
-              route: '/apppromotion',
-              pageId: '2.1.6.2',
-              display: true,
-              link: '',
-              index: '5.2'
-            }, {
-              labelEn: 'App Pull',
-              labelCn: '应用拉取',
-              route: '/appPull',
-              pageId: '2.1.6.3',
-              display: true,
-              link: '',
-              index: '5.3'
-            }, {
-              labelEn: 'Message Center',
-              labelCn: '消息中心',
-              route: '/msgCenter',
-              pageId: '2.1.6.4',
-              display: true,
-              link: '',
-              index: '5.4'
-            }, {
-              labelEn: 'Operation Analyse',
-              labelCn: '操作分析',
-              route: '/operationAnalyse',
-              pageId: '2.1.6.5',
-              display: true,
-              link: '',
-              index: '5.5'
-            }
-          ]
+          index: '5'
         },
         {
           labelEn: 'System',
@@ -370,8 +326,10 @@ export default {
     changeLanguage () {
       if (this.language === 'cn') {
         this.language = 'en'
+        this.flag = false
       } else {
         this.language = 'cn'
+        this.flag = true
       }
       localStorage.setItem('language', this.language)
       this.$i18n.locale = this.language
@@ -513,11 +471,11 @@ export default {
       myApp.getResponseCodeInfo(encodeURI(datas))
         .then(res => {
           sessionStorage.setItem('resCodeInfo', JSON.stringify(res.data))
-        }).catch(error => {
-          this.handleExceptionMsg(error)
+        }).catch((error) => {
+          let defaultMsg = this.$t('common.getResInfoFailed')
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
         })
     }
-
   },
 
   mounted () {
@@ -570,18 +528,33 @@ export default {
 .headerComp {
   height: 65px;
   color: white;
-  background: #282b33;
+  background: #5E40C8;
   position: fixed;
   z-index: 9999;
   width: 100%;
-  padding: 0 10%;
-
+  display: flex;
+  justify-content: center;
+.headers{
+  width: 73.64%;
+  margin: 0 13.18%;
+  min-width: 1200px;
+  display: flex;
+  .logos{
+    width: 10%;
+    min-width: 120px;
+  }
+  .users{
+    width: 30%;
+    min-width: 324px;
+  }
+}
   .logo {
     height: 65px;
-    line-height: 65px;
-    margin-left: -15px;
+    width: 100%;
+    margin-left: -12px;
     img {
       height: 65px;
+      width: 100%;
     }
     span {
       font-size: 18px;
@@ -589,29 +562,39 @@ export default {
     }
   }
     .navList {
+      display: flex;
+      justify-content: center;
+      width: 60%;
+      min-width: 720px;
       .el-menu--horizontal {
         border: none;
       }
       .el-menu--horizontal>.el-menu-item {
         height: 65px;
         line-height: 65px;
-        font-size: 18px;
-        font-weight: 700;
+        font-size: 14px;
+        font-weight: 100;
         margin-right: 0px;
         vertical-align: bottom;
       }
       .el-submenu__title {
-        font-size: 18px;
-        font-weight: 700;
+        font-size: 14px;
+        font-weight: 100;
       }
       .el-menu--horizontal>.el-submenu .el-submenu__title {
         height: 65px;
         line-height: 65px;
     }
     }
+  .iconUser{
+        width: 24px;
+        height: 24px;
+      }
+  .iconLanguage{
+        width: 24px;
+        height: 24px;
+  }
   .nav-tabs {
-    padding-right: 20px;
-    //height: 65px;
     line-height: 65px;
     display: flex;
     justify-content: flex-end;
@@ -621,6 +604,10 @@ export default {
       display: inline-block;
       padding: 0 6px;
       font-size: 14px;
+      display: flex;
+      height: 65px;
+      justify-content: center;
+      align-items: center;
     }
     .menu{
       display: none;
@@ -647,7 +634,7 @@ export default {
     .countStyleBig{
       color: #FFFFF2;
       font-size: 10px;
-      transform: translateY(-170%)
+      transform: translateY(-170%);
     }
   }
   .popUp{
@@ -681,64 +668,19 @@ export default {
     }
   }
 }
-  @media only screen and (max-width: 991px){
-    .nav-tabs{
-      font-size: 16px;
-      .menu{
-      display: inline-block;
-        .el-icon-menu{
-          color: #fff;
-          font-size: 25px;
-          margin-top: 20px;
-        }
-      }
-    }
-    .navList{
-      display: none;
-    }
-    .logo{
-      img{
-      height: 50px;
-      margin: 5px 0 0 0;
-    }
-      span{
-        font-size: 14px;
-        margin: 5px 0 0 0;
-      }
-    }
-  }
-  @media screen and (max-width: 767px){
-    .logo{
-      img{
-      height: 35px;
-      margin: 15px 0 0 0;
-      padding-bottom: 15px;
-      }
-      span{
-        font-size: 13px;
-      }
-    }
-    .nav-tabs{
-      font-size: 12px;
-    }
-  }
-  @media screen and (max-width: 385px) {
-    .logo{
-      img{
-      height: 30px;
-      }
-      span{
-        font-size: 13px;
-      }
-    }
-    .nav-tabs{
-      padding-right: 1px;
-    }
-  }
+.el-menu--horizontal > .el-menu-item.is-active {
+     color: #fff !important;
 }
-@media screen and (max-width:1380px){
-  .headerComp{
-    padding: 0 56px;
-  }
+.el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
+    color: #fff !important;
 }
+
+}
+
+ @media (max-width: 1400px) and (min-width: 1200px) {
+.headerComp .nav-tabs span {
+    padding: 0 6px;
+}
+  }
+
 </style>
