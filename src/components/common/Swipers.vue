@@ -121,7 +121,6 @@ export default {
 
 <style lang="less">
 .wrapper{
-
   position: relative;
   .banner{
       overflow: hidden;
@@ -137,22 +136,25 @@ export default {
       display: block;
     }
     .upload_app{
-      height: 48px;
-      width: 135px;
+      height: 60px;
+      width: 200px;
       background: linear-gradient(-37deg, #53DABD, #54AAF3);
       box-shadow: 0px 12px 12px 0px rgba(83,218,189, 0.7);
       border-radius: 30px;
       color: #606266;
-      border-radius: 15px;
-      font-size: 16px;
+      border-radius: 30px;
+      font-size: 20px;
       text-align: center;
       color: #FFFFFF;;
       border: none;
-      margin: 80px 0px 0px 70px;
+      margin: 80px 0px 0px 95px;
     }
   }
   .img_words{
-      width:80%;margin-top:200px;margin-left:60px;display:block
+      width:90%;
+      margin-top:180px;
+      margin-left:80px;
+      display:block;
   }
   img{
     height: 100%;
@@ -183,14 +185,37 @@ export default {
   .el-carousel__indicators--outside {
     position: relative;
     top: -100px;
-    left: -600px;
+    left: -660px;
 }
  @media (max-width: 1688px) and (min-width: 1200px){
    .wrapper {
     .img_words{
-        width:55%;margin-top:200px;margin-left:60px;display:block
+        width:80%;margin-top:200px;margin-left:-60px;display:block
     }
+    .upload_app{
+      margin-left:-40px !important;
+    }
+    }
+      .el-carousel__indicators--outside {
+        left: -470px !important;
     }
   }
+.el-carousel__indicator--horizontal.is-active .el-carousel__button  {
+
+    width: 60px !important;
+    height: 10px !important;
+    background: #55D8BF !important;
+    border-radius: 5px !important;
+
+}
+.el-carousel__indicators--outside button{
+  opacity: 1 !important;
+}
+.el-carousel__button {
+    width: 12px !important;
+    height: 10px !important;
+    background: #2FA09F !important;
+    border-radius: 5px !important;
+}
 
 </style>

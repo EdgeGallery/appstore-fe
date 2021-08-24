@@ -90,6 +90,7 @@
               <a
                 :href="scope.row.atpTestReportUrl + (language === 'cn' ? '&language=cn' : '&language=en')"
                 target="_blank"
+                class="lookReport"
               >{{ $t('appPull.viewTestRepo') }}</a>
             </template>
           </el-table-column>
@@ -272,6 +273,7 @@ export default {
   .contents{
           position: relative;
             min-height: 750px;
+            padding-bottom: 40px;
   }
   .pushTitle{
       font-size: 26px;
@@ -301,7 +303,7 @@ export default {
 .paginationStyle{
     position: absolute;
     right: 20px;
-    bottom: 0px;
+    bottom: -10px;
 
 }
 .search_input /deep/ .el-input__inner {
@@ -356,5 +358,16 @@ div /deep/ .el-table::before, .el-table--group::after, .el-table--border::after 
 }
 div /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color:#5E40C8 !important;
+}
+div /deep/ .el-table tr td .cell{
+    color: #7A6E8A !important;
+
+}
+.lookReport{
+  text-decoration: none;
+  color: #7A6E8A;
+  padding: 4px 12px;
+  background: #EFEFEF;
+  border-radius: 12px;
 }
 </style>

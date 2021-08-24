@@ -119,16 +119,6 @@
               </template>
             </el-table-column>
             <el-table-column
-              :label="$t('apppromotion.testRepo')"
-            >
-              <template slot-scope="scope">
-                <a
-                  :href="scope.row.atpTestReportUrl + (language === 'cn' ? '&language=cn' : '&language=en')"
-                  target="_blank"
-                >{{ $t('apppromotion.viewTestRepo') }}</a>
-              </template>
-            </el-table-column>
-            <el-table-column
               prop="latestPushTime"
               :label="$t('apppromotion.lastProTime')"
               sortable="custom"
@@ -148,6 +138,17 @@
                 <p>{{ $t('common.noData') }}</p>
               </div>
             </template>
+            <el-table-column
+              :label="$t('apppromotion.testRepo')"
+            >
+              <template slot-scope="scope">
+                <a
+                  :href="scope.row.atpTestReportUrl + (language === 'cn' ? '&language=cn' : '&language=en')"
+                  target="_blank"
+                  class="lookReport"
+                >{{ $t('apppromotion.viewTestRepo') }}</a>
+              </template>
+            </el-table-column>
           </el-table>
         </div>
         <div v-if="uploadDiaVis">
@@ -481,7 +482,7 @@ export default {
     margin-bottom: 10px;
   }
   .appPromPackageTable{
-    margin: 20px 0;
+    margin: 20px 0 40px 0;
     .el-table thead{
       th {
         background-color: #eee;
@@ -547,5 +548,30 @@ div /deep/ .el-table::before, .el-table--group::after, .el-table--border::after 
 }
 div /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color:#5E40C8 !important;
+}
+div /deep/ .el-table tr td .cell{
+    color: #7A6E8A !important;
+
+}
+.lookReport{
+  text-decoration: none;
+  color: #7A6E8A;
+  padding: 4px 12px;
+  background: #EFEFEF;
+  border-radius: 12px;
+}
+div /deep/ .el-select-dropdown__item.hover,.el-select-dropdown__item:hover {
+ background-color: #9374FF !important;
+ color: #FFFFFF !important;
+ border-radius: 8px !important;
+}
+div /deep/ .el-select-dropdown__item {
+ color: #FFFFFF !important;
+
+}
+div /deep/ .el-select-dropdown.is-multiple ,.el-select-dropdown__item.selected {
+   color: #FFFFFF !important;
+   background-color: #9374FF !important;
+   border-radius: 8px !important;
 }
 </style>

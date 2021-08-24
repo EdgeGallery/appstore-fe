@@ -16,9 +16,14 @@
 
 <template>
   <div class="headerComp">
-    <div class="headers">
-      <div
-        class="logos"
+    <el-row
+      :gutter="10"
+    >
+      <el-col
+        :lg="5"
+        :md="4"
+        :sm="14"
+        :xs="13"
       >
         <div class="logo">
           <img
@@ -27,8 +32,10 @@
             alt
           >
         </div>
-      </div>
-      <div
+      </el-col>
+      <el-col
+        :lg="14"
+        :md="12"
         class="navList"
       >
         <el-menu
@@ -37,7 +44,7 @@
           :unique-opened="true"
           router
           text-color="#C8BDEF"
-          background-color="#5e40c8"
+          background-color="#5E40C8"
           active-text-color="#6c92fa"
           :default-active="activeIndex"
         >
@@ -76,9 +83,12 @@
             </el-menu-item>
           </template>
         </el-menu>
-      </div>
-      <div
-        class="users"
+      </el-col>
+      <el-col
+        :lg="5"
+        :md="8"
+        :sm="10"
+        :xs="11"
       >
         <div class="nav-tabs">
           <div class="menu">
@@ -130,11 +140,7 @@
             class="curp"
             @click="logout()"
             v-if="ifGuest"
-          ><img
-            src="../../assets/images/icon_user.png"
-            alt=""
-            class="iconUser"
-          ></span>
+          >{{ $t('nav.login') }}</span>
           <span
             class="curp"
             @click="beforeLogout"
@@ -162,40 +168,39 @@
             @msgCheckAllEvent="checkAllMsg"
           />
         </div>
-      </div>
-      <el-collapse-transition>
-        <div
-          v-show="menu_small"
-          id="menu-div"
-          class="main-sidebar-small"
+      </el-col>
+    </el-row>
+    <el-collapse-transition>
+      <div
+        v-show="menu_small"
+        id="menu-div"
+        class="main-sidebar-small"
+      >
+        <el-menu
+          @select="handleSelect"
+          router
+          text-color="#fff"
+          background-color="#282b33"
+          active-text-color="#6c92fa"
+          :default-active="activeIndex"
         >
-          <el-menu
-            @select="handleSelect"
-            router
-            text-color="#fff"
-            background-color="#282b33"
-            active-text-color="#6c92fa"
-            :default-active="activeIndex"
+          <el-menu-item
+            v-for="(item, index) in list"
+            :key="item.pageId"
+            @click="jumpTo(item.route, index, item.link, item.display)"
+            :index="item.route"
           >
-            <el-menu-item
-              v-for="(item, index) in list"
-              :key="item.pageId"
-              @click="jumpTo(item.route, index, item.link, item.display)"
-              :index="item.route"
-            >
-              {{ language === 'cn' ? item.labelCn : item.labelEn }}
-            </el-menu-item>
-          </el-menu>
-        </div>
-      </el-collapse-transition>
-    </div>
+            {{ language === 'cn' ? item.labelCn : item.labelEn }}
+          </el-menu-item>
+        </el-menu>
+      </div>
+    </el-collapse-transition>
   </div>
 </template>
 
 <script>
 import { getUserInfo, logoutApi, myApp } from '../../tools/api.js'
 import messageDialog from '../../pages/msgCenter/MessageDialog.vue'
-import commonUtil from '../../tools/commonUtil.js'
 export default {
   name: 'HeaderComp',
   components: {
@@ -346,11 +351,6 @@ export default {
     }
   },
   computed: {
-    getLanguage () {
-      let language
-      this.language === 'cn' ? language = 'English' : language = '中文'
-      return language
-    }
   },
   methods: {
     clickSmallMenu () {
@@ -514,11 +514,11 @@ export default {
       myApp.getResponseCodeInfo(encodeURI(datas))
         .then(res => {
           sessionStorage.setItem('resCodeInfo', JSON.stringify(res.data))
-        }).catch((error) => {
-          let defaultMsg = this.$t('common.getResInfoFailed')
-          commonUtil.showTipMsg(this.language, error, defaultMsg)
+        }).catch(error => {
+          this.handleExceptionMsg(error)
         })
     }
+
   },
 
   mounted () {
@@ -575,29 +575,14 @@ export default {
   position: fixed;
   z-index: 9999;
   width: 100%;
-  display: flex;
-  justify-content: center;
-.headers{
-  width: 73.64%;
-  margin: 0 13.18%;
-  min-width: 1200px;
-  display: flex;
-  .logos{
-    width: 10%;
-    min-width: 120px;
-  }
-  .users{
-    width: 30%;
-    min-width: 324px;
-  }
-}
+  padding: 0 13.18%;
+
   .logo {
     height: 65px;
-    width: 100%;
-    margin-left: -12px;
+    line-height: 65px;
+    margin-left: -15px;
     img {
       height: 65px;
-      width: 100%;
     }
     span {
       font-size: 18px;
@@ -605,10 +590,6 @@ export default {
     }
   }
     .navList {
-      display: flex;
-      justify-content: center;
-      width: 60%;
-      min-width: 720px;
       .el-menu--horizontal {
         border: none;
       }
@@ -616,28 +597,22 @@ export default {
         height: 65px;
         line-height: 65px;
         font-size: 14px;
-        font-weight: 100;
+        font-weight: 700;
         margin-right: 0px;
         vertical-align: bottom;
       }
       .el-submenu__title {
         font-size: 14px;
-        font-weight: 100;
+        font-weight: 700;
       }
       .el-menu--horizontal>.el-submenu .el-submenu__title {
         height: 65px;
         line-height: 65px;
     }
     }
-  .iconUser{
-        width: 24px;
-        height: 24px;
-      }
-  .iconLanguage{
-        width: 24px;
-        height: 24px;
-  }
   .nav-tabs {
+    padding-right: 20px;
+    //height: 65px;
     line-height: 65px;
     display: flex;
     justify-content: flex-end;
@@ -648,7 +623,6 @@ export default {
       padding: 0 6px;
       font-size: 14px;
       display: flex;
-      height: 65px;
       justify-content: center;
       align-items: center;
     }
@@ -677,7 +651,7 @@ export default {
     .countStyleBig{
       color: #FFFFF2;
       font-size: 10px;
-      transform: translateY(-170%);
+      transform: translateY(-170%)
     }
   }
   .popUp{
@@ -711,19 +685,67 @@ export default {
     }
   }
 }
-.el-menu--horizontal > .el-menu-item.is-active {
-     color: #fff !important;
-}
-.el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
-    color: #fff !important;
-}
-
-}
-
- @media (max-width: 1400px) and (min-width: 1200px) {
-.headerComp .nav-tabs span {
-    padding: 0 6px;
-}
+  @media only screen and (max-width: 991px){
+    .nav-tabs{
+      font-size: 16px;
+      .menu{
+      display: inline-block;
+        .el-icon-menu{
+          color: #fff;
+          font-size: 25px;
+          margin-top: 20px;
+        }
+      }
+    }
+    .navList{
+      display: none;
+    }
+    .logo{
+      img{
+      height: 50px;
+      margin: 5px 0 0 0;
+    }
+      span{
+        font-size: 14px;
+        margin: 5px 0 0 0;
+      }
+    }
   }
-
+  @media screen and (max-width: 767px){
+    .logo{
+      img{
+      height: 35px;
+      margin: 15px 0 0 0;
+      padding-bottom: 15px;
+      }
+      span{
+        font-size: 13px;
+      }
+    }
+    .nav-tabs{
+      font-size: 12px;
+    }
+  }
+  @media screen and (max-width: 385px) {
+    .logo{
+      img{
+      height: 30px;
+      }
+      span{
+        font-size: 13px;
+      }
+    }
+    .nav-tabs{
+      padding-right: 1px;
+    }
+  }
+}
+@media screen and (max-width:1380px){
+  .headerComp{
+    padding: 0 56px;
+  }
+}
+.headerComp .navList .el-menu--horizontal > .el-menu-item.is-active {
+    color: #FFFFFF !important;
+}
 </style>
