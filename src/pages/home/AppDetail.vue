@@ -89,6 +89,14 @@
           >
             {{ $t('store.download') }}
           </el-button>
+          <el-button
+            type="primary"
+            class="batchProButton"
+            :disabled="ifSynchronize || currentData.userId===userId ? false : true"
+            @click="synchronizePackage(currentData)"
+          >
+            {{ $t('store.synchronize') }}
+          </el-button>
         </p>
       </div>
     </div>
@@ -450,6 +458,7 @@ import {
   getAppDetailTableApi,
   submitAppCommentApi,
   downloadAppPakageApi,
+  synchronizedPakageApi,
   URL_PREFIX,
   getAppListApi,
   myApp
@@ -464,6 +473,7 @@ export default {
     return {
       deployMode: '',
       ifExperience: false,
+      ifSynchronize: true,
       appTry: appTry,
       startTry: startTry,
       ifDownload: 'true',
@@ -706,6 +716,9 @@ export default {
       console.log(this.currentData)
       this.ifDownloadImage(this.currentData, row)
       this.getAppData()
+    },
+    synchronizePackage (row) {
+      synchronizedPakageApi(this.appId, row)
     },
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {
@@ -1153,7 +1166,7 @@ export default {
     }
 
     .app_score{
-      width: 180px;
+      width: 240px;
       .download_num{
         float: left;
         height: 26px;
@@ -1186,7 +1199,7 @@ export default {
         margin-top: 15px;
         text-align: center;
         .el-button{
-          width: 130px;
+          width: 46%;
           border-radius: 0;
         }
       }

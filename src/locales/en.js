@@ -328,6 +328,7 @@ const en = {
     appPackageInfo: 'App Package Basic Information',
     createTime: 'Create Time',
     download: 'Download',
+    synchronize: 'Synchronize',
     comments: 'Comments',
     introduction: 'Application Details',
     demo: 'Video',

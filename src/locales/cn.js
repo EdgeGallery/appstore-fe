@@ -342,6 +342,7 @@ const cn = {
     appPackageInfo: '应用程序基本信息',
     createTime: '创建时间',
     download: '下载',
+    synchronize: '同步',
     comments: '评论',
     introduction: '应用详情',
     demo: '视频',
