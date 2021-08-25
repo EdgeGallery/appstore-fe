@@ -67,6 +67,81 @@
           </span>
         </p>
       </div>
+      <div class="app_synchronize">
+        <div
+          v-if="!startSync"
+          style="margin-bottom:10px;"
+        >
+          <p class="synchronize_info">
+            同步应用到MEAO，可方便对应用生命周期进行管理
+          </p>
+          <p class="synchronize_img">
+            <img
+              src="../../assets/images/synchronize.png"
+              alt=""
+            >
+          </p>
+        </div>
+        <div
+          class="synchronize_process"
+          v-if="startSync"
+        >
+          <p>
+            应用同步
+          </p>
+          <div
+            v-if="hwMeAO"
+            class="process"
+          >
+            <span>华为MEAO:</span>
+            <el-progress
+              :stroke-width="10"
+              :percentage="huaweiper"
+              :color="customColor"
+            />
+          </div>
+          <div
+            v-if="jzyMEAO"
+            class="process"
+          >
+            <span>九州云MEAO:</span>
+            <el-progress
+              :stroke-width="10"
+              :percentage="jiuzhouyunper"
+              :color="customColor"
+            />
+          </div>
+        </div>
+
+        <p class="score_btn">
+          <el-button
+            type="primary"
+            class="batchProButton"
+            :disabled="ifDownload || currentData.userId===userId ? false : true"
+            @click="showSynchronize = !showSynchronize"
+          >
+            同步应用到MEAO
+            <div class="synchronize_div">
+              <el-collapse-transition>
+                <div v-show="showSynchronize">
+                  <div
+                    class="transition-box"
+                    @click="synchronizePackage(currentData)"
+                  >
+                    华为MEAO
+                  </div>
+                  <div
+                    class="transition-box"
+                    @click="synchronizeJzy()"
+                  >
+                    九州云MEAO
+                  </div>
+                </div>
+              </el-collapse-transition>
+            </div>
+          </el-button>
+        </p>
+      </div>
       <div class="app_score">
         <p class="download_num">
           {{ downloadNum }}{{ this.$t('store.downloadNum') }}
@@ -89,14 +164,14 @@
           >
             {{ $t('store.download') }}
           </el-button>
-          <el-button
+          <!-- <el-button
             type="primary"
             class="batchProButton"
             :disabled="ifSynchronize || currentData.userId===userId ? false : true"
             @click="synchronizePackage(currentData)"
           >
             {{ $t('store.synchronize') }}
-          </el-button>
+          </el-button> -->
         </p>
       </div>
     </div>
@@ -542,7 +617,16 @@ export default {
       icon2: 'el-icon-more',
       icon3: 'el-icon-more',
       displayDom: false,
-      version: ''
+      version: '',
+      showSynchronize: false,
+      customColor: '#1ececa',
+      huaweiper: 0,
+      jiuzhouyunper: 0,
+      startSync: false,
+      hwMeAO: false,
+      jzyMEAO: false,
+      hwinterval: '',
+      jzyinterval: ''
     }
   },
   watch: {
@@ -563,6 +647,9 @@ export default {
   beforeRouteLeave (to, from, next) {
     sessionStorage.setItem('fromPath', from.path)
     next(true)
+  },
+  beforeDestroy () {
+    this.clearInterval()
   },
   methods: {
     submitComment () {
@@ -717,8 +804,31 @@ export default {
       this.ifDownloadImage(this.currentData, row)
       this.getAppData()
     },
+    synchronizeJzy () {
+      this.startSync = true
+      this.jzyMEAO = true
+      this.jiuzhouyunper = 10
+      this.jzyinterval = setInterval(() => {
+        if (this.jiuzhouyunper < 100) {
+          this.jiuzhouyunper += 10
+        }
+      }, 72000)
+    },
+    clearInterval () {
+      clearTimeout(this.interval)
+      this.jzyinterval = null
+      this.hwinterval = null
+    },
     synchronizePackage (row) {
       synchronizedPakageApi(this.appId, row).then(res => {
+        this.startSync = true
+        this.hwMeAO = true
+        this.huaweiper = 10
+        this.hwinterval = setInterval(() => {
+          if (this.huaweiper < 100) {
+            this.huaweiper += 10
+          }
+        }, 72000)
         this.$message({
           duration: 2000,
           message: this.$t('store.synchronizedwaiting'),
@@ -1123,7 +1233,7 @@ export default {
       }
     }
     .app_info{
-      width: calc(100% - 310px);
+      width: calc(100% - 610px);
       padding: 0 20px;
       word-wrap: break-word;
       .app_title{
@@ -1219,9 +1329,64 @@ export default {
         margin-top: 15px;
         text-align: center;
         .el-button{
-          width: 46%;
+          // width: 46%;
           border-radius: 0;
+          position: relative;
         }
+      }
+      .synchronize_info{
+        line-height: 22px;
+      }
+    }
+    .app_synchronize{
+      height: 128px;
+      width: 300px;
+      position: relative;
+      .synchronize_info{
+        line-height: 22px;
+      }
+      .synchronize_process{
+        text-align: left;
+        font-size: 14px;
+        p{
+          font-size: 16px;
+          font-weight: 600;
+        }
+        .process{
+          display: flex;
+          align-items: center;
+          margin-top: 8px;
+          span{
+            width: 86px;
+          }
+          .el-progress{
+            width: 200px;
+          }
+        }
+      }
+      .synchronize_img{
+        text-align: center;
+        img{
+          width: 30px;
+        }
+      }
+      .score_btn{
+        position: absolute;
+        bottom: 0;
+        margin: 0 18%;
+      }
+    }
+    .synchronize_div{
+      position: absolute;
+      top: 35px;
+      left: 0;
+      background: #688ef3;
+      width: 56%;
+      .transition-box{
+        line-height: 25px;
+      }
+      .transition-box:first-child{
+        border-bottom: 1px solid rgb(38, 19, 209);
       }
     }
   }
