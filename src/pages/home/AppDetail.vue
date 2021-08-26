@@ -812,7 +812,7 @@ export default {
         if (this.jiuzhouyunper < 100) {
           this.jiuzhouyunper += 10
         }
-      }, 12000)
+      }, 6000)
     },
     clearInterval () {
       clearTimeout(this.jzyinterval)
@@ -829,7 +829,7 @@ export default {
           if (this.huaweiper < 100) {
             this.huaweiper += 10
           }
-        }, 12000)
+        }, 6000)
         this.$message({
           duration: 2000,
           message: this.$t('store.synchronizedwaiting'),
