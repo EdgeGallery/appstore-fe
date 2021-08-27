@@ -625,6 +625,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-right: -3px;
     }
     .menu{
       display: none;

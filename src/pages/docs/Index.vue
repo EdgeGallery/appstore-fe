@@ -345,10 +345,6 @@ body, html{
       }
       .interface-title{
         margin-top: 120px;
-        .title-font{
-          // margin-top: -90px
-
-        }
 
       }
     }

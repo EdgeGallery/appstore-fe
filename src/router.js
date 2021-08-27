@@ -78,7 +78,7 @@ export default new Router({
         {
           path: 'docs',
           name: 'appstordocs',
-          component: () => import('./pages/docs/Index.vue'),
+          component: () => import('./pages/docs/DocsInterface.vue'),
           meta: {
             id: '2.2'
           }

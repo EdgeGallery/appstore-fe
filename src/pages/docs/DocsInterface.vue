@@ -15,65 +15,158 @@
   -->
 
 <template>
-  <div>
-    <eg-bread-crumb :data="breadCrumbData" />
-    <div class="docs flex">
-      <div
-        class="test-editors"
-        :class="{'test-editors-en':(language==='en')}"
-      >
-        <el-menu
-          :default-active="activeIndex"
-          class="el-menu-demo"
-          @select="handleSelect"
-          background-color="#eee"
+  <div class="docBackground">
+    <div class="docTop">
+      <p>{{ $t("nav.docs") }}</p>
+      <p />
+    </div>
+    <eg-bread-crumb
+      :data="breadCrumbData"
+      style="display:none;"
+    />
+    <div class="docContent">
+      <div class="docs flex">
+        <div
+          class="test-editors"
+          :class="{'test-editors-en':(language==='en')}"
         >
-          <el-submenu index="2">
-            <template slot="title">
-              {{ $t('nav.appQuery2') }}
-            </template>
-            <el-menu-item index="2">
-              {{ $t('nav.appQuery21') }}
+          <el-menu
+            :default-active="activeIndex"
+            v-model="activeIndex"
+            class="el-menu-demo"
+            @select="handleSelect"
+            background-color="#eee"
+          >
+            <el-menu-item
+              index="5"
+              class="title1"
+            >
+              {{ $t('docs.userGuide') }}
             </el-menu-item>
-            <el-menu-item index="2-2">
-              {{ $t('nav.appQuery22') }}
-            </el-menu-item>
-            <el-menu-item index="2-3">
-              {{ $t('nav.appQuery23') }}
-            </el-menu-item>
-            <el-menu-item index="2-4">
-              {{ $t('nav.appQuery24') }}
-            </el-menu-item>
-            <el-menu-item index="2-5">
-              {{ $t('nav.appQuery25') }}
-            </el-menu-item>
-          </el-submenu>
-          <el-submenu index="3">
-            <template slot="title">
-              {{ $t('nav.appDownload3') }}
-            </template>
-            <el-menu-item index="3-1">
-              {{ $t('nav.appDownload31') }}
-            </el-menu-item>
-            <el-menu-item index="3-2">
-              {{ $t('nav.appDownload32') }}
-            </el-menu-item>
-          </el-submenu>
-          <el-menu-item index="1">
-            {{ $t('nav.appMessage1') }}
-          </el-menu-item>
-        </el-menu>
-      </div>
-      <div
-        id="test-editor"
-      >
-        <mavon-editor
-          v-model="source"
-          :toolbars-flag="false"
-          :editable="false"
-          :subfield="false"
-          default-open="preview"
-        />
+            <el-submenu index="4">
+              <template
+                slot="title"
+              >
+                {{ $t('docs.appFolderStar') }}
+              </template>
+              <el-menu-item index="4">
+                {{ $t('docs.summary') }}
+              </el-menu-item>
+              <el-menu-item index="4-1">
+                {{ $t('docs.toscaFolder') }}
+              </el-menu-item>
+              <el-menu-item index="4-2">
+                {{ $t('docs.APPDFolder') }}
+              </el-menu-item>
+              <el-menu-item index="4-3">
+                {{ $t('docs.imageFolder') }}
+              </el-menu-item>
+              <el-menu-item index="4-4">
+                {{ $t('docs.manifestFile') }}
+              </el-menu-item>
+              <el-menu-item index="4-5">
+                {{ $t('docs.artifactsFolder') }}
+              </el-menu-item>
+            </el-submenu>
+            <el-submenu index="1">
+              <template
+                slot="title"
+                style="font-size:18px;"
+              >
+                {{ $t('docs.interfaceStar') }}
+              </template>
+              <el-menu-item index="1">
+                {{ $t('nav.appMessage1') }}
+              </el-menu-item>
+              <el-submenu index="1-2">
+                <template slot="title">
+                  {{ $t('docs.appView') }}
+                </template>
+                <el-menu-item index="1-2-1">
+                  {{ $t('nav.appQuery21') }}
+                </el-menu-item>
+                <el-menu-item index="1-2-2">
+                  {{ $t('nav.appQuery22') }}
+                </el-menu-item>
+                <el-menu-item index="1-2-3">
+                  {{ $t('nav.appQuery23') }}
+                </el-menu-item>
+                <el-menu-item index="1-2-4">
+                  {{ $t('nav.appQuery24') }}
+                </el-menu-item>
+                <el-menu-item index="1-2-5">
+                  {{ $t('nav.appQuery25') }}
+                </el-menu-item>
+              </el-submenu>
+              <el-submenu index="1-3">
+                <template slot="title">
+                  {{ $t('nav.appDownload3') }}
+                </template>
+                <el-menu-item index="1-3-1">
+                  {{ $t('nav.appDownload31') }}
+                </el-menu-item>
+                <el-menu-item index="1-3-2">
+                  {{ $t('nav.appDownload32') }}
+                </el-menu-item>
+              </el-submenu>
+            </el-submenu>
+          </el-menu>
+        </div>
+        <div
+          id="test-editor"
+        >
+          <div
+            v-show="this.activeIndex === '5'"
+            class="novice"
+          >
+            <p class="noviceTitle">
+              {{ $t('docs.userGuide') }}
+            </p>
+            <div class="cutLline">
+              <p class="cutLline1">
+                . . . .
+              </p>
+              <p class="cutLline2" />
+            </div>
+            <p class="noviceContent1">
+              {{ $t('docs.beginnerPart1') }}
+            </p>
+            <div class="docImg">
+              <img
+                :src="language === 'cn' ? require('@/assets/images/docImgcn1.png'): require('@/assets/images/docImgen1.png')"
+                alt=""
+              >
+            </div>
+            <p class="noviceTitle">
+              {{ $t('docs.coreFunGuide') }}
+            </p>
+            <div class="cutLline">
+              <p class="cutLline1">
+                . . . .
+              </p>
+              <p class="cutLline2" />
+            </div>
+            <p class="noviceContent1">
+              {{ $t('docs.beginnerPart2') }}
+            </p>
+            <div class="docImg2">
+              <img
+                :src="language === 'cn' ? require('@/assets/images/docImgcn2.png'): require('@/assets/images/docImgen2.png')"
+                alt=""
+              >
+            </div>
+          </div>
+          <mavon-editor
+            v-show="this.activeIndex != '5'"
+            v-model="source"
+            :toolbars-flag="false"
+            :editable="false"
+            :subfield="false"
+            default-open="preview"
+            :box-shadow="false"
+            preview-background="#f6f5f8"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -93,7 +186,7 @@ export default {
   },
   data () {
     return {
-      activeIndex: '2',
+      activeIndex: '5',
       source: '',
       language: localStorage.getItem('language') || 'cn',
       breadCrumbData: [
@@ -119,7 +212,6 @@ export default {
       this.updateBreadCrumbData(this.activeIndex)
       this.getAppStoreDocs()
     }
-
   },
   methods: {
     getAppStoreDocs () {
@@ -128,7 +220,7 @@ export default {
       })
     },
     clickShow () {
-      let name = this.$route.params.value || '2'
+      let name = this.$route.params.value || '5'
       this.activeIndex = name
       this.updateBreadCrumbData(name)
     },
@@ -142,26 +234,44 @@ export default {
         case '1':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appMessage1'), path: '' }]
           break
-        case '2':
+        case '1-2-1':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery21'), path: '' }]
           break
-        case '2-2':
+        case '1-2-2':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery22'), path: '' }]
           break
-        case '2-3':
+        case '1-2-3':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery23'), path: '' }]
           break
-        case '2-4':
+        case '1-2-4':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery24'), path: '' }]
           break
-        case '2-5':
+        case '1-2-5':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appQuery25'), path: '' }]
           break
-        case '3-1':
+        case '1-3-1':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appDownload31'), path: '' }]
           break
-        case '3-2':
+        case '1-3-2':
           this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('nav.appDownload32'), path: '' }]
+          break
+        case '4':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.summary'), path: '' }]
+          break
+        case '4-1':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.toscaFolder'), path: '' }]
+          break
+        case '4-2':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.APPDFolder'), path: '' }]
+          break
+        case '4-3':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.imageFolder'), path: '' }]
+          break
+        case '4-4':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.manifestFile'), path: '' }]
+          break
+        case '4-5':
+          this.breadCrumbData = [{ name: this.$t('nav.home'), path: '/' }, { name: this.$t('nav.docs'), path: '/docs' }, { name: this.$t('docs.artifactsFolder'), path: '' }]
           break
         default:
       }
@@ -174,63 +284,188 @@ export default {
   }
 }
 </script>
-<style lang='less' >
-
+<style lang='less'>
+.docBackground{
+  background-color: #f6f5f8;
+  padding-top:20px ;
+  margin-bottom: -100px;
+}
+.docTop{
+  padding-top:60px;
+  padding-left:20.42% ;
+  width: 100%;
+  height: 314px;
+  background-image: url(../../assets/images/docBackground.png);
+  background-size:100% 100%;
+  background-repeat: no-repeat;
+  p:first-child{
+    font-size: 30px;
+    font-family: HarmonyOS Sans SC;
+    font-weight: bold;
+    color: #5D3DA0;
+  }
+  p:nth-child(2){
+    width: 88px;
+    height: 7px;
+    background: #9E7BCD;
+    opacity: 0.2;
+    border-radius: 4px;
+  }
+}
+.docContent{
+  margin-top: -120px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+    p{
+      margin: 0;
+    }
 .docs {
-  margin-top: 0px;
-  font-size: 14px;
-  padding: 20px 10% 75px;
+    width: 73.64%;
+    border-radius:20px ;
+    font-size: 14px;
+    min-width: 1200px;
+    padding: 55px;
+    background-color: #FBFBFB;
   .el-tabs--left .el-tabs__item.is-left {
     font-size: 15px;
     text-align: left;
   }
-  .test-editors{
-    width: 250px;
+  .test-editors.test-editors-en{
     .el-menu{
-      background-color: #f0f2f5;
+      width: 300px;
+    }
+  }
+  .test-editors{
+      width: 260px;
+    .el-menu{
+      border-right:none ;
       height: 100%;
+      width: 250px;
+      box-sizing: border-box;
       text-align: left;
+      margin-right: 10px;
+      background-color: #FBFBFB !important;
       .el-submenu__title{
         line-height: 44px;
+        color: #C9C5D0;
         height: 44px;
+        background-color: #FBFBFB !important;
       }
+      .el-submenu.is-opened .el-submenu__title{
+        background-color: #fff !important;
+      }
+       .el-submenu.is-opened .el-menu-item{
+        background-color: #fff !important;
+      }
+      .el-submenu.is-opened{
+        background: #FFFFFF;
+        box-shadow: 0px 0px 13px 0px rgba(40, 12, 128, 0.1);
+        border-radius: 20px;
+      }
+      .el-menu-item{
+          background-color: #FBFBFB !important;
+          color: #C9C5D0;
+        }
       .el-submenu__title:hover, .el-submenu__title.is-active{
-        background-color: #e7edf7!important;
-        color: #688ef3;
+        background: #fff !important;
+        border-radius: 0px 8px 8px 0px;
+        color: #5E40C8;
       }
       .el-menu-item{
         line-height: 44px;
         height: 44px;
       }
       .el-menu-item:hover, .el-menu-item.is-active{
-        background-color: #e7edf7!important;
-        color: #688ef3;
+        background: linear-gradient(90deg, #E6E7F3, #F0F0F7);
+        border-radius: 0px 8px 8px 0px;
+        color: #5E40C8;
       }
     }
   }
-  .test-editors.test-editors-en{
-    width: 350px;
+  #test-editor{
+    .v-show-content, .v-show-content-html{
+    box-shadow: inset 4px 4px 25px 5px rgba(36, 20, 119, 0.1) !important;
+    border-radius: 16px;
+    padding: 10px 30px 15px !important;
+  }
+  .novice{
+    box-shadow: inset 4px 4px 25px 5px rgba(36, 20, 119, 0.1) !important;
+    border-radius: 16px;
+    width: 100%;
+    min-height: 300px;
+    padding-top: 41px;
+    .noviceTitle{
+      padding-left: 41px;
+      font-size: 25px;
+      font-family: HarmonyHeiTi;
+      font-weight: 600;
+      color: #5D3DA0;
+    }
+    .cutLline{
+      width: 100%;
+      height: 2px;
+      margin-top: 4px;
+      .cutLline1{
+        width: 4%;
+        padding-left:1% ;
+        font-weight: bolder;
+        color: #CCC5D9;
+        float: left;
+        margin-top: -14px;
+      }
+      .cutLline2{
+        float: right;
+        width: 96%;
+        height: 2px;
+        background: linear-gradient(to right,#CCC5D9,#fff)
+      }
+    }
+    .noviceContent1{
+      margin: 39px 0 0 63px;
+      font-size: 16px;
+      font-family: HarmonyHeiTi;
+      font-weight: 300;
+      color: #8F859B;
+      line-height: 24px;
+    }
+    .docImg{
+      width: 100%;
+      height: 16%;
+      margin: 31px 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img{
+        width: 90.4%;
+        height: 100%;
+        border-radius: 8px;
+      }
+    }
+    .docImg2{
+      width: 100%;
+      height: 57%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img{
+        width: 90.4%;
+        margin: 31px 0px;
+        height: 100%;
+        border-radius: 8px;
+      }
+    }
+  }
   }
   #test-editor{
-    width: calc(100% - 420px);
+    width:100%;
     .markdown-body{
       height: 100%;
     }
   }
-  .operation {
-    margin-bottom: 10px;
-    .btn {
-      padding: 5px 0;
-      font-size: 14px;
-      span {
-        margin-right: 12px;
-      }
-    }
-  }
 }
-@media screen and (max-width: 1380px){
-  .docs{
-    padding: 0 56px;
-  }
+div /deep/ .el-menu{
+  background-color: none !important;
 }
 </style>

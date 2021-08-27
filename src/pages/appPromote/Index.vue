@@ -162,6 +162,7 @@
         />
       </div>
       <el-dialog
+        class="outAppDialog"
         :visible.sync="dialogVisible"
         width="45%"
         :before-close="handleClose"
@@ -228,6 +229,7 @@
                   id="add_select_types"
                   v-model="form.appdTransId"
                   :placeholder="$t('common.appdTransId')"
+                  class="dialogSelect"
                 >
                   <el-option
                     v-for="(item,index) in types"
@@ -646,15 +648,6 @@ div /deep/ .el-button{
       color: #fff;
     }
 }
-div /deep/.el-input__inner {
-    border-color: #5E40C8 !important;
-}
- div /deep/.el-select__caret{
-  color: #5E40C8 !important;
-}
-div /deep/ .search_input .el-input__icon {
-    color: #5E40C8 !important;
-}
 div /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color: #5E40C8 !important;
 }
@@ -676,5 +669,12 @@ div /deep/.el-dialog__header {
 div /deep/.el-dialog__body {
     padding: 10px 68px 0 0 !important;
 
+}
+.dialogSelect{
+  border: none !important;
+}
+
+.outAppDialog /deep/ .el-input__inner {
+    border: 1px solid #fff !important;
 }
 </style>
