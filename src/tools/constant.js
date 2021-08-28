@@ -16,49 +16,57 @@
 
 const INDUSTRY = [
   {
-    label: ['智慧园区', 'Smart Park'],
+    labelcn: '智慧园区',
+    labelen: 'Smart Park',
     value: 'Smart Park',
     selected: false,
     type: 'industry'
   },
   {
-    label: ['智慧商超', 'Smart Supermarket'],
+    labelcn: '智慧商超',
+    labelen: 'Smart Supermarket',
     value: 'Smart Supermarket',
     selected: false,
     type: 'industry'
   },
   {
-    label: ['工业制造', 'Industrial Manufacturing'],
+    labelcn: '工业制造',
+    labelen: 'Industrial Manufacturing',
     value: 'Industrial Manufacturing',
     selected: false,
     type: 'industry'
   },
   {
-    label: ['交通物流', 'Transportation Logistics'],
+    labelcn: '交通物流',
+    labelen: 'Transportation Logistics',
     value: 'Transportation Logistics',
     selected: false,
     type: 'industry'
   },
   {
-    label: ['水利', 'Water Conservancy'],
+    labelcn: '水利',
+    labelen: 'Water Conservancy',
     value: 'Water Conservancy',
     selected: false,
     type: 'industry'
   },
   {
-    label: ['游戏竞技', 'Game Competition'],
+    labelcn: '游戏竞技',
+    labelen: 'Game Competition',
     value: 'Game Competition',
     selected: false,
     type: 'industry'
   },
   {
-    label: ['开源', 'Open Source'],
+    labelcn: '开源',
+    labelen: 'Open Source',
     value: 'Open Source',
     selected: false,
     type: 'industry'
   },
   {
-    label: ['其他', 'Other'],
+    labelcn: '其他',
+    labelen: 'Other',
     value: 'Other',
     selected: false,
     type: 'industry'
@@ -67,80 +75,93 @@ const INDUSTRY = [
 
 const TYPES = [
   {
-    label: ['视频应用', 'Video Application'],
+    labelcn: '视频应用',
+    labelen: 'Video Application',
     value: 'Video Application',
     selected: false,
     type: 'types'
   },
   {
-    label: ['游戏', 'Game'],
+    labelcn: '游戏',
+    labelen: 'Game',
     value: 'Game',
     selected: false,
     type: 'types'
   },
   {
-    label: ['视频监控', 'Video Surveillance'],
+    labelcn: '视频监控',
+    labelen: 'Video Surveillance',
     value: 'Video Surveillance',
     selected: false,
     type: 'types'
   },
   {
-    label: ['安全', 'Safety'],
+    labelcn: '安全',
+    labelen: 'Safety',
     value: 'Safety',
     selected: false,
     type: 'types'
   },
   {
-    label: ['区块链', 'Blockchain'],
+    labelcn: '区块链',
+    labelen: 'Blockchain',
     value: 'Blockchain',
     selected: false,
     type: 'types'
   },
   {
-    label: ['智能设备', 'Smart Device'],
+    labelcn: '智能设备',
+    labelen: 'Smart Device',
     value: 'Smart Device',
     selected: false,
     type: 'types'
   },
   {
-    label: ['物联网', 'Internet of Things'],
+    labelcn: '物联网',
+    labelen: 'Internet of Things',
     value: 'Internet of Things',
     selected: false,
     type: 'types'
   },
   {
-    label: ['大数据', 'Big Data'],
+    labelcn: '大数据',
+    labelen: 'Big Data',
     value: 'Big Data',
     selected: false,
     type: 'types'
   },
   {
-    label: ['AR/VR', 'AR/VR'],
+    labelcn: 'AR/VR',
+    labelen: 'AR/VR',
     value: 'AR/VR',
     selected: false,
     type: 'types'
   },
   {
-    label: ['API', 'API'],
+    labelcn: 'API',
+    labelen: 'API',
     value: 'API',
     selected: false,
     type: 'types'
   },
   {
-    label: ['SDK', 'SDK'],
+    labelcn: 'SDK',
+    labelen: 'SDK',
     value: 'SDK',
     selected: false,
     type: 'types'
   },
   {
-    label: ['MEP', 'MEP'],
+    labelcn: 'MEP',
+    labelen: 'MEP',
     value: 'MEP',
     selected: false,
     type: 'types'
   },
   {
-    label: ['其他', 'Other'],
-    value: 'Other',
+    labelcn: '其他',
+    labelen: 'Others',
+    value: 'Others',
     selected: false,
     type: 'types'
   }
@@ -196,13 +217,15 @@ const AFFINITY = [
 
 const DEPLOYMODE = [
   {
-    label: ['容器', 'container'],
+    labelcn: '容器',
+    labelen: 'container',
     value: 'container',
     selected: false,
     type: 'workloadType'
   },
   {
-    label: ['虚拟机', 'vm'],
+    labelcn: '虚拟机',
+    labelen: 'vm',
     value: 'vm',
     selected: false,
     type: 'workloadType'
@@ -211,26 +234,30 @@ const DEPLOYMODE = [
 
 const SORT_BY = [
   {
-    label: ['下载量', 'Most'],
-    value: 'Most',
+    labelcn: '下载量',
+    labelen: 'DownloadCount',
+    value: 'DownloadCount',
     selected: false,
     type: 'sortBy'
   },
   {
-    label: ['名称', 'Name'],
-    value: 'Name',
+    labelcn: '名称',
+    labelen: 'AppName',
+    value: 'AppName',
     selected: false,
     type: 'sortBy'
   },
   {
-    label: ['评分', 'Score'],
+    labelcn: '评分',
+    labelen: 'Score',
     value: 'Score',
     selected: false,
     type: 'sortBy'
   },
   {
-    label: ['上传时间', 'UploadTime'],
-    value: 'UploadTime',
+    labelcn: '上传时间',
+    labelen: 'CreateTime',
+    value: 'CreateTime',
     selected: false,
     type: 'sortBy'
   }

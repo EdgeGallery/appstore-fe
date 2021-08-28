@@ -633,6 +633,7 @@ export default {
     tableData: function (val) {
       if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
         this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
+        this.ifExperience = this.currentData.experienceAble
         this.source = this.currentData.details
         this.checkProjectData()
       }
@@ -714,15 +715,19 @@ export default {
       }
       getAppDetailTableApi(this.appId, userId, this.limit, this.offset).then(res => {
         let data = res.data
+        data.forEach(item => {
+          if (this.pathSource !== 'myapp' && item.status === 'Published' && item.deployMode === 'container') {
+            this.ifExperience = item.experienceAble
+            this.packageId = item.packageId
+            this.initStatus()
+          }
+        })
         this.handleTableTada(data)
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
           this.checkProjectData()
         }
-        data.forEach(item => {
-          this.packageId = item.packageId
-        })
       })
     },
     handleTableTada (data) {

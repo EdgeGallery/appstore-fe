@@ -18,13 +18,13 @@
   <div class="app-list">
     <el-table
       :data="appData"
+      class="tableStyle"
       style="width: 100%"
-      header-cell-class-name="headerStyle"
     >
       <el-table-column
         prop="name"
         :label="$t('common.appName')"
-        width="220"
+        width="200"
         :cell-class-name="hiddenClass"
       >
         <template slot-scope="scope">
@@ -51,18 +51,18 @@
       />
       <el-table-column
         prop="type"
-        :label="$t('common.type')"
+        :label="$t('store.type')"
         width="130"
       />
       <el-table-column
         prop="affinity"
-        :label="$t('common.architecture')"
+        :label="$t('system.architecture')"
         width="105"
       />
       <el-table-column
         prop="deployMode"
         :label="$t('store.workloadType')"
-        width="120"
+        width="110"
       >
         <template slot-scope="scope">
           {{ scope.row.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
@@ -71,12 +71,12 @@
       <el-table-column
         prop="createTime"
         :label="$t('common.uploadTime')"
-        width="150"
+        width="145"
       />
       <el-table-column
         prop="shortDesc"
         :label="$t('common.description')"
-        width="300"
+        width="280"
         :cell-class-name="hiddenClass"
       >
         <template slot-scope="scope">
@@ -108,13 +108,13 @@
       />
       <el-table-column
         :label="$t('common.operation')"
-        width="110"
+        width="130"
       >
         <template slot-scope="scope">
           <el-button
             id="applist_detail"
             @click="detail(scope.row)"
-            type="text"
+            class="detailStyle"
           >
             {{ $t('common.detail') }}
           </el-button>
@@ -122,7 +122,7 @@
             id="applist_delete"
             :disabled="ifDelete || userId === scope.row.userId ? false : true"
             @click="deleteRow(scope.row)"
-            type="text"
+            class="detailStyle"
           >
             {{ $t('common.delete') }}
           </el-button>
@@ -210,9 +210,16 @@ export default {
 </script>
 <style lang='less' scoped>
 .app-list{
-  padding: 20px 0;
+  // padding: 20px 0;
   .pagination{
     margin: 20px;
   }
+  .detailStyle{
+    background-color: #EFEFEF;
+    color: #7A6E8A;
+    border: 0px;
+    padding: 6px;
+  }
+
 }
 </style>

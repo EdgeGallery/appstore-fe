@@ -176,8 +176,10 @@ const en = {
     }
   },
   common: {
+    sort: 'Sort',
+    workloadType: 'Workload Type :',
     address: 'Address',
-    type: 'Type',
+    type: 'Type :',
     video: 'Video',
     game: 'Game',
     VideoSurveilance: 'Video Surveilance',
@@ -197,7 +199,7 @@ const en = {
     MEN: 'MEM',
     CPU: 'CPU',
     AI: 'AI',
-    industry: 'Industry',
+    industry: 'Industry :',
     Smartpark: 'Smart Park',
     supermarket: 'Supermarket',
     industrialManufacturing: 'Industrial Manufacturing',
@@ -317,6 +319,8 @@ const en = {
     uninvolved: 'uninvolved'
   },
   store: {
+    type: 'Type',
+    industry: 'Industry',
     advancedSearch: 'Advanced Search',
     clearAll: 'Delete',
     screening: 'Screening',
@@ -400,7 +404,9 @@ const en = {
     waitQueryStatus: 'Querying the deployment status, please wait patiently',
     deployFinished: 'Application deployment completed',
     tryAppDes: 'Please experience with the interface experience url in the application description according to the following service information',
-    serviceNodeInfo: 'Service Node Info'
+    serviceNodeInfo: 'Service Node Info',
+    appdConversion: 'Appd Conversion',
+    filterApp: 'Filter App'
   },
   docs: {
     step1: 'Open source MEP platform',

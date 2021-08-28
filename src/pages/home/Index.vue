@@ -15,154 +15,32 @@
   -->
 
 <template>
-  <div class="home">
+  <div class="home padding56">
+    <div class="title_top title_left defaultFontBlod clear ">
+      {{ $t('nav.appstore') }}
+      <span class="line_bot1" />
+      <el-button
+        class="uploadApp_btn linearGradient"
+        id="myapp_checktest"
+        @click="uploadPackage"
+      >
+        {{ $t('store.uploadApp') }}
+      </el-button>
+    </div>
     <div class="app">
       <el-row class="app-content">
         <el-col
           :span="24"
           class="search"
         >
-          <el-row class="searchAndButton">
-            <el-col
-              class="icon-group"
-            >
-              <div class="rt">
-                <el-tooltip
-                  v-if="ifShow"
-                  class="item"
-                  effect="light"
-                  :content="$t('store.uploadApp')"
-                  placement="bottom-start"
-                  :visible-arrow="false"
-                >
-                  >
-                  <img
-                    :src="uploadAppLogo"
-                    class="uploadAppLogo"
-                    @click="uploadPackage"
-                    alt=""
-                  >
-                </el-tooltip>
-                <el-tooltip
-                  class="item"
-                  effect="light"
-                  :content="$t('common.displaySwitch')"
-                  placement="bottom-start"
-                  :visible-arrow="false"
-                >
-                  <img
-                    class="header_img"
-                    v-if="!iconAactive"
-                    src="../../assets/images/applist.png"
-                    @click="changeAppList"
-                    alt=""
-                  >
-                  <img
-                    class="header_img"
-                    v-if="iconAactive"
-                    src="../../assets/images/appgrid.png"
-                    @click="changeAppList"
-                    alt=""
-                  >
-                </el-tooltip>
-              </div>
-            </el-col>
-            <el-col class="searchBox">
-              <div
-                class="right"
-                id="home_namequery"
-              >
-                <el-input
-                  suffix-icon="el-icon-search"
-                  v-model="nameQuery"
-                  @change="queryApp"
-                  :placeholder="$t('common.appName')"
-                  class="search_input"
-                />
-              </div>
-            </el-col>
-          </el-row>
-        </el-col>
-        <el-col
-          :span="24"
-          class="condition-list"
-        >
-          <div
-            class="sort-type"
-            :class="{'sort-type-en':language==='en'}"
-          >
-            <strong>{{ $t('common.industry') }}</strong>
-            <div
-              v-for="(item, index) in industry"
-              :key="index"
-              class="box curp"
-              :class="{selected: item.selected}"
-              @click="selectedCondition('industry', index)"
-            >
-              <span>{{ language==='cn'?item.label[0]:item.label[1] }}</span>
-            </div>
-          </div>
-          <div
-            class="sort-type"
-            :class="{'sort-type-en':language==='en'}"
-          >
-            <strong>{{ $t('common.type') }}</strong>
-            <div
-              v-for="(item, index) in types"
-              :key="index"
-              class="box curp"
-              :class="{selected: item.selected}"
-              @click="selectedCondition('types', index)"
-            >
-              <span>{{ language === 'cn'?item.label[0]:item.label[1] }}</span>
-            </div>
-          </div>
-          <div
-            class="sort-type"
-            :class="{'sort-type-en':language==='en'}"
-          >
-            <strong>{{ $t('common.architecture') }}</strong>
-            <div
-              v-for="(item, index) in affinity"
-              :key="index"
-              class="box curp"
-              :class="{selected: item.selected}"
-              @click="selectedCondition('affinity', index)"
-            >
-              <span>{{ item.label }}</span>
-            </div>
-          </div>
-          <div
-            class="sort-type"
-            :class="{'sort-type-en':language==='en'}"
-          >
-            <strong>{{ $t('store.workloadType') }}</strong>
-            <div
-              v-for="(item, index) in workloadType"
-              :key="index"
-              class="box curp"
-              :class="{selected: item.selected}"
-              @click="selectedCondition('workloadType', index)"
-            >
-              <span>{{ language==='cn'?item.label[0]:item.label[1] }}</span>
-            </div>
-          </div>
-          <div
-            class="sort-type underline"
-            :class="{'sort-type-en':language==='en'}"
-          >
-            <strong>{{ $t('store.sortBy') }}</strong>
-            <div
-              v-for="(item, index) in sortBy"
-              :key="index"
-              class="box curp"
-              :class="{selected: item.selected}"
-              @click="selectedSortBy( index)"
-            >
-              <span>{{ language === 'cn'?item.label[0]:item.label[1] }}</span>
-            </div>
+          <div class="title">
+            <Search
+              @getCurrentComponent="getCurrentComponent"
+              @getSearchCondition="getSearchCondition"
+            />
           </div>
         </el-col>
+
         <el-col
           :span="24"
           class="applist-content"
@@ -184,7 +62,7 @@
       </el-row>
     </div>
     <!-- Upload components -->
-    <div v-if="uploadDiaVis">
+    <div v-if="true">
       <uploadPackage
         v-model="uploadDiaVis"
         @getAppData="getAppData"
@@ -199,6 +77,7 @@ import { getAppTableApi } from '../../tools/api'
 import uploadPackage from './UploadPackage.vue'
 import appGrid from './AppGrid.vue'
 import appList from './AppList.vue'
+import Search from './SearchAndFilter.vue'
 import pagination from '../../components/common/Pagination.vue'
 import uploadAppLogo from '@/assets/images/upload.png'
 import appgridLogo from '@/assets/images/appgrid.png'
@@ -214,7 +93,8 @@ export default {
     appGrid,
     appList,
     pagination,
-    HomeSwiper
+    HomeSwiper,
+    Search
   },
   data () {
     return {
@@ -223,7 +103,6 @@ export default {
       advancedStatus: false,
       uploadDiaVis: false,
       iconAactive: false,
-      nameQuery: '',
       selectedConditions: [],
       types: TYPES,
       affinity: AFFINITY,
@@ -246,6 +125,7 @@ export default {
       prop: 'createTime',
       order: 'desc',
       screenHeight: document.body.clientHeight,
+      // searchCondition: {}
       searchCondition: {
         appName: '',
         types: [],
@@ -265,6 +145,7 @@ export default {
     }
   },
   methods: {
+
     setDivHeight () {
       common.setDivHeightFun(this.screenHeight, 'home', 332)
     },
@@ -278,29 +159,14 @@ export default {
         } else if (this.currentComponent === 'appList') {
           this.iconAactive = true
         }
-        this.getAppData()
+
+        this.getAppData(this.searchCondition)
       } else {
         this.currentPage = 1
       }
     },
-    filterFindAppData (data) {
-      let appId = []
-      for (let item of data) {
-        appId.push(item.appId)
-      }
-      let filterData = []
-      appId = [...new Set(appId)]
-      for (let i = 0; i < appId.length; i++) {
-        for (let item of data) {
-          if (item.appId === appId[i]) {
-            filterData.push(item)
-            appId.splice(i, 1)
-          }
-        }
-      }
-      return filterData
-    },
     uploadPackage () {
+      console.log('uploadtest')
       let userName = sessionStorage.getItem('userNameRole')
       if (userName === 'guest') {
         this.uploadDiaVis = false
@@ -308,22 +174,14 @@ export default {
         this.uploadDiaVis = true
       }
     },
-    changeAppList () {
-      this.iconAactive = !this.iconAactive
-      if (this.iconAactive) {
-        this.currentComponent = 'appList'
-        sessionStorage.setItem('currentComponent', 'appList')
-      } else {
-        this.currentComponent = 'appGrid'
-        sessionStorage.setItem('currentComponent', 'appGrid')
-      }
+    getCurrentComponent (currentComponent) {
+      this.currentComponent = currentComponent
+      console.log(this.currentComponent)
     },
-
-    changeSelectedConditions () {
-      this.doQuery()
-    },
-    changeSelectedConditions2 () {
-      this.doQuery()
+    getSearchCondition (searchCondition) {
+      this.searchCondition = searchCondition
+      console.log(this.searchCondition)
+      this.getAppData(searchCondition)
     },
     doQuery () {
       this.selectedConditions = []
@@ -333,7 +191,6 @@ export default {
           if (condition.selected) this.selectedConditions.push(condition)
         })
       })
-      this.searchCondition.appName = this.nameQuery.toLowerCase()
       this.searchCondition = {
         appName: '',
         types: [],
@@ -387,48 +244,24 @@ export default {
           }
         })
 
-      this.getAppData()
+      this.getAppData(this.searchCondition)
     },
-    buildQueryReq () {
-      let _queryReq = this.searchCondition
-      if (this.prop === 'appName') {
-        this.order = 'asc'
-      } else {
-        this.order = 'desc'
-      }
-      this.searchCondition.queryCtrl = {
-        'offset': this.offsetPage,
-        'limit': this.limitSize,
-        'sortItem': this.prop,
-        'sortType': this.order
-      }
-      return _queryReq
-    },
-    selectedCondition (type, index) {
-      this[type][index].selected = !this[type][index].selected
-      this.changeSelectedConditions()
-    },
-    selectedSortBy (index) {
-      if (
-        this.sortBy.every((item) => {
-          return item.selected === false
-        })
-      ) {
-        this.sortBy[index].selected = !this.sortBy[index].selected
-        this.changeSelectedConditions2()
-      } else {
-        if (this.sortBy[index].selected === true) {
-          this.sortBy[index].selected = !this.sortBy[index].selected
-          this.changeSelectedConditions2()
-        } else {
-          this.sortBy.forEach((item) => {
-            item.selected = false
-          })
-          this.sortBy[index].selected = !this.sortBy[index].selected
-          this.changeSelectedConditions2()
-        }
-      }
-    },
+    // buildQueryReq () {
+    //   let _queryReq = this.searchCondition
+    //   if (this.prop === 'appName') {
+    //     this.order = 'asc'
+    //   } else {
+    //     this.order = 'desc'
+    //   }
+    //   this.searchCondition.queryCtrl = {
+    //     'offset': this.offsetPage,
+    //     'limit': this.limitSize,
+    //     'sortItem': this.prop,
+    //     'sortType': this.order
+    //   }
+    //   return _queryReq
+    // },
+
     getCurrentPageData (data, pageSize, start) {
       this.limitSize = pageSize
       this.offsetPage = start
@@ -439,32 +272,26 @@ export default {
       this.findAppData.forEach(itemBe => {
         INDUSTRY.forEach(itemFe => {
           if (itemBe.industry.match(itemFe.label[1]) && this.language === 'cn') {
-            itemBe.industry = itemBe.industry.replace(itemFe.label[1], itemFe.label[0])
+            itemBe.industry = itemBe.industry.replace(itemFe.labelen, itemFe.labelcn)
           } else if (itemBe.industry.match(itemFe.label[1]) && this.language === 'en') {
-            itemBe.industry = itemBe.industry.replace(itemFe.label[0], itemFe.label[1])
+            itemBe.industry = itemBe.industry.replace(itemFe.labelcn, itemFe.labelen)
           }
         })
         TYPES.forEach(itemFe => {
           if (itemBe.type.match(itemFe.label[1]) && this.language === 'cn') {
-            itemBe.type = itemBe.type.replace(itemFe.label[1], itemFe.label[0])
+            itemBe.type = itemBe.type.replace(itemFe.label[1], itemFe.labelcn)
           } else if (itemBe.type.match(itemFe.label[1]) && this.language === 'en') {
-            itemBe.type = itemBe.type.replace(itemFe.label[0], itemFe.label[1])
+            itemBe.type = itemBe.type.replace(itemFe.labelcn, itemFe.labelen)
           }
         })
       })
     },
-    queryApp () {
-      sessionStorage.setItem('currentPage', 1)
-      this.searchCondition.appName = this.nameQuery.toLowerCase()
-      this.getAppData()
-    },
 
-    getAppData () {
+    getAppData (searchCondition) {
       this.uploadDiaVis = false
+      console.log(searchCondition)
       this.currentComponent = sessionStorage.getItem('currentComponent') || 'appGrid'
-      this.searchCondition.appName = this.nameQuery.toLowerCase()
-      console.log(this.buildQueryReq())
-      getAppTableApi(this.buildQueryReq()).then(
+      getAppTableApi(searchCondition).then(
         (res) => {
           this.appData = this.findAppData = res.data.results
           this.total = res.data.total
@@ -472,7 +299,7 @@ export default {
             let newDateBegin = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = newDateBegin
           })
-          this.checkProjectData()
+          // this.checkProjectData()
         },
         (error) => {
           let defaultMsg = this.$t('promptMessage.getAppFail')
@@ -480,6 +307,7 @@ export default {
         }
       )
     },
+    // home page method
     setItemSelectedValue (item) {
       item.selected = false
       if (item.value === this.selectedConditions[0].label[1]) {
@@ -492,15 +320,15 @@ export default {
     '$i18n.locale': function () {
       let language = localStorage.getItem('language')
       this.language = language
-      this.getAppData()
+      this.getAppData(this.searchCondition)
     },
     offsetPage (val, oldVal) {
       this.offsetPage = val
-      this.getAppData()
+      this.getAppData(this.searchCondition)
     },
     limitSize (val, oldVal) {
       this.limitSize = val
-      this.getAppData()
+      this.getAppData(this.searchCondition)
     },
     total (val, oldVal) {
       if (this.limitSize > val) {
@@ -550,7 +378,8 @@ export default {
         this.setItemSelectedValue(item)
       })
     }
-    this.getAppData()
+    console.log(this.searchCondition)
+    // this.getAppData(this.searchCondition)
     this.ifFromDetail()
   },
   destroyed () {
@@ -562,6 +391,17 @@ export default {
 
 <style lang="less" scoped>
 .home {
+    .uploadApp_btn{
+    position:absolute;
+    right: 0;
+    bottom: 30px;
+    height: 50px;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 25px;
+    padding: 0 50px;
+  }
+
   .el-dialog {
     height: 333px;
     width: 535px;
@@ -580,7 +420,7 @@ export default {
       margin-top: 2%;
     }
   }
-  margin-top: 65px;
+  // margin-top: 65px;
   .el-form-item {
     margin-bottom: 0;
   }
@@ -622,7 +462,7 @@ export default {
     }
   }
   .app {
-    padding: 30px 10%;
+    // padding: 30px 10%;
     box-sizing: border-box;
     .app-content {
       background: white;
@@ -631,7 +471,6 @@ export default {
       .search {
         font-size: 16px;
         padding-bottom: 10px;
-        border-bottom: 1px solid #e7ebf5;
         .left {
           float: left;
           .search-title {
