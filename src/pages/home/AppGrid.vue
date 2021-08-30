@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="app-grid">
+  <div class="app-grid clearfix">
     <div
       class="curp content"
       v-for="(item, index) in appData"
@@ -130,6 +130,7 @@ export default {
 .app-grid {
   padding: 10px;
   .content {
+    float: left;
     width: 20%;
     padding: 0 15px;
     box-sizing: border-box;

@@ -56,7 +56,7 @@
             margin="5px"
             class="link-right"
           />
-          <em class="image_container" />{{ $t('appManager.pushAppTitle') }}
+          <em class="push_container" />{{ $t('appManager.pushAppTitle') }}
         </span>
       </li>
       <li
