@@ -195,16 +195,16 @@ export default {
     },
     click1 () {
       this.activeName = 'unReadedMsg'
-      console.log(this.activeName)
+      this.$emit('func', this.activeName)
       for (let item of this.allTabsMsg) {
         if (item.name === this.activeName) {
-          console.log(item.name)
           this.currentTabData = this.filterDeleteData(item.content)
         }
       }
     },
     click2 () {
       this.activeName = 'readedMsg'
+      this.$emit('func', this.activeName)
       for (let item of this.allTabsMsg) {
         if (item.name === this.activeName) {
           this.currentTabData = this.filterDeleteData(item.content)
@@ -213,6 +213,7 @@ export default {
     },
     click3 () {
       this.activeName = 'allMsg'
+      this.$emit('func', this.activeName)
       for (let item of this.allTabsMsg) {
         if (item.name === this.activeName) {
           this.currentTabData = this.filterDeleteData(item.content)
