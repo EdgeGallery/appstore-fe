@@ -46,6 +46,7 @@
             @clickMsgItemEvent="getDetailMsg"
             @isShowDetailMsgDlg="isShowDetailDlg"
             :data="rightDetailData"
+            @func="clickMsgType"
             ref="rightTabPanel"
           />
           <div class="messagePage">
@@ -120,8 +121,10 @@ export default {
       prop: '',
       order: '',
       total: 0,
+      msgType: 'read',
       offsetPage: 0,
       appName: '',
+      messageType: '',
       rightDetailData: [
         {
           name: 'unReadedMsg',
@@ -148,6 +151,15 @@ export default {
     }
   },
   methods: {
+    clickMsgType (data) {
+      if (data === 'unReadedMsg') {
+        this.msgType = 'read'
+      } else if (data === 'readedMsg') {
+        this.msgType = 'noread'
+      } else {
+        this.msgType = ''
+      }
+    },
     getDetailMsg (value) {
       this.currentDetailMsg = value
     },
@@ -170,7 +182,7 @@ export default {
     currentChange (val) {
       this.pageNum = val
       this.offsetPage = this.curPageSize * (this.pageNum - 1)
-      this.setCurrentTimeData()
+      this.getAppData()
     },
     sizeChange (val) {
       this.curPageSize = val
@@ -250,6 +262,7 @@ export default {
           this.updateMsgStatus(param.messageId)
         }
         let data = res.data.results
+        this.total = res.data.total
         data.forEach(item => {
           item.timeResult = this.timeCompute(item.time)
           if (param && item.messageId === param.messageId) {
@@ -262,13 +275,10 @@ export default {
           if (item.timeResult === 1) {
             if (item.readed) {
               this.rightDetailData[1].content.push(item)
-              this.total = this.rightDetailData[1].content.length
             } else {
               this.rightDetailData[0].content.push(item)
-              this.total = this.rightDetailData[0].content.length
             }
             this.rightDetailData[2].content.push(item)
-            this.total = this.rightDetailData[2].content.length
           }
         })
         this.$refs.rightTabPanel.parentMsg(this.rightDetailData)
@@ -294,6 +304,9 @@ export default {
       if (isShowDlg === true) {
         document.body.style = 'background: #4A4D54;opacity: 0.7;'
       }
+    },
+    curPageSize: function () {
+      this.getAppData()
     }
   }
 }

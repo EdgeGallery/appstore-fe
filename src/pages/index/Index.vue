@@ -340,16 +340,16 @@
             >
               <div
                 class="footer_app"
-                v-for="(item,index) in recommendData"
+                v-for="(item,index) in apps"
                 :key="index"
                 v-show="showApp"
               >
                 <img
-                  :src="item.imgSrc"
+                  :src="item.appId"
                   alt=""
                   @click="jumpToAppList"
                 >
-                <p>{{ item.title }}</p>
+                <p>{{ item.name }}</p>
               </div>
               <div
                 class="footer_app"
@@ -474,6 +474,7 @@ export default {
       dialogVisible: false,
       showHerf: 1,
       appData: [],
+      apps: [],
       fullHeight: document.documentElement.offsetTop,
       selectedConditions: [],
       uploadDiaVis: false,
@@ -513,6 +514,58 @@ export default {
           index: 2
         }],
       floor: [],
+      relateApp1: [
+        {
+          name: 'AnanMss',
+          appId: require('../../assets/images/ananMss.jpg')
+        },
+        {
+          name: 'Anheng-WAF',
+          appId: require('../../assets/images/anheng-WAF.jpg')
+        }, {
+          name: 'Kingsoftcloud',
+          appId: require('../../assets/images/kingsoftcloud.jpg')
+        }, {
+          name: 'CloudVR',
+          appId: require('../../assets/images/cloudVR.png')
+        },
+        {
+          name: 'Edge_VR教育平台',
+          appId: require('../../assets/images/edge_VR.jpg')
+        },
+        {
+          name: 'ktmedia',
+          appId: require('../../assets/images/ktmedia.jpg')
+        }
+      ],
+      relateApp2: [
+        {
+          name: 'factorywording',
+          appId: require('../../assets/images/factorywording.jpg')
+        },
+        {
+          name: 'Face_recognition',
+          appId: require('../../assets/images/face_recognition.jpg')
+        },
+        {
+          name: 'PCB_defet_detection',
+          appId: require('../../assets/images/pcb_defect_detection.png')
+        }
+      ],
+      relateApp3: [
+        {
+          name: 'hetu',
+          appId: require('../../assets/images/hetu.jpg')
+        },
+        {
+          name: 'Yunex',
+          appId: require('../../assets/images/yunex.jpg')
+        },
+        {
+          name: 'roadSideUnit',
+          appId: require('../../assets/images/roadSideUnit.jpg')
+        }
+      ],
       recommendDatas: [
         {
           title: '智慧园区',
@@ -676,22 +729,29 @@ export default {
     },
     dialogDetil (item) {
       this.appData = []
+      this.apps = []
       this.dialogVisible = true
       this.dialog_datas = item
       this.dialog_type = item.industry
       this.getDialogApp()
       if (this.dialog_type === 'Smart Park' && this.language === 'cn') {
         this.floor = this.parkcn
+        this.apps = this.relateApp1
       } else if (this.dialog_type === 'Smart Park' && this.language === 'en') {
         this.floor = this.parken
+        this.apps = this.relateApp1
       } else if (this.dialog_type === 'Industrial Manufacturing' && this.language === 'cn') {
         this.floor = this.floor = this.industrialcn
+        this.apps = this.relateApp2
       } else if (this.dialog_type === 'Industrial Manufacturing' && this.language === 'en') {
         this.floor = this.industrialen
+        this.apps = this.relateApp2
       } else if (this.dialog_type === 'logistics' && this.language === 'cn') {
         this.floor = this.logisticscn
+        this.apps = this.relateApp3
       } else if (this.dialog_type === 'logistics' && this.language === 'en') {
         this.floor = this.logisticsen
+        this.apps = this.relateApp3
       }
     },
     randomRgb () {
