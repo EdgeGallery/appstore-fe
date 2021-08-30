@@ -301,6 +301,19 @@ export default new Router({
           }
         },
         {
+          path: 'appdconversion',
+          name: 'appdconversion',
+          component: () => import('./pages/home/AppdConversion.vue'),
+          meta: {
+            id: '2.12',
+            breadcrumb: [{
+              nameEn: en.nav.home,
+              path: '/',
+              nameCn: cn.nav.home
+            }]
+          }
+        },
+        {
           path: 'app/prom/task',
           name: 'promTask',
           component: () => import('./pages/appPromotion/PromTask.vue'),

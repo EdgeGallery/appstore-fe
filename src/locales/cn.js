@@ -179,8 +179,10 @@ const cn = {
     }
   },
   common: {
+    sort: '排序',
+    workloadType: '负载类型 :',
     address: '地址',
-    type: '类型',
+    type: '类型 :',
     video: '视频应用',
     game: '游戏',
     VideoSurveilance: '视频监控',
@@ -195,12 +197,12 @@ const cn = {
     bigdata: '大数据',
     calculate: '计算',
     all: 'All',
-    architecture: '架构',
+    architecture: '架构 :',
     GPU: 'GPU',
     MEN: 'MEM',
     CPU: 'CPU',
     AI: 'AI',
-    industry: '行业',
+    industry: '行业 :',
     Smartpark: '智慧园区',
     supermarket: '智慧商超',
     industrialManufacturing: '工业制造',
@@ -331,6 +333,8 @@ const cn = {
     uninvolved: '不涉及'
   },
   store: {
+    industry: '行业',
+    type: '类型',
     advancedSearch: '高级搜索',
     clearAll: '清空',
     screening: '筛选',
@@ -421,7 +425,9 @@ const cn = {
     waitQueryStatus: '正在查询部署状态，请耐心等待',
     deployFinished: '应用部署完成',
     tryAppDes: '请根据如下服务信息，结合应用描述中界面体验url进行体验',
-    serviceNodeInfo: '服务节点信息'
+    serviceNodeInfo: '服务节点信息',
+    appdConversion: '应用包转换',
+    filterApp: '筛选应用'
   },
   docs: {
     // step1: '开源MEP平台',

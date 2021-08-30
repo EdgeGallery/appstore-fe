@@ -41,7 +41,7 @@ export default {
     },
     size: {
       type: Number,
-      default: 12
+      default: 15
     },
     currentPageProp: {
       type: Number,
@@ -57,7 +57,7 @@ export default {
       totalNum: 0,
       currentPage: this.currentPageProp,
       data: [],
-      pageSize: 12
+      pageSize: 15
     }
   },
   watch: {

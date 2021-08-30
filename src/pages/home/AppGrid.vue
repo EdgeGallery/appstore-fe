@@ -38,22 +38,17 @@
               class="app-name"
               :class="{'containers':item.deployMode==='container','vm':item.deployMode==='vm','name-en':language==='en'}"
             >{{ item.name }} &nbsp;</span>
+          </h4>
+          <h4 class="name clearfix">
             <span
               class="deployMode"
               :class="{'containers':item.deployMode==='container','vm':item.deployMode==='vm','mode-en':language==='en'}"
             >{{ item.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}</span>
           </h4>
           <p class="type-size">
-            {{ $t('common.industry') }}：{{ item.industry?item.industry:'/' }}
-          </p>
-          <p class="type-size">
-            {{ $t('common.provider') }}：{{ item.provider?item.provider:'/' }}
-          </p>
-          <p class="type-size">
-            {{ $t('common.type') }}：{{ item.type }}
+            {{ item.provider?item.provider:'/' }}
           </p>
           <p class="core">
-            <span class="type">{{ $t('store.score') }}：</span>
             <el-rate
               v-model="item.score"
               disabled
@@ -133,83 +128,75 @@ export default {
 </script>
 <style lang='less'>
 .app-grid {
-  display: flex;
   padding: 10px;
-  flex-wrap: wrap;
   .content {
-    width: 25%;
+    width: 20%;
     padding: 0 15px;
     box-sizing: border-box;
     margin-bottom: 20px;
     .application {
-      border: 1px solid #e6e6e6;
-      display: flex;
       align-items: center;
       justify-content: space-around;
       transition: transform 0.3s ease-in;
-      background: #fafafa;
       position: relative;
       .img-box {
-        // padding: 50px 0;
         box-sizing: border-box;
         text-align: center;
-        width: 45%;
+        width: 100%;
         img {
-          height: 65%;
-          width: 65%;
+          width: 20%;
+          height: 20%;
         }
       }
       .intr {
-        width: 55%;
-        padding: 25px 0px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         h4 {
-          line-height: 34px;
+          line-height: 31px;
         }
         p {
           color: black;
-          line-height: 28px;
+          line-height: 18px;
+          margin-bottom: 0.4rem;
+          font-size: 14px;
         }
         span {
           display: inline-block;
           height: 28px;
         }
         .name {
-          text-align: left;
+          text-align: center;
           span{
             float: left;
           }
           .app-name {
-            max-width: calc(100% - 54px);
+            font-family: HarmonyOS_Sans_SC_Bold;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            font-size: 22px;
-          }
-          .app-name.containers.name-en{
-            max-width: calc(100% - 73px);
-          }
-          .app-name.vm.name-en{
-            max-width: calc(100% - 45px);
+            font-size: 14px;
+            font-weight: bold;
+            color: #111111;
           }
           .deployMode{
             width: 48px;
             font-size: 12px;
-            color: #fff;
             border-radius: 20px;
             text-align: center;
             height: 18px;
             line-height: 18px;
-            padding: 0 8px;
-            margin-top: 7px;
             box-sizing: border-box;
           }
           .deployMode.containers{
-            background: #1ececa;
+            background: #afbfcc;
+            color: #54AAF3;
           }
           .deployMode.vm{
-            background: #9163cc;
-            width: 54px;
-            padding: 0 5px;
+            background: #ebe8e8;
+            color: #9163CC;
+            width: 48px;
           }
           .deployMode.containers.mode-en{
             width: 68px;
@@ -228,13 +215,14 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          font-size: 14px;
           .type {
             text-align: left;
             display: inline-block;
           }
-          .size {
-            display: inline-block;
-          }
+          // .size {
+          //   display: inline-block;
+          // }
         }
         .core {
           display: flex;

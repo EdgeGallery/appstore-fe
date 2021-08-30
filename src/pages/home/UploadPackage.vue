@@ -109,7 +109,7 @@
             <el-option
               v-for="(item,index) in industry"
               :key="index"
-              :label="language === 'cn'?item.label[0]:item.label[1]"
+              :label="language === 'cn'?item.labelcn:item.labelen"
               :value="item.value"
             />
           </el-select>
@@ -127,7 +127,7 @@
             <el-option
               v-for="(item,index) in types"
               :key="index"
-              :label="language === 'cn'?item.label[0]:item.label[1]"
+              :label="language === 'cn'?item.labelcn:item.labelen"
               :value="item.value"
               :id="item.value"
             />
@@ -814,14 +814,14 @@ export default {
     },
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {
-        let pos = this.packageForm.industry.indexOf(itemFe.label[0])
+        let pos = this.packageForm.industry.indexOf(itemFe.labelcn)
         if (pos !== -1) {
-          this.packageForm.industry.splice(pos, 1, itemFe.label[1])
+          this.packageForm.industry.splice(pos, 1, itemFe.labelen)
         }
       })
       TYPES.forEach(itemFe => {
-        if (this.packageForm.types === itemFe.label[0]) {
-          this.packageForm.types = itemFe.label[1]
+        if (this.packageForm.types === itemFe.labelcn) {
+          this.packageForm.types = itemFe.labelen
         }
       })
     },
