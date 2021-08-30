@@ -1140,45 +1140,7 @@ export default {
     padding-right: 10px;
   }
 }
-div /deep/ .topSearch{
-      height: 40px;
-}
-div /deep/ .el-input__inner {
-    border-color: #5E40C8 !important;
-}
 
-div /deep/ .search_input .el-input__icon {
- color: #9374FF !important;
-}
-div /deep/ .headerStyle {
-     border-right: none !important;
-     background-color: #EDEEF8 !important;
-     color: #62517A !important;
-}
-div /deep/ .el-table .descending .sort-caret.descending {
-    border-top-color: #61CDD0 !important;
-}
-div /deep/.el-table .sort-caret.ascending {
-    border-bottom-color: #B5E8E9 !important;
-}
-div /deep/ .el-table .sort-caret.descending {
-    border-top-color: #B5E8E9 !important;
-}
-div /deep/ .el-table .ascending .sort-caret.ascending {
-    border-bottom-color:  #61CDD0 !important;
-}
-div /deep/ .el-table::before {
-     height: 0px !important;
-}
-div /deep/ .el-table::before, .el-table--group::after, .el-table--border::after {
-    background-color: none  !important;
-}
-div /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
-    background-color:#5E40C8 !important;
-}
-div /deep/ .el-table td .cell {
-     color: #7A6E8A;
-}
 .lookReport{
   text-decoration: none;
   color: #7A6E8A;

@@ -18,93 +18,60 @@
     class="box"
     ref="box"
   >
-    <div class="leftMsg">
-      <div class="leftMsgInner">
-        <ul>
-          <li>
-            <div
-              :class="activeValue===1?'selectTimeDivStyle':'timeDivStyle'"
-              @click="doClick(1)"
-            >
-              <img
-                :src="language === 'cn'?dayMsg:enDayMsg"
-                class="imgMsgStyle"
-                alt=""
-              >
-              <div class="timeFontStyle">
-                <span>{{ $t('messageCenter.msgToday') }}</span>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              :class="activeValue===2?'selectTimeDivStyle':'timeDivStyle'"
-              @click="doClick(2)"
-            >
-              <img
-                :src="language === 'cn'?weekMsg:enWeekMsg"
-                class="imgMsgStyle"
-                alt=""
-              >
-              <div class="timeFontStyle">
-                <span>{{ $t('messageCenter.msgWeek') }}</span>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              :class="activeValue===3?'selectTimeDivStyle':'timeDivStyle'"
-              @click="doClick(3)"
-            >
-              <img
-                :src="language === 'cn'?monthMsg:enMonthMsg"
-                class="imgMsgStyle"
-                alt=""
-              >
-              <div class="timeFontStyle">
-                <span>{{ $t('messageCenter.msgMonth') }}</span>
-                <div />
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              :class="activeValue===4?'selectTimeDivStyle':'timeDivStyle'"
-              @click="doClick(4)"
-            >
-              <img
-                :src="moreMsg"
-                class="imgMoreMsgStyle"
-                alt=""
-              >
-              <div class="timeFontStyle">
-                <span>{{ $t('messageCenter.msgOld') }}</span>
-              </div>
-            </div>
-          </li>
-        </ul>
+    <div>
+      <div class="title">
+        <p class="titleName">
+          {{ $t("nav.msgCenter") }}
+        </p>
+        <p class="lines" />
+      </div>
+      <div class="message">
+        <div class="timeSelect">
+          <el-select
+            v-model="value"
+            @change="doClick(value)"
+          >
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="language === 'cn'?item.label:item.labelen"
+              :value="item.value"
+            />
+          </el-select>
+        </div>
+        <div
+          class="messageContent"
+        >
+          <RightContent
+            @clickMsgItemEvent="getDetailMsg"
+            @isShowDetailMsgDlg="isShowDetailDlg"
+            :data="rightDetailData"
+            ref="rightTabPanel"
+          />
+          <div class="messagePage">
+            <eg-pagination
+              class="paginationStyle"
+              :page-num="pageNum"
+              :page-size="pageSize"
+              :total="total"
+              @sizeChange="sizeChange"
+              @currentChange="currentChange"
+            />
+          </div>
+        </div>
       </div>
     </div>
     <div
-      class="rightMsg"
-      v-show="!isShowDlg"
-    >
-      <RightContent
-        @clickMsgItemEvent="getDetailMsg"
-        @isShowDetailMsgDlg="isShowDetailDlg"
-        :data="rightDetailData"
-        ref="rightTabPanel"
-      />
-    </div>
-    <div
-      class="rightMsg"
+      class="dialogs"
       v-if="isShowDlg"
     >
-      <DetailMsgDlg
-        :data="currentDetailMsg"
-        @isShowDetailMsgDlg="isShowDetailDlg"
-        @deletedMsgId="deletedMsgId"
-      />
+      <div class="rightMsg">
+        <DetailMsgDlg
+          :data="currentDetailMsg"
+          @isShowDetailMsgDlg="isShowDetailDlg"
+          @deletedMsgId="deletedMsgId"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -112,53 +79,70 @@
 <script>
 import RightContent from './Right_template'
 import DetailMsgDlg from './DetailMsgDlg'
-import dayMsg from '@/assets/images/dayMsg.png'
-import weekMsg from '@/assets/images/weekMsg.png'
-import monthMsg from '@/assets/images/monthMsg.png'
-import enDayMsg from '@/assets/images/enDayMsg.png'
-import enWeekMsg from '@/assets/images/enWeekMsg.png'
-import enMonthMsg from '@/assets/images/enMonthMsg.png'
-import moreMsg from '@/assets/images/moreMsg.png'
+import EgPagination from 'eg-view/src/components/EgPagination.vue'
 import { getNoticeMessage, updateStatus, acceptMsg, deleteMsg } from '../../tools/api.js'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
   components: {
     RightContent,
-    DetailMsgDlg
+    DetailMsgDlg,
+    EgPagination
   },
   data () {
     return {
-      dayMsg: dayMsg,
-      weekMsg: weekMsg,
-      monthMsg: monthMsg,
-      enDayMsg: enDayMsg,
-      enWeekMsg: enWeekMsg,
-      enMonthMsg: enMonthMsg,
-      moreMsg: moreMsg,
+      options: [{
+        value: 1,
+        label: '今天',
+        labelen: 'Today'
+      }, {
+        value: 2,
+        label: '一周内',
+        labelen: 'This Week'
+      }, {
+        value: 3,
+        label: '一月内',
+        labelen: 'This Month'
+      }, {
+        value: 4,
+        label: '更早',
+        labelen: 'Old'
+      }],
+      value: 1,
       activeValue: 1,
       currentDetailMsg: {},
       isShowDlg: false,
       allData: [],
       allRightDetailData: [],
       language: localStorage.getItem('language'),
-      limitSize: 1000,
+      pageSize: 5,
+      curPageSize: 5,
+      pageNum: 1,
+      prop: '',
+      order: '',
+      total: 0,
       offsetPage: 0,
       appName: '',
       rightDetailData: [
         {
           name: 'unReadedMsg',
           title: 'unReadedMsg',
-          content: []
+          content: [],
+          active: require('@/assets/images/noread_active.png'),
+          unactive: require('@/assets/images/noread_unactive.png')
         },
         {
           name: 'readedMsg',
           title: 'readedMsg',
-          content: []
+          content: [],
+          active: require('@/assets/images/read_active.png'),
+          unactive: require('@/assets/images/read_unactive.png')
         },
         {
           name: 'allMsg',
           title: 'allMsg',
-          content: []
+          content: [],
+          active: require('@/assets/images/all_active.png'),
+          unactive: require('@/assets/images/all_unactive.png')
         }
       ]
     }
@@ -174,12 +158,22 @@ export default {
       this.$refs.rightTabPanel.parentMsg(this.rightDetailData, msgId)
     },
     doClick (value) {
+      this.offsetPage = 0
+      this.pageNum = 1
       this.activeValue = value
       this.setCurrentTimeData()
       this.isShowDlg = true
       this.$nextTick(() => {
         this.isShowDlg = false
       })
+    },
+    currentChange (val) {
+      this.pageNum = val
+      this.offsetPage = this.curPageSize * (this.pageNum - 1)
+      this.setCurrentTimeData()
+    },
+    sizeChange (val) {
+      this.curPageSize = val
     },
     setCurrentTimeData () {
       let tempRightDetailData = this.rightDetailData
@@ -248,7 +242,7 @@ export default {
       }
     },
     getAppData (param) {
-      getNoticeMessage(this.limitSize, this.offsetPage, this.appName).then((res) => {
+      getNoticeMessage(this.messageType, this.curPageSize, this.offsetPage, this.appName, this.prop, this.order).then((res) => {
         if (param) {
           this.isShowDlg = true
           this.currentDetailMsg = param
@@ -268,10 +262,13 @@ export default {
           if (item.timeResult === 1) {
             if (item.readed) {
               this.rightDetailData[1].content.push(item)
+              this.total = this.rightDetailData[1].content.length
             } else {
               this.rightDetailData[0].content.push(item)
+              this.total = this.rightDetailData[0].content.length
             }
             this.rightDetailData[2].content.push(item)
+            this.total = this.rightDetailData[2].content.length
           }
         })
         this.$refs.rightTabPanel.parentMsg(this.rightDetailData)
@@ -292,6 +289,11 @@ export default {
     },
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
+    },
+    showDialog (isShowDlg) {
+      if (isShowDlg === true) {
+        document.body.style = 'background: #4A4D54;opacity: 0.7;'
+      }
     }
   }
 }
@@ -299,93 +301,86 @@ export default {
 
 <style lang="less" scoped>
 .box {
-  width: 80%;
-  min-width: 1500px;
-  height: 100%;
-  background:#ffffff;
-  margin:0px auto;
-
-}
-.leftMsg{
-  min-height:802px ;
-  width: 25%;
-  background: #ffffff;
-  float: left;
-  padding:0 12px;
+    width: 100%;
+    min-width: 1200px;
+    .title{
+      min-width: 1200px;
+      margin-left:19.4% ;
+      margin-top: 44px;
+      .titleName{
+        font-size: 30px;
+        font-family: HarmonyOS Sans SC;
+        font-weight: bold;
+        color: #5D3DA0;
+        margin: 0;
+      }
+      .lines{
+        margin-top: 22px;
+        width: 88px;
+        height: 7px;
+        background: #9E7BCD;
+        opacity: 0.2;
+        border-radius: 4px;
+        margin-bottom: 0;
+      }
+    }
+    .message{
+      width: 73.64%;
+      margin: auto;
+      min-width: 1200px;
+      min-height: 380px;
+      margin-top: 40px;
+      position: relative;
+    .timeSelect{
+      background: #FFFFFF;
+      width: 160px;
+      height: 40px;
+      position: absolute;
+      right: 0;
+    }
+    .messageContent{
+      padding-top: 10px;
+      width: 100%;
+    }
+    }
+    .dialogs{
+      position:absolute;
+      left: 0;
+      top: -60px;
+      width: 100%;
+      height: 150%;
+      background: #4A4D54;
+      display: flex;
+    }
+.rightMsg {
+  margin: auto;
+  border-radius: 12px;
+  width: 47.5%;
+  min-width: 911px;
+  border-radius:10px ;
+  margin-top: 200px;
+  height: 560px;
+  background: #fff;
+  opacity: 1;
   overflow-y: auto;
   display: inline-block;
-  height:100%;
-  .leftMsgInner {
-    height:70%;
-    float: left;
-    margin-top: 20px;
-    padding:0 12px;
-    overflow-y: auto;
-    display: inline-block;
-    .timeDivStyle {
-      width: 280px;
-      height: 60px;
-      margin-left: 40px;
-      margin-top: 10px;
-      overflow: hidden;
-      cursor: pointer;
-      .imgMsgStyle {
-        float: left;
-        margin-left: 10px;
-        margin-top: 12px;
-        width: 32px;
-        height: 32px;
-      }
-      .imgMoreMsgStyle {
-        float: left;
-        margin-top: 27px;
-        margin-left: 13px;
-      }
-      .timeFontStyle {
-        margin-left: 70px;
-        margin-top: 20px;
-      }
+  z-index: 100;
     }
-    .selectTimeDivStyle {
-      width: 280px;
-      height: 60px;
-      margin-left: 40px;
-      margin-top: 10px;
-      overflow: hidden;
-      cursor: pointer;
-      background:#E0E3E3;
-      .imgMsgStyle {
-        float: left;
-        margin-left: 10px;
-        margin-top: 12px;
-        width: 32px;
-        height: 32px;
-      }
-      .imgMoreMsgStyle {
-        float: left;
-        margin-top: 27px;
-        margin-left: 13px;
-      }
-      .timeFontStyle {
-        margin-left: 70px;
-        margin-top: 20px;
-      }
-    }
-    .timeDivStyle:hover{
-      background:#E0E3E3;
-    }
+}
+.messagePage{
+  height: 70px;
+  width: 100%;
+  background-color: #fff;
+  .paginationStyle{
+    float: right;
+    margin: 20px 20px 0 0;
   }
 }
-
-.rightMsg {
-  float: left;
-  width: 75%;
-  min-height:802px ;
-  height: 100%;
-  background: #FFFFFF;
-  padding:25px 35px;
-  overflow-y: auto;
-  display: inline-block;
+div /deep/ .el-table::before {
+    height: 0px !important;
 }
-
+div /deep/  .el-table::before, .el-table--group::after, .el-table--border::after {
+    background-color:none !important;
+    z-index: 0 none !important;
+}
 </style>

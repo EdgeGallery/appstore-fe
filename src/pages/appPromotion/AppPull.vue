@@ -285,26 +285,9 @@ export default {
     }
   }
 }
-.selectStyle /deep/ .el-input__inner {
-    border-color: #5E40C8 !important;
-    height: 40px;
-}
- div /deep/ .el-select__caret{
-  color: #5E40C8 !important;
-}
-div /deep/  .el-select-dropdown.is-multiple .el-select-dropdown__item.selected.hover {
-    background-color: #9374FF !important;
-}
-div /deep/ .search_input .el-input__icon {
- color: #9374FF !important;
-}
  .el-button--primary.is-disabled, .el-button--primary.is-disabled:hover, .el-button--primary.is-disabled:focus, .el-button--primary.is-disabled:active {
     background-color:  #5E40C8  !important;
     border-color:  #5E40C8 !important;
 }
-div /deep/ .el-select-dropdown__item.hover,.el-select-dropdown__item:hover {
- background-color: #9374FF !important;
- color: #FFFFFF;
- border-radius: 8px !important;
-}
+
 </style>

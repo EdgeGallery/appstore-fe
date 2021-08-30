@@ -146,13 +146,12 @@ a{
 /* Normalization of search box and button components */
   /* Search box input add class search_input */
 .search_input .el-input__inner{
-  height: 32px;
-  line-height: 32px;
+  height: 40px;
+  line-height: 40px;
   min-width: 200px;
-  border-color: #5e40c8;
 }
 .search_input .el-input__icon{
-  line-height: 32px;
+  line-height: 40px;
 }
 .el-button{
   padding: 8px 24px;
@@ -278,3 +277,46 @@ a{
 .tableStyle.el-table .descending .sort-caret.descending {
   border-top-color: #61CDD0;
 }
+.el-icon-arrow-up:before{
+  background: url('../images/selectTop.png') 50% no-repeat !important;
+  color: #61cdd0 !important;
+}
+ .el-checkbox__input.is-disabled .el-checkbox__inner {
+  background-color:#61CDD0  !important;
+  border-color:#61CDD0  !important;
+}
+ .el-checkbox__inner:after {
+  border-color: #fff !important;
+}
+ .el-table .descending .sort-caret.descending {
+  border-top-color: #61CDD0 !important;
+}
+.el-table .sort-caret.ascending {
+  border-bottom-color: #B5E8E9 !important;
+}
+ .el-table .sort-caret.descending {
+  border-top-color: #B5E8E9 !important;
+}
+ .el-table .ascending .sort-caret.ascending {
+  border-bottom-color:  #61CDD0 !important;
+}
+.el-table::before {
+   height: 0px !important;
+}
+ .el-table::before, .el-table--group::after, .el-table--border::after {
+  background-color: none  !important;
+}
+ .el-table tr td .cell{
+  color: #7A6E8A !important;
+}
+.el-pagination.is-background .el-pager .number:not(.disabled).active {
+  background-color:#5E40C8 !important;
+  min-height: 30px;
+}
+.el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next, .el-pagination.is-background .el-pager li {
+  border-radius: 50%;
+}
+.el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next {
+  background-color: #fff !important;
+}
+

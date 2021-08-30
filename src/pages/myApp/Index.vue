@@ -33,6 +33,7 @@
         :placeholder="$t('common.appName')"
         id="myAppSearch"
         class="search_input"
+        suffix-icon="el-icon-search"
         @clear="queryApp"
         @change="queryApp"
       >
@@ -712,20 +713,6 @@ export default {
     .search_input {
       float: left;
       width: 200px;
-      .el-input__inner {
-        border: 1px solid #380879;
-        border-radius: 8px;
-      }
-      .search_icon{
-        display: inline-block;
-        width: 15px;
-        height: 15px;
-        background: url('../../assets/images/work_project_search_icon.png');
-        position: relative;
-        top: 5px;
-        cursor: pointer;
-        margin-right: 5px;
-      }
     }
     .packageTable{
       margin: 50px 0;
