@@ -66,12 +66,15 @@ export default {
       limitSize: 1000,
       offsetPage: 0,
       appName: '',
+      messageType: '',
+      prop: '',
+      order: '',
       language: localStorage.getItem('language')
     }
   },
   methods: {
     getMessage () {
-      getNoticeMessage(this.limitSize, this.offsetPage, this.appName).then((res) => {
+      getNoticeMessage(this.messageType, this.limitSize, this.offsetPage, this.appName, this.prop, this.order).then((res) => {
         this.msgs = []
         let data = res.data.results
         data.forEach(item => {
