@@ -182,7 +182,6 @@ const en = {
     }
   },
   common: {
-    confirm: 'Confirm',
     clean: 'Clean',
     sort: 'Sort',
     workloadType: 'Workload Type :',
