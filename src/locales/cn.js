@@ -185,6 +185,7 @@ const cn = {
     }
   },
   common: {
+    clean: '清空',
     sort: '排序',
     workloadType: '负载类型 :',
     address: '地址',

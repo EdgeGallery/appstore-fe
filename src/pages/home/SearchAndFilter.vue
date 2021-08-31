@@ -82,7 +82,7 @@
         >
           <div>
             <el-checkbox-group
-              v-model="industry"
+              v-model=" searchCondition.industry"
             >
               <label style="height:20px;width:65px;position: relative;font-size:14px;top: 7px;">
                 {{ $t('common.industry') }}
@@ -92,13 +92,15 @@
                 :key="item.value"
                 class="myCheckBox"
                 :label="item.labelen"
-                :v-model="item"
                 :checked="item.selected"
                 @change="getSortedItem(item.type, item.value,index)"
               >
                 <span>{{ language==='cn'?item.labelcn:item.labelen }}</span>
               </el-checkbox-button>
-              <br>
+            </el-checkbox-group>
+            <el-checkbox-group
+              v-model=" searchCondition.types"
+            >
               <label style="height:20px;width:65px;position: relative;font-size:14px;top: 7px;">
                 {{ $t('common.type') }}
               </label>
@@ -112,7 +114,10 @@
               >
                 <span>{{ language==='cn'?item.labelcn:item.labelen }}</span>
               </el-checkbox-button>
-              <br>
+            </el-checkbox-group>
+            <el-checkbox-group
+              v-model="searchCondition.affinity"
+            >
               <label style="height:20px;width:65px;position: relative;font-size:14px;top: 7px;">
                 {{ $t('common.architecture') }}
               </label>
@@ -126,7 +131,10 @@
               >
                 {{ item.label }}
               </el-checkbox-button>
-              <br>
+            </el-checkbox-group>
+            <el-checkbox-group
+              v-model="searchCondition.workloadType"
+            >
               <label style="height:20px;width:65px;position: relative;font-size:14px;top: 7px;">
                 {{ $t('common.workloadType') }}
               </label>
@@ -144,18 +152,18 @@
           </div>
           <div style="text-align: right; margin: 0">
             <el-button
-              size="mini"
-              type="text"
-              @click="visible = false"
-            >
-              取消
-            </el-button>
-            <el-button
-              type="primary"
+              class="confirmBtn"
               size="mini"
               @click="confirmbtn"
             >
-              确定
+              {{ $t('common.confirm') }}
+            </el-button>
+            <el-button
+              class="clearBtn"
+              size="mini"
+              @click="cancelbtn"
+            >
+              {{ $t('common.clean') }}
             </el-button>
           </div>
           <el-button
@@ -298,6 +306,41 @@ export default ({
       this.$emit('getSearchCondition', this.searchCondition)
       this.visible = false
     },
+    cancelbtn () {
+      this.searchCondition = {
+        appName: '',
+        types: [],
+        affinity: [],
+        industry: [],
+        status: 'Published',
+        showType: ['public', 'inner-public'],
+        workloadType: [],
+        userId: '',
+        queryCtrl: {
+          offset: 0,
+          limit: 12,
+          sortItem: 'createTime',
+          sortType: 'desc'
+        }
+      }
+      this.selectedConditions = []
+
+      this.industry.forEach((item) => {
+        item.selected = false
+      })
+      this.types.forEach((item) => {
+        item.selected = false
+      })
+      this.workloadType.forEach((item) => {
+        item.selected = false
+      })
+      this.affinity.forEach((item) => {
+        item.selected = false
+      })
+      console.log(this.searchCondition)
+      console.log(this.selectedConditions)
+    },
+
     appdConversion () {
       this.$router.push({ name: 'appdconversion' })
     },
@@ -364,10 +407,7 @@ export default ({
     }
   },
   mounted () {
-    console.log(this.searchCondition)
-    console.log('123456fdfdfgd')
     this.$emit('getSearchCondition', this.searchCondition)
-    console.log('fdfdfgd')
   },
   watch: {
     '$i18n.locale': function () {
@@ -379,6 +419,13 @@ export default ({
 </script>
 
 <style lang='less'>
+.checkboxChecked {
+  color: #606266;
+  background-color: #fff;
+  border-left: 0px;
+  border: 0px;
+  box-shadow: 0px 0 0 0 #a4bbf8;
+}
 .el-dropdown-menu{
   padding: 0;
   border-radius: 8px;

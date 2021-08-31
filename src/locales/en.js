@@ -182,6 +182,7 @@ const en = {
     }
   },
   common: {
+    clean: 'Clean',
     sort: 'Sort',
     workloadType: 'Workload Type :',
     address: 'Address',
