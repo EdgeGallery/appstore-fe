@@ -282,10 +282,6 @@ export default ({
     }
   },
   methods: {
-    handleRoleCheckedChange (value) {
-      console.log(value)
-      console.log(value.length)
-    },
     queryApp () {
       sessionStorage.setItem('currentPage', 1)
       this.searchCondition.appName = this.nameQueryVal.toLowerCase()
