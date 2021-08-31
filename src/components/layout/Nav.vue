@@ -535,6 +535,8 @@ export default {
       this.wsSocketConn = new WebSocket(_wsProtocol + window.location.host + '/wsserver/' + sessId)
       let _thisObj = this
       this.wsSocketConn.onmessage = function (msg) {
+        clearTimeout(_thisObj.wsMsgSendInterval)
+        _thisObj.wsMsgSendInterval = null
         if (_thisObj.manualLoggout) {
           return
         }
