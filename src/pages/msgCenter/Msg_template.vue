@@ -229,8 +229,8 @@ export default {
       let params = {
         offset: this.offsetPage,
         limit: this.curPageSize,
-        sortItem: 'time',
-        sortType: 'desc',
+        sortItem: this.prop,
+        sortType: this.order,
         messageType: this.messageType,
         timeFlag: this.timeFlag,
         readable: this.readable
