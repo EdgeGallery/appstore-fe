@@ -47,6 +47,7 @@
             @isShowDetailMsgDlg="isShowDetailDlg"
             :data="rightDetailData"
             @func="clickMsgType"
+            :msgcontents="msgcontents"
             ref="rightTabPanel"
           />
           <div class="messagePage">
@@ -81,7 +82,7 @@
 import RightContent from './Right_template'
 import DetailMsgDlg from './DetailMsgDlg'
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
-import { getNoticeMessage, updateStatus, acceptMsg, deleteMsg } from '../../tools/api.js'
+import { getMessages, updateStatus, acceptMsg, deleteMsg } from '../../tools/api.js'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
   components: {
@@ -92,24 +93,24 @@ export default {
   data () {
     return {
       options: [{
-        value: 1,
+        value: 'TODAY',
         label: '今天',
         labelen: 'Today'
       }, {
-        value: 2,
+        value: 'WEEK',
         label: '一周内',
         labelen: 'This Week'
       }, {
-        value: 3,
+        value: 'MONTH',
         label: '一月内',
         labelen: 'This Month'
       }, {
-        value: 4,
+        value: 'EARLIER',
         label: '更早',
         labelen: 'Old'
       }],
-      value: 1,
-      activeValue: 1,
+      value: 'TODAY',
+      timeFlag: 'TODAY',
       currentDetailMsg: {},
       isShowDlg: false,
       allData: [],
@@ -118,13 +119,13 @@ export default {
       pageSize: 5,
       curPageSize: 5,
       pageNum: 1,
-      prop: '',
-      order: '',
+      prop: 'time',
+      order: 'desc',
       total: 0,
-      msgType: 'read',
       offsetPage: 0,
-      appName: '',
-      messageType: '',
+      msgcontents: '',
+      messageType: 'NOTICE',
+      readable: false,
       rightDetailData: [
         {
           name: 'unReadedMsg',
@@ -153,11 +154,14 @@ export default {
   methods: {
     clickMsgType (data) {
       if (data === 'unReadedMsg') {
-        this.msgType = 'read'
+        this.readable = false
+        this.getAppData()
       } else if (data === 'readedMsg') {
-        this.msgType = 'noread'
+        this.readable = true
+        this.getAppData()
       } else {
-        this.msgType = ''
+        this.readable = ''
+        this.getAppData()
       }
     },
     getDetailMsg (value) {
@@ -167,13 +171,13 @@ export default {
       this.isShowDlg = value
     },
     deletedMsgId (msgId) {
-      this.$refs.rightTabPanel.parentMsg(this.rightDetailData, msgId)
+      this.$refs.rightTabPanel.parentMsg(this.msgcontents, msgId)
     },
     doClick (value) {
       this.offsetPage = 0
       this.pageNum = 1
-      this.activeValue = value
-      this.setCurrentTimeData()
+      this.timeFlag = value
+      this.getAppData()
       this.isShowDlg = true
       this.$nextTick(() => {
         this.isShowDlg = false
@@ -186,24 +190,6 @@ export default {
     },
     sizeChange (val) {
       this.curPageSize = val
-    },
-    setCurrentTimeData () {
-      let tempRightDetailData = this.rightDetailData
-      tempRightDetailData[0].content = []
-      tempRightDetailData[1].content = []
-      tempRightDetailData[2].content = []
-      this.allRightDetailData.forEach(item => {
-        if (item.timeResult === this.activeValue) {
-          if (item.readed) {
-            tempRightDetailData[1].content.push(item)
-          } else {
-            tempRightDetailData[0].content.push(item)
-          }
-          tempRightDetailData[2].content.push(item)
-        }
-      })
-      this.rightDetailData = tempRightDetailData
-      this.$refs.rightTabPanel.parentMsg(this.rightDetailData)
     },
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
@@ -239,49 +225,27 @@ export default {
         })
       }, 500)
     },
-    timeCompute (time) {
-      var today = new Date()
-      var todayTime = (today.getTime() + 28800000) % (1000 * 60 * 60 * 24)
-      var timeValue = today.getTime() - todayTime - new Date(time).getTime()
-      if (timeValue <= 0) {
-        return 1
-      } else if (timeValue / (1000 * 60 * 60 * 24) > 0 && timeValue / (1000 * 60 * 60 * 24) <= 7) {
-        return 2
-      } else if (timeValue / (1000 * 60 * 60 * 24) > 7 && timeValue / (1000 * 60 * 60 * 24) <= 30) {
-        return 3
-      } else {
-        return 4
-      }
-    },
     getAppData (param) {
-      getNoticeMessage(this.messageType, this.curPageSize, this.offsetPage, this.appName, this.prop, this.order).then((res) => {
+      let params = {
+        offset: this.offsetPage,
+        limit: this.curPageSize,
+        sortItem: 'time',
+        sortType: 'desc',
+        messageType: this.messageType,
+        timeFlag: this.timeFlag,
+        readable: this.readable
+
+      }
+      getMessages(params).then((res) => {
         if (param) {
           this.isShowDlg = true
           this.currentDetailMsg = param
           this.currentDetailMsg.readed = true
           this.updateMsgStatus(param.messageId)
         }
-        let data = res.data.results
+        this.msgcontents = res.data.results
         this.total = res.data.total
-        data.forEach(item => {
-          item.timeResult = this.timeCompute(item.time)
-          if (param && item.messageId === param.messageId) {
-            item.readed = true
-          }
-          this.allRightDetailData.push(item)
-        })
-        // The default is to select today's data
-        this.allRightDetailData.forEach(item => {
-          if (item.timeResult === 1) {
-            if (item.readed) {
-              this.rightDetailData[1].content.push(item)
-            } else {
-              this.rightDetailData[0].content.push(item)
-            }
-            this.rightDetailData[2].content.push(item)
-          }
-        })
-        this.$refs.rightTabPanel.parentMsg(this.rightDetailData)
+        this.$refs.rightTabPanel.parentMsg(this.msgcontents)
       }).catch((error) => {
         let defaultMsg = this.$t('apppromotion.getNoticeFailed')
         commonUtil.showTipMsg(this.language, error, defaultMsg)

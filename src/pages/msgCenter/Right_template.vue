@@ -69,7 +69,7 @@
         <template>
           <div>
             <el-table
-              :data="currentTabData"
+              :data="msgcontents"
               :row-style="{height: '120px'}"
               :show-header="false"
               class="allContent"
@@ -141,13 +141,16 @@ export default {
     data: {
       required: true,
       type: Array
+    },
+    msgcontents: {
+      required: true,
+      type: Array
     }
   },
   data () {
     return {
       activeName: 'unReadedMsg',
       activeTabIndex: '0',
-      currentTabData: [],
       deletedMsgIds: [],
       allTabsMsg: [],
       language: localStorage.getItem('language')
@@ -186,7 +189,7 @@ export default {
     handleDelete (index, messageId) {
       deleteMsg(messageId).then((res) => {
         this.deletedMsgIds.push(messageId)
-        this.currentTabData.splice(index, 1)
+        this.msgcontents.splice(index, 1)
         this.$message.success(this.$t('apppromotion.deleteMsgSuccess'))
       }).catch((error) => {
         let defaultMsg = this.$t('apppromotion.deleteMsgFailed')
@@ -196,33 +199,18 @@ export default {
     click1 () {
       this.activeName = 'unReadedMsg'
       this.$emit('func', this.activeName)
-      for (let item of this.allTabsMsg) {
-        if (item.name === this.activeName) {
-          this.currentTabData = this.filterDeleteData(item.content)
-        }
-      }
     },
     click2 () {
       this.activeName = 'readedMsg'
       this.$emit('func', this.activeName)
-      for (let item of this.allTabsMsg) {
-        if (item.name === this.activeName) {
-          this.currentTabData = this.filterDeleteData(item.content)
-        }
-      }
     },
     click3 () {
       this.activeName = 'allMsg'
       this.$emit('func', this.activeName)
-      for (let item of this.allTabsMsg) {
-        if (item.name === this.activeName) {
-          this.currentTabData = this.filterDeleteData(item.content)
-        }
-      }
     },
-    filterDeleteData (data) {
+    filterDeleteData (msgcontents) {
       let tempData = []
-      for (let item of data) {
+      for (let item of msgcontents) {
         if (this.deletedMsgIds.indexOf(item.messageId) === -1) {
           tempData.push(item)
         }
@@ -236,7 +224,7 @@ export default {
       this.allTabsMsg = curentPeriodData
       for (let item of this.allTabsMsg) {
         if (item.name === this.activeName) {
-          this.currentTabData = this.filterDeleteData(item.content)
+          this.msgcontents = this.filterDeleteData(item.content)
         }
       }
     }
@@ -249,7 +237,7 @@ export default {
   },
   mounted () {
     this.allTabsMsg = this.data
-    this.currentTabData = this.filterDeleteData(this.data[0].content)
+    this.msgcontents = this.filterDeleteData
   }
 }
 </script>
