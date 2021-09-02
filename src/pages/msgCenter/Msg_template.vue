@@ -67,6 +67,7 @@
       class="dialogs"
       v-if="isShowDlg"
     >
+      <div class="dialogShadow" />
       <div class="rightMsg">
         <DetailMsgDlg
           :data="currentDetailMsg"
@@ -264,11 +265,7 @@ export default {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
     },
-    showDialog (isShowDlg) {
-      if (isShowDlg === true) {
-        document.body.style = 'background: #4A4D54;opacity: 0.7;'
-      }
-    },
+
     curPageSize: function () {
       this.getAppData()
     }
@@ -280,6 +277,7 @@ export default {
 .box {
     width: 100%;
     min-width: 1200px;
+    background-color: #f0f2f5;
     .title{
       min-width: 1200px;
       margin-left:19.4% ;
@@ -323,26 +321,27 @@ export default {
     .dialogs{
       position:absolute;
       left: 0;
-      top: -60px;
+      top: 0px;
       width: 100%;
-      height: 150%;
-      background: #4A4D54;
+      height: 100%;
+      z-index: 10001;
       display: flex;
+      justify-content: center;
+      align-items: center;
     }
-.rightMsg {
-  margin: auto;
-  border-radius: 12px;
-  width: 47.5%;
-  min-width: 911px;
-  border-radius:10px ;
-  margin-top: 200px;
-  height: 560px;
-  background: #fff;
-  opacity: 1;
-  overflow-y: auto;
-  display: inline-block;
-  z-index: 100;
-    }
+    .dialogShadow{
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        background: #4A4D54;
+        opacity: 0.8;
+      }
+      .rightMsg{
+        z-index: 10;
+
+      }
 }
 .messagePage{
   height: 70px;

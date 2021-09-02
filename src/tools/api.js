@@ -220,26 +220,44 @@ function getInterface (language, activeName) {
       case '1':
         url = './InterfaceMessage.md'
         break
-      case '2':
+      case '1-2-1':
         url = './InterfaceappQueryApps.md'
         break
-      case '2-2':
+      case '1-2-2':
         url = './InterfaceAppsAPPId.md'
         break
-      case '2-3':
+      case '1-2-3':
         url = './InterfaceAppsPackages.md'
         break
-      case '2-4':
+      case '1-2-4':
         url = './InterfaceAppsPakcageId.md'
         break
-      case '2-5':
+      case '1-2-5':
         url = './InterfaceappQuery2.md'
         break
-      case '3-1':
+      case '1-3-1':
         url = './InterfaceDownload1.md'
         break
-      case '3-2':
+      case '1-3-2':
         url = './InterfaceDownload2.md'
+        break
+      case '4':
+        url = './APPPackageDefinition1.md'
+        break
+      case '4-1':
+        url = './APPPackageDefinition2.md'
+        break
+      case '4-2':
+        url = './APPPackageDefinition3.md'
+        break
+      case '4-3':
+        url = './APPPackageDefinition4.md'
+        break
+      case '4-4':
+        url = './APPPackageDefinition5.md'
+        break
+      case '4-5':
+        url = './APPPackageDefinition6.md'
         break
       default:
     }
@@ -248,26 +266,44 @@ function getInterface (language, activeName) {
       case '1':
         url = './InterfaceMessageen.md'
         break
-      case '2':
+      case '1-2-1':
         url = './InterfaceappQueryAppsen.md'
         break
-      case '2-2':
+      case '1-2-2':
         url = './InterfaceAppsAPPIden.md'
         break
-      case '2-3':
+      case '1-2-3':
         url = './InterfaceAppsPackagesen.md'
         break
-      case '2-4':
+      case '1-2-4':
         url = './InterfaceAppsPakcageIden.md'
         break
-      case '2-5':
+      case '1-2-5':
         url = './InterfaceappQuery2en.md'
         break
-      case '3-1':
+      case '1-3-1':
         url = './InterfaceDownload1en.md'
         break
-      case '3-2':
+      case '1-3-2':
         url = './InterfaceDownload2en.md'
+        break
+      case '4':
+        url = './APPPackageDefinition1EN.md'
+        break
+      case '4-1':
+        url = './APPPackageDefinition2EN.md'
+        break
+      case '4-2':
+        url = './APPPackageDefinition3EN.md'
+        break
+      case '4-3':
+        url = './APPPackageDefinition4EN.md'
+        break
+      case '4-4':
+        url = './APPPackageDefinition5EN.md'
+        break
+      case '4-5':
+        url = './APPPackageDefinition6EN.md'
         break
       default:
     }

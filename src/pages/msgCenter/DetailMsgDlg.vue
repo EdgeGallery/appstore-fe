@@ -164,6 +164,7 @@ export default {
   height: 560px;
   padding: 39px 42px;
   background: #EFEFEF;
+  border-radius: 12px;
   p{
     margin: 0;
   }
@@ -338,11 +339,13 @@ export default {
             a{
               color:#fff !important;
               text-decoration: none;
+              font-size: 14px;
             }
-            border-radius: 12px;
-            padding: 0 25px;
-            height: 40px;
-            line-height: 40px;
+            margin-top: 12px;
+            border-radius: 5px;
+            padding: 0 10px;
+            height: 25px;
+            line-height: 23px;
             background: #ACA6CE;
             color:#fff !important;
             box-shadow: 2px 2px 29px 0px rgba(36, 20, 119, 0.13);
