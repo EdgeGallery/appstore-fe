@@ -400,6 +400,7 @@ export default {
     font-size: 20px;
     border-radius: 25px;
     padding: 0 50px;
+    box-shadow: 0px 16px 10px  rgba(83,201,208,0.3);
   }
 
   .el-dialog {

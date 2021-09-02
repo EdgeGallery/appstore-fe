@@ -257,6 +257,13 @@
           :key="index"
           @click="dialogDetil(item)"
         >
+          <p class="case_lines" />
+          <p
+            class="case_name_top"
+            :class="{'case_name_topen':language ==='en'}"
+          >
+            {{ item.title }}
+          </p>
           <img
             :src="item.imgSrc"
             alt=""
@@ -1242,6 +1249,7 @@ export default {
         transform: translateY(-80px);
         background-color: #fff;
         padding-top: 10px;
+        transition: linear 0.1s;
      }
       .oneCase:hover .case_content{
         height: 120px;
@@ -1252,6 +1260,28 @@ export default {
         background: #FFFFFF;
         box-shadow: 0px 30px 50px 0px rgba(66, 36, 157, 0.15);
         border-radius: 4px;
+        position: relative;
+        .case_name_top{
+          position: absolute;
+          left: 30px;
+          top:34px ;
+          text-shadow:#380879 2px 2px 2px;
+          font-size: 28px;
+          font-family: PangMenZhengDao;
+          font-weight: 400;
+          color: #FFFFFF;
+        }
+         .case_name_top.case_name_topen{
+            font-size: 24px;
+        }
+        .case_lines{
+          width: 30px;
+          height: 3px;
+          background: #FFFFFF;
+          position: absolute;
+          left: 30px;
+          top: 30px;
+        }
         img{
            width:100%;
            height: 340px;
@@ -1634,10 +1664,30 @@ export default {
         }
     }
   }
+  .senceCase{
+    .case_data{
+      .oneCase{
+        .case_name_top{
+          position: absolute;
+          left: 20px;
+          top:24px ;
+          font-size: 24px;
+        }
+         .case_name_top.case_name_topen{
+            font-size: 18px;
+        }
+        .case_lines{
+          height: 2px;
+          left: 20px;
+          top: 20px;
+        }
+      }
+    }
+  }
   }
    @media (max-width: 1800px) and (min-width: 1400px) {
-       .high_score .high_data {
-    height: 221px;
+    .high_score .high_data {
+      height: 221px;
       img{
         margin-top: 10px;
         width: 66.7%;

@@ -24,6 +24,7 @@
         <div class="batchProm">
           <el-button
             type="primary"
+            class="appPull"
             :disabled="btnChangeEnable"
             @click="showPushAppDialog"
           >
@@ -442,10 +443,10 @@ export default {
     min-width: 1200px;
 
     .pushTitle{
-      font-size: 26px;
+      font-size: 36px;
       margin-bottom: 30px;
       font-family: HarmonyHeiTi;
-      font-weight: 600;
+      font-weight: bold;
       color: #5E40C8;
       line-height: 24px;
     }
@@ -469,6 +470,11 @@ export default {
     margin-bottom: 15px;
     margin-left: 10px;
     float: right;
+    .appPull{
+      font-size: 19px !important;
+      font-family: HarmonyHeiTi !important;
+       font-weight: 300 !important;
+    }
   }
   .search_input{
     width: 200px;

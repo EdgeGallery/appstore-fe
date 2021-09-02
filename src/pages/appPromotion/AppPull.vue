@@ -20,7 +20,7 @@
       <div class="pull_container">
         <div
           class="pullNoData contents"
-          v-if="appStoreList.length < 1"
+          v-if="appStoreList.length <1"
         >
           <img
             src="../../assets/images/construct.png"
@@ -210,6 +210,7 @@ export default {
       background: white;
       padding: 31px;
       .selectStyle{
+        z-index: 10;
         width: 260px;
         float:right;
         margin-top: 2px;
@@ -223,6 +224,9 @@ export default {
         .pullBtn{
           height:40px;
           margin-top: 38px;
+          font-size: 19px !important;
+          font-family: HarmonyHeiTi !important;
+          font-weight: 300 !important;
         }
       }
       }

@@ -30,7 +30,7 @@
           v-model="nameQueryVal"
           :placeholder="$t('common.appName')"
           @keyup.enter.native="queryApp"
-          class="search_input"
+          suffix-icon="el-icon-search"
           @clear="queryApp"
         >
           <em
@@ -456,16 +456,6 @@ export default ({
       .el-input__inner {
         border: 1px solid #380879;
         border-radius: 8px;
-      }
-      .search_icon{
-        display: inline-block;
-        width: 15px;
-        height: 15px;
-        background: url('../../assets/images/work_project_search_icon.png');
-        position: relative;
-        top: 5px;
-        cursor: pointer;
-        margin-right: 5px;
       }
   }
   .el-button--primary {

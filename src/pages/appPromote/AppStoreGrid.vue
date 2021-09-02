@@ -207,7 +207,6 @@ p{
           display: flex;
           .type{
             font-size: 14px;
-            font-family: HarmonyHeiTi;
             font-weight: 300;
             color: #380879;
             line-height: 35px;
@@ -216,7 +215,6 @@ p{
           }
           .size{
             font-size: 16px;
-            font-family: HarmonyHeiTi;
             font-weight: bolder;
             color: #380879;
             line-height: 35px;

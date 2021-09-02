@@ -23,7 +23,7 @@
       <el-button
         id="addAppBtn"
         type="primary"
-        class="batchProButton"
+        class="batchProButton addOutStore"
         @click="register"
       >
         {{ $t('myApp.addApp') }}
@@ -565,11 +565,19 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .outHouseTitle{
-      font-size: 26px;
-      line-height: 50px;
+    .addOutStore{
+      font-size: 20px;
+      height: 50px !important;
+      width: 200px !important;
+      border-radius: 25px !important;
       font-family: HarmonyHeiTi;
-      font-weight: 600;
+      font-weight: 300;
+      box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
+    }
+    .outHouseTitle{
+      font-size: 36px;
+      font-family: HarmonyHeiTi;
+      font-weight: bold;
       color: #5E40C8;
       margin: 0;
   }
@@ -624,6 +632,7 @@ export default {
   .dialogTitle1{
     width:15px;
     height:15px;
+    border-radius: 3px;
     background-color:#55D8BF;
     margin-right: 14px;
     margin-top: 8px;
@@ -633,6 +642,7 @@ export default {
       font-family: HarmonyHeiTi;
       font-weight: 300;
       color: #380879;
+      letter-spacing:2px;
     }
 }
 .outHouseTop /deep/ .el-button--primary{
@@ -641,8 +651,10 @@ export default {
     background:  linear-gradient(to right, #4444D0, #6724CB) !important;
 }
 div /deep/ .el-button{
-     background-color:  #5E40C8  !important;
+    background-color:  #5E40C8  !important;
     border-color:  #5E40C8 !important;
+    font-family: HarmonyHeiTi;
+    font-weight: 300;
     border-radius:10px ;
     span{
       color: #fff;
@@ -656,19 +668,26 @@ div /deep/ .el-dialog__title {
 }
 div /deep/.el-form-item__label {
     color: #5E40C8 !important;
+    font-size: 16px !important;
+    font-family: HarmonyHeiTi;
+    font-weight: 300;
 }
 div /deep/ .el-icon-close:before {
-     color: #5E40C8 !important;
+     display: none;
 }
 div /deep/.el-dialog{
     background-color: #f6f5f8 !important;
+    border-radius: 12px;
 }
 div /deep/.el-dialog__header {
     background-color: #f6f5f8 !important;
+    border-radius: 12px;
 }
 div /deep/.el-dialog__body {
     padding: 10px 68px 0 0 !important;
-
+}
+div /deep/ .el-form-item .el-form-item__content {
+    padding: 0 20px;
 }
 .dialogSelect{
   border: none !important;
@@ -676,5 +695,6 @@ div /deep/.el-dialog__body {
 
 .outAppDialog /deep/ .el-input__inner {
     border: 1px solid #fff !important;
+        border-radius: 8px !important;
 }
 </style>

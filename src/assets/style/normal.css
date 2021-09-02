@@ -170,6 +170,7 @@ a{
   padding: 3px 0;
   color: #688ef3;
 }
+
 .el-button--text:hover{
   color: #86a5f5;
   border-bottom: 1px solid #688ef3;
@@ -199,8 +200,10 @@ a{
 }
 .title_left{
   margin-left: 140px;
-  font-size: 36px;
-  color: #380879;
+  font-size: 30px;
+  font-family: HarmonyOS Sans SC;
+  font-weight: bold;
+  color: #5D3DA0;
 }
 .defaultFontBlod{
   font-family:defaultFontBlod, Arial, Helvetica, sans-serif;
@@ -210,7 +213,8 @@ a{
   width: 88px;
   height: 7px;
   border-radius: 4px;
-  background: rgba(158, 123, 205, 0.2);
+  opacity: 0.2;
+  background: #9E7BCD;
   margin-top: 15px;
   flex-shrink: 0;
 }
@@ -224,18 +228,39 @@ a{
   color: #62517a;
   font-weight: normal;
 }
+.el-form-item .el-form-item__content{
+  padding: 0 30px;
+}
 .el-table__header-wrapper{
   border-radius: 8px;
+}
+.el-checkbox-button__inner{
+  border: 0px;
+  border-left: 0px;
+  text-indent : 0px;
+}
+.el-checkbox-button.is-checked .el-checkbox-button__inner {
+  color: #5E40C8;
+  background-color: #fff;
+  border-left: 0px;
+  border: 0px;
+  box-shadow: 0px 0 0 0 #a4bbf8;
 }
 .tableStyle.el-table .cell {
   word-wrap : break-word ;
   word-break:keep-all;
   max-height: 50px;
+  font-size: 20px;
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+.el-table th .cell {
+  font-size: 20px;
+  font-weight: 400;
+  color: #62517A;
 }
 .tableStyle.el-table tbody td {
   border-bottom: 2px solid #f5eeff;
