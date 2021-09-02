@@ -34,20 +34,57 @@
             :default-active="activeIndex"
             v-model="activeIndex"
             class="el-menu-demo"
+            unique-opened="false"
             @select="handleSelect"
             background-color="#eee"
           >
-            <el-menu-item
+            <el-submenu index="5">
+              <template
+                slot="title"
+              >
+                <div
+                  class="oneTitles"
+                  :class="{'oneSelect': activeIndex === '5' }"
+                >
+                  <img
+                    :src="activeIndex === '5' ? require('@/assets/images/docGuideSelect.png'): require('@/assets/images/docGuideUnselect.png')"
+                    alt=""
+                  >
+                  {{ $t('docs.userGuide') }}
+                </div>
+              </template>
+              <el-menu-item index="5">
+                {{ $t('docs.userGuide') }}
+              </el-menu-item>
+            </el-submenu>
+            <!-- <el-menu-item
               index="5"
               class="title1"
             >
-              {{ $t('docs.userGuide') }}
-            </el-menu-item>
+              <div
+                class="oneTitles"
+              >
+                <img
+                  :src="activeIndex === '5' ? require('@/assets/images/docGuideSelect.png'): require('@/assets/images/docGuideUnselect.png')"
+                  alt=""
+                >
+                {{ $t('docs.userGuide') }}
+              </div>
+            </el-menu-item> -->
             <el-submenu index="4">
               <template
                 slot="title"
               >
-                {{ $t('docs.appFolderStar') }}
+                <div
+                  class="oneTitles"
+                  :class="{'oneSelect': (activeIndex === '4' ||activeIndex === '4-1'|| activeIndex === '4-2' ||activeIndex === '4-3'|| activeIndex === '4-4' || activeIndex === '4-5' )}"
+                >
+                  <img
+                    :src="activeIndex === '4' ||activeIndex === '4-1'|| activeIndex === '4-2' ||activeIndex === '4-3'|| activeIndex === '4-4' || activeIndex === '4-5' ? require('@/assets/images/docAppSelect.png'): require('@/assets/images/docAppUnselect.png')"
+                    alt=""
+                  >
+                  {{ $t('docs.appFolderStar') }}
+                </div>
               </template>
               <el-menu-item index="4">
                 {{ $t('docs.summary') }}
@@ -71,41 +108,80 @@
             <el-submenu index="1">
               <template
                 slot="title"
-                style="font-size:18px;"
               >
-                {{ $t('docs.interfaceStar') }}
+                <div
+                  class="oneTitles"
+                  :class="{'oneSelect': (activeIndex === '1' ||activeIndex === '1-2'|| activeIndex === '1-2-1' ||activeIndex === '1-2-2'|| activeIndex === '1-2-3' || activeIndex === '1-2-4'|| activeIndex === '1-2-5' || activeIndex === '1-3'|| activeIndex === '1-3-1' || activeIndex === '1-3-2' )}"
+                >
+                  <img
+                    :src="activeIndex === '1' ||activeIndex === '1-2'|| activeIndex === '1-2-1' ||activeIndex === '1-2-2'|| activeIndex === '1-2-3' || activeIndex === '1-2-4'|| activeIndex === '1-2-5' || activeIndex === '1-3'|| activeIndex === '1-3-1' || activeIndex === '1-3-2' ? require('@/assets/images/docTextSelect.png'): require('@/assets/images/docTextUnselect.png')"
+                    alt=""
+                  >
+                  {{ $t('docs.interfaceStar') }}
+                </div>
               </template>
               <el-menu-item index="1">
                 {{ $t('nav.appMessage1') }}
               </el-menu-item>
-              <el-submenu index="1-2">
-                <template slot="title">
+              <el-submenu
+                index="1-2"
+              >
+                <p
+                  slot="title"
+                  class="twoTitle"
+                  :class="{'twoSelect': (activeIndex === '1-2-1' ||activeIndex === '1-2-2'|| activeIndex === '1-2-3' ||activeIndex === '1-2-4'|| activeIndex === '1-2-5' )}"
+                >
                   {{ $t('docs.appView') }}
-                </template>
-                <el-menu-item index="1-2-1">
+                </p>
+                <el-menu-item
+                  index="1-2-1"
+                  class="threeMenu"
+                >
                   {{ $t('nav.appQuery21') }}
                 </el-menu-item>
-                <el-menu-item index="1-2-2">
+                <el-menu-item
+                  index="1-2-2"
+                  class="threeMenu"
+                >
                   {{ $t('nav.appQuery22') }}
                 </el-menu-item>
-                <el-menu-item index="1-2-3">
+                <el-menu-item
+                  index="1-2-3"
+                  class="threeMenu"
+                >
                   {{ $t('nav.appQuery23') }}
                 </el-menu-item>
-                <el-menu-item index="1-2-4">
+                <el-menu-item
+                  index="1-2-4"
+                  class="threeMenu"
+                >
                   {{ $t('nav.appQuery24') }}
                 </el-menu-item>
-                <el-menu-item index="1-2-5">
+                <el-menu-item
+                  index="1-2-5"
+                  class="threeMenu"
+                >
                   {{ $t('nav.appQuery25') }}
                 </el-menu-item>
               </el-submenu>
               <el-submenu index="1-3">
-                <template slot="title">
+                <p
+                  slot="title"
+                  class="twoTitle"
+                  :class="{'twoSelect': (activeIndex === '1-3-1' ||activeIndex === '1-3-2' )}"
+                >
                   {{ $t('nav.appDownload3') }}
-                </template>
-                <el-menu-item index="1-3-1">
+                </p>
+                <el-menu-item
+                  index="1-3-1"
+                  class="threeMenu"
+                >
                   {{ $t('nav.appDownload31') }}
                 </el-menu-item>
-                <el-menu-item index="1-3-2">
+                <el-menu-item
+                  index="1-3-2"
+                  class="threeMenu"
+                >
                   {{ $t('nav.appDownload32') }}
                 </el-menu-item>
               </el-submenu>
@@ -306,6 +382,7 @@ export default {
   }
   p:nth-child(2){
     width: 88px;
+    margin-top: 20px;
     height: 7px;
     background: #9E7BCD;
     opacity: 0.2;
@@ -339,6 +416,15 @@ export default {
   }
   .test-editors{
       width: 260px;
+      .el-submenu__title {
+          font-size: 20px;
+      }
+      .el-menu-item {
+          font-size: 16px;
+      }
+      .threeMenu{
+        font-size: 14px !important;
+      }
     .el-menu{
       border-right:none ;
       height: 100%;
@@ -354,13 +440,12 @@ export default {
         background-color: #FBFBFB !important;
       }
       .el-submenu.is-opened .el-submenu__title{
-        background-color: #fff !important;
+        background-color: #FBFBFB !important;
       }
        .el-submenu.is-opened .el-menu-item{
-        background-color: #fff !important;
+        background-color: #FBFBFB !important;
       }
       .el-submenu.is-opened{
-        background: #FFFFFF;
         box-shadow: 0px 0px 13px 0px rgba(40, 12, 128, 0.1);
         border-radius: 20px;
       }
@@ -368,17 +453,13 @@ export default {
           background-color: #FBFBFB !important;
           color: #C9C5D0;
         }
-      .el-submenu__title:hover, .el-submenu__title.is-active{
-        background: #fff !important;
-        border-radius: 0px 8px 8px 0px;
-        color: #5E40C8;
-      }
       .el-menu-item{
         line-height: 44px;
         height: 44px;
       }
       .el-menu-item:hover, .el-menu-item.is-active{
-        background: linear-gradient(90deg, #E6E7F3, #F0F0F7);
+        background: #fff !important;
+        background: linear-gradient(90deg, #E6E7F3, #F0F0F7) !important;
         border-radius: 0px 8px 8px 0px;
         color: #5E40C8;
       }
@@ -467,5 +548,24 @@ export default {
 }
 div /deep/ .el-menu{
   background-color: none !important;
+}
+.title1{
+  font-size: 20px !important;
+}
+.oneTitles.oneSelect{
+  background: #fff !important;
+  border-radius: 0px 8px 8px 0px;
+  color: #5E40C8;
+  height: 40px;
+  width: 230px;
+}
+li{
+  margin: 10px 0px;
+}
+.twoTitle{
+  font-size: 16px;
+}
+.twoTitle.twoSelect{
+    color: #5E40C8;
 }
 </style>

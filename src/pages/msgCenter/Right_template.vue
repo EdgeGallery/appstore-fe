@@ -267,7 +267,7 @@ export default {
     em{
       display: inline-block;
       width: 19px;
-      height: 22px;
+      height: 20px;
       position: relative;
       top: 4px;
       margin-right: 10px;
@@ -363,7 +363,7 @@ export default {
     .last_li.last_default{
       background: #d4d1ec;
       span{
-        background: linear-gradient(to bottom, #f5f4f8, #f1edf6);
+        background: #f0f2f5;
         border-radius: 0 0 0 16px;
         transition: all 0.5s;
       }
@@ -371,7 +371,7 @@ export default {
     .last_li.last_default2{
       background: #fff;
       span{
-        background: linear-gradient(to bottom, #f5f4f8, #f1edf6);
+        background: #f0f2f5;
         border-radius: 0 0 0 16px;
         transition: all 0.5s;
       }
