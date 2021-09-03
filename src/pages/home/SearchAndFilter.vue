@@ -75,7 +75,7 @@
       >
         <el-popover
           placement="bottom"
-          width="60%"
+          width="67.2%"
           trigger="click"
           transition="fade-in-linear"
           v-model="visible"
@@ -179,7 +179,7 @@
             >
               <img
                 src="../../assets/images/filter_icon.png"
-                class="filterAppLogo"
+                class="filterAppLogo header_img"
                 alt=""
               >
             </el-tooltip>
@@ -197,7 +197,7 @@
           >
           <img
             src="../../assets/images/appd_conversion_icon.png"
-            class="uploadAppLogo"
+            class="uploadAppLogo header_img"
             @click="appdConversion"
             alt=""
           >
@@ -421,6 +421,12 @@ export default ({
 </script>
 
 <style lang='less'>
+.header_img{
+  margin-top: 4px;
+}
+.header_img{
+  cursor: pointer;
+}
 .checkboxChecked {
   color: #606266;
   background-color: #fff;
@@ -541,4 +547,24 @@ export default ({
     width:80%;
   }
 }
+.el-popper{
+  left: 308px !important;
+  width: 67.2%;
+}
+.el-checkbox-group {
+    margin: -10px 0px !important;
+}
+.el-checkbox-button__inner:hover{
+  color: #5E40C8;
+}
+.el-button{
+  background: #FFFFFF;
+  color: #5F45BE;
+  border: 1px solid #5F45BE;
+}
+.el-popper .el-button:hover{
+  background: #5F45BE;
+  color: #fff;
+}
+
 </style>
