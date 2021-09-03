@@ -56,7 +56,7 @@
 
 <script>
 
-import { getNoticeMessage } from '../../tools/api.js'
+import { getMessages } from '../../tools/api.js'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
   data () {
@@ -66,7 +66,7 @@ export default {
       limitSize: 1000,
       offsetPage: 0,
       appName: '',
-      messageType: '',
+      messageType: 'NOTICE',
       prop: '',
       order: '',
       language: localStorage.getItem('language')
@@ -74,7 +74,18 @@ export default {
   },
   methods: {
     getMessage () {
-      getNoticeMessage(this.messageType, this.limitSize, this.offsetPage, this.appName, this.prop, this.order).then((res) => {
+      let params = {
+        appName: this.appName,
+        offset: this.offsetPage,
+        limit: this.limitSize,
+        sortItem: this.prop,
+        sortType: this.order,
+        messageType: this.messageType,
+        timeFlag: '',
+        readable: ''
+
+      }
+      getMessages(params).then((res) => {
         this.msgs = []
         let data = res.data.results
         data.forEach(item => {

@@ -257,7 +257,7 @@
 </template>
 
 <script>
-import { getOperatorMessages, getAllMessages } from '../../tools/api.js'
+import { getMessages, getAllMessages } from '../../tools/api.js'
 import egPagination from 'eg-view/src/components/EgPagination.vue'
 import eCharts from 'echarts'
 import commonUtil from '../../tools/commonUtil.js'
@@ -338,8 +338,19 @@ export default {
       this.appPackageData = []
       this.currentPageData = []
       this.findAppData = []
+      let params = {
+        appName: this.appName,
+        offset: this.offsetPage,
+        limit: this.curPageSize,
+        sortItem: this.prop,
+        sortType: this.order,
+        messageType: this.messageType,
+        timeFlag: '',
+        readable: ''
+
+      }
       return new Promise((resolve, reject) => {
-        getOperatorMessages(this.messageType, this.curPageSize, this.offsetPage, this.appName, this.prop, this.order).then((res) => {
+        getMessages(params).then((res) => {
           let data = res.data.results
           this.total = res.data.total
           data.forEach(
