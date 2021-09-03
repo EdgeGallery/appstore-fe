@@ -57,7 +57,7 @@
           />
           <pagination
             class="clearfix"
-            style="margin-bottom: 10px;"
+            style="margin-bottom: 0px;"
             :table-data="findAppData"
             :current-page-prop="currentPage"
             :total="total"

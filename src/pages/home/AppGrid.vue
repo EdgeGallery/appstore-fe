@@ -129,6 +129,7 @@ export default {
 <style lang='less'>
 .app-grid {
   padding: 10px;
+  min-height: 320px;
   .content {
     float: left;
     width: 20%;
@@ -193,11 +194,11 @@ export default {
             box-sizing: border-box;
           }
           .deployMode.containers{
-            background: #31A5C9;
+            background: #eaf6f9;
             color: #54AAF3;
           }
           .deployMode.vm{
-            background: #9163CC;
+            background: #f4effa;
             color: #9163CC;
             width: 48px;
           }
