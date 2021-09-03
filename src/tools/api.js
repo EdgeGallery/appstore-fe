@@ -95,7 +95,7 @@ function getNoticeMessage (messageType, limit, offset, appName, sortItem, sortTy
   return GETV2(url, '')
 }
 function getMessages (params) {
-  let url = 'messages/query'
+  let url = 'messages/action/query'
   return POSTV2(url, params)
 }
 // Update msg read status
