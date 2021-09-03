@@ -24,6 +24,11 @@
         id="myapp_checktest"
         @click="uploadPackage"
       >
+        <img
+          src="../../assets/images/uploadApp.png"
+          alt=""
+          class="uploadApp"
+        >
         {{ $t('store.uploadApp') }}
       </el-button>
     </div>
@@ -52,7 +57,7 @@
           />
           <pagination
             class="clearfix"
-            style="margin-bottom: 10px;"
+            style="margin-bottom: 0px;"
             :table-data="findAppData"
             :current-page-prop="currentPage"
             :total="total"
@@ -399,7 +404,13 @@ export default {
     color: #fff;
     font-size: 20px;
     border-radius: 25px;
-    padding: 0 50px;
+    padding: 0 40px 0 35px;
+    box-shadow: 0px 16px 10px  rgba(83,201,208,0.3);
+  }
+  .uploadApp{
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
   }
 
   .el-dialog {

@@ -23,7 +23,6 @@
         <p class="titleName">
           {{ $t("nav.msgCenter") }}
         </p>
-        <p class="lines" />
       </div>
       <div class="message">
         <div class="timeSelect">
@@ -280,13 +279,13 @@ export default {
     background-color: #f0f2f5;
     .title{
       min-width: 1200px;
-      margin-left:19.4% ;
+      margin-left:13.18% ;
       margin-top: 44px;
       .titleName{
-        font-size: 30px;
+        font-size: 36px;
         font-family: HarmonyOS Sans SC;
         font-weight: bold;
-        color: #5D3DA0;
+        color: #5E40C8;
         margin: 0;
       }
       .lines{
@@ -304,7 +303,7 @@ export default {
       margin: auto;
       min-width: 1200px;
       min-height: 380px;
-      margin-top: 40px;
+      margin-top: 10px;
       position: relative;
     .timeSelect{
       background: #FFFFFF;

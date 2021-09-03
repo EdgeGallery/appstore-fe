@@ -276,9 +276,9 @@ export default {
             padding-bottom: 40px;
   }
   .pushTitle{
-      font-size: 26px;
+      font-size: 36px;
       font-family: HarmonyHeiTi;
-      font-weight: 600;
+      font-weight: bold;
       color: #5E40C8;
       line-height: 24px;
       margin:-84px 0  48px -31px ;

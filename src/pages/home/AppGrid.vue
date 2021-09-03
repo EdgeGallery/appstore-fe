@@ -129,6 +129,7 @@ export default {
 <style lang='less'>
 .app-grid {
   padding: 10px;
+  min-height: 320px;
   .content {
     float: left;
     width: 20%;
@@ -180,6 +181,8 @@ export default {
             font-size: 14px;
             font-weight: bold;
             color: #111111;
+            margin-top: -9px ;
+            margin-bottom: 4px;
           }
           .deployMode{
             width: 48px;
@@ -191,11 +194,11 @@ export default {
             box-sizing: border-box;
           }
           .deployMode.containers{
-            background: #afbfcc;
+            background: #eaf6f9;
             color: #54AAF3;
           }
           .deployMode.vm{
-            background: #ebe8e8;
+            background: #f4effa;
             color: #9163CC;
             width: 48px;
           }
@@ -217,6 +220,7 @@ export default {
           text-overflow: ellipsis;
           white-space: nowrap;
           font-size: 14px;
+          margin: 9px 0px 5px 0px;
           .type {
             text-align: left;
             display: inline-block;

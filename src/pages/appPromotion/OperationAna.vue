@@ -970,9 +970,9 @@ export default {
 .my-app {
   width: 100%;
   .operTitle{
-    font-size: 26px;
+    font-size: 36px;
     font-family: HarmonyHeiTi;
-    font-weight: 600;
+    font-weight: bold;
     color: #5E40C8;
     margin-left: 13.18%;
     margin-top:50px ;

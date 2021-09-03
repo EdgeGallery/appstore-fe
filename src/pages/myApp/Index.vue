@@ -87,12 +87,12 @@
           />
           <el-table-column
             prop="type"
-            :label="$t('common.type')"
+            :label="$t('store.type')"
             width="100"
           />
           <el-table-column
             prop="affinity"
-            :label="$t('common.architecture')"
+            :label="$t('system.architecture')"
             width="125"
           />
           <el-table-column
@@ -203,7 +203,7 @@
                     class="operation_button"
                     type="text"
                   >
-                    {{ $t('myApp.more') }}<i class="el-icon-arrow-down el-icon--right" />
+                    {{ $t('myApp.more') }}
                   </el-button>
                   <el-dropdown-menu
                     slot="dropdown"
@@ -259,7 +259,7 @@
         />
       </div>
       <eg-pagination
-        class="rt"
+        class="eg_pagination"
         :page-num="pageNum"
         :page-size="pageSize"
         :total="total"
@@ -705,11 +705,14 @@ export default {
     font-size: 20px;
     border-radius: 25px;
     padding: 0 35px;
+    box-shadow: 0px 16px 10px  rgba(83,201,208,0.3);
   }
   .myApp-content {
     background: #ffffff;
     border-radius: 20px;
     padding: 30px 60px;
+    min-height: 500px;
+    position: relative;
     .search_input {
       float: left;
       width: 200px;
@@ -723,11 +726,11 @@ export default {
         line-height: 60px;
       }
       .operation_button{
-        padding: 5px !important;
         background: #efefef;
         border: none;
         color: #7a6e8a;
-        border-radius: 3px;
+        border-radius: 5px;
+        padding: 6px 12px !important;
         margin-left: 5px;
       }
       em {
@@ -773,5 +776,10 @@ export default {
       }
     }
   }
+}
+.eg_pagination{
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
 </style>
