@@ -423,7 +423,7 @@
 <script>
 import pagination from '../../components/common/Pagination.vue'
 import { Workspace, System } from '@/tools/api.js'
-import { Architecture } from '@/tools/project_data.js'
+import { Architecture } from '@/tools/constant.js'
 import { common } from '../../tools/comon.js'
 
 export default {
