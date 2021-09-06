@@ -108,6 +108,9 @@ const en = {
     guestPrompt: 'The guest user has no right to operate, please log in first!',
     modify: 'Modify',
     noDataNotice: 'No data available',
+    typeError: 'Format error',
+    typeConfig: 'Please upload config file',
+    networkConfig: 'Network Config',
     log: {
       userName: 'Username',
       projectName: 'Project Name',
@@ -182,6 +185,8 @@ const en = {
     }
   },
   common: {
+    more: 'More',
+    check: 'Check',
     clean: 'Clean',
     sort: 'Sort',
     workloadType: 'Workload Type :',

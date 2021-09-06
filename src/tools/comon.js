@@ -5,6 +5,13 @@ let common = {
       oDiv[0].style.minHeight = (Number(screenHeight) - otherHeight) + 'px'
     }
   },
+  formatDate: function (timestamp) {
+    let date = new Date(timestamp)
+    let year = date.getFullYear()
+    let month = date.getMonth() + 1
+    let day = date.getDate()
+    return year + (month < 10 ? '-0' : '-') + month + (day < 10 ? '-0' : '-') + day
+  },
   dateChange: function (time) {
     if (time) {
       let date = new Date(Date.parse(time))

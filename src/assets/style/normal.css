@@ -324,3 +324,79 @@ a{
 .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next {
   background-color: #fff !important;
 }
+
+.el-button.linearGradient2{
+  background-image: linear-gradient(127deg, #4444d0, #6724cb);
+  border: none;
+}
+.default_dialog .el-dialog .el-dialog__title{
+  color: #380879 !important;
+  font-size: 20px;
+}
+
+.default_dialog .title_icon{
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  border-radius: 3px;
+  background-image: linear-gradient(45deg, #72dcc8, #c0e8e0);
+  margin-right: 20px;
+  position: relative;
+  top: 2px;
+}
+
+.el-button.bgBtn{
+  background-color: #5844be;
+  border: none;
+  color: #fff;
+  border-radius: 10px;
+  font-family: defaultFontLight;
+}
+.el-button.operations_btn{
+  background: #efefef;
+  padding: 5px 15px;
+  border: none;
+  position: relative;
+}
+.search_input .search_icon{
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: url('../images/work_project_search_icon.png');
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  cursor: pointer;
+}
+.default_info_promt{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  line-height: 14px;
+  text-align: center;
+  color: #ffffff;
+  font-size: 12px;
+  background: #5844be;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+.default_dialog .el-dialog .el-form-item__label{
+  height: 32px !important;
+  line-height: 32px !important;
+  color: #380879;
+  font-size: 16px;
+}
+.default_dialog .el-dialog__header{
+  background: #efefef !important;
+  border-radius: 12px 12px 0 0;
+  padding: 40px 40px 20px 40px;
+}
+.default_dialog .el-dialog__body{
+  padding: 0 80px 0 !important;
+}
+.default_dialog .el-dialog{
+  font-family: defaultFontLight;
+  background: #efefef;
+  border-radius: 12px;
+}
+ 

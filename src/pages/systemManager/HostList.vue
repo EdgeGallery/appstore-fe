@@ -16,65 +16,41 @@
 
 <template>
   <div class="hostManagement padding_default">
-    <el-breadcrumb
-      separator="/"
-      class="bread-crumbHost"
-    >
-      <el-breadcrumb-item :to="{ path: '/home' }">
-        {{ $t('nav.home') }}
-      </el-breadcrumb-item>
-      <el-breadcrumb-item>{{ $t('nav.system') }}</el-breadcrumb-item>
-      <el-breadcrumb-item>{{ $t('nav.systemHost') }}</el-breadcrumb-item>
-    </el-breadcrumb>
+    <div class="title_top title_left defaultFontBlod">
+      {{ $t('nav.systemHost') }}
+      <span class="line_bot1" />
+      <el-button
+        class="createimage_btn linearGradient2 image_mgmt"
+        @click="handleShowForm(defaultForm)"
+      >
+        <em class="new_icon" />
+        {{ $t('system.addHost') }}
+      </el-button>
+    </div>
     <el-dialog
-      :title="showLog ? $t('system.useDetail') : form.hostId ? $t('system.modify') : $t('system.addHost')"
       :close-on-click-modal="false"
       :visible.sync="visible"
       @close="onClose"
+      class="dialog_host default_dialog"
     >
-      <div v-show="showLog && visible">
-        <el-table
-          row-key="logId"
-          :data="logData"
-          :style="{maxHeight: '300px', overflow: 'auto'}"
-        >
-          <el-table-column
-            prop="userId"
-            :label="$t('system.log.userName')"
-          />
-          <el-table-column
-            prop="projectName"
-            :label="$t('system.log.projectName')"
-          />
-          <el-table-column
-            prop="appInstancesId"
-            :label="$t('system.log.appInstancesId')"
-          />
-          <el-table-column
-            prop="deployTime"
-            :label="$t('system.log.deployTime')"
-          />
-          <el-table-column
-            prop="status"
-            :label="$t('system.log.status')"
-          />
-          <el-table-column
-            prop="operation"
-            :label="$t('system.log.operation')"
-          />
-        </el-table>
+      <div
+        slot="title"
+        class="el-dialog__title"
+      >
+        <em class="title_icon" />{{ form.hostId ? $t('system.modify') : $t('system.addHost') }}
       </div>
       <el-form
         v-show="!showLog && visible"
         :model="form"
         ref="form"
         :rules="rules"
-        :label-width="formLabelWidth"
+        :label-width="language==='cn'?formLabelWidth:formLabelWidthEn"
         label-position="right"
       >
         <el-form-item
           :label="$t('system.name')"
           prop="name"
+          class="w50"
         >
           <el-input
             size="small"
@@ -82,18 +58,14 @@
           />
         </el-form-item>
         <el-form-item
-          :label="$t('nav.system')"
-          prop="os"
+          :label="$t('system.inPort')"
+          prop="port"
           class="w50"
         >
-          <el-radio-group v-model="form.os">
-            <el-radio label="K8S">
-              K8S
-            </el-radio>
-            <el-radio label="OpenStack">
-              OpenStack
-            </el-radio>
-          </el-radio-group>
+          <el-input
+            size="small"
+            v-model="form.port"
+          />
         </el-form-item>
         <el-form-item
           :label="$t('system.lcmIp')"
@@ -116,14 +88,22 @@
           />
         </el-form-item>
         <el-form-item
-          :label="$t('system.inPort')"
-          prop="port"
+          :label="$t('system.status')"
+          prop="status"
           class="w50"
         >
-          <el-input
+          <el-select
             size="small"
-            v-model="form.port"
-          />
+            v-model="form.status"
+            :style="{width: '100%'}"
+          >
+            <el-option
+              v-for="item in statusOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
         </el-form-item>
         <el-form-item
           :label="$t('system.protocol')"
@@ -162,24 +142,6 @@
           </el-select>
         </el-form-item>
         <el-form-item
-          :label="$t('system.status')"
-          prop="status"
-          class="w50"
-        >
-          <el-select
-            size="small"
-            v-model="form.status"
-            :style="{width: '100%'}"
-          >
-            <el-option
-              v-for="item in statusOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
           :label="$t('system.portRange')"
           prop="portRangeMin"
           class="w50"
@@ -187,13 +149,34 @@
           <el-input
             size="small"
             v-model="form.portRangeMin"
-            :style="{width: '85px'}"
+            class="port_input"
           />
+          <span class="port_span">-</span>
           <el-input
             size="small"
             v-model="form.portRangeMax"
-            :style="{width: '85px',marginLeft:'16px'}"
+            class="port_input"
           />
+        </el-form-item>
+        <el-form-item
+          :label="$t('nav.system')"
+          prop="os"
+        >
+          <el-radio-group
+            v-model="form.os"
+            class="default_radio"
+            @change="changeOs"
+          >
+            <el-radio label="K8S">
+              K8S
+            </el-radio>
+            <el-radio label="OpenStack">
+              OpenStack
+            </el-radio>
+            <el-radio label="FusionSphere">
+              FusionSphere
+            </el-radio>
+          </el-radio-group>
         </el-form-item>
         <el-form-item
           :label="$t('system.address')"
@@ -205,20 +188,25 @@
             v-model="form.address"
           />
         </el-form-item>
-        <el-form-item :label="$t('system.other')">
+        <el-form-item
+          :label="$t('system.networkConfig')"
+          v-if="showOther"
+        >
           <el-input
             size="small"
             v-model="form.parameter"
           >
-            <em
+            <span
               slot="suffix"
-              class="el-icon-s-order"
               @click="addMore"
-            />
+              class="view_more_btn"
+            >
+              {{ $t('common.check') }}</span>
           </el-input>
         </el-form-item>
         <el-form-item
           prop="configId"
+          :label="$t('system.config_id')"
         >
           <el-upload
             action=""
@@ -233,26 +221,37 @@
               slot="trigger"
               size="medium"
               plain
-              type="primary"
+              class="featuresBtn"
             >
               {{ $t('system.upload') + $t('system.config_id') }}
             </el-button>
+            <el-tooltip
+              effect="dark"
+              :content="this.$t('system.typeConfig')"
+              placement="right"
+            >
+              <span class="default_info_promt">i</span>
+            </el-tooltip>
           </el-upload>
         </el-form-item>
         <el-dialog
-          :title="$t('system.other')"
           :visible.sync="innerVisible"
           :close-on-click-modal="false"
           append-to-body
-          class="other_setting"
+          class="other_setting default_dialog"
         >
+          <div
+            slot="title"
+            class="el-dialog__title"
+          >
+            <em class="title_icon" />{{ $t('system.networkConfig') }}
+            <em
+              v-if="true"
+              class="el-icon-circle-plus-outline rt editBtn"
+              @click="addListData"
+            />
+          </div>
           <div class="innerVisible_div">
-            <p class="operation_btn">
-              <em
-                class="el-icon-plus"
-                @click="addListData"
-              />
-            </p>
             <p
               v-for="(item,index) in otherData"
               :key="index"
@@ -270,7 +269,8 @@
                 v-model="item.value"
               />
               <em
-                class="el-icon-delete"
+                v-if="true"
+                class="el-icon-delete editBtn"
                 @click="deleteListData(index)"
               />
             </p>
@@ -279,10 +279,15 @@
             slot="footer"
             class="dialog-footer"
           >
-            <el-button @click="innerVisible = false">{{ $t('common.cancel') }}</el-button>
+            <el-button
+              @click="innerVisible=true"
+              class="bgBtn"
+            >{{ $t('common.cancel') }}</el-button>
+
             <el-button
               type="primary"
               @click="confirmData"
+              class="bgBtn"
             >{{ $t('common.confirm') }}</el-button>
           </span>
         </el-dialog>
@@ -293,11 +298,17 @@
         class="dialog-footer"
       >
         <el-button
+          @click="visible = false"
+          class="bgBtn"
+        >
+          {{ $t('common.cancel') }}
+        </el-button>
+        <el-button
           type="primary"
           size="medium"
           :loading="loading"
           @click="onSubmit"
-          class="confirm"
+          class="bgBtn"
         >
           {{ $t('common.confirm') }}
         </el-button>
@@ -305,84 +316,86 @@
     </el-dialog>
     <div class="list clear">
       <div class="title">
-        <el-button
-          type="primary"
-          size="medium"
-          @click="handleShowForm(defaultForm)"
-        >
-          {{ $t('system.addHost') }}
-        </el-button>
         <span>
           <el-input
-            :style="{width: '200px'}"
             size="medium"
             v-model="enterQuery"
             :placeholder="$t('system.name')"
-          />
-          <el-button
-            :loading="loading"
-            :style="{marginLeft: '10px'}"
-            size="medium"
-            @click="searchListData"
+            class="search_input"
+            @keyup.enter.native="searchListData"
+            @clear="searchListData"
+            @change="searchListData"
           >
-            {{ $t('myApp.inquire') }}
-          </el-button>
+            <em
+              slot="suffix"
+              class="search_icon"
+              @click="searchListData"
+            />
+          </el-input>
         </span>
       </div>
       <el-table
         v-loading="loading"
         row-key="hostId"
         :data="allListData"
-        header-cell-class-name="headerStyle"
+        class="tableStyle"
       >
         <el-table-column
           prop="name"
           :label="$t('system.name')"
+          min-width="11%"
         />
         <el-table-column
           prop="os"
           :label="$t('nav.system')"
+          min-width="9%"
         />
         <el-table-column
           prop="lcmIp"
           :label="$t('system.lcmIp')"
+          min-width="10%"
         />
         <el-table-column
           prop="mecHost"
           :label="$t('system.mecHost')"
+          min-width="15%"
         />
         <el-table-column
           prop="port"
           :label="$t('system.inPort')"
+          min-width="11%"
         />
         <el-table-column
           prop="protocol"
           :label="$t('system.protocol')"
+          min-width="9%"
         />
         <el-table-column
           prop="status"
           :label="$t('system.status')"
+          min-width="11%"
         />
         <el-table-column
           prop="architecture"
           :label="$t('system.architecture')"
+          min-width="9%"
         />
         <el-table-column
           :label="$t('system.operation')"
-          width="170"
+          min-width="15%"
         >
           <template slot-scope="scope">
             <el-button
-              size="medium"
-              type="text"
+              :loading="loading"
+              class="operations_btn"
               @click="handleShowForm(scope.row)"
             >
               {{ $t('system.modify') }}
             </el-button>
+
             <el-button
               :loading="loading"
-              size="medium"
-              type="text"
+              class="operations_btn"
               @click="handleDelete(scope.row)"
             >
               {{ $t('system.delete') }}
@@ -390,27 +403,34 @@
           </template>
         </el-table-column>
         <template slot="empty">
-          <div>
-            <img
-              src="../../assets/images/empty.png"
-              alt=""
-              style="padding: 10px;"
-            >
+          <div class="empty_img">
             <p>{{ $t('system.noDataNotice') }}</p>
           </div>
         </template>
       </el-table>
+      <div class="pagebar">
+        <pagination
+          :table-data="allListData"
+          :list-total="listTotal"
+          @getCurrentPageData="getCurrentPageData"
+          ref="pagination"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Workspace, System } from '../../tools/api'
-import { Architecture } from '../../tools/constant.js'
-import commonUtil from '../../tools/commonUtil.js'
+import pagination from '../../components/common/Pagination.vue'
+import { Workspace, System } from '@/tools/api.js'
+import { Architecture } from '@/tools/constant.js'
+import { common } from '../../tools/comon.js'
 
 export default {
   name: 'HostList',
+  components: {
+    pagination
+  },
   data () {
     const validate = (v, callback, errorMsg, rules) => {
       if (rules) {
@@ -429,11 +449,13 @@ export default {
     return {
       showLog: false,
       configId_file_list: [],
+      limitSize: 2,
+      offsetPage: 0,
       listTotal: 0,
       logData: [],
       protocolOptions: [
-        { label: 'HTTP', value: 'http' },
-        { label: 'HTTPS', value: 'https' }
+        { label: 'http', value: 'http' },
+        { label: 'https', value: 'https' }
       ],
       statusOptions: [
         { label: 'NORMAL', value: 'NORMAL' },
@@ -442,6 +464,7 @@ export default {
       ],
       architectureOptions: Architecture,
       formLabelWidth: '110px',
+      formLabelWidthEn: '150px',
       form: {
         port: 31252,
         portRangeMin: '30000',
@@ -459,23 +482,12 @@ export default {
         protocol: 'https',
         status: 'NORMAL',
         os: 'K8S',
-        parameter: `DC_ID=FS_M:Manger_VPC;
-az_dc=nova;
-mep_certificate=YHXGFTWU!@$%@&%#(DH(122479+_);
-app_mp1_ip=192.168.226.201;app_mp1_mask=255.255.255.0;app_mp1_gw=192.168.226.1;
-app_n6_ip=192.168.225.202;app_n6_mask=255.255.255.0;app_n6_gw=192.168.225.1;
-app_internet_ip=192.168.227.203;app_internet_mask=255.255.255.0;app_internet_gw=192.168.227.1;
-mep_ip=119.8.47.5;mep_port=8443;
-network_name_mep=mec_network_mep;network_mep_physnet=physnet2;network_mep_vlanid=2653;
-network_name_n6=mec_network_n6;network_n6_physnet=physnet2;network_n6_vlanid=2652;
-network_name_internet=mec_network_internet;network_internet_physnet=physnet2;network_internet_vlanid=2651;
-ue_ip_segment=0.0.0.0/0;
-mec_internet_ip=0.0.0.0`
+        parameter: ''
       },
       rules: {
         // configId: [{ required: true, validator: (r, v, callback) => { validate(['configId'], callback, this.$t('system.pleaseUpload')) } }],
         name: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.name')}` },
+          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('workspace.name')}` },
           { min: 6, max: 50, message: `${this.$t('system.pleaseInput')}6~50 ${this.$t('system.char')}` }
         ],
         os: [
@@ -494,17 +506,25 @@ mec_internet_ip=0.0.0.0`
           { message: `${this.$t('system.pleaseInput')}${this.$t('system.correct')}${this.$t('system.inPort')}`, pattern: /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-5]{2}[0-3][0-5])$/ }
         ],
         architecture: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.architecture')}` }
+          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('workspace.architecture')}` }
         ],
         protocol: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.protocol')}` }
+          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('workspace.protocol')}` }
         ],
         address: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('common.address')}` },
+          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.address')}` },
           { min: 1, max: 100, message: `${this.$t('system.pleaseInput')}1~100 ${this.$t('system.char')}` }
         ],
+        userName: [
+          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.username')}` },
+          { min: 1, max: 20, message: `${this.$t('system.pleaseInput')}1~20 ${this.$t('system.char')}` }
+        ],
+        password: [
+          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.password')}` },
+          { min: 1, max: 20, message: `${this.$t('system.pleaseInput')}1~20 ${this.$t('system.char')}` }
+        ],
         status: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.status')}` }
+          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('workspace.status')}` }
         ],
         portRangeMin: [{ required: true,
           validator: (r, v, callback) => {
@@ -522,10 +542,14 @@ mec_internet_ip=0.0.0.0`
       userId: sessionStorage.getItem('userId'),
       language: localStorage.getItem('language'),
       innerVisible: false,
-      otherData: []
+      otherData: [],
+      screenHeight: document.body.clientHeight,
+      currentIndex: -1,
+      showOther: false
     }
   },
   mounted () {
+    this.setDivHeight()
     this.getListData()
   },
   watch: {
@@ -534,9 +558,32 @@ mec_internet_ip=0.0.0.0`
     },
     $route (to, from) {
       this.getListData()
+    },
+    offsetPage (val, oldVal) {
+      this.offsetPage = val
+      this.getListData()
+    },
+    limitSize (val, oldVal) {
+      this.limitSize = val
+      this.getListData()
     }
   },
   methods: {
+    changeOs (val) {
+      if (val === 'K8S') {
+        this.showOther = false
+      } else {
+        this.showOther = true
+      }
+    },
+    showMoreBtnFun (index) {
+      console.log(index)
+      this.currentIndex = index
+      console.log(this.currentIndex)
+    },
+    setDivHeight () {
+      common.setDivHeightFun(this.screenHeight, 'hostManagement', 261)
+    },
     addMore () {
       this.innerVisible = true
       this.otherData = []
@@ -579,7 +626,7 @@ mec_internet_ip=0.0.0.0`
         this.form.parameter = str.substr(0, str.length - 1)
         this.innerVisible = false
       } else {
-        this.$message.warning(this.$t('system.completeInfo'))
+        this.$eg_messagebox(this.$t('system.completeInfo'), 'warning')
       }
     },
     handleDelete ({ hostId }) {
@@ -595,26 +642,28 @@ mec_internet_ip=0.0.0.0`
         })
       })
     },
-    onClose () {
-      if (this.showLog) {
-        this.showLog = false
-      }
-      this.visible = false
-    },
+    // onClose () {
+    //   if (this.showLog) {
+    //     this.showLog = false
+    //   }
+    //   this.visible = false
+    // },
     onSubmit () {
       this.$refs.form.validate((valid, params) => {
         if (valid) {
           this.loading = true
+          if (!this.showOther) {
+            this.form.parameter = ''
+          }
           System.saveHostInfo({ ...this.form, ...params, userId: this.userName }).then(res => {
             if (res.data) {
-              this.$message.success((this.form.hostId ? this.$t('docs.modify') : this.$t('system.addHost')) + this.$t('system.success'))
-              this.onClose()
+              this.$eg_messagebox((this.form.hostId ? this.$t('api.modify') : this.$t('system.addHost')) + this.$t('system.success'), 'success')
+              // this.onClose()
             } else {
               throw new Error()
             }
-          }).catch((error) => {
-            let defaultMsg = this.$t('system.saveFail')
-            commonUtil.showTipMsg(this.language, error, defaultMsg)
+          }).catch(() => {
+            this.$eg_messagebox(this.$t('promptMessage.saveFail'), 'error')
           }).finally(() => {
             this.loading = false
             this.getListData()
@@ -626,11 +675,22 @@ mec_internet_ip=0.0.0.0`
       sessionStorage.setItem('currentPage', 1)
       this.getListData()
     },
-    // 获取列表
+    // Fetch list data
     getListData () {
       this.loading = true
-      System.getHosts({ name: this.enterQuery }).then(res => {
-        this.allListData = res.data || []
+      System.getHosts({ name: this.enterQuery, offset: this.offsetPage, limit: this.limitSize }).then(res => {
+        this.allListData = res.data.results || []
+        this.listTotal = res.data.total
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+    getLogData ({ hostId }) {
+      this.loading = true
+      System.getLogData(hostId).then(res => {
+        this.logData = res.data || []
+        this.showLog = true
+        this.visible = true
       }).finally(() => {
         this.loading = false
       })
@@ -640,7 +700,12 @@ mec_internet_ip=0.0.0.0`
       this.form[key] = ''
     },
     handleUpload (key, file) {
-      this.submitFile(key, [file.raw])
+      if (file.name.indexOf('.') === -1) {
+        this.submitFile(key, [file.raw])
+      } else {
+        this.configId_file_list = []
+        this.$eg_messagebox(this.$t('promptMessage.typeError') + ' , ' + this.$t('promptMessage.typeConfig'), 'warning')
+      }
     },
     submitFile (key, fileList) {
       const fd = new FormData()
@@ -650,24 +715,24 @@ mec_internet_ip=0.0.0.0`
         if (res.data.fileId) {
           this[`${key}_file_list`] = fileList
           this.form[key] = res.data.fileId
-          this.$message({
-            type: 'success',
-            message: this.$t('system.uploadSuccess')
-          })
+          this.$eg_messagebox(this.$t('promptMessage.uploadSuccess'), 'success')
         } else {
           this.handleRemove(key)
           throw new Error()
         }
       }).catch((error) => {
-        let defaultMsg = this.$t('system.uploadFailed')
-        commonUtil.showTipMsg(this.language, error, defaultMsg)
+        if (error && error.response && error.response.data.code === 403) {
+          this.$eg_messagebox(this.$t('promptMessage.guestPrompt'), 'warning')
+        } else {
+          this.$eg_messagebox(this.$t('promptMessage.uploadFailure'), 'error')
+        }
         this.handleRemove(key)
       }).finally(() => {
         this.loading = false
       })
     },
     handleExceed () {
-      this.$message.warning(this.$t('system.fileExceed'))
+      this.$eg_messagebox(this.$t('system.fileExceed'), 'warning')
     },
     handleShowForm (v) {
       this.form = JSON.parse(JSON.stringify(v))
@@ -677,6 +742,10 @@ mec_internet_ip=0.0.0.0`
       this.$nextTick(() => {
         this.$refs.form.clearValidate()
       })
+    },
+    getCurrentPageData (val, pageSize, start) {
+      this.limitSize = pageSize
+      this.offsetPage = start
     }
   }
 }
@@ -686,20 +755,23 @@ mec_internet_ip=0.0.0.0`
 .other_setting{
   .el-dialog{
     width: 600px;
-  }
-  .el-dialog__body{
-    max-height: 625px;
-    overflow: auto;
-  }
-}
-.innerVisible_div{
-  .operation_btn{
-    text-align: right;
-    .el-icon-plus{
-      font-size: 16px;
+    .editBtn:before{
+      font-size: 20px;
+      color: #a9a2c3;
       cursor: pointer;
     }
   }
+  .el-dialog__body{
+    max-height: 525px;
+    overflow: auto;
+    padding-right: 40px !important;
+  }
+  .dialog-footer{
+    padding-right: 50px !important;
+  }
+}
+.innerVisible_div{
+  margin-bottom: 20px;
   .container{
     padding-top: 10px;
     .el-input{
@@ -729,22 +801,57 @@ mec_internet_ip=0.0.0.0`
 
 }
 .hostManagement {
-  padding: 0 10%!important;
+  .dialog_host .el-dialog{
+    min-width: 850px;
+  }
+  .view_more_btn{
+    color: #7a6e8a;
+    background: #efefef;
+    padding: 2px 8px;
+    border-radius: 5px;
+    position: relative;
+    top: 7px;
+    cursor: pointer;
+  }
+  .createimage_btn{
+    position: absolute;
+    right: 0;
+    bottom: 30px;
+    height: 50px;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 25px;
+    padding: 0 35px;
+    .new_icon{
+      display: inline-block;
+      width: 19px;
+      height: 19px;
+      background: url('../../assets/images/work_new_project.png');
+      margin-right: 3px;
+      position: relative;
+      top: 2px;
+    }
+  }
   .w50 {
     width: 50%;
     display: inline-block;
   }
+  .port_span{
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+  }
+  .port_input{
+    width: calc(50% - 15px);
+  }
   .el-form-item__label {
     padding: 0 20px 0 0
   }
-  .bread-crumbHost{
-    padding: 0
-  }
-
   .list {
-    min-height: 500px;
-    background-color: white;
-    padding: 20px;
+    border-radius: 16px;
+    background: #fff;
+    padding: 30px 60px;
+    box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);
     .title{
       display: flex;
       align-items: center;
@@ -752,7 +859,6 @@ mec_internet_ip=0.0.0.0`
       margin-bottom: 20px;
     }
     .el-table {
-      margin-bottom: 20px;
       font-size: 14px;
       .icon_pic {
         width: 36px;
@@ -781,11 +887,6 @@ mec_internet_ip=0.0.0.0`
       }
     }
   }
-  .dialog-footer {
-    text-align: center;
-  }
 }
-.el-table__body-wrapper {
-   min-height: 498px;
-}
+
 </style>

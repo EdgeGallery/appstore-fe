@@ -345,7 +345,7 @@ export default {
         sortItem: this.prop,
         sortType: this.order,
         messageType: this.messageType,
-        timeFlag: '',
+        timeFlag: 'EARLIER',
         readable: ''
 
       }
