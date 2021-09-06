@@ -40,7 +40,7 @@
         <em class="title_icon" />{{ form.hostId ? $t('system.modify') : $t('system.addHost') }}
       </div>
       <el-form
-        v-show="!showLog && visible"
+        v-show="visible"
         :model="form"
         ref="form"
         :rules="rules"
@@ -293,7 +293,7 @@
         </el-dialog>
       </el-form>
       <div
-        v-show="!showLog && visible"
+        v-show="visible"
         slot="footer"
         class="dialog-footer"
       >
@@ -411,7 +411,7 @@
       <div class="pagebar">
         <pagination
           :table-data="allListData"
-          :list-total="listTotal"
+          :total="listTotal"
           @getCurrentPageData="getCurrentPageData"
           ref="pagination"
         />
@@ -447,7 +447,6 @@ export default {
       return callback()
     }
     return {
-      showLog: false,
       configId_file_list: [],
       limitSize: 2,
       offsetPage: 0,
@@ -642,12 +641,9 @@ export default {
         })
       })
     },
-    // onClose () {
-    //   if (this.showLog) {
-    //     this.showLog = false
-    //   }
-    //   this.visible = false
-    // },
+    onClose () {
+      this.visible = false
+    },
     onSubmit () {
       this.$refs.form.validate((valid, params) => {
         if (valid) {
@@ -658,7 +654,7 @@ export default {
           System.saveHostInfo({ ...this.form, ...params, userId: this.userName }).then(res => {
             if (res.data) {
               this.$eg_messagebox((this.form.hostId ? this.$t('api.modify') : this.$t('system.addHost')) + this.$t('system.success'), 'success')
-              // this.onClose()
+              this.onClose()
             } else {
               throw new Error()
             }
@@ -670,6 +666,7 @@ export default {
           })
         }
       })
+      this.visible = false
     },
     searchListData () {
       sessionStorage.setItem('currentPage', 1)
@@ -678,19 +675,10 @@ export default {
     // Fetch list data
     getListData () {
       this.loading = true
-      System.getHosts({ name: this.enterQuery, offset: this.offsetPage, limit: this.limitSize }).then(res => {
-        this.allListData = res.data.results || []
-        this.listTotal = res.data.total
-      }).finally(() => {
-        this.loading = false
-      })
-    },
-    getLogData ({ hostId }) {
-      this.loading = true
-      System.getLogData(hostId).then(res => {
-        this.logData = res.data || []
-        this.showLog = true
-        this.visible = true
+      System.getHosts({ name: this.enterQuery }).then(res => {
+        // System.getHosts({ name: this.enterQuery, offset: this.offsetPage, limit: this.limitSize }).then(res => {
+        this.allListData = res.data || []
+        this.listTotal = res.data.length
       }).finally(() => {
         this.loading = false
       })
