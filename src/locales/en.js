@@ -326,6 +326,8 @@ const en = {
     uninvolved: 'uninvolved'
   },
   store: {
+    appChange: 'Application package conversion tool',
+    backAppStore: 'Back App Store',
     type: 'Type',
     industry: 'Industry',
     advancedSearch: 'Advanced Search',

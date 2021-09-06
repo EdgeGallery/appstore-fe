@@ -342,9 +342,7 @@ export default ({
     },
 
     appdConversion () {
-      let currUrl = 'http://192.168.100.33:30087/#/home'
-      window.open(currUrl, '_blank')
-      // this.$router.push({ name: 'appdconversion' })
+      this.$router.push({ name: 'appChange' })
     },
     getSortedItem (type, value, index) {
       this.selectedConditions = []

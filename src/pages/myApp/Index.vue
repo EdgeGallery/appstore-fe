@@ -777,9 +777,13 @@ export default {
     }
   }
 }
+
 .eg_pagination{
   position: absolute;
   bottom: 20px;
   right: 20px;
+}
+.tableStyle.el-table td .cell {
+    font-size: 14px !important;
 }
 </style>

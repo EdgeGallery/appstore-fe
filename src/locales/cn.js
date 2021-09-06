@@ -340,6 +340,8 @@ const cn = {
     uninvolved: '不涉及'
   },
   store: {
+    appChange: '应用包转换工具',
+    backAppStore: '返回应用仓库',
     industry: '行业',
     type: '类型',
     advancedSearch: '高级搜索',

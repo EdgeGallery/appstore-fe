@@ -400,6 +400,7 @@ export default {
     }
 .docs {
     width: 73.64%;
+    min-height: 600px;
     border-radius:20px ;
     font-size: 14px;
     min-width: 1200px;
