@@ -5,13 +5,16 @@
       <p class="appChangeTool">
         {{ $t('store.appChange') }}
       </p>
-      <button class="backAppStore">
+      <button
+        class="backAppStore"
+        @click="jumpToIndex()"
+      >
         {{ $t('store.backAppStore') }}
       </button>
     </div>
     <iframe
       class="appChanegContent"
-      src="http://192.168.100.33:30087/#/home"
+      :src="srcUrl"
       frameborder="0"
     />
   </div>
@@ -24,13 +27,40 @@ export default ({
   },
   data () {
     return {
+      srcUrl: '',
+      isRouterAlive: true
     }
   },
   methods: {
+    getAtpUrl () {
+      // let language = localStorage.getItem('language')
+      let currUrl = window.location.origin
+      // this.srcUrl = 'http://192.168.100.33:30087/#/home'
+      if (currUrl.indexOf('30091') !== -1) {
+        let originUrl = currUrl.replace('30091', '30087')
+        this.srcUrl = originUrl + '/#/home'
+      }
+    },
+    jumpToIndex () {
+      this.$router.push('/index')
+    },
+    rebuileComponents () {
+      // Destroy subtag
+      this.isRouterAlive = false
+      // Recreate the subtag
+      this.$nextTick(() => {
+        this.isRouterAlive = true
+      })
+    }
   },
   mounted () {
+    this.getAtpUrl()
   },
   watch: {
+    '$i18n.locale': function () {
+      this.rebuileComponents()
+      this.getAtpUrl()
+    }
   }
 })
 </script>
@@ -74,10 +104,7 @@ export default ({
     }
   }
   .appChanegContent{
-    border: 1px solid red;
-    width: 73.64%;
-    margin: 0px 13.18% 0px 13.18%;
-    min-width: 1200px;
+    width: 100%;
     height: 632px;
   }
 }

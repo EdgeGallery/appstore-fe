@@ -770,8 +770,8 @@ export default {
         background-size: cover;
       }
       .drop-menu{
-        width: 50px;
-        height: 200px;
+        width: 50px !important;
+        height: 200px !important;
         background-color: #EFEFEF !important;
       }
     }

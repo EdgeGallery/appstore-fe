@@ -50,7 +50,6 @@
           <p><span>{{ $t('messageCenter.appLabel') }}</span><span>{{ data.basicInfo.name }}</span></p>
           <p><span>{{ $t('messageCenter.appStruct') }}</span><span>{{ data.basicInfo.affinity }}</span></p>
           <p><span>{{ $t('messageCenter.appVersion') }}</span><span>{{ data.basicInfo.version }}</span></p>
-          <p><span>{{ $t('messageCenter.appShortDes') }}</span><span> {{ data.basicInfo.shortDesc }}</span></p>
         </div>
         <div class="appInfo1 appInfo2">
           <p><span>{{ $t('messageCenter.appProvider') }}</span><span> {{ data.basicInfo.provider }}</span></p>
@@ -58,6 +57,9 @@
           <p><span>{{ $t('messageCenter.appIndustry') }}</span><span>{{ data.basicInfo.industry }}</span></p>
         </div>
       </div>
+      <p class="desc">
+        <span>{{ $t('messageCenter.appShortDes') }}</span><span>{{ data.basicInfo.shortDesc }}</span>
+      </p>
       <div class="appTestReport">
         <div class="appTestReportTop">
           <img
@@ -342,11 +344,11 @@ export default {
               font-size: 14px;
             }
             margin-top: 12px;
-            border-radius: 5px;
+            border-radius: 20px;
             padding: 0 10px;
             height: 25px;
             line-height: 23px;
-            background: #ACA6CE;
+            background: #59508f;
             color:#fff !important;
             box-shadow: 2px 2px 29px 0px rgba(36, 20, 119, 0.13);
           }
@@ -364,20 +366,44 @@ export default {
     }
     p:hover{
       cursor: pointer;
+      color: #fff;
+      background-color: #380879;
     }
     p{
       float: right;
       font-size: 14px;
       font-family: HarmonyHeiTi;
       font-weight: 300;
-      color: #FFFFFF;
       width: 67px;
       height: 33px;
+      background-color: #fff ;
+      color: #380879 ;
+      border: 1px solid #380879;
       line-height: 33px;
-      background: #5844BE;
       border-radius: 10px;
       text-align: center;
     }
   }
+}
+.desc{
+   margin-top: -50px !important;
+   margin-left: 155px !important;
+   margin-bottom: 30px !important;
+}
+.desc span:first-child{
+    font-size: 16px;
+    font-family: HarmonyHeiTi;
+    font-weight: 300;
+    color: #662FB2;
+    min-width: 100px;
+    margin-right: 20px;
+}
+.desc span:nth-child(2){
+    font-size: 16px;
+    font-family: HarmonyHeiTi;
+    font-weight: 400;
+    color: #380879;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 </style>

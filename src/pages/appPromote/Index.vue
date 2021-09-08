@@ -658,7 +658,6 @@ export default {
 }
 .outHouseTop /deep/ .el-button--primary{
     height: 40px !important;
-    border-radius:20px ;
     background:  linear-gradient(to right, #4444D0, #6724CB) !important;
 }
 .outHouseTop /deep/ .el-button{
