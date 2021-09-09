@@ -151,7 +151,7 @@
             class="curp"
           >
             <img
-              :src="flag== true ? require('@/assets/images/icon_en.png'): require('@/assets/images/icon_cn.png')"
+              :src="language === 'en' ? require('@/assets/images/icon_en.png'): require('@/assets/images/icon_cn.png')"
               class="iconLanguage"
             >
           </span>
@@ -209,7 +209,6 @@ export default {
   data () {
     return {
       language: 'cn',
-      flag: true,
       list: [
         {
           labelEn: 'Home',
@@ -351,6 +350,15 @@ export default {
       this.judgeActiveRouter(to.path, from.path)
       let path = this.$route.path
       this.judgeActiveIndex(path)
+      // post message to unified platform
+      window.parent.postMessage({
+        cmd: 'routeTo',
+        params: {
+          module: 'appStore',
+          path: to.path,
+          activeMenuPath: this.activeIndex
+        }
+      }, '*')
     }
   },
   computed: {
@@ -369,13 +377,15 @@ export default {
       }
       this.closeMenu()
     },
-    changeLanguage () {
-      if (this.language === 'cn') {
+    changeLanguage (lan) {
+      if (lan === 'cn') {
+        this.language = 'cn'
+      } else if (lan === 'en') {
         this.language = 'en'
-        this.flag = false
+      } else if (this.language === 'cn') {
+        this.language = 'en'
       } else {
         this.language = 'cn'
-        this.flag = true
       }
       localStorage.setItem('language', this.language)
       this.$i18n.locale = this.language
@@ -608,6 +618,23 @@ export default {
       this.$router.push(historyRoute)
       sessionStorage.setItem('historyRoute', '')
     }
+    // Switch language
+    let lanIndex = window.location.href.search('language')
+    if (lanIndex > 0) {
+      let lang = window.location.href.substring(lanIndex + 9, lanIndex + 11)
+      this.changeLanguage(lang)
+    }
+    // message listener, message from unified platform
+    window.addEventListener('message', (event) => {
+      var data = event.data
+      console.log('handleMessage, message info: ' + JSON.stringify(data))
+      switch (data.cmd) {
+        case 'iframeLanguageChange':
+          let lang = data.params.lang
+          this.changeLanguage(lang)
+          break
+      }
+    })
   },
   beforeDestroy () {
     sessionStorage.setItem('historyRoute', this.$route.path)
