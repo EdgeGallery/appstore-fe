@@ -471,8 +471,7 @@ export default {
     margin-left: 10px;
     float: right;
     .appPull{
-      font-size: 19px !important;
-      font-family: HarmonyHeiTi !important;
+      font-size: 16px !important;
        font-weight: 300 !important;
     }
   }
@@ -524,5 +523,11 @@ div /deep/ .headerStyle {
 }
  div /deep/ .el-select-dropdown__list {
      padding: 20px !important;
+}
+div /deep/ .el-table th > .cell {
+    font-size: 20px;
+}
+div /deep/ .el-table td > .cell {
+    font-size: 14px;
 }
 </style>

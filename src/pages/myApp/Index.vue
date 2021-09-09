@@ -770,16 +770,20 @@ export default {
         background-size: cover;
       }
       .drop-menu{
-        width: 50px;
-        height: 200px;
+        width: 50px !important;
+        height: 200px !important;
         background-color: #EFEFEF !important;
       }
     }
   }
 }
+
 .eg_pagination{
   position: absolute;
   bottom: 20px;
   right: 20px;
+}
+.tableStyle.el-table td .cell {
+    font-size: 14px !important;
 }
 </style>

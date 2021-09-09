@@ -257,15 +257,8 @@
           :key="index"
           @click="dialogDetil(item)"
         >
-          <p class="case_lines" />
-          <p
-            class="case_name_top"
-            :class="{'case_name_topen':language ==='en'}"
-          >
-            {{ item.title }}
-          </p>
           <img
-            :src="item.imgSrc"
+            :src="language === 'cn' ? item.imgSrccn: item.imgSrcen"
             alt=""
           >
           <div :class="{'addHeight':language==='en'}">
@@ -310,7 +303,7 @@
           <div class="dialog_center">
             <div class="center_left">
               <img
-                :src="this.dialog_datas.imgSrc"
+                :src="this.dialog_datas.senceDialogImg"
                 alt=""
               >
             </div>
@@ -491,28 +484,28 @@ export default {
       screenHeight: document.body.clientHeight,
       newAppData: [
         {
-          imgSrc: require('../../assets/images/hot1.png'),
-          name: '万能钥匙'
+          imgSrc: require('../../assets/images/kingsoftcloud.jpg'),
+          name: 'Kingsoftcloud'
         },
         {
-          imgSrc: require('../../assets/images/hot2.png'),
-          name: 'AR APP'
+          imgSrc: require('../../assets/images/cloudVR.png'),
+          name: 'CloudVR'
         },
         {
-          imgSrc: require('../../assets/images/hot3.png'),
-          name: 'location'
+          imgSrc: require('../../assets/images/cloudVR.png'),
+          name: 'Edge_VR教育平台'
         },
         {
-          imgSrc: require('../../assets/images/hot4.png'),
-          name: '5G MEC Cloud VR 教育平台'
+          imgSrc: require('../../assets/images/ktmedia.jpg'),
+          name: 'ktmedia'
         },
         {
-          imgSrc: require('../../assets/images/hot5.png'),
-          name: 'LocationTest'
+          imgSrc: require('../../assets/images/factorywording.jpg'),
+          name: 'factorywording'
         },
         {
-          imgSrc: require('../../assets/images/hot6.png'),
-          name: '智能家居'
+          imgSrc: require('../../assets/images/hetu.jpg'),
+          name: 'hetu'
         }
       ],
       scoreData: [
@@ -592,7 +585,9 @@ export default {
       ],
       recommendData: [
         {
-          imgSrc: require('../../assets/images/sence1.png'),
+          imgSrccn: require('../../assets/images/sence1cn.png'),
+          imgSrcen: require('../../assets/images/sence1en.png'),
+          senceDialogImg: require('../../assets/images/senceDialog1.png'),
           title: '智慧园区',
           titleen: 'Smart Park',
           content: '重新定义园区,以数字平台打造智慧园区的数字底座,让智慧触手可及',
@@ -603,7 +598,9 @@ export default {
           index: 5
         },
         {
-          imgSrc: require('../../assets/images/sence2.png'),
+          imgSrccn: require('../../assets/images/sence2cn.png'),
+          imgSrcen: require('../../assets/images/sence2en.png'),
+          senceDialogImg: require('../../assets/images/senceDialog2.png'),
           title: '工业制造',
           titleen: 'Industry manufacture',
           industry: 'Industrial Manufacturing',
@@ -614,7 +611,9 @@ export default {
           index: 0
         },
         {
-          imgSrc: require('../../assets/images/sence3.png'),
+          imgSrccn: require('../../assets/images/sence3cn.png'),
+          imgSrcen: require('../../assets/images/sence3en.png'),
+          senceDialogImg: require('../../assets/images/senceDialog3.png'),
           titleen: 'Traffic logistics',
           title: '交通物流',
           contenten: 'People are pleased to walk, things are optimized for their flow, AI enabled, driving the digital transformation of transportation and logistics',
@@ -627,34 +626,34 @@ export default {
       ],
       scoreHighestData: [
         {
-          imgSrc: require('../../assets/images/high1.png'),
-          name: '金山云',
+          imgSrc: require('../../assets/images/yunex.jpg'),
+          name: 'Yunex',
           score: 5
         },
         {
-          imgSrc: require('../../assets/images/high2.png'),
-          name: 'Zoneminder',
+          imgSrc: require('../../assets/images/roadSideUnit.jpg'),
+          name: 'roadSideUnit',
+          score: 4.9
+        },
+        {
+          imgSrc: require('../../assets/images/hetu.jpg'),
+          name: 'hetu',
+          score: 4.9
+        },
+        {
+          imgSrc: require('../../assets/images/cloudVR.png'),
+          name: 'CloudVR',
           score: 4.8
         },
         {
-          imgSrc: require('../../assets/images/high3.png'),
-          name: '河图',
+          imgSrc: require('../../assets/images/anheng-WAF.jpg'),
+          name: 'Anheng-WAF',
           score: 4.7
         },
         {
-          imgSrc: require('../../assets/images/high4.png'),
-          name: '福建空天',
-          score: 4.9
-        },
-        {
-          imgSrc: require('../../assets/images/high5.png'),
-          name: 'Ant Media',
-          score: 4.9
-        },
-        {
-          imgSrc: require('../../assets/images/high6.png'),
-          name: 'MediaPipe',
-          score: 4.8
+          imgSrc: require('../../assets/images/ktmedia.jpg'),
+          name: 'ktmedia',
+          score: 4.6
         }
       ],
       industry: INDUSTRY,
@@ -1260,28 +1259,6 @@ export default {
         background: #FFFFFF;
         box-shadow: 0px 30px 50px 0px rgba(66, 36, 157, 0.15);
         border-radius: 4px;
-        position: relative;
-        .case_name_top{
-          position: absolute;
-          left: 30px;
-          top:34px ;
-          text-shadow:#380879 2px 2px 2px;
-          font-size: 28px;
-          font-family: PangMenZhengDao;
-          font-weight: 400;
-          color: #FFFFFF;
-        }
-         .case_name_top.case_name_topen{
-            font-size: 24px;
-        }
-        .case_lines{
-          width: 30px;
-          height: 3px;
-          background: #FFFFFF;
-          position: absolute;
-          left: 30px;
-          top: 30px;
-        }
         img{
            width:100%;
            height: 340px;

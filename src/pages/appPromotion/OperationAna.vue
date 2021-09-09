@@ -980,6 +980,19 @@ export default {
 <style lang="less" scoped>
 .my-app {
   width: 100%;
+  .loolReport{
+      background: #EFEFEF;
+      border-radius: 5px;
+      font-size: 14px;
+      font-family: HarmonyHeiTi;
+      font-weight: 200;
+      color: #7A6E8A;
+      padding: 5px 13px;
+  }
+  .lookReport:hover{
+    background: #5E40C8;
+    color: #fff;
+  }
   .operTitle{
     font-size: 36px;
     font-family: HarmonyHeiTi;
@@ -1151,12 +1164,18 @@ export default {
     padding-right: 10px;
   }
 }
-
-.lookReport{
-  text-decoration: none;
+div /deep/ .headerStyle {
+     border-right: none !important;
+     background: #EDEEF8 !important;
+}
+div /deep/.el-table th  .cell {
+    font-size: 20px;
+    font-weight: 400;
+    color: #62517A;
+}
+div /deep/.el-table td  .cell {
+  font-size: 14px;
+  font-weight: 300;
   color: #7A6E8A;
-  padding: 4px 12px;
-  background: #EFEFEF;
-  border-radius: 12px;
 }
 </style>

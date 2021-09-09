@@ -38,7 +38,7 @@
         label-width="140px"
       >
         <el-form-item
-          :label="$t('common.industry')"
+          :label="$t('store.industry')"
         >
           <el-select
             v-model="appModifyInfo.industry"
@@ -48,13 +48,13 @@
             <el-option
               v-for="(item,index) in appIndustrys"
               :key="index"
-              :label="language === 'cn'?item.label[0]:item.label[1]"
+              :label="language === 'cn'?item.labelcn:item.labelen"
               :value="item.value"
             />
           </el-select>
         </el-form-item>
         <el-form-item
-          :label="$t('common.type')"
+          :label="$t('store.type')"
         >
           <el-select
             v-model="appModifyInfo.type"
@@ -64,7 +64,7 @@
             <el-option
               v-for="(item,index) in appTypes"
               :key="index"
-              :label="language === 'cn'?item.label[0]:item.label[1]"
+              :label="language === 'cn'?item.labelcn:item.labelen"
               :value="item.value"
               :id="item.value"
             />
@@ -164,7 +164,7 @@
           </el-upload>
         </el-form-item>
         <el-form-item
-          :label="$t('common.architecture')"
+          :label="$t('system.architecture')"
         >
           <el-select
             v-model="appModifyInfo.affinity"
@@ -501,14 +501,14 @@ export default {
     },
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {
-        let pos = this.appModifyInfo.industry.indexOf(itemFe.label[0])
+        let pos = this.appModifyInfo.industry.indexOf(itemFe.labelcn)
         if (pos !== -1) {
-          this.appModifyInfo.industry.splice(pos, 1, itemFe.label[1])
+          this.appModifyInfo.industry.splice(pos, 1, itemFe.labelen)
         }
       })
       TYPES.forEach(itemFe => {
-        if (this.appModifyInfo.type === itemFe.label[0]) {
-          this.appModifyInfo.type = itemFe.label[1]
+        if (this.appModifyInfo.type === itemFe.labelcn) {
+          this.appModifyInfo.type = itemFe.labelen
         }
       })
     },
@@ -743,7 +743,7 @@ export default {
   .el-form-item {
     margin-bottom: 8px;
     .app-upload{
-      background: #A59FC9;
+      background: #59508f;
       border: none;
       color: #FFFFFF;
       width: 169px;
@@ -771,11 +771,16 @@ export default {
     font-size: 12px;
   }
   .footer-button{
-    background: #5844BE;
-    color: #FFFFFF;
+    background: #fff;
+    border: 1px solid #5844BE !important;
+    color: #5844BE;
     border-radius: 10px;
     border: none;
   }
+   .footer-button:hover{
+     background: #5844BE;
+     color: #fff;
+   }
   .el-dialog__body{
     padding: 0px 20px 0 !important;
   }

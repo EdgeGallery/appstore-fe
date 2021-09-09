@@ -224,8 +224,7 @@ export default {
         .pullBtn{
           height:40px;
           margin-top: 38px;
-          font-size: 19px !important;
-          font-family: HarmonyHeiTi !important;
+          font-size: 16px !important;
           font-weight: 300 !important;
         }
       }

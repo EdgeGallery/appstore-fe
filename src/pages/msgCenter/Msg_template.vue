@@ -276,6 +276,7 @@ export default {
 .box {
     width: 100%;
     min-width: 1200px;
+    min-height:660px;
     background-color: #f0f2f5;
     .title{
       min-width: 1200px;

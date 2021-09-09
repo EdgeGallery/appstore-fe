@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="myApp padding56">
+  <div class="myApp padding56 minHeight">
     <div class="headerTitle">
       <p class="subheaderTitle">
         {{ $t('nav.appMgmt') }}
@@ -341,5 +341,7 @@ export default {
     border-right: solid #B3B0CA 2px;
   }
 }
-
+.minHeight{
+  min-height: 650px;
+}
 </style>

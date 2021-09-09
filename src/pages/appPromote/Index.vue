@@ -17,12 +17,16 @@
 <template>
   <div class="my-app outHouse">
     <div class="outHouseTop">
-      <p class="outHouseTitle">
+      <p
+        class="outHouseTitle"
+        :class="{'outHouseTitleen':language==='en'}"
+      >
         {{ $t("nav.externalAppManagement") }}
       </p>
       <el-button
         id="addAppBtn"
         type="primary"
+        :class="{'addOutStoreen':language==='en'}"
         class="batchProButton addOutStore"
         @click="register"
       >
@@ -574,12 +578,18 @@ export default {
       font-weight: 300;
       box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
     }
+   .addOutStore.addOutStoreen{
+     font-size: 14px;
+   }
     .outHouseTitle{
       font-size: 36px;
       font-family: HarmonyHeiTi;
       font-weight: bold;
       color: #5E40C8;
       margin: 0;
+  }
+  outHouseTitle.outHouseTitleen{
+    font-size: 24px;
   }
   }
   .contents {
@@ -638,6 +648,7 @@ export default {
     margin-top: 8px;
   }
   .dialogTitle2{
+      margin-bottom: 16px;
       font-size: 20px;
       font-family: HarmonyHeiTi;
       font-weight: 300;
@@ -647,12 +658,11 @@ export default {
 }
 .outHouseTop /deep/ .el-button--primary{
     height: 40px !important;
-    border-radius:20px ;
     background:  linear-gradient(to right, #4444D0, #6724CB) !important;
 }
-div /deep/ .el-button{
-    background-color:  #5E40C8  !important;
-    border-color:  #5E40C8 !important;
+.outHouseTop /deep/ .el-button{
+    background-color:  #5E40C8 ;
+    border-color:  #5E40C8;
     font-family: HarmonyHeiTi;
     font-weight: 300;
     border-radius:10px ;
@@ -696,5 +706,14 @@ div /deep/ .el-form-item .el-form-item__content {
 .outAppDialog /deep/ .el-input__inner {
     border: 1px solid #fff !important;
         border-radius: 8px !important;
+}
+.el-button{
+  background: #fff;
+  color: #5E40C8;
+  border: 1px solid #5E40C8;
+}
+.el-button:hover{
+  background: #5E40C8;
+  color: #fff;
 }
 </style>

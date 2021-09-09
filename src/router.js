@@ -389,6 +389,14 @@ export default new Router({
           meta: {
             id: '2.11'
           }
+        },
+        {
+          path: 'appChange',
+          name: 'appChange',
+          component: () => import('./pages/home/AppChange.vue'),
+          meta: {
+            id: '2.12'
+          }
         }
       ]
     }

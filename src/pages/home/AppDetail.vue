@@ -859,23 +859,23 @@ export default {
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {
         if (this.language === 'cn') {
-          if (this.currentData.industry === itemFe.label[1]) {
-            this.currentData.industry = itemFe.label[0]
+          if (this.currentData.industry === itemFe.labelen) {
+            this.currentData.industry = itemFe.labelcn
           }
         } else {
-          if (this.currentData.industry === itemFe.label[0]) {
-            this.currentData.industry = itemFe.label[1]
+          if (this.currentData.industry === itemFe.labelcn) {
+            this.currentData.industry = itemFe.labelen
           }
         }
       })
       TYPES.forEach(itemFe => {
         if (this.language === 'cn') {
-          if (this.currentData.type === itemFe.label[1]) {
-            this.currentData.type = itemFe.label[0]
+          if (this.currentData.type === itemFe.labelen) {
+            this.currentData.type = itemFe.labelcn
           }
         } else {
-          if (this.currentData.type === itemFe.label[0]) {
-            this.currentData.type = itemFe.label[1]
+          if (this.currentData.type === itemFe.labelcn) {
+            this.currentData.type = itemFe.labelen
           }
         }
       })
