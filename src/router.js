@@ -60,6 +60,22 @@ export default new Router({
           }
         },
         {
+          path: 'orders',
+          name: 'orders',
+          component: () => import('./pages/order/Orders.vue'),
+          meta: {
+            id: '2.0'
+          }
+        },
+        {
+          path: 'bill',
+          name: 'bill',
+          component: () => import('./pages/bill/Bill.vue'),
+          meta: {
+            id: '2.0'
+          }
+        },
+        {
           path: 'detail',
           name: 'appstordetail',
           component: () => import('./pages/home/AppDetail.vue'),

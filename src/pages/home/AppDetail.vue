@@ -67,6 +67,23 @@
           </span>
         </p>
       </div>
+      <div
+        class="app_score"
+        style="position:relative;top:25px;"
+      >
+        <p class="download_num">
+          1.99元（RMB）/小时
+        </p>
+        <p class="score_btn">
+          <el-button
+            type="primary"
+            class="batchProButton"
+            @click="showSubDialog()"
+          >
+            订购
+          </el-button>
+        </p>
+      </div>
       <div class="app_synchronize">
         <div
           v-if="!startSync"

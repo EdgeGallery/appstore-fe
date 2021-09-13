@@ -213,7 +213,7 @@
                     <el-dropdown-item
                       class="operation_button"
                       :disabled="scope.row.status !== 'Test_success'"
-                      @click.native="publishPackage(scope.row)"
+                      @click.native="beforePublishPackage(scope.row)"
                       type="text"
                     >
                       {{ $t('myApp.publish') }}
@@ -268,6 +268,62 @@
       />
       <div class="clearfix" />
     </div>
+
+    <el-dialog
+      :visible.sync="setPriceDialog"
+      :close-on-click-modal="false"
+      width="30%"
+      append-to-body
+      class="other_setting default_dialog"
+    >
+      <div
+        slot="title"
+        class="el-dialog__title"
+      >
+        <em class="title_icon" />
+        {{ $t('workspace.appRelease.priceTitle') }}
+      </div>
+      <div>
+        <el-form>
+          <el-form-item>
+            <div>
+              <el-radio
+                v-model="price"
+                label="1"
+                style="margin-bottom:10px;"
+              >
+                {{ $t('workspace.appRelease.free') }}
+              </el-radio>
+            </div>
+            <div>
+              <el-radio
+                v-model="price"
+                label="2"
+              >
+                <el-input
+                  v-model="priceSet"
+                  style="width:100px;"
+                />  {{ $t('workspace.appRelease.price') }}
+              </el-radio>
+            </div>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span
+        slot="footer"
+        class="dialog-footer dialogPadding"
+      >
+        <el-button
+          @click="setPriceDialog = false"
+          class="bgBtn"
+        >{{ $t('common.cancel') }}</el-button>
+        <el-button
+          type="primary"
+          @click="publishPackage(packageInfo)"
+          class="bgBtn"
+        >{{ $t('common.confirm') }}</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -304,6 +360,10 @@ export default {
       order: 'desc',
       isShowModifyDlg: false,
       rowAppModifyInfo: {},
+      setPriceDialog: false,
+      price: '1',
+      priceSet: 0,
+      packageInfo: null,
       typeList: [
         {
           labelEn: 'Video Application',
@@ -575,7 +635,16 @@ export default {
         commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
+    beforePublishPackage (row) {
+      this.setPriceDialog = true
+      this.packageInfo = row
+    },
     publishPackage (row) {
+      if (this.price === '1') {
+        console.log('free')
+      } else {
+        console.log(this.priceSet)
+      }
       myApp.publishAppApi(row.appId, row.packageId).then(res => {
         this.$message({
           duration: 2000,
