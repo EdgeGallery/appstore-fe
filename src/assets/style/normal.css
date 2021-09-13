@@ -286,6 +286,17 @@ a{
   background: url('../images/selectTop.png') 50% no-repeat !important;
   color: #61cdd0 !important;
 }
+.el-table .caret-wrapper{
+  height: 20px;
+} 
+.el-table .caret-wrapper i:first-child{
+ position: relative;
+ top: -2px;
+} 
+.el-table .caret-wrapper i:nth-child(2){
+  position: relative;
+ top:0px;
+} 
  .el-checkbox__input.is-disabled .el-checkbox__inner {
   background-color:#61CDD0  !important;
   border-color:#61CDD0  !important;

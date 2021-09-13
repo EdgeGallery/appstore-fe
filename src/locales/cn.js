@@ -395,7 +395,7 @@ const cn = {
     hasNotVideo: '当前应用还没有可演示的视频！',
     newUploadApp: '近期热门应用',
     senceCase: '场景案例',
-    introduct: '简介',
+    introduct: '简介：',
     tag: '标签',
     reapp: '相关应用',
     viewMore: '查看更多',

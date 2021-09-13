@@ -325,13 +325,8 @@
             @keyup.enter.native="searchListData"
             @clear="searchListData"
             @change="searchListData"
-          >
-            <em
-              slot="suffix"
-              class="search_icon"
-              @click="searchListData"
-            />
-          </el-input>
+            suffix-icon="el-icon-search"
+          />
         </span>
       </div>
       <el-table

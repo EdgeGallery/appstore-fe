@@ -36,13 +36,7 @@
         suffix-icon="el-icon-search"
         @clear="queryApp"
         @change="queryApp"
-      >
-        <em
-          slot="suffix"
-          class="search_icon"
-          @click="queryApp"
-        />
-      </el-input>
+      />
       <div class="packageTable">
         <el-table
           v-loading="dataLoading"
