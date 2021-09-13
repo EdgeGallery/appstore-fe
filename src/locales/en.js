@@ -377,7 +377,7 @@ const en = {
     hasNotVideo: 'There is no demo video for the current application!',
     newUploadApp: 'Recently Popular Apps',
     senceCase: 'Sence Case',
-    introduct: 'Introduct',
+    introduct: 'Introduct:',
     tag: 'Tag',
     reapp: 'Related applications',
     viewMore: 'View More',
