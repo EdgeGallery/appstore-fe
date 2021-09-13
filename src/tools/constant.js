@@ -263,6 +263,19 @@ const SORT_BY = [
   }
 ]
 
+const MEAO = [
+  {
+    labelcn: '华为 MEAO',
+    labelen: 'Huawei MEAO',
+    value: ''
+  },
+  {
+    labelcn: '九州云 MEAO',
+    labelen: 'JiuzhouCloud MEAO',
+    value: ''
+  }
+]
+
 const Architecture = [
   {
     value: 'X86',
@@ -277,5 +290,5 @@ const Architecture = [
 ]
 
 export {
-  TYPES, AFFINITY, SORT_BY, INDUSTRY, TTYPES, DEPLOYMODE, Architecture
+  TYPES, AFFINITY, SORT_BY, INDUSTRY, TTYPES, DEPLOYMODE, Architecture, MEAO
 }

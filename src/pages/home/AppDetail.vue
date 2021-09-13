@@ -16,6 +16,9 @@
 
 <template>
   <div class="app_detail padding56">
+    <div class="title_top">
+      {{ $t('store.introduction') }}
+    </div>
     <div class="app_info_div">
       <div class="app_icon">
         <img
@@ -68,84 +71,74 @@
         </p>
       </div>
       <div class="app_synchronize">
-        <div
-          v-if="!startSync"
-          style="margin-bottom:10px;"
-        >
-          <p class="synchronize_info">
-            同步应用到MEAO，可方便对应用生命周期进行管理
-          </p>
-          <p class="synchronize_img">
-            <img
-              src="../../assets/images/synchronize.png"
-              alt=""
-            >
-          </p>
-        </div>
-        <div
-          class="synchronize_process"
-          v-if="startSync"
-        >
-          <p>
-            应用同步
-          </p>
-          <div
-            v-if="hwMeAO"
-            class="process"
-          >
-            <span>华为MEAO:</span>
-            <el-progress
-              :stroke-width="10"
-              :percentage="huaweiper"
-              :color="customColor"
-            />
-          </div>
-          <div
-            v-if="jzyMEAO"
-            class="process"
-          >
-            <span>九州云MEAO:</span>
-            <el-progress
-              :stroke-width="10"
-              :percentage="jiuzhouyunper"
-              :color="customColor"
-            />
-          </div>
-        </div>
-
-        <p class="score_btn">
-          <el-button
-            type="primary"
-            class="batchProButton"
-            :disabled="ifDownload || currentData.userId===userId ? false : true"
-            @click="showSynchronize = !showSynchronize"
-          >
-            同步应用到MEAO
-            <div class="synchronize_div">
-              <el-collapse-transition>
-                <div v-show="showSynchronize">
-                  <div
-                    class="transition-box"
-                    @click="synchronizePackage(currentData)"
-                  >
-                    华为MEAO
-                  </div>
-                  <div
-                    class="transition-box"
-                    @click="synchronizeJzy()"
-                  >
-                    九州云MEAO
-                  </div>
-                </div>
-              </el-collapse-transition>
-            </div>
-          </el-button>
+        <p class="synchronize_info">
+          可同步应用到MEAO，可方便对应用生命周期进行管理
         </p>
+        <div
+          class="stepApp"
+          v-if="showlun"
+        >
+          <el-carousel
+            :interval="5000"
+            arrow="always"
+          >
+            <el-carousel-item v-if="hwMeAO">
+              <p
+                class="stepNames"
+              >
+                {{ language === 'cn'?this.MEAO[0].labelcn:this.MEAO[0].labelen }}
+              </p>
+              <el-progress
+                :text-inside="true"
+                :stroke-width="14"
+                :percentage="huaweiper"
+                style="width:116px;"
+              />
+            </el-carousel-item>
+            <el-carousel-item v-if="jzyMEAO">
+              <p
+                class="stepNames"
+              >
+                {{ language === 'cn'?this.MEAO[1].labelcn:this.MEAO[1].labelen }}
+              </p>
+              <el-progress
+                :text-inside="true"
+                :stroke-width="14"
+                :percentage="jiuzhouyunper"
+                style="width:116px;"
+              />
+            </el-carousel-item>
+            <p class="stepIng">
+              正在同步应用
+            </p>
+          </el-carousel>
+        </div>
+        <div class="stepDromdown">
+          <el-dropdown
+            @command="handleClick"
+            trigger="click"
+          >
+            <el-button
+              type="primary"
+            >
+              同步应用到MEAO
+            </el-button>
+            <el-dropdown-menu
+              slot="dropdown"
+              @change="handleClick"
+            >
+              <el-dropdown-item
+                v-for="(item,index) in this.MEAO"
+                :key="index"
+                :command="index"
+              >
+                <span>{{ language === 'cn'?item.labelcn:item.labelen }}</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
       </div>
       <div class="app_score">
-        <p class="download_num">
-          {{ downloadNum }}{{ this.$t('store.downloadNum') }}
-        </p>
         <p class="score_num">
           {{ score }}
         </p>
@@ -155,334 +148,108 @@
           text-color="#ff9900"
           score-template="{value}"
         />
-        <p class="score_btn">
-          <el-button
-            type="primary"
-            class="batchProButton"
-            :disabled="ifDownload || currentData.userId===userId ? false : true"
-            @click="download(currentData)"
-          >
-            {{ $t('store.download') }}
-          </el-button>
-          <!-- <el-button
-            type="primary"
-            class="batchProButton"
-            :disabled="ifSynchronize || currentData.userId===userId ? false : true"
-            @click="synchronizePackage(currentData)"
-          >
-            {{ $t('store.synchronize') }}
-          </el-button> -->
+        <p class="download_num">
+          {{ downloadNum }}{{ this.$t('store.downloadNum') }}
         </p>
+
+        <el-button
+          type="primary"
+          class="batchProButton"
+          :disabled="ifDownload || currentData.userId===userId ? false : true"
+          @click="download(currentData)"
+        >
+          {{ $t('store.download') }}
+        </el-button>
       </div>
     </div>
+
     <div class="app_content">
-      <el-tabs
-        v-model="activeName"
+      <ul class="list_top clear">
+        <li
+          @click="activeName='appDetail'"
+          :class="{'appDetail_active':activeName==='appDetail','appDetail_default':activeName==='comment','appDetail_default2':activeName==='comment','appDetail_default3':activeName==='vedio' || activeName==='appShow'}"
+        >
+          <span>
+            <em />{{ $t('store.introduction') }}
+          </span>
+        </li>
+        <li
+          @click="activeName='comment'"
+          :class="{'comment_active':activeName==='comment','comment_default':activeName==='appDetail','comment_default2':activeName==='vedio'}"
+        >
+          <span>
+            <link-right
+              v-if="activeName !=='appDetail' && activeName !== 'comment'"
+              padding-right="5px"
+              margin="5px"
+              class="link-right"
+            />
+            <em />{{ $t('store.comments') }}
+          </span>
+        </li>
+        <li
+          @click="activeName='vedio'"
+          :class="{'vedio_active':activeName==='vedio','vedio_default':activeName!=='vedio','vedio_default2':activeName==='appShow', 'vedio_default3':activeName==='comment'}"
+        >
+          <span>
+            <link-right
+              v-if="activeName!=='vedio' && activeName!=='comment'"
+              padding-right="5px"
+              margin="5px"
+              class="link-right"
+            />
+            <em />{{ $t('store.demo') }}
+          </span>
+        </li>
+        <li
+          @click="activeName='appShow'"
+          :class="{'appShow_active':activeName==='appShow','appShow_default':activeName!=='appShow','appShow_default2':activeName==='comment','appShow_default3':activeName==='vedio'}"
+        >
+          <span>
+            <link-right
+              v-if="activeName!=='appShow' && activeName!=='vedio'"
+              padding-right="5px"
+              margin="5px"
+              class="link-right"
+            />
+            <em />{{ $t('store.showOnline') }}
+          </span>
+        </li>
+
+        <li
+          class="last_li"
+          :class="{'appShow_active':activeName==='appShow','last_default':activeName!=='appShow','last_default2':activeName==='appShow'}"
+        >
+          <span />
+        </li>
+      </ul>
+      <div
+        class="container_div"
+        :class="{'container_div_active':activeName!=='appDetail'}"
       >
-        <el-tab-pane
-          :label="$t('store.introduction')"
-          name="introduction"
-        >
-          <mavon-editor
-            v-model="source"
-            :toolbars-flag="false"
-            :editable="false"
-            :subfield="false"
-            default-open="preview"
-            :box-shadow="false"
-            preview-background="#ffffff"
-          />
-        </el-tab-pane>
-        <el-tab-pane
-          :label="$t('store.comments')"
-          name="comments"
-        >
-          <div class="submit_comment clearfix">
-            <span class="score_span">{{ $t('store.score') }}</span>
-            <el-rate
-              v-model="comments.score"
-              allow-half
-              show-score
-            />
-            <div class="comment_input">
-              <img
-                :src="userIconUrl"
-                alt=""
-                class="user_icon"
-              >
-              <el-input
-                type="textarea"
-                v-model="comments.message"
-                rows="5"
-                maxlength="200"
-                show-word-limit
-                :placeholder="$t('store.commentInfo')"
-              />
-            </div>
-            <p class="submit_btn">
-              <el-button
-                type="primary"
-                @click="submitComment"
-              >
-                {{ $t('myApp.publish') }}
-              </el-button>
-            </p>
-          </div>
-          <div
-            class="no_comment"
-            v-if="historyComentsList.length===0"
-          >
-            <img
-              :src="noCommentIcon"
-              alt=""
-            >
-            <p>
-              {{ $t('store.noComment') }}
-            </p>
-          </div>
-          <div
-            class="show_comment"
-            v-if="historyComentsList.length!==0"
-          >
-            <ul>
-              <li
-                v-for="(item,index) in historyComentsList"
-                :key="index"
-              >
-                <div class="user_icon">
-                  <img
-                    :src="userIconUrl"
-                    alt=""
-                    v-if="!item.userIconUrl"
-                  >
-                  <img
-                    :src="item.userIconUrl"
-                    alt=""
-                    v-if="item.userIconUrl"
-                  >
-                </div>
-                <div class="user_info">
-                  <p>{{ item.user.userName }}</p>
-                  <p class="commentTime">
-                    {{ item.commentTime }}
-                  </p>
-                </div>
-                <div class="comment_content">
-                  {{ item.body }}
-                  <el-rate
-                    v-model="item.score"
-                    disabled
-                    text-color="#ff9900"
-                    score-template="{value}"
-                    show-score
-                  />
-                </div>
-              </li>
-            </ul>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane
-          :label="$t('store.demo')"
-          name="demo"
-        >
-          <div
-            class="no_comment"
-            v-show="playerOptions.sources.length===0"
-          >
-            <img
-              :src="videoIconUrl"
-              alt=""
-            >
-            <p>
-              {{ $t('store.hasNotVideo') }}
-            </p>
-          </div>
-          <div v-show="playerOptions.sources.length!==0">
-            <video-player
-              class="video-player-box vjs-big-play-centered demo-tab"
-              ref="videoPlayer"
-              :options="playerOptions"
-              :playsinline="true"
-            />
-          </div>
-        </el-tab-pane>
-        <el-tab-pane
-          v-if="ifExperience"
-          :label="$t('store.showOnline')"
-          name="showOnline"
-        >
-          <div class="show_app clearfix">
-            <div
-              class="show_common lt"
-            >
-              <img
-                class="status3-pic"
-                :src="appTry"
-                alt=""
-              >
-              <p class="show_btn">
-                <el-button
-                  type="primary"
-                  class="batchProButton"
-                  style="width:110px;height:35px;"
-                  :disabled="btnInstantiate"
-                  @click="getNodePort(currentData)"
-                >
-                  {{ $t('store.showOnline') }}
-                </el-button>
-                <el-button
-                  type="primary"
-                  class="batchProButton"
-                  style="width:110px;height:35px;margin-left:40px;"
-                  :disabled="btnClean"
-                  @click="cleanTestEnv(currentData)"
-                >
-                  {{ $t('store.releaseResource') }}
-                </el-button>
-              </p>
-            </div>
-
-            <div class="show_step lt">
-              <p class="top_titile">
-                {{ $t('store.experiencePhase') }}
-              </p>
-              <div
-                class="card_content"
-              >
-                <el-timeline class="timeline-class">
-                  <el-timeline>
-                    <el-timeline-item
-                      placement="top"
-                      :type="primary"
-                      :autofocus="true"
-                      :icon="iconStart"
-                      class="line_top"
-                    />
-                    <el-timeline-item
-                      placement="top"
-                      :class="{'line_list':btnType==='primary'}"
-                    >
-                      <el-button
-                        :plain="true"
-                        :type="btnType"
-                        @click="step1"
-                        :autofocus="true"
-                        style="width:170px;margin-bottom:15px;"
-                        :icon="el-icon-check"
-                      >
-                        {{ $t('store.assignTestNodes') }}
-                      </el-button>
-
-                      <p v-show="tip11">
-                        {{ $t('store.step11') }}
-                      </p>
-                      <p v-show="tip12">
-                        {{ $t('store.step12') }}
-                      </p>
-                      <p v-show="tip13">
-                        {{ $t('store.step13') }}
-                      </p>
-                    </el-timeline-item>
-                    <el-timeline-item
-                      placement="top"
-                      :class="{'line_list':btnType1==='primary'}"
-                    >
-                      <el-button
-                        :plain="true"
-                        :type="btnType1"
-                        @click="step2"
-                        :autofocus="true"
-                        style="width:170px;margin-bottom:15px;"
-                      >
-                        {{ $t('store.instantiateApplication') }}
-                      </el-button>
-
-                      <p v-show="tip21">
-                        {{ $t('store.pleaseInstantiateApp') }}
-                      </p>
-                      <p v-show="tip22">
-                        {{ $t('store.waitInstantiatedApp') }}
-                      </p>
-                      <p v-show="tip23">
-                        {{ $t('store.StartDeployApp') }}
-                      </p>
-                    </el-timeline-item>
-                    <el-timeline-item
-                      placement="top"
-                      :class="{'line_list':btnType2==='primary'}"
-                    >
-                      <el-button
-                        :plain="true"
-                        :type="btnType2"
-                        @click="step3"
-                        style="width:170px;margin-bottom:15px;"
-                      >
-                        {{ $t('store.getDeploymentStatus') }}
-                      </el-button>
-                      <p v-show="tip31">
-                        {{ $t('store.queryDeployStatus') }}
-                      </p>
-                      <p v-show="tip32">
-                        {{ $t('store.waitQueryStatus') }}
-                      </p>
-                      <p v-show="tip33">
-                        {{ $t('store.deployFinished') }}
-                      </p>
-                    </el-timeline-item>
-                    <el-timeline-item
-                      :icon="iconStart"
-                      placement="top"
-                      class="line_top"
-                    />
-                  </el-timeline>
-                </el-timeline>
-              </div>
-              <div v-if="displayDom">
-                <p class="bottom_titile">
-                  {{ $t('store.tryAppDes') }}
-                </p>
-                <div class="footer_title">
-                  <p class="bottom_titile1">
-                    {{ $t('store.serviceNodeInfo') }}
-                  </p>
-                  <div
-                    class="el-upload__tip"
-                    slot="tip"
-                  >
-                    <em class="el-icon-warning" />
-                    {{ $t('store.releaseAppResource') }}
-                  </div>
-                </div>
-                <div
-                  class="experienceData"
-                >
-                  <el-table
-                    v-loading="dataLoading"
-                    :data="experienceData"
-                    header-cell-class-name="headerStyle"
-                  >
-                    <el-table-column
-                      prop="serviceName"
-                      :label="$t('store.serviceName')"
-                      width="235"
-                    />
-                    <el-table-column
-                      prop="mecHost"
-                      :label="$t('store.Ip')"
-                      width="235"
-                    />
-                    <el-table-column
-                      prop="nodePort"
-                      :label="$t('store.port')"
-                      width="235"
-                    />
-                  </el-table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
+        <appIntroduction
+          v-show="activeName==='appDetail'"
+          :source="this.source"
+          ref="appIntroduction"
+        />
+        <appComments
+          v-show="activeName==='comment'"
+          :app-id="this.appId"
+          ref="appComments"
+        />
+        <appVideo
+          v-show="activeName==='vedio'"
+          :player-options="this.playerOptions"
+          ref="appVideo"
+        />
+        <appShowOnline
+          v-show="activeName==='appShow'"
+          :package-id="this.packageId"
+          :app-id="this.appId"
+          :if-experience="this.ifExperience"
+          ref="appShowOnline"
+        />
+      </div>
     </div>
     <el-dialog
       :title="$t('store.downloadImage')"
@@ -528,24 +295,40 @@
 </template>
 
 <script>
+import appIntroduction from './AppIntroduction.vue'
+import appComments from './AppComments.vue'
+import appVideo from './AppVideo.vue'
+import appShowOnline from './AppShowOnline.vue'
 import {
-  getCommentsApi,
+  // getCommentsApi,
   getAppDetailTableApi,
-  submitAppCommentApi,
+  // submitAppCommentApi,
   downloadAppPakageApi,
   synchronizedPakageApi,
   URL_PREFIX,
+  URL_PREFIXV2,
   getAppListApi,
   myApp
 } from '../../tools/api.js'
-import { INDUSTRY, TYPES } from '../../tools/constant.js'
+import { INDUSTRY, TYPES, MEAO } from '../../tools/constant.js'
 import appTry from '@/assets/images/apptry.png'
 import startTry from '@/assets/images/startTry.png'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
   name: '',
+  components: {
+    appIntroduction,
+    appComments,
+    appVideo,
+    appShowOnline
+  },
   data () {
     return {
+      MEAO: MEAO,
+      stepApp: [
+      ],
+      activeName: 'appDetail',
+      activeTabIndex: '0',
       deployMode: '',
       ifExperience: false,
       ifSynchronize: true,
@@ -559,12 +342,13 @@ export default {
       tableData: [],
       isDownloadImage: false,
       isShowDownload: false,
-      currentData: {},
-      activeName: 'introduction',
+      currentData: { },
+      // activeName: 'introduction',
       comments: {
         score: 0,
         message: ''
       },
+
       historyComentsList: [],
       source: '',
       appIconPath: '',
@@ -598,24 +382,7 @@ export default {
       deployStatus: 'NOTDEPLOY',
       workStatus: '',
       instantiateInfo: '',
-      btnType: 'info',
-      btnType1: 'info',
-      btnType2: 'info',
-      tip11: true,
-      tip12: false,
-      tip13: false,
 
-      tip21: true,
-      tip22: false,
-      tip23: false,
-
-      tip31: true,
-      tip32: false,
-      tip33: false,
-      iconStart: 'el-icon-more',
-      icon1: 'el-icon-more',
-      icon2: 'el-icon-more',
-      icon3: 'el-icon-more',
       displayDom: false,
       version: '',
       showSynchronize: false,
@@ -626,7 +393,9 @@ export default {
       hwMeAO: false,
       jzyMEAO: false,
       hwinterval: '',
-      jzyinterval: ''
+      jzyinterval: '',
+      showlun: false
+
     }
   },
   watch: {
@@ -644,6 +413,7 @@ export default {
       this.language = language
       this.checkProjectData()
     }
+
   },
   beforeRouteLeave (to, from, next) {
     sessionStorage.setItem('fromPath', from.path)
@@ -653,61 +423,6 @@ export default {
     this.clearInterval()
   },
   methods: {
-    submitComment () {
-      if (this.comments.score && this.comments.message) {
-        let params = {
-          score: this.comments.score,
-          body: this.comments.message
-        }
-        params = JSON.stringify(params)
-        let userId = sessionStorage.getItem('userId')
-        let userName = sessionStorage.getItem('userName')
-        submitAppCommentApi(this.appId, params, userId, userName).then(res => {
-          this.getComments()
-          this.comments.score = 0
-          this.comments.message = ''
-          this.getAppData()
-        }).catch(error => {
-          if (error.response.data.code === 403) {
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.guestUser'),
-              type: 'warning'
-            })
-          } else if (error.response.data.message.indexOf('can not comment own app') !== -1) {
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.cannotComment')
-            })
-          } else {
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.subCommentFail'),
-              type: 'warning'
-            })
-          }
-        })
-      } else {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.subCommentFailReason')
-        })
-      }
-    },
-    getComments () {
-      getCommentsApi(this.appId, this.limit, this.offset).then(res => {
-        this.historyComentsList = res.data.results
-        this.handleDate()
-      }, () => {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.getCommentFail')
-        })
-      })
-    },
     getTableData () {
       let userId = null
       if (this.pathSource === 'myapp') {
@@ -716,16 +431,16 @@ export default {
       getAppDetailTableApi(this.appId, userId, this.limit, this.offset).then(res => {
         let data = res.data
         data.forEach(item => {
-          if (this.pathSource !== 'myapp' && item.status === 'Published' && item.deployMode === 'container') {
-            this.ifExperience = item.experienceAble
+          if (this.pathSource !== 'myapp' && item.status === 'Published') {
+            // this.ifExperience = item.experienceAble
             this.packageId = item.packageId
-            this.initStatus()
           }
         })
         this.handleTableTada(data)
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
+          console.log(this.currentData)
           this.checkProjectData()
         }
       })
@@ -744,7 +459,7 @@ export default {
         if (item.demoVideoName) {
           let val = {
             type: 'video/mp4',
-            src: URL_PREFIX + 'apps/' + this.appId + '/demoVideo'
+            src: URL_PREFIXV2 + 'apps/' + this.appId + '/demoVideo'
           }
           this.playerOptions.sources.push(val)
         }
@@ -753,17 +468,6 @@ export default {
     updateData () {
       this.ifExperience = this.currentData.experienceAble
       this.source = this.currentData.details
-    },
-    handleDate () {
-      this.historyComentsList.sort(function (a, b) {
-        return b.commentTime < a.commentTime ? -1 : 1
-      })
-      let year = new Date().getFullYear()
-      this.historyComentsList.forEach(item => {
-        if (item.commentTime.indexOf(year) !== -1) {
-          item.commentTime = item.commentTime.replace((year + '-'), '')
-        }
-      })
     },
     dateChange (dateStr) {
       if (dateStr) {
@@ -809,6 +513,16 @@ export default {
       this.ifDownloadImage(this.currentData, row)
       this.getAppData()
     },
+    handleClick (index) {
+      console.log(index)
+      if (index === 0) {
+        this.synchronizePackage(this.currentData)
+      } else if (index === 1) {
+        console.log(this.jzyinterval)
+        this.synchronizeJzy()
+      }
+      this.showlun = true
+    },
     synchronizeJzy () {
       this.startSync = true
       this.jzyMEAO = true
@@ -826,6 +540,7 @@ export default {
       this.hwinterval = null
     },
     synchronizePackage (row) {
+      console.log(row)
       synchronizedPakageApi(this.appId, row).then(res => {
         this.startSync = true
         this.hwMeAO = true
@@ -884,6 +599,7 @@ export default {
       getAppListApi(this.appId).then(
         (res) => {
           this.score = res.data.score
+          console.log(res.data.score)
           this.downloadNum = res.data.downloadCount
         },
         () => {
@@ -898,12 +614,7 @@ export default {
     getMyAppData () {
       myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
         let data = res.data
-        let experienceAble = data.experienceAble
         this.deployMode = data.deployMode
-        if (experienceAble) {
-          this.ifExperience = true
-          this.initStatus()
-        }
         let newDateBegin = this.dateChange(data.createTime)
         data.createTime = newDateBegin
         this.tableData.push(data)
@@ -913,205 +624,11 @@ export default {
         }
       })
     },
-    getExperienceAbleInfo () {
-      myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
-        let data = res.data
-        let experienceAble = data.experienceAble
-        this.deployMode = data.deployMode
-        if (experienceAble) {
-          this.ifExperience = true
-          this.initStatus()
-        }
-      })
-    },
-    step () {
-      this.btnType = 'primary'
-      this.tip11 = false
-      this.tip12 = true
-      setTimeout(() => this.step1(), 3000)
-      this.tip12 = false
-      this.tip13 = true
-    },
-    step1 () {
-      this.btnType1 = 'primary'
-      this.tip21 = false
-      this.tip22 = true
-      myApp.getNodePort(this.appId, this.packageId, this.userId, this.name, this.ip).then(
-        (res) => {
-          // this.nodePort = res.data
-          let experienceInfo = res.data
-          if (experienceInfo.message.indexOf('please register host') !== -1) {
-            this.stepClean()
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.registerHost')
-            })
-          } else if (experienceInfo.message.indexOf('instantiate application failed.') !== -1) {
-            this.stepClean()
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.instantiateFailed')
-            })
-          } else if (experienceInfo.message.indexOf('get app nodeport url failed.') !== -1) {
-            this.stepClean()
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.getNodePortFailed')
-            })
-          } else if (experienceInfo.message.indexOf('get app url success.') !== -1) {
-            setTimeout(() => this.step2(experienceInfo), 3000)
-          } else {
-            this.stepClean()
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: experienceInfo.message
-            })
-          }
-        })
-    },
-    step2 (experienceInfo) {
-      this.tip22 = false
-      this.tip23 = true
-      this.tip31 = false
-      this.tip32 = true
-      this.btnType2 = 'primary'
-      setTimeout(() => this.step3(experienceInfo), 1000)
-    },
-    step3 (experienceInfo) {
-      this.tip32 = false
-      this.tip33 = true
-      if (experienceInfo.data) {
-        let tmpExperienceData = experienceInfo.data.split(':')
-        console.log(tmpExperienceData)
-        this.experienceData[0].serviceName = tmpExperienceData[0]
-        this.experienceData[0].nodePort = tmpExperienceData[1] === '' ? this.$t('promptMessage.uninvolved') : tmpExperienceData[1]
-        this.experienceData[0].mecHost = tmpExperienceData[2]
-        this.displayDom = true
-      }
-      this.handleUploadSuccess()
-    },
-    stepClean () {
-      this.btnClean = true
-      this.btnInstantiate = false
-
-      this.tip33 = false
-      this.tip31 = true
-      this.btnType = 'info'
-      this.tip23 = false
-      this.tip22 = false
-      this.tip21 = true
-      this.btnType1 = 'info'
-      this.tip13 = false
-      this.tip11 = true
-      this.btnType2 = 'info'
-    },
-    getNodePort () {
-      this.step()
-      this.btnInstantiate = true
-      this.btnClean = false
-    },
-    getExperienceInfo (experienceInfo) {
-      let tmpExperienceData = experienceInfo.data.split(':')
-      console.log(tmpExperienceData)
-      this.experienceData[0].serviceName = tmpExperienceData[0]
-      this.experienceData[0].nodePort = tmpExperienceData[1] === '' ? this.$t('promptMessage.uninvolved') : tmpExperienceData[1]
-      this.experienceData[0].mecHost = tmpExperienceData[2]
-    },
-    cleanTestEnv () {
-      myApp.cleanTestEnv(this.packageId, this.userId, this.name, this.ip).then(
-        (res) => {
-          let result = res.data
-          if (result) {
-            this.stepClean()
-            this.experienceData = [
-              {
-                serviceName: '',
-                nodePort: '',
-                mecHost: ''
-              }
-            ]
-            this.displayDom = false
-            this.$message({
-              duration: 2000,
-              type: 'success',
-              class: 'btnPasses',
-              message: this.$t('promptMessage.cleanEnvSuccess')
-            })
-          } else {
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.cleanEnvFailed'),
-              type: 'warning'
-            })
-          }
-        })
-    },
-    initStatus () {
-      myApp.getNodeStatus(this.packageId, this.userId, this.name, this.ip).then(
-        (res) => {
-          let experienceInfo = res.data
-          this.initeData(experienceInfo)
-          if (experienceInfo.message.indexOf('please register host.') !== -1) {
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.registerHost')
-            })
-          } else {
-            this.initeData(experienceInfo)
-          }
-        })
-    },
-    initeData (experienceInfo) {
-      if (experienceInfo.data) {
-        let tmpExperienceData = experienceInfo.data.split(':')
-        console.log(tmpExperienceData)
-        this.experienceData[0].serviceName = tmpExperienceData[0]
-        this.experienceData[0].nodePort = tmpExperienceData[1]
-        this.experienceData[0].mecHost = tmpExperienceData[2]
-        this.initeStatus()
-      } else {
-        this.btnInstantiate = false
-        this.btnClean = true
-      }
-    },
-    initeStatus () {
-      this.btnInstantiate = true
-      this.btnClean = false
-      this.btnType = 'primary'
-      this.btnType1 = 'primary'
-      this.btnType2 = 'primary'
-      this.tip11 = false
-      this.tip21 = false
-      this.tip31 = false
-      this.tip12 = false
-      this.tip22 = false
-      this.tip32 = false
-      this.tip13 = true
-      this.tip23 = true
-      this.tip33 = true
-    },
     handleUploadSuccess () {
       this.$message({
         duration: 2000,
         message: this.$t('promptMessage.getNodePortSuccess'),
         type: 'success'
-      })
-    },
-    step1bak () {
-      this.btnType1 = 'primary'
-      this.tip21 = false
-      this.tip22 = true
-      myApp.getNodePort(this.appId, this.packageId, this.userId, this.name, this.ip).then(
-        (res) => {
-          let experienceInfo = res.data
-          setTimeout(() => this.step2(experienceInfo), 3000)
-        }).catch(error => {
-        this.showChangeErrorMessage(error)
       })
     },
     handleExceptionMsg (error) {
@@ -1162,25 +679,28 @@ export default {
       if (this.pathSource === 'myapp') {
         this.source = this.details.details
         this.getMyAppData()
-      } else {
-        this.getExperienceAbleInfo()
       }
     }
+
     this.getAppData()
     this.getTableData()
-    this.getComments()
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
     this.checkProjectData()
-    if (this.ifExperience && this.deployMode === 'container') {
-      this.initStatus()
-    }
-    console.log(this.currentData)
   }
 }
 </script>
 
 <style lang="less">
 .app_detail{
+  .title_top{
+    padding: 60px 0 20px !important;
+    position: relative;
+    font-size: 26px;
+    font-family: HarmonyOS Sans SC;
+    font-weight: bold;
+    color: #5D3DA0;
+    font-family:defaultFontBlod, Arial, Helvetica, sans-serif;
+  }
   .btnPasses{
     background: #fff !important;
     color:#67C23A !important;
@@ -1196,8 +716,8 @@ export default {
    background: transparent !important;
  }
   .down_radio{
-    padding: 18px 30px;
-    width: 350px;
+    padding: 18px 20px;
+    width: 400px;
     .el-radio{
       width: 350px;
       .el-radio__label{
@@ -1227,6 +747,7 @@ export default {
     font-size: 14px;
     width: 100%;
   }
+
   .app_info_div{
     background: #fff;
     padding: 20px 70px;
@@ -1243,10 +764,11 @@ export default {
       padding: 0 20px;
       word-wrap: break-word;
       .app_title{
-        font-size: 26px;
+        font-size: 36px;
+        color: #380879;
         font-weight: bold;
         .createTime{
-          font-size: 14px;
+          font-size: 16px;
           font-weight: normal;
           color: #666;
           margin-left: 10px;
@@ -1263,7 +785,7 @@ export default {
           display: inline-block;
           width: 1px;
           height: 14px;
-          background: #000;
+          background: #A1A7E6;
           margin: 0 10px;
           position: relative;
           top: 1px;
@@ -1276,27 +798,32 @@ export default {
       .app_tag{
         span{
           float: left;
-          font-size: 14px;
-          font-weight: bold;
-          border-radius: 5px 0 0 5px;
+          font-size: 12pt;
+          font-weight: Light;
           padding: 5px 20px 5px 10px;
           margin-right: 20px;
+          border-radius: 12pt  12pt   12pt  0pt;
         }
         .industry{
-          background: url('../../assets/images/app_detail_industry_bg.png') center right no-repeat #1ececa;
+          background: center right no-repeat #eaf6f9;
           background-size: contain;
+          color: #54AAF3;
+
         }
         .architecture{
-          background: url('../../assets/images/app_detail_architecture_bg.png') center right no-repeat #fcb722;
+          background: center right no-repeat #effafa;
           background-size: contain;
+          color: #61CDD0;
         }
         .type{
-          background: url('../../assets/images/app_detail_type_bg.png') center right no-repeat #a680d7;
+          background: center right no-repeat #effcf9;
           background-size: contain;
+          color: #5E40C8;
         }
         .deployMode{
-          background: url('../../assets/images/app_detail_Mode_bg.png') center right no-repeat #6086ed;
+          background: center right no-repeat #fff2ed;
           background-size: contain;
+          color: #FF7C50;
         }
       }
     }
@@ -1306,12 +833,15 @@ export default {
       .download_num{
         float: left;
         height: 26px;
-        line-height: 26px;
+        line-height: 30px;
         text-align: center;
         margin-bottom: 5px;
+        color: #5E40C8;
+        font-size: 14px;
       }
 
       .score_num{
+        color: #5E40C8;
         float: left;
         text-align: center;
         height: 20px;
@@ -1329,27 +859,46 @@ export default {
           margin: 0 0 0 6px;
         }
       }
-      .score_btn{
+      .batchProButton{
         float: left;
         width: 100%;
-        margin-top: 15px;
+        margin-left: 35px;
+        margin-top: 10px;
         text-align: center;
-        .el-button{
-          // width: 46%;
-          border-radius: 0;
-          position: relative;
+        height: 54px !important;
+        width: 160px !important;
+        border-radius: 25px !important;
+         color: #FFFFFF;
+        font-family: HarmonyHeiTi;
+        font-weight: 300;
+        box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
+        .el-button--primary{
+          font-size: 24px;
+          background-color: #fff;
+          border: none;
+          color: #FFFFFF;
         }
+
       }
-      .synchronize_info{
-        line-height: 22px;
-      }
+
+    }
+    .app_synchronize /deep/ .el-button--primary{
+      height: 40px !important;
+      border-radius:20px ;
+      background:  linear-gradient(to right, #4444D0, #6724CB) !important;
     }
     .app_synchronize{
       height: 128px;
       width: 300px;
       position: relative;
       .synchronize_info{
-        line-height: 22px;
+        width: 194px;
+        font-size: 14px;
+        font-family: HarmonyHeiTi;
+        font-weight: 300;
+        color: #5E40C8;
+        margin-top: 24px;
+        margin-bottom: 20px;
       }
       .synchronize_process{
         text-align: left;
@@ -1370,18 +919,19 @@ export default {
           }
         }
       }
-      .synchronize_img{
-        text-align: center;
-        img{
-          width: 30px;
-        }
-      }
-      .score_btn{
-        position: absolute;
-        bottom: 0;
-        margin: 0 18%;
+
+      .addOutStore{
+        margin-top: 35px;
+        font-size: 20px;
+        height: 50px !important;
+        width: 222px !important;
+        border-radius: 25px !important;
+        font-family: HarmonyHeiTi;
+        font-weight: 300;
+        box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
       }
     }
+
     .synchronize_div{
       position: absolute;
       top: 35px;
@@ -1398,21 +948,211 @@ export default {
   }
   .app_content{
     background: #fff;
-    padding: 20px;
-    margin-top: 20px;
-    .el-tabs__nav-scroll{
-      display: flex;
-      justify-content: center;
-      .el-tabs__item{
-        font-size: 16px;
+    margin-top: 38px;
+    .list_top{
+      background-color: #f0f2f5;
+      margin-top: 58px;
+      li{
+        float: left;
+        height: 50px;
+        line-height: 50px;
+        cursor: pointer;
+        background: #D4D1EC;
+        span{
+          display: block;
+          width: 100%;
+          height: 100%;
+          padding: 0 30px;
+          font-size: 20px;
+          color: #fff;
+          transition: all 0.5s;
+        }
       }
-    }
-    .el-tabs__nav-wrap::after{
-      height: 0;
-    }
-    .el-tabs__content{
-      padding: 0 50px;
-    }
+      .last_li{
+        cursor: default;
+      }
+      em{
+        display: inline-block;
+        width: 19px;
+        height: 22px;
+        position: relative;
+        top: 4px;
+        margin-right: 10px;
+      }
+      .appDetail_active{
+        background: #d4d1ec;
+        border-radius: 16px 0 0 0;
+        transition: all 0.5s;
+        span{
+          background: #fff;
+          border-radius: 16px 16px 0 0;
+          color: #5e40c8;
+          transition: all 0.5s;
+        }
+      }
+      .appDetail_default{
+        background: #d4d1ec;
+        border-radius: 16px 0 16x 0;
+        transition: all 0.5s;
+        span{
+          background: #d4d1ec;
+          border-radius: 16px 0 16px 0;
+          transition: all 0.5s;
+        }
+      }
+      .appDetail_default2{
+        background: #fff;
+        border-radius: 16px 0 0 0;
+        span{
+          background: #d4d1ec;
+          border-radius: 16px 0 16px 0;
+          transition: all 0.5s;
+        }
+      }
+      .appDetail_default3{
+        background: #d4d1ec;
+        border-radius: 16px 0 0 0;
+        span{
+          border-radius: 16px 0 0 0;
+          transition: all 0.5s;
+        }
+      }
+      .comment_active{
+        background: #d4d1ec;
+        transition: all 0.5s;
+        span{
+          background: #fff;
+          border-radius: 16px 16px 0 0;
+          color: #5e40c8;
+          transition: all 0.5s;
+        }
+      }
+      .comment_default{
+        background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.5s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 16px;
+          transition: all 0.5s;
+        }
+      }
+      .comment_default2{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 16px 0;
+        }
+      }
+      .last_li.last_active{
+        background: #fff;
+        span{
+          background: #f5f6f8;
+          border-radius: 0 0 0 0;
+        }
+      }
+      .last_li.last_default{
+        background: #d4d1ec;
+        span{
+          background: linear-gradient(to bottom, #f5f4f8, #f1edf6);
+          border-radius: 0 0 0 16px;
+          transition: all 0.5s;
+        }
+      }
+      .last_li.last_default2{
+        background: #fff;
+        span{
+          background: linear-gradient(to bottom, #f5f4f8, #f1edf6);
+          border-radius: 0 0 0 16px;
+          transition: all 0.5s;
+        }
+      }
+      .appShow_active{
+        background: #d4d1ec;
+        border-radius: 0 16px 0 0;
+        transition: all 0.5s;
+        span{
+          background: #fff;
+          border-radius: 16px 16px 0 0;
+          color: #5e40c8;
+          transition: all 0.5s;
+        }
+      }
+      .appShow_default{
+        background: #f4f3f7;
+        border-radius: 0 16px 0 0;
+        transition: all 0.5s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 0px;
+          transition: all 0.5s;
+        }
+
+      }
+      .appShow_default2{
+        background: #f3f1f7;
+        border-radius: 0 0 0 0;
+
+        span{
+          border-radius: 0 16px 0 0;
+        }
+      }
+      .appShow_default3{
+        background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.5s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 16px;
+          transition: all 0.5s;
+        }
+      }
+      .vedio_active{
+        background: #d4d1ec;
+        border-radius: 0 0 0 0;
+        transition: all 0.5s;
+        span{
+          background: #fff;
+          border-radius: 16px 16px 0 0;
+          color: #5e40c8;
+          transition: all 0.5s;
+        }
+      }
+      .vedio_default{
+        background: #f4f3f7;
+        // border-radius: 0 16px 0 0;
+        transition: all 0.5s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 0;
+          transition: all 0.5s;
+        }
+
+      }
+      .vedio_default2{
+       background: #fff;
+        border-radius: 0 0 0 0;
+        transition: all 0.5s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 16px 0px;
+          transition: all 0.5s;
+        }
+      }
+      .vedio_default3{
+        background: #fff;
+        span{
+
+          border-radius: 0 0 0 16px;
+        }
+      }
+  }
+  .link-right {
+    width: 3px;
+    height: 10px;
+    border-right: solid #B3B0CA 2px;
+  }
+    //老样式
     .submit_comment{
       padding: 20px;
       .score_span{
@@ -1451,6 +1191,7 @@ export default {
         }
       }
     }
+    //老样式
     .show_app {
       .show_common {
         display: inline-block;
@@ -1527,6 +1268,7 @@ export default {
 
       }
     }
+    //老样式
     .no_comment{
       color: #bbb;
       text-align: center;
@@ -1534,6 +1276,7 @@ export default {
         margin: 10px 0 30px;
       }
     }
+    //老样式
     .show_comment{
       padding: 20px;
       li{
@@ -1565,8 +1308,147 @@ export default {
     .video-js{
       width: 80%;
       min-height: 300px;
-      margin: 30px auto 50px;
+      margin: 0px auto 50px;
     }
   }
+  .container_div{
+    background: #fff;
+    border-radius: 0 16px 16px 16px;
+    transition: all 0.5s;
+    box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);
+  }
+  .container_div_active{
+    background: #d4d1ec;
+  }
+}
+.app_detail .app_info_div .app_synchronize .addOutStore {
+  background: linear-gradient(to right, #4444D0, #6724CB) !important;
+}
+.app_detail .app_info_div .app_score .batchProButton {
+  font-size: 24px;
+  background: linear-gradient(to right, #4444D0, #6724CB) !important;
+}
+.stepApp{
+  width: 249px;
+  height: 100px;
+  background: #FFFFFF;
+  box-shadow: 5px 9px 63px 5px rgba(94, 64, 200, 0.06);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: -10px;
+  .stepIng{
+    height: 40px;
+    line-height: 40px;
+    padding-left: 20px;
+    box-shadow: 5px 9px 63px 5px rgba(94, 64, 200, 0.06);
+    font-size: 14px;
+    font-family: HarmonyHeiTi;
+    font-weight: 300;
+    color: #5E40C8;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .stepNames{
+    margin-top: 10px;
+    margin-left:20px ;
+    font-size: 14px;
+    font-family: HarmonyHeiTi;
+    font-weight: 200;
+    color: #8F859B;
+  }
+
+}
+.el-carousel__arrow--left {
+    position: relative;
+    left: 160px;
+    top: 16px;
+}
+.el-carousel__arrow--right {
+    position: relative;
+    left: 170px;
+    top: 16px;
+}
+.el-carousel__container {
+    position: relative;
+    height: 100px;
+}
+.el-carousel__item {
+    width: 249;
+    height: 60px;
+    display: inline-block;
+    overflow: hidden;
+    z-index: 0;
+    position: absolute;
+    left: 0;
+    top: 46px;
+}
+.el-carousel--horizontal {
+     overflow-x: none !important;
+     height: 106px;
+}
+.el-carousel__arrow {
+    height: 20px;
+    width: 20px;
+    border-radius: 10%;
+}
+.el-progress-bar__innerText {
+    display: inline-block;
+    vertical-align: middle;
+    color: #5E40C8;
+    font-size: 14px;
+    margin: 0 5px;
+    margin-top: -8px;
+}
+.el-carousel__indicators {
+    display: none;
+}
+.el-progress-bar__outer {
+    position: relative;
+    left: 110px;
+    top:-20px;
+}
+.el-progress-bar__inner{
+  background: linear-gradient(-37deg, #53DABD, #54AAF3);
+}
+.el-progress-bar__outer{
+  box-shadow: 2px 2px 12px 0px rgba(36, 20, 119, 0.13);
+}
+.stepDromdown{
+  .el-button--primary {
+      background: linear-gradient(122deg, #4444D0, #6724CB);
+      color: #FFFFFF;
+      font-size: 20px;
+      font-family: HarmonyHeiTi;
+      height: 54px;
+      border-radius: 23px;
+      font-weight: 300;
+      box-shadow: 0px 16px 8px rgba(94, 44, 204 , 0.3);
+  }
+}
+  .el-popper .popper__arrow::after {
+    top: 1px;
+    margin-left: -6px;
+    border-top-width: 0;
+    border-bottom-color:#4444D0!important;
+}
+  .el-dropdown-menu__item {
+    padding: 0 20px;
+    font-size: 14px;
+    color: #fff;
+    border-bottom:1px solid  #4215C8;
+    background: linear-gradient(122deg, #4444D0, #6724CB);
+}
+.el-dropdown-menu {
+     padding: 0px 0px;
+     border-radius:5px ;
+     .el-dropdown-menu__item:first-child{
+       border-top-left-radius: 5px;
+       border-top-right-radius: 5px;
+     }
+     .el-dropdown-menu__item:last-child{
+       border-bottom-left-radius: 10px !important;
+       border-bottom-right-radius: 10px !important;
+     }
 }
 </style>

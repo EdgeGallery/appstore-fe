@@ -186,23 +186,7 @@
           </el-button>
         </el-popover>
       </el-form-item>
-      <el-form-item class="lt">
-        <el-tooltip
-          class="item"
-          effect="light"
-          :content="$t('store.appdConversion')"
-          placement="bottom-start"
-          :visible-arrow="false"
-        >
-          >
-          <img
-            src="../../assets/images/appd_conversion_icon.png"
-            class="uploadAppLogo header_img"
-            @click="appdConversion"
-            alt=""
-          >
-        </el-tooltip>
-      </el-form-item>
+
       <el-form-item class="lt">
         <el-tooltip
           class="item"
@@ -227,20 +211,38 @@
           >
         </el-tooltip>
       </el-form-item>
+      <el-form-item
+        v-if="ifPkgTrans"
+        class="lt"
+      >
+        <el-tooltip
+          class="item"
+          effect="light"
+          :content="$t('store.appdConversion')"
+          placement="bottom-start"
+          :visible-arrow="false"
+        >
+          >
+          <img
+            src="../../assets/images/appd_conversion_icon.png"
+            class="uploadAppLogo header_img"
+            @click="appdConversion"
+            alt=""
+          >
+        </el-tooltip>
+      </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-// import logo from '@/assets/images/upload.png'
+import { appPkgTransToolCheck } from '../../tools/api'
 import { TYPES, AFFINITY, SORT_BY, INDUSTRY, DEPLOYMODE } from '../../tools/constant.js'
 export default ({
   name: 'SearchAndFilter',
-  components: {
-    // uploadPackage
-  },
   data () {
     return {
+      ifPkgTrans: false,
       value: '',
       language: localStorage.getItem('language'),
       iconAactive: false,
@@ -282,6 +284,13 @@ export default ({
     }
   },
   methods: {
+    appPkgTransToolCheck () {
+      appPkgTransToolCheck().then(
+        (res) => {
+          this.ifPkgTrans = res.data
+        }
+      )
+    },
     queryApp () {
       sessionStorage.setItem('currentPage', 1)
       this.searchCondition.appName = this.nameQueryVal.toLowerCase()
@@ -407,6 +416,7 @@ export default ({
     }
   },
   mounted () {
+    this.appPkgTransToolCheck()
     this.$emit('getSearchCondition', this.searchCondition)
   },
   watch: {
