@@ -32,6 +32,12 @@ const URL_PREFIX = '/mec-appstore/mec/appstore/v1/'
 const URL_PREFIXV2 = '/mec-appstore/mec/appstore/v2/'
 const URL_PREFIX_GATEWAY = '/mec/res/v2/'
 
+// check if deploy app package trans tool.
+function appPkgTransToolCheck () {
+  let url = 'tool/check'
+  return GET(url, '')
+}
+
 function getCommentsApi (appId, limit, offset) {
   let url = 'apps/' + appId + '/comments?limit=' + limit + '&offset=' + offset
   return GETV2(url)
@@ -535,5 +541,6 @@ export {
   pullApp,
   getAppByAppstoreId,
   getAppListApi,
-  getMessages
+  getMessages,
+  appPkgTransToolCheck
 }
