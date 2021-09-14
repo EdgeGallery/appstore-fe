@@ -67,7 +67,7 @@
       </el-row>
     </div>
     <!-- Upload components -->
-    <div v-if="true">
+    <div v-if="uploadDiaVis">
       <uploadPackage
         v-model="uploadDiaVis"
         @getAppData="getAppData"
