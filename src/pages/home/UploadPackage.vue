@@ -745,6 +745,7 @@ export default {
         this.handleUploadSuccess()
       }).catch(error => {
         this.showErrorMessage(error)
+        this.handleClose()
       })
     },
     // confirm to submit
