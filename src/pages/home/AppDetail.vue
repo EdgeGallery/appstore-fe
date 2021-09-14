@@ -814,8 +814,8 @@ export default {
       }
     }
     .p_bot{
-      width: 400px;
-      margin:0 0 30px 20px;
+      width: 360px;
+      margin:0 0 30px 0px;
       color: #aaa;
       font-size: 14px;
     }
