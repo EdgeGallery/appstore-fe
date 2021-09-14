@@ -388,7 +388,7 @@ export default {
       activeTabIndex: '0',
       deployMode: '',
       ifExperience: false,
-      ifSynchronize: true,
+      ifSynchronize: false,
       appTry: appTry,
       startTry: startTry,
       ifDownload: 'true',
