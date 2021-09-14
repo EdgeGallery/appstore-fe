@@ -388,7 +388,7 @@ export default {
       activeTabIndex: '0',
       deployMode: '',
       ifExperience: false,
-      ifSynchronize: true,
+      ifSynchronize: false,
       appTry: appTry,
       startTry: startTry,
       ifDownload: 'true',
@@ -747,6 +747,14 @@ export default {
       : JSON.parse(sessionStorage.getItem('appstordetail'))
     this.details = params
     this.appId = this.details.appId
+    this.ifExperience = this.details.experienceAble
+    if (this.ifExperience) {
+      this.noAppShowPage = false
+      this.appShowPage = true
+    } else {
+      this.noAppShowPage = true
+      this.appShowPage = false
+    }
     if (this.details.score) {
       this.score = this.details.score
       this.downloadNum = this.details.downloadCount
