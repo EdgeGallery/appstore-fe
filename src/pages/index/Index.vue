@@ -1277,6 +1277,7 @@ export default {
        img{
          border-radius: 16px;
          width: 44.4%;
+         height:45%;
        }
       .high_name{
         font-size: 16px;
