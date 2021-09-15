@@ -180,66 +180,121 @@
       </div>
     </div>
 
-    <div class="app_content">
-      <ul class="list_top clear">
-        <li
-          @click="activeName='appDetail'"
-          :class="{'appDetail_active':activeName==='appDetail','appDetail_default':activeName==='comment','appDetail_default2':activeName==='comment','appDetail_default3':activeName==='vedio' || activeName==='appShow'}"
-        >
-          <span>
-            <em />{{ $t('store.introduction') }}
-          </span>
-        </li>
-        <li
-          @click="activeName='comment'"
-          :class="{'comment_active':activeName==='comment','comment_default':activeName==='appDetail','comment_default2':activeName==='vedio'}"
-        >
-          <span>
-            <link-right
-              v-if="activeName !=='appDetail' && activeName !== 'comment'"
-              padding-right="5px"
-              margin="5px"
-              class="link-right"
-            />
-            <em />{{ $t('store.comments') }}
-          </span>
-        </li>
-        <li
-          @click="activeName='vedio'"
-          :class="{'vedio_active':activeName==='vedio','vedio_default':activeName!=='vedio','vedio_default2':activeName==='appShow', 'vedio_default3':activeName==='comment'}"
-        >
-          <span>
-            <link-right
-              v-if="activeName!=='vedio' && activeName!=='comment'"
-              padding-right="5px"
-              margin="5px"
-              class="link-right"
-            />
-            <em />{{ $t('store.demo') }}
-          </span>
-        </li>
-        <li
-          @click="activeName='appShow'"
-          :class="{'appShow_active':activeName==='appShow','appShow_default':activeName!=='appShow','appShow_default2':activeName==='comment','appShow_default3':activeName==='vedio'}"
-        >
-          <span>
-            <link-right
-              v-if="activeName!=='appShow' && activeName!=='vedio'"
-              padding-right="5px"
-              margin="5px"
-              class="link-right"
-            />
-            <em />{{ $t('store.showOnline') }}
-          </span>
-        </li>
+    <div
+      class="app_content"
+    >
+      <div
+        v-if="noAppShowPage"
+      >
+        <ul class="list_top clear">
+          <li
+            @click="activeName='appDetail'"
+            :class="{'appDetail_active':activeName==='appDetail','appDetail_default':activeName==='comment','appDetail_default2':activeName==='comment','appDetail_default3':activeName==='vedio'}"
+          >
+            <span>
+              <em />{{ $t('store.introduction') }}
+            </span>
+          </li>
+          <li
+            @click="activeName='comment'"
+            :class="{'comment_active':activeName==='comment','comment_default':activeName==='appDetail','comment_default2':activeName==='vedio'}"
+          >
+            <span>
+              <link-right
+                v-if="activeName !=='appDetail' && activeName !== 'comment'"
+                padding-right="5px"
+                margin="5px"
+                class="link-right"
+              />
+              <em />{{ $t('store.comments') }}
+            </span>
+          </li>
+          <li
+            @click="activeName='vedio'"
+            :class="{'vedio_active_notry':activeName==='vedio','vedio_default_notry':activeName!=='vedio', 'vedio_default_notry1':activeName==='comment'}"
+          >
+            <span>
+              <link-right
+                v-if="activeName!=='vedio' && activeName!=='comment'"
+                padding-right="5px"
+                margin="5px"
+                class="link-right"
+              />
+              <em />{{ $t('store.demo') }}
+            </span>
+          </li>
+          <li
+            class="last_li"
+            :class="{'appShow_active':activeName==='vedio','last_default':activeName!=='vedio','last_default2':activeName==='vedio'}"
+          >
+            <span />
+          </li>
+        </ul>
+      </div>
+      <div
+        v-if="appShowPage"
+      >
+        <ul class="list_top clear">
+          <li
+            @click="activeName='appDetail'"
+            :class="{'appDetail_active':activeName==='appDetail','appDetail_default':activeName==='comment','appDetail_default2':activeName==='comment','appDetail_default3':activeName==='vedio' || activeName==='appShow'}"
+          >
+            <span>
+              <em />{{ $t('store.introduction') }}
+            </span>
+          </li>
+          <li
+            @click="activeName='comment'"
+            :class="{'comment_active':activeName==='comment','comment_default':activeName==='appDetail','comment_default2':activeName==='vedio'}"
+          >
+            <span>
+              <link-right
+                v-if="activeName !=='appDetail' && activeName !== 'comment'"
+                padding-right="5px"
+                margin="5px"
+                class="link-right"
+              />
+              <em />{{ $t('store.comments') }}
+            </span>
+          </li>
+          <li
+            @click="activeName='vedio'"
+            :class="{'vedio_active':activeName==='vedio','vedio_default':activeName!=='vedio','vedio_default2':activeName==='appShow', 'vedio_default3':activeName==='comment'}"
+          >
+            <span>
+              <link-right
+                v-if="activeName!=='vedio' && activeName!=='comment'"
+                padding-right="5px"
+                margin="5px"
+                class="link-right"
+              />
+              <em />{{ $t('store.demo') }}
+            </span>
+          </li>
+          <li
+            v-if="ifExperience"
+            @click="activeName='appShow'"
+            :class="{'appShow_active':activeName==='appShow','appShow_default':activeName!=='appShow','appShow_default2':activeName==='comment','appShow_default3':activeName==='vedio'}"
+          >
+            <span>
+              <link-right
+                v-if="activeName!=='appShow' && activeName!=='vedio'"
+                padding-right="5px"
+                margin="5px"
+                class="link-right"
+              />
+              <em />{{ $t('store.showOnline') }}
+            </span>
+          </li>
 
-        <li
-          class="last_li"
-          :class="{'appShow_active':activeName==='appShow','last_default':activeName!=='appShow','last_default2':activeName==='appShow'}"
-        >
-          <span />
-        </li>
-      </ul>
+          <li
+            class="last_li"
+            :class="{'appShow_active':activeName==='appShow','last_default':activeName!=='appShow','last_default2':activeName==='appShow'}"
+          >
+            <span />
+          </li>
+        </ul>
+      </div>
       <div
         class="container_div"
         :class="{'container_div_active':activeName!=='appDetail'}"
@@ -400,6 +455,8 @@ export default {
   },
   data () {
     return {
+      noAppShowPage: false,
+      appShowPage: false,
       MEAO: MEAO,
       stepApp: [
       ],
@@ -407,7 +464,7 @@ export default {
       activeTabIndex: '0',
       deployMode: '',
       ifExperience: false,
-      ifSynchronize: true,
+      ifSynchronize: false,
       appTry: appTry,
       startTry: startTry,
       ifDownload: 'true',
@@ -498,6 +555,16 @@ export default {
       let language = localStorage.getItem('language')
       this.language = language
       this.checkProjectData()
+    },
+    ifExperience (newVal) {
+      this.ifExperience = newVal
+      if (this.ifExperience) {
+        this.noAppShowPage = false
+        this.appShowPage = true
+      } else {
+        this.noAppShowPage = true
+        this.appShowPage = false
+      }
     }
 
   },
@@ -539,14 +606,24 @@ export default {
         let data = res.data
         data.forEach(item => {
           if (this.pathSource !== 'myapp' && item.status === 'Published') {
-            // this.ifExperience = item.experienceAble
+            this.ifExperience = item.experienceAble
+            console.log(this.ifExperience)
             this.packageId = item.packageId
           }
         })
         this.handleTableTada(data)
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
+          console.log(this.tableData)
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
+          this.ifExperience = this.currentData.experienceAble
+          if (this.ifExperience) {
+            this.noAppShowPage = false
+            this.appShowPage = true
+          } else {
+            this.noAppShowPage = true
+            this.appShowPage = false
+          }
           console.log(this.currentData)
           this.checkProjectData()
         }
@@ -777,6 +854,14 @@ export default {
       : JSON.parse(sessionStorage.getItem('appstordetail'))
     this.details = params
     this.appId = this.details.appId
+    this.ifExperience = this.details.experienceAble
+    if (this.ifExperience) {
+      this.noAppShowPage = false
+      this.appShowPage = true
+    } else {
+      this.noAppShowPage = true
+      this.appShowPage = false
+    }
     if (this.details.score) {
       this.score = this.details.score
       this.downloadNum = this.details.downloadCount
@@ -793,6 +878,7 @@ export default {
     this.getTableData()
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
     this.checkProjectData()
+    console.log(this.ifExperience)
   }
 }
 </script>
@@ -834,8 +920,8 @@ export default {
       }
     }
     .p_bot{
-      width: 400px;
-      margin:0 0 30px 20px;
+      width: 360px;
+      margin:0 0 30px 0px;
       color: #aaa;
       font-size: 14px;
     }
@@ -855,6 +941,7 @@ export default {
   }
 
   .app_info_div{
+    border-radius: 16px;
     background: #fff;
     padding: 20px 70px;
     display: flex;
@@ -1053,6 +1140,7 @@ export default {
     }
   }
   .app_content{
+    border-radius: 0 16px 16px 16px;
     background: #fff;
     margin-top: 38px;
     .list_top{
@@ -1071,7 +1159,7 @@ export default {
           padding: 0 30px;
           font-size: 20px;
           color: #fff;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .last_li{
@@ -1088,22 +1176,22 @@ export default {
       .appDetail_active{
         background: #d4d1ec;
         border-radius: 16px 0 0 0;
-        transition: all 0.5s;
+        transition: all 0.1s;
         span{
           background: #fff;
           border-radius: 16px 16px 0 0;
           color: #5e40c8;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .appDetail_default{
         background: #d4d1ec;
         border-radius: 16px 0 16x 0;
-        transition: all 0.5s;
+        transition: all 0.1s;
         span{
           background: #d4d1ec;
           border-radius: 16px 0 16px 0;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .appDetail_default2{
@@ -1112,7 +1200,7 @@ export default {
         span{
           background: #d4d1ec;
           border-radius: 16px 0 16px 0;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .appDetail_default3{
@@ -1120,27 +1208,27 @@ export default {
         border-radius: 16px 0 0 0;
         span{
           border-radius: 16px 0 0 0;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .comment_active{
         background: #d4d1ec;
-        transition: all 0.5s;
+        transition: all 0.1s;
         span{
           background: #fff;
           border-radius: 16px 16px 0 0;
           color: #5e40c8;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .comment_default{
         background: #fff;
         border-radius: 0 16px 0 0;
-        transition: all 0.5s;
+        transition: all 0.1s;
         span{
           background: #d4d1ec;
           border-radius: 0 0 0 16px;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .comment_default2{
@@ -1162,7 +1250,7 @@ export default {
         span{
           background: linear-gradient(to bottom, #f5f4f8, #f1edf6);
           border-radius: 0 0 0 16px;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .last_li.last_default2{
@@ -1170,28 +1258,28 @@ export default {
         span{
           background: linear-gradient(to bottom, #f5f4f8, #f1edf6);
           border-radius: 0 0 0 16px;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .appShow_active{
         background: #d4d1ec;
         border-radius: 0 16px 0 0;
-        transition: all 0.5s;
+        transition: all 0.1s;
         span{
           background: #fff;
           border-radius: 16px 16px 0 0;
           color: #5e40c8;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .appShow_default{
         background: #f4f3f7;
         border-radius: 0 16px 0 0;
-        transition: all 0.5s;
+        transition: all 0.1s;
         span{
           background: #d4d1ec;
           border-radius: 0 16px 0 0px;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
 
       }
@@ -1206,43 +1294,43 @@ export default {
       .appShow_default3{
         background: #fff;
         border-radius: 0 16px 0 0;
-        transition: all 0.5s;
+        transition: all 0.1s;
         span{
           background: #d4d1ec;
           border-radius: 0 16px 0 16px;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .vedio_active{
         background: #d4d1ec;
         border-radius: 0 0 0 0;
-        transition: all 0.5s;
+        transition: all 0.1s;
         span{
           background: #fff;
           border-radius: 16px 16px 0 0;
           color: #5e40c8;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .vedio_default{
         background: #f4f3f7;
         // border-radius: 0 16px 0 0;
-        transition: all 0.5s;
+        transition: all 0.1s;
         span{
           background: #d4d1ec;
           border-radius: 0 0 0 0;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
 
       }
       .vedio_default2{
        background: #fff;
         border-radius: 0 0 0 0;
-        transition: all 0.5s;
+        transition: all 0.1s;
         span{
           background: #d4d1ec;
           border-radius: 0 0 16px 0px;
-          transition: all 0.5s;
+          transition: all 0.1s;
         }
       }
       .vedio_default3{
@@ -1250,6 +1338,35 @@ export default {
         span{
 
           border-radius: 0 0 0 16px;
+        }
+      }
+      .vedio_active_notry{
+        background: #d4d1ec;
+        border-radius: 0 16px 16px 0;
+        transition: all 0.1s;
+        span{
+          background: #fff;
+          border-radius: 16px 16px 0 0;
+          color: #5e40c8;
+          transition: all 0.1s;
+        }
+      }
+      .vedio_default_notry{
+        background: #f4f3f7;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 0;
+          transition: all 0.1s;
+        }
+      }
+      .vedio_default_notry1{
+        background: #fff;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 16px;
+          transition: all 0.1s;
         }
       }
   }
@@ -1420,11 +1537,12 @@ export default {
   .container_div{
     background: #fff;
     border-radius: 0 16px 16px 16px;
-    transition: all 0.5s;
+    transition: all 0.1s;
     box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);
   }
   .container_div_active{
     background: #d4d1ec;
+    border-radius: 0 16px 16px 16px;
   }
 }
 .app_detail .app_info_div .app_synchronize .addOutStore {

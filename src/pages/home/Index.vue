@@ -67,9 +67,10 @@
       </el-row>
     </div>
     <!-- Upload components -->
-    <div v-if="true">
+    <div v-if="uploadDiaVis">
       <uploadPackage
         v-model="uploadDiaVis"
+        @input="input"
         @getAppData="getAppData"
       />
     </div>
@@ -291,7 +292,9 @@ export default {
         })
       })
     },
-
+    input (input) {
+      this.uploadDiaVis = input
+    },
     getAppData (searchCondition) {
       this.uploadDiaVis = false
       console.log(searchCondition)

@@ -310,7 +310,7 @@
             <div class="center_right">
               <div class="right_content1">
                 <p class="content_introduct">
-                  {{ $t('store.introduct') }}:
+                  {{ $t('store.introduct') }}
                 </p>
                 <p class="content_introduct introducts">
                   {{ this.dialog_datas.introduce }}
@@ -349,7 +349,14 @@
                   alt=""
                   @click="jumpToAppList"
                 >
-                <p>{{ item.name }}</p>
+                <el-tooltip
+                  class="item"
+                  effect="light"
+                  :content="item.name"
+                  placement="right"
+                >
+                  <p>{{ item.name }}</p>
+                </el-tooltip>
               </div>
               <div
                 class="footer_app"
@@ -362,7 +369,14 @@
                   @click="jumpToDetai(item)"
                   alt=""
                 >
-                <p>{{ item.name }}</p>
+                <el-tooltip
+                  class="item"
+                  effect="light"
+                  :content="item.name"
+                  placement="right"
+                >
+                  <p>{{ item.name }}</p>
+                </el-tooltip>
               </div>
             </div>
           </div>
@@ -384,54 +398,78 @@
         v-loading="scoreHighDataLoading"
         class="high_score"
       >
-        <div
-          v-for="(item,index) in scoreHighestData"
-          :key="index"
-          class="high_data"
+        <swiper
+          :options="swiperOption"
           v-show="showDefaultScoreData"
         >
-          <img
-            :src="item.imgSrc"
-            alt=""
-            @click="jumpToAppList"
+          <swiper-slide
+            v-for="(item,index) in scoreHighestData"
+            :key="index"
+            class="high_data"
           >
-          <p class="high_name">
-            {{ item.name }}
-          </p>
-          <el-rate
-            v-model="item.score"
-            disabled
-            text-color="#ff9900"
-            score-template="{value}"
+            <img
+              :src="item.imgSrc"
+              alt=""
+              @click="jumpToAppList"
+            >
+            <p class="high_name">
+              {{ item.name }}
+            </p>
+            <el-rate
+              v-model="item.score"
+              disabled
+              text-color="#ff9900"
+              score-template="{value}"
+            />
+            <p class="score_num">
+              {{ item.score }}
+            </p>
+          </swiper-slide>
+          <div
+            class="swiper-button-prev"
+            slot="button-prev"
           />
-          <p class="score_num">
-            {{ item.score }}
-          </p>
-        </div>
-        <div
-          v-for="(item,index) in scoreHighestDataBe"
-          :key="index"
-          class="high_data"
+          <div
+            class="swiper-button-next"
+            slot="button-next"
+          />
+        </swiper>
+        <swiper
+          :options="swiperOption"
           v-show="!showDefaultScoreData"
         >
-          <img
-            :src="getImageUrl(item.appId)"
-            alt=""
-            @click="jumpToDetai(item)"
+          <swiper-slide
+            v-for="(item,index) in scoreHighestDataBe"
+            :key="index"
+            class="high_data"
           >
-          <p class="high_name">
-            {{ item.name }}
-          </p>
-          <el-rate
-            v-model="item.score"
-            disabled
-            text-color="#ff9900"
-            score-template="{value}"
+            <img
+              :src="getImageUrl(item.appId)"
+              alt=""
+              @click="jumpToDetai(item)"
+            >
+            <p class="high_name">
+              {{ item.name }}
+            </p>
+            <el-rate
+              v-model="item.score"
+              disabled
+              text-color="#ff9900"
+              score-template="{value}"
+            />
+            <p class="score_num">
+              {{ item.score }}
+            </p>
+          </swiper-slide>
+          <div
+            class="swiper-button-prev"
+            slot="button-prev"
           />
-          <p class="score_num">
-            {{ item.score }}
-          </p>
-        </div>
+          <div
+            class="swiper-button-next"
+            slot="button-next"
+          />
+        </swiper>
       </div>
       <div class="more">
         <p
@@ -481,31 +519,42 @@ export default {
       hot_1: true,
       sence_1: false,
       high_1: false,
+      swiperOption: {
+        slidesPerView: 6,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      },
       screenHeight: document.body.clientHeight,
       newAppData: [
         {
-          imgSrc: require('../../assets/images/kingsoftcloud.jpg'),
-          name: 'Kingsoftcloud'
+          imgSrc: require('../../assets/images/hotApp1.jpg'),
+          name: 'kingsoftcloud'
         },
         {
-          imgSrc: require('../../assets/images/cloudVR.png'),
-          name: 'CloudVR'
-        },
-        {
-          imgSrc: require('../../assets/images/cloudVR.png'),
-          name: 'Edge_VR教育平台'
-        },
-        {
-          imgSrc: require('../../assets/images/ktmedia.jpg'),
+          imgSrc: require('../../assets/images/hotApp2.jpg'),
           name: 'ktmedia'
         },
         {
-          imgSrc: require('../../assets/images/factorywording.jpg'),
-          name: 'factorywording'
+          imgSrc: require('../../assets/images/hotApp3.jpg'),
+          name: 'TcsaeAnalysis'
         },
         {
-          imgSrc: require('../../assets/images/hetu.jpg'),
-          name: 'hetu'
+          imgSrc: require('../../assets/images/hotApp4.jpg'),
+          name: 'AnanMeeting'
+        },
+        {
+          imgSrc: require('../../assets/images/hotApp5.jpg'),
+          name: 'cras'
+        },
+        {
+          imgSrc: require('../../assets/images/hotApp6.jpg'),
+          name: 'position_service'
         }
       ],
       scoreData: [
@@ -516,8 +565,8 @@ export default {
       floor: [],
       relateApp1: [
         {
-          name: 'AnanMss',
-          appId: require('../../assets/images/ananMss.jpg')
+          name: 'zoneminder',
+          appId: require('../../assets/images/zoneminder.jpg')
         },
         {
           name: 'Anheng-WAF',
@@ -544,18 +593,14 @@ export default {
           appId: require('../../assets/images/factorywording.jpg')
         },
         {
-          name: 'Face_recognition',
-          appId: require('../../assets/images/face_recognition.jpg')
-        },
-        {
           name: 'PCB_defet_detection',
           appId: require('../../assets/images/pcb_defect_detection.png')
         }
       ],
       relateApp3: [
         {
-          name: 'hetu',
-          appId: require('../../assets/images/hetu.jpg')
+          name: 'TcsaeAnalysis',
+          appId: require('../../assets/images/hotApp3.jpg')
         },
         {
           name: 'Yunex',
@@ -636,8 +681,8 @@ export default {
           score: 4.9
         },
         {
-          imgSrc: require('../../assets/images/hetu.jpg'),
-          name: 'hetu',
+          imgSrc: require('../../assets/images/hotApp3.jpg'),
+          name: 'TcsaeAnalysis',
           score: 4.9
         },
         {
@@ -651,9 +696,19 @@ export default {
           score: 4.7
         },
         {
-          imgSrc: require('../../assets/images/ktmedia.jpg'),
-          name: 'ktmedia',
-          score: 4.6
+          imgSrc: require('../../assets/images/factorywording.jpg'),
+          name: 'factorywording',
+          score: 4.7
+        },
+        {
+          imgSrc: require('../../assets/images/edge_VR.jpg'),
+          name: 'Edge_VR教育平台',
+          score: 4.7
+        },
+        {
+          imgSrc: require('../../assets/images/pcb_defect_detection.png'),
+          name: 'PCB_defet_detection',
+          score: 4.7
         }
       ],
       industry: INDUSTRY,
@@ -970,8 +1025,8 @@ export default {
             return a.score < b.score ? 1 : -1
           })
           this.scoreHighestDataBe = []
-          if (data.length >= 6) {
-            for (let i = 0; i <= 5; i++) {
+          if (data.length >= 8) {
+            for (let i = 0; i <= 7; i++) {
               this.scoreHighestDataBe.push(data[i])
             }
           } else {
@@ -1152,10 +1207,21 @@ export default {
     }
   }
   .high_score{
-      display: flex;
       width: 100%;
       height: 260px;
-      justify-content: space-between;
+    .swiper-container{
+          width: 100%;
+          height: 260px;
+    }
+    .swiper-button-prev{
+      margin: -30px 30px 0px -10px;
+    }
+    .swiper-button-next{
+      margin: -30px -10px 0px 30px;
+    }
+    .swiper-button-prev:after, .swiper-button-next:after{
+      font-size: 26px;
+    }
     .high_data:hover{
       box-shadow: 0px 30px 50px 0px rgba(66, 36, 157, 0.15);
       background-color: rgba(248,248,248);
@@ -1429,6 +1495,9 @@ export default {
                   text-overflow:ellipsis;
                   white-space: nowrap;
                 }
+                p:hover{
+                  cursor: pointer;
+                }
               }
             }
           }
@@ -1465,10 +1534,14 @@ export default {
       width: 100%;
       height: 160px;
       justify-content: space-between;
-    .high_data:hover{
-      box-shadow: 0px 30px 50px 0px rgba(66, 36, 157, 0.15);
-      background-color: rgba(248,248,248);
-      cursor: pointer;
+    .swiper-button-prev{
+      margin: -70px 30px 0px -12px;
+    }
+    .swiper-button-next{
+      margin: -70px -12px 0px 30px;
+    }
+    .swiper-button-prev:after, .swiper-button-next:after{
+      font-size: 22px;
     }
     .high_data{
       width: 12.7%;
@@ -1477,7 +1550,7 @@ export default {
       border-radius: 10px;
       img{
         margin-top: 10px;
-        width: 66.7%;
+        width: 53.7%;
         height: 44.2%;
       }
       .el-rate {
@@ -1667,11 +1740,10 @@ export default {
       height: 221px;
       img{
         margin-top: 10px;
-        width: 66.7%;
+        width: 45.7%;
         height: 39.2%;
       }
     }
    }
 }
-
 </style>

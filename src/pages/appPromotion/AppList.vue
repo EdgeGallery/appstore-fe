@@ -526,6 +526,9 @@ div /deep/ .headerStyle {
 }
 div /deep/ .el-table th > .cell {
     font-size: 20px;
+    height: 59px;
+    line-height: 59px;
+    font-weight: lighter;
 }
 div /deep/ .el-table td > .cell {
     font-size: 14px;

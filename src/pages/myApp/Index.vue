@@ -36,13 +36,7 @@
         suffix-icon="el-icon-search"
         @clear="queryApp"
         @change="queryApp"
-      >
-        <em
-          slot="suffix"
-          class="search_icon"
-          @click="queryApp"
-        />
-      </el-input>
+      />
       <div class="packageTable">
         <el-table
           v-loading="dataLoading"
@@ -655,10 +649,9 @@ export default {
         this.getAppData()
       }).catch(error => {
         let retCode = error.response.data.retCode
-        let params = error.response.data.params
         let errMsg = error.response.data.message
         if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+          commonUtil.showTipMsg(this.language, error, errMsg)
         } else {
           this.$message({
             duration: 2000,

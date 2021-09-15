@@ -745,6 +745,7 @@ export default {
         this.handleUploadSuccess()
       }).catch(error => {
         this.showErrorMessage(error)
+        this.handleClose()
       })
     },
     // confirm to submit
@@ -864,10 +865,9 @@ export default {
     },
     showErrorMessage (error) {
       let retCode = error.response.data.retCode
-      let params = error.response.data.params
       let errMsg = error.response.data.message
       if (retCode) {
-        commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+        commonUtil.showTipMsg(this.language, error, errMsg)
       } else {
         let defaultMsg = this.$t('promptMessage.uploadFailed')
         commonUtil.showTipMsg(this.language, error, defaultMsg)

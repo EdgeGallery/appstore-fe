@@ -217,7 +217,6 @@ export default {
   data () {
     return {
       deployMode: '',
-      // ifExperience: false,
       appTry: appTry,
       startTry: startTry,
       currentPageData: [],
@@ -269,7 +268,7 @@ export default {
         this.deployMode = data.deployMode
         if (experienceAble) {
           this.ifExperience = true
-          this.initStatus()
+          // this.initStatus()
         }
       })
     },
@@ -465,17 +464,12 @@ export default {
     packageId (newStr) {
       this.packageId = newStr
       console.log(this.packageId)
-      this.initStatus()
     },
     ifExperience (newStr) {
       this.ifExperience = newStr
-      console.log(this.ifExperience)
     }
   },
   mounted () {
-    // if (this.ifExperience) {
-    //   this.initStatus()
-    // }
   }
 }
 </script>
