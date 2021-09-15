@@ -579,10 +579,9 @@ export default {
         this.getAppData()
       }).catch(error => {
         let retCode = error.response.data.retCode
-        let params = error.response.data.params
         let errMsg = error.response.data.message
         if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+          commonUtil.showTipMsg(this.language, error, errMsg)
         } else {
           this.$message({
             duration: 2000,
