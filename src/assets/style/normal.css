@@ -399,4 +399,19 @@ a{
   background: #efefef;
   border-radius: 12px;
 }
+.top .el-input__inner{
+  border: none !important;
+  border-bottom: 1px solid #dddddd !important;
+  border-radius: 0!important;
+}
+
+.bills .el-progress__text{
+  font-size: 14px!important;
+}
+.el-progress-bar__outer{
+  border-radius: 6px!important;
+}
+.el-progress-bar__inner{
+  border-radius: 6px!important;
+}
  

@@ -343,6 +343,14 @@ export default {
               display: true,
               link: '',
               index: '6.2'
+            }, {
+              labelEn: 'Split Bill Management',
+              labelCn: '分账管理',
+              route: '/splitBill',
+              pageId: '2.1.6.3',
+              display: true,
+              link: '',
+              index: '6.3'
             }
           ]
         },

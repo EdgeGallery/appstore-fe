@@ -465,9 +465,9 @@ let myApp = {
     return POST(url)
   },
   // Publish the application
-  publishAppApi: function (appId, packageId) {
+  publishAppApi: function (appId, packageId, param) {
     let url = 'apps/' + appId + '/packages/' + packageId + '/action/publish'
-    return POST(url)
+    return POST(url, param)
   },
   // Get package detail
   getPackageDetailApi: function (appId, packageId) {
@@ -501,7 +501,44 @@ let myApp = {
     return PUTV2(url, appIds)
   }
 }
+
+let subscribe = {
+  createOrder: function (userId, param) {
+    return POST(URL_PREFIX + 'orders?userId=' + userId, param)
+  },
+  getOrderList: function (userId, param) {
+    return POST(URL_PREFIX + 'orders/list?userId=' + userId, param)
+  },
+  getAppSubDetail: function (appId) {
+    return GET(URL_PREFIX + 'apps/' + appId)
+  },
+  deactivateApp: function (userId, orderId) {
+    return POST(URL_PREFIX + 'orders/' + orderId + '/deactivation?userId=' + userId)
+  },
+  activateApp: function (userId, orderId) {
+    return POST(URL_PREFIX + 'orders/' + orderId + '/activation?userId=' + userId)
+  },
+  getSplitconfigs (userId) {
+    return GET('apps/splitconfigs/?userId=' + userId)
+  },
+  addSplitconfigs (userId, appId, param) {
+    return POST('apps/splitconfigs/' + appId + '?userId=' + userId, param)
+  },
+  modifySplitconfigs (userId, appId, param) {
+    return PUT('apps/splitconfigs/' + appId + '?userId=' + userId, param)
+  },
+  modifyDefaultSplitconfigs (userId, param) {
+    return PUT('apps/splitconfigs/all?userId=' + userId, param)
+  },
+  getBills: function (id) {
+    return POST(URL_PREFIX + 'bills/')
+  },
+  getMechosts: function (userId) {
+    return GET(URL_PREFIX + 'mechosts/?userId=' + userId)
+  }
+}
 export {
+  subscribe,
   System,
   Workspace,
   getCommentsApi,

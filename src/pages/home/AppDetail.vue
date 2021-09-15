@@ -72,7 +72,7 @@
       </div>
       <div
         class="app_score"
-        style="position:relative;top:25px;"
+        style="position:relative;top:25px;width:318px;"
       >
         <p class="download_num">
           1.99元（RMB）/小时
@@ -81,7 +81,7 @@
           <el-button
             type="primary"
             class="batchProButton"
-            @click="showSubDialog()"
+            @click="beforeBuyIt()"
           >
             订购
           </el-button>
@@ -308,6 +308,64 @@
         >{{ $t('atp.confirm') }}</el-button>
       </span>
     </el-dialog>
+    <!-- 订购弹框 -->
+    <el-dialog
+      width="30%"
+      :visible.sync="showSubDialog"
+      :show-close="false"
+      class="dialog_host default_dialog"
+    >
+      <div
+        slot="title"
+        class="el-dialog__title"
+      >
+        <em class="title_icon" />
+        订购确认
+      </div>
+      <div class="buy_content">
+        <el-form>
+          <el-form-item
+            label="应用名称："
+          >
+            <span class="val_span">{{ currentData.name }}</span>
+          </el-form-item>
+          <el-form-item
+            label="订购价格:"
+          >
+            <span class="val_span">1.99元（RMB）/小时</span>
+          </el-form-item>
+          <el-form-item
+            label="部署区域:"
+          >
+            <el-select
+              v-model="mechostIp"
+              placeholder="请选择"
+              style="width: 260px;"
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span
+        slot="footer"
+        class="dialog-footer dialogPadding"
+      >
+        <el-button
+          @click="showSubDialog = false"
+          class="bgBtn"
+        >{{ $t('common.cancel') }}</el-button>
+        <el-button
+          @click="confirmToBuy"
+          class="bgBtn"
+        >{{ $t('common.confirm') }}</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -325,7 +383,8 @@ import {
   URL_PREFIX,
   URL_PREFIXV2,
   getAppListApi,
-  myApp
+  myApp,
+  subscribe
 } from '../../tools/api.js'
 import { INDUSTRY, TYPES, MEAO } from '../../tools/constant.js'
 import appTry from '@/assets/images/apptry.png'
@@ -399,7 +458,6 @@ export default {
       deployStatus: 'NOTDEPLOY',
       workStatus: '',
       instantiateInfo: '',
-
       displayDom: false,
       version: '',
       showSynchronize: false,
@@ -411,8 +469,19 @@ export default {
       jzyMEAO: false,
       hwinterval: '',
       jzyinterval: '',
-      showlun: false
-
+      showlun: false,
+      showSubDialog: false,
+      options: [
+        {
+          value: 'zhinan',
+          label: '指南'
+        },
+        {
+          value: 'zhinan1',
+          label: '指南1'
+        }
+      ],
+      mechostIp: ''
     }
   },
   watch: {
@@ -440,6 +509,27 @@ export default {
     this.clearInterval()
   },
   methods: {
+    beforeBuyIt () {
+      subscribe.getMechosts().then(res => {
+        res.data.forEach(item => {
+          let obj = {}
+          obj.value = item.ip
+          obj.label = item.city
+          this.options.push(obj)
+        })
+        this.showSubDialog = true
+      })
+    },
+    confirmToBuy () {
+      let param = {
+        'appId': this.appId,
+        'mechostIp': this.mechostIp
+      }
+      let userId = sessionStorage.getItem('userId')
+      subscribe.createOrder(userId, param).then(res => {
+        this.showSubDialog = false
+      })
+    },
     getTableData () {
       let userId = null
       if (this.pathSource === 'myapp') {
@@ -723,10 +813,9 @@ export default {
     color:#67C23A !important;
   }
   .el-dialog{
-  text-align: left;
+    text-align: left;
     box-shadow: 2px 5px 23px 10px rgba(104, 142, 243, 0.2) inset;
     width: 535px;
-    height: 333px;
   }
  .el-dialog__header{
    border-bottom: 2px solid #e0e0e0;
@@ -752,7 +841,7 @@ export default {
     }
   }
   .dialog-footer {
-    text-align: center;
+    text-align: right;
     .cancle_btn{
       background: #d0dbf7;
       color: #587fe7;
@@ -905,7 +994,7 @@ export default {
       background:  linear-gradient(to right, #4444D0, #6724CB) !important;
     }
     .app_synchronize{
-      height: 128px;
+      height: 135px;
       width: 300px;
       position: relative;
       .synchronize_info{
@@ -1467,5 +1556,15 @@ export default {
        border-bottom-left-radius: 10px !important;
        border-bottom-right-radius: 10px !important;
      }
+}
+// 订购
+.buy_content{
+  margin-top: 25px;
+  .val_span{
+    line-height: 33px;
+  }
+}
+.popper__arrow{
+  display: none!important;
 }
 </style>

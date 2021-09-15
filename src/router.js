@@ -64,7 +64,7 @@ export default new Router({
           name: 'orders',
           component: () => import('./pages/order/Orders.vue'),
           meta: {
-            id: '2.0'
+            id: '2.7'
           }
         },
         {
@@ -72,7 +72,15 @@ export default new Router({
           name: 'bill',
           component: () => import('./pages/bill/Bill.vue'),
           meta: {
-            id: '2.0'
+            id: '2.9'
+          }
+        },
+        {
+          path: 'splitbill',
+          name: 'splitbill',
+          component: () => import('./pages/systemManager/SplitBill.vue'),
+          meta: {
+            id: '2.8'
           }
         },
         {

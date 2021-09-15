@@ -39,24 +39,28 @@
             label="订单编号"
           />
           <el-table-column
-            prop="userName"
-            label="用户名称"
+            prop="mechostName"
+            label="节点名称"
+          />
+          <el-table-column
+            prop="appName"
+            label="应用名称"
+          />
+          <el-table-column
+            prop="mecHostIp"
+            label="节点IP"
           />
           <el-table-column
             prop="orderTime"
             label="下单时间"
           />
           <el-table-column
-            prop="operateTime"
-            label="修改时间"
+            prop="mecHostCity"
+            label="节点位置"
           />
           <el-table-column
             prop="status"
             label="状态"
-          />
-          <el-table-column
-            prop="mechostIp"
-            label="节点IP"
           />
           <el-table-column
             :label="$t('myApp.operation')"
@@ -64,9 +68,16 @@
             <template slot-scope="scope">
               <div>
                 <el-button
-                  @click="deploy(scope.row.appId)"
+                  @click="activate(scope.row.orderId)"
+                  class="operations_btn"
                 >
-                  部署
+                  激活
+                </el-button>
+                <el-button
+                  @click="deactivate(scope.row.orderId)"
+                  class="operations_btn"
+                >
+                  退订
                 </el-button>
               </div>
             </template>
@@ -87,6 +98,7 @@
 </template>
 
 <script>
+import { subscribe } from '../../tools/api.js'
 export default {
   data () {
     return {
@@ -97,22 +109,38 @@ export default {
       nameQueryVal: '',
       orderList: [
         {
-          packageName: 'apppppppp',
-          orderId: '123456',
-          orderNum: 'asdfasdf',
-          userId: 'aksjdhfkjsh',
-          userName: 'tenant',
-          appId: 'adsf',
-          orderTime: '2021-09-10',
-          operateTime: '2021-09-10',
-          status: 'active',
-          mechostIp: '10.25.24.6',
-          mecmappid: '11111',
-          mecminstanceId: 'asdf',
-          mecmapppackageId: 'asdf'
+          'orderId': '',
+          'orderNum': '',
+          'userId': '',
+          'userName': '',
+          'appId': '',
+          'appName': '',
+          'orderTime': '',
+          'operateTime': '',
+          'status': '',
+          'mecHostIp': '',
+          'mecHostName': '',
+          'mecHostCity': ''
         }
-      ]
+      ],
+      param: {
+        'appId': '',
+        'orderNum': '',
+        'status': '',
+        'orderTimeBegin': '',
+        'orderTimeEnd': '',
+        'queryCtrl': {
+          'offset': 0,
+          'limit': 20,
+          'sortItem': 'ORDERTIME',
+          'sortType': 'DESC'
+        }
+      },
+      userId: sessionStorage.getItem('userId')
     }
+  },
+  mounted () {
+    this.getOrderList()
   },
   methods: {
     sizeChange () {
@@ -124,8 +152,20 @@ export default {
     queryApp () {
       console.log(3)
     },
-    deploy (id) {
-      console.log(id)
+    getOrderList () {
+      subscribe.getOrderList(this.userId, this.param).then(res => {
+        this.orderList = res.data
+      })
+    },
+    activate (id) {
+      subscribe.activateApp(this.userId, id).then(res => {
+        console.log(res)
+      })
+    },
+    deactivate (id) {
+      subscribe.deactivateApp(this.userId, id).then(res => {
+        console.log(res)
+      })
     }
   }
 }

@@ -268,22 +268,22 @@
       />
       <div class="clearfix" />
     </div>
-
+    <!-- 定价设置 -->
     <el-dialog
       :visible.sync="setPriceDialog"
       :close-on-click-modal="false"
       width="30%"
-      append-to-body
-      class="other_setting default_dialog"
+      :show-close="false"
+      class="dialog_host default_dialog"
     >
       <div
         slot="title"
         class="el-dialog__title"
       >
         <em class="title_icon" />
-        {{ $t('workspace.appRelease.priceTitle') }}
+        {{ $t('myApp.priceTitle') }}
       </div>
-      <div>
+      <div style="margin-top:25px;">
         <el-form>
           <el-form-item>
             <div>
@@ -292,7 +292,7 @@
                 label="1"
                 style="margin-bottom:10px;"
               >
-                {{ $t('workspace.appRelease.free') }}
+                {{ $t('myApp.free') }}
               </el-radio>
             </div>
             <div>
@@ -303,7 +303,7 @@
                 <el-input
                   v-model="priceSet"
                   style="width:100px;"
-                />  {{ $t('workspace.appRelease.price') }}
+                />  {{ $t('myApp.price') }}
               </el-radio>
             </div>
           </el-form-item>
@@ -319,7 +319,7 @@
         >{{ $t('common.cancel') }}</el-button>
         <el-button
           type="primary"
-          @click="publishPackage(packageInfo)"
+          @click="publishPackage()"
           class="bgBtn"
         >{{ $t('common.confirm') }}</el-button>
       </span>
@@ -639,18 +639,19 @@ export default {
       this.setPriceDialog = true
       this.packageInfo = row
     },
-    publishPackage (row) {
-      if (this.price === '1') {
-        console.log('free')
-      } else {
-        console.log(this.priceSet)
+    publishPackage () {
+      let row = this.packageInfo
+      let parameter = {
+        isFree: this.price === '1',
+        price: this.priceSet
       }
-      myApp.publishAppApi(row.appId, row.packageId).then(res => {
+      myApp.publishAppApi(row.appId, row.packageId, parameter).then(res => {
         this.$message({
           duration: 2000,
           message: this.$t('promptMessage.publishSuccess'),
           type: 'success'
         })
+        this.setPriceDialog = false
         this.getAppData()
       }).catch(error => {
         let retCode = error.response.data.retCode

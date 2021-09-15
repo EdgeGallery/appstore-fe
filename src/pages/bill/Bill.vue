@@ -4,8 +4,24 @@
       账单管理
       <span class="line_bot1" />
     </div>
-    <div>
-      Bill
+    <div class="billContetn">
+      <div class="top_content">
+        <div
+          id="chart1"
+          class="chart"
+        >
+          chart1
+        </div>
+        <div
+          id="chart2"
+          class="chart"
+        >
+          chart2
+        </div>
+      </div>
+      <div class="bottom_content">
+        Table
+      </div>
     </div>
   </div>
 </template>
@@ -16,8 +32,17 @@ export default {
 }
 </script>
 
-<style style="less" scoped>
+<style lang="less" scoped>
   .bill{
     padding: 0 13%;
+    .top_content{
+      display: flex;
+      justify-content: center;
+      .chart{
+        width: 50%;
+        height: 300px;
+        border: 1px solid #dddddd;
+      }
+    }
   }
 </style>

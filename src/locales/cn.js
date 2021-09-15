@@ -524,7 +524,10 @@ const cn = {
     provider: '供应商',
     appModify: '修改',
     getStatusFailed: '获取应用状态失败',
-    more: '更多'
+    more: '更多',
+    free: '免费',
+    price: '元（RMB）/小时',
+    priceTitle: '应用定价设置'
   },
   report: {
     version: '版本',
