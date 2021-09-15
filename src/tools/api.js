@@ -530,8 +530,14 @@ let subscribe = {
   modifyDefaultSplitconfigs (userId, param) {
     return PUT('apps/splitconfigs/all?userId=' + userId, param)
   },
-  getBills: function (id) {
-    return POST(URL_PREFIX + 'bills/')
+  getBillsList: function (userId, param) {
+    return POST(URL_PREFIX + 'bills/list?userId=' + userId, param)
+  },
+  getOverAllData: function (userId, param) {
+    return POST(URL_PREFIX + 'bills/statistics/overall?userId=' + userId, param)
+  },
+  getTopApps: function (userId, param) {
+    return POST(URL_PREFIX + 'bills/statistics/sales/topapps?userId=' + userId, param)
   },
   getMechosts: function (userId) {
     return GET(URL_PREFIX + 'mechosts/?userId=' + userId)
