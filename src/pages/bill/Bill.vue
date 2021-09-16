@@ -7,7 +7,7 @@
     <div class="billContent">
       <div class="select_box">
         <el-select
-          v-model="value"
+          v-model="time"
           placeholder="请选择"
           class="timeSelect"
         >
@@ -33,6 +33,16 @@
                 id="billChart"
                 class="bill_chart"
               />
+              <div class="mark_chart">
+                <div
+                  class="name_label"
+                  v-for="(item,index) in overallData"
+                  :key="index"
+                  :class="'name_label'+index"
+                >
+                  {{ item.label }}（元）
+                </div>
+              </div>
             </div>
           </el-col>
           <el-col :span="16">
@@ -76,7 +86,7 @@
                   v-for="(item,index) in topAppList"
                   :key="index"
                 >
-                  <div class="appname">
+                  <div class="appname appname_last">
                     {{ (index+1) +'.'+item.appName }}
                   </div>
                   <el-progress
@@ -168,6 +178,7 @@ export default {
           label: '近一年'
         }
       ],
+      time: '',
       billList: [
         {
           'billId': '',
@@ -187,10 +198,16 @@ export default {
           'supplierFee': 123.00
         }
       ],
-      overallData: {
-        'incomeNum': 2000.00,
-        'expendNum': 1000.00
-      },
+      overallData: [
+        {
+          'value': 2000.00,
+          'label': '收入'
+        },
+        {
+          'value': 12000.00,
+          'label': '支出'
+        }
+      ],
       userId: sessionStorage.getItem('userId'),
       topAppList: [
         {
@@ -246,7 +263,13 @@ export default {
         'endTime': ''
       }
       subscribe.getoverallData(this.userId, param).then(res => {
-        console.log(res)
+        let data = res.data
+        for (let i in data) {
+          let obj = {}
+          obj.value = data(i)
+          obj.label = i
+          this.overallData.push(obj)
+        }
       })
     },
     getTopAppList () {
@@ -262,25 +285,11 @@ export default {
       })
     },
     regAndSetOption (data) {
-      var chartdata = [
-        {
-          value: '100',
-          label: '南越'
-        },
-        {
-          value: '100',
-          label: '南越'
-        },
-        {
-          value: '100',
-          label: '南越'
-        }
-      ]
-      var barBotColors = ['#6b4eeb', '#fd74ea', '#ff7802']
+      var barBotColors = ['#05aefd', '#fd74ea', '#ffcc01']
       let barTopColors = ['#31beff', '#ff94f0', '#ffea01']
       let seriesData = []
       let xAxisData = []
-      chartdata.map((item) => {
+      this.overallData.map((item) => {
         seriesData.push(item.value)
         xAxisData.push(item.label)
       })
@@ -290,7 +299,7 @@ export default {
         },
         grid: {
           left: 0,
-          bottom: 80
+          bottom: 100
         },
         xAxis: {
           data: xAxisData,
@@ -301,10 +310,11 @@ export default {
             show: false
           },
           axisLabel: {
+            show: false,
             interval: 0,
             textStyle: {
               color: '#fff',
-              fontSize: 16
+              fontSize: 12
             },
             margin: 26 // 刻度标签与轴线之间的距离。
           }
@@ -329,11 +339,9 @@ export default {
         },
         series: [
           {
-            name: '柱顶部',
             type: 'pictorialBar',
             symbolSize: [25, 10],
             symbolOffset: [0, -5],
-            z: 16,
             itemStyle: {
               normal: {
                 color: function (params) {
@@ -361,7 +369,6 @@ export default {
             data: seriesData
           },
           {
-            name: '柱底部',
             type: 'pictorialBar',
             symbolSize: [25, 10],
             symbolOffset: [0, 5],
@@ -376,7 +383,6 @@ export default {
             data: seriesData
           },
           { // 上半截柱子
-            name: '2019',
             type: 'bar',
             barWidth: 24,
             barGap: '-100%',
@@ -384,18 +390,50 @@ export default {
             itemStyle: {
               normal: {
                 color: function (params) {
-                  return barBotColors[params.dataIndex]
+                  if (params.dataIndex === 0) {
+                    return new echarts.graphic.LinearGradient(0, 0, 0, 0.7, [
+                      {
+                        offset: 0,
+                        color: '#6b4eeb'
+                      },
+                      {
+                        offset: 1,
+                        color: '#05aefd'
+                      }
+                    ])
+                  } else if (params.dataIndex === 1) {
+                    return new echarts.graphic.LinearGradient(0, 0, 0, 0.7, [
+                      {
+                        offset: 0,
+                        color: '#fd74ea'
+                      },
+                      {
+                        offset: 1,
+                        color: '#fd74ea'
+                      }
+                    ])
+                  } else {
+                    return new echarts.graphic.LinearGradient(0, 0, 0, 0.7, [
+                      {
+                        offset: 0,
+                        color: '#ff7802'
+                      },
+                      {
+                        offset: 1,
+                        color: '#ffcc01'
+                      }
+                    ])
+                  }
                 }
               }
             },
-            data: chartdata
+            data: this.overallData
           },
           {
-            name: '第一圈',
             type: 'pictorialBar',
             symbolSize: [52, 16],
             symbolOffset: [0, 11],
-            z: 2,
+            z: 0,
             itemStyle: {
               normal: {
                 color: 'transparent',
@@ -405,11 +443,10 @@ export default {
             },
             data: [1, 1, 1]
           }, {
-            name: '第二圈',
             type: 'pictorialBar',
             symbolSize: [72, 22],
             symbolOffset: [0, 17],
-            z: 10,
+            z: 0,
             itemStyle: {
               normal: {
                 color: 'transparent',
@@ -477,8 +514,42 @@ export default {
     background: url('../../assets/images/star_icon.png') no-repeat left;
     padding-left: 25px;
   }
+  .appname_last{
+    background: url('../../assets/images/star_last_icon.png') no-repeat left;
+  }
   .bill_chart{
     width: 100%;
     height: 100%;
+  }
+  .mark_chart{
+    height: 40px;
+    display: flex;
+    justify-content: left;
+    font-size: 12px;
+    color:#ffffff;
+    position: relative;
+    top: -70px;
+    left: 20px;
+    .name_label{
+      margin-right: 15px;
+    }
+    .name_label::before{
+      content:'';
+      display: inline-block;
+      width: 4px;
+      height: 12px;
+      border-radius: 12px;
+      position: relative;
+      top: 2px;
+    }
+    .name_label0::before{
+      background: #05aefd;
+    }
+    .name_label1::before{
+      background: #fd74ea;
+    }
+    .name_label2::before{
+      background: #ffcc01;
+    }
   }
 </style>

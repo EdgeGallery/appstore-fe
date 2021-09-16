@@ -425,6 +425,9 @@ a{
 .el-progress-bar__inner{
   border-radius: 6px!important;
 }
+.top_content .el-progress__text{
+  color: #ffffff!important;
+}
 .el-progress-bar{
   width: 80%!important;
 }
