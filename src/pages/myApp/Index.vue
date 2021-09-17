@@ -65,7 +65,9 @@
                 </div>
               </el-popover>
               <div v-else>
-                {{ scope.row.name }}
+                <a
+                  @click="getDetail(scope.row) "
+                >{{ scope.row.name }}</a>
               </div>
             </template>
           </el-table-column>
@@ -180,17 +182,19 @@
               <div>
                 <el-button
                   class="operation_button"
-                  @click="getDetail(scope.row)"
+                  :disabled="scope.row.status !== 'Test_success'"
+                  @click="publishPackage(scope.row)"
                   type="text"
                 >
-                  {{ $t('common.detail') }}
+                  {{ $t('myApp.publish') }}
                 </el-button>
                 <el-button
                   class="operation_button"
-                  @click="appModify(scope.row)"
+                  :disabled="scope.row.status == 'Published'"
+                  @click="testMessage(scope.row)"
                   type="text"
                 >
-                  {{ $t('common.appModify') }}
+                  {{ $t('myApp.test') }}
                 </el-button>
                 <el-dropdown>
                   <el-button
@@ -206,19 +210,17 @@
                   >
                     <el-dropdown-item
                       class="operation_button"
-                      :disabled="scope.row.status !== 'Test_success'"
-                      @click.native="publishPackage(scope.row)"
+                      @click.native="getDetail(scope.row)"
                       type="text"
                     >
-                      {{ $t('myApp.publish') }}
+                      {{ $t('common.detail') }}
                     </el-dropdown-item>
                     <el-dropdown-item
                       class="operation_button"
-                      :disabled="scope.row.status == 'Published'"
-                      @click.native="testMessage(scope.row)"
+                      @click.native="appModify(scope.row)"
                       type="text"
                     >
-                      {{ $t('myApp.test') }}
+                      {{ $t('common.appModify') }}
                     </el-dropdown-item>
                     <el-dropdown-item
                       class="operation_button"
