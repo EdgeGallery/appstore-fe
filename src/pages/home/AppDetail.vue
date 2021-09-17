@@ -70,74 +70,6 @@
           </span>
         </p>
       </div>
-      <div class="app_synchronize">
-        <p class="synchronize_info">
-          可同步应用到MEAO，可方便对应用生命周期进行管理
-        </p>
-        <div
-          class="stepApp"
-          v-if="showlun"
-        >
-          <el-carousel
-            :interval="5000"
-            arrow="always"
-          >
-            <el-carousel-item v-if="hwMeAO">
-              <p
-                class="stepNames"
-              >
-                {{ language === 'cn'?this.MEAO[0].labelcn:this.MEAO[0].labelen }}
-              </p>
-              <el-progress
-                :text-inside="true"
-                :stroke-width="14"
-                :percentage="huaweiper"
-                style="width:116px;"
-              />
-            </el-carousel-item>
-            <el-carousel-item v-if="jzyMEAO">
-              <p
-                class="stepNames"
-              >
-                {{ language === 'cn'?this.MEAO[1].labelcn:this.MEAO[1].labelen }}
-              </p>
-              <el-progress
-                :text-inside="true"
-                :stroke-width="14"
-                :percentage="jiuzhouyunper"
-                style="width:116px;"
-              />
-            </el-carousel-item>
-            <p class="stepIng">
-              正在同步应用
-            </p>
-          </el-carousel>
-        </div>
-        <div class="stepDromdown">
-          <el-dropdown
-            @command="handleClick"
-            trigger="click"
-          >
-            <el-button
-              type="primary"
-            >
-              同步应用到MEAO
-            </el-button>
-            <el-dropdown-menu
-              slot="dropdown"
-              @change="handleClick"
-            >
-              <el-dropdown-item
-                v-for="(item,index) in this.MEAO"
-                :key="index"
-                :command="index"
-              >
-                <span>{{ language === 'cn'?item.labelcn:item.labelen }}</span>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-      </div>
       <div class="app_score">
         <p class="score_num">
           {{ score }}
@@ -166,13 +98,13 @@
     <div
       class="app_content"
     >
-      <div
-        v-if="noAppShowPage"
-      >
+      <div>
         <ul class="list_top clear">
           <li
             @click="activeName='appDetail'"
-            :class="{'appDetail_active':activeName==='appDetail','appDetail_default':activeName==='comment','appDetail_default2':activeName==='comment','appDetail_default3':activeName==='vedio'}"
+            :class="{'appDetail_active':activeName==='appDetail','appDetail_default':activeName==='comment','appDetail_default2':activeName==='comment',
+                     'appDetail_default3':activeName==='vedio' || activeName==='appShow',
+                     'appDetail_default2_meao_no_Appshow':ifExperience===false && activeName==='meao'}"
           >
             <span>
               <em />{{ $t('store.introduction') }}
@@ -180,7 +112,10 @@
           </li>
           <li
             @click="activeName='comment'"
-            :class="{'comment_active':activeName==='comment','comment_default':activeName==='appDetail','comment_default2':activeName==='vedio'}"
+            :class="{'comment_active':activeName==='comment','comment_default':activeName==='appDetail','comment_default2':activeName==='appShow',
+                     'comment_default2':ifExperience === false && activeName==='meao', 'comment_default_appShow_nomeao':ifSynchronize === false && activeName==='appShow',
+                     'comment_default_no_appShow_meao':ifSynchronize === false && ifExperience===false && activeName==='vedio',
+                     'comment_default_vedio_noappShow':ifExperience === false && activeName ==='vedio','comment_default_meao':activeName==='meao'}"
           >
             <span>
               <link-right
@@ -190,89 +125,64 @@
                 class="link-right"
               />
               <em />{{ $t('store.comments') }}
-            </span>
-          </li>
-          <li
-            @click="activeName='vedio'"
-            :class="{'vedio_active_notry':activeName==='vedio','vedio_default_notry':activeName!=='vedio', 'vedio_default_notry1':activeName==='comment'}"
-          >
-            <span>
-              <link-right
-                v-if="activeName!=='vedio' && activeName!=='comment'"
-                padding-right="5px"
-                margin="5px"
-                class="link-right"
-              />
-              <em />{{ $t('store.demo') }}
-            </span>
-          </li>
-          <li
-            class="last_li"
-            :class="{'appShow_active':activeName==='vedio','last_default':activeName!=='vedio','last_default2':activeName==='vedio'}"
-          >
-            <span />
-          </li>
-        </ul>
-      </div>
-      <div
-        v-if="appShowPage"
-      >
-        <ul class="list_top clear">
-          <li
-            @click="activeName='appDetail'"
-            :class="{'appDetail_active':activeName==='appDetail','appDetail_default':activeName==='comment','appDetail_default2':activeName==='comment','appDetail_default3':activeName==='vedio' || activeName==='appShow'}"
-          >
-            <span>
-              <em />{{ $t('store.introduction') }}
-            </span>
-          </li>
-          <li
-            @click="activeName='comment'"
-            :class="{'comment_active':activeName==='comment','comment_default':activeName==='appDetail','comment_default2':activeName==='vedio'}"
-          >
-            <span>
-              <link-right
-                v-if="activeName !=='appDetail' && activeName !== 'comment'"
-                padding-right="5px"
-                margin="5px"
-                class="link-right"
-              />
-              <em />{{ $t('store.comments') }}
-            </span>
-          </li>
-          <li
-            @click="activeName='vedio'"
-            :class="{'vedio_active':activeName==='vedio','vedio_default':activeName!=='vedio','vedio_default2':activeName==='appShow', 'vedio_default3':activeName==='comment'}"
-          >
-            <span>
-              <link-right
-                v-if="activeName!=='vedio' && activeName!=='comment'"
-                padding-right="5px"
-                margin="5px"
-                class="link-right"
-              />
-              <em />{{ $t('store.demo') }}
             </span>
           </li>
           <li
             v-if="ifExperience"
             @click="activeName='appShow'"
-            :class="{'appShow_active':activeName==='appShow','appShow_default':activeName!=='appShow','appShow_default2':activeName==='comment','appShow_default3':activeName==='vedio'}"
+            :class="{'appShow_active':activeName==='appShow','appShow_no_active':activeName !=='appShow','appShow_default_meao':activeName ==='meao',
+                     'appShow_default':activeName==='comment','appShow_default3':activeName==='meao','appShow_default3':ifSynchronize===false && activeName==='vedio',
+                     'appShow_default_vedio':ifSynchronize===true && activeName==='vedio'}"
           >
             <span>
               <link-right
                 v-if="activeName!=='appShow' && activeName!=='vedio'"
-                padding-right="5px"
+                padding-right="8px"
                 margin="5px"
                 class="link-right"
               />
               <em />{{ $t('store.showOnline') }}
             </span>
           </li>
+          <li
+            v-if="ifSynchronize"
+            @click="activeName='meao'"
+            :class="{'meao_active':activeName==='meao','meao_default':activeName ==='appShow','meao_default_comment_noappShow':ifExperience === false && activeName ==='comment',
+                     'meao_default_vedio_noappShow':ifExperience === false && activeName ==='vedio',
+                     'meao_default_comment':activeName ==='comment'}"
+          >
+            <span>
+              <link-right
+                v-if="activeName!=='meao' && activeName!=='meao'"
+                padding-right="5px"
+                margin="5px"
+                class="link-right"
+              />
+              <em />{{ $t('store.synchronizeToMeao') }}
+            </span>
+          </li>
+          <li
+            @click="activeName='vedio'"
+            :class="{'vedio_active':activeName==='vedio','vedio_default_appshow':activeName ==='appShow','vedio_default':activeName !=='vedio','vedio_default2':activeName==='meao',
+                     'vedio_default2':ifSynchronize===false && activeName==='appShow',
+                     'vedio_default2_no_AppshowMeao':ifSynchronize===false && ifExperience===false && activeName==='comment',
+                     'vedio_default2_meao_no_Appshow':ifExperience===false && activeName==='meao',
+                     'vedio_default2_comment_no_Appshow':ifExperience===false && activeName==='comment'}"
+          >
+            <span>
+              <link-right
+                v-if="activeName!=='vedio' && activeName!=='comment'"
+                padding-right="5px"
+                margin="5px"
+                class="link-right"
+              />
+              <em />{{ $t('store.demo') }}
+            </span>
+          </li>
 
           <li
             class="last_li"
-            :class="{'appShow_active':activeName==='appShow','last_default':activeName!=='appShow','last_default2':activeName==='appShow'}"
+            :class="{'appShow_active':activeName==='vedio','last_default':activeName!=='vedio','last_default2':activeName==='vedio'}"
           >
             <span />
           </li>
@@ -292,17 +202,22 @@
           :app-id="this.appId"
           ref="appComments"
         />
-        <appVideo
-          v-show="activeName==='vedio'"
-          :player-options="this.playerOptions"
-          ref="appVideo"
-        />
         <appShowOnline
           v-show="activeName==='appShow'"
           :package-id="this.packageId"
           :app-id="this.appId"
           :if-experience="this.ifExperience"
           ref="appShowOnline"
+        />
+        <synchronizeMeao
+          v-show="activeName==='meao'"
+          :package-id="this.packageId"
+          ref="synchronizeMeao"
+        />
+        <appVideo
+          v-show="activeName==='vedio'"
+          :player-options="this.playerOptions"
+          ref="appVideo"
         />
       </div>
     </div>
@@ -354,12 +269,10 @@ import appIntroduction from './AppIntroduction.vue'
 import appComments from './AppComments.vue'
 import appVideo from './AppVideo.vue'
 import appShowOnline from './AppShowOnline.vue'
+import synchronizeMeao from './SynchronizeMeao.vue'
 import {
-  // getCommentsApi,
   getAppDetailTableApi,
-  // submitAppCommentApi,
   downloadAppPakageApi,
-  synchronizedPakageApi,
   URL_PREFIX,
   URL_PREFIXV2,
   getAppListApi,
@@ -375,12 +288,13 @@ export default {
     appIntroduction,
     appComments,
     appVideo,
-    appShowOnline
+    appShowOnline,
+    synchronizeMeao
   },
   data () {
     return {
       noAppShowPage: false,
-      appShowPage: false,
+      appShowPage: true,
       MEAO: MEAO,
       stepApp: [
       ],
@@ -400,14 +314,13 @@ export default {
       isDownloadImage: false,
       isShowDownload: false,
       currentData: { },
-      // activeName: 'introduction',
       comments: {
         score: 0,
         message: ''
       },
 
       historyComentsList: [],
-      source: '',
+      source: 'this is test',
       appIconPath: '',
       playerOptions: {
         muted: false,
@@ -502,6 +415,7 @@ export default {
             this.ifExperience = item.experienceAble
             console.log(this.ifExperience)
             this.packageId = item.packageId
+            console.log(this.packageId)
           }
         })
         this.handleTableTada(data)
@@ -510,6 +424,9 @@ export default {
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
           this.ifExperience = this.currentData.experienceAble
+          if (sessionStorage.getItem('userNameRole') === 'tenant' && this.userId !== this.currentData.userId) {
+            this.ifSynchronize = false
+          }
           if (this.ifExperience) {
             this.noAppShowPage = false
             this.appShowPage = true
@@ -590,64 +507,7 @@ export default {
       this.ifDownloadImage(this.currentData, row)
       this.getAppData()
     },
-    handleClick (index) {
-      console.log(index)
-      if (index === 0) {
-        this.synchronizePackage(this.currentData)
-      } else if (index === 1) {
-        console.log(this.jzyinterval)
-        this.synchronizeJzy()
-      }
-      this.showlun = true
-    },
-    synchronizeJzy () {
-      this.startSync = true
-      this.jzyMEAO = true
-      this.jiuzhouyunper = 10
-      this.jzyinterval = setInterval(() => {
-        if (this.jiuzhouyunper < 100) {
-          this.jiuzhouyunper += 10
-        }
-      }, 6000)
-    },
-    clearInterval () {
-      clearTimeout(this.jzyinterval)
-      clearTimeout(this.hwinterval)
-      this.jzyinterval = null
-      this.hwinterval = null
-    },
-    synchronizePackage (row) {
-      console.log(row)
-      synchronizedPakageApi(this.appId, row).then(res => {
-        this.startSync = true
-        this.hwMeAO = true
-        this.huaweiper = 10
-        this.hwinterval = setInterval(() => {
-          if (this.huaweiper < 100) {
-            this.huaweiper += 10
-          }
-        }, 6000)
-        this.$message({
-          duration: 2000,
-          message: this.$t('store.synchronizedwaiting'),
-          type: 'success'
-        })
-        this.getAppData()
-      }).catch(error => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.operationFailed'),
-            type: 'warning'
-          })
-        }
-      })
-    },
+
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {
         if (this.language === 'cn') {
@@ -742,6 +602,7 @@ export default {
     } else {
       this.ifDownload = true
     }
+
     let params = this.$route.params.item
       ? this.$route.params.item
       : JSON.parse(sessionStorage.getItem('appstordetail'))
@@ -771,7 +632,13 @@ export default {
     this.getTableData()
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
     this.checkProjectData()
-    console.log(this.ifExperience)
+    console.log(this.currentData.userId)
+    console.log(this.packageId)
+    if ((sessionStorage.getItem('userNameRole') === 'guest')) {
+      this.ifSynchronize = false
+    } else {
+      this.ifSynchronize = true
+    }
   }
 }
 </script>
@@ -916,6 +783,7 @@ export default {
     }
 
     .app_score{
+      margin-left: 40%;
       width: 240px;
       .download_num{
         float: left;
@@ -1097,6 +965,15 @@ export default {
           transition: all 0.1s;
         }
       }
+      .appDetail_default2_meao_no_Appshow{
+        background: #fff;
+        border-radius: 16px 0 0 0;
+        span{
+          background: #d4d1ec;
+          border-radius: 16px 0 0 0;
+          transition: all 0.1s;
+        }
+      }
       .appDetail_default3{
         background: #d4d1ec;
         border-radius: 16px 0 0 0;
@@ -1132,6 +1009,41 @@ export default {
           border-radius: 0 0 16px 0;
         }
       }
+      .comment_default_appShow_nomeao{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 16px 0;
+        }
+      }
+      .comment_default_no_appShow_meao{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 16px 0;
+        }
+      }
+      .comment_default_vedio_noappShow{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 0;
+        }
+      }
+      .appShow_default_vedio{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 0;
+        }
+      }
+      .comment_default_meao{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 0;
+        }
+      }
       .last_li.last_active{
         background: #fff;
         span{
@@ -1157,7 +1069,7 @@ export default {
       }
       .appShow_active{
         background: #d4d1ec;
-        border-radius: 0 16px 0 0;
+        border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
           background: #fff;
@@ -1166,16 +1078,40 @@ export default {
           transition: all 0.1s;
         }
       }
-      .appShow_default{
-        background: #f4f3f7;
-        border-radius: 0 16px 0 0;
+      .appShow_no_active{
+         background: #f4f3f7;
+         border-radius: 0 0 0 0;
+        // border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
           background: #d4d1ec;
-          border-radius: 0 16px 0 0px;
+          border-radius: 0 0 0 0;
           transition: all 0.1s;
         }
-
+      }
+      .appShow_default{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 16px;
+          transition: all 0.1s;
+        }
+      }
+      .appShow_default_meao{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 16px 0;
+          transition: all 0.1s;
+        }
+      }
+      .meao_default_comment{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 0;
+          transition: all 0.1s;
+        }
       }
       .appShow_default2{
         background: #f3f1f7;
@@ -1191,13 +1127,93 @@ export default {
         transition: all 0.1s;
         span{
           background: #d4d1ec;
-          border-radius: 0 16px 0 16px;
+          border-radius: 0 0 16px 0;
           transition: all 0.1s;
         }
       }
-      .vedio_active{
+      .meao_active{
         background: #d4d1ec;
         border-radius: 0 0 0 0;
+        transition: all 0.1s;
+        span{
+          background: #fff;
+          border-radius: 16px 16px 0 0;
+          color: #5e40c8;
+          transition: all 0.1s;
+        }
+      }
+      .meao_default{
+       background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 16px;
+          transition: all 0.1s;
+        }
+      }
+      .vedio_default_appshow{
+        background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 0;
+          transition: all 0.1s;
+        }
+      }
+      .meao_default_comment_noappShow{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 16px;
+        }
+
+      }
+      .meao_default_vedio_noappShow{
+        background: #f4f3f7;
+        border-radius: 0 0 0 16px;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 16px 0;
+          transition: all 0.1s;
+        }
+
+      }
+      .meao_no_active{
+         background: #f4f3f7;
+         border-radius: 0 0 0 0;
+        // border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 0;
+          transition: all 0.1s;
+        }
+
+      }
+      .meao_default2{
+        background: #f3f1f7;
+        border-radius: 0 0 0 16px;
+
+        span{
+          border-radius: 0 16px 0 0;
+        }
+      }
+      .meao_default3{
+        background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 16px;
+          transition: all 0.1s;
+        }
+        }
+      .vedio_active{
+        background: #d4d1ec;
+        border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
           background: #fff;
@@ -1212,18 +1228,48 @@ export default {
         transition: all 0.1s;
         span{
           background: #d4d1ec;
-          border-radius: 0 0 0 0;
+          border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
 
       }
       .vedio_default2{
        background: #fff;
-        border-radius: 0 0 0 0;
+        border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
           background: #d4d1ec;
-          border-radius: 0 0 16px 0px;
+          border-radius: 0 16px 0 16px;
+          transition: all 0.1s;
+        }
+      }
+      .vedio_default2_no_AppshowMeao{
+       background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 16px;
+          transition: all 0.1s;
+        }
+      }
+      .vedio_default2_meao_no_Appshow{
+       background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 16px;
+          transition: all 0.1s;
+        }
+      }
+      .vedio_default2_comment_no_Appshow{
+       background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
       }
@@ -1526,9 +1572,7 @@ export default {
     left: 110px;
     top:-20px;
 }
-.el-progress-bar__inner{
-  background: linear-gradient(-37deg, #53DABD, #54AAF3);
-}
+
 .el-progress-bar__outer{
   box-shadow: 2px 2px 12px 0px rgba(36, 20, 119, 0.13);
 }

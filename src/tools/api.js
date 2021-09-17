@@ -32,6 +32,18 @@ const URL_PREFIX = '/mec-appstore/mec/appstore/v1/'
 const URL_PREFIXV2 = '/mec-appstore/mec/appstore/v2/'
 const URL_PREFIX_GATEWAY = '/mec/res/v2/'
 
+// get meao list by pacakgeId
+function getProgressByPackageId (packageId) {
+  let url = 'upload_progress/package/' + packageId
+  return GET(url, '')
+}
+// query thirdSystem by type
+
+function getThirdSystemByType (type) {
+  let url = 'thirdsystem/systemType/' + type
+  return GET(url, '')
+}
+
 // check if deploy app package trans tool.
 function appPkgTransToolCheck () {
   let url = 'tool/check'
@@ -542,5 +554,7 @@ export {
   getAppByAppstoreId,
   getAppListApi,
   getMessages,
-  appPkgTransToolCheck
+  appPkgTransToolCheck,
+  getProgressByPackageId,
+  getThirdSystemByType
 }
