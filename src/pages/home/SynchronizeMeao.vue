@@ -193,10 +193,7 @@ export default {
       console.log(this.systemName)
     },
     filterMEAO (value, row, column) {
-      console.log(value)
       const property = column['property']
-      console.log(property)
-      console.log(row[property])
       return row[property] === value
     },
     filterStatus (value, row, column) {
@@ -219,10 +216,8 @@ export default {
     },
     getProgressByPackageId () {
       console.log(this.packageId)
-      this.packageId = 'a2b5fcab98f544e69cb6ee279f4a72e0'
       getProgressByPackageId(this.packageId).then(res => {
         console.log(res.data)
-        console.log(typeof (res.data))
         this.testColor = []
         this.tableData = res.data
         this.tableData.forEach(item => {
@@ -230,7 +225,6 @@ export default {
           item.createTime = formatedTime
           item.progress = parseInt(item.progress)
         })
-        // this.filterTableData(res.data)
         this.total = this.tableData.length
         this.checkFailedData()
         console.log(this.tableData)
