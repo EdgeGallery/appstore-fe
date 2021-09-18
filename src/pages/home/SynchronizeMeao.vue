@@ -28,7 +28,7 @@
         </el-button>
         <el-dropdown-menu
           slot="dropdown"
-          @change="handleClick"
+          @change="synchronizePackage"
         >
           <el-dropdown-item
             v-for="(item) in this.systemData"
