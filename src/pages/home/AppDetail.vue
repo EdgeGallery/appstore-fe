@@ -857,7 +857,7 @@ export default {
          color: #FFFFFF;
         font-family: HarmonyHeiTi;
         font-weight: 300;
-        box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
+        // box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
         .el-button--primary{
           font-size: 20px;
           background-color: #fff;
