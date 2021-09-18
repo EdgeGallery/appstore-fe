@@ -846,19 +846,20 @@ export default {
       }
       .batchProButton{
         float: left;
-        width: 100%;
+        width: 120px;
         margin-left: 35px;
         margin-top: 10px;
         text-align: center;
-        height: 54px !important;
-        width: 160px !important;
+        height: 40px !important;
+        width: 120px !important;
+        font-size: 20px;
         border-radius: 25px !important;
          color: #FFFFFF;
         font-family: HarmonyHeiTi;
         font-weight: 300;
         box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
         .el-button--primary{
-          font-size: 24px;
+          font-size: 20px;
           background-color: #fff;
           border: none;
           color: #FFFFFF;
