@@ -31,9 +31,9 @@
           @change="handleClick"
         >
           <el-dropdown-item
-            v-for="(item,index) in this.systemData"
-            :key="index"
-            :command="index"
+            v-for="(item) in this.systemData"
+            :key="item"
+            :command="item"
           >
             <!-- <span>{{ language === 'cn'?item.labelcn:item.labelen }}</span> -->
             {{ item.systemName }}
@@ -138,6 +138,10 @@ export default {
     pagination
   },
   props: {
+    currentData: {
+      required: true,
+      type: Array
+    },
     packageId: {
       required: true,
       type: String
