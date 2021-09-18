@@ -250,24 +250,25 @@ export default {
       console.log(this.systemNameData)
     },
 
-    handleClick (index) {
-      console.log(index)
-      if (index === 0) {
-        this.synchronizePackage(this.currentData)
-      } else if (index === 1) {
+    handleClick (item) {
+      if (item.systemName.indexOf('华为') === 0) {
+        this.synchronizePackage()
+      } else {
         console.log(this.jzyinterval)
-        this.synchronizeJzy()
+        this.$message({
+          duration: 2000,
+          message: this.$t('store.notSupportSynchronized'),
+          type: 'success'
+        })
+        this.getProgressByPackageId()
       }
       this.showlun = true
     },
     synchronizeJzy () {
-      this.startSync = true
-      this.jzyMEAO = true
-      this.jiuzhouyunper = 10
       this.jzyinterval = setInterval(() => {
         this.$message({
           duration: 2000,
-          message: this.$t('store.synchronizedwaiting'),
+          message: this.$t('store.notSupportSynchronized'),
           type: 'success'
         })
         this.getProgressByPackageId()
@@ -292,9 +293,9 @@ export default {
       this.jzyinterval = null
       this.hwinterval = null
     },
-    synchronizePackage (row) {
-      console.log(row)
-      synchronizedPakageApi(this.appId, row).then(res => {
+    synchronizePackage () {
+      console.log(this.currentData)
+      synchronizedPakageApi(this.currentData).then(res => {
         this.$message({
           duration: 2000,
           message: this.$t('store.synchronizedwaiting'),
@@ -302,11 +303,10 @@ export default {
         })
         this.getProgressByPackageId()
       }).catch(error => {
+        let defaultMsg = this.$t('promptMessage.operationFailed')
         let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
         if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
         } else {
           this.$message({
             duration: 2000,
@@ -402,12 +402,6 @@ export default {
   },
   mounted () {
     this.getThirdSystemByType()
-    this.getProgressByPackageId()
-    if ((sessionStorage.getItem('userNameRole') === 'guest') || (sessionStorage.getItem('userNameRole') === 'tenant')) {
-      this.ifSync = false
-    } else {
-      this.ifSync = true
-    }
     this.interval = setInterval(() => {
       this.getProgressByPackageId()
     }, 10000)

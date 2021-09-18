@@ -348,6 +348,7 @@ const en = {
     download: 'Download',
     synchronize: 'Synchronize',
     synchronizedwaiting: 'Uploading package takes a long time.',
+    notSupportSynchronized: 'Not support synchronized pacakge',
     comments: 'Comments',
     introduction: 'Application Details',
     demo: 'Video',
