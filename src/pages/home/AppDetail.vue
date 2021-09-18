@@ -852,7 +852,7 @@ export default {
         text-align: center;
         height: 40px !important;
         width: 120px !important;
-        font-size: 20px;
+        font-size:20px !important;
         border-radius: 25px !important;
          color: #FFFFFF;
         font-family: HarmonyHeiTi;
