@@ -438,8 +438,8 @@ import {
   URL_PREFIX,
   URL_PREFIXV2,
   getAppListApi,
-  myApp,
-  subscribe
+  myApp
+  // subscribe
 } from '../../tools/api.js'
 import { INDUSTRY, TYPES, MEAO } from '../../tools/constant.js'
 import appTry from '@/assets/images/apptry.png'
@@ -530,12 +530,12 @@ export default {
       showSubDialog: false,
       options: [
         {
-          value: 'zhinan',
-          label: '指南'
+          value: '119.8.47.5',
+          label: '陕西省/西安市/雁塔区'
         },
         {
-          value: 'zhinan1',
-          label: '指南1'
+          value: '119.8.63.45',
+          label: '广东省/深圳市/龙岗区'
         }
       ],
       mechostIp: ''
@@ -577,25 +577,63 @@ export default {
   },
   methods: {
     beforeBuyIt () {
-      subscribe.getMechosts().then(res => {
-        res.data.forEach(item => {
-          let obj = {}
-          obj.value = item.ip
-          obj.label = item.city
-          this.options.push(obj)
-        })
-        this.showSubDialog = true
-      })
+      // subscribe.getMechosts().then(res => {
+      //   res.data.forEach(item => {
+      //     let obj = {}
+      //     obj.value = item.ip
+      //     obj.label = item.city
+      //     this.options.push(obj)
+      //   })
+      //   this.showSubDialog = true
+      // })
+      this.showSubDialog = true
+    },
+    formatter (thistime, fmt) {
+      let $this = new Date(thistime)
+      let o = {
+        'M+': $this.getMonth() + 1,
+        'd+': $this.getDate(),
+        'h+': $this.getHours(),
+        'm+': $this.getMinutes(),
+        's+': $this.getSeconds(),
+        'q+': Math.floor(($this.getMonth() + 3) / 3),
+        'S': $this.getMilliseconds()
+      }
+      if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, ($this.getFullYear() + '').substr(4 - RegExp.$1.length))
+      }
+      for (var k in o) {
+        if (new RegExp('(' + k + ')').test(fmt)) {
+          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
+        }
+      }
+      return fmt
     },
     confirmToBuy () {
-      let param = {
+      // let param = {
+      //   'appId': this.appId,
+      //   'mechostIp': this.mechostIp
+      // }
+      let sessionData = {
+        'orderId': 'aasaaadf',
+        'orderNum': 'No.202110152458',
+        'userId': 'aaa',
+        'userName': 'admin',
         'appId': this.appId,
-        'mechostIp': this.mechostIp
+        'appName': this.currentData.name,
+        'orderTime': this.formatter(new Date(), 'yyyy-MM-dd hh:mm'),
+        'operateTime': this.formatter(new Date(), 'yyyy-MM-dd hh:mm'),
+        'status': '0',
+        'mecHostIp': this.mechostIp,
+        'mecHostName': 'Node_E3_B2',
+        'mecHostCity': '广东省/深圳市/龙岗区'
       }
-      let userId = sessionStorage.getItem('userId')
-      subscribe.createOrder(userId, param).then(res => {
-        this.showSubDialog = false
-      })
+      sessionStorage.setItem('newOrder', JSON.stringify(sessionData))
+      this.$router.push('/orders')
+      // let userId = sessionStorage.getItem('userId')
+      // subscribe.createOrder(userId, param).then(res => {
+      //   this.showSubDialog = false
+      // })
     },
     getTableData () {
       let userId = null

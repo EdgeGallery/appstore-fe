@@ -83,7 +83,7 @@
                 </div>
                 <div
                   class="top_list_content"
-                  v-for="(item,index) in topAppList"
+                  v-for="(item,index) in lastAppList"
                   :key="index"
                 >
                   <div class="appname appname_last">
@@ -101,6 +101,10 @@
                   />
                 </div>
               </el-col>
+              <div class="mark_icon">
+                <span class="mark_icon_label num">销售数量</span>
+                <span class="mark_icon_label account">销售金额</span>
+              </div>
             </div>
           </el-col>
         </el-row>
@@ -131,7 +135,11 @@
           <el-table-column
             prop="billFlag"
             label="类型"
-          />
+          >
+            <template slot-scope="scope">
+              {{ scope.row.billFlag == 'OUT' ?'支出':'收入' }}
+            </template>
+          </el-table-column>
           <el-table-column
             prop="userName"
             label="用户名"
@@ -142,11 +150,15 @@
           />
           <el-table-column
             prop="operatorFee"
-            label="出账费用（运营商）"
+            label="入账费用"
           />
           <el-table-column
             prop="supplierFee"
-            label="出账费用（供应商）"
+            label="出账费用"
+          />
+          <el-table-column
+            prop="createTime"
+            label="刷新日期"
           />
         </el-table>
       </div>
@@ -181,30 +193,81 @@ export default {
       time: '',
       billList: [
         {
-          'billId': '',
-          'orderId': '',
-          'orderNum': '',
-          'userId': '',
-          'userName': '',
-          'billUserId': '',
-          'billUserName': '',
-          'appId': '',
-          'appName': '',
-          'provider': '',
-          'createTime': '',
-          'billFlag': '',
-          'billAmount': 353.00,
+          'billId': 'asd6-fer8-4hyn-8jkh',
+          'orderId': 'No.20210910158976',
+          'orderNum': 'No.20210910258976',
+          'userId': 'abcd-edfr-ehyd-ssss',
+          'userName': 'admin',
+          'billUserId': 'uuu',
+          'billUserName': 'Wenson',
+          'appId': 'aaasssddd',
+          'appName': '希迪智驾',
+          'provider': '希迪',
+          'createTime': '2021-10-24 01:00',
+          'billFlag': 'OUT',
+          'billAmount': 47500.00,
+          'operatorFee': 230.00,
+          'supplierFee': 123.00
+        },
+        {
+          'billId': 'asd6-fer8-4hyn-8jkh',
+          'orderId': 'No.20210910158976',
+          'orderNum': 'No.20210910258976',
+          'userId': 'abcd-edfr-ehyd-ssss',
+          'userName': 'admin',
+          'billUserId': 'uuu',
+          'billUserName': 'Wenson',
+          'appId': 'aaasssddd',
+          'appName': '云讯智能车牌识别系统',
+          'provider': '云讯',
+          'createTime': '2021-10-24 01:00',
+          'billFlag': 'OUT',
+          'billAmount': 368000.00,
+          'operatorFee': 230.00,
+          'supplierFee': 123.00
+        },
+        {
+          'billId': 'asd6-fer8-4hyn-8jkh',
+          'orderId': 'No.20210910158976',
+          'orderNum': 'No.20210910258976',
+          'userId': 'abcd-edfr-ehyd-ssss',
+          'userName': 'admin',
+          'billUserId': 'uuu',
+          'billUserName': 'Wenson',
+          'appId': 'aaasssddd',
+          'appName': '安恒WAF',
+          'provider': '安恒',
+          'createTime': '2021-10-24 01:00',
+          'billFlag': 'OUT',
+          'billAmount': 30000.00,
+          'operatorFee': 230.00,
+          'supplierFee': 123.00
+        },
+        {
+          'billId': 'asd6-fer8-4hyn-8jkh',
+          'orderId': 'No.20210910158976',
+          'orderNum': 'No.20210910258976',
+          'userId': 'abcd-edfr-ehyd-ssss',
+          'userName': 'admin',
+          'billUserId': 'uuu',
+          'billUserName': 'Wenson',
+          'appId': 'aaasssddd',
+          'appName': '河图应用',
+          'provider': '华为',
+          'createTime': '2021-10-24 01:00',
+          'billFlag': 'OUT',
+          'billAmount': 20002.00,
           'operatorFee': 230.00,
           'supplierFee': 123.00
         }
       ],
       overallData: [
         {
-          'value': 2000.00,
+          'value': 200000.00,
           'label': '收入'
         },
         {
-          'value': 12000.00,
+          'value': 80000.00,
           'label': '支出'
         }
       ],
@@ -212,15 +275,65 @@ export default {
       topAppList: [
         {
           'appId': '',
-          'appName': 'asdf',
+          'appName': '安恒WAF',
           'saleAmount': 20000.00,
-          'saleCount': 5
+          'saleCount': 20
         },
         {
           'appId': '',
-          'appName': 'asdf',
+          'appName': '希迪智驾',
           'saleAmount': 15000.00,
-          'saleCount': 6
+          'saleCount': 16
+        },
+        {
+          'appId': '',
+          'appName': '云讯智能车牌识别系统',
+          'saleAmount': 3000.00,
+          'saleCount': 9
+        },
+        {
+          'appId': '',
+          'appName': '工厂物语',
+          'saleAmount': 1800.00,
+          'saleCount': 8
+        },
+        {
+          'appId': '',
+          'appName': '魔幻相机',
+          'saleAmount': 1500.00,
+          'saleCount': 5
+        }
+      ],
+      lastAppList: [
+        {
+          'appId': '',
+          'appName': 'Zoneminder',
+          'saleAmount': 0.00,
+          'saleCount': 1
+        },
+        {
+          'appId': '',
+          'appName': 'Wordpress',
+          'saleAmount': 0.00,
+          'saleCount': 1
+        },
+        {
+          'appId': '',
+          'appName': 'Suduku',
+          'saleAmount': 0.00,
+          'saleCount': 2
+        },
+        {
+          'appId': '',
+          'appName': 'Cuber',
+          'saleAmount': 0.00,
+          'saleCount': 2
+        },
+        {
+          'appId': '',
+          'appName': '爱消除',
+          'saleAmount': 0.00,
+          'saleCount': 5
         }
       ]
     }
@@ -484,14 +597,14 @@ export default {
     .top_content{
       margin-bottom: 25px;
       .chart{
-        height: 300px;
+        height: 425px;
         border: 1px solid #dddddd;
         background: #2b137e;
         border-radius: 16px;
         padding: 20px;
       }
       .chart_top{
-        height: 50px;
+        height: 35px;
         color: #ffffff;
         .chart_title{
           font-size: 20px;
@@ -550,6 +663,25 @@ export default {
     }
     .name_label2::before{
       background: #ffcc01;
+    }
+    .mark_icon{
+      height: 40px;
+      margin: 5px 0;
+    }
+    .mark_icon_label::before{
+      content:'';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 6px;
+      position: relative;
+      top: 2px;
+    }
+    .num::before{
+      background: #34aaf5;
+    }
+    .account::before{
+      background: #fd8241;
     }
   }
 </style>

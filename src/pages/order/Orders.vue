@@ -39,7 +39,7 @@
             label="订单编号"
           />
           <el-table-column
-            prop="mechostName"
+            prop="mecHostName"
             label="节点名称"
           />
           <el-table-column
@@ -61,21 +61,38 @@
           <el-table-column
             prop="status"
             label="状态"
-          />
+          >
+            <template slot-scope="scope">
+              <span
+                v-if="scope.row.status=='3'"
+                style="color:#409EFF"
+              >
+                <el-button
+                  :loading="scope.row.status=='3'"
+                  class="activatingBtn"
+                >
+                  激活中
+                </el-button>
+              </span>
+              <span v-else>{{ scope.row.status=='0'?'待激活':(scope.row.status=='4'?'已退订':'已激活') }}</span>
+            </template>
+          </el-table-column>
           <el-table-column
             :label="$t('myApp.operation')"
           >
             <template slot-scope="scope">
               <div>
                 <el-button
-                  @click="activate(scope.row.orderId)"
+                  @click="activate(scope.row)"
                   class="operations_btn"
+                  :disabled="scope.row.status!=='0'"
                 >
                   激活
                 </el-button>
                 <el-button
-                  @click="deactivate(scope.row.orderId)"
+                  @click="deactivate(scope.row)"
                   class="operations_btn"
+                  :disabled="scope.row.status=='4'"
                 >
                   退订
                 </el-button>
@@ -98,7 +115,7 @@
 </template>
 
 <script>
-import { subscribe } from '../../tools/api.js'
+// import { subscribe } from '../../tools/api.js'
 export default {
   data () {
     return {
@@ -109,18 +126,46 @@ export default {
       nameQueryVal: '',
       orderList: [
         {
-          'orderId': '',
-          'orderNum': '',
-          'userId': '',
-          'userName': '',
-          'appId': '',
-          'appName': '',
-          'orderTime': '',
-          'operateTime': '',
-          'status': '',
-          'mecHostIp': '',
-          'mecHostName': '',
-          'mecHostCity': ''
+          'orderId': 'aasdf',
+          'orderNum': 'No.202110152458',
+          'userId': 'aaa',
+          'userName': 'Wenson',
+          'appId': 'asdlfkjl',
+          'appName': '希迪智驾',
+          'orderTime': '2021-10-25 14:31',
+          'operateTime': '2021-10-25 14:31',
+          'status': '4',
+          'mecHostIp': '119.8.47.5',
+          'mecHostName': 'Node_V7_12',
+          'mecHostCity': '陕西省/西安市/雁塔区'
+        },
+        {
+          'orderId': 'aasdf',
+          'orderNum': 'No.202110152458',
+          'userId': 'aaa',
+          'userName': 'Wenson',
+          'appId': 'asdlfkjl',
+          'appName': '兰亭VR',
+          'orderTime': '2021-10-15 12:21',
+          'operateTime': '2021-10-15 14:31',
+          'status': '1',
+          'mecHostIp': '119.8.63.45',
+          'mecHostName': 'Node_E3_B2',
+          'mecHostCity': '广东省/深圳市/龙岗区'
+        },
+        {
+          'orderId': 'aasdf',
+          'orderNum': 'No.202110152458',
+          'userId': 'aaa',
+          'userName': 'Wenson',
+          'appId': 'asdlfkjl',
+          'appName': '安恒WAF',
+          'orderTime': '2021-10-03 08:05',
+          'operateTime': '2021-10-25 14:31',
+          'status': '0',
+          'mecHostIp': '119.8.47.5',
+          'mecHostName': 'Node_V9_E3',
+          'mecHostCity': '广东省/深圳市/龙岗区'
         }
       ],
       param: {
@@ -140,6 +185,9 @@ export default {
     }
   },
   mounted () {
+    if (sessionStorage.getItem('newOrder')) {
+      this.orderList.push(JSON.parse(sessionStorage.getItem('newOrder')))
+    }
     this.getOrderList()
   },
   methods: {
@@ -153,19 +201,57 @@ export default {
       console.log(3)
     },
     getOrderList () {
-      subscribe.getOrderList(this.userId, this.param).then(res => {
-        this.orderList = res.data
-      })
+      // subscribe.getOrderList(this.userId, this.param).then(res => {
+      //   this.orderList = res.data
+      // })
     },
-    activate (id) {
-      subscribe.activateApp(this.userId, id).then(res => {
-        console.log(res)
+    activate (row) {
+      this.$confirm('确认激活 ' + row.appName + ' 应用？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message.success('操作成功！')
+        row.status = '3'
+        setTimeout(() => {
+          row.status = '1'
+        }, 2000)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })
       })
+
+      // subscribe.activateApp(this.userId, row.id).then(res => {
+      //   console.log(res)
+      // })
     },
-    deactivate (id) {
-      subscribe.deactivateApp(this.userId, id).then(res => {
-        console.log(res)
+    deactivate (row) {
+      this.$confirm('确认退订 ' + row.appName + ' 应用？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // this.orderList.forEach((item, index) => {
+        //   console.log(index)
+        //   if (item.appName === row.appName) {
+        //     console.log(index)
+        //     this.orderList.splice(index, 1)
+        //   }
+        // })
+        this.$message.success('退订成功！')
+        row.status = '4'
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })
       })
+
+      // subscribe.deactivateApp(this.userId, row.id).then(res => {
+      //   console.log(res)
+      // })
     }
   }
 }
@@ -211,5 +297,8 @@ export default {
     }
   }
 }
-
+.activatingBtn{
+  border: none !important;
+  color: #409EFF;
+}
 </style>

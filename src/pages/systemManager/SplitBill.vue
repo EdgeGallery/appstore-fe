@@ -8,7 +8,7 @@
       <div>
         <span>默认分账比例</span>
         <el-input-number
-          v-model="rate"
+          v-model="defaultrate"
           class="rate_input"
           ref="rateinput"
           :controls="false"
@@ -82,7 +82,7 @@
             <template slot-scope="scope">
               <div>
                 <el-button
-                  @click="modify(scope.row.appId)"
+                  @click="modify(scope.row)"
                   class="operations_btn"
                 >
                   修改
@@ -121,7 +121,7 @@
       <div style="margin-top:25px;">
         <el-form>
           <el-form-item label="应用名称">
-            <span>appName</span>
+            <span class="app_name">{{ appName }}</span>
           </el-form-item>
           <el-form-item label="分账比例">
             <el-input-number
@@ -178,30 +178,23 @@
           <el-table
             class="tableStyle"
             :data="appList"
+            @selection-change="handleSelectionChange"
           >
             <el-table-column
               type="selection"
               width="55"
             />
             <el-table-column
-              prop="orderNum"
-              label="订单编号"
+              prop="appName"
+              label="应用名称"
             />
             <el-table-column
-              prop="userName"
-              label="用户名称"
+              prop="provider"
+              label="厂商"
             />
             <el-table-column
-              prop="orderTime"
-              label="下单时间"
-            />
-            <el-table-column
-              prop="operateTime"
-              label="修改时间"
-            />
-            <el-table-column
-              prop="status"
-              label="状态"
+              prop="rate"
+              label="当前分账比例"
             />
           </el-table>
         </div>
@@ -225,7 +218,7 @@
 </template>
 
 <script>
-import { subscribe } from '../../tools/api.js'
+// import { subscribe } from '../../tools/api.js'
 export default {
   data () {
     return {
@@ -236,31 +229,52 @@ export default {
       nameQueryVal: '',
       splitBillList: [
         {
-          'appId': 'ALL',
-          'appName': 'asdf',
-          'provider': 'asdf',
+          'appId': 'sadfas',
+          'appName': '安恒WAF',
+          'provider': '安恒',
           'splitRatio': 0.15
         },
         {
           'appId': 'xxxxxxxxxxxx',
-          'appName': 'PCB检测',
-          'provider': 'Some Company',
+          'appName': '云讯智能车识别系统',
+          'provider': '云讯',
           'splitRatio': 0.25
         }
       ],
       appList: [
-        {}
+        {
+          appName: '兰亭VR',
+          provider: '兰亭数字',
+          rate: '0.15'
+        },
+        {
+          appName: '希迪智驾',
+          provider: '希迪智驾',
+          rate: '0.15'
+        },
+        {
+          appName: '华为河图',
+          provider: '河图',
+          rate: '0.15'
+        }
       ],
-      rate: 15,
+      defaultrate: 15,
+      rate: 0,
       splitBillDialog: false,
       showConfirmBtn: false,
       appId: '',
       splitRatio: 0,
       addSplitBillDialog: false,
-      userId: sessionStorage.getItem('userId')
+      userId: sessionStorage.getItem('userId'),
+      appName: '',
+      modifyIndex: ''
     }
   },
   methods: {
+    handleSelectionChange (val) {
+      console.log(val)
+      this.tempList = val
+    },
     sizeChange () {
       console.log(1)
     },
@@ -270,37 +284,60 @@ export default {
     queryApp () {
       console.log(3)
     },
-    modify (id) {
+    modify (row) {
+      this.splitBillList.forEach((item, index) => {
+        if (item.appName === row.appName) {
+          this.modifyIndex = index
+        }
+      })
+      this.splitRatio = row.splitRatio * 100
       this.splitBillDialog = true
-      this.appId = id
+      this.appId = row.appId
+      this.appName = row.appName
     },
     addNewSplitConfig () {
-      let param = {
-        splitRatio: this.splitRatio
+      // let param = {
+      //   splitRatio: this.splitRatio
+      // }
+      // subscribe.addSplitconfigs(this.userId, this.appId, param).then(res => {
+      //   this.addSplitBillDialog = false
+      // })
+      if (this.tempList.length < 1) {
+        this.$message.error('请至少添加一条数据！')
+      } else {
+        this.tempList.forEach(item => {
+          item.splitRatio = this.rate / 100
+          this.splitBillList.push(item)
+        })
       }
-      subscribe.addSplitconfigs(this.userId, this.appId, param).then(res => {
-        this.splitBillDialog = false
-      })
+      this.$message.success('添加成功！')
+      this.addSplitBillDialog = false
     },
     setAppBillRate () {
-      let param = {
-        splitRatio: this.splitRatio
-      }
-      subscribe.modifySplitconfigs(this.userId, this.appId, param).then(res => {
-        this.splitBillDialog = false
-      })
+      // let param = {
+      //   splitRatio: this.splitRatio
+      // }
+      // subscribe.modifySplitconfigs(this.userId, this.appId, param).then(res => {
+      //   this.splitBillDialog = false
+      // })
+      this.splitBillList[this.modifyIndex].splitRatio = this.splitRatio / 100
+      this.$message.success('设置成功！')
+      this.splitBillDialog = false
     },
     setRateVal () {
       this.$refs.rateinput.focus()
       this.showConfirmBtn = true
     },
-    modifyDefaultVal () {
-      let param = {
-        splitRatio: this.splitRatio
-      }
-      subscribe.modifyDefaultSplitconfigs(this.userId, param).then(res => {
-        this.showConfirmBtn = false
-      })
+    modifyDefaultVal (row) {
+      // let param = {
+      //   splitRatio: this.splitRatio
+      // }
+      // subscribe.modifyDefaultSplitconfigs(this.userId, param).then(res => {
+      //   this.showConfirmBtn = false
+      // })
+      row.splitRatio = this.splitRatio
+      this.$message.success('修改成功！')
+      this.showConfirmBtn = false
     }
   }
 }
@@ -351,15 +388,19 @@ export default {
     .percent{
       display: inline-block;
       position: relative;
-      left: -32px;
+      left: -37px;
     }
   }
   .rate_input{
     margin: 0 15px;
-    width: 60px;
+    width: 70px;
   }
   .billInputBox{
     margin: 15px 0;
+  }
+  .app_name{
+    line-height: 32px;
+    margin-left: 12px;
   }
 }
 </style>
