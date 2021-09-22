@@ -73,6 +73,7 @@
       <div
         class="app_score"
         style="position:relative;top:25px;margin-left:0;"
+        v-if="role==='tenant'||role==='admin'"
       >
         <p
           class="download_num"
@@ -569,7 +570,8 @@ export default {
           label: '广东省/深圳市/龙岗区'
         }
       ],
-      mechostIp: ''
+      mechostIp: '',
+      role: sessionStorage.getItem('userNameRole')
     }
   },
   watch: {
@@ -954,7 +956,7 @@ export default {
   .app_info_div{
     border-radius: 16px;
     background: #fff;
-    padding: 20px 70px;
+    padding: 20px 0 20px 70px;
     display: flex;
     align-items: center;
     .app_icon{
@@ -1033,8 +1035,9 @@ export default {
     }
 
     .app_score{
-      margin-left: 40%;
       width: 240px;
+      text-align: center;
+      float: right;
       .download_num{
         float: left;
         height: 26px;

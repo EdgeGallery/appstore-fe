@@ -642,9 +642,10 @@ export default {
   }
   .mark_chart{
     height: 40px;
+    line-height: 40px;;
     display: flex;
     justify-content: left;
-    font-size: 12px;
+    font-size: 16px;
     color:#ffffff;
     position: relative;
     top: -70px;
@@ -659,7 +660,7 @@ export default {
       height: 12px;
       border-radius: 12px;
       position: relative;
-      top: 2px;
+      top: 1px;
     }
     .name_label0::before{
       background: #05aefd;
