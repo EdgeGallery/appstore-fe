@@ -362,6 +362,7 @@ const cn = {
     download: '下载',
     synchronize: '同步',
     synchronizedwaiting: '需要一定时间上传应用包',
+    notSupportSynchronized: '暂时不支持此平台同步',
     comments: '评论',
     introduction: '应用详情',
     demo: '视频',
@@ -441,7 +442,15 @@ const cn = {
     tryAppDes: '请根据如下服务信息，结合应用描述中界面体验url进行体验',
     serviceNodeInfo: '服务节点信息',
     appdConversion: '应用包转换',
-    filterApp: '筛选应用'
+    filterApp: '筛选应用',
+    taskId: '任务 ID',
+    MeaoName: 'MEAO 名称',
+    MeaoUrl: 'MEAO 访问地址',
+    taskCreateTime: '任务创建时间',
+    taskStatus: '任务状态',
+    taskProgress: '任务进度',
+    synchronizeToMeao: '同步到 MEAO'
+
   },
   docs: {
     // step1: '开源MEP平台',

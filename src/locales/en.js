@@ -348,6 +348,7 @@ const en = {
     download: 'Download',
     synchronize: 'Synchronize',
     synchronizedwaiting: 'Uploading package takes a long time.',
+    notSupportSynchronized: 'Not support synchronized pacakge',
     comments: 'Comments',
     introduction: 'Application Details',
     demo: 'Video',
@@ -420,7 +421,14 @@ const en = {
     tryAppDes: 'Please experience with the interface experience url in the application description according to the following service information',
     serviceNodeInfo: 'Service Node Info',
     appdConversion: 'Appd Conversion',
-    filterApp: 'Filter App'
+    filterApp: 'Filter App',
+    taskId: 'Task ID',
+    MeaoName: 'MEAO Name',
+    MeaoUrl: 'MEAO Url',
+    taskCreateTime: 'TaskCreateTime',
+    taskStatus: 'TaskStatus',
+    taskProgress: 'TaskProgress',
+    synchronizeToMeao: 'Synchronize To MEAO'
   },
   docs: {
     step1: 'Open source MEP platform',

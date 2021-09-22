@@ -186,13 +186,13 @@
     <div
       class="app_content"
     >
-      <div
-        v-if="noAppShowPage"
-      >
+      <div>
         <ul class="list_top clear">
           <li
             @click="activeName='appDetail'"
-            :class="{'appDetail_active':activeName==='appDetail','appDetail_default':activeName==='comment','appDetail_default2':activeName==='comment','appDetail_default3':activeName==='vedio'}"
+            :class="{'appDetail_active':activeName==='appDetail','appDetail_default':activeName==='comment','appDetail_default2':activeName==='comment',
+                     'appDetail_default3':activeName==='vedio' || activeName==='appShow' || activeName==='meao',
+                     'appDetail_default2_meao_no_Appshow':ifExperience===false && activeName==='meao'}"
           >
             <span>
               <em />{{ $t('store.introduction') }}
@@ -200,7 +200,12 @@
           </li>
           <li
             @click="activeName='comment'"
-            :class="{'comment_active':activeName==='comment','comment_default':activeName==='appDetail','comment_default2':activeName==='vedio'}"
+            :class="{'comment_active':activeName==='comment','comment_default':activeName==='appDetail',
+                     'comment_default2_appShow_meao':ifSynchronize === true && ifExperience===true && activeName==='appShow',
+                     'comment_default2':ifExperience === false && activeName==='meao', 'comment_default_appShow_nomeao':ifSynchronize === false && activeName==='appShow',
+                     'comment_default_no_appShow_meao':ifSynchronize === false && ifExperience===false && activeName==='vedio',
+                     'comment_default_meao_noAppShow':ifExperience === false && activeName==='meao',
+                     'comment_default_vedio_noappShow':ifExperience === false && ifSynchronize === true && activeName ==='vedio'}"
           >
             <span>
               <link-right
@@ -210,89 +215,108 @@
                 class="link-right"
               />
               <em />{{ $t('store.comments') }}
-            </span>
-          </li>
-          <li
-            @click="activeName='vedio'"
-            :class="{'vedio_active_notry':activeName==='vedio','vedio_default_notry':activeName!=='vedio', 'vedio_default_notry1':activeName==='comment'}"
-          >
-            <span>
-              <link-right
-                v-if="activeName!=='vedio' && activeName!=='comment'"
-                padding-right="5px"
-                margin="5px"
-                class="link-right"
-              />
-              <em />{{ $t('store.demo') }}
-            </span>
-          </li>
-          <li
-            class="last_li"
-            :class="{'appShow_active':activeName==='vedio','last_default':activeName!=='vedio','last_default2':activeName==='vedio'}"
-          >
-            <span />
-          </li>
-        </ul>
-      </div>
-      <div
-        v-if="appShowPage"
-      >
-        <ul class="list_top clear">
-          <li
-            @click="activeName='appDetail'"
-            :class="{'appDetail_active':activeName==='appDetail','appDetail_default':activeName==='comment','appDetail_default2':activeName==='comment','appDetail_default3':activeName==='vedio' || activeName==='appShow'}"
-          >
-            <span>
-              <em />{{ $t('store.introduction') }}
-            </span>
-          </li>
-          <li
-            @click="activeName='comment'"
-            :class="{'comment_active':activeName==='comment','comment_default':activeName==='appDetail','comment_default2':activeName==='vedio'}"
-          >
-            <span>
-              <link-right
-                v-if="activeName !=='appDetail' && activeName !== 'comment'"
-                padding-right="5px"
-                margin="5px"
-                class="link-right"
-              />
-              <em />{{ $t('store.comments') }}
-            </span>
-          </li>
-          <li
-            @click="activeName='vedio'"
-            :class="{'vedio_active':activeName==='vedio','vedio_default':activeName!=='vedio','vedio_default2':activeName==='appShow', 'vedio_default3':activeName==='comment'}"
-          >
-            <span>
-              <link-right
-                v-if="activeName!=='vedio' && activeName!=='comment'"
-                padding-right="5px"
-                margin="5px"
-                class="link-right"
-              />
-              <em />{{ $t('store.demo') }}
             </span>
           </li>
           <li
             v-if="ifExperience"
             @click="activeName='appShow'"
-            :class="{'appShow_active':activeName==='appShow','appShow_default':activeName!=='appShow','appShow_default2':activeName==='comment','appShow_default3':activeName==='vedio'}"
+            :class="{'appShow_active':activeName==='appShow','appShow_no_active':activeName !=='appShow','appShow_default_meao':activeName ==='meao',
+                     'appShow_default':activeName==='comment','appShow_default3':activeName==='meao','appShow_default3':ifSynchronize===false && activeName==='vedio',
+                     'appShow_default_vedio':ifSynchronize===true && activeName==='vedio'}"
           >
             <span>
               <link-right
-                v-if="activeName!=='appShow' && activeName!=='vedio'"
-                padding-right="5px"
+                v-if="activeName!=='appShow'&& ifSynchronize===false && ifExperience===true && activeName !=='comment'"
+                padding-right="8px"
+                margin="5px"
+                class="link-right"
+              />
+              <link-right
+                v-if="ifSynchronize===true && ifExperience===false && activeName !=='comment'"
+                padding-right="8px"
+                margin="5px"
+                class="link-right"
+              />
+              <link-right
+                v-if="activeName!=='appShow'&& ifExperience === true && ifSynchronize===true && activeName !=='comment'"
+                padding-right="8px"
                 margin="5px"
                 class="link-right"
               />
               <em />{{ $t('store.showOnline') }}
             </span>
           </li>
+          <li
+            v-if="ifSynchronize"
+            @click="activeName='meao'"
+            :class="{'meao_active':activeName==='meao','meao_default':activeName ==='appShow','meao_default_comment_noappShow':ifExperience === false && activeName ==='comment',
+                     'meao_default_vedio_noappShow':ifExperience === false && activeName ==='vedio',
+                     'meao_default_vedio_appShow':ifExperience === true && activeName ==='vedio',
+                     'meao_default_comment':activeName ==='comment'}"
+          >
+            <span>
+              <link-right
+                v-if="activeName!=='meao' && ifSynchronize===false && ifExperience===true && activeName !=='appShow'"
+                padding-right="5px"
+                margin="5px"
+                class="link-right"
+              />
+              <link-right
+                v-if="activeName!=='meao'&& ifExperience === true && ifSynchronize===true && activeName !=='appShow'"
+                padding-right="5px"
+                margin="5px"
+                class="link-right"
+              />
+              <link-right
+                v-if="ifSynchronize===true && ifExperience===false && activeName !=='comment' && activeName !=='meao'"
+                padding-right="8px"
+                margin="5px"
+                class="link-right"
+              />
+              <em />{{ $t('store.synchronizeToMeao') }}
+            </span>
+          </li>
+          <li
+            @click="activeName='vedio'"
+            :class="{'vedio_active':activeName==='vedio','vedio_default_appshow':activeName ==='appShow','vedio_default':activeName !=='vedio',
+                     'vedio_default2_appShow_meao': ifExperience===true && ifSynchronize == true &&activeName==='meao',
+                     'vedio_default2':ifSynchronize===false && activeName==='appShow',
+                     'vedio_default2_no_AppshowMeao':ifSynchronize===false && ifExperience===false && activeName==='comment',
+                     'vedio_default2_meao_no_Appshow':ifExperience===false && activeName==='meao',
+                     'vedio_default2_comment_no_Appshow':ifExperience===false && ifSynchronize ===true && activeName==='comment'}"
+          >
+            <span>
+              <link-right
+                v-if="ifSynchronize===false && ifExperience === true && activeName !== 'appShow' && activeName !=='vedio'"
+                padding-right="8px"
+                margin="6px"
+                class="link-right"
+              />
+              <link-right
+                v-if="ifSynchronize===true && ifExperience === true && activeName !=='vedio' && activeName !=='meao'"
+                padding-right="8px"
+                margin="6px"
+                class="link-right"
+              />
+              <link-right
+                v-if="ifSynchronize===false && ifExperience === false && activeName ==='appDetail'"
+                padding-right="8px"
+                margin="6px"
+                class="link-right"
+              />
+              <link-right
+                v-if="ifSynchronize===true && ifExperience===false && activeName !=='vedio'&& activeName !=='meao'"
+                padding-right="8px"
+                margin="5px"
+                class="link-right"
+              />
+              <em />{{ $t('store.demo') }}
+            </span>
+          </li>
 
           <li
             class="last_li"
-            :class="{'appShow_active':activeName==='appShow','last_default':activeName!=='appShow','last_default2':activeName==='appShow'}"
+            :class="{'appShow_active':activeName==='vedio','last_default':activeName!=='vedio','last_default2':activeName==='vedio'}"
           >
             <span />
           </li>
@@ -312,17 +336,23 @@
           :app-id="this.appId"
           ref="appComments"
         />
-        <appVideo
-          v-show="activeName==='vedio'"
-          :player-options="this.playerOptions"
-          ref="appVideo"
-        />
         <appShowOnline
           v-show="activeName==='appShow'"
           :package-id="this.packageId"
           :app-id="this.appId"
           :if-experience="this.ifExperience"
           ref="appShowOnline"
+        />
+        <synchronizeMeao
+          v-show="activeName==='meao'"
+          :package-id="this.packageId"
+          :current-data="this.currentData"
+          ref="synchronizeMeao"
+        />
+        <appVideo
+          v-show="activeName==='vedio'"
+          :player-options="this.playerOptions"
+          ref="appVideo"
         />
       </div>
     </div>
@@ -432,12 +462,10 @@ import appIntroduction from './AppIntroduction.vue'
 import appComments from './AppComments.vue'
 import appVideo from './AppVideo.vue'
 import appShowOnline from './AppShowOnline.vue'
+import synchronizeMeao from './SynchronizeMeao.vue'
 import {
-  // getCommentsApi,
   getAppDetailTableApi,
-  // submitAppCommentApi,
   downloadAppPakageApi,
-  synchronizedPakageApi,
   URL_PREFIX,
   URL_PREFIXV2,
   getAppListApi,
@@ -454,12 +482,13 @@ export default {
     appIntroduction,
     appComments,
     appVideo,
-    appShowOnline
+    appShowOnline,
+    synchronizeMeao
   },
   data () {
     return {
       noAppShowPage: false,
-      appShowPage: false,
+      appShowPage: true,
       MEAO: MEAO,
       stepApp: [
       ],
@@ -479,14 +508,13 @@ export default {
       isDownloadImage: false,
       isShowDownload: false,
       currentData: { },
-      // activeName: 'introduction',
       comments: {
         score: 0,
         message: ''
       },
 
       historyComentsList: [],
-      source: '',
+      source: 'this is test',
       appIconPath: '',
       playerOptions: {
         muted: false,
@@ -558,16 +586,6 @@ export default {
       let language = localStorage.getItem('language')
       this.language = language
       this.checkProjectData()
-    },
-    ifExperience (newVal) {
-      this.ifExperience = newVal
-      if (this.ifExperience) {
-        this.noAppShowPage = false
-        this.appShowPage = true
-      } else {
-        this.noAppShowPage = true
-        this.appShowPage = false
-      }
     }
 
   },
@@ -650,6 +668,7 @@ export default {
             this.ifExperience = item.experienceAble
             console.log(this.ifExperience)
             this.packageId = item.packageId
+            console.log(this.packageId)
           }
         })
         this.handleTableTada(data)
@@ -658,12 +677,8 @@ export default {
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
           this.ifExperience = this.currentData.experienceAble
-          if (this.ifExperience) {
-            this.noAppShowPage = false
-            this.appShowPage = true
-          } else {
-            this.noAppShowPage = true
-            this.appShowPage = false
+          if (sessionStorage.getItem('userNameRole') === 'tenant' && this.userId !== this.currentData.userId) {
+            this.ifSynchronize = false
           }
           console.log(this.currentData)
           this.checkProjectData()
@@ -738,64 +753,7 @@ export default {
       this.ifDownloadImage(this.currentData, row)
       this.getAppData()
     },
-    handleClick (index) {
-      console.log(index)
-      if (index === 0) {
-        this.synchronizePackage(this.currentData)
-      } else if (index === 1) {
-        console.log(this.jzyinterval)
-        this.synchronizeJzy()
-      }
-      this.showlun = true
-    },
-    synchronizeJzy () {
-      this.startSync = true
-      this.jzyMEAO = true
-      this.jiuzhouyunper = 10
-      this.jzyinterval = setInterval(() => {
-        if (this.jiuzhouyunper < 100) {
-          this.jiuzhouyunper += 10
-        }
-      }, 6000)
-    },
-    clearInterval () {
-      clearTimeout(this.jzyinterval)
-      clearTimeout(this.hwinterval)
-      this.jzyinterval = null
-      this.hwinterval = null
-    },
-    synchronizePackage (row) {
-      console.log(row)
-      synchronizedPakageApi(this.appId, row).then(res => {
-        this.startSync = true
-        this.hwMeAO = true
-        this.huaweiper = 10
-        this.hwinterval = setInterval(() => {
-          if (this.huaweiper < 100) {
-            this.huaweiper += 10
-          }
-        }, 6000)
-        this.$message({
-          duration: 2000,
-          message: this.$t('store.synchronizedwaiting'),
-          type: 'success'
-        })
-        this.getAppData()
-      }).catch(error => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.operationFailed'),
-            type: 'warning'
-          })
-        }
-      })
-    },
+
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {
         if (this.language === 'cn') {
@@ -890,6 +848,7 @@ export default {
     } else {
       this.ifDownload = true
     }
+
     let params = this.$route.params.item
       ? this.$route.params.item
       : JSON.parse(sessionStorage.getItem('appstordetail'))
@@ -919,7 +878,13 @@ export default {
     this.getTableData()
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
     this.checkProjectData()
-    console.log(this.ifExperience)
+    console.log(this.currentData.userId)
+    console.log(this.packageId)
+    if ((sessionStorage.getItem('userNameRole') === 'guest')) {
+      this.ifSynchronize = false
+    } else {
+      this.ifSynchronize = true
+    }
   }
 }
 </script>
@@ -1063,6 +1028,7 @@ export default {
     }
 
     .app_score{
+      margin-left: 40%;
       width: 240px;
       .download_num{
         float: left;
@@ -1095,19 +1061,20 @@ export default {
       }
       .batchProButton{
         float: left;
-        width: 100%;
+        width: 120px;
         margin-left: 35px;
         margin-top: 10px;
         text-align: center;
-        height: 54px !important;
-        width: 160px !important;
+        height: 40px !important;
+        width: 120px !important;
+        font-size:20px !important;
         border-radius: 25px !important;
          color: #FFFFFF;
         font-family: HarmonyHeiTi;
         font-weight: 300;
-        box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
+        // box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
         .el-button--primary{
-          font-size: 24px;
+          font-size: 20px;
           background-color: #fff;
           border: none;
           color: #FFFFFF;
@@ -1197,7 +1164,7 @@ export default {
           display: block;
           width: 100%;
           height: 100%;
-          padding: 0 30px;
+          padding: 0 26px;
           font-size: 20px;
           color: #fff;
           transition: all 0.1s;
@@ -1244,6 +1211,15 @@ export default {
           transition: all 0.1s;
         }
       }
+      .appDetail_default2_meao_no_Appshow{
+        background: #fff;
+        border-radius: 16px 0 0 0;
+        span{
+          background: #d4d1ec;
+          border-radius: 16px 0 0 0;
+          transition: all 0.1s;
+        }
+      }
       .appDetail_default3{
         background: #d4d1ec;
         border-radius: 16px 0 0 0;
@@ -1272,11 +1248,56 @@ export default {
           transition: all 0.1s;
         }
       }
-      .comment_default2{
+      .comment_default2_appShow_meao{
         background: #fff;
         span{
           background: #d4d1ec;
           border-radius: 0 0 16px 0;
+          transition: all 0.1s;
+        }
+      }
+      .comment_default_appShow_nomeao{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 16px 0;
+          transition: all 0.1s;
+        }
+      }
+      .comment_default_meao_noAppShow{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 16px 0;
+          transition: all 0.1s;
+        }
+      }
+      .comment_default_no_appShow_meao{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 16px 0;
+        }
+      }
+      .comment_default_vedio_noappShow{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 0;
+        }
+      }
+      .appShow_default_vedio{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 0;
+        }
+      }
+      .comment_default_meao{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 0;
         }
       }
       .last_li.last_active{
@@ -1304,7 +1325,7 @@ export default {
       }
       .appShow_active{
         background: #d4d1ec;
-        border-radius: 0 16px 0 0;
+        border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
           background: #fff;
@@ -1313,16 +1334,40 @@ export default {
           transition: all 0.1s;
         }
       }
-      .appShow_default{
-        background: #f4f3f7;
-        border-radius: 0 16px 0 0;
+      .appShow_no_active{
+         background: #f4f3f7;
+         border-radius: 0 0 0 0;
+        // border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
           background: #d4d1ec;
-          border-radius: 0 16px 0 0px;
+          border-radius: 0 0 0 0;
           transition: all 0.1s;
         }
-
+      }
+      .appShow_default{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 16px;
+          transition: all 0.1s;
+        }
+      }
+      .appShow_default_meao{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 16px 0;
+          transition: all 0.1s;
+        }
+      }
+      .meao_default_comment{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 0;
+          transition: all 0.1s;
+        }
       }
       .appShow_default2{
         background: #f3f1f7;
@@ -1338,13 +1383,100 @@ export default {
         transition: all 0.1s;
         span{
           background: #d4d1ec;
-          border-radius: 0 16px 0 16px;
+          border-radius: 0 0 16px 0;
           transition: all 0.1s;
         }
       }
-      .vedio_active{
+      .meao_active{
         background: #d4d1ec;
         border-radius: 0 0 0 0;
+        transition: all 0.1s;
+        span{
+          background: #fff;
+          border-radius: 16px 16px 0 0;
+          color: #5e40c8;
+          transition: all 0.1s;
+        }
+      }
+      .meao_default{
+       background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 16px;
+          transition: all 0.1s;
+        }
+      }
+      .vedio_default_appshow{
+        background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 0;
+          transition: all 0.1s;
+        }
+      }
+      .meao_default_comment_noappShow{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 16px;
+        }
+
+      }
+      .meao_default_vedio_noappShow{
+        background: #f4f3f7;
+        border-radius: 0 0 0 16px;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 16px 0;
+          transition: all 0.1s;
+        }
+      }
+      .meao_default_vedio_appShow{
+        background: #fff;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 16px 0;
+          transition: all 0.1s;
+        }
+      }
+      .meao_no_active{
+         background: #f4f3f7;
+         border-radius: 0 0 0 0;
+        // border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 0 0 0;
+          transition: all 0.1s;
+        }
+
+      }
+      .meao_default2{
+        background: #f3f1f7;
+        border-radius: 0 0 0 16px;
+
+        span{
+          border-radius: 0 16px 0 0;
+        }
+      }
+      .meao_default3{
+        background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 16px;
+          transition: all 0.1s;
+        }
+        }
+      .vedio_active{
+        background: #d4d1ec;
+        border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
           background: #fff;
@@ -1359,18 +1491,58 @@ export default {
         transition: all 0.1s;
         span{
           background: #d4d1ec;
-          border-radius: 0 0 0 0;
+          border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
 
       }
       .vedio_default2{
        background: #fff;
-        border-radius: 0 0 0 0;
+        border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
           background: #d4d1ec;
-          border-radius: 0 0 16px 0px;
+          border-radius: 0 16px 0 16px;
+          transition: all 0.1s;
+        }
+      }
+      .vedio_default2_appShow_meao{
+       background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 16px;
+          transition: all 0.1s;
+        }
+      }
+      .vedio_default2_no_AppshowMeao{
+       background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 16px;
+          transition: all 0.1s;
+        }
+      }
+      .vedio_default2_meao_no_Appshow{
+       background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 16px;
+          transition: all 0.1s;
+        }
+      }
+      .vedio_default2_comment_no_Appshow{
+       background: #fff;
+        border-radius: 0 16px 0 0;
+        transition: all 0.1s;
+        span{
+          background: #d4d1ec;
+          border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
       }
@@ -1673,9 +1845,7 @@ export default {
     left: 110px;
     top:-20px;
 }
-.el-progress-bar__inner{
-  background: linear-gradient(-37deg, #53DABD, #54AAF3);
-}
+
 .el-progress-bar__outer{
   box-shadow: 2px 2px 12px 0px rgba(36, 20, 119, 0.13);
 }

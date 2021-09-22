@@ -664,7 +664,6 @@ export default {
     // message listener, message from unified platform
     window.addEventListener('message', (event) => {
       var data = event.data
-      console.log('handleMessage, message info: ' + JSON.stringify(data))
       switch (data.cmd) {
         case 'iframeLanguageChange':
           let lang = data.params.lang

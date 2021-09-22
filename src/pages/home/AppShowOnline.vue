@@ -226,13 +226,7 @@ export default {
       name: '',
       ip: '',
       nodePort: '',
-      experienceData: [
-        {
-          serviceName: '',
-          nodePort: '',
-          mecHost: ''
-        }
-      ],
+      experienceData: [],
       btnInstantiate: false,
       btnClean: true,
       deployStatus: 'NOTDEPLOY',
@@ -334,10 +328,15 @@ export default {
       this.tip33 = true
       if (experienceInfo.data) {
         let tmpExperienceData = experienceInfo.data.split(':')
-        console.log(tmpExperienceData)
-        this.experienceData[0].serviceName = tmpExperienceData[0]
-        this.experienceData[0].nodePort = tmpExperienceData[1] === '' ? this.$t('promptMessage.uninvolved') : tmpExperienceData[1]
-        this.experienceData[0].mecHost = tmpExperienceData[2]
+        let data = {
+          serviceName: '',
+          nodePort: '',
+          mecHost: ''
+        }
+        data.serviceName = tmpExperienceData[0]
+        data.nodePort = tmpExperienceData[1] === '' ? this.$t('promptMessage.uninvolved') : tmpExperienceData[1]
+        data.mecHost = tmpExperienceData[2]
+        this.experienceData.push(data)
         this.displayDom = true
       }
       this.handleUploadSuccess()
