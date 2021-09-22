@@ -182,19 +182,19 @@
               <div>
                 <el-button
                   class="operation_button"
-                  :disabled="scope.row.status !== 'Test_success'"
-                  @click="beforePublishPackage(scope.row)"
-                  type="text"
-                >
-                  {{ $t('myApp.publish') }}
-                </el-button>
-                <el-button
-                  class="operation_button"
                   :disabled="scope.row.status == 'Published'"
                   @click="testMessage(scope.row)"
                   type="text"
                 >
                   {{ $t('myApp.test') }}
+                </el-button>
+                <el-button
+                  class="operation_button"
+                  :disabled="scope.row.status !== 'Test_success'"
+                  @click="beforePublishPackage(scope.row)"
+                  type="text"
+                >
+                  {{ $t('myApp.publish') }}
                 </el-button>
                 <el-dropdown>
                   <el-button
