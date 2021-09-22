@@ -108,8 +108,8 @@
               type="line"
               :stroke-width="14"
               :percentage="scope.row.progress"
-              :color="customColorFormat"
               :format="format"
+              :class="{'el-progress_error':scope.row.status==='failed','el-progress_inner':scope.row.status !== 'failed'}"
             />
           </template>
         </el-table-column>
@@ -183,25 +183,28 @@ export default {
       }
       return percentage === 100 ? '完成' : `${percentage}%`
     },
-    customColorFormat (percentage) {
-      for (let item of this.testColor) {
-        if (item.color === true && item.percentage === percentage) {
-          return '#F14949'
-        } else {
-          return '#53DABD'
-        }
-      }
-    },
     filterTagTable (filters) {
       this.systemName = filters
       console.log(this.systemName)
     },
     filterMEAO (value, row, column) {
       const property = column['property']
+      if (row[property] === value) {
+        this.nameCount++
+      }
+      console.log(this.nameCount)
+      this.total = this.nameCount
+      this.statusCount = 0
       return row[property] === value
     },
     filterStatus (value, row, column) {
       const property = column['property']
+      if (row[property] === value) {
+        this.statusCount++
+      }
+      this.total = this.statusCount
+      this.nameCount = 0
+      console.log(this.statusCount)
       return row[property] === value
     },
     getThirdSystemByType () {
@@ -372,7 +375,7 @@ export default {
         }
       }
       console.log(this.tableData)
-      console.log(typeof (this.tableData))
+      console.log(this.testColor)
     },
     dateChange (dateStr) {
       if (dateStr) {
@@ -472,8 +475,13 @@ export default {
       font-size: 14px;
       color: #5E40C8;
     }
-    .el-progress-bar__inner {
-    opacity: 0.85;
+    .el-progress_inner .el-progress-bar__inner {
+      background: linear-gradient(-37deg, #53DABD, #54AAF3);
+      // opacity: 0.85;
+    }
+    .el-progress_error .el-progress-bar__inner{
+      background: linear-gradient(-37deg, #FF3232, #FF6F3F);
+      // opacity: 0.85;
     }
 }
 

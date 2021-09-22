@@ -386,8 +386,8 @@ function downloadAppPakageApi (appId, row, isDownloadImage) {
   window.open(URL)
 }
 
-function synchronizedPakageApi (appId, row) {
-  let url = 'apps/' + appId + '/packages/' + row.packageId + '/action/sync'
+function synchronizedPakageApi (currentData) {
+  let url = 'apps/' + currentData.appId + '/packages/' + currentData.packageId + '/action/sync'
   return GET(url)
 }
 
