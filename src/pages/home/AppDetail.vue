@@ -72,7 +72,7 @@
       </div>
       <div
         class="app_score"
-        style="position:relative;top:25px;width:318px;"
+        style="position:relative;top:25px;margin-left:0;"
       >
         <p
           class="download_num"
@@ -90,7 +90,7 @@
           </el-button>
         </p>
       </div>
-      <div class="app_synchronize">
+      <!-- <div class="app_synchronize">
         <p class="synchronize_info">
           可同步应用到MEAO，可方便对应用生命周期进行管理
         </p>
@@ -157,7 +157,7 @@
             </el-dropdown-menu>
           </el-dropdown>
         </div>
-      </div>
+      </div> -->
       <div class="app_score">
         <p class="score_num">
           {{ score }}
@@ -565,7 +565,7 @@ export default {
           label: '陕西省/西安市/雁塔区'
         },
         {
-          value: '119.8.63.45',
+          value: '192.168.1.38',
           label: '广东省/深圳市/龙岗区'
         }
       ],
@@ -646,9 +646,14 @@ export default {
         'operateTime': this.formatter(new Date(), 'yyyy-MM-dd hh:mm'),
         'status': '0',
         'mecHostIp': this.mechostIp,
-        'mecHostName': 'Node_E3_B2',
+        'mecHostName': 'Node_E6_B8',
         'mecHostCity': '广东省/深圳市/龙岗区'
       }
+      this.options.forEach(item => {
+        if (item.value === this.mechostIp) {
+          sessionData.mecHostCity = item.label
+        }
+      })
       sessionStorage.setItem('newOrder', JSON.stringify(sessionData))
       this.$router.push('/orders')
       // let userId = sessionStorage.getItem('userId')
@@ -1060,9 +1065,7 @@ export default {
         }
       }
       .batchProButton{
-        float: left;
         width: 120px;
-        margin-left: 35px;
         margin-top: 10px;
         text-align: center;
         height: 40px !important;
@@ -1839,11 +1842,6 @@ export default {
 }
 .el-carousel__indicators {
     display: none;
-}
-.el-progress-bar__outer {
-    position: relative;
-    left: 110px;
-    top:-20px;
 }
 
 .el-progress-bar__outer{

@@ -65,16 +65,18 @@
                   <div class="appname">
                     {{ (index+1) +'.'+item.appName }}
                   </div>
-                  <el-progress
-                    :percentage="item.saleCount"
-                    color="#34aaf5"
-                    :format="formatCount(item.saleCount)"
-                  />
-                  <el-progress
-                    :percentage="item.saleAmount/1000"
-                    color="#fde166"
-                    :format="formatAmount(item.saleAmount)"
-                  />
+                  <div>
+                    <el-progress
+                      :percentage="item.saleCount"
+                      color="#34aaf5"
+                      :format="formatCount(item.saleCount)"
+                    />
+                    <el-progress
+                      :percentage="item.saleAmount/1000"
+                      color="#fde166"
+                      :format="formatAmount(item.saleAmount)"
+                    />
+                  </div>
                 </div>
               </el-col>
               <el-col :span="12">
@@ -101,10 +103,14 @@
                   />
                 </div>
               </el-col>
-              <div class="mark_icon">
-                <span class="mark_icon_label num">销售数量</span>
-                <span class="mark_icon_label account">销售金额</span>
-              </div>
+              <el-row>
+                <el-col :span="12">
+                  <div class="mark_icon">
+                    <span class="mark_icon_label num">销售数量</span>
+                    <span class="mark_icon_label account">销售金额</span>
+                  </div>
+                </el-col>
+              </el-row>
             </div>
           </el-col>
         </el-row>
@@ -597,7 +603,7 @@ export default {
     .top_content{
       margin-bottom: 25px;
       .chart{
-        height: 425px;
+        height: 465px;
         border: 1px solid #dddddd;
         background: #2b137e;
         border-radius: 16px;
@@ -664,24 +670,33 @@ export default {
     .name_label2::before{
       background: #ffcc01;
     }
-    .mark_icon{
-      height: 40px;
-      margin: 5px 0;
+  }
+
+    .mark_icon_label{
+      height: 32px;
+      color: #fff;
     }
     .mark_icon_label::before{
       content:'';
       display: inline-block;
-      width: 6px;
-      height: 6px;
-      border-radius: 6px;
+      width: 15px;
+      height: 15px;
+      border-radius: 15px;
       position: relative;
       top: 2px;
     }
+
     .num::before{
       background: #34aaf5;
+      margin: 0 8px 0 5px;
     }
     .account::before{
       background: #fd8241;
+      margin: 0 8px 0 30px;
     }
-  }
+    .mark_icon{
+      height: 40px;
+      line-height: 40px;
+      margin: 5px 0;
+    }
 </style>
