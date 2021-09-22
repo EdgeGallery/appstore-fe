@@ -74,7 +74,10 @@
         class="app_score"
         style="position:relative;top:25px;width:318px;"
       >
-        <p class="download_num">
+        <p
+          class="download_num"
+          style="color:#ff5c02;"
+        >
           1.99元（RMB）/小时
         </p>
         <p class="score_btn">
