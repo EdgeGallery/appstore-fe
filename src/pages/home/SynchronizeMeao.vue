@@ -189,15 +189,22 @@ export default {
     },
     filterMEAO (value, row, column) {
       const property = column['property']
+      if (row[property] === value) {
+        this.nameCount++
+      }
+      console.log(this.nameCount)
+      this.total = this.nameCount
+      this.statusCount = 0
       return row[property] === value
     },
     filterStatus (value, row, column) {
       const property = column['property']
       if (row[property] === value) {
-        this.count++
+        this.statusCount++
       }
-      console.log(this.count)
-      this.total = this.count
+      this.total = this.statusCount
+      this.nameCount = 0
+      console.log(this.statusCount)
       return row[property] === value
     },
     getThirdSystemByType () {
