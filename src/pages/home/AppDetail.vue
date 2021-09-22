@@ -70,6 +70,94 @@
           </span>
         </p>
       </div>
+      <div
+        class="app_score"
+        style="position:relative;top:25px;width:318px;"
+      >
+        <p
+          class="download_num"
+          style="color:#ff5c02;"
+        >
+          1.99元（RMB）/小时
+        </p>
+        <p class="score_btn">
+          <el-button
+            type="primary"
+            class="batchProButton"
+            @click="beforeBuyIt()"
+          >
+            订购
+          </el-button>
+        </p>
+      </div>
+      <div class="app_synchronize">
+        <p class="synchronize_info">
+          可同步应用到MEAO，可方便对应用生命周期进行管理
+        </p>
+        <div
+          class="stepApp"
+          v-if="showlun"
+        >
+          <el-carousel
+            :interval="5000"
+            arrow="always"
+          >
+            <el-carousel-item v-if="hwMeAO">
+              <p
+                class="stepNames"
+              >
+                {{ language === 'cn'?this.MEAO[0].labelcn:this.MEAO[0].labelen }}
+              </p>
+              <el-progress
+                :text-inside="true"
+                :stroke-width="14"
+                :percentage="huaweiper"
+                style="width:116px;"
+              />
+            </el-carousel-item>
+            <el-carousel-item v-if="jzyMEAO">
+              <p
+                class="stepNames"
+              >
+                {{ language === 'cn'?this.MEAO[1].labelcn:this.MEAO[1].labelen }}
+              </p>
+              <el-progress
+                :text-inside="true"
+                :stroke-width="14"
+                :percentage="jiuzhouyunper"
+                style="width:116px;"
+              />
+            </el-carousel-item>
+            <p class="stepIng">
+              正在同步应用
+            </p>
+          </el-carousel>
+        </div>
+        <div class="stepDromdown">
+          <el-dropdown
+            @command="handleClick"
+            trigger="click"
+          >
+            <el-button
+              type="primary"
+            >
+              同步应用到MEAO
+            </el-button>
+            <el-dropdown-menu
+              slot="dropdown"
+              @change="handleClick"
+            >
+              <el-dropdown-item
+                v-for="(item,index) in this.MEAO"
+                :key="index"
+                :command="index"
+              >
+                <span>{{ language === 'cn'?item.labelcn:item.labelen }}</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </div>
       <div class="app_score">
         <p class="score_num">
           {{ score }}
@@ -308,6 +396,64 @@
         >{{ $t('atp.confirm') }}</el-button>
       </span>
     </el-dialog>
+    <!-- 订购弹框 -->
+    <el-dialog
+      width="30%"
+      :visible.sync="showSubDialog"
+      :show-close="false"
+      class="dialog_host default_dialog"
+    >
+      <div
+        slot="title"
+        class="el-dialog__title"
+      >
+        <em class="title_icon" />
+        订购确认
+      </div>
+      <div class="buy_content">
+        <el-form>
+          <el-form-item
+            label="应用名称："
+          >
+            <span class="val_span">{{ currentData.name }}</span>
+          </el-form-item>
+          <el-form-item
+            label="订购价格:"
+          >
+            <span class="val_span">1.99元（RMB）/小时</span>
+          </el-form-item>
+          <el-form-item
+            label="部署区域:"
+          >
+            <el-select
+              v-model="mechostIp"
+              placeholder="请选择"
+              style="width: 260px;"
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span
+        slot="footer"
+        class="dialog-footer dialogPadding"
+      >
+        <el-button
+          @click="showSubDialog = false"
+          class="bgBtn"
+        >{{ $t('common.cancel') }}</el-button>
+        <el-button
+          @click="confirmToBuy"
+          class="bgBtn"
+        >{{ $t('common.confirm') }}</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -324,6 +470,7 @@ import {
   URL_PREFIXV2,
   getAppListApi,
   myApp
+  // subscribe
 } from '../../tools/api.js'
 import { INDUSTRY, TYPES, MEAO } from '../../tools/constant.js'
 import appTry from '@/assets/images/apptry.png'
@@ -399,7 +546,6 @@ export default {
       deployStatus: 'NOTDEPLOY',
       workStatus: '',
       instantiateInfo: '',
-
       displayDom: false,
       version: '',
       showSynchronize: false,
@@ -411,8 +557,19 @@ export default {
       jzyMEAO: false,
       hwinterval: '',
       jzyinterval: '',
-      showlun: false
-
+      showlun: false,
+      showSubDialog: false,
+      options: [
+        {
+          value: '119.8.47.5',
+          label: '陕西省/西安市/雁塔区'
+        },
+        {
+          value: '119.8.63.45',
+          label: '广东省/深圳市/龙岗区'
+        }
+      ],
+      mechostIp: ''
     }
   },
   watch: {
@@ -440,6 +597,65 @@ export default {
     this.clearInterval()
   },
   methods: {
+    beforeBuyIt () {
+      // subscribe.getMechosts().then(res => {
+      //   res.data.forEach(item => {
+      //     let obj = {}
+      //     obj.value = item.ip
+      //     obj.label = item.city
+      //     this.options.push(obj)
+      //   })
+      //   this.showSubDialog = true
+      // })
+      this.showSubDialog = true
+    },
+    formatter (thistime, fmt) {
+      let $this = new Date(thistime)
+      let o = {
+        'M+': $this.getMonth() + 1,
+        'd+': $this.getDate(),
+        'h+': $this.getHours(),
+        'm+': $this.getMinutes(),
+        's+': $this.getSeconds(),
+        'q+': Math.floor(($this.getMonth() + 3) / 3),
+        'S': $this.getMilliseconds()
+      }
+      if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, ($this.getFullYear() + '').substr(4 - RegExp.$1.length))
+      }
+      for (var k in o) {
+        if (new RegExp('(' + k + ')').test(fmt)) {
+          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
+        }
+      }
+      return fmt
+    },
+    confirmToBuy () {
+      // let param = {
+      //   'appId': this.appId,
+      //   'mechostIp': this.mechostIp
+      // }
+      let sessionData = {
+        'orderId': 'aasaaadf',
+        'orderNum': 'No.202110152458',
+        'userId': 'aaa',
+        'userName': 'admin',
+        'appId': this.appId,
+        'appName': this.currentData.name,
+        'orderTime': this.formatter(new Date(), 'yyyy-MM-dd hh:mm'),
+        'operateTime': this.formatter(new Date(), 'yyyy-MM-dd hh:mm'),
+        'status': '0',
+        'mecHostIp': this.mechostIp,
+        'mecHostName': 'Node_E3_B2',
+        'mecHostCity': '广东省/深圳市/龙岗区'
+      }
+      sessionStorage.setItem('newOrder', JSON.stringify(sessionData))
+      this.$router.push('/orders')
+      // let userId = sessionStorage.getItem('userId')
+      // subscribe.createOrder(userId, param).then(res => {
+      //   this.showSubDialog = false
+      // })
+    },
     getTableData () {
       let userId = null
       if (this.pathSource === 'myapp') {
@@ -689,10 +905,9 @@ export default {
     color:#67C23A !important;
   }
   .el-dialog{
-  text-align: left;
+    text-align: left;
     box-shadow: 2px 5px 23px 10px rgba(104, 142, 243, 0.2) inset;
     width: 535px;
-    height: 333px;
   }
  .el-dialog__header{
    border-bottom: 2px solid #e0e0e0;
@@ -718,7 +933,7 @@ export default {
     }
   }
   .dialog-footer {
-    text-align: center;
+    text-align: right;
     .cancle_btn{
       background: #d0dbf7;
       color: #587fe7;
@@ -874,7 +1089,7 @@ export default {
       background:  linear-gradient(to right, #4444D0, #6724CB) !important;
     }
     .app_synchronize{
-      height: 128px;
+      height: 135px;
       width: 300px;
       position: relative;
       .synchronize_info{
@@ -1670,5 +1885,15 @@ export default {
        border-bottom-left-radius: 10px !important;
        border-bottom-right-radius: 10px !important;
      }
+}
+// 订购
+.buy_content{
+  margin-top: 25px;
+  .val_span{
+    line-height: 33px;
+  }
+}
+.popper__arrow{
+  display: none!important;
 }
 </style>

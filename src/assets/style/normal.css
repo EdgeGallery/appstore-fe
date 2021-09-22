@@ -375,7 +375,7 @@ a{
   height: 15px;
   background: url('../images/work_project_search_icon.png');
   position: absolute;
-  top: 8px;
+  top: 13px;
   right: 5px;
   cursor: pointer;
 }
@@ -409,5 +409,26 @@ a{
   font-family: defaultFontLight;
   background: #efefef;
   border-radius: 12px;
+}
+.top .el-input__inner{
+  border: none !important;
+  border-bottom: 1px solid #dddddd !important;
+  border-radius: 0!important;
+}
+
+.bills .el-progress__text{
+  font-size: 14px!important;
+}
+.el-progress-bar__outer{
+  border-radius: 6px!important;
+}
+.el-progress-bar__inner{
+  border-radius: 6px!important;
+}
+.top_content .el-progress__text{
+  color: #ffffff!important;
+}
+.el-progress-bar{
+  width: 80%!important;
 }
  

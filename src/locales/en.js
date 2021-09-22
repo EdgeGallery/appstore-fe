@@ -506,7 +506,10 @@ const en = {
     modifyAppStore: 'Edit External Warehouse',
     appModify: 'Modify',
     getStatusFailed: 'failed to get app status',
-    more: 'more'
+    more: 'more',
+    free: 'Free',
+    price: 'Yuan（RMB）/Hour',
+    priceTitle: 'Apply pricing settings'
   },
   report: {
     version: 'Version',
