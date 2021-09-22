@@ -956,7 +956,7 @@ export default {
   .app_info_div{
     border-radius: 16px;
     background: #fff;
-    padding: 20px 0 70px 20px;
+    padding: 20px 0 20px 70px;
     display: flex;
     align-items: center;
     .app_icon{
@@ -1035,7 +1035,6 @@ export default {
     }
 
     .app_score{
-      margin-left: 40%;
       width: 240px;
       text-align: center;
       float: right;
