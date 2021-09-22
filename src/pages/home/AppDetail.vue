@@ -949,7 +949,7 @@ export default {
           display: block;
           width: 100%;
           height: 100%;
-          padding: 0 30px;
+          padding: 0 26px;
           font-size: 20px;
           color: #fff;
           transition: all 0.1s;

@@ -18,7 +18,7 @@
   <div class="app-list">
     <div class="app_synchronize">
       <el-dropdown
-        @command="handleClick"
+        @command="synchronizePackage"
         trigger="click"
       >
         <el-button
@@ -251,7 +251,7 @@ export default {
           value: ''
         }
         object.text = item.systemName
-        object.value = item.systemName
+        object.value = item.id
         this.systemNameData.push(object)
       }
       console.log(this.systemNameData)
@@ -300,9 +300,10 @@ export default {
       this.jzyinterval = null
       this.hwinterval = null
     },
-    synchronizePackage () {
+    synchronizePackage (item) {
       console.log(this.currentData)
-      synchronizedPakageApi(this.currentData).then(res => {
+      console.log(item)
+      synchronizedPakageApi(this.currentData, item.id).then(res => {
         this.$message({
           duration: 2000,
           message: this.$t('store.synchronizedwaiting'),
