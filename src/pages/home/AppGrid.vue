@@ -143,13 +143,11 @@ export default {
     box-sizing: border-box;
     margin-bottom: 20px;
     .application {
-          box-shadow: 0px 1px 1px #c8c8c8 !important;
-          -webkit-box-shadow: 0px 1px 1px #c8c8c8 !important;
-          // border: 1px solid red;
+          box-shadow: 0px 1.5px 20px #f3f2f2 !important;
+          -webkit-box-shadow: 0px 1.5px 20px #f3f2f2 !important;
           border-radius: 8px;
           width: 100%;
           height: 235px;
-                    // border: 1px solid red;
       .img-box {
         background-color: #fff;
         box-sizing: border-box;
@@ -160,8 +158,8 @@ export default {
         justify-content: center;
         align-items: center;
         img {
-          width: 50%;
-          height: 69px;
+          max-width: 100%;
+          max-height: 160px;
         }
       }
 
@@ -214,7 +212,7 @@ export default {
             font-size: 14px;
             font-family: HarmonyOS Sans SC;
             font-weight: 300;
-            color: #BCBCBC;
+            color: #858383;
           }
       }
 
@@ -234,31 +232,33 @@ export default {
   @media screen and (max-width: 1800px) and (min-width: 1200px){
      .content {
     padding-left: 10px;
-    height: 160px;
+    height: 140px;
     margin-right: 2.4%;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     .application {
-          height: 160px;
+          height: 120px;
       .img-box {
-        height: 160px;
+        height: 80px;
         img {
-          height: 69px;
+          height: 40px;
         }
       }
       .scoreMode{
         height: 70px;
       .appName{
-        height: 36px;
+        height: 30px;
         padding-top: 4px;
         padding-left: 10px;
-        line-height: 36px;
+        line-height: 30px;
+        font-size: 16px;
         .appNameStyle {
           margin-top: 3px;
           margin-bottom: 1px;
         }
       }
       .scoreIcon{
-        height: 40px;
+        padding-top: 4px;
+        height: 24px;
         .score{
           margin-left: 10px;
           img{
@@ -267,14 +267,15 @@ export default {
             margin-right:6px ;
           }
           .core{
-            line-height: 40px;
+            line-height: 24px;
             position: relative;
             top: 2px;
+            font-size: 14px;
           }
         }
          .deployMode{
             margin-right: 10px;
-            line-height: 40px;
+            line-height: 24px;
           }
       }
       }
