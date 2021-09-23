@@ -162,7 +162,6 @@
             class="experienceData"
           >
             <el-table
-              v-loading="dataLoading"
               :data="experienceData"
               header-cell-class-name="headerStyle"
             >
