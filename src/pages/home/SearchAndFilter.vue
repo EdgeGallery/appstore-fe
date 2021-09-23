@@ -468,10 +468,14 @@ export default ({
     float: left;
       width: 200px;
       .el-input__inner {
-        border: 1px solid #380879;
+        border: 1px solid #5E40C8;
         border-radius: 8px;
       }
   }
+  .el-input--small .el-input__inner {
+        border: 1.5px solid #5E40C8;
+        border-radius: 4px;
+      }
   .el-button--primary {
     color: #0e0d0d;
     background-color: #fff;
@@ -483,11 +487,17 @@ export default ({
     box-shadow:0px 3px 3px #c8c8c8;
   }
   .el-dropdown{
-    border: 0px;-webkit-box-shadow:0px 3px 3px #c8c8c8; -moz-box-shadow:0px 3px 3px #c8c8c8 ;box-shadow:0px 3px 3px #c8c8c8;
-    .el-button{
-      border: 0;
-    }
+    border: 0px;
+    // -webkit-box-shadow:0px 3px 3px #c8c8c8;
+    // -moz-box-shadow:0px 3px 3px #c8c8c8 ;
+    // box-shadow:0px 3px 3px #c8c8c8;
   }
+  .el-dropdown .el-button:first-child{
+    border-right: none;
+  }
+     .el-dropdown .el-dropdown__caret-button::before {
+        display: none !important;
+    }
 .el-button-group.element.style {
   border: 0px;
   -webkit-box-shadow:0px 3px 3px #c8c8c8 ;
