@@ -337,6 +337,7 @@ export default {
     },
     limitSize (val, oldVal) {
       this.limitSize = val
+      this.searchCondition = this.buildQueryReq()
       this.getAppData(this.searchCondition)
     },
     total (val, oldVal) {
