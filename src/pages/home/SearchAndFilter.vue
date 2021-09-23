@@ -468,10 +468,14 @@ export default ({
     float: left;
       width: 200px;
       .el-input__inner {
-        border: 1px solid #380879;
+        border: 1px solid #5E40C8;
         border-radius: 8px;
       }
   }
+  .el-input--small .el-input__inner {
+        border: 1.5px solid #5E40C8;
+        border-radius: 4px;
+      }
   .el-button--primary {
     color: #0e0d0d;
     background-color: #fff;
