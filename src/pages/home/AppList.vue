@@ -15,7 +15,10 @@
   -->
 
 <template>
-  <div class="app-list">
+  <div
+    class="app-list"
+    style="padding-right:30px"
+  >
     <el-table
       :data="appData"
       class="tableStyle"
@@ -76,7 +79,7 @@
       <el-table-column
         prop="shortDesc"
         :label="$t('common.description')"
-        width="280"
+        width="230"
         :cell-class-name="hiddenClass"
       >
         <template slot-scope="scope">

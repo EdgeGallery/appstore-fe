@@ -333,6 +333,8 @@ const en = {
   store: {
     appChange: 'Application package conversion tool',
     backAppStore: 'Back App Store',
+    backMyApp: 'Back My App',
+    selectTestSce: 'Select Test Scenarios',
     type: 'Type',
     industry: 'Industry',
     advancedSearch: 'Advanced Search',
