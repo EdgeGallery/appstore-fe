@@ -158,8 +158,8 @@ export default {
         justify-content: center;
         align-items: center;
         img {
-          max-width: 100%;
-          max-height: 160px;
+          max-width: 150px;
+          max-height: 100px;
         }
       }
 
