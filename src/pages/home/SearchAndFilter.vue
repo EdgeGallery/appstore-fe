@@ -262,7 +262,7 @@ export default ({
       appName: '',
       selectedConditions: [],
       offsetPage: sessionStorage.getItem('offsetRepo') || 0,
-      limitSize: 12,
+      limitSize: 15,
       prop: 'createTime',
       order: 'desc',
       searchCondition: {
@@ -276,7 +276,7 @@ export default ({
         userId: '',
         queryCtrl: {
           offset: 0,
-          limit: 12,
+          limit: 15,
           sortItem: 'createTime',
           sortType: 'desc'
         }
