@@ -207,12 +207,12 @@ export default {
           }
         }
          .deployMode{
-            margin-right: 10px;
+            margin-right: 15px;
             line-height: 40px;
             font-size: 14px;
             font-family: HarmonyOS Sans SC;
             font-weight: 300;
-            color: #858383;
+            color: #888888;
           }
       }
 
