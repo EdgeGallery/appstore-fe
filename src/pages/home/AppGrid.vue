@@ -204,7 +204,7 @@ export default {
             font-weight: 300;
             color: #929292;
             position: relative;
-            top: 2px;
+            top: -1px;
           }
         }
          .deployMode{
@@ -213,7 +213,7 @@ export default {
             font-size: 14px;
             font-family: HarmonyOS Sans SC;
             font-weight: 300;
-            color: #888888;
+            color: #414040;
           }
       }
 
