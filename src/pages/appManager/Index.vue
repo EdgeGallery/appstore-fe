@@ -31,31 +31,35 @@
           <em class="image_container" />{{ $t('appManager.hotAppTitle') }}
         </span>
       </li>
+      <div
+        v-if="activeName==='push'"
+        class="horizontal-cell"
+      >
+        <link-right
+          class="link-right"
+        />
+      </div>
       <li
         @click="activeName='store'"
         :class="{'vm_active':activeName==='store','vm_default':activeName==='hot','vm_default2':activeName==='push'}"
       >
         <span>
-          <link-right
-            v-if="activeName==='push'"
-            padding-right="5px"
-            margin="5px"
-            class="link-right"
-          />
           <em class="image_vm" />{{ $t('appManager.storeAppTitle') }}
         </span>
       </li>
+      <div
+        v-if="activeName==='hot'"
+        class="horizontal-cell"
+      >
+        <link-right
+          class="link-right"
+        />
+      </div>
       <li
         @click="activeName='push'"
         :class="{'push_active':activeName==='push','push_default':activeName!=='push','push_default2':activeName==='store'}"
       >
         <span>
-          <link-right
-            v-if="activeName==='hot'"
-            padding-right="5px"
-            margin="5px"
-            class="link-right"
-          />
           <em class="push_container" />{{ $t('appManager.pushAppTitle') }}
         </span>
       </li>
@@ -130,6 +134,14 @@ export default {
 <style lang='less'>
 .myApp {
   border: none;
+  .horizontal-cell{
+        padding: 12px 0;
+        float: left;
+        width: 2px;
+        height: 50px;
+        // background: #d4d1ec;
+        background-color: #d4d1ec;
+    }
   .headerTitle{
     margin-top: 59px;
     margin-left: 126px;
