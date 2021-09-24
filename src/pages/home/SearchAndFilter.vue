@@ -19,6 +19,7 @@
     <el-form
       label-position="center"
       class="clear"
+      @submit.native.prevent
     >
       <el-form-item
         prop="appName"
@@ -31,7 +32,6 @@
           :placeholder="$t('common.appName')"
           @keyup.enter.native="queryApp"
           suffix-icon="el-icon-search"
-          @clear="queryApp"
         >
           <em
             slot="suffix"
