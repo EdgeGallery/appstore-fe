@@ -226,6 +226,8 @@ export default {
           margin-top: 38px;
           font-size: 16px !important;
           font-weight: 300 !important;
+          z-index: 2000 !important;
+          position: relative !important;
         }
       }
       }
@@ -292,5 +294,11 @@ export default {
     background-color:  #5E40C8  !important;
     border-color:  #5E40C8 !important;
 }
-
+.el-button--primary {
+      background-color:  #5E40C8  !important;
+    border-color:  #5E40C8 !important;
+}
+.el-button--primary:hover {
+      cursor: pointer;
+}
 </style>
