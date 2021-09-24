@@ -534,14 +534,32 @@ export default ({
 .el-checkbox-button__inner:hover{
   color: #5E40C8;
 }
-.el-button{
-  background: #FFFFFF;
-  color: #5F45BE;
-  border: 1px solid #5F45BE;
-}
-.el-popper .el-button:hover{
+
+.el-popover.el-popper{
+    position: absolute;
+    top: 90px;
+    width: 67.2%;
+    left: 16% !important;
+    transform-origin: center bottom;
+    z-index: 2007;
+  .el-button{
+      background: #FFFFFF;
+      color: #5F45BE;
+      border: 1px solid #5F45BE;
+  }
+  .el-button:hover{
   background: #5F45BE;
   color: #fff;
 }
-
+}
+   @media (max-width: 1800px) and (min-width: 1400px) {
+    .el-popover.el-popper{
+        left: 16.8% !important;
+    }
+}
+  @media (max-width: 1400px) and (min-width: 1200px) {
+    .el-popover.el-popper{
+        left: 13% !important;
+    }
+}
 </style>
