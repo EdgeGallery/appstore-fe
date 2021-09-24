@@ -757,6 +757,11 @@ export default {
     handleShowForm (v) {
       this.form = JSON.parse(JSON.stringify(v))
       delete this.form.userName
+      if (this.form.os === 'K8S') {
+        this.showOther = false
+      } else {
+        this.showOther = true
+      }
       this.configId_file_list = []
       this.visible = true
       this.$nextTick(() => {
