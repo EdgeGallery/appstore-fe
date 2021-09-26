@@ -298,7 +298,4 @@ export default {
       background-color:  #5E40C8  !important;
     border-color:  #5E40C8 !important;
 }
-.el-button--primary:hover {
-      cursor: pointer;
-}
 </style>

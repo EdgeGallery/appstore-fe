@@ -184,12 +184,7 @@ export default {
           this.selectDataIdList.push(item.packageId)
         }
       } else {
-        for (let item of val) {
-          if (this.selectDataIdList.indexOf(item.packageId) === -1) {
-            this.selectDataIdList.push(item.packageId)
-            this.selectDataList.push(item)
-          }
-        }
+        this.selectDataList = val
       }
       this.$emit('getAppPullInfo', this.selectDataList)
     },
