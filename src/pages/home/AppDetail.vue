@@ -921,8 +921,9 @@ export default {
    background: transparent !important;
  }
   .down_radio{
-    padding: 18px 20px;
+    padding: 18px 25px;
     width: 400px;
+    text-align: left;
     .el-radio{
       width: 350px;
       .el-radio__label{
