@@ -280,7 +280,7 @@
             class="dialog-footer"
           >
             <el-button
-              @click="innerVisible=true"
+              @click="innerVisible=false"
               class="bgBtn"
             >{{ $t('common.cancel') }}</el-button>
 
@@ -441,6 +441,56 @@ export default {
       }
       return callback()
     }
+    const validateName = (rule, value, callback) => {
+      let reg = /^[\s\S]{6,50}$/
+      if (!value) {
+        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.name')}`))
+      } else if (!reg.test(value)) {
+        callback(new Error(`${this.$t('system.pleaseInput')}6~50 ${this.$t('system.char')}`))
+      } else {
+        callback()
+      }
+    }
+    const validateMechost = (rule, value, callback) => {
+      let reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+      if (!value) {
+        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.mecHost')}`))
+      } else if (!reg.test(value)) {
+        callback(new Error(this.$t('promptMessage.hostErrorInfo')))
+      } else {
+        callback()
+      }
+    }
+    const validateLcmIp = (rule, value, callback) => {
+      let reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+      if (!value) {
+        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.lcmIp')}`))
+      } else if (!reg.test(value)) {
+        callback(new Error(this.$t('system.ipErrorInfo')))
+      } else {
+        callback()
+      }
+    }
+    const validatePort = (rule, value, callback) => {
+      let reg = /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-5]{2}[0-3][0-5])$/
+      if (!value) {
+        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.inPort')}`))
+      } else if (!reg.test(value)) {
+        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.correct')}${this.$t('system.inPort')}`))
+      } else {
+        callback()
+      }
+    }
+    const validateAddress = (rule, value, callback) => {
+      let reg = /^[\s\S]{1,100}$/
+      if (!value) {
+        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.address')}`))
+      } else if (!reg.test(value)) {
+        callback(new Error(`${this.$t('system.pleaseInput')}1~100 ${this.$t('system.char')}`))
+      } else {
+        callback()
+      }
+    }
     return {
       configId_file_list: [],
       limitSize: 2,
@@ -479,46 +529,32 @@ export default {
         parameter: ''
       },
       rules: {
-        // configId: [{ required: true, validator: (r, v, callback) => { validate(['configId'], callback, this.$t('system.pleaseUpload')) } }],
         name: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('workspace.name')}` },
-          { min: 6, max: 50, message: `${this.$t('system.pleaseInput')}6~50 ${this.$t('system.char')}` }
+          { required: true, validator: validateName }
         ],
         os: [
           { required: true }
         ],
         mecHost: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.mecHost')}` },
-          { message: this.$t('promptMessage.hostErrorInfo'), pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/ }
+          { required: true, validator: validateMechost }
         ],
         lcmIp: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.lcmIp')}` },
-          { message: this.$t('promptMessage.ipErrorInfo'), pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/ }
+          { required: true, validator: validateLcmIp }
         ],
         port: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.inPort')}` },
-          { message: `${this.$t('system.pleaseInput')}${this.$t('system.correct')}${this.$t('system.inPort')}`, pattern: /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-5]{2}[0-3][0-5])$/ }
+          { required: true, validator: validatePort }
         ],
         architecture: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('workspace.architecture')}` }
+          { required: true }
         ],
         protocol: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('workspace.protocol')}` }
+          { required: true }
         ],
         address: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.address')}` },
-          { min: 1, max: 100, message: `${this.$t('system.pleaseInput')}1~100 ${this.$t('system.char')}` }
-        ],
-        userName: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.username')}` },
-          { min: 1, max: 20, message: `${this.$t('system.pleaseInput')}1~20 ${this.$t('system.char')}` }
-        ],
-        password: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('system.password')}` },
-          { min: 1, max: 20, message: `${this.$t('system.pleaseInput')}1~20 ${this.$t('system.char')}` }
+          { required: true, validator: validateAddress }
         ],
         status: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('workspace.status')}` }
+          { required: true }
         ],
         portRangeMin: [{ required: true,
           validator: (r, v, callback) => {
@@ -643,6 +679,8 @@ export default {
       this.$refs.form.validate((valid, params) => {
         if (valid) {
           this.loading = true
+          let addressTemp = this.form.address
+          this.form.address = addressTemp.substring(0, addressTemp.lastIndexOf('\n'))
           if (!this.showOther) {
             this.form.parameter = ''
           }
@@ -661,7 +699,6 @@ export default {
           })
         }
       })
-      this.visible = false
     },
     searchListData () {
       sessionStorage.setItem('currentPage', 1)
@@ -720,6 +757,11 @@ export default {
     handleShowForm (v) {
       this.form = JSON.parse(JSON.stringify(v))
       delete this.form.userName
+      if (this.form.os === 'K8S') {
+        this.showOther = false
+      } else {
+        this.showOther = true
+      }
       this.configId_file_list = []
       this.visible = true
       this.$nextTick(() => {
