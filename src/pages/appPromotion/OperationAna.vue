@@ -986,8 +986,11 @@ export default {
       font-size: 14px;
       font-family: HarmonyHeiTi;
       font-weight: 200;
+      width: 62px;
+      height: 24px;
+      line-height: 24px;
       color: #7A6E8A;
-      padding: 5px 13px;
+      text-align: center;
   }
   .lookReport:hover{
     background: #5E40C8;
