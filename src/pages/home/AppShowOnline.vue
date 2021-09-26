@@ -462,6 +462,9 @@ export default {
     packageId (newStr) {
       this.packageId = newStr
       console.log(this.packageId)
+      if (this.packageId) {
+        this.initStatus()
+      }
     },
     ifExperience (newStr) {
       this.ifExperience = newStr
