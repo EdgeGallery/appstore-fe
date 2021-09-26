@@ -468,6 +468,7 @@ export default {
     }
   },
   mounted () {
+    this.initStatus()
   }
 }
 </script>
