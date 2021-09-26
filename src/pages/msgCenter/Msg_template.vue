@@ -47,6 +47,7 @@
             :data="rightDetailData"
             @func="clickMsgType"
             :msgcontents="msgcontents"
+            @deleteMsg="getDeleteMsg"
             ref="rightTabPanel"
           />
           <div class="messagePage">
@@ -152,6 +153,9 @@ export default {
     }
   },
   methods: {
+    getDeleteMsg (data) {
+      this.msgcontents = data
+    },
     clickMsgType (data) {
       if (data === 'unReadedMsg') {
         this.readable = false
@@ -266,6 +270,9 @@ export default {
     },
 
     curPageSize: function () {
+      this.getAppData()
+    },
+    msgcontents: function () {
       this.getAppData()
     }
   }
