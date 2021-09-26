@@ -277,8 +277,8 @@ export default ({
         queryCtrl: {
           offset: 0,
           limit: 15,
-          sortItem: 'createTime',
-          sortType: 'desc'
+          sortItem: this.prop,
+          sortType: this.order
         }
       }
     }
@@ -307,6 +307,11 @@ export default ({
       this.prop = this.sortBy[singleEvent].value
       console.log(this.prop)
       this.searchCondition.queryCtrl.sortItem = this.prop
+      if (this.sortBy[singleEvent].value === 'AppName') {
+        this.searchCondition.queryCtrl.sortType = 'asc'
+      } else {
+        this.searchCondition.queryCtrl.sortType = 'desc'
+      }
       console.log(this.searchCondition)
       this.$emit('getSearchCondition', this.searchCondition)
     },
@@ -377,8 +382,7 @@ export default ({
           offset: this.offsetPage,
           limit: this.limitSize,
           sortItem: this.prop,
-          sortType: this.order,
-          createTime: 'createTime'
+          sortType: this.order
         }
       }
       this.selectedConditions.forEach(
