@@ -551,7 +551,8 @@ export default {
           { required: true }
         ],
         address: [
-          { required: true, validator: validateAddress }
+          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('common.address')}` },
+          { min: 1, max: 100, message: `${this.$t('system.pleaseInput')}1~100 ${this.$t('system.char')}` }
         ],
         status: [
           { required: true }
@@ -656,7 +657,7 @@ export default {
         this.form.parameter = str.substr(0, str.length - 1)
         this.innerVisible = false
       } else {
-        this.$eg_messagebox(this.$t('system.completeInfo'), 'warning')
+        this.message.warning(this.$t('system.completeInfo'))
       }
     },
     handleDelete ({ hostId }) {
@@ -680,19 +681,20 @@ export default {
         if (valid) {
           this.loading = true
           let addressTemp = this.form.address
-          this.form.address = addressTemp.substring(0, addressTemp.lastIndexOf('\n'))
+          // this.form.address = addressTemp.substring(0, addressTemp.lastIndexOf('\n'))
+          console.log(addressTemp.substring(0, addressTemp.lastIndexOf('\n')))
           if (!this.showOther) {
             this.form.parameter = ''
           }
           System.saveHostInfo({ ...this.form, ...params, userId: this.userName }).then(res => {
             if (res.data) {
-              this.$eg_messagebox((this.form.hostId ? this.$t('api.modify') : this.$t('system.addHost')) + this.$t('system.success'), 'success')
+              this.$message.success((this.form.hostId ? this.$t('system.modify') : this.$t('system.addHost')) + this.$t('system.success'))
               this.onClose()
             } else {
               throw new Error()
             }
           }).catch(() => {
-            this.$eg_messagebox(this.$t('promptMessage.saveFail'), 'error')
+            this.$message.error(this.$t('system.saveFail'))
           }).finally(() => {
             this.loading = false
             this.getListData()
@@ -724,7 +726,7 @@ export default {
         this.submitFile(key, [file.raw])
       } else {
         this.configId_file_list = []
-        this.$eg_messagebox(this.$t('promptMessage.typeError') + ' , ' + this.$t('promptMessage.typeConfig'), 'warning')
+        this.$message.error(this.$t('promptMessage.typeError') + ' , ' + this.$t('promptMessage.typeConfig'))
       }
     },
     submitFile (key, fileList) {
@@ -735,16 +737,19 @@ export default {
         if (res.data.fileId) {
           this[`${key}_file_list`] = fileList
           this.form[key] = res.data.fileId
-          this.$eg_messagebox(this.$t('promptMessage.uploadSuccess'), 'success')
+          this.$message({
+            type: 'success',
+            message: this.$t('system.uploadSuccess')
+          })
         } else {
           this.handleRemove(key)
           throw new Error()
         }
       }).catch((error) => {
         if (error && error.response && error.response.data.code === 403) {
-          this.$eg_messagebox(this.$t('promptMessage.guestPrompt'), 'warning')
+          this.$message.warning(this.$t('promptMessage.guestPrompt'))
         } else {
-          this.$eg_messagebox(this.$t('promptMessage.uploadFailure'), 'error')
+          this.$message.error(this.$t('promptMessage.uploadFailure'))
         }
         this.handleRemove(key)
       }).finally(() => {
@@ -752,7 +757,7 @@ export default {
       })
     },
     handleExceed () {
-      this.$eg_messagebox(this.$t('system.fileExceed'), 'warning')
+      this.$message.warning(this.$t('system.fileExceed'))
     },
     handleShowForm (v) {
       this.form = JSON.parse(JSON.stringify(v))

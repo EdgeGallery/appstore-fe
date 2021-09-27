@@ -308,8 +308,10 @@ export default ({
       console.log(this.prop)
       this.searchCondition.queryCtrl.sortItem = this.prop
       if (this.sortBy[singleEvent].value === 'AppName') {
+        this.order = 'asc'
         this.searchCondition.queryCtrl.sortType = 'asc'
       } else {
+        this.order = 'desc'
         this.searchCondition.queryCtrl.sortType = 'desc'
       }
       console.log(this.searchCondition)
