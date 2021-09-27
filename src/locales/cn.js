@@ -63,6 +63,7 @@ const cn = {
 
   },
   system: {
+    ipErrorInfo: '请输入正确的IP地址',
     upload: '上传',
     name: '名称',
     addHost: '新增沙箱环境',
@@ -188,6 +189,7 @@ const cn = {
     }
   },
   common: {
+    cancelText: '知道了',
     more: '更多',
     check: '查看',
     clean: '清空',

@@ -60,6 +60,7 @@ const en = {
     status: 'Status'
   },
   system: {
+    ipErrorInfo: 'Please enter the correct IP address',
     upload: 'Upload',
     error: 'Error',
     success: 'Success',
@@ -185,6 +186,7 @@ const en = {
     }
   },
   common: {
+    cancelText: 'OK',
     more: 'More',
     check: 'Check',
     clean: 'Clean',
