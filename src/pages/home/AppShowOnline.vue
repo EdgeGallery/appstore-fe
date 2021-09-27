@@ -72,6 +72,7 @@
                   :type="btnType"
                   @click="step1"
                   :autofocus="true"
+                  disabled="true"
                   style="width:170px;margin-bottom:15px;"
                   :icon="el-icon-check"
                 >
@@ -97,6 +98,7 @@
                   :type="btnType1"
                   @click="step2"
                   :autofocus="true"
+                  disabled="true"
                   style="width:170px;margin-bottom:15px;"
                 >
                   {{ $t('store.instantiateApplication') }}
@@ -120,6 +122,7 @@
                   :plain="true"
                   :type="btnType2"
                   @click="step3"
+                  disabled="true"
                   style="width:170px;margin-bottom:15px;"
                 >
                   {{ $t('store.getDeploymentStatus') }}
