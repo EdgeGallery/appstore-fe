@@ -186,6 +186,7 @@ const en = {
     }
   },
   common: {
+    cancelText: 'OK',
     more: 'More',
     check: 'Check',
     clean: 'Clean',

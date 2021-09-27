@@ -189,6 +189,7 @@ const cn = {
     }
   },
   common: {
+    cancelText: '知道了',
     more: '更多',
     check: '查看',
     clean: '清空',

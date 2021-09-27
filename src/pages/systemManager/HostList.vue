@@ -481,16 +481,6 @@ export default {
         callback()
       }
     }
-    const validateAddress = (rule, value, callback) => {
-      let reg = /^[\s\S]{1,100}$/
-      if (!value) {
-        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.address')}`))
-      } else if (!reg.test(value)) {
-        callback(new Error(`${this.$t('system.pleaseInput')}1~100 ${this.$t('system.char')}`))
-      } else {
-        callback()
-      }
-    }
     return {
       configId_file_list: [],
       limitSize: 2,
@@ -688,13 +678,14 @@ export default {
           }
           System.saveHostInfo({ ...this.form, ...params, userId: this.userName }).then(res => {
             if (res.data) {
-              this.$message.success((this.form.hostId ? this.$t('system.modify') : this.$t('system.addHost')) + this.$t('system.success'))
+              this.$eg_messagebox((this.form.hostId ? this.$t('system.modify') : this.$t('system.addHost')) + this.$t('system.success'), 'success')
+
               this.onClose()
             } else {
               throw new Error()
             }
           }).catch(() => {
-            this.$message.error(this.$t('system.saveFail'))
+            this.$eg_messagebox(this.$t('system.saveFail'), 'error')
           }).finally(() => {
             this.loading = false
             this.getListData()
@@ -726,7 +717,7 @@ export default {
         this.submitFile(key, [file.raw])
       } else {
         this.configId_file_list = []
-        this.$message.error(this.$t('promptMessage.typeError') + ' , ' + this.$t('promptMessage.typeConfig'))
+        this.$eg_messagebox(this.$t('promptMessage.typeError') + ' , ' + this.$t('promptMessage.typeConfig'), 'warning')
       }
     },
     submitFile (key, fileList) {
@@ -737,19 +728,16 @@ export default {
         if (res.data.fileId) {
           this[`${key}_file_list`] = fileList
           this.form[key] = res.data.fileId
-          this.$message({
-            type: 'success',
-            message: this.$t('system.uploadSuccess')
-          })
+          this.$eg_messagebox(this.$t('system.uploadSuccess'), 'success')
         } else {
           this.handleRemove(key)
           throw new Error()
         }
       }).catch((error) => {
         if (error && error.response && error.response.data.code === 403) {
-          this.$message.warning(this.$t('promptMessage.guestPrompt'))
+          this.$eg_messagebox(this.$t('promptMessage.guestPrompt'), 'warning')
         } else {
-          this.$message.error(this.$t('promptMessage.uploadFailure'))
+          this.$eg_messagebox(this.$t('promptMessage.uploadFailure'), 'error')
         }
         this.handleRemove(key)
       }).finally(() => {
@@ -757,7 +745,7 @@ export default {
       })
     },
     handleExceed () {
-      this.$message.warning(this.$t('system.fileExceed'))
+      this.$eg_messagebox(this.$t('system.fileExceed'), 'warning')
     },
     handleShowForm (v) {
       this.form = JSON.parse(JSON.stringify(v))

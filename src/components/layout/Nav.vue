@@ -686,7 +686,7 @@ export default {
   color: white;
   background: #5E40C8;
   position: fixed;
-  z-index: 9999;
+  z-index: 2001;
   width: 100%;
   padding: 0 13.18%;
 
