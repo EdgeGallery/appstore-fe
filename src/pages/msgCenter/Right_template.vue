@@ -1,5 +1,5 @@
 <!--
-  -  Copyright 2020-2021 Huawei Technologies Co., Ltd.
+  -  Copyright 2020-2021 Huawei Technologies console., Ltd.
   -
   -  Licensed under the Apache License, Version 2.0 (the "License");
   -  you may not use this file except in compliance with the License.
@@ -185,6 +185,7 @@ export default {
         let defaultMsg = this.$t('apppromotion.acceptFailed')
         commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
+      this.$emit('accept', 'accept')
     },
     handleDelete (index, messageId) {
       deleteMsg(messageId).then((res) => {
@@ -441,7 +442,7 @@ export default {
 .tables{
   width: 100%;
   min-height: 16px;
-  background-color: #fff;
+  background-color: #fff !important;
   border-radius: 16px 0 0 0 ;
   border-top-right-radius:16px !important;
 }

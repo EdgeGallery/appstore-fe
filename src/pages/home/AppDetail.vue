@@ -1811,10 +1811,6 @@ export default {
     margin: 0 5px;
     margin-top: -8px;
 }
-.el-carousel__indicators {
-    display: none;
-}
-
 .el-progress-bar__outer{
   box-shadow: 2px 2px 12px 0px rgba(36, 20, 119, 0.13);
 }

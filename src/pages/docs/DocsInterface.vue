@@ -417,6 +417,9 @@ export default {
   }
   .test-editors{
       width: 260px;
+      li{
+        margin: 10px 0px;
+    }
       .el-submenu__title {
           font-size: 20px;
       }
@@ -560,9 +563,6 @@ div /deep/ .el-menu{
   color: #5E40C8;
   height: 40px;
   width: 230px;
-}
-li{
-  margin: 10px 0px;
 }
 .twoTitle{
   font-size: 16px;
