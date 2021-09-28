@@ -401,7 +401,7 @@ export default {
 
 <style lang="less" scoped>
 .home {
-    .uploadApp_btn{
+  .uploadApp_btn{
     position:absolute;
     right: 0;
     bottom: 30px;

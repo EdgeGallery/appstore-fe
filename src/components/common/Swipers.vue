@@ -123,11 +123,20 @@ export default {
 .wrapper{
   position: relative;
   .banner{
-      overflow: hidden;
+        overflow: hidden;
+    .banner_img{
+       height: 100%;
+    }
     .home_text{
       position: absolute;
       top: 50px;
       left: 150px;
+        .img_words{
+      width:90%;
+      margin-top:180px;
+      margin-left:80px;
+      display:block;
+  }
     }
     .home_text.none{
       display: none;
@@ -150,72 +159,46 @@ export default {
       margin: 80px 0px 0px 95px;
     }
   }
-  .img_words{
-      width:90%;
-      margin-top:180px;
-      margin-left:80px;
-      display:block;
-  }
   img{
     height: 100%;
-  }
-  .banner_img{
-    height: 100%;
-  }
-  .el-carousel__item{
-    img{
-      background-image:'../../assets/images/chocolate.png'
-    }
-  }
-  .el-carousel__item h3 {
-      color: #475669;
-      font-size: 18px;
-      opacity: 0.75;
-      line-height: 350px;
-    }
-
-    .el-carousel__item:nth-child(2n) {
-      background-color: #99a9bf;
-    }
-
-    .el-carousel__item:nth-child(2n+1) {
-      background-color: #d3dce6;
-    }
   }
   .el-carousel__indicators--outside {
     position: relative;
     top: -100px;
     left: -660px;
+  }
+  .el-carousel__indicator--horizontal.is-active .el-carousel__button  {
+    width: 60px !important;
+    height: 10px !important;
+    background: #55D8BF !important;
+    border-radius: 5px !important;
+
+  }
+  .el-carousel__indicators--outside button{
+    opacity: 1 !important;
+  }
+  .el-carousel__button {
+    width: 12px !important;
+    height: 10px !important;
+    background: #2FA09F !important;
+    border-radius: 5px !important;
+  }
 }
+
  @media (max-width: 1688px) and (min-width: 1200px){
    .wrapper {
     .img_words{
-        width:80%;margin-top:200px;margin-left:-60px;display:block
+        width:80%;
+        margin-top:200px;
+        margin-left:-60px;
+        display:block;
     }
     .upload_app{
-      margin-left:-40px !important;
+      margin-left:100px !important;
     }
     }
       .el-carousel__indicators--outside {
         left: -470px !important;
     }
   }
-.el-carousel__indicator--horizontal.is-active .el-carousel__button  {
-
-    width: 60px !important;
-    height: 10px !important;
-    background: #55D8BF !important;
-    border-radius: 5px !important;
-
-}
-.el-carousel__indicators--outside button{
-  opacity: 1 !important;
-}
-.el-carousel__button {
-    width: 12px !important;
-    height: 10px !important;
-    background: #2FA09F !important;
-    border-radius: 5px !important;
-}
-
 </style>
