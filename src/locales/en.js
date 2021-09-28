@@ -111,6 +111,7 @@ const en = {
     splitRatio: 'Split Ratio'
   },
   system: {
+    ipErrorInfo: 'Please enter the correct IP address',
     upload: 'Upload',
     error: 'Error',
     success: 'Success',
@@ -236,6 +237,7 @@ const en = {
     }
   },
   common: {
+    cancelText: 'OK',
     more: 'More',
     check: 'Check',
     clean: 'Clean',
@@ -384,6 +386,8 @@ const en = {
   store: {
     appChange: 'Application package conversion tool',
     backAppStore: 'Back App Store',
+    backMyApp: 'Back My App',
+    selectTestSce: 'Select Test Scenarios',
     type: 'Type',
     industry: 'Industry',
     advancedSearch: 'Advanced Search',

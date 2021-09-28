@@ -19,6 +19,7 @@
     <el-form
       label-position="center"
       class="clear"
+      @submit.native.prevent
     >
       <el-form-item
         prop="appName"
@@ -31,7 +32,6 @@
           :placeholder="$t('common.appName')"
           @keyup.enter.native="queryApp"
           suffix-icon="el-icon-search"
-          @clear="queryApp"
         >
           <em
             slot="suffix"
@@ -50,7 +50,7 @@
           @command="handleClick"
         >
           <span class="el-dropdown-link">
-            {{ $t('common.sort') }}
+            {{ this.sortByTitle === '' ? $t('common.sort') : this.sortByTitle }}
           </span>
           <el-dropdown-menu
             slot="dropdown"
@@ -262,7 +262,8 @@ export default ({
       appName: '',
       selectedConditions: [],
       offsetPage: sessionStorage.getItem('offsetRepo') || 0,
-      limitSize: 12,
+      sortByTitle: '',
+      limitSize: 15,
       prop: 'createTime',
       order: 'desc',
       searchCondition: {
@@ -276,9 +277,9 @@ export default ({
         userId: '',
         queryCtrl: {
           offset: 0,
-          limit: 12,
-          sortItem: 'createTime',
-          sortType: 'desc'
+          limit: 15,
+          sortItem: this.prop,
+          sortType: this.order
         }
       }
     }
@@ -302,11 +303,24 @@ export default ({
       this.$emit('getSearchData', this.appName)
     },
     handleClick (singleEvent) {
-      console.log(singleEvent)
+      console.log(this.sortBy[singleEvent])
       this.singleItemList.push(this.sortBy[singleEvent].value)
+      if (this.language === 'cn') {
+        console.log(this.language)
+        this.sortByTitle = this.sortBy[singleEvent].labelcn
+      } else {
+        this.sortByTitle = this.sortBy[singleEvent].labelen
+      }
       this.prop = this.sortBy[singleEvent].value
       console.log(this.prop)
       this.searchCondition.queryCtrl.sortItem = this.prop
+      if (this.sortBy[singleEvent].value === 'AppName') {
+        this.order = 'asc'
+        this.searchCondition.queryCtrl.sortType = 'asc'
+      } else {
+        this.order = 'desc'
+        this.searchCondition.queryCtrl.sortType = 'desc'
+      }
       console.log(this.searchCondition)
       this.$emit('getSearchCondition', this.searchCondition)
     },
@@ -327,7 +341,7 @@ export default ({
         userId: '',
         queryCtrl: {
           offset: 0,
-          limit: 12,
+          limit: 15,
           sortItem: 'createTime',
           sortType: 'desc'
         }
@@ -377,8 +391,7 @@ export default ({
           offset: this.offsetPage,
           limit: this.limitSize,
           sortItem: this.prop,
-          sortType: this.order,
-          createTime: 'createTime'
+          sortType: this.order
         }
       }
       this.selectedConditions.forEach(
@@ -468,10 +481,14 @@ export default ({
     float: left;
       width: 200px;
       .el-input__inner {
-        border: 1px solid #380879;
+        border: 1px solid #5E40C8;
         border-radius: 8px;
       }
   }
+  .el-input--small .el-input__inner {
+        border: 1.5px solid #5E40C8;
+        border-radius: 4px;
+      }
   .el-button--primary {
     color: #0e0d0d;
     background-color: #fff;
@@ -483,11 +500,17 @@ export default ({
     box-shadow:0px 3px 3px #c8c8c8;
   }
   .el-dropdown{
-    border: 0px;-webkit-box-shadow:0px 3px 3px #c8c8c8; -moz-box-shadow:0px 3px 3px #c8c8c8 ;box-shadow:0px 3px 3px #c8c8c8;
-    .el-button{
-      border: 0;
-    }
+    border: 0px;
+    // -webkit-box-shadow:0px 3px 3px #c8c8c8;
+    // -moz-box-shadow:0px 3px 3px #c8c8c8 ;
+    // box-shadow:0px 3px 3px #c8c8c8;
   }
+  .el-dropdown .el-button:first-child{
+    border-right: none;
+  }
+     .el-dropdown .el-dropdown__caret-button::before {
+        display: none !important;
+    }
 .el-button-group.element.style {
   border: 0px;
   -webkit-box-shadow:0px 3px 3px #c8c8c8 ;
@@ -534,14 +557,32 @@ export default ({
 .el-checkbox-button__inner:hover{
   color: #5E40C8;
 }
-.el-button{
-  background: #FFFFFF;
-  color: #5F45BE;
-  border: 1px solid #5F45BE;
-}
-.el-popper .el-button:hover{
+
+.el-popover.el-popper{
+    position: absolute;
+    top: 90px;
+    width: 67.2%;
+    left: 16% !important;
+    transform-origin: center bottom;
+    z-index: 2007;
+  .el-button{
+      background: #FFFFFF;
+      color: #5F45BE;
+      border: 1px solid #5F45BE;
+  }
+  .el-button:hover{
   background: #5F45BE;
   color: #fff;
 }
-
+}
+   @media (max-width: 1800px) and (min-width: 1400px) {
+    .el-popover.el-popper{
+        left: 16.8% !important;
+    }
+}
+  @media (max-width: 1400px) and (min-width: 1200px) {
+    .el-popover.el-popper{
+        left: 13% !important;
+    }
+}
 </style>

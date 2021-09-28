@@ -15,15 +15,16 @@
   -->
 
 <template>
-  <div class="padding56">
-    <el-button
-      type="primary"
-      icon="el-icon-back"
-      @click="jumpToMyapp()"
-      style="margin: 10px;"
-    >
-      {{ $t('nav.myApp') }}
-    </el-button>
+  <div class="appTest">
+    <div class="appTestTop">
+      <p class="appTestTitle" />
+      <button
+        class="backAppStore"
+        @click="jumpToMyapp()"
+      >
+        {{ $t('store.backMyApp') }}
+      </button>
+    </div>
     <iframe
       v-if="isRouterAlive"
       title="atp"
@@ -81,3 +82,43 @@ export default {
   }
 }
 </script>
+
+<style lang='less'>
+.appTest{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 1200px;
+  align-items: center;
+  .appTestTop{
+    width: 73.64%;
+    margin: 60px 13.18% 20px 13.18%;
+    min-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    .appTestTitle{
+      line-height: 50px;
+      margin-bottom:0px ;
+    }
+    .backAppStore{
+      width: 222px;
+      height: 50px;
+      background: linear-gradient(122deg, #4444D0, #6724CB);
+      border-radius: 25px;
+      padding: 4px 10px;
+      font-size: 20px;
+      font-family: HarmonyHeiTi;
+      font-weight: 300;
+      color: #FFFFFF;
+      border: 1px solid #6724CB;
+      box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
+    }
+  }
+  .appChanegContent{
+    width: 100%;
+    height: 632px;
+  }
+}
+</style>

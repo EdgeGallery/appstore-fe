@@ -478,6 +478,7 @@ export default {
     width: 100%;
     min-height: 300px;
     padding-top: 41px;
+    margin-left: 40px;
     .noviceTitle{
       padding-left: 41px;
       font-size: 25px;

@@ -15,8 +15,8 @@
   -->
 
 <template>
-  <div class="home padding56">
-    <div class="title_top title_left defaultFontBlod clear ">
+  <div class="home">
+    <div class="title_top title_left defaultFontBlod clear appStoreTop">
       {{ $t('nav.appstore') }}
       <span class="line_bot1" />
       <el-button
@@ -123,7 +123,7 @@ export default {
       appgridLogo: appgridLogo,
       applistLogo: applistLogo,
       currentPage: 2,
-      limitSize: 12,
+      limitSize: 15,
       appName: '',
       userId: sessionStorage.getItem('userId'),
       offsetPage: sessionStorage.getItem('offsetRepo') || 0,
@@ -252,21 +252,21 @@ export default {
 
       this.getAppData(this.searchCondition)
     },
-    // buildQueryReq () {
-    //   let _queryReq = this.searchCondition
-    //   if (this.prop === 'appName') {
-    //     this.order = 'asc'
-    //   } else {
-    //     this.order = 'desc'
-    //   }
-    //   this.searchCondition.queryCtrl = {
-    //     'offset': this.offsetPage,
-    //     'limit': this.limitSize,
-    //     'sortItem': this.prop,
-    //     'sortType': this.order
-    //   }
-    //   return _queryReq
-    // },
+    buildQueryReq () {
+      let _queryReq = this.searchCondition
+      if (this.prop === 'appName') {
+        this.order = 'asc'
+      } else {
+        this.order = 'desc'
+      }
+      this.searchCondition.queryCtrl = {
+        'offset': this.offsetPage,
+        'limit': this.limitSize,
+        'sortItem': this.prop,
+        'sortType': this.order
+      }
+      return _queryReq
+    },
 
     getCurrentPageData (data, pageSize, start) {
       this.limitSize = pageSize
@@ -332,10 +332,12 @@ export default {
     },
     offsetPage (val, oldVal) {
       this.offsetPage = val
+      this.searchCondition = this.buildQueryReq()
       this.getAppData(this.searchCondition)
     },
     limitSize (val, oldVal) {
       this.limitSize = val
+      this.searchCondition = this.buildQueryReq()
       this.getAppData(this.searchCondition)
     },
     total (val, oldVal) {
@@ -410,6 +412,11 @@ export default {
     padding: 0 40px 0 35px;
     box-shadow: 0px 16px 10px  rgba(83,201,208,0.3);
   }
+  .appStoreTop{
+    width: 73.64%;
+    min-width: 1200px;
+    margin:0 auto ;
+  }
   .uploadApp{
     width: 20px;
     height: 20px;
@@ -480,8 +487,11 @@ export default {
     box-sizing: border-box;
     .app-content {
       background: white;
-      padding: 30px 40px;
+      padding: 30px 0px 30px 30px;
       box-sizing: border-box;
+      width: 73.64%;
+      min-width: 1200px;
+      margin: 0 auto;
       .search {
         font-size: 16px;
         padding-bottom: 10px;

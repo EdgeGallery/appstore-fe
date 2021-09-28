@@ -759,6 +759,10 @@ export default {
 }
 </script>
 <style lang='less'>
+
+a:hover{
+cursor:pointer
+}
 .myApp {
   .checkTestTask_btn{
     position: absolute;

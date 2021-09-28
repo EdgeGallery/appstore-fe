@@ -921,8 +921,9 @@ export default {
    background: transparent !important;
  }
   .down_radio{
-    padding: 18px 20px;
+    padding: 18px 25px;
     width: 400px;
+    text-align: left;
     .el-radio{
       width: 350px;
       .el-radio__label{
@@ -1801,39 +1802,6 @@ export default {
     color: #8F859B;
   }
 
-}
-.el-carousel__arrow--left {
-    position: relative;
-    left: 160px;
-    top: 16px;
-}
-.el-carousel__arrow--right {
-    position: relative;
-    left: 170px;
-    top: 16px;
-}
-.el-carousel__container {
-    position: relative;
-    height: 100px;
-}
-.el-carousel__item {
-    width: 249;
-    height: 60px;
-    display: inline-block;
-    overflow: hidden;
-    z-index: 0;
-    position: absolute;
-    left: 0;
-    top: 46px;
-}
-.el-carousel--horizontal {
-     overflow-x: none !important;
-     height: 106px;
-}
-.el-carousel__arrow {
-    height: 20px;
-    width: 20px;
-    border-radius: 10%;
 }
 .el-progress-bar__innerText {
     display: inline-block;

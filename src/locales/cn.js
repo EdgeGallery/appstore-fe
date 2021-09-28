@@ -113,6 +113,7 @@ const cn = {
     splitRatio: '分账比例'
   },
   system: {
+    ipErrorInfo: '请输入正确的IP地址',
     upload: '上传',
     name: '名称',
     addHost: '新增沙箱环境',
@@ -238,6 +239,7 @@ const cn = {
     }
   },
   common: {
+    cancelText: '知道了',
     more: '更多',
     check: '查看',
     clean: '清空',
@@ -397,6 +399,8 @@ const cn = {
   store: {
     appChange: '应用包转换工具',
     backAppStore: '返回应用仓库',
+    backMyApp: '返回我的应用',
+    selectTestSce: '选择测试场景',
     industry: '行业',
     type: '类型',
     advancedSearch: '高级搜索',

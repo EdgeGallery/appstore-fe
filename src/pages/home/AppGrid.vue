@@ -32,30 +32,31 @@
             alt
           >
         </div>
-        <div class="intr">
-          <h4 class="name clearfix">
-            <span
-              class="app-name"
+        <div class="scoreMode">
+          <div class="appName">
+            <p
+              class="appNameStyle"
               :class="{'containers':item.deployMode==='container','vm':item.deployMode==='vm','name-en':language==='en'}"
-            >{{ item.name }} &nbsp;</span>
-          </h4>
-          <h4 class="name clearfix">
-            <span
+            >
+              {{ item.name }}
+            </p>
+          </div>
+          <div class="scoreIcon">
+            <div class="score">
+              <img
+                :src="require('@/assets/images/scoreIcon.jpg')"
+                alt
+              >
+              <span class="core">
+                {{ item.score }}
+              </span>
+            </div>
+            <p
               class="deployMode"
-              :class="{'containers':item.deployMode==='container','vm':item.deployMode==='vm','mode-en':language==='en'}"
-            >{{ item.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}</span>
-          </h4>
-          <p class="type-size">
-            {{ item.provider?item.provider:'/' }}
-          </p>
-          <p class="core">
-            <el-rate
-              v-model="item.score"
-              disabled
-              disabled-void-color="#C0C4CC"
-              text-color="#ff9900"
-            />
-          </p>
+            >
+              {{ item.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -130,124 +131,158 @@ export default {
 .app-grid {
   padding: 10px;
   min-height: 320px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   .content {
-    float: left;
-    width: 20%;
-    padding: 0 15px;
+    padding-left: 10px;
+    width: 17.5%;
+    height: 240px;
+    margin-right: 2.4%;
     box-sizing: border-box;
     margin-bottom: 20px;
     .application {
-      align-items: center;
-      justify-content: space-around;
-      transition: transform 0.3s ease-in;
-      position: relative;
+          box-shadow: 0px 1.5px 20px #f3f2f2 !important;
+          -webkit-box-shadow: 0px 1.5px 20px #f3f2f2 !important;
+          border-radius: 8px;
+          width: 100%;
+          height: 235px;
       .img-box {
+        background-color: #fff;
         box-sizing: border-box;
         text-align: center;
         width: 100%;
-        img {
-          width: 20%;
-          height: 20%;
-        }
-      }
-      .intr {
-        width: 100%;
+        height: 160px;
         display: flex;
-        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        h4 {
-          line-height: 31px;
-        }
-        p {
-          color: black;
-          line-height: 18px;
-          margin-bottom: 0.4rem;
-          font-size: 14px;
-        }
-        span {
-          display: inline-block;
-          height: 28px;
-        }
-        .name {
-          text-align: center;
-          span{
-            float: left;
-          }
-          .app-name {
-            font-family: HarmonyOS_Sans_SC_Bold;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            font-size: 14px;
-            font-weight: bold;
-            color: #111111;
-            margin-top: -9px ;
-            margin-bottom: 4px;
-          }
-          .deployMode{
-            width: 48px;
-            font-size: 12px;
-            border-radius: 20px;
-            text-align: center;
-            height: 18px;
-            line-height: 18px;
-            box-sizing: border-box;
-          }
-          .deployMode.containers{
-            background: #eaf6f9;
-            color: #54AAF3;
-          }
-          .deployMode.vm{
-            background: #f4effa;
-            color: #9163CC;
-            width: 48px;
-          }
-          .deployMode.containers.mode-en{
-            width: 68px;
-            padding: 0 8px;
-          }
-          .deployMode.vm.mode-en{
-            width: 40px;
-          }
-          .app-version {
-            font-size: 14px;
-            color: #999999;
-          }
-        }
-        .type-size {
-          text-align: left;
+        img {
+          // max-width: 150px;
           overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          font-size: 14px;
-          margin: 9px 0px 5px 0px;
-          .type {
-            text-align: left;
-            display: inline-block;
-          }
-          // .size {
-          //   display: inline-block;
-          // }
-        }
-        .core {
-          display: flex;
-          align-items: center;
-          .el-rate__icon{
-            margin-right: 1px;
-          }
+          max-height: 110px;
         }
       }
+
+      .scoreMode{
+        width: 100%;
+        height: 70px;
+        background-color: #F9F9F9;
+      .appName{
+        background-color: #F9F9F9;
+        font-size: 20px;
+        font-family: HarmonyOS Sans SC;
+        font-weight: 400;
+        color: #3E3E3E;
+        height: 36px;
+        padding-top: 4px;
+        padding-left: 10px;
+        line-height: 36px;
+        .appNameStyle {
+          margin-top: 3px;
+          margin-bottom: 1px;
+        }
+      }
+      .scoreIcon{
+        background-color: #F9F9F9;
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        .score{
+          margin-left: 10px;
+          img{
+            width: 14px;
+            height: 14px;
+            margin-right:6px ;
+          }
+          .core{
+            line-height: 40px;
+            font-size: 14px;
+            font-family: HarmonyOS Sans SC;
+            font-weight: 300;
+            color: #929292;
+            position: relative;
+            top: -1px;
+          }
+        }
+         .deployMode{
+            margin-right: 15px;
+            line-height: 40px;
+            font-size: 14px;
+            font-family: HarmonyOS Sans SC;
+            font-weight: 300;
+            color: #414040;
+          }
+      }
+
+      }
+
     }
     .application:hover{
-      transform: translate3d(0,-10px,0);
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: transform .3s ease-in-out, box-shadow .3s cubic-bezier(0, 0, 0, .715), border .3s linear .1s;
+      box-shadow: 0px 3px 3px #c8c8c8 !important;
+      -webkit-box-shadow: 0px 3px 3px #c8c8c8 !important;
       background-color: #fff;
+      transform:translatey(-7px)
+
     }
+
   }
-  @media screen and (max-width:1605px){
-    .content{
-      width: 33%;
+  @media screen and (max-width: 1800px) and (min-width: 1200px){
+     .content {
+    padding-left: 10px;
+    height: 140px;
+    margin-right: 2.4%;
+    margin-bottom: 30px;
+    .application {
+          height: 120px;
+      .img-box {
+        height: 80px;
+        img {
+          height: 40px;
+        }
+      }
+      .scoreMode{
+        height: 70px;
+      .appName{
+        height: 30px;
+        padding-top: 4px;
+        padding-left: 10px;
+        line-height: 30px;
+        font-size: 16px;
+        .appNameStyle {
+          margin-top: 3px;
+          margin-bottom: 1px;
+        }
+      }
+      .scoreIcon{
+        padding-top: 4px;
+        height: 24px;
+        .score{
+          margin-left: 10px;
+          img{
+            width: 14px;
+            height: 14px;
+            margin-right:6px ;
+          }
+          .core{
+            line-height: 24px;
+            position: relative;
+            top: 2px;
+            font-size: 14px;
+          }
+        }
+         .deployMode{
+            margin-right: 10px;
+            line-height: 24px;
+          }
+      }
+      }
     }
+
+  }
   }
 }
 </style>

@@ -35,6 +35,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'video.js/dist/video-js.min.css'
 import 'swiper/css/swiper.css'
 import Tooltip from 'vue-directive-tooltip'
+import EgMessageBox from './components/common/MessageBox'
+Vue.use(EgMessageBox)
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueCookies)
 Vue.use(mavonEditor)

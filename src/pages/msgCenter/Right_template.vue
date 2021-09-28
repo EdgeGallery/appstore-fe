@@ -190,6 +190,7 @@ export default {
       deleteMsg(messageId).then((res) => {
         this.deletedMsgIds.push(messageId)
         this.msgcontents.splice(index, 1)
+        this.$emit('deleteMsg', this.msgcontents)
         this.$message.success(this.$t('apppromotion.deleteMsgSuccess'))
       }).catch((error) => {
         let defaultMsg = this.$t('apppromotion.deleteMsgFailed')
