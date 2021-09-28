@@ -330,16 +330,8 @@ export default {
       this.tip32 = false
       this.tip33 = true
       if (experienceInfo.data) {
-        let tmpExperienceData = experienceInfo.data.split(':')
-        let data = {
-          serviceName: '',
-          nodePort: '',
-          mecHost: ''
-        }
-        data.serviceName = tmpExperienceData[0]
-        data.nodePort = tmpExperienceData[1] === '' ? this.$t('promptMessage.uninvolved') : tmpExperienceData[1]
-        data.mecHost = tmpExperienceData[2]
-        this.experienceData.push(data)
+        let tmpExperienceData = experienceInfo.data
+        this.filterExperienceInfo(tmpExperienceData)
         this.displayDom = true
       }
       this.handleUploadSuccess()
@@ -368,12 +360,18 @@ export default {
         this.btnClean = false
       }
     },
-    getExperienceInfo (experienceInfo) {
-      let tmpExperienceData = experienceInfo.data.split(':')
-      console.log(tmpExperienceData)
-      this.experienceData[0].serviceName = tmpExperienceData[0]
-      this.experienceData[0].nodePort = tmpExperienceData[1] === '' ? this.$t('promptMessage.uninvolved') : tmpExperienceData[1]
-      this.experienceData[0].mecHost = tmpExperienceData[2]
+    filterExperienceInfo (tmpExperienceData) {
+      for (let item of tmpExperienceData) {
+        let object = {
+          serviceName: '',
+          nodePort: '',
+          mecHost: ''
+        }
+        object.serviceName = item.serviceName
+        object.nodePort = item.nodePort === '' ? this.$t('promptMessage.uninvolved') : item.nodePort
+        object.mecHost = item.mecHost
+        this.experienceData.push(object)
+      }
     },
     cleanTestEnv () {
       if (this.userName === 'guest') {
@@ -426,11 +424,9 @@ export default {
     },
     initeData (experienceInfo) {
       if (experienceInfo.data) {
-        let tmpExperienceData = experienceInfo.data.split(':')
+        let tmpExperienceData = experienceInfo.data
         console.log(tmpExperienceData)
-        this.experienceData[0].serviceName = tmpExperienceData[0]
-        this.experienceData[0].nodePort = tmpExperienceData[1]
-        this.experienceData[0].mecHost = tmpExperienceData[2]
+        this.filterExperienceInfo(tmpExperienceData)
         this.initeStatus()
       } else {
         this.btnInstantiate = false
