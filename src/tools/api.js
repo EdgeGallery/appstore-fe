@@ -515,44 +515,44 @@ let myApp = {
 }
 
 let subscribe = {
-  createOrder: function (userId, param) {
-    return POST(URL_PREFIX + 'orders?userId=' + userId, param)
+  createOrder: function (param) {
+    return POST(URL_PREFIX + 'orders', param)
   },
-  getOrderList: function (userId, param) {
-    return POST(URL_PREFIX + 'orders/list?userId=' + userId, param)
+  getOrderList: function (param) {
+    return POST(URL_PREFIX + 'orders/list', param)
   },
   getAppSubDetail: function (appId) {
     return GET(URL_PREFIX + 'apps/' + appId)
   },
-  deactivateApp: function (userId, orderId) {
-    return POST(URL_PREFIX + 'orders/' + orderId + '/deactivation?userId=' + userId)
+  deactivateApp: function (orderId) {
+    return POST(URL_PREFIX + 'orders/' + orderId + '/deactivation')
   },
-  activateApp: function (userId, orderId) {
-    return POST(URL_PREFIX + 'orders/' + orderId + '/activation?userId=' + userId)
+  activateApp: function (orderId) {
+    return POST(URL_PREFIX + 'orders/' + orderId + '/activation')
   },
-  getSplitconfigs (userId) {
-    return GET('apps/splitconfigs/?userId=' + userId)
+  getSplitconfigs () {
+    return GET('apps/splitconfigs/')
   },
-  addSplitconfigs (userId, appId, param) {
-    return POST('apps/splitconfigs/' + appId + '?userId=' + userId, param)
+  addSplitconfigs (appId, param) {
+    return POST('apps/splitconfigs/' + appId, param)
   },
-  modifySplitconfigs (userId, appId, param) {
-    return PUT('apps/splitconfigs/' + appId + '?userId=' + userId, param)
+  modifySplitconfigs (appId, param) {
+    return PUT('apps/splitconfigs/' + appId, param)
   },
-  modifyDefaultSplitconfigs (userId, param) {
-    return PUT('apps/splitconfigs/all?userId=' + userId, param)
+  modifyDefaultSplitconfigs (param) {
+    return PUT('apps/splitconfigs/all', param)
   },
-  getBillsList: function (userId, param) {
-    return POST(URL_PREFIX + 'bills/list?userId=' + userId, param)
+  getBillsList: function (param) {
+    return POST(URL_PREFIX + 'bills/list', param)
   },
-  getOverAllData: function (userId, param) {
-    return POST(URL_PREFIX + 'bills/statistics/overall?userId=' + userId, param)
+  getOverAllData: function (param) {
+    return POST(URL_PREFIX + 'bills/statistics/overall', param)
   },
-  getTopApps: function (userId, param) {
-    return POST(URL_PREFIX + 'bills/statistics/sales/topapps?userId=' + userId, param)
+  getTopApps: function (param) {
+    return POST(URL_PREFIX + 'bills/statistics/sales/topapps', param)
   },
-  getMechosts: function (userId) {
-    return GET(URL_PREFIX + 'mechosts/?userId=' + userId)
+  getMechosts: function () {
+    return GET(URL_PREFIX + 'mechosts/')
   }
 }
 export {

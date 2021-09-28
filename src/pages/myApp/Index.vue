@@ -337,7 +337,6 @@ export default {
   data () {
     return {
       userId: '',
-      appData: [],
       appPackageData: [],
       currentPageData: [],
       dataLoading: true,

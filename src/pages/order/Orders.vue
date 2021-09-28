@@ -1,7 +1,7 @@
 <template>
   <div class="orders">
     <div class="title_top title_left defaultFontBlod clear">
-      订单管理
+      {{ $t('order.orderMana') }}
       <span class="line_bot1" />
     </div>
     <div class="content">
@@ -36,31 +36,31 @@
           </template>
           <el-table-column
             prop="orderNum"
-            label="订单编号"
+            :label="$t('order.orderNum')"
           />
           <el-table-column
             prop="mecHostName"
-            label="节点名称"
+            :label="$t('order.nodeName')"
           />
           <el-table-column
             prop="appName"
-            label="应用名称"
+            :label="$t('order.appName')"
           />
           <el-table-column
             prop="mecHostIp"
-            label="节点IP"
+            :label="$t('order.nodeIp')"
           />
           <el-table-column
             prop="orderTime"
-            label="下单时间"
+            :label="$t('order.orderTime')"
           />
           <el-table-column
             prop="mecHostCity"
-            label="节点位置"
+            :label="$t('order.nodeAddress')"
           />
           <el-table-column
             prop="status"
-            label="状态"
+            :label="$t('order.status')"
           >
             <template slot-scope="scope">
               <span
@@ -87,14 +87,14 @@
                   class="operations_btn"
                   :disabled="scope.row.status!=='0'"
                 >
-                  激活
+                  {{ $t('order.activation') }}
                 </el-button>
                 <el-button
                   @click="deactivate(scope.row)"
                   class="operations_btn"
                   :disabled="scope.row.status=='4'"
                 >
-                  退订
+                  {{ $t('order.unsubscribe') }}
                 </el-button>
               </div>
             </template>
@@ -180,8 +180,7 @@ export default {
           'sortItem': 'ORDERTIME',
           'sortType': 'DESC'
         }
-      },
-      userId: sessionStorage.getItem('userId')
+      }
     }
   },
   mounted () {
@@ -201,17 +200,17 @@ export default {
       console.log(3)
     },
     getOrderList () {
-      // subscribe.getOrderList(this.userId, this.param).then(res => {
+      // subscribe.getOrderList( this.param).then(res => {
       //   this.orderList = res.data
       // })
     },
     activate (row) {
-      this.$confirm('确认激活 ' + row.appName + ' 应用？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(this.$t('order.confirmToActivate') + row.appName + ' ？', this.$t('order.tip'), {
+        confirmButtonText: this.$t('order.confirm'),
+        cancelButtonText: this.$t('order.cancel'),
         type: 'warning'
       }).then(() => {
-        this.$message.success('操作成功！')
+        this.$message.success(this.$t('order.success'))
         row.status = '3'
         setTimeout(() => {
           row.status = '1'
@@ -219,18 +218,18 @@ export default {
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消'
+          message: this.$t('order.canceled')
         })
       })
 
-      // subscribe.activateApp(this.userId, row.id).then(res => {
+      // subscribe.activateApp( row.id).then(res => {
       //   console.log(res)
       // })
     },
     deactivate (row) {
-      this.$confirm('确认退订 ' + row.appName + ' 应用？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(this.$t('order.confirmToUnsub') + row.appName + ' ？', this.$t('order.tip'), {
+        confirmButtonText: this.$t('order.confirm'),
+        cancelButtonText: this.$t('order.cancel'),
         type: 'warning'
       }).then(() => {
         // this.orderList.forEach((item, index) => {
@@ -240,16 +239,16 @@ export default {
         //     this.orderList.splice(index, 1)
         //   }
         // })
-        this.$message.success('退订成功！')
+        this.$message.success(this.$t('order.unsubSuccess'))
         row.status = '4'
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消'
+          message: this.$t('order.canceled')
         })
       })
 
-      // subscribe.deactivateApp(this.userId, row.id).then(res => {
+      // subscribe.deactivateApp( row.id).then(res => {
       //   console.log(res)
       // })
     }
