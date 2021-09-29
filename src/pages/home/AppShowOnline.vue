@@ -425,7 +425,6 @@ export default {
     initeData (experienceInfo) {
       if (experienceInfo.data) {
         let tmpExperienceData = experienceInfo.data
-        console.log(tmpExperienceData)
         this.filterExperienceInfo(tmpExperienceData)
         this.initeStatus()
       } else {
@@ -465,11 +464,9 @@ export default {
     },
     appId (newVal, oldVal) {
       this.appId = newVal
-      console.log(this.appId)
     },
     packageId (newStr) {
       this.packageId = newStr
-      console.log(this.packageId)
       if (this.packageId) {
         this.initStatus()
       }

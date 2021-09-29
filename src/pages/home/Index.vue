@@ -172,7 +172,6 @@ export default {
       }
     },
     uploadPackage () {
-      console.log('uploadtest')
       let userName = sessionStorage.getItem('userNameRole')
       if (userName === 'guest') {
         this.uploadDiaVis = false
@@ -182,11 +181,9 @@ export default {
     },
     getCurrentComponent (currentComponent) {
       this.currentComponent = currentComponent
-      console.log(this.currentComponent)
     },
     getSearchCondition (searchCondition) {
       this.searchCondition = searchCondition
-      console.log(this.searchCondition)
       this.getAppData(searchCondition)
     },
     doQuery () {
@@ -297,7 +294,6 @@ export default {
     },
     getAppData (searchCondition) {
       this.uploadDiaVis = false
-      console.log(searchCondition)
       this.currentComponent = sessionStorage.getItem('currentComponent') || 'appGrid'
       getAppTableApi(searchCondition).then(
         (res) => {
@@ -388,8 +384,6 @@ export default {
         this.setItemSelectedValue(item)
       })
     }
-    console.log(this.searchCondition)
-    // this.getAppData(this.searchCondition)
     this.ifFromDetail()
   },
   destroyed () {

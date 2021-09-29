@@ -304,7 +304,6 @@ export default ({
     handleClick (singleEvent) {
       this.singleItemList.push(this.sortBy[singleEvent].value)
       if (this.language === 'cn') {
-        console.log(this.language)
         this.sortByTitle = this.sortBy[singleEvent].labelcn
       } else {
         this.sortByTitle = this.sortBy[singleEvent].labelen
@@ -318,7 +317,6 @@ export default ({
         this.order = 'desc'
         this.searchCondition.queryCtrl.sortType = 'desc'
       }
-      console.log(this.searchCondition)
       this.$emit('getSearchCondition', this.searchCondition)
     },
     confirmbtn () {
