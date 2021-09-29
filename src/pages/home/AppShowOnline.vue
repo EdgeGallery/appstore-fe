@@ -427,6 +427,7 @@ export default {
         let tmpExperienceData = experienceInfo.data
         console.log(tmpExperienceData)
         this.filterExperienceInfo(tmpExperienceData)
+        this.displayDom = true
         this.initeStatus()
       } else {
         this.btnInstantiate = false
