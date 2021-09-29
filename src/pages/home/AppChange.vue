@@ -28,7 +28,8 @@ export default ({
   data () {
     return {
       srcUrl: '',
-      isRouterAlive: true
+      isRouterAlive: true,
+      changeStyle: this.$route.query.changeStyle
     }
   },
   methods: {
@@ -40,7 +41,12 @@ export default ({
       }
     },
     jumpToIndex () {
-      this.$router.push('/index')
+      this.$router.push({
+        path: '/index',
+        query: {
+          changeStyle: this.changeStyle
+        }
+      })
     },
     rebuileComponents () {
       this.isRouterAlive = false

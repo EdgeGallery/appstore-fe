@@ -245,7 +245,7 @@ export default ({
       ifPkgTrans: false,
       value: '',
       language: localStorage.getItem('language'),
-      iconAactive: false,
+      iconAactive: this.$route.query.changeStyle || false,
       currentComponent: '',
       singleItemList: [],
       singleItem: '',
@@ -295,7 +295,6 @@ export default ({
     queryApp () {
       sessionStorage.setItem('currentPage', 1)
       this.searchCondition.appName = this.nameQueryVal.toLowerCase()
-      console.log(this.searchCondition)
       this.$emit('getSearchCondition', this.searchCondition)
     },
     resetForm (formName) {
@@ -303,7 +302,6 @@ export default ({
       this.$emit('getSearchData', this.appName)
     },
     handleClick (singleEvent) {
-      console.log(this.sortBy[singleEvent])
       this.singleItemList.push(this.sortBy[singleEvent].value)
       if (this.language === 'cn') {
         console.log(this.language)
@@ -312,7 +310,6 @@ export default ({
         this.sortByTitle = this.sortBy[singleEvent].labelen
       }
       this.prop = this.sortBy[singleEvent].value
-      console.log(this.prop)
       this.searchCondition.queryCtrl.sortItem = this.prop
       if (this.sortBy[singleEvent].value === 'AppName') {
         this.order = 'asc'
@@ -325,7 +322,6 @@ export default ({
       this.$emit('getSearchCondition', this.searchCondition)
     },
     confirmbtn () {
-      console.log('dfff')
       this.$emit('getSearchCondition', this.searchCondition)
       this.visible = false
     },
@@ -360,12 +356,14 @@ export default ({
       this.affinity.forEach((item) => {
         item.selected = false
       })
-      console.log(this.searchCondition)
-      console.log(this.selectedConditions)
     },
-
     appdConversion () {
-      this.$router.push({ name: 'appChange' })
+      this.$router.push({
+        path: '/appChange',
+        query: {
+          changeStyle: this.iconAactive
+        }
+      })
     },
     getSortedItem (type, value, index) {
       this.selectedConditions = []
@@ -412,8 +410,6 @@ export default ({
             default:
           }
         })
-      console.log(this.searchCondition)
-      // this.$emit('getSearchCondition', this.searchCondition)
     },
     changeAppList () {
       this.iconAactive = !this.iconAactive
@@ -424,7 +420,6 @@ export default ({
         this.currentComponent = 'appGrid'
         sessionStorage.setItem('currentComponent', 'appGrid')
       }
-      // 传递currentComponent = 'appList'给index.vue父组件
       this.$emit('getCurrentComponent', this.currentComponent)
     }
   },
