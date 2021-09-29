@@ -1,12 +1,12 @@
 <template>
   <div class="bills">
     <div class="title_top title_left defaultFontBlod clear">
-      分账管理
+      {{ $t('split.splitMana') }}
       <span class="line_bot1" />
     </div>
     <div class="content top">
       <div>
-        <span>默认分账比例</span>
+        <span>{{ $t('split.default') }}</span>
         <el-input-number
           v-model="defaultrate"
           class="rate_input"
@@ -20,20 +20,20 @@
           @click="setRateVal"
           v-if="!showConfirmBtn"
         >
-          设置
+          {{ $t('split.set') }}
         </el-button>
         <el-button
           class="bgBtn"
           @click="modifyDefaultVal"
           v-if="showConfirmBtn"
         >
-          确定
+          {{ $t('split.confirm') }}
         </el-button>
         <el-button
           class="bgBtn rt"
           @click="addSplitBillDialog=true"
         >
-          添加
+          {{ $t('split.add') }}
         </el-button>
       </div>
     </div>
@@ -55,15 +55,15 @@
           </template>
           <el-table-column
             prop="appName"
-            label="应用名称"
+            :label="$t('bill.appName')"
           />
           <el-table-column
             prop="provider"
-            label="厂商"
+            :label="$t('bill.provider')"
           />
           <el-table-column
             prop="splitRatio"
-            label="分账比例"
+            :label="$t('split.splitRatio')"
           >
             <template slot-scope="scope">
               <div>
@@ -85,7 +85,7 @@
                   @click="modify(scope.row)"
                   class="operations_btn"
                 >
-                  修改
+                  {{ $t('split.modify') }}
                 </el-button>
               </div>
             </template>
@@ -116,14 +116,14 @@
         class="el-dialog__title"
       >
         <em class="title_icon" />
-        应用分账设置
+        {{ $t('split.splitSettings') }}
       </div>
       <div style="margin-top:25px;">
         <el-form>
-          <el-form-item label="应用名称">
+          <el-form-item :label="$t('bill.appName')">
             <span class="app_name">{{ appName }}</span>
           </el-form-item>
-          <el-form-item label="分账比例">
+          <el-form-item :label="$t('split.splitRatio')">
             <el-input-number
               v-model="splitRatio"
               class="rate_input"
@@ -162,11 +162,11 @@
         class="el-dialog__title"
       >
         <em class="title_icon" />
-        添加分账设置
+        {{ $t('split.addSplitSettings') }}
       </div>
       <div>
         <div class="billInputBox">
-          分账设置
+          {{ $t('split.default') }}
           <el-input-number
             v-model="rate"
             class="rate_input"
@@ -186,15 +186,15 @@
             />
             <el-table-column
               prop="appName"
-              label="应用名称"
+              :label="$t('bill.appName')"
             />
             <el-table-column
               prop="provider"
-              label="厂商"
+              :label="$t('bill.provider')"
             />
             <el-table-column
               prop="rate"
-              label="当前分账比例"
+              :label="$t('split.splitRatio')"
             />
           </el-table>
         </div>
@@ -303,14 +303,14 @@ export default {
       //   this.addSplitBillDialog = false
       // })
       if (this.tempList.length < 1) {
-        this.$message.error('请至少添加一条数据！')
+        this.$message.error(this.$t('split.moreThanOne'))
       } else {
         this.tempList.forEach(item => {
           item.splitRatio = this.rate / 100
           this.splitBillList.push(item)
         })
       }
-      this.$message.success('添加成功！')
+      this.$message.success(this.$t('split.addSuccess'))
       this.addSplitBillDialog = false
     },
     setAppBillRate () {
@@ -321,7 +321,7 @@ export default {
       //   this.splitBillDialog = false
       // })
       this.splitBillList[this.modifyIndex].splitRatio = this.splitRatio / 100
-      this.$message.success('设置成功！')
+      this.$message.success(this.$t('split.setSuccess'))
       this.splitBillDialog = false
     },
     setRateVal () {
@@ -336,7 +336,7 @@ export default {
       //   this.showConfirmBtn = false
       // })
       row.splitRatio = this.splitRatio
-      this.$message.success('修改成功！')
+      this.$message.success(this.$t('split.modifyThanOne'))
       this.showConfirmBtn = false
     }
   }

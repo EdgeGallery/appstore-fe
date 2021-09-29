@@ -50,7 +50,7 @@
           @command="handleClick"
         >
           <span class="el-dropdown-link">
-            {{ $t('common.sort') }}
+            {{ this.sortByTitle === '' ? $t('common.sort') : this.sortByTitle }}
           </span>
           <el-dropdown-menu
             slot="dropdown"
@@ -262,6 +262,7 @@ export default ({
       appName: '',
       selectedConditions: [],
       offsetPage: sessionStorage.getItem('offsetRepo') || 0,
+      sortByTitle: '',
       limitSize: 15,
       prop: 'createTime',
       order: 'desc',
@@ -302,13 +303,22 @@ export default ({
     },
     handleClick (singleEvent) {
       this.singleItemList.push(this.sortBy[singleEvent].value)
+      if (this.language === 'cn') {
+        console.log(this.language)
+        this.sortByTitle = this.sortBy[singleEvent].labelcn
+      } else {
+        this.sortByTitle = this.sortBy[singleEvent].labelen
+      }
       this.prop = this.sortBy[singleEvent].value
       this.searchCondition.queryCtrl.sortItem = this.prop
       if (this.sortBy[singleEvent].value === 'AppName') {
+        this.order = 'asc'
         this.searchCondition.queryCtrl.sortType = 'asc'
       } else {
+        this.order = 'desc'
         this.searchCondition.queryCtrl.sortType = 'desc'
       }
+      console.log(this.searchCondition)
       this.$emit('getSearchCondition', this.searchCondition)
     },
     confirmbtn () {

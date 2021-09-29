@@ -1,14 +1,14 @@
 <template>
   <div class="bill">
     <div class="title_top title_left defaultFontBlod clear">
-      账单管理
+      {{ $t('bill.billMana') }}
       <span class="line_bot1" />
     </div>
     <div class="billContent">
       <div class="select_box">
         <el-select
           v-model="time"
-          placeholder="请选择"
+          :placeholder="$t('common.choose')"
           class="timeSelect"
         >
           <el-option
@@ -27,7 +27,7 @@
               class="chart"
             >
               <div class="chart_top">
-                <span class="chart_title">整体收支情况</span>
+                <span class="chart_title">{{ $t('bill.overall') }}</span>
               </div>
               <div
                 id="billChart"
@@ -40,7 +40,7 @@
                   :key="index"
                   :class="'name_label'+index"
                 >
-                  {{ item.label }}（元）
+                  {{ item.label }}{{ $t('bill.yuan') }}
                 </div>
               </div>
             </div>
@@ -51,7 +51,7 @@
               class="chart"
             >
               <div class="chart_top">
-                <span class="chart_title">应用销售情况</span>
+                <span class="chart_title">{{ $t('bill.sales') }}</span>
               </div>
               <el-col :span="12">
                 <div class="chart_sub_title">
@@ -106,8 +106,8 @@
               <el-row>
                 <el-col :span="12">
                   <div class="mark_icon">
-                    <span class="mark_icon_label num">销售数量</span>
-                    <span class="mark_icon_label account">销售金额</span>
+                    <span class="mark_icon_label num">{{ $t('bill.nums') }}</span>
+                    <span class="mark_icon_label account">{{ $t('bill.money') }}</span>
                   </div>
                 </el-col>
               </el-row>
@@ -132,15 +132,15 @@
           </template>
           <el-table-column
             prop="appName"
-            label="应用名称"
+            :label="$t('bill.appName')"
           />
           <el-table-column
             prop="provider"
-            label="厂商"
+            :label="$t('bill.provider')"
           />
           <el-table-column
             prop="billFlag"
-            label="类型"
+            :label="$t('bill.type')"
           >
             <template slot-scope="scope">
               {{ scope.row.billFlag == 'OUT' ?'支出':'收入' }}
@@ -148,23 +148,23 @@
           </el-table-column>
           <el-table-column
             prop="userName"
-            label="用户名"
+            :label="$t('bill.userName')"
           />
           <el-table-column
             prop="billAmount"
-            label="账单金额"
+            :label="$t('bill.billAmount')"
           />
           <el-table-column
             prop="operatorFee"
-            label="入账费用"
+            :label="$t('bill.entryFee')"
           />
           <el-table-column
             prop="supplierFee"
-            label="出账费用"
+            :label="$t('bill.billingFee')"
           />
           <el-table-column
             prop="createTime"
-            label="刷新日期"
+            :label="$t('bill.updateTime')"
           />
         </el-table>
       </div>

@@ -428,7 +428,7 @@
           >
             <el-select
               v-model="mechostIp"
-              placeholder="请选择"
+              :placeholder="$t('common.choose')"
               style="width: 260px;"
             >
               <el-option
