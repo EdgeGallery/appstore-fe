@@ -92,6 +92,7 @@ export default {
   justify-content: center;
   min-width: 1200px;
   align-items: center;
+  padding: 0 13%;
   .appTestTop{
     width: 73.64%;
     margin: 60px 13.18% 20px 13.18%;
