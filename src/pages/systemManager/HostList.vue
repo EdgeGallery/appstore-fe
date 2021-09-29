@@ -607,9 +607,7 @@ export default {
       }
     },
     showMoreBtnFun (index) {
-      console.log(index)
       this.currentIndex = index
-      console.log(this.currentIndex)
     },
     setDivHeight () {
       common.setDivHeightFun(this.screenHeight, 'hostManagement', 261)
@@ -679,9 +677,6 @@ export default {
       this.$refs.form.validate((valid, params) => {
         if (valid) {
           this.loading = true
-          let addressTemp = this.form.address
-          // this.form.address = addressTemp.substring(0, addressTemp.lastIndexOf('\n'))
-          console.log(addressTemp.substring(0, addressTemp.lastIndexOf('\n')))
           if (!this.showOther) {
             this.form.parameter = ''
           }

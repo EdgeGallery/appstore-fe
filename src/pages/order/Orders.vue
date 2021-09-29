@@ -190,20 +190,6 @@ export default {
     this.getOrderList()
   },
   methods: {
-    sizeChange () {
-      console.log(1)
-    },
-    currentChange () {
-      console.log(2)
-    },
-    queryApp () {
-      console.log(3)
-    },
-    getOrderList () {
-      // subscribe.getOrderList( this.param).then(res => {
-      //   this.orderList = res.data
-      // })
-    },
     activate (row) {
       this.$confirm(this.$t('order.confirmToActivate') + row.appName + ' ？', this.$t('order.tip'), {
         confirmButtonText: this.$t('order.confirm'),
@@ -221,10 +207,6 @@ export default {
           message: this.$t('order.canceled')
         })
       })
-
-      // subscribe.activateApp( row.id).then(res => {
-      //   console.log(res)
-      // })
     },
     deactivate (row) {
       this.$confirm(this.$t('order.confirmToUnsub') + row.appName + ' ？', this.$t('order.tip'), {
@@ -232,13 +214,6 @@ export default {
         cancelButtonText: this.$t('order.cancel'),
         type: 'warning'
       }).then(() => {
-        // this.orderList.forEach((item, index) => {
-        //   console.log(index)
-        //   if (item.appName === row.appName) {
-        //     console.log(index)
-        //     this.orderList.splice(index, 1)
-        //   }
-        // })
         this.$message.success(this.$t('order.unsubSuccess'))
         row.status = '4'
       }).catch(() => {
@@ -247,10 +222,6 @@ export default {
           message: this.$t('order.canceled')
         })
       })
-
-      // subscribe.deactivateApp( row.id).then(res => {
-      //   console.log(res)
-      // })
     }
   }
 }
