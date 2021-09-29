@@ -211,8 +211,7 @@ export default {
           offset: this.offsetPage,
           limit: this.limitSize,
           sortItem: this.prop,
-          sortType: this.order,
-          createTime: 'createTime'
+          sortType: this.order
         }
       }
       this.selectedConditions.forEach(
@@ -296,6 +295,11 @@ export default {
       this.uploadDiaVis = input
     },
     getAppData (searchCondition) {
+      console.log(searchCondition.queryCtrl.sortItem)
+      if (!searchCondition.queryCtrl.sortItem) {
+        searchCondition.queryCtrl.sortItem = 'createTime'
+        searchCondition.queryCtrl.sortType = 'desc'
+      }
       this.uploadDiaVis = false
       console.log(searchCondition)
       this.currentComponent = sessionStorage.getItem('currentComponent') || 'appGrid'
