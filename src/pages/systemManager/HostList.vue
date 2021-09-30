@@ -471,22 +471,22 @@ export default {
         callback()
       }
     }
-    const validatePort = (rule, value, callback) => {
-      let reg = /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-5]{2}[0-3][0-5])$/
-      if (!value) {
-        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.inPort')}`))
-      } else if (!reg.test(value)) {
-        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.correct')}${this.$t('system.inPort')}`))
-      } else {
-        callback()
-      }
-    }
     const validateAddress = (rule, value, callback) => {
       let reg = /^[\s\S]{1,100}$/
       if (!value) {
         callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.address')}`))
       } else if (!reg.test(value)) {
         callback(new Error(`${this.$t('system.pleaseInput')}1~100 ${this.$t('system.char')}`))
+      } else {
+        callback()
+      }
+    }
+    const validatePort = (rule, value, callback) => {
+      let reg = /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-5]{2}[0-3][0-5])$/
+      if (!value) {
+        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.inPort')}`))
+      } else if (!reg.test(value)) {
+        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.correct')}${this.$t('system.inPort')}`))
       } else {
         callback()
       }
@@ -656,7 +656,7 @@ export default {
         this.form.parameter = str.substr(0, str.length - 1)
         this.innerVisible = false
       } else {
-        this.$eg_messagebox(this.$t('system.completeInfo'), 'warning')
+        this.message.warning(this.$t('system.completeInfo'))
       }
     },
     handleDelete ({ hostId }) {
@@ -680,19 +680,21 @@ export default {
         if (valid) {
           this.loading = true
           let addressTemp = this.form.address
-          this.form.address = addressTemp.substring(0, addressTemp.lastIndexOf('\n'))
+          // this.form.address = addressTemp.substring(0, addressTemp.lastIndexOf('\n'))
+          console.log(addressTemp.substring(0, addressTemp.lastIndexOf('\n')))
           if (!this.showOther) {
             this.form.parameter = ''
           }
           System.saveHostInfo({ ...this.form, ...params, userId: this.userName }).then(res => {
             if (res.data) {
-              this.$eg_messagebox((this.form.hostId ? this.$t('api.modify') : this.$t('system.addHost')) + this.$t('system.success'), 'success')
+              this.$eg_messagebox((this.form.hostId ? this.$t('system.modify') : this.$t('system.addHost')) + this.$t('system.success'), 'success')
+
               this.onClose()
             } else {
               throw new Error()
             }
           }).catch(() => {
-            this.$eg_messagebox(this.$t('promptMessage.saveFail'), 'error')
+            this.$eg_messagebox(this.$t('system.saveFail'), 'error')
           }).finally(() => {
             this.loading = false
             this.getListData()
@@ -735,7 +737,7 @@ export default {
         if (res.data.fileId) {
           this[`${key}_file_list`] = fileList
           this.form[key] = res.data.fileId
-          this.$eg_messagebox(this.$t('promptMessage.uploadSuccess'), 'success')
+          this.$eg_messagebox(this.$t('system.uploadSuccess'), 'success')
         } else {
           this.handleRemove(key)
           throw new Error()

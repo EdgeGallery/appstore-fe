@@ -478,6 +478,12 @@ export default {
       }).catch(error => {
         this.$message.error(error.message)
       })
+      sessionStorage.removeItem('currentPage')
+      sessionStorage.removeItem('myAppCurPageSize')
+      sessionStorage.removeItem('myAppOffsetPage')
+      sessionStorage.removeItem('currentComponent')
+      sessionStorage.removeItem('myAppPageNum')
+      sessionStorage.removeItem('userId')
     },
     enterLoginPage () {
       let _protocol = window.location.href.indexOf('https') > -1 ? 'https://' : 'http://'
@@ -686,7 +692,7 @@ export default {
   color: white;
   background: #5E40C8;
   position: fixed;
-  z-index: 9999;
+  z-index: 2001;
   width: 100%;
   padding: 0 13.18%;
 
