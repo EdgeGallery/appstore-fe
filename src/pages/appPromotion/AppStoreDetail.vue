@@ -321,4 +321,12 @@ div /deep/ .headerStyle {
   background: #EFEFEF;
   border-radius: 12px;
 }
+div /deep/ .el-table th > .cell {
+    font-size: 20px !important;
+    font-weight: 400;
+    color: #62517A;
+}
+div/deep/ .el-table th{
+  height: 60px !important;
+}
 </style>
