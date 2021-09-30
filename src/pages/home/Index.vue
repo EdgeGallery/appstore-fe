@@ -208,8 +208,7 @@ export default {
           offset: this.offsetPage,
           limit: this.limitSize,
           sortItem: this.prop,
-          sortType: this.order,
-          createTime: 'createTime'
+          sortType: this.order
         }
       }
       this.selectedConditions.forEach(
@@ -251,11 +250,13 @@ export default {
     },
     buildQueryReq () {
       let _queryReq = this.searchCondition
-      if (this.prop === 'appName') {
-        this.order = 'asc'
-      } else {
-        this.order = 'desc'
-      }
+      // if (this.prop === 'appName') {
+      //   this.order = 'asc'
+      // } else {
+      //   this.order = 'desc'
+      // }
+      this.prop = sessionStorage.getItem('sortItem')
+      this.order = sessionStorage.getItem('sortType')
       this.searchCondition.queryCtrl = {
         'offset': this.offsetPage,
         'limit': this.limitSize,
@@ -293,6 +294,11 @@ export default {
       this.uploadDiaVis = input
     },
     getAppData (searchCondition) {
+      console.log(searchCondition.queryCtrl.sortItem)
+      if (!searchCondition.queryCtrl.sortItem) {
+        searchCondition.queryCtrl.sortItem = 'createTime'
+        searchCondition.queryCtrl.sortType = 'desc'
+      }
       this.uploadDiaVis = false
       this.currentComponent = sessionStorage.getItem('currentComponent') || 'appGrid'
       getAppTableApi(searchCondition).then(

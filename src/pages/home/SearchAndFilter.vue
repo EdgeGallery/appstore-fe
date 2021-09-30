@@ -310,12 +310,15 @@ export default ({
       }
       this.prop = this.sortBy[singleEvent].value
       this.searchCondition.queryCtrl.sortItem = this.prop
+      sessionStorage.setItem('sortItem', this.prop)
       if (this.sortBy[singleEvent].value === 'AppName') {
         this.order = 'asc'
         this.searchCondition.queryCtrl.sortType = 'asc'
+        sessionStorage.setItem('sortType', 'asc')
       } else {
         this.order = 'desc'
         this.searchCondition.queryCtrl.sortType = 'desc'
+        sessionStorage.setItem('sortType', 'asc')
       }
       this.$emit('getSearchCondition', this.searchCondition)
     },
