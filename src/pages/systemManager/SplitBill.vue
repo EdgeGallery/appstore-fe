@@ -272,17 +272,7 @@ export default {
   },
   methods: {
     handleSelectionChange (val) {
-      console.log(val)
       this.tempList = val
-    },
-    sizeChange () {
-      console.log(1)
-    },
-    currentChange () {
-      console.log(2)
-    },
-    queryApp () {
-      console.log(3)
     },
     modify (row) {
       this.splitBillList.forEach((item, index) => {
@@ -296,12 +286,6 @@ export default {
       this.appName = row.appName
     },
     addNewSplitConfig () {
-      // let param = {
-      //   splitRatio: this.splitRatio
-      // }
-      // subscribe.addSplitconfigs(this.userId, this.appId, param).then(res => {
-      //   this.addSplitBillDialog = false
-      // })
       if (this.tempList.length < 1) {
         this.$message.error(this.$t('split.moreThanOne'))
       } else {
@@ -314,12 +298,6 @@ export default {
       this.addSplitBillDialog = false
     },
     setAppBillRate () {
-      // let param = {
-      //   splitRatio: this.splitRatio
-      // }
-      // subscribe.modifySplitconfigs(this.userId, this.appId, param).then(res => {
-      //   this.splitBillDialog = false
-      // })
       this.splitBillList[this.modifyIndex].splitRatio = this.splitRatio / 100
       this.$message.success(this.$t('split.setSuccess'))
       this.splitBillDialog = false
@@ -329,12 +307,6 @@ export default {
       this.showConfirmBtn = true
     },
     modifyDefaultVal (row) {
-      // let param = {
-      //   splitRatio: this.splitRatio
-      // }
-      // subscribe.modifyDefaultSplitconfigs(this.userId, param).then(res => {
-      //   this.showConfirmBtn = false
-      // })
       row.splitRatio = this.splitRatio
       this.$message.success(this.$t('split.modifyThanOne'))
       this.showConfirmBtn = false

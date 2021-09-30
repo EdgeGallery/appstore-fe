@@ -172,7 +172,6 @@ export default {
       }
     },
     uploadPackage () {
-      console.log('uploadtest')
       let userName = sessionStorage.getItem('userNameRole')
       if (userName === 'guest') {
         this.uploadDiaVis = false
@@ -182,11 +181,9 @@ export default {
     },
     getCurrentComponent (currentComponent) {
       this.currentComponent = currentComponent
-      console.log(this.currentComponent)
     },
     getSearchCondition (searchCondition) {
       this.searchCondition = searchCondition
-      console.log(this.searchCondition)
       this.getAppData(searchCondition)
     },
     doQuery () {
@@ -211,8 +208,7 @@ export default {
           offset: this.offsetPage,
           limit: this.limitSize,
           sortItem: this.prop,
-          sortType: this.order,
-          createTime: 'createTime'
+          sortType: this.order
         }
       }
       this.selectedConditions.forEach(
@@ -254,11 +250,13 @@ export default {
     },
     buildQueryReq () {
       let _queryReq = this.searchCondition
-      if (this.prop === 'appName') {
-        this.order = 'asc'
-      } else {
-        this.order = 'desc'
-      }
+      // if (this.prop === 'appName') {
+      //   this.order = 'asc'
+      // } else {
+      //   this.order = 'desc'
+      // }
+      this.prop = sessionStorage.getItem('sortItem')
+      this.order = sessionStorage.getItem('sortType')
       this.searchCondition.queryCtrl = {
         'offset': this.offsetPage,
         'limit': this.limitSize,
@@ -296,8 +294,12 @@ export default {
       this.uploadDiaVis = input
     },
     getAppData (searchCondition) {
+      console.log(searchCondition.queryCtrl.sortItem)
+      if (!searchCondition.queryCtrl.sortItem) {
+        searchCondition.queryCtrl.sortItem = 'createTime'
+        searchCondition.queryCtrl.sortType = 'desc'
+      }
       this.uploadDiaVis = false
-      console.log(searchCondition)
       this.currentComponent = sessionStorage.getItem('currentComponent') || 'appGrid'
       getAppTableApi(searchCondition).then(
         (res) => {
@@ -388,8 +390,6 @@ export default {
         this.setItemSelectedValue(item)
       })
     }
-    console.log(this.searchCondition)
-    // this.getAppData(this.searchCondition)
     this.ifFromDetail()
   },
   destroyed () {

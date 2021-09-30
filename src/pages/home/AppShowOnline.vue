@@ -382,13 +382,7 @@ export default {
             let result = res.data
             if (result) {
               this.stepClean()
-              this.experienceData = [
-                {
-                  serviceName: '',
-                  nodePort: '',
-                  mecHost: ''
-                }
-              ]
+              this.experienceData = []
               this.displayDom = false
               this.$message({
                 duration: 2000,
@@ -425,8 +419,8 @@ export default {
     initeData (experienceInfo) {
       if (experienceInfo.data) {
         let tmpExperienceData = experienceInfo.data
-        console.log(tmpExperienceData)
         this.filterExperienceInfo(tmpExperienceData)
+        this.displayDom = true
         this.initeStatus()
       } else {
         this.btnInstantiate = false
@@ -465,11 +459,9 @@ export default {
     },
     appId (newVal, oldVal) {
       this.appId = newVal
-      console.log(this.appId)
     },
     packageId (newStr) {
       this.packageId = newStr
-      console.log(this.packageId)
       if (this.packageId) {
         this.initStatus()
       }

@@ -673,21 +673,17 @@ export default {
         data.forEach(item => {
           if (this.pathSource !== 'myapp' && item.status === 'Published') {
             this.ifExperience = item.experienceAble
-            console.log(this.ifExperience)
             this.packageId = item.packageId
-            console.log(this.packageId)
           }
         })
         this.handleTableTada(data)
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
-          console.log(this.tableData)
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
           this.ifExperience = this.currentData.experienceAble
           if (sessionStorage.getItem('userNameRole') === 'tenant' && this.userId !== this.currentData.userId) {
             this.ifSynchronize = false
           }
-          console.log(this.currentData)
           this.checkProjectData()
         }
       })
