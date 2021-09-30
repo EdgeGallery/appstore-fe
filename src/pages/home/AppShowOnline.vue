@@ -382,13 +382,7 @@ export default {
             let result = res.data
             if (result) {
               this.stepClean()
-              this.experienceData = [
-                {
-                  serviceName: '',
-                  nodePort: '',
-                  mecHost: ''
-                }
-              ]
+              this.experienceData = []
               this.displayDom = false
               this.$message({
                 duration: 2000,
