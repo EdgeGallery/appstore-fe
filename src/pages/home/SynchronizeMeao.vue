@@ -315,33 +315,6 @@ export default {
     clearIntervalCall () {
       this.interval = null
     },
-    filterTableData (tempData) {
-      this.testColor = []
-      let tableDataname = []
-      for (let items of tempData) {
-        if (this.systemName) {
-          let froResult = this.systemName.replace(/(^\s+)|(\s+$)/g, '')
-          let bacResult = items.systemName.replace(/(^\s+)|(\s+$)/g, '')
-          if (bacResult === froResult) {
-            if (this.status) {
-              if (items.status.replace(/(^\s+)|(\s+$)/g, '') === this.status.replace(/(^\s+)|(\s+$)/g, '')) {
-                tableDataname.push(items)
-              }
-            } else {
-              tableDataname.push(items)
-            }
-          }
-        } else if (this.status) {
-          if (items.status.replace(/(^\s+)|(\s+$)/g, '') === this.status.replace(/(^\s+)|(\s+$)/g, '')) {
-            tableDataname.push(items)
-          }
-        } else {
-          tableDataname.push(items)
-        }
-      }
-      this.tableData = tableDataname
-      this.checkFailedData()
-    },
     checkFailedData () {
       for (let item of this.tableData) {
         if (item.status === 'failed') {
@@ -384,6 +357,13 @@ export default {
     '$i18n.locale': function () {
       let language = localStorage.getItem('language')
       this.language = language
+    },
+    packageId (newStr) {
+      this.packageId = newStr
+      console.log(this.packageId)
+      if (this.packageId) {
+        this.getProgressByPackageId()
+      }
     }
   },
   mounted () {
