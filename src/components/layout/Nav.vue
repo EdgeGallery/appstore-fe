@@ -605,6 +605,10 @@ export default {
             _hintInfo = _thisObj.$t('nav.hsInvalidHintForTimeout') + _hintInfo
           }
         }
+        if (_thisObj.ifGuest) {
+          window.location.reload()
+          return
+        }
         _thisObj.$confirm(_hintInfo, _thisObj.$t('promptMessage.prompt'), {
           confirmButtonText: _thisObj.$t('nav.reLogin'),
           cancelButtonText: _thisObj.$t('nav.refresh'),
