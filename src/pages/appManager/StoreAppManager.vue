@@ -68,11 +68,11 @@
         />
         <el-table-column
           prop="industry"
-          :label="$t('common.industry')"
+          :label="$t('store.industry')"
         />
         <el-table-column
           prop="type"
-          :label="$t('common.type')"
+          :label="$t('store.type')"
         />
         <el-table-column
           prop="createTime"

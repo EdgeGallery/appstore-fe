@@ -128,8 +128,6 @@ export default {
       sessionStorage.setItem('pathSource', 'index')
     },
     getAppIcon (item) {
-      console.log(this.appData)
-      console.log(item)
       return URL_PREFIX + 'apps/' + item.appId + '/icon'
     }
   },

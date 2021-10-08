@@ -736,6 +736,9 @@ export default {
     updateData () {
       this.ifExperience = this.currentData.experienceAble
       this.source = this.currentData.details
+      this.appIconPath = URL_PREFIX + 'apps/' + this.currentData.appId + '/icon'
+      console.log(this.currentData.appId)
+      console.log(this.appIconPath)
     },
     dateChange (dateStr) {
       if (dateStr) {
