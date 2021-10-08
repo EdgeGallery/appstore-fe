@@ -413,7 +413,11 @@ export default ({
         })
     },
     changeAppList () {
-      this.iconAactive = !this.iconAactive
+      if (this.iconAactive === false || this.iconAactive === 'false') {
+        this.iconAactive = true
+      } else {
+        this.iconAactive = false
+      }
       if (this.iconAactive) {
         this.currentComponent = 'appList'
         sessionStorage.setItem('currentComponent', 'appList')
