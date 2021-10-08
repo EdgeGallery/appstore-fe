@@ -70,74 +70,6 @@
           </span>
         </p>
       </div>
-      <!-- <div class="app_synchronize">
-        <p class="synchronize_info">
-          可同步应用到MEAO，可方便对应用生命周期进行管理
-        </p>
-        <div
-          class="stepApp"
-          v-if="showlun"
-        >
-          <el-carousel
-            :interval="5000"
-            arrow="always"
-          >
-            <el-carousel-item v-if="hwMeAO">
-              <p
-                class="stepNames"
-              >
-                {{ language === 'cn'?this.MEAO[0].labelcn:this.MEAO[0].labelen }}
-              </p>
-              <el-progress
-                :text-inside="true"
-                :stroke-width="14"
-                :percentage="huaweiper"
-                style="width:116px;"
-              />
-            </el-carousel-item>
-            <el-carousel-item v-if="jzyMEAO">
-              <p
-                class="stepNames"
-              >
-                {{ language === 'cn'?this.MEAO[1].labelcn:this.MEAO[1].labelen }}
-              </p>
-              <el-progress
-                :text-inside="true"
-                :stroke-width="14"
-                :percentage="jiuzhouyunper"
-                style="width:116px;"
-              />
-            </el-carousel-item>
-            <p class="stepIng">
-              正在同步应用
-            </p>
-          </el-carousel>
-        </div>
-        <div class="stepDromdown">
-          <el-dropdown
-            @command="handleClick"
-            trigger="click"
-          >
-            <el-button
-              type="primary"
-            >
-              同步应用到MEAO
-            </el-button>
-            <el-dropdown-menu
-              slot="dropdown"
-              @change="handleClick"
-            >
-              <el-dropdown-item
-                v-for="(item,index) in this.MEAO"
-                :key="index"
-                :command="index"
-              >
-                <span>{{ language === 'cn'?item.labelcn:item.labelen }}</span>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-      </div> -->
       <div class="app_score">
         <p class="score_num">
           {{ score }}
@@ -209,14 +141,6 @@
               class="link-right"
             />
           </div>
-          <!-- <div
-            v-if="ifSynchronize===true && ifExperience===false && activeName !=='comment'"
-            class="horizontal-cell"
-          >
-            <link-right
-              class="link-right"
-            />
-          </div> -->
           <div
             v-if="activeName!=='appShow'&& ifExperience === true && ifSynchronize===true && activeName !=='comment'"
             class="horizontal-cell"
@@ -237,14 +161,6 @@
               {{ $t('store.showOnline') }}
             </span>
           </li>
-          <!-- <div
-            v-if="activeName!=='meao' && ifSynchronize===false && ifExperience===true && activeName !=='appShow'"
-            class="horizontal-cell"
-          >
-            <link-right
-              class="link-right"
-            />
-          </div> -->
           <div
             v-if="activeName!=='meao'&& ifExperience === true && ifSynchronize===true && activeName !=='appShow'"
             class="horizontal-cell"
@@ -968,9 +884,8 @@ export default {
         font-size:20px !important;
         border-radius: 25px !important;
          color: #FFFFFF;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
-        // box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
         .el-button--primary{
           font-size: 20px;
           background-color: #fff;
@@ -993,7 +908,7 @@ export default {
       .synchronize_info{
         width: 194px;
         font-size: 14px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         color: #5E40C8;
         margin-top: 24px;
@@ -1025,7 +940,7 @@ export default {
         height: 50px !important;
         width: 222px !important;
         border-radius: 25px !important;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
       }
@@ -1699,7 +1614,7 @@ export default {
     padding-left: 20px;
     box-shadow: 5px 9px 63px 5px rgba(94, 64, 200, 0.06);
     font-size: 14px;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 300;
     color: #5E40C8;
     position: absolute;
@@ -1710,7 +1625,7 @@ export default {
     margin-top: 10px;
     margin-left:20px ;
     font-size: 14px;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 200;
     color: #8F859B;
   }
@@ -1732,7 +1647,7 @@ export default {
       background: linear-gradient(122deg, #4444D0, #6724CB);
       color: #FFFFFF;
       font-size: 20px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       height: 54px;
       border-radius: 23px;
       font-weight: 300;
@@ -1743,7 +1658,7 @@ export default {
     top: 1px;
     margin-left: -6px;
     border-top-width: 0;
-    border-bottom-color:#4444D0!important;
+    border-bottom-color: #4444D0 !important;
 }
   .el-dropdown-menu__item {
     padding: 0 20px;

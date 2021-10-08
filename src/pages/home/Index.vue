@@ -251,11 +251,6 @@ export default {
     },
     buildQueryReq () {
       let _queryReq = this.searchCondition
-      // if (this.prop === 'appName') {
-      //   this.order = 'asc'
-      // } else {
-      //   this.order = 'desc'
-      // }
       this.prop = sessionStorage.getItem('sortItem')
       this.order = sessionStorage.getItem('sortType')
       this.searchCondition.queryCtrl = {

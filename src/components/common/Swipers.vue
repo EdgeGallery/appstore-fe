@@ -38,6 +38,7 @@
           <img
             :src="language === 'cn' ? require('@/assets/images/banner1_cn.png'): require('@/assets/images/banner1_en.png')"
             class="img_words"
+            alt=""
           >
           <el-button
             class="upload_app"
@@ -53,6 +54,7 @@
           <img
             :src="language === 'cn' ? require('@/assets/images/banner2_cn.png'): require('@/assets/images/banner2_en.png')"
             class="img_words"
+            alt=""
           >
         </div>
       </el-carousel-item>
@@ -78,8 +80,6 @@ export default {
 
   computed: {
     ...mapState(['language'])
-  },
-  created () {
   },
   data () {
     return {
@@ -151,10 +151,8 @@ export default {
       box-shadow: 0px 12px 12px 0px rgba(83,218,189, 0.7);
       border-radius: 30px;
       color: #606266;
-      border-radius: 30px;
       font-size: 20px;
       text-align: center;
-      color: #FFFFFF;;
       border: none;
       margin: 80px 0px 0px 95px;
     }

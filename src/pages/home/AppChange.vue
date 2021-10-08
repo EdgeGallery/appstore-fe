@@ -13,9 +13,9 @@
       </button>
     </div>
     <iframe
-      class="appChanegContent"
+      class="appChangeContent"
       :src="srcUrl"
-      frameborder="0"
+      title="app change content"
     />
   </div>
 </template>
@@ -84,7 +84,7 @@ export default ({
     justify-content: space-between;
     .appChangeTool{
       font-size: 30px;
-      font-family: HarmonyOS Sans SC;
+      font-family: HarmonyOS Sans SC, sans-serif;
       font-weight: bold;
       color: #5D3DA0;
       line-height: 50px;
@@ -98,14 +98,14 @@ export default ({
       border-radius: 25px;
       padding: 4px 10px;
       font-size: 20px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       font-weight: 300;
       color: #FFFFFF;
       border: 1px solid #6724CB;
       box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
     }
   }
-  .appChanegContent{
+  .appChangeContent{
     width: 100%;
     height: 632px;
   }

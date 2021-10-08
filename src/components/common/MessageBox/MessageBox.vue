@@ -25,7 +25,7 @@
           class="icon-wrapper"
           :class="'icon-wrapper-'+type"
         >
-          <i
+          <em
             class="icon"
             :class="'el-icon-'+type"
           />
@@ -149,7 +149,6 @@ export default {
   border-radius: 8px;
   border: solid 1px #fff;
   box-shadow: 0 0 10px 3px #d0cfd483;
-  font-family: defaultFont;
   color: #62517a;
 }
 

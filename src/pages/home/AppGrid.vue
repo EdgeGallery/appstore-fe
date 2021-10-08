@@ -222,7 +222,7 @@ export default {
         bottom: 0;
         .appName{
           font-size: 20px;
-          font-family: HarmonyOS Sans SC;
+          font-family: HarmonyOS Sans SC, sans-serif;
           font-weight: 400;
           color: #3E3E3E;
           padding-top: 4px;
@@ -262,7 +262,7 @@ export default {
             .core{
               line-height: 40px;
               font-size: 14px;
-              font-family: HarmonyOS Sans SC;
+              font-family: HarmonyOS Sans SC, sans-serif;
               font-weight: 300;
               color: #929292;
               position: relative;
@@ -274,7 +274,7 @@ export default {
               height: 40px;
               line-height: 40px;
               font-size: 14px;
-              font-family: HarmonyOS Sans SC;
+              font-family: HarmonyOS Sans SC, sans-serif;
               font-weight: 300;
               color: #414040;
             }

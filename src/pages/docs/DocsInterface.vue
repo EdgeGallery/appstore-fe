@@ -57,20 +57,6 @@
                 {{ $t('docs.userGuide') }}
               </el-menu-item>
             </el-submenu>
-            <!-- <el-menu-item
-              index="5"
-              class="title1"
-            >
-              <div
-                class="oneTitles"
-              >
-                <img
-                  :src="activeIndex === '5' ? require('@/assets/images/docGuideSelect.png'): require('@/assets/images/docGuideUnselect.png')"
-                  alt=""
-                >
-                {{ $t('docs.userGuide') }}
-              </div>
-            </el-menu-item> -->
             <el-submenu index="4">
               <template
                 slot="title"
@@ -376,7 +362,7 @@ export default {
   background-repeat: no-repeat;
   p:first-child{
     font-size: 30px;
-    font-family: HarmonyOS Sans SC;
+    font-family: HarmonyOS Sans SC, sans-serif;
     font-weight: bold;
     color: #5D3DA0;
   }
@@ -416,19 +402,19 @@ export default {
     }
   }
   .test-editors{
-      width: 260px;
-      li{
-        margin: 10px 0px;
+    width: 260px;
+    li{
+      margin: 10px 0px;
     }
-      .el-submenu__title {
-          font-size: 20px;
-      }
-      .el-menu-item {
-          font-size: 16px;
-      }
-      .threeMenu{
-        font-size: 14px !important;
-      }
+    .el-submenu__title {
+      font-size: 20px;
+    }
+    .el-menu-item {
+      font-size: 16px;
+    }
+    .threeMenu{
+      font-size: 14px !important;
+    }
     .el-menu{
       border-right:none ;
       height: 100%;
@@ -454,10 +440,6 @@ export default {
         border-radius: 20px;
       }
       .el-menu-item{
-          background-color: #FBFBFB !important;
-          color: #C9C5D0;
-        }
-      .el-menu-item{
         line-height: 44px;
         height: 44px;
       }
@@ -471,83 +453,77 @@ export default {
   }
   #test-editor{
     .v-show-content, .v-show-content-html{
-    box-shadow: inset 4px 4px 25px 5px rgba(36, 20, 119, 0.1) !important;
-    border-radius: 16px;
-    padding: 10px 30px 15px !important;
-  }
-  .novice{
-    box-shadow: inset 4px 4px 25px 5px rgba(36, 20, 119, 0.1) !important;
-    border-radius: 16px;
-    width: 100%;
-    min-height: 300px;
-    padding-top: 41px;
-    margin-left: 40px;
-    .noviceTitle{
-      padding-left: 41px;
-      font-size: 25px;
-      font-family: HarmonyHeiTi;
-      font-weight: 600;
-      color: #5D3DA0;
+      box-shadow: inset 4px 4px 25px 5px rgba(36, 20, 119, 0.1) !important;
+      border-radius: 16px;
+      padding: 10px 30px 15px !important;
     }
-    .cutLline{
+    .novice{
+      box-shadow: inset 4px 4px 25px 5px rgba(36, 20, 119, 0.1) !important;
+      border-radius: 16px;
       width: 100%;
-      height: 2px;
-      margin-top: 4px;
-      .cutLline1{
-        width: 4%;
-        padding-left:1% ;
-        font-weight: bolder;
-        color: #CCC5D9;
-        float: left;
-        margin-top: -14px;
+      min-height: 300px;
+      padding-top: 41px;
+      margin-left: 40px;
+      .noviceTitle{
+        padding-left: 41px;
+        font-size: 25px;
+        font-family: HarmonyHeiTi, sans-serif;
+        font-weight: 600;
+        color: #5D3DA0;
       }
-      .cutLline2{
-        float: right;
-        width: 96%;
+      .cutLline{
+        width: 100%;
         height: 2px;
-        background: linear-gradient(to right,#CCC5D9,#fff)
+        margin-top: 4px;
+        .cutLline1{
+          width: 4%;
+          padding-left:1% ;
+          font-weight: bolder;
+          color: #CCC5D9;
+          float: left;
+          margin-top: -14px;
+        }
+        .cutLline2{
+          float: right;
+          width: 96%;
+          height: 2px;
+          background: linear-gradient(to right,#CCC5D9,#fff)
+        }
       }
-    }
-    .noviceContent1{
-      margin: 39px 0 0 63px;
-      font-size: 16px;
-      font-family: HarmonyHeiTi;
-      font-weight: 300;
-      color: #8F859B;
-      line-height: 24px;
-    }
-    .docImg{
-      width: 100%;
-      height: 16%;
-      margin: 31px 0px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img{
-        width: 90.4%;
-        height: 100%;
-        border-radius: 8px;
+      .noviceContent1{
+        margin: 39px 0 0 63px;
+        font-size: 16px;
+        font-family: HarmonyHeiTi, sans-serif;
+        font-weight: 300;
+        color: #8F859B;
+        line-height: 24px;
       }
-    }
-    .docImg2{
-      width: 100%;
-      height: 57%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img{
-        width: 90.4%;
+      .docImg{
+        width: 100%;
+        height: 16%;
         margin: 31px 0px;
-        height: 100%;
-        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+          width: 90.4%;
+          height: 100%;
+          border-radius: 8px;
+        }
       }
-    }
-  }
-  }
-  #test-editor{
-    width:100%;
-    .markdown-body{
-      height: 100%;
+      .docImg2{
+        width: 100%;
+        height: 57%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+          width: 90.4%;
+          margin: 31px 0px;
+          height: 100%;
+          border-radius: 8px;
+        }
+      }
     }
   }
 }
@@ -568,6 +544,6 @@ div /deep/ .el-menu{
   font-size: 16px;
 }
 .twoTitle.twoSelect{
-    color: #5E40C8;
+  color: #5E40C8;
 }
 </style>

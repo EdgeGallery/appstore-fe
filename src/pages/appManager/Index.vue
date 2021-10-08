@@ -148,7 +148,7 @@ export default {
         font-size: 30px;
         font-weight: bold;
         color: #5d3da0;
-        font-family: HarmonyOS_Sans_SC_Bold;
+        font-family: HarmonyOS_Sans_SC_Bold, sans-serif;
       }
     .subBack{
       // margin-top: 51px;

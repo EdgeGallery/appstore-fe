@@ -574,23 +574,23 @@ export default {
       height: 50px !important;
       width: 200px !important;
       border-radius: 25px !important;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       font-weight: 300;
       box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
     }
-   .addOutStore.addOutStoreen{
-     font-size: 14px;
-   }
+    .addOutStore.addOutStoreen{
+      font-size: 14px;
+    }
     .outHouseTitle{
       font-size: 36px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       font-weight: bold;
       color: #5E40C8;
       margin: 0;
-  }
-  outHouseTitle.outHouseTitleen{
-    font-size: 24px;
-  }
+      .outHouseTitleen{
+        font-size: 24px;
+      }
+    }
   }
   .contents {
     width: 73.64%;
@@ -605,7 +605,7 @@ export default {
     .batchProm{
       width: 200px;
       .el-input{
-            margin-left: 40px;
+        margin-left: 40px;
       }
     }
     .packageTable{
@@ -650,7 +650,7 @@ export default {
   .dialogTitle2{
       margin-bottom: 16px;
       font-size: 20px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       font-weight: 300;
       color: #380879;
       letter-spacing:2px;
@@ -663,7 +663,7 @@ export default {
 .outHouseTop /deep/ .el-button{
     background-color:  #5E40C8 ;
     border-color:  #5E40C8;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 300;
     border-radius:10px ;
     span{
@@ -679,7 +679,7 @@ div /deep/ .el-dialog__title {
 div /deep/.el-form-item__label {
     color: #5E40C8 !important;
     font-size: 16px !important;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 300;
 }
 div /deep/ .el-icon-close:before {
