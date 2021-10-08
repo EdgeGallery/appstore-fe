@@ -605,9 +605,10 @@ export default {
     updateData () {
       this.ifExperience = this.currentData.experienceAble
       this.source = this.currentData.details
-      this.appIconPath = URL_PREFIX + 'apps/' + this.currentData.appId + '/icon'
+      this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/packages/' + this.packageId + '/icon'
       this.checkProjectData()
       console.log(this.currentData.appId)
+      console.log(this.currentData.packageId)
       console.log(this.appIconPath)
     },
     dateChange (dateStr) {
@@ -650,7 +651,6 @@ export default {
       }
     },
     download (row) {
-      console.log(this.currentData)
       this.ifDownloadImage(this.currentData, row)
       this.getAppData()
     },
@@ -659,30 +659,22 @@ export default {
       INDUSTRY.forEach(itemFe => {
         if (this.language === 'cn') {
           if (this.currentData.industry === itemFe.labelen) {
-            console.log(this.currentData.industry)
             this.currentData.industry = itemFe.labelcn
-            console.log(this.currentData.industry)
           }
         } else {
           if (this.currentData.industry === itemFe.labelcn) {
-            console.log(this.currentData.industry)
             this.currentData.industry = itemFe.labelen
-            console.log(this.currentData.industry)
           }
         }
       })
       TYPES.forEach(itemFe => {
         if (this.language === 'cn') {
           if (this.currentData.type === itemFe.labelen) {
-            console.log(this.currentData.type)
             this.currentData.type = itemFe.labelcn
-            console.log(this.currentData.type)
           }
         } else {
           if (this.currentData.type === itemFe.labelcn) {
-            console.log(this.currentData.type)
             this.currentData.type = itemFe.labelen
-            console.log(this.currentData.type)
           }
         }
       })
@@ -691,7 +683,6 @@ export default {
       getAppListApi(this.appId).then(
         (res) => {
           this.score = res.data.score
-          console.log(res.data.score)
           this.downloadNum = res.data.downloadCount
         },
         () => {
@@ -724,7 +715,6 @@ export default {
       })
     },
     handleExceptionMsg (error) {
-      console.log(error.response.data.retCode)
       if (error.response.data.code === 403) {
         this.$message({
           duration: 2000,
@@ -785,10 +775,8 @@ export default {
 
     this.getAppData()
     this.getTableData()
-    this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
+    this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/packages/' + this.packageId + '/icon'
     this.checkProjectData()
-    console.log(this.currentData.userId)
-    console.log(this.packageId)
     if ((sessionStorage.getItem('userNameRole') === 'guest')) {
       this.ifSynchronize = false
     } else {
