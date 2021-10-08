@@ -79,7 +79,7 @@
 
 <script>
 import { TYPES, AFFINITY, SORT_BY, INDUSTRY, DEPLOYMODE } from '../../tools/constant.js'
-import { getAppTableApi, getAppListApi } from '../../tools/api'
+import { getAppTableApi, getAppDetailTableApi } from '../../tools/api'
 import uploadPackage from './UploadPackage.vue'
 import appGrid from './AppGrid.vue'
 import appList from './AppList.vue'
@@ -141,6 +141,7 @@ export default {
         showType: ['public', 'inner-public'],
         workloadType: [],
         userId: '',
+        experienceAble: false,
         queryCtrl: {
           offset: this.offsetPage,
           limit: this.limitSize,
@@ -273,27 +274,34 @@ export default {
       this.currentPageData = data
     },
     checkProjectData () {
+      let userId = null
+      if (this.pathSource === 'myapp') {
+        userId = sessionStorage.getItem('userId')
+      }
       this.findAppData.forEach(itemBe => {
-        itemBe.experienceAble = this.getPacakgeData(itemBe.appId)
+        getAppDetailTableApi(itemBe.appId, userId, this.limitSize, this.offsetPage).then(res => {
+          let data = res.data
+          console.log(res.data)
+          data.forEach(item => {
+            itemBe.experienceAble = item.experienceAble
+          })
+        })
       })
     },
     input (input) {
       this.uploadDiaVis = input
     },
-    getPacakgeData (appId) {
-      getAppListApi(appId).then(
-        (res) => {
-          console.log(res.data)
-          return res.data.experienceAble
-        },
-        () => {
-          this.$message({
-            duration: 2000,
-            type: 'warning',
-            message: this.$t('promptMessage.getAppFail')
-          })
-        }
-      )
+    getTableData (appId) {
+      let userId = null
+      if (this.pathSource === 'myapp') {
+        userId = sessionStorage.getItem('userId')
+      }
+      getAppDetailTableApi(appId, userId, this.limitSize, this.offsetPage).then(res => {
+        let data = res.data
+        data.forEach(item => {
+          this.experienceAble = item.experienceAble
+        })
+      })
     },
     getAppData (searchCondition) {
       console.log(searchCondition.queryCtrl.sortItem)
