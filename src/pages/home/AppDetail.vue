@@ -596,7 +596,7 @@ export default {
         if (item.demoVideoName) {
           let val = {
             type: 'video/mp4',
-            src: URL_PREFIXV2 + 'apps/' + this.appId + '/demoVideo'
+            src: URL_PREFIX + 'apps/' + this.appId + '/demoVideo'
           }
           this.playerOptions.sources.push(val)
         }

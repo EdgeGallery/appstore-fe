@@ -361,6 +361,8 @@ export default {
     }
   },
   mounted () {
+    sessionStorage.removeItem('sortType')
+    sessionStorage.removeItem('sortItem')
     this.setDivHeight()
     if (sessionStorage.getItem('userNameRole') === 'guest') {
       this.ifShow = false

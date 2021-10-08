@@ -40,8 +40,13 @@
 </template>
 
 <script>
+import { URL_PREFIX } from '../../tools/api.js'
 export default {
   props: {
+    appId: {
+      required: true,
+      type: String
+    },
     playerOptions: {
       required: true,
       type: Object
@@ -58,7 +63,7 @@ export default {
       source: [
         {
           type: 'video/mp4', // 类型
-          src: '../../assets/images/appstore.mp4' // url地址
+          src: URL_PREFIX + 'apps/' + this.appId + '/demoVideo' // url地址
         }
       ],
       userId: sessionStorage.getItem('userId'),

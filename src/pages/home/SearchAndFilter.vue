@@ -426,6 +426,8 @@ export default ({
     }
   },
   mounted () {
+    sessionStorage.removeItem('sortType')
+    sessionStorage.removeItem('sortItem')
     this.appPkgTransToolCheck()
     this.$emit('getSearchCondition', this.searchCondition)
   },
