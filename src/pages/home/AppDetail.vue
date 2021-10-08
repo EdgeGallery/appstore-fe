@@ -752,6 +752,7 @@ export default {
       : JSON.parse(sessionStorage.getItem('appstordetail'))
     this.details = params
     this.appId = this.details.appId
+    this.packageId = this.details.packageId
     this.ifExperience = this.details.experienceAble
     if (this.ifExperience) {
       this.noAppShowPage = false
@@ -775,6 +776,7 @@ export default {
     this.getAppData()
     this.getTableData()
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/packages/' + this.packageId + '/icon'
+    console.log(this.packageId)
     this.checkProjectData()
     if ((sessionStorage.getItem('userNameRole') === 'guest')) {
       this.ifSynchronize = false
