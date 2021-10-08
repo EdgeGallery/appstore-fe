@@ -245,24 +245,6 @@ export default {
               display: true,
               link: '',
               index: '3'
-            },
-            {
-              labelEn: 'Order Management',
-              labelCn: '订单管理',
-              route: '/orders',
-              pageId: '2.1.6',
-              display: true,
-              link: '',
-              index: '6'
-            },
-            {
-              labelEn: 'Bill Management',
-              labelCn: '账单管理',
-              route: '/Bill',
-              pageId: '2.1.7',
-              display: true,
-              link: '',
-              index: '7'
             }
           ]
         },
@@ -343,14 +325,6 @@ export default {
               display: true,
               link: '',
               index: '6.2'
-            }, {
-              labelEn: 'Split Bill Management',
-              labelCn: '分账管理',
-              route: '/splitBill',
-              pageId: '2.1.6.3',
-              display: true,
-              link: '',
-              index: '6.3'
             }
           ]
         },
