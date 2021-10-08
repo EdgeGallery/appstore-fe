@@ -34,7 +34,7 @@
                    'img-boxcn':item.experienceAble===true && language==='cn'}"
         >
           <img
-            :src="require('@/assets/images/banner2_cn.png')"
+            :src="getAppIcon(item)"
             alt
           >
         </div>
@@ -128,6 +128,8 @@ export default {
       sessionStorage.setItem('pathSource', 'index')
     },
     getAppIcon (item) {
+      console.log(this.appData)
+      console.log(item)
       return URL_PREFIX + 'apps/' + item.appId + '/icon'
     }
   },
