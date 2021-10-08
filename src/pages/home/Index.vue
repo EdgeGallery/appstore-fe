@@ -79,7 +79,7 @@
 
 <script>
 import { TYPES, AFFINITY, SORT_BY, INDUSTRY, DEPLOYMODE } from '../../tools/constant.js'
-import { getAppTableApi } from '../../tools/api'
+import { getAppTableApi, getAppListApi } from '../../tools/api'
 import uploadPackage from './UploadPackage.vue'
 import appGrid from './AppGrid.vue'
 import appList from './AppList.vue'
@@ -274,24 +274,26 @@ export default {
     },
     checkProjectData () {
       this.findAppData.forEach(itemBe => {
-        INDUSTRY.forEach(itemFe => {
-          if (itemBe.industry.match(itemFe.label[1]) && this.language === 'cn') {
-            itemBe.industry = itemBe.industry.replace(itemFe.labelen, itemFe.labelcn)
-          } else if (itemBe.industry.match(itemFe.label[1]) && this.language === 'en') {
-            itemBe.industry = itemBe.industry.replace(itemFe.labelcn, itemFe.labelen)
-          }
-        })
-        TYPES.forEach(itemFe => {
-          if (itemBe.type.match(itemFe.label[1]) && this.language === 'cn') {
-            itemBe.type = itemBe.type.replace(itemFe.label[1], itemFe.labelcn)
-          } else if (itemBe.type.match(itemFe.label[1]) && this.language === 'en') {
-            itemBe.type = itemBe.type.replace(itemFe.labelcn, itemFe.labelen)
-          }
-        })
+        itemBe.experienceAble = this.getPacakgeData(itemBe.appId)
       })
     },
     input (input) {
       this.uploadDiaVis = input
+    },
+    getPacakgeData (appId) {
+      getAppListApi(appId).then(
+        (res) => {
+          console.log(res.data)
+          return res.data.experienceAble
+        },
+        () => {
+          this.$message({
+            duration: 2000,
+            type: 'warning',
+            message: this.$t('promptMessage.getAppFail')
+          })
+        }
+      )
     },
     getAppData (searchCondition) {
       console.log(searchCondition.queryCtrl.sortItem)
@@ -309,7 +311,7 @@ export default {
             let newDateBegin = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = newDateBegin
           })
-          // this.checkProjectData()
+          this.checkProjectData()
         },
         (error) => {
           let defaultMsg = this.$t('promptMessage.getAppFail')
