@@ -361,6 +361,7 @@ export default {
       }
     },
     filterExperienceInfo (tmpExperienceData) {
+      this.experienceData = []
       for (let item of tmpExperienceData) {
         let object = {
           serviceName: '',
@@ -471,6 +472,7 @@ export default {
     }
   },
   mounted () {
+    this.experienceData = []
   }
 }
 </script>
