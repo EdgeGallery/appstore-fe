@@ -15,20 +15,31 @@
   -->
 
 <template>
-  <div class="my-pagination">
+  <div class="my-paginations">
     <el-pagination
       background
-      class="rt"
+      class="page rt"
       @size-change="handlePageSizeChange"
       @current-change="handleCurrentPageChange"
       :current-page="currentPage"
       :page-sizes="pageSizeArr"
       :page-size="pageSize"
-      layout="slot, sizes, prev, pager, next, jumper"
+      layout="sizes, prev, pager, next, jumper, total"
       :total="totalNum"
-    >
-      <span class="page-total">{{ $t('common.pageTotalNum') }} : {{ totalNum }}</span>
-    </el-pagination>
+      id="pagination"
+    />
+    <el-pagination
+      background
+      class="page-small rt"
+      @size-change="handlePageSizeChange"
+      @current-change="handleCurrentPageChange"
+      :current-page="currentPage"
+      layout="prev, pager, next"
+      :total="totalNum"
+      id="pagination"
+      :page-size="pageSize"
+      :pager-count="5"
+    />
   </div>
 </template>
 
@@ -104,9 +115,39 @@ export default {
 }
 
 </script>
-<style lang="less" scoped>
-.page-total{
-  color: #606266;
-  font-weight: normal;
+<style lang="less">
+.my-paginations{
+  // margin-right: 30px;
+  padding: 15px 30px;
+  .el-pagination .el-select .el-input .el-input__inner {
+    padding-right: 20px;
+    border-radius: 8px;
+    background-color: #F0F0F0;
+}
+  .el-input--mini .el-input__inner,.el-pager li,.el-pagination button, .el-pagination span:not([class*=suffix]),.el-pagination__editor.el-input .el-input__inner{
+    height: 24px;
+    line-height: 24px;
+    margin-left: 2px;
+    margin-right: 8px;
+  }
+  .el-pagination.is-background .btn-next{
+    margin: 0 0 0 5px;
+  }
+  .page-small{
+    display: none;
+  }
+  .el-pagination.is-background .el-pager .number:not(.disabled).active {
+    background-color: #5E40C8 !important;
+    min-height: 20px;
+    min-width: 25px;
+}
+  @media screen and (max-width: 767px){
+    .page{
+      display: none;
+    }
+    .page-small{
+      display: block;
+    }
+  }
 }
 </style>
