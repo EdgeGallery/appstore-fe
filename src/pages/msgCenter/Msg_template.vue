@@ -48,6 +48,7 @@
             @func="clickMsgType"
             :msgcontents="msgcontents"
             @deleteMsg="getDeleteMsg"
+            @accept="updateMessage"
             ref="rightTabPanel"
           />
           <div class="messagePage">
@@ -117,8 +118,8 @@ export default {
       allData: [],
       allRightDetailData: [],
       language: localStorage.getItem('language'),
-      pageSize: 5,
-      curPageSize: 5,
+      pageSize: 10,
+      curPageSize: 10,
       pageNum: 1,
       prop: 'time',
       order: 'desc',
@@ -127,6 +128,8 @@ export default {
       msgcontents: '',
       messageType: 'NOTICE',
       readable: false,
+      allMessage: false,
+      updateMsg: '',
       rightDetailData: [
         {
           name: 'unReadedMsg',
@@ -155,16 +158,26 @@ export default {
   methods: {
     getDeleteMsg (data) {
       this.msgcontents = data
+      this.getAppData()
+    },
+    updateMessage (data) {
+      this.updateMsg = data
+      if (this.updateMsg === 'accept') {
+        this.getAppData()
+      }
     },
     clickMsgType (data) {
       if (data === 'unReadedMsg') {
         this.readable = false
+        this.allMessage = false
         this.getAppData()
       } else if (data === 'readedMsg') {
         this.readable = true
+        this.allMessage = false
         this.getAppData()
       } else {
         this.readable = ''
+        this.allMessage = true
         this.getAppData()
       }
     },
@@ -194,6 +207,7 @@ export default {
     },
     sizeChange (val) {
       this.curPageSize = val
+      this.getAppData()
     },
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
@@ -237,7 +251,8 @@ export default {
         sortType: this.order,
         messageType: this.messageType,
         timeFlag: this.timeFlag,
-        readable: this.readable
+        readable: this.readable,
+        allMessage: this.allMessage
 
       }
       getMessages(params).then((res) => {
@@ -267,13 +282,6 @@ export default {
     },
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
-    },
-
-    curPageSize: function () {
-      this.getAppData()
-    },
-    msgcontents: function () {
-      this.getAppData()
     }
   }
 }

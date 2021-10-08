@@ -139,7 +139,6 @@ export default {
         float: left;
         width: 2px;
         height: 50px;
-        // background: #d4d1ec;
         background-color: #d4d1ec;
     }
   .headerTitle{
@@ -325,6 +324,7 @@ export default {
     }
   }
   .container_div{
+    margin-top: 0px;
     background: #fff;
     border-radius: 0 16px 16px 16px;
     transition: all 0.5s;
