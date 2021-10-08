@@ -606,6 +606,7 @@ export default {
       this.ifExperience = this.currentData.experienceAble
       this.source = this.currentData.details
       this.appIconPath = URL_PREFIX + 'apps/' + this.currentData.appId + '/icon'
+      this.checkProjectData()
       console.log(this.currentData.appId)
       console.log(this.appIconPath)
     },
@@ -658,22 +659,30 @@ export default {
       INDUSTRY.forEach(itemFe => {
         if (this.language === 'cn') {
           if (this.currentData.industry === itemFe.labelen) {
+            console.log(this.currentData.industry)
             this.currentData.industry = itemFe.labelcn
+            console.log(this.currentData.industry)
           }
         } else {
           if (this.currentData.industry === itemFe.labelcn) {
+            console.log(this.currentData.industry)
             this.currentData.industry = itemFe.labelen
+            console.log(this.currentData.industry)
           }
         }
       })
       TYPES.forEach(itemFe => {
         if (this.language === 'cn') {
           if (this.currentData.type === itemFe.labelen) {
+            console.log(this.currentData.type)
             this.currentData.type = itemFe.labelcn
+            console.log(this.currentData.type)
           }
         } else {
           if (this.currentData.type === itemFe.labelcn) {
+            console.log(this.currentData.type)
             this.currentData.type = itemFe.labelen
+            console.log(this.currentData.type)
           }
         }
       })

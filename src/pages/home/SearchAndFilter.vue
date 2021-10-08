@@ -197,14 +197,14 @@
         >
           <img
             class="header_img"
-            v-if="!iconAactive"
+            v-if="iconAactive === false || iconAactive === 'false'"
             src="../../assets/images/applist.png"
             @click="changeAppList"
             alt=""
           >
           <img
             class="header_img"
-            v-if="iconAactive"
+            v-if="iconAactive === true || iconAactive === 'true'"
             src="../../assets/images/appgrid.png"
             @click="changeAppList"
             alt=""
