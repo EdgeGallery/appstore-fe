@@ -153,6 +153,7 @@
             <img
               :src="language === 'en' ? require('@/assets/images/icon_en.png'): require('@/assets/images/icon_cn.png')"
               class="iconLanguage"
+              alt=""
             >
           </span>
         </div>
@@ -596,6 +597,38 @@ export default {
       this.wsMsgSendInterval = setInterval(() => {
         this.wsSocketConn.send('')
       }, 10000)
+    },
+    initUserInfo () {
+      getUserInfo().then(res => {
+        sessionStorage.setItem('userId', res.data.userId)
+        sessionStorage.setItem('userName', res.data.userName)
+        this.userName = res.data.userName
+        this.loginPage = res.data.loginPage
+        this.userCenterPage = res.data.userCenterPage
+        if (res.data.authorities.indexOf('ROLE_APPSTORE_ADMIN') > -1) {
+          sessionStorage.setItem('userNameRole', 'admin')
+        } else if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1) {
+          sessionStorage.setItem('userNameRole', 'tenant')
+        } else {
+          sessionStorage.setItem('userNameRole', 'guest')
+        }
+        this.ifGuest = res.data.userName === 'guest'
+        this.forceModifyPwPage = res.data.forceModifyPwPage
+        if (this.jumpToForceModifyPw()) {
+          return
+        }
+        if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1 || res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
+          this.isAdmin = false
+          this.list.splice(4, 1)
+          this.list.splice(3, 1)
+        } else {
+          this.isAdmin = true
+        }
+        if (res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
+          this.list.splice(2, 1)
+        }
+        this.startHttpSessionInvalidListener(res.data.sessId)
+      })
     }
   },
 
@@ -604,36 +637,7 @@ export default {
     localStorage.setItem('language', 'cn')
     let path = this.$route.path
     this.judgeRoute(path)
-    getUserInfo().then(res => {
-      sessionStorage.setItem('userId', res.data.userId)
-      sessionStorage.setItem('userName', res.data.userName)
-      this.userName = res.data.userName
-      this.loginPage = res.data.loginPage
-      this.userCenterPage = res.data.userCenterPage
-      if (res.data.authorities.indexOf('ROLE_APPSTORE_ADMIN') > -1) {
-        sessionStorage.setItem('userNameRole', 'admin')
-      } else if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1) {
-        sessionStorage.setItem('userNameRole', 'tenant')
-      } else {
-        sessionStorage.setItem('userNameRole', 'guest')
-      }
-      this.ifGuest = res.data.userName === 'guest'
-      this.forceModifyPwPage = res.data.forceModifyPwPage
-      if (this.jumpToForceModifyPw()) {
-        return
-      }
-      if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1 || res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
-        this.isAdmin = false
-        this.list.splice(4, 1)
-        this.list.splice(3, 1)
-      } else {
-        this.isAdmin = true
-      }
-      if (res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
-        this.list.splice(2, 1)
-      }
-      this.startHttpSessionInvalidListener(res.data.sessId)
-    })
+    this.initUserInfo()
     let historyRoute = sessionStorage.getItem('historyRoute')
     if (historyRoute) {
       this.$router.push(historyRoute)
@@ -648,11 +652,9 @@ export default {
     // message listener, message from unified platform
     window.addEventListener('message', (event) => {
       var data = event.data
-      switch (data.cmd) {
-        case 'iframeLanguageChange':
-          let lang = data.params.lang
-          this.changeLanguage(lang)
-          break
+      if (data.cmd === 'iframeLanguageChange') {
+        let lang = data.params.lang
+        this.changeLanguage(lang)
       }
     })
   },
@@ -709,7 +711,6 @@ export default {
     }
   .nav-tabs {
     padding-right: 20px;
-    //height: 65px;
     line-height: 65px;
     display: flex;
     justify-content: flex-end;
@@ -719,7 +720,6 @@ export default {
       display: inline-block;
       padding: 0 6px;
       font-size: 14px;
-      display: flex;
       justify-content: center;
       align-items: center;
       margin-right: -3px;

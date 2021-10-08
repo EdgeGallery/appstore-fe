@@ -984,7 +984,7 @@ export default {
       background: #EFEFEF;
       border-radius: 5px;
       font-size: 14px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       font-weight: 200;
       width: 62px;
       height: 24px;
@@ -998,7 +998,7 @@ export default {
   }
   .operTitle{
     font-size: 36px;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: bold;
     color: #5E40C8;
     margin-left: 13.18%;
