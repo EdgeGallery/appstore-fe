@@ -150,7 +150,6 @@ export default {
   data () {
     return {
       customColor: '#6610f2',
-      interval: '',
       MEAO: MEAO,
       language: localStorage.getItem('language'),
       ifSync: 'true',
@@ -171,7 +170,8 @@ export default {
       systemData: [],
       testColor: [],
       systemNameData: [],
-      tableData: []
+      tableData: [],
+      timer: null
     }
   },
   methods: {
@@ -247,57 +247,19 @@ export default {
         this.systemNameData.push(object)
       }
     },
-
-    handleClick (item) {
-      if (item.systemName.indexOf('华为') === 0) {
-        this.synchronizePackage()
-      } else {
-        this.$message({
-          duration: 2000,
-          message: this.$t('store.notSupportSynchronized'),
-          type: 'success'
-        })
-        this.getProgressByPackageId()
-      }
-      this.showlun = true
-    },
-    synchronizeJzy () {
-      this.jzyinterval = setInterval(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('store.notSupportSynchronized'),
-          type: 'success'
-        })
-        this.getProgressByPackageId()
-      }).catch(error => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.operationFailed'),
-            type: 'warning'
-          })
-        }
-      })
-    },
-    clearInterval () {
-      clearTimeout(this.jzyinterval)
-      clearTimeout(this.hwinterval)
-      this.jzyinterval = null
-      this.hwinterval = null
-    },
     synchronizePackage (item) {
+      this.startInterval()
+      if (this.timer !== null) {
+        setTimeout(() => {
+          clearInterval(this.timer)
+        }, 600000)
+      }
       synchronizedPakageApi(this.currentData, item.id).then(res => {
         this.$message({
           duration: 2000,
           message: this.$t('store.synchronizedwaiting'),
           type: 'success'
         })
-        this.getProgressByPackageId()
       }).catch(error => {
         let defaultMsg = this.$t('promptMessage.operationFailed')
         let retCode = error.response.data.retCode
@@ -311,9 +273,6 @@ export default {
           })
         }
       })
-    },
-    clearIntervalCall () {
-      this.interval = null
     },
     checkFailedData () {
       for (let item of this.tableData) {
@@ -350,8 +309,16 @@ export default {
           ':' +
           (s > 9 ? s : '0' + s)
       }
+    },
+    startInterval () {
+      clearInterval(this.timer)
+      this.timer = setInterval(() => {
+        this.getProgressByPackageId()
+      }, 10000)
+      this.$once('hook:beforeDestroy', () => {
+        clearInterval(this.timer)
+      })
     }
-
   },
   watch: {
     '$i18n.locale': function () {
@@ -360,7 +327,6 @@ export default {
     },
     packageId (newStr) {
       this.packageId = newStr
-      console.log(this.packageId)
       if (this.packageId) {
         this.getProgressByPackageId()
       }
@@ -368,14 +334,11 @@ export default {
   },
   mounted () {
     this.getThirdSystemByType()
-    this.interval = setInterval(() => {
-      this.getProgressByPackageId()
-    }, 10000)
-  },
-  beforeDestroy () {
-    this.clearIntervalCall()
+    this.startInterval()
+    setTimeout(() => {
+      clearInterval(this.timer)
+    }, 600000)
   }
-
 }
 
 </script>
