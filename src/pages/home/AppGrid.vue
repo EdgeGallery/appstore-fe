@@ -34,7 +34,7 @@
                    'img-boxcn':item.experienceAble===true && language==='cn'}"
         >
           <img
-            :src="require('@/assets/images/banner2_cn.png')"
+            :src="getAppIcon(item)"
             alt
           >
         </div>
