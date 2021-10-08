@@ -218,7 +218,7 @@
 </template>
 
 <script>
-// import { subscribe } from '../../tools/api.js'
+import { subscribe } from '../../tools/api.js'
 export default {
   data () {
     return {
@@ -227,37 +227,8 @@ export default {
       pageNum: 1,
       total: 0,
       nameQueryVal: '',
-      splitBillList: [
-        {
-          'appId': 'sadfas',
-          'appName': '安恒WAF',
-          'provider': '安恒',
-          'splitRatio': 0.15
-        },
-        {
-          'appId': 'xxxxxxxxxxxx',
-          'appName': '云讯智能车识别系统',
-          'provider': '云讯',
-          'splitRatio': 0.25
-        }
-      ],
-      appList: [
-        {
-          appName: '兰亭VR',
-          provider: '兰亭数字',
-          rate: '0.15'
-        },
-        {
-          appName: '希迪智驾',
-          provider: '希迪智驾',
-          rate: '0.15'
-        },
-        {
-          appName: '华为河图',
-          provider: '河图',
-          rate: '0.15'
-        }
-      ],
+      splitBillList: [],
+      appList: [],
       defaultrate: 15,
       rate: 0,
       splitBillDialog: false,
@@ -265,10 +236,13 @@ export default {
       appId: '',
       splitRatio: 0,
       addSplitBillDialog: false,
-      userId: sessionStorage.getItem('userId'),
       appName: '',
-      modifyIndex: ''
+      modifyIndex: '',
+      tempList: []
     }
+  },
+  mounted () {
+    this.getSplitconfigsList()
   },
   methods: {
     handleSelectionChange (val) {
@@ -284,6 +258,11 @@ export default {
     queryApp () {
       console.log(3)
     },
+    getSplitconfigsList () {
+      subscribe.getSplitconfigs().then(res => {
+        this.splitBillList = res.data.data
+      })
+    },
     modify (row) {
       this.splitBillList.forEach((item, index) => {
         if (item.appName === row.appName) {
@@ -296,48 +275,40 @@ export default {
       this.appName = row.appName
     },
     addNewSplitConfig () {
-      // let param = {
-      //   splitRatio: this.splitRatio
-      // }
-      // subscribe.addSplitconfigs(this.userId, this.appId, param).then(res => {
-      //   this.addSplitBillDialog = false
-      // })
       if (this.tempList.length < 1) {
         this.$message.error(this.$t('split.moreThanOne'))
       } else {
-        this.tempList.forEach(item => {
-          item.splitRatio = this.rate / 100
-          this.splitBillList.push(item)
+        let param = {
+          splitRatio: this.splitRatio
+        }
+        subscribe.addSplitconfigs(this.appId, param).then(res => {
+          this.$message.success(this.$t('split.addSuccess'))
+          this.addSplitBillDialog = false
         })
       }
-      this.$message.success(this.$t('split.addSuccess'))
-      this.addSplitBillDialog = false
     },
     setAppBillRate () {
-      // let param = {
-      //   splitRatio: this.splitRatio
-      // }
-      // subscribe.modifySplitconfigs(this.userId, this.appId, param).then(res => {
-      //   this.splitBillDialog = false
-      // })
-      this.splitBillList[this.modifyIndex].splitRatio = this.splitRatio / 100
-      this.$message.success(this.$t('split.setSuccess'))
-      this.splitBillDialog = false
+      let param = {
+        splitRatio: this.splitRatio
+      }
+      subscribe.modifySplitconfigs(this.appId, param).then(res => {
+        this.$message.success(this.$t('split.setSuccess'))
+        this.splitBillDialog = false
+      })
     },
     setRateVal () {
       this.$refs.rateinput.focus()
       this.showConfirmBtn = true
     },
     modifyDefaultVal (row) {
-      // let param = {
-      //   splitRatio: this.splitRatio
-      // }
-      // subscribe.modifyDefaultSplitconfigs(this.userId, param).then(res => {
-      //   this.showConfirmBtn = false
-      // })
-      row.splitRatio = this.splitRatio
-      this.$message.success(this.$t('split.modifyThanOne'))
-      this.showConfirmBtn = false
+      let param = {
+        splitRatio: this.defaultrate / 100
+      }
+      console.log(param)
+      subscribe.modifyDefaultSplitconfigs(param).then(res => {
+        this.$message.success(this.$t('split.modifyThanOne'))
+        this.showConfirmBtn = false
+      })
     }
   }
 }

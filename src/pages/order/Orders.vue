@@ -39,24 +39,24 @@
             :label="$t('order.orderNum')"
           />
           <el-table-column
-            prop="mecHostName"
-            :label="$t('order.nodeName')"
-          />
-          <el-table-column
             prop="appName"
             :label="$t('order.appName')"
+          />
+          <el-table-column
+            prop="mecHostName"
+            :label="$t('order.nodeName')"
           />
           <el-table-column
             prop="mecHostIp"
             :label="$t('order.nodeIp')"
           />
           <el-table-column
-            prop="orderTime"
-            :label="$t('order.orderTime')"
-          />
-          <el-table-column
             prop="mecHostCity"
             :label="$t('order.nodeAddress')"
+          />
+          <el-table-column
+            prop="orderTime"
+            :label="$t('order.orderTime')"
           />
           <el-table-column
             prop="status"
@@ -85,7 +85,7 @@
                 <el-button
                   @click="activate(scope.row)"
                   class="operations_btn"
-                  :disabled="scope.row.status!=='0'"
+                  :disabled="scope.row.status!=='DEACTIVATED'"
                 >
                   {{ $t('order.activation') }}
                 </el-button>
@@ -115,7 +115,7 @@
 </template>
 
 <script>
-// import { subscribe } from '../../tools/api.js'
+import { subscribe } from '../../tools/api.js'
 export default {
   data () {
     return {
@@ -124,50 +124,7 @@ export default {
       pageNum: 1,
       total: 0,
       nameQueryVal: '',
-      orderList: [
-        {
-          'orderId': 'aasdf',
-          'orderNum': 'No.202110152458',
-          'userId': 'aaa',
-          'userName': 'Wenson',
-          'appId': 'asdlfkjl',
-          'appName': '希迪智驾',
-          'orderTime': '2021-10-25 14:31',
-          'operateTime': '2021-10-25 14:31',
-          'status': '4',
-          'mecHostIp': '119.8.47.5',
-          'mecHostName': 'Node_V7_12',
-          'mecHostCity': '陕西省/西安市/雁塔区'
-        },
-        {
-          'orderId': 'aasdf',
-          'orderNum': 'No.202110152458',
-          'userId': 'aaa',
-          'userName': 'Wenson',
-          'appId': 'asdlfkjl',
-          'appName': '兰亭VR',
-          'orderTime': '2021-10-15 12:21',
-          'operateTime': '2021-10-15 14:31',
-          'status': '1',
-          'mecHostIp': '119.8.63.45',
-          'mecHostName': 'Node_E3_B2',
-          'mecHostCity': '广东省/深圳市/龙岗区'
-        },
-        {
-          'orderId': 'aasdf',
-          'orderNum': 'No.202110152458',
-          'userId': 'aaa',
-          'userName': 'Wenson',
-          'appId': 'asdlfkjl',
-          'appName': '安恒WAF',
-          'orderTime': '2021-10-03 08:05',
-          'operateTime': '2021-10-25 14:31',
-          'status': '0',
-          'mecHostIp': '119.8.47.5',
-          'mecHostName': 'Node_V9_E3',
-          'mecHostCity': '广东省/深圳市/龙岗区'
-        }
-      ],
+      orderList: [],
       param: {
         'appId': '',
         'orderNum': '',
@@ -184,9 +141,6 @@ export default {
     }
   },
   mounted () {
-    if (sessionStorage.getItem('newOrder')) {
-      this.orderList.push(JSON.parse(sessionStorage.getItem('newOrder')))
-    }
     this.getOrderList()
   },
   methods: {
@@ -200,9 +154,9 @@ export default {
       console.log(3)
     },
     getOrderList () {
-      // subscribe.getOrderList( this.param).then(res => {
-      //   this.orderList = res.data
-      // })
+      subscribe.getOrderList(this.param).then(res => {
+        this.orderList = res.data.results
+      })
     },
     activate (row) {
       this.$confirm(this.$t('order.confirmToActivate') + row.appName + ' ？', this.$t('order.tip'), {
@@ -210,21 +164,15 @@ export default {
         cancelButtonText: this.$t('order.cancel'),
         type: 'warning'
       }).then(() => {
-        this.$message.success(this.$t('order.success'))
-        row.status = '3'
-        setTimeout(() => {
-          row.status = '1'
-        }, 2000)
+        subscribe.activateApp(row.orderId).then(res => {
+          this.$message.success(this.$t('order.success'))
+        })
       }).catch(() => {
         this.$message({
           type: 'info',
           message: this.$t('order.canceled')
         })
       })
-
-      // subscribe.activateApp( row.id).then(res => {
-      //   console.log(res)
-      // })
     },
     deactivate (row) {
       this.$confirm(this.$t('order.confirmToUnsub') + row.appName + ' ？', this.$t('order.tip'), {
@@ -232,25 +180,15 @@ export default {
         cancelButtonText: this.$t('order.cancel'),
         type: 'warning'
       }).then(() => {
-        // this.orderList.forEach((item, index) => {
-        //   console.log(index)
-        //   if (item.appName === row.appName) {
-        //     console.log(index)
-        //     this.orderList.splice(index, 1)
-        //   }
-        // })
-        this.$message.success(this.$t('order.unsubSuccess'))
-        row.status = '4'
+        subscribe.deactivateApp(row.orderId).then(res => {
+          this.$message.success(this.$t('order.unsubSuccess'))
+        })
       }).catch(() => {
         this.$message({
           type: 'info',
           message: this.$t('order.canceled')
         })
       })
-
-      // subscribe.deactivateApp( row.id).then(res => {
-      //   console.log(res)
-      // })
     }
   }
 }

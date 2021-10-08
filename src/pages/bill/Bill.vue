@@ -197,76 +197,7 @@ export default {
         }
       ],
       time: '',
-      billList: [
-        {
-          'billId': 'asd6-fer8-4hyn-8jkh',
-          'orderId': 'No.20210910158976',
-          'orderNum': 'No.20210910258976',
-          'userId': 'abcd-edfr-ehyd-ssss',
-          'userName': 'admin',
-          'billUserId': 'uuu',
-          'billUserName': 'Wenson',
-          'appId': 'aaasssddd',
-          'appName': '希迪智驾',
-          'provider': '希迪',
-          'createTime': '2021-10-24 01:00',
-          'billFlag': 'OUT',
-          'billAmount': 47500.00,
-          'operatorFee': 230.00,
-          'supplierFee': 123.00
-        },
-        {
-          'billId': 'asd6-fer8-4hyn-8jkh',
-          'orderId': 'No.20210910158976',
-          'orderNum': 'No.20210910258976',
-          'userId': 'abcd-edfr-ehyd-ssss',
-          'userName': 'admin',
-          'billUserId': 'uuu',
-          'billUserName': 'Wenson',
-          'appId': 'aaasssddd',
-          'appName': '云讯智能车牌识别系统',
-          'provider': '云讯',
-          'createTime': '2021-10-24 01:00',
-          'billFlag': 'OUT',
-          'billAmount': 368000.00,
-          'operatorFee': 230.00,
-          'supplierFee': 123.00
-        },
-        {
-          'billId': 'asd6-fer8-4hyn-8jkh',
-          'orderId': 'No.20210910158976',
-          'orderNum': 'No.20210910258976',
-          'userId': 'abcd-edfr-ehyd-ssss',
-          'userName': 'admin',
-          'billUserId': 'uuu',
-          'billUserName': 'Wenson',
-          'appId': 'aaasssddd',
-          'appName': '安恒WAF',
-          'provider': '安恒',
-          'createTime': '2021-10-24 01:00',
-          'billFlag': 'OUT',
-          'billAmount': 30000.00,
-          'operatorFee': 230.00,
-          'supplierFee': 123.00
-        },
-        {
-          'billId': 'asd6-fer8-4hyn-8jkh',
-          'orderId': 'No.20210910158976',
-          'orderNum': 'No.20210910258976',
-          'userId': 'abcd-edfr-ehyd-ssss',
-          'userName': 'admin',
-          'billUserId': 'uuu',
-          'billUserName': 'Wenson',
-          'appId': 'aaasssddd',
-          'appName': '河图应用',
-          'provider': '华为',
-          'createTime': '2021-10-24 01:00',
-          'billFlag': 'OUT',
-          'billAmount': 20002.00,
-          'operatorFee': 230.00,
-          'supplierFee': 123.00
-        }
-      ],
+      billList: [],
       overallData: [
         {
           'value': 200000.00,
@@ -278,76 +209,14 @@ export default {
         }
       ],
       userId: sessionStorage.getItem('userId'),
-      topAppList: [
-        {
-          'appId': '',
-          'appName': '安恒WAF',
-          'saleAmount': 20000.00,
-          'saleCount': 20
-        },
-        {
-          'appId': '',
-          'appName': '希迪智驾',
-          'saleAmount': 15000.00,
-          'saleCount': 16
-        },
-        {
-          'appId': '',
-          'appName': '云讯智能车牌识别系统',
-          'saleAmount': 3000.00,
-          'saleCount': 9
-        },
-        {
-          'appId': '',
-          'appName': '工厂物语',
-          'saleAmount': 1800.00,
-          'saleCount': 8
-        },
-        {
-          'appId': '',
-          'appName': '魔幻相机',
-          'saleAmount': 1500.00,
-          'saleCount': 5
-        }
-      ],
-      lastAppList: [
-        {
-          'appId': '',
-          'appName': 'Zoneminder',
-          'saleAmount': 0.00,
-          'saleCount': 1
-        },
-        {
-          'appId': '',
-          'appName': 'Wordpress',
-          'saleAmount': 0.00,
-          'saleCount': 1
-        },
-        {
-          'appId': '',
-          'appName': 'Suduku',
-          'saleAmount': 0.00,
-          'saleCount': 2
-        },
-        {
-          'appId': '',
-          'appName': 'Cuber',
-          'saleAmount': 0.00,
-          'saleCount': 2
-        },
-        {
-          'appId': '',
-          'appName': '爱消除',
-          'saleAmount': 0.00,
-          'saleCount': 5
-        }
-      ]
+      topAppList: [ ],
+      lastAppList: [ ]
     }
   },
   mounted () {
-    // this.getOverallData()
-    // this.getTopAppList()
-    // this.getBillList()
+    this.getOverallData()
+    this.getTopAppList()
+    this.getBillList()
     this.regAndSetOption()
   },
   methods: {
@@ -373,7 +242,7 @@ export default {
         }
       }
       subscribe.getBills(this.userId, param).then(res => {
-        this.billList = res.data
+        this.billList = res.data.results
       })
     },
     getOverallData () {
@@ -382,7 +251,7 @@ export default {
         'endTime': ''
       }
       subscribe.getoverallData(this.userId, param).then(res => {
-        let data = res.data
+        let data = res.data.data
         for (let i in data) {
           let obj = {}
           obj.value = data(i)
@@ -400,7 +269,7 @@ export default {
         'topCriterion': 'SaleAmount'
       }
       subscribe.getTopApps(this.userId, param).then(res => {
-        this.topAppList = res.data
+        this.topAppList = res.data.data
       })
     },
     regAndSetOption (data) {
