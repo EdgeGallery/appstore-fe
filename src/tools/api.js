@@ -516,19 +516,19 @@ let myApp = {
 
 let subscribe = {
   createOrder: function (param) {
-    return POST(URL_PREFIX + 'orders', param)
+    return POST('orders', param)
   },
   getOrderList: function (param) {
-    return POST(URL_PREFIX + 'orders/list', param)
+    return POST('orders/list', param)
   },
   getAppSubDetail: function (appId) {
-    return GET(URL_PREFIX + 'apps/' + appId)
+    return GET('apps/' + appId)
   },
   deactivateApp: function (orderId) {
-    return POST(URL_PREFIX + 'orders/' + orderId + '/deactivation')
+    return POST('orders/' + orderId + '/deactivation')
   },
   activateApp: function (orderId) {
-    return POST(URL_PREFIX + 'orders/' + orderId + '/activation')
+    return POST('orders/' + orderId + '/activation')
   },
   getSplitconfigs () {
     return GET('apps/splitconfigs/')
@@ -543,16 +543,16 @@ let subscribe = {
     return PUT('apps/splitconfigs/all', param)
   },
   getBillsList: function (param) {
-    return POST(URL_PREFIX + 'bills/list', param)
+    return POST('bills/list', param)
   },
   getOverAllData: function (param) {
-    return POST(URL_PREFIX + 'bills/statistics/overall', param)
+    return POST('bills/statistics/overall', param)
   },
   getTopApps: function (param) {
-    return POST(URL_PREFIX + 'bills/statistics/sales/topapps', param)
+    return POST('bills/statistics/sales/topapps', param)
   },
   getMechosts: function () {
-    return GET(URL_PREFIX + 'mechosts/')
+    return GET('mechosts')
   }
 }
 export {

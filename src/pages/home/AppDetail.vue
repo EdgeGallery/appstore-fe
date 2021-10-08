@@ -470,8 +470,8 @@ import {
   URL_PREFIX,
   URL_PREFIXV2,
   getAppListApi,
-  myApp
-  // subscribe
+  myApp,
+  subscribe
 } from '../../tools/api.js'
 import { INDUSTRY, TYPES, MEAO } from '../../tools/constant.js'
 import appTry from '@/assets/images/apptry.png'
@@ -560,16 +560,7 @@ export default {
       jzyinterval: '',
       showlun: false,
       showSubDialog: false,
-      options: [
-        {
-          value: '119.8.47.5',
-          label: '陕西省/西安市/雁塔区'
-        },
-        {
-          value: '192.168.1.38',
-          label: '广东省/深圳市/龙岗区'
-        }
-      ],
+      options: [],
       mechostIp: '',
       role: sessionStorage.getItem('userNameRole')
     }
@@ -600,16 +591,18 @@ export default {
   },
   methods: {
     beforeBuyIt () {
-      // subscribe.getMechosts().then(res => {
-      //   res.data.forEach(item => {
-      //     let obj = {}
-      //     obj.value = item.ip
-      //     obj.label = item.city
-      //     this.options.push(obj)
-      //   })
-      //   this.showSubDialog = true
-      // })
-      this.showSubDialog = true
+      subscribe.getMechosts().then(res => {
+        res.data.data.forEach(item => {
+          let obj = {}
+          obj.value = item.mechostIp
+          obj.label = item.mechostCity
+          this.options.push(obj)
+        })
+        this.showSubDialog = true
+      }).then(error => {
+        console.log(error)
+        this.$message.warning('没有可供使用的边缘节点！')
+      })
     },
     formatter (thistime, fmt) {
       let $this = new Date(thistime)
@@ -633,35 +626,15 @@ export default {
       return fmt
     },
     confirmToBuy () {
-      // let param = {
-      //   'appId': this.appId,
-      //   'mechostIp': this.mechostIp
-      // }
-      let sessionData = {
-        'orderId': 'aasaaadf',
-        'orderNum': 'No.202110152458',
-        'userId': 'aaa',
-        'userName': 'admin',
+      let param = {
         'appId': this.appId,
-        'appName': this.currentData.name,
-        'orderTime': this.formatter(new Date(), 'yyyy-MM-dd hh:mm'),
-        'operateTime': this.formatter(new Date(), 'yyyy-MM-dd hh:mm'),
-        'status': '0',
         'mecHostIp': this.mechostIp,
-        'mecHostName': 'Node_E6_B8',
-        'mecHostCity': '广东省/深圳市/龙岗区'
+        'appPackageId': this.packageId
       }
-      this.options.forEach(item => {
-        if (item.value === this.mechostIp) {
-          sessionData.mecHostCity = item.label
-        }
+      subscribe.createOrder(param).then(res => {
+        this.showSubDialog = false
+        this.$router.push('/orders')
       })
-      sessionStorage.setItem('newOrder', JSON.stringify(sessionData))
-      this.$router.push('/orders')
-      // let userId = sessionStorage.getItem('userId')
-      // subscribe.createOrder(userId, param).then(res => {
-      //   this.showSubDialog = false
-      // })
     },
     getTableData () {
       let userId = null
@@ -673,9 +646,7 @@ export default {
         data.forEach(item => {
           if (this.pathSource !== 'myapp' && item.status === 'Published') {
             this.ifExperience = item.experienceAble
-            console.log(this.ifExperience)
             this.packageId = item.packageId
-            console.log(this.packageId)
           }
         })
         this.handleTableTada(data)
