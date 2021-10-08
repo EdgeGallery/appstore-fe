@@ -114,7 +114,7 @@ export default {
       border-radius: 25px;
       padding: 4px 10px;
       font-size: 20px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       font-weight: 300;
       color: #FFFFFF;
       border: 1px solid #6724CB;

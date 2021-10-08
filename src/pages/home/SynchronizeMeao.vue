@@ -35,7 +35,6 @@
             :key="item"
             :command="item"
           >
-            <!-- <span>{{ language === 'cn'?item.labelcn:item.labelen }}</span> -->
             {{ item.systemName }}
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -204,16 +203,19 @@ export default {
       this.nameCount = 0
       return row[property] === value
     },
+    showFaileMessage () {
+      this.$message({
+        duration: 2000,
+        type: 'warning',
+        message: this.$t('promptMessage.getCommentFail')
+      })
+    },
     getThirdSystemByType () {
       getThirdSystemByType(this.type).then(res => {
         this.systemData = res.data
         this.addSystemNameData()
       }, () => {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.getCommentFail')
-        })
+        this.showFaileMessage()
       })
     },
     getProgressByPackageId () {
@@ -228,11 +230,7 @@ export default {
         this.total = this.tableData.length
         this.checkFailedData()
       }, () => {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.getCommentFail')
-        })
+        this.showFaileMessage()
       })
     },
 
@@ -386,7 +384,6 @@ export default {
     .el-progress--text-inside .el-progress-bar {
       margin-top: 20px;
       margin-left: 0px;
-      // padding: 20px 0;
     }
     .el-progress-bar__outer {
       position: relative;
@@ -399,11 +396,9 @@ export default {
     }
     .el-progress_inner .el-progress-bar__inner {
       background: linear-gradient(-37deg, #53DABD, #54AAF3);
-      // opacity: 0.85;
     }
     .el-progress_error .el-progress-bar__inner{
       background: linear-gradient(-37deg, #FF3232, #FF6F3F);
-      // opacity: 0.85;
     }
 }
 
@@ -416,7 +411,7 @@ export default {
         background: linear-gradient(122deg, #4444D0, #6724CB);
         color: #FFFFFF;
         font-size: 16px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         height: 40px;
         border-radius: 8px;
         font-weight: 300;
@@ -461,33 +456,28 @@ export default {
       display: none;
   }
   .el-progress-bar__outer {
-      position: relative;
-      left: 110px;
-      top:-20px;
+    position: relative;
+    left: 110px;
+    top:-20px;
+    box-shadow: 2px 2px 12px 0px rgba(36, 20, 119, 0.13);
   }
   .el-progress-bar__inner{
     background: linear-gradient(-37deg, #53DABD, #54AAF3);
-  }
-  .el-progress-bar__outer{
-    box-shadow: 2px 2px 12px 0px rgba(36, 20, 119, 0.13);
   }
   .stepDromdown{
     width: 200px;
     position: relative;
     margin: 20px 80%;
     .el-button--primary {
-        background: linear-gradient(122deg, #4444D0, #6724CB);
-        color: #FFFFFF;
-        font-size: 20px;
-        font-family: HarmonyHeiTi;
-        height: 40px;
-        border-radius: 8px;
-        font-weight: 300;
-        // box-shadow: 0px 16px 8px rgba(94, 44, 204 , 0.3);
-
+      background: linear-gradient(122deg, #4444D0, #6724CB);
+      color: #FFFFFF;
+      font-size: 20px;
+      font-family: HarmonyHeiTi, sans-serif;
+      height: 40px;
+      border-radius: 8px;
+      font-weight: 300;
     }
   }
-
  }
 }
 .tableStyle.el-table td .cell {

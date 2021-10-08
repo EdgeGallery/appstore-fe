@@ -443,8 +443,6 @@ export default ({
 <style lang='less'>
 .header_img{
   margin-top: 4px;
-}
-.header_img{
   cursor: pointer;
 }
 .checkboxChecked {

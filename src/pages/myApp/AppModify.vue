@@ -617,6 +617,7 @@ export default {
     width: 911px;
     height: 635px;
     border-radius: 20px;
+    background: #EFEFEF;
   }
   .app-icon{
     float: left;
@@ -726,12 +727,6 @@ export default {
     margin-right: 5px;
     font-size: 12px;
   }
-  .el-switch__core{
-    // active-color: #61CDD0 !important;
-  }
-  .el-dialog {
-    background: #EFEFEF;
-  }
   .el-dialog__header {
     background: #EFEFEF !important;
     border-radius: 20px;
@@ -772,7 +767,6 @@ export default {
   }
   .footer-button{
     background: #fff;
-    border: 1px solid #5844BE !important;
     color: #5844BE;
     border-radius: 10px;
     border: none;
