@@ -513,50 +513,7 @@ let myApp = {
     return PUTV2(url, appIds)
   }
 }
-
-let subscribe = {
-  createOrder: function (param) {
-    return POST('orders', param)
-  },
-  getOrderList: function (param) {
-    return POST('orders/list', param)
-  },
-  getAppSubDetail: function (appId) {
-    return GET('apps/' + appId)
-  },
-  deactivateApp: function (orderId) {
-    return POST('orders/' + orderId + '/deactivation')
-  },
-  activateApp: function (orderId) {
-    return POST('orders/' + orderId + '/activation')
-  },
-  getSplitconfigs () {
-    return GET('apps/splitconfigs/')
-  },
-  addSplitconfigs (appId, param) {
-    return POST('apps/splitconfigs/' + appId, param)
-  },
-  modifySplitconfigs (appId, param) {
-    return PUT('apps/splitconfigs/' + appId, param)
-  },
-  modifyDefaultSplitconfigs (param) {
-    return PUT('apps/splitconfigs/all', param)
-  },
-  getBillsList: function (param) {
-    return POST('bills/list', param)
-  },
-  getOverAllData: function (param) {
-    return POST('bills/statistics/overall', param)
-  },
-  getTopApps: function (param) {
-    return POST('bills/statistics/sales/topapps', param)
-  },
-  getMechosts: function () {
-    return GET('mechosts')
-  }
-}
 export {
-  subscribe,
   System,
   Workspace,
   getCommentsApi,
