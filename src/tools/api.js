@@ -477,9 +477,9 @@ let myApp = {
     return POST(url)
   },
   // Publish the application
-  publishAppApi: function (appId, packageId, param) {
+  publishAppApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId + '/action/publish'
-    return POST(url, param)
+    return POST(url)
   },
   // Get package detail
   getPackageDetailApi: function (appId, packageId) {
