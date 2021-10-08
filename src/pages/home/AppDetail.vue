@@ -415,7 +415,6 @@ import {
   getAppDetailTableApi,
   downloadAppPakageApi,
   URL_PREFIX,
-  URL_PREFIXV2,
   getAppListApi,
   myApp
 } from '../../tools/api.js'
