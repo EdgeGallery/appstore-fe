@@ -30,8 +30,7 @@
       title="atp"
       :src="srcUrl"
       name="atp"
-      width="100%"
-      height="800"
+      class="atp"
     />
   </div>
 </template>
@@ -92,6 +91,12 @@ export default {
   justify-content: center;
   min-width: 1200px;
   align-items: center;
+  .atp{
+    width: 73.64%;
+    margin: 0 auto;
+    min-width: 1200px;
+    height: 950px;
+  }
   .appTestTop{
     width: 73.64%;
     margin: 60px 13.18% 20px 13.18%;

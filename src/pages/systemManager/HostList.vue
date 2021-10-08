@@ -471,6 +471,16 @@ export default {
         callback()
       }
     }
+    const validateAddress = (rule, value, callback) => {
+      let reg = /^[\s\S]{1,100}$/
+      if (!value) {
+        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.address')}`))
+      } else if (!reg.test(value)) {
+        callback(new Error(`${this.$t('system.pleaseInput')}1~100 ${this.$t('system.char')}`))
+      } else {
+        callback()
+      }
+    }
     const validatePort = (rule, value, callback) => {
       let reg = /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-5]{2}[0-3][0-5])$/
       if (!value) {
@@ -541,8 +551,7 @@ export default {
           { required: true }
         ],
         address: [
-          { required: true, message: `${this.$t('system.pleaseInput')}${this.$t('common.address')}` },
-          { min: 1, max: 100, message: `${this.$t('system.pleaseInput')}1~100 ${this.$t('system.char')}` }
+          { required: true, validator: validateAddress }
         ],
         status: [
           { required: true }
@@ -598,9 +607,7 @@ export default {
       }
     },
     showMoreBtnFun (index) {
-      console.log(index)
       this.currentIndex = index
-      console.log(this.currentIndex)
     },
     setDivHeight () {
       common.setDivHeightFun(this.screenHeight, 'hostManagement', 261)
@@ -670,9 +677,6 @@ export default {
       this.$refs.form.validate((valid, params) => {
         if (valid) {
           this.loading = true
-          let addressTemp = this.form.address
-          // this.form.address = addressTemp.substring(0, addressTemp.lastIndexOf('\n'))
-          console.log(addressTemp.substring(0, addressTemp.lastIndexOf('\n')))
           if (!this.showOther) {
             this.form.parameter = ''
           }

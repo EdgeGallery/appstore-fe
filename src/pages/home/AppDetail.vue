@@ -196,9 +196,18 @@
                      'appDetail_default2_meao_no_Appshow':ifExperience===false && activeName==='meao'}"
           >
             <span>
-              <em />{{ $t('store.introduction') }}
+              {{ $t('store.introduction') }}
             </span>
           </li>
+          <div
+            v-if="activeName !=='appDetail' && activeName !== 'comment'"
+            class="horizontal-cell"
+          >
+            <link-right
+              class="link-right"
+            />
+          </div>
+
           <li
             @click="activeName='comment'"
             :class="{'comment_active':activeName==='comment','comment_default':activeName==='appDetail',
@@ -209,15 +218,35 @@
                      'comment_default_vedio_noappShow':ifExperience === false && ifSynchronize === true && activeName ==='vedio'}"
           >
             <span>
-              <link-right
-                v-if="activeName !=='appDetail' && activeName !== 'comment'"
-                padding-right="5px"
-                margin="5px"
-                class="link-right"
-              />
-              <em />{{ $t('store.comments') }}
+              {{ $t('store.comments') }}
             </span>
           </li>
+
+          <div
+            v-if="activeName!=='appShow'&& ifSynchronize===false && ifExperience===true && activeName !=='comment'"
+            class="horizontal-cell"
+          >
+            <link-right
+              class="link-right"
+            />
+          </div>
+          <!-- <div
+            v-if="ifSynchronize===true && ifExperience===false && activeName !=='comment'"
+            class="horizontal-cell"
+          >
+            <link-right
+              class="link-right"
+            />
+          </div> -->
+          <div
+            v-if="activeName!=='appShow'&& ifExperience === true && ifSynchronize===true && activeName !=='comment'"
+            class="horizontal-cell"
+          >
+            <link-right
+              class="link-right"
+            />
+          </div>
+
           <li
             v-if="ifExperience"
             @click="activeName='appShow'"
@@ -226,27 +255,33 @@
                      'appShow_default_vedio':ifSynchronize===true && activeName==='vedio'}"
           >
             <span>
-              <link-right
-                v-if="activeName!=='appShow'&& ifSynchronize===false && ifExperience===true && activeName !=='comment'"
-                padding-right="8px"
-                margin="5px"
-                class="link-right"
-              />
-              <link-right
-                v-if="ifSynchronize===true && ifExperience===false && activeName !=='comment'"
-                padding-right="8px"
-                margin="5px"
-                class="link-right"
-              />
-              <link-right
-                v-if="activeName!=='appShow'&& ifExperience === true && ifSynchronize===true && activeName !=='comment'"
-                padding-right="8px"
-                margin="5px"
-                class="link-right"
-              />
-              <em />{{ $t('store.showOnline') }}
+              {{ $t('store.showOnline') }}
             </span>
           </li>
+          <!-- <div
+            v-if="activeName!=='meao' && ifSynchronize===false && ifExperience===true && activeName !=='appShow'"
+            class="horizontal-cell"
+          >
+            <link-right
+              class="link-right"
+            />
+          </div> -->
+          <div
+            v-if="activeName!=='meao'&& ifExperience === true && ifSynchronize===true && activeName !=='appShow'"
+            class="horizontal-cell"
+          >
+            <link-right
+              class="link-right"
+            />
+          </div>
+          <div
+            v-if="ifSynchronize===true && ifExperience===false && activeName !=='comment' && activeName !=='meao'"
+            class="horizontal-cell"
+          >
+            <link-right
+              class="link-right"
+            />
+          </div>
           <li
             v-if="ifSynchronize"
             @click="activeName='meao'"
@@ -256,27 +291,42 @@
                      'meao_default_comment':activeName ==='comment'}"
           >
             <span>
-              <link-right
-                v-if="activeName!=='meao' && ifSynchronize===false && ifExperience===true && activeName !=='appShow'"
-                padding-right="5px"
-                margin="5px"
-                class="link-right"
-              />
-              <link-right
-                v-if="activeName!=='meao'&& ifExperience === true && ifSynchronize===true && activeName !=='appShow'"
-                padding-right="5px"
-                margin="5px"
-                class="link-right"
-              />
-              <link-right
-                v-if="ifSynchronize===true && ifExperience===false && activeName !=='comment' && activeName !=='meao'"
-                padding-right="8px"
-                margin="5px"
-                class="link-right"
-              />
-              <em />{{ $t('store.synchronizeToMeao') }}
+              {{ $t('store.synchronizeToMeao') }}
             </span>
           </li>
+          <div
+            v-if="ifSynchronize===false && ifExperience === true && activeName !== 'appShow' && activeName !=='vedio'"
+            class="horizontal-cell"
+          >
+            <link-right
+              class="link-right"
+            />
+          </div>
+          <div
+            v-if="ifSynchronize===false && ifExperience === false && activeName ==='appDetail'"
+            class="horizontal-cell"
+          >
+            <link-right
+              class="link-right"
+            />
+          </div>
+          <div
+            v-if="ifSynchronize===true && ifExperience === true && activeName !=='vedio' && activeName !=='meao'"
+            class="horizontal-cell"
+          >
+            <link-right
+              class="link-right"
+            />
+          </div>
+          <div
+            v-if="ifSynchronize===true && ifExperience===false && activeName !=='vedio'&& activeName !=='meao'"
+            class="horizontal-cell"
+          >
+            <link-right
+              class="link-right"
+            />
+          </div>
+
           <li
             @click="activeName='vedio'"
             :class="{'vedio_active':activeName==='vedio','vedio_default_appshow':activeName ==='appShow','vedio_default':activeName !=='vedio',
@@ -287,31 +337,7 @@
                      'vedio_default2_comment_no_Appshow':ifExperience===false && ifSynchronize ===true && activeName==='comment'}"
           >
             <span>
-              <link-right
-                v-if="ifSynchronize===false && ifExperience === true && activeName !== 'appShow' && activeName !=='vedio'"
-                padding-right="8px"
-                margin="6px"
-                class="link-right"
-              />
-              <link-right
-                v-if="ifSynchronize===true && ifExperience === true && activeName !=='vedio' && activeName !=='meao'"
-                padding-right="8px"
-                margin="6px"
-                class="link-right"
-              />
-              <link-right
-                v-if="ifSynchronize===false && ifExperience === false && activeName ==='appDetail'"
-                padding-right="8px"
-                margin="6px"
-                class="link-right"
-              />
-              <link-right
-                v-if="ifSynchronize===true && ifExperience===false && activeName !=='vedio'&& activeName !=='meao'"
-                padding-right="8px"
-                margin="5px"
-                class="link-right"
-              />
-              <em />{{ $t('store.demo') }}
+              {{ $t('store.demo') }}
             </span>
           </li>
 
@@ -651,14 +677,12 @@ export default {
         })
         this.handleTableTada(data)
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
-          console.log(this.tableData)
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
           this.ifExperience = this.currentData.experienceAble
           if (sessionStorage.getItem('userNameRole') === 'tenant' && this.userId !== this.currentData.userId) {
             this.ifSynchronize = false
           }
-          console.log(this.currentData)
           this.checkProjectData()
         }
       })
@@ -1126,6 +1150,28 @@ export default {
     }
   }
   .app_content{
+    .horizontal-cell{
+        padding: 12px 0;
+        float: left;
+        width: 2px;
+        height: 50px;
+        // background: #d4d1ec;
+        background-color: #d4d1ec;
+    }
+    .separator{
+        position: relative;
+        height: 100%;
+    }
+    .separator:after{
+      position: absolute;
+      top:10px;
+      height: calc(100% - 2px);
+      // height: 60%;
+      left:0;
+      content: '';
+      width:0;
+      // border-left: solid  darkblue 1px;
+    }
     border-radius: 0 16px 16px 16px;
     background: #fff;
     margin-top: 38px;
@@ -1782,10 +1828,6 @@ export default {
     margin: 0 5px;
     margin-top: -8px;
 }
-.el-carousel__indicators {
-    display: none;
-}
-
 .el-progress-bar__outer{
   box-shadow: 2px 2px 12px 0px rgba(36, 20, 119, 0.13);
 }

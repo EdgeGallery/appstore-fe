@@ -246,7 +246,6 @@ export default {
   },
   methods: {
     handleSelectionChange (val) {
-      console.log(val)
       this.tempList = val
     },
     sizeChange () {
@@ -304,7 +303,6 @@ export default {
       let param = {
         splitRatio: this.defaultrate / 100
       }
-      console.log(param)
       subscribe.modifyDefaultSplitconfigs(param).then(res => {
         this.$message.success(this.$t('split.modifyThanOne'))
         this.showConfirmBtn = false

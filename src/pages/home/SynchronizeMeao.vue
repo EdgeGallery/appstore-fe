@@ -185,14 +185,12 @@ export default {
     },
     filterTagTable (filters) {
       this.systemName = filters
-      console.log(this.systemName)
     },
     filterMEAO (value, row, column) {
       const property = column['property']
       if (row[property] === value) {
         this.nameCount++
       }
-      console.log(this.nameCount)
       this.total = this.nameCount
       this.statusCount = 0
       return row[property] === value
@@ -204,15 +202,12 @@ export default {
       }
       this.total = this.statusCount
       this.nameCount = 0
-      console.log(this.statusCount)
       return row[property] === value
     },
     getThirdSystemByType () {
       getThirdSystemByType(this.type).then(res => {
-        console.log(res.data)
         this.systemData = res.data
         this.addSystemNameData()
-        console.log(this.systemData)
       }, () => {
         this.$message({
           duration: 2000,
@@ -222,9 +217,7 @@ export default {
       })
     },
     getProgressByPackageId () {
-      console.log(this.packageId)
       getProgressByPackageId(this.packageId).then(res => {
-        console.log(res.data)
         this.testColor = []
         this.tableData = res.data
         this.tableData.forEach(item => {
@@ -234,7 +227,6 @@ export default {
         })
         this.total = this.tableData.length
         this.checkFailedData()
-        console.log(this.tableData)
       }, () => {
         this.$message({
           duration: 2000,
@@ -254,14 +246,12 @@ export default {
         object.value = item.id
         this.systemNameData.push(object)
       }
-      console.log(this.systemNameData)
     },
 
     handleClick (item) {
       if (item.systemName.indexOf('华为') === 0) {
         this.synchronizePackage()
       } else {
-        console.log(this.jzyinterval)
         this.$message({
           duration: 2000,
           message: this.$t('store.notSupportSynchronized'),
@@ -301,8 +291,6 @@ export default {
       this.hwinterval = null
     },
     synchronizePackage (item) {
-      console.log(this.currentData)
-      console.log(item)
       synchronizedPakageApi(this.currentData, item.id).then(res => {
         this.$message({
           duration: 2000,
@@ -327,44 +315,9 @@ export default {
     clearIntervalCall () {
       this.interval = null
     },
-    filterTableData (tempData) {
-      this.testColor = []
-      console.log(typeof (tempData))
-      let tableDataname = []
-      console.log(this.systemName)
-      for (let items of tempData) {
-        if (this.systemName) {
-          let froResult = this.systemName.replace(/(^\s+)|(\s+$)/g, '')
-          let bacResult = items.systemName.replace(/(^\s+)|(\s+$)/g, '')
-          console.log(froResult === bacResult)
-          if (bacResult === froResult) {
-            if (this.status) {
-              if (items.status.replace(/(^\s+)|(\s+$)/g, '') === this.status.replace(/(^\s+)|(\s+$)/g, '')) {
-                tableDataname.push(items)
-                console.log(tableDataname)
-              }
-            } else {
-              tableDataname.push(items)
-            }
-          }
-        } else if (this.status) {
-          if (items.status.replace(/(^\s+)|(\s+$)/g, '') === this.status.replace(/(^\s+)|(\s+$)/g, '')) {
-            tableDataname.push(items)
-          }
-        } else {
-          tableDataname.push(items)
-          console.log(tableDataname)
-        }
-      }
-      this.tableData = tableDataname
-      console.log(this.tableData)
-      console.log(typeof (this.tableData))
-      this.checkFailedData()
-    },
     checkFailedData () {
       for (let item of this.tableData) {
         if (item.status === 'failed') {
-          console.log(item.progress === 0)
           item.percentage = 99
           let colorDate = {
             color: false,
@@ -375,8 +328,6 @@ export default {
           this.testColor.push(colorDate)
         }
       }
-      console.log(this.tableData)
-      console.log(this.testColor)
     },
     dateChange (dateStr) {
       if (dateStr) {
@@ -406,6 +357,13 @@ export default {
     '$i18n.locale': function () {
       let language = localStorage.getItem('language')
       this.language = language
+    },
+    packageId (newStr) {
+      this.packageId = newStr
+      console.log(this.packageId)
+      if (this.packageId) {
+        this.getProgressByPackageId()
+      }
     }
   },
   mounted () {
