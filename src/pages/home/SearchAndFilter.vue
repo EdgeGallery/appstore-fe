@@ -318,7 +318,7 @@ export default ({
       } else {
         this.order = 'desc'
         this.searchCondition.queryCtrl.sortType = 'desc'
-        sessionStorage.setItem('sortType', 'asc')
+        sessionStorage.setItem('sortType', 'desc')
       }
       this.$emit('getSearchCondition', this.searchCondition)
     },
