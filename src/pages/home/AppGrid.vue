@@ -129,6 +129,7 @@ export default {
     },
     getAppIcon (item) {
       console.log(this.appData)
+      console.log(item)
       return URL_PREFIX + 'apps/' + item.appId + '/icon'
     }
   },
