@@ -445,7 +445,7 @@ export default {
     .pushTitle{
       font-size: 36px;
       margin-bottom: 30px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       font-weight: bold;
       color: #5E40C8;
       line-height: 24px;

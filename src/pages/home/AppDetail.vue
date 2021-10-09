@@ -70,27 +70,6 @@
           </span>
         </p>
       </div>
-      <div
-        class="app_score"
-        style="position:relative;top:25px;margin-left:0;"
-        v-if="role==='tenant'||role==='admin'"
-      >
-        <p
-          class="download_num"
-          style="color:#ff5c02;"
-        >
-          1.99元（RMB）/小时
-        </p>
-        <p class="score_btn">
-          <el-button
-            type="primary"
-            class="batchProButton"
-            @click="beforeBuyIt()"
-          >
-            订购
-          </el-button>
-        </p>
-      </div>
       <div class="app_score">
         <p class="score_num">
           {{ score }}
@@ -339,64 +318,6 @@
         >{{ $t('atp.confirm') }}</el-button>
       </span>
     </el-dialog>
-    <!-- 订购弹框 -->
-    <el-dialog
-      width="30%"
-      :visible.sync="showSubDialog"
-      :show-close="false"
-      class="dialog_host default_dialog"
-    >
-      <div
-        slot="title"
-        class="el-dialog__title"
-      >
-        <em class="title_icon" />
-        订购确认
-      </div>
-      <div class="buy_content">
-        <el-form>
-          <el-form-item
-            label="应用名称："
-          >
-            <span class="val_span">{{ currentData.name }}</span>
-          </el-form-item>
-          <el-form-item
-            label="订购价格:"
-          >
-            <span class="val_span">1.99元（RMB）/小时</span>
-          </el-form-item>
-          <el-form-item
-            label="部署区域:"
-          >
-            <el-select
-              v-model="mechostIp"
-              :placeholder="$t('common.choose')"
-              style="width: 260px;"
-            >
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-          </el-form-item>
-        </el-form>
-      </div>
-      <span
-        slot="footer"
-        class="dialog-footer dialogPadding"
-      >
-        <el-button
-          @click="showSubDialog = false"
-          class="bgBtn"
-        >{{ $t('common.cancel') }}</el-button>
-        <el-button
-          @click="confirmToBuy"
-          class="bgBtn"
-        >{{ $t('common.confirm') }}</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -410,7 +331,6 @@ import {
   getAppDetailTableApi,
   downloadAppPakageApi,
   URL_PREFIX,
-  URL_PREFIXV2,
   getAppListApi,
   myApp
 } from '../../tools/api.js'
@@ -501,16 +421,7 @@ export default {
       jzyinterval: '',
       showlun: false,
       showSubDialog: false,
-      options: [
-        {
-          value: '119.8.47.5',
-          label: '陕西省/西安市/雁塔区'
-        },
-        {
-          value: '192.168.1.38',
-          label: '广东省/深圳市/龙岗区'
-        }
-      ],
+      options: [],
       mechostIp: '',
       role: sessionStorage.getItem('userNameRole')
     }
@@ -540,9 +451,6 @@ export default {
     this.clearInterval()
   },
   methods: {
-    beforeBuyIt () {
-      this.showSubDialog = true
-    },
     formatter (thistime, fmt) {
       let $this = new Date(thistime)
       let o = {
@@ -563,29 +471,6 @@ export default {
         }
       }
       return fmt
-    },
-    confirmToBuy () {
-      let sessionData = {
-        'orderId': 'aasaaadf',
-        'orderNum': 'No.202110152458',
-        'userId': 'aaa',
-        'userName': 'admin',
-        'appId': this.appId,
-        'appName': this.currentData.name,
-        'orderTime': this.formatter(new Date(), 'yyyy-MM-dd hh:mm'),
-        'operateTime': this.formatter(new Date(), 'yyyy-MM-dd hh:mm'),
-        'status': '0',
-        'mecHostIp': this.mechostIp,
-        'mecHostName': 'Node_E6_B8',
-        'mecHostCity': '广东省/深圳市/龙岗区'
-      }
-      this.options.forEach(item => {
-        if (item.value === this.mechostIp) {
-          sessionData.mecHostCity = item.label
-        }
-      })
-      sessionStorage.setItem('newOrder', JSON.stringify(sessionData))
-      this.$router.push('/orders')
     },
     getTableData () {
       let userId = null
@@ -627,7 +512,7 @@ export default {
         if (item.demoVideoName) {
           let val = {
             type: 'video/mp4',
-            src: URL_PREFIXV2 + 'apps/' + this.appId + '/demoVideo'
+            src: URL_PREFIX + 'apps/' + this.appId + '/demoVideo'
           }
           this.playerOptions.sources.push(val)
         }
@@ -820,10 +705,9 @@ export default {
     padding: 60px 0 20px !important;
     position: relative;
     font-size: 26px;
-    font-family: HarmonyOS Sans SC;
+    font-family: HarmonyOS Sans SC, sans-serif;
     font-weight: bold;
     color: #5D3DA0;
-    font-family:defaultFontBlod, Arial, Helvetica, sans-serif;
   }
   .btnPasses{
     background: #fff !important;
@@ -952,7 +836,6 @@ export default {
         }
       }
     }
-
     .app_score{
       width: 240px;
       text-align: center;
@@ -987,16 +870,16 @@ export default {
         }
       }
       .batchProButton{
-        width: 120px;
         margin-top: 10px;
         text-align: center;
         height: 40px !important;
         width: 120px !important;
-        font-size:20px !important;
         border-radius: 25px !important;
          color: #FFFFFF;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
+        font-size: 24px;
+        background: linear-gradient(to right, #4444D0, #6724CB) !important;
         .el-button--primary{
           font-size: 20px;
           background-color: #fff;
@@ -1019,7 +902,7 @@ export default {
       .synchronize_info{
         width: 194px;
         font-size: 14px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         color: #5E40C8;
         margin-top: 24px;
@@ -1044,16 +927,16 @@ export default {
           }
         }
       }
-
       .addOutStore{
         margin-top: 35px;
         font-size: 20px;
         height: 50px !important;
         width: 222px !important;
         border-radius: 25px !important;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
+        background: linear-gradient(to right, #4444D0, #6724CB) !important;
       }
     }
 
@@ -1704,13 +1587,6 @@ export default {
     border-radius: 0 16px 16px 16px;
   }
 }
-.app_detail .app_info_div .app_synchronize .addOutStore {
-  background: linear-gradient(to right, #4444D0, #6724CB) !important;
-}
-.app_detail .app_info_div .app_score .batchProButton {
-  font-size: 24px;
-  background: linear-gradient(to right, #4444D0, #6724CB) !important;
-}
 .stepApp{
   width: 249px;
   height: 100px;
@@ -1725,7 +1601,7 @@ export default {
     padding-left: 20px;
     box-shadow: 5px 9px 63px 5px rgba(94, 64, 200, 0.06);
     font-size: 14px;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 300;
     color: #5E40C8;
     position: absolute;
@@ -1736,7 +1612,7 @@ export default {
     margin-top: 10px;
     margin-left:20px ;
     font-size: 14px;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 200;
     color: #8F859B;
   }
@@ -1758,7 +1634,7 @@ export default {
       background: linear-gradient(122deg, #4444D0, #6724CB);
       color: #FFFFFF;
       font-size: 20px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       height: 54px;
       border-radius: 23px;
       font-weight: 300;
@@ -1769,7 +1645,7 @@ export default {
     top: 1px;
     margin-left: -6px;
     border-top-width: 0;
-    border-bottom-color:#4444D0!important;
+    border-bottom-color: #4444D0 !important;
 }
   .el-dropdown-menu__item {
     padding: 0 20px;

@@ -476,7 +476,7 @@ div /deep/ .el-table{
 }
 .appName{
   font-size: 20px;
-  font-family: HarmonyHeiTi;
+  font-family: HarmonyHeiTi, sans-serif;
   font-weight: 400;
   color: #62517A;
   line-height: 50px;
@@ -484,13 +484,13 @@ div /deep/ .el-table{
 }
 .appDesc{
   font-size: 16px;
-  font-family: HarmonyHeiTi;
+  font-family: HarmonyHeiTi, sans-serif;
   font-weight: 200;
   color: #7A6E8A;
 }
 .timeLine{
   font-size: 14px;
-  font-family: HarmonyHeiTi;
+  font-family: HarmonyHeiTi, sans-serif;
   font-weight: 200;
   color: #7A6E8A;
   margin-bottom: 10px;
@@ -507,7 +507,7 @@ div /deep/ .el-table{
     font-size: 14px;
     background: #EFEFEF;
     border-radius: 5px;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 200;
     color: #7A6E8A;
     text-align: center;

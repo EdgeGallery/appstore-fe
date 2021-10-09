@@ -177,7 +177,7 @@ export default {
       display: flex;
       p{
         font-size: 20px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         color: #380879;
         }
@@ -221,7 +221,7 @@ export default {
       }
       p{
         font-size: 16px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         color: #380879;
       }
@@ -251,14 +251,14 @@ export default {
           span:first-child{
             display: block;
                 font-size: 16px;
-                font-family: HarmonyHeiTi;
+                font-family: HarmonyHeiTi, sans-serif;
                 font-weight: 300;
                 color: #662FB2;
                 min-width: 100px;
           }
            span:nth-child(2){
                 font-size: 16px;
-                font-family: HarmonyHeiTi;
+                font-family: HarmonyHeiTi, sans-serif;
                 font-weight: 400;
                 color: #380879;
           }
@@ -295,7 +295,7 @@ export default {
       }
       p{
         font-size: 16px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         color: #380879;
       }
@@ -325,14 +325,14 @@ export default {
             span:first-child{
               display: block;
                   font-size: 16px;
-                  font-family: HarmonyHeiTi;
+                  font-family: HarmonyHeiTi, sans-serif;
                   font-weight: 300;
                   color: #662FB2;
                   min-width:100px;
             }
             span:nth-child(2){
                   font-size: 16px;
-                  font-family: HarmonyHeiTi;
+                  font-family: HarmonyHeiTi, sans-serif;
                   font-weight: 400;
                   color: #380879;
             }
@@ -372,7 +372,7 @@ export default {
     p{
       float: right;
       font-size: 14px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       font-weight: 300;
       width: 67px;
       height: 33px;
@@ -392,7 +392,7 @@ export default {
 }
 .desc span:first-child{
     font-size: 16px;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 300;
     color: #662FB2;
     min-width: 100px;
@@ -400,7 +400,7 @@ export default {
 }
 .desc span:nth-child(2){
     font-size: 16px;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 400;
     color: #380879;
     word-wrap: break-word;

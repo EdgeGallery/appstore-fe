@@ -37,8 +37,8 @@ function getProgressByPackageId (packageId) {
   let url = 'upload_progress/package/' + packageId
   return GET(url, '')
 }
-// query thirdSystem by type
 
+// query thirdSystem by type
 function getThirdSystemByType (type) {
   let url = 'thirdsystem/systemType/' + type
   return GET(url, '')
@@ -477,9 +477,9 @@ let myApp = {
     return POST(url)
   },
   // Publish the application
-  publishAppApi: function (appId, packageId, param) {
+  publishAppApi: function (appId, packageId) {
     let url = 'apps/' + appId + '/packages/' + packageId + '/action/publish'
-    return POST(url, param)
+    return POST(url)
   },
   // Get package detail
   getPackageDetailApi: function (appId, packageId) {
@@ -513,50 +513,7 @@ let myApp = {
     return PUTV2(url, appIds)
   }
 }
-
-let subscribe = {
-  createOrder: function (param) {
-    return POST(URL_PREFIX + 'orders', param)
-  },
-  getOrderList: function (param) {
-    return POST(URL_PREFIX + 'orders/list', param)
-  },
-  getAppSubDetail: function (appId) {
-    return GET(URL_PREFIX + 'apps/' + appId)
-  },
-  deactivateApp: function (orderId) {
-    return POST(URL_PREFIX + 'orders/' + orderId + '/deactivation')
-  },
-  activateApp: function (orderId) {
-    return POST(URL_PREFIX + 'orders/' + orderId + '/activation')
-  },
-  getSplitconfigs () {
-    return GET('apps/splitconfigs/')
-  },
-  addSplitconfigs (appId, param) {
-    return POST('apps/splitconfigs/' + appId, param)
-  },
-  modifySplitconfigs (appId, param) {
-    return PUT('apps/splitconfigs/' + appId, param)
-  },
-  modifyDefaultSplitconfigs (param) {
-    return PUT('apps/splitconfigs/all', param)
-  },
-  getBillsList: function (param) {
-    return POST(URL_PREFIX + 'bills/list', param)
-  },
-  getOverAllData: function (param) {
-    return POST(URL_PREFIX + 'bills/statistics/overall', param)
-  },
-  getTopApps: function (param) {
-    return POST(URL_PREFIX + 'bills/statistics/sales/topapps', param)
-  },
-  getMechosts: function () {
-    return GET(URL_PREFIX + 'mechosts/')
-  }
-}
 export {
-  subscribe,
   System,
   Workspace,
   getCommentsApi,

@@ -35,7 +35,6 @@
             :key="item"
             :command="item"
           >
-            <!-- <span>{{ language === 'cn'?item.labelcn:item.labelen }}</span> -->
             {{ item.systemName }}
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -150,7 +149,6 @@ export default {
   data () {
     return {
       customColor: '#6610f2',
-      interval: '',
       MEAO: MEAO,
       language: localStorage.getItem('language'),
       ifSync: 'true',
@@ -171,7 +169,8 @@ export default {
       systemData: [],
       testColor: [],
       systemNameData: [],
-      tableData: []
+      tableData: [],
+      timer: null
     }
   },
   methods: {
@@ -204,16 +203,19 @@ export default {
       this.nameCount = 0
       return row[property] === value
     },
+    showFaileMessage () {
+      this.$message({
+        duration: 2000,
+        type: 'warning',
+        message: this.$t('promptMessage.getCommentFail')
+      })
+    },
     getThirdSystemByType () {
       getThirdSystemByType(this.type).then(res => {
         this.systemData = res.data
         this.addSystemNameData()
       }, () => {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.getCommentFail')
-        })
+        this.showFaileMessage()
       })
     },
     getProgressByPackageId () {
@@ -228,11 +230,7 @@ export default {
         this.total = this.tableData.length
         this.checkFailedData()
       }, () => {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.getCommentFail')
-        })
+        this.showFaileMessage()
       })
     },
 
@@ -247,57 +245,19 @@ export default {
         this.systemNameData.push(object)
       }
     },
-
-    handleClick (item) {
-      if (item.systemName.indexOf('华为') === 0) {
-        this.synchronizePackage()
-      } else {
-        this.$message({
-          duration: 2000,
-          message: this.$t('store.notSupportSynchronized'),
-          type: 'success'
-        })
-        this.getProgressByPackageId()
-      }
-      this.showlun = true
-    },
-    synchronizeJzy () {
-      this.jzyinterval = setInterval(() => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('store.notSupportSynchronized'),
-          type: 'success'
-        })
-        this.getProgressByPackageId()
-      }).catch(error => {
-        let retCode = error.response.data.retCode
-        let params = error.response.data.params
-        let errMsg = error.response.data.message
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-        } else {
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.operationFailed'),
-            type: 'warning'
-          })
-        }
-      })
-    },
-    clearInterval () {
-      clearTimeout(this.jzyinterval)
-      clearTimeout(this.hwinterval)
-      this.jzyinterval = null
-      this.hwinterval = null
-    },
     synchronizePackage (item) {
+      this.startInterval()
+      if (this.timer !== null) {
+        setTimeout(() => {
+          clearInterval(this.timer)
+        }, 600000)
+      }
       synchronizedPakageApi(this.currentData, item.id).then(res => {
         this.$message({
           duration: 2000,
           message: this.$t('store.synchronizedwaiting'),
           type: 'success'
         })
-        this.getProgressByPackageId()
       }).catch(error => {
         let defaultMsg = this.$t('promptMessage.operationFailed')
         let retCode = error.response.data.retCode
@@ -311,9 +271,6 @@ export default {
           })
         }
       })
-    },
-    clearIntervalCall () {
-      this.interval = null
     },
     checkFailedData () {
       for (let item of this.tableData) {
@@ -350,8 +307,16 @@ export default {
           ':' +
           (s > 9 ? s : '0' + s)
       }
+    },
+    startInterval () {
+      clearInterval(this.timer)
+      this.timer = setInterval(() => {
+        this.getProgressByPackageId()
+      }, 10000)
+      this.$once('hook:beforeDestroy', () => {
+        clearInterval(this.timer)
+      })
     }
-
   },
   watch: {
     '$i18n.locale': function () {
@@ -360,7 +325,6 @@ export default {
     },
     packageId (newStr) {
       this.packageId = newStr
-      console.log(this.packageId)
       if (this.packageId) {
         this.getProgressByPackageId()
       }
@@ -368,14 +332,11 @@ export default {
   },
   mounted () {
     this.getThirdSystemByType()
-    this.interval = setInterval(() => {
-      this.getProgressByPackageId()
-    }, 10000)
-  },
-  beforeDestroy () {
-    this.clearIntervalCall()
+    this.startInterval()
+    setTimeout(() => {
+      clearInterval(this.timer)
+    }, 600000)
   }
-
 }
 
 </script>
@@ -423,7 +384,6 @@ export default {
     .el-progress--text-inside .el-progress-bar {
       margin-top: 20px;
       margin-left: 0px;
-      // padding: 20px 0;
     }
     .el-progress-bar__outer {
       position: relative;
@@ -436,11 +396,9 @@ export default {
     }
     .el-progress_inner .el-progress-bar__inner {
       background: linear-gradient(-37deg, #53DABD, #54AAF3);
-      // opacity: 0.85;
     }
     .el-progress_error .el-progress-bar__inner{
       background: linear-gradient(-37deg, #FF3232, #FF6F3F);
-      // opacity: 0.85;
     }
 }
 
@@ -453,7 +411,7 @@ export default {
         background: linear-gradient(122deg, #4444D0, #6724CB);
         color: #FFFFFF;
         font-size: 16px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         height: 40px;
         border-radius: 8px;
         font-weight: 300;
@@ -498,33 +456,28 @@ export default {
       display: none;
   }
   .el-progress-bar__outer {
-      position: relative;
-      left: 110px;
-      top:-20px;
+    position: relative;
+    left: 110px;
+    top:-20px;
+    box-shadow: 2px 2px 12px 0px rgba(36, 20, 119, 0.13);
   }
   .el-progress-bar__inner{
     background: linear-gradient(-37deg, #53DABD, #54AAF3);
-  }
-  .el-progress-bar__outer{
-    box-shadow: 2px 2px 12px 0px rgba(36, 20, 119, 0.13);
   }
   .stepDromdown{
     width: 200px;
     position: relative;
     margin: 20px 80%;
     .el-button--primary {
-        background: linear-gradient(122deg, #4444D0, #6724CB);
-        color: #FFFFFF;
-        font-size: 20px;
-        font-family: HarmonyHeiTi;
-        height: 40px;
-        border-radius: 8px;
-        font-weight: 300;
-        // box-shadow: 0px 16px 8px rgba(94, 44, 204 , 0.3);
-
+      background: linear-gradient(122deg, #4444D0, #6724CB);
+      color: #FFFFFF;
+      font-size: 20px;
+      font-family: HarmonyHeiTi, sans-serif;
+      height: 40px;
+      border-radius: 8px;
+      font-weight: 300;
     }
   }
-
  }
 }
 .tableStyle.el-table td .cell {

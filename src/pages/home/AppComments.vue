@@ -107,17 +107,12 @@ import {
   getCommentsApi,
   submitAppCommentApi
 } from '../../tools/api.js'
-// import timeFormatTools from '../../tools/timeFormatTools.js'
-// import commonUtil from '../../tools/commonUtil.js'
 export default {
   props: {
     appId: {
       required: true,
       type: String
     }
-  },
-  components: {
-    // EgPagination
   },
   data () {
     return {

@@ -46,9 +46,7 @@ export default {
   },
   methods: {
     getAtpUrl () {
-      // let language = localStorage.getItem('language')
       let currUrl = window.location.origin
-      // this.srcUrl = 'http://192.168.100.33:30087/#/home'
       if (currUrl.indexOf('30091') !== -1) {
         let originUrl = currUrl.replace('30091', '30087')
         this.srcUrl = originUrl + '/#/home'
