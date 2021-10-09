@@ -1237,7 +1237,7 @@ export default {
       border-radius: 10px;
       img{
         margin-top: 10px;
-        width: 66.7%;
+        width: 54.7%;
         height: 42.2%;
       }
       .high_name{
@@ -1246,6 +1246,9 @@ export default {
         font-weight: 400;
         color: #111111;
         text-align: center;
+        width: 70%;
+        white-space: nowrap;
+        overflow: hidden;
         margin: 0;
       }
       .score_num{

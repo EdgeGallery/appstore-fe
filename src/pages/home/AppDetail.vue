@@ -490,7 +490,6 @@ export default {
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
           this.appIconPath = URL_PREFIX + 'apps/' + this.currentData.appId + '/packages/' + this.currentData.packageId + '/icon'
-          console.log(this.appIconPath)
           this.ifExperience = this.currentData.experienceAble
           if (sessionStorage.getItem('userNameRole') === 'tenant' && this.userId !== this.currentData.userId) {
             this.ifSynchronize = false
@@ -523,7 +522,6 @@ export default {
       this.ifExperience = this.currentData.experienceAble
       this.source = this.currentData.details
       this.appIconPath = URL_PREFIX + 'apps/' + this.currentData.appId + '/packages/' + this.currentData.packageId + '/icon'
-      console.log(this.appIconPath)
       this.checkProjectData()
     },
     dateChange (dateStr) {
@@ -667,7 +665,6 @@ export default {
       ? this.$route.params.item
       : JSON.parse(sessionStorage.getItem('appstordetail'))
     this.details = params
-    console.log(params)
     this.appId = this.details.appId
     this.packageId = this.details.packageId
     this.ifExperience = this.details.experienceAble
