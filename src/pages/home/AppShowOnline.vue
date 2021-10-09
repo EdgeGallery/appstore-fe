@@ -262,7 +262,6 @@ export default {
         this.deployMode = data.deployMode
         if (experienceAble) {
           this.ifExperience = true
-          // this.initStatus()
         }
       })
     },
@@ -280,7 +279,6 @@ export default {
       this.tip22 = true
       myApp.getNodePort(this.appId, this.packageId, this.userId, this.name, this.ip).then(
         (res) => {
-          // this.nodePort = res.data
           let experienceInfo = res.data
           if (experienceInfo.message.indexOf('please register host') !== -1) {
             this.stepClean()
@@ -402,19 +400,13 @@ export default {
       myApp.getNodeStatus(this.packageId, this.userId, this.name, this.ip).then(
         (res) => {
           let experienceInfo = res.data
-          this.initeData(experienceInfo)
-          if (experienceInfo.message.indexOf('please register host.') !== -1) {
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.registerHost')
-            })
-          } else {
-            this.initeData(experienceInfo)
+          this.initData(experienceInfo)
+          if (experienceInfo.message.indexOf('please register host.') === -1) {
+            this.initData(experienceInfo)
           }
         })
     },
-    initeData (experienceInfo) {
+    initData (experienceInfo) {
       if (experienceInfo.data) {
         let tmpExperienceData = experienceInfo.data
         this.filterExperienceInfo(tmpExperienceData)
