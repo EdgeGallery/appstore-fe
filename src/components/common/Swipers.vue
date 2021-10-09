@@ -69,7 +69,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import uploadPackage from '../../pages/home/UploadPackage.vue'
 import { common } from '../../tools/comon.js'
 export default {
@@ -79,11 +78,11 @@ export default {
   },
 
   computed: {
-    ...mapState(['language'])
   },
   data () {
     return {
       uploadDiaVis: false,
+      language: localStorage.getItem('language'),
       screenHeight: document.body.clientHeight,
       SwiperList: [
         {
@@ -99,6 +98,13 @@ export default {
           style2: 'block'
         }]
     }
+  },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
+    }
+
   },
   mounted () {
     this.setDivHeight()
