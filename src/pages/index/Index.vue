@@ -816,9 +816,9 @@ export default {
       }
     },
     randomRgb () {
-      let R = Math.floor(Math.random() * 130 + 60)
-      let G = Math.floor(Math.random() * 130 + 80)
-      let B = Math.floor(Math.random() * 130 + 100)
+      let R = Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 130 + 60)
+      let G = Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 130 + 80)
+      let B = Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 130 + 100)
       return {
         color: 'rgb(' + R + ',' + G + ',' + B + ')',
         background: 'rgba(' + R + ',' + G + ',' + B + ',0.25)'
@@ -1155,7 +1155,7 @@ export default {
     h3{
       height: 35px;
       font-size: 36px;
-      font-family: HarmonyOS Sans SC;
+      font-family: HarmonyOS Sans SC, sans-serif;
       font-weight: bold;
       color: #5D3DA0;
       margin-bottom:26px ;
@@ -1242,7 +1242,7 @@ export default {
       }
       .high_name{
         font-size: 16px;
-        font-family: HarmonyOS Sans SC;
+        font-family: HarmonyOS Sans SC, sans-serif;
         font-weight: 400;
         color: #111111;
         text-align: center;
@@ -1254,7 +1254,7 @@ export default {
       .score_num{
         width: 80%;
         font-size: 14px;
-        font-family: HarmonyOS Sans SC;
+        font-family: HarmonyOS Sans SC, sans-serif;
         font-weight: 400;
         color: #380879;
         text-align: center;
@@ -1284,7 +1284,7 @@ export default {
        }
       .high_name{
         font-size: 16px;
-        font-family: HarmonyOS Sans SC;
+        font-family: HarmonyOS Sans SC, sans-serif;
         font-weight: 400;
         width: 80%;
         color: #111111;
@@ -1340,7 +1340,7 @@ export default {
           justify-content: space-between;
           .case_name1{
             font-size: 26px;
-            font-family: HarmonyOS Sans SC;
+            font-family: HarmonyOS Sans SC, sans-serif;
             font-weight: 400;
             color: #111111;
             float: left;
@@ -1354,7 +1354,7 @@ export default {
      .case_content{
           margin: 0px 20px;
           font-size: 16px;
-          font-family: HarmonyOS Sans SC;
+          font-family: HarmonyOS Sans SC, sans-serif;
           font-weight: 400;
           height: 60px;
           line-height: 30px;
@@ -1389,7 +1389,7 @@ export default {
             p{
               float: left;
               font-size: 32px;
-              font-family: HarmonyOS Sans SC;
+              font-family: HarmonyOS Sans SC, sans-serif;
               font-weight: 400;
               color: #380879;
               margin-bottom: 10px;
@@ -1429,7 +1429,7 @@ export default {
                       color: #666666;
                       font-size: 16px;
                       line-height: 24px;
-                      font-family: HarmonyOS Sans SC;
+                      font-family: HarmonyOS Sans SC, sans-serif;
 
                   }
                 }
@@ -1441,7 +1441,7 @@ export default {
                       color: #666666;
                       font-size: 16px;
                       line-height: 22px;
-                      font-family: HarmonyOS Sans SC;
+                      font-family: HarmonyOS Sans SC, sans-serif;
                     }
                     .content_tags{
                       width: 100%;
@@ -1454,7 +1454,7 @@ export default {
                         padding: 2px 4px;
                         background-color:#6625CA ;
                         border-radius:10px ;
-                        font-family: HarmonyOS Sans SC;
+                        font-family: HarmonyOS Sans SC, sans-serif;
                         margin-top: 10px;
                       }
                     }
@@ -1466,7 +1466,7 @@ export default {
             margin-top:10px ;
             .footer_name{
               font-size: 28px;
-              font-family: HarmonyOS Sans SC;
+              font-family: HarmonyOS Sans SC, sans-serif;
               font-weight: 400;
               color: #111111;
               margin: 0;
@@ -1491,7 +1491,7 @@ export default {
                 p{
                   margin:0 ;
                   font-size: 14px;
-                  font-family: HarmonyOS Sans SC;
+                  font-family: HarmonyOS Sans SC, sans-serif;
                   font-weight: 400;
                   color: #111111;
                   text-align: center;
@@ -1606,7 +1606,7 @@ export default {
           justify-content: space-between;
           .case_name1{
             font-size: 18px;
-            font-family: HarmonyOS Sans SC;
+            font-family: HarmonyOS Sans SC, sans-serif;
             font-weight: 400;
             color: #111111;
             float: left;

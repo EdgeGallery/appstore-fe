@@ -192,9 +192,6 @@
 </template>
 
 <script>
-// import { myApp, getAppTableApi } from '../../tools/api.js'
-// import timeFormatTools from '../../tools/timeFormatTools.js'
-// import commonUtil from '../../tools/commonUtil.js'
 import { myApp } from '../../tools/api.js'
 import appTry from '@/assets/images/apptry.png'
 import startTry from '@/assets/images/startTry.png'
@@ -361,6 +358,7 @@ export default {
       }
     },
     filterExperienceInfo (tmpExperienceData) {
+      this.experienceData = []
       for (let item of tmpExperienceData) {
         let object = {
           serviceName: '',
@@ -471,6 +469,7 @@ export default {
     }
   },
   mounted () {
+    this.experienceData = []
   }
 }
 </script>

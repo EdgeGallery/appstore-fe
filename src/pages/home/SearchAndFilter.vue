@@ -318,7 +318,7 @@ export default ({
       } else {
         this.order = 'desc'
         this.searchCondition.queryCtrl.sortType = 'desc'
-        sessionStorage.setItem('sortType', 'asc')
+        sessionStorage.setItem('sortType', 'desc')
       }
       this.$emit('getSearchCondition', this.searchCondition)
     },
@@ -426,6 +426,8 @@ export default ({
     }
   },
   mounted () {
+    sessionStorage.removeItem('sortType')
+    sessionStorage.removeItem('sortItem')
     this.appPkgTransToolCheck()
     this.$emit('getSearchCondition', this.searchCondition)
   },
@@ -441,8 +443,6 @@ export default ({
 <style lang='less'>
 .header_img{
   margin-top: 4px;
-}
-.header_img{
   cursor: pointer;
 }
 .checkboxChecked {

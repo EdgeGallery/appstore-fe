@@ -79,7 +79,7 @@
 
 <script>
 import { TYPES, AFFINITY, SORT_BY, INDUSTRY, DEPLOYMODE } from '../../tools/constant.js'
-import { getAppTableApi } from '../../tools/api'
+import { getAppTableApi, getAppDetailTableApi } from '../../tools/api'
 import uploadPackage from './UploadPackage.vue'
 import appGrid from './AppGrid.vue'
 import appList from './AppList.vue'
@@ -141,6 +141,7 @@ export default {
         showType: ['public', 'inner-public'],
         workloadType: [],
         userId: '',
+        experienceAble: false,
         queryCtrl: {
           offset: this.offsetPage,
           limit: this.limitSize,
@@ -250,11 +251,6 @@ export default {
     },
     buildQueryReq () {
       let _queryReq = this.searchCondition
-      // if (this.prop === 'appName') {
-      //   this.order = 'asc'
-      // } else {
-      //   this.order = 'desc'
-      // }
       this.prop = sessionStorage.getItem('sortItem')
       this.order = sessionStorage.getItem('sortType')
       this.searchCondition.queryCtrl = {
@@ -273,25 +269,34 @@ export default {
       this.currentPageData = data
     },
     checkProjectData () {
+      let userId = null
+      if (this.pathSource === 'myapp') {
+        userId = sessionStorage.getItem('userId')
+      }
       this.findAppData.forEach(itemBe => {
-        INDUSTRY.forEach(itemFe => {
-          if (itemBe.industry.match(itemFe.label[1]) && this.language === 'cn') {
-            itemBe.industry = itemBe.industry.replace(itemFe.labelen, itemFe.labelcn)
-          } else if (itemBe.industry.match(itemFe.label[1]) && this.language === 'en') {
-            itemBe.industry = itemBe.industry.replace(itemFe.labelcn, itemFe.labelen)
-          }
-        })
-        TYPES.forEach(itemFe => {
-          if (itemBe.type.match(itemFe.label[1]) && this.language === 'cn') {
-            itemBe.type = itemBe.type.replace(itemFe.label[1], itemFe.labelcn)
-          } else if (itemBe.type.match(itemFe.label[1]) && this.language === 'en') {
-            itemBe.type = itemBe.type.replace(itemFe.labelcn, itemFe.labelen)
-          }
+        getAppDetailTableApi(itemBe.appId, userId, this.limitSize, this.offsetPage).then(res => {
+          let data = res.data
+          console.log(res.data)
+          data.forEach(item => {
+            itemBe.experienceAble = item.experienceAble
+          })
         })
       })
     },
     input (input) {
       this.uploadDiaVis = input
+    },
+    getTableData (appId) {
+      let userId = null
+      if (this.pathSource === 'myapp') {
+        userId = sessionStorage.getItem('userId')
+      }
+      getAppDetailTableApi(appId, userId, this.limitSize, this.offsetPage).then(res => {
+        let data = res.data
+        data.forEach(item => {
+          this.experienceAble = item.experienceAble
+        })
+      })
     },
     getAppData (searchCondition) {
       console.log(searchCondition.queryCtrl.sortItem)
@@ -309,7 +314,7 @@ export default {
             let newDateBegin = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = newDateBegin
           })
-          // this.checkProjectData()
+          this.checkProjectData()
         },
         (error) => {
           let defaultMsg = this.$t('promptMessage.getAppFail')
@@ -351,6 +356,8 @@ export default {
     }
   },
   mounted () {
+    sessionStorage.removeItem('sortType')
+    sessionStorage.removeItem('sortItem')
     this.setDivHeight()
     if (sessionStorage.getItem('userNameRole') === 'guest') {
       this.ifShow = false

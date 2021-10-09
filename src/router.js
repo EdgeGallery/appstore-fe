@@ -60,30 +60,6 @@ export default new Router({
           }
         },
         {
-          path: 'orders',
-          name: 'orders',
-          component: () => import('./pages/order/Orders.vue'),
-          meta: {
-            id: '2.7'
-          }
-        },
-        {
-          path: 'bill',
-          name: 'bill',
-          component: () => import('./pages/bill/Bill.vue'),
-          meta: {
-            id: '2.9'
-          }
-        },
-        {
-          path: 'splitbill',
-          name: 'splitbill',
-          component: () => import('./pages/systemManager/SplitBill.vue'),
-          meta: {
-            id: '2.8'
-          }
-        },
-        {
           path: 'detail',
           name: 'appstordetail',
           component: () => import('./pages/home/AppDetail.vue'),

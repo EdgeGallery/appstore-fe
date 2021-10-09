@@ -137,8 +137,6 @@ export default {
       language: localStorage.getItem('language')
     }
   },
-  created () {
-  },
   methods: {
     jumperToModule (type) {
       switch (type) {
@@ -181,11 +179,9 @@ export default {
     min-width: 1200px;
     height:540px;
     background:url(../../assets/images/share_banner.png) center center no-repeat;
-    // background-size:100% 100%;
     padding-top: 167px;
     padding-left: 13.2%;
     .share_words{
-      // height: 215px;
       width: 36.1%;
 
     }
@@ -204,12 +200,11 @@ export default {
     .introduce_words{
       width: 100%;
       height: 520px;
-      width: 50%;
       padding: 106px 5.6% ;
       .introduce_name{
         height: 40px;
         font-size: 36px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: bold;
         color: #5D3DA0;
       }
@@ -224,7 +219,7 @@ export default {
       }
       .introduce_content{
         font-size: 22px;
-        font-family: HarmonyOS Sans SC;
+        font-family: HarmonyOS Sans SC, sans-serif;
         font-weight: 400;
         color: #666666;
         line-height: 40px;
@@ -233,7 +228,7 @@ export default {
       .introduce_button{
         width: 148px;
         font-size: 16px;
-        font-family: HarmonyOS Sans SC;
+        font-family: HarmonyOS Sans SC, sans-serif;
         font-weight: 300;
         color: #5D3DA0;
         text-align: center;
