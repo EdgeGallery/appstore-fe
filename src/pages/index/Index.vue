@@ -816,9 +816,9 @@ export default {
       }
     },
     randomRgb () {
-      let R = Math.floor(Math.random() * 130 + 60)
-      let G = Math.floor(Math.random() * 130 + 80)
-      let B = Math.floor(Math.random() * 130 + 100)
+      let R = Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 130 + 60)
+      let G = Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 130 + 80)
+      let B = Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 130 + 100)
       return {
         color: 'rgb(' + R + ',' + G + ',' + B + ')',
         background: 'rgba(' + R + ',' + G + ',' + B + ',0.25)'
