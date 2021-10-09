@@ -709,10 +709,9 @@ export default {
     padding: 60px 0 20px !important;
     position: relative;
     font-size: 26px;
-    font-family: HarmonyOS Sans SC;
+    font-family: HarmonyOS Sans SC, sans-serif;
     font-weight: bold;
     color: #5D3DA0;
-    font-family:defaultFontBlod, Arial, Helvetica, sans-serif;
   }
   .btnPasses{
     background: #fff !important;
@@ -841,7 +840,6 @@ export default {
         }
       }
     }
-
     .app_score{
       width: 240px;
       text-align: center;
@@ -876,16 +874,16 @@ export default {
         }
       }
       .batchProButton{
-        width: 120px;
         margin-top: 10px;
         text-align: center;
         height: 40px !important;
         width: 120px !important;
-        font-size:20px !important;
         border-radius: 25px !important;
          color: #FFFFFF;
         font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
+        font-size: 24px;
+        background: linear-gradient(to right, #4444D0, #6724CB) !important;
         .el-button--primary{
           font-size: 20px;
           background-color: #fff;
@@ -933,7 +931,6 @@ export default {
           }
         }
       }
-
       .addOutStore{
         margin-top: 35px;
         font-size: 20px;
@@ -943,6 +940,7 @@ export default {
         font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
+        background: linear-gradient(to right, #4444D0, #6724CB) !important;
       }
     }
 
@@ -1592,13 +1590,6 @@ export default {
     background: #d4d1ec;
     border-radius: 0 16px 16px 16px;
   }
-}
-.app_detail .app_info_div .app_synchronize .addOutStore {
-  background: linear-gradient(to right, #4444D0, #6724CB) !important;
-}
-.app_detail .app_info_div .app_score .batchProButton {
-  font-size: 24px;
-  background: linear-gradient(to right, #4444D0, #6724CB) !important;
 }
 .stepApp{
   width: 249px;

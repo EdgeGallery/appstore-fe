@@ -211,6 +211,7 @@ export default {
     },
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
+        // This is intentional
       }).catch((error) => {
         let defaultMsg = this.$t('messageCenter.updateMsgFailed')
         commonUtil.showTipMsg(this.language, error, defaultMsg)
@@ -299,7 +300,7 @@ export default {
       margin-top: 44px;
       .titleName{
         font-size: 36px;
-        font-family: HarmonyOS Sans SC;
+        font-family: HarmonyOS Sans SC, sans-serif;
         font-weight: bold;
         color: #5E40C8;
         margin: 0;
