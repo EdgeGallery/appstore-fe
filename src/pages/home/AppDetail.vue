@@ -489,6 +489,8 @@ export default {
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
+          this.appIconPath = URL_PREFIX + 'apps/' + this.currentData.appId + '/packages/' + this.currentData.packageId + '/icon'
+          console.log(this.appIconPath)
           this.ifExperience = this.currentData.experienceAble
           if (sessionStorage.getItem('userNameRole') === 'tenant' && this.userId !== this.currentData.userId) {
             this.ifSynchronize = false
@@ -520,11 +522,9 @@ export default {
     updateData () {
       this.ifExperience = this.currentData.experienceAble
       this.source = this.currentData.details
-      this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/packages/' + this.packageId + '/icon'
-      this.checkProjectData()
-      console.log(this.currentData.appId)
-      console.log(this.currentData.packageId)
+      this.appIconPath = URL_PREFIX + 'apps/' + this.currentData.appId + '/packages/' + this.currentData.packageId + '/icon'
       console.log(this.appIconPath)
+      this.checkProjectData()
     },
     dateChange (dateStr) {
       if (dateStr) {
@@ -691,8 +691,6 @@ export default {
 
     this.getAppData()
     this.getTableData()
-    this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/packages/' + this.packageId + '/icon'
-    console.log(this.packageId)
     this.checkProjectData()
     if ((sessionStorage.getItem('userNameRole') === 'guest')) {
       this.ifSynchronize = false
