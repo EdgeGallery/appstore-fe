@@ -883,6 +883,7 @@ export default {
       ? this.$route.params.item
       : JSON.parse(sessionStorage.getItem('appstordetail'))
     this.details = params
+    console.log(params)
     this.appId = this.details.appId
     this.packageId = this.details.packageId
     this.ifExperience = this.details.experienceAble
@@ -904,7 +905,7 @@ export default {
         this.getMyAppData()
       }
     }
-
+    this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/packages/' + this.packageId + '/icon'
     this.getAppData()
     this.getTableData()
     this.checkProjectData()
