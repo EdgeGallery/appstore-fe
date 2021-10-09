@@ -229,24 +229,13 @@ export default {
           index: '1'
         },
         {
-          labelEn: 'User Center',
-          labelCn: '个人中心',
-          route: '',
-          pageId: '2.1.5',
+          labelEn: 'My App',
+          labelCn: '我的应用',
+          route: '/myapp',
+          pageId: '2.1.4',
           display: true,
           link: '',
-          index: '5',
-          children: [
-            {
-              labelEn: 'My App',
-              labelCn: '我的应用',
-              route: '/myapp',
-              pageId: '2.1.4',
-              display: true,
-              link: '',
-              index: '3'
-            }
-          ]
+          index: '3'
         },
         {
           labelEn: 'App Share',
