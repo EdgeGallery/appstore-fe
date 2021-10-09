@@ -215,7 +215,7 @@ export default {
           labelEn: 'Home',
           labelCn: '首页',
           route: '/home',
-          pageId: '2.1.1',
+          pageId: '2.1',
           display: true,
           link: '',
           index: '4'
@@ -224,7 +224,7 @@ export default {
           labelEn: 'App Warehouse',
           labelCn: '应用仓库',
           route: '/index',
-          pageId: '2.1.3',
+          pageId: '2.2',
           display: true,
           link: '',
           index: '1'
@@ -233,7 +233,7 @@ export default {
           labelEn: 'My App',
           labelCn: '我的应用',
           route: '/myapp',
-          pageId: '2.1.4',
+          pageId: '2.3',
           display: true,
           link: '',
           index: '3'
@@ -242,7 +242,7 @@ export default {
           labelEn: 'App Share',
           labelCn: '应用共享',
           route: '/appShare',
-          pageId: '2.1.6',
+          pageId: '2.4',
           display: true,
           link: '',
           index: '5',
@@ -251,7 +251,7 @@ export default {
               labelEn: 'External AppStore Management',
               labelCn: '外部应用仓库管理',
               route: '/apppromote',
-              pageId: '2.1.6.1',
+              pageId: '2.4.1',
               display: true,
               link: '',
               index: '5.1'
@@ -259,7 +259,7 @@ export default {
               labelEn: 'App Promote',
               labelCn: '应用推送',
               route: '/apppromotion',
-              pageId: '2.1.6.2',
+              pageId: '2.4.2',
               display: true,
               link: '',
               index: '5.2'
@@ -267,7 +267,7 @@ export default {
               labelEn: 'App Pull',
               labelCn: '应用拉取',
               route: '/appPull',
-              pageId: '2.1.6.3',
+              pageId: '2.4.3',
               display: true,
               link: '',
               index: '5.3'
@@ -275,7 +275,7 @@ export default {
               labelEn: 'Message Center',
               labelCn: '消息中心',
               route: '/msgCenter',
-              pageId: '2.1.6.4',
+              pageId: '2.4.4',
               display: true,
               link: '',
               index: '5.4'
@@ -283,7 +283,7 @@ export default {
               labelEn: 'Operation Analyse',
               labelCn: '操作分析',
               route: '/operationAnalyse',
-              pageId: '2.1.6.5',
+              pageId: '2.4.5',
               display: true,
               link: '',
               index: '5.5'
@@ -294,7 +294,7 @@ export default {
           labelEn: 'System',
           labelCn: '系统',
           route: '/system',
-          pageId: '2.1.7',
+          pageId: '2.5',
           display: true,
           link: '',
           index: '6',
@@ -303,7 +303,7 @@ export default {
               labelEn: 'APP Manager',
               labelCn: '应用管理',
               route: '/appManager',
-              pageId: '2.1.7.1',
+              pageId: '2.5.1',
               display: true,
               link: '',
               index: '6.1'
@@ -311,7 +311,7 @@ export default {
               labelEn: 'SystemHost',
               labelCn: '沙箱管理',
               route: '/systemHost',
-              pageId: '2.1.6.2',
+              pageId: '2.5.2',
               display: true,
               link: '',
               index: '6.2'
@@ -322,7 +322,7 @@ export default {
           labelEn: 'Docs',
           labelCn: '文档',
           route: '/docs',
-          pageId: '2.1.8',
+          pageId: '2.6',
           display: true,
           link: '',
           index: '7'
@@ -706,9 +706,9 @@ export default {
     box-sizing: border-box;
     border-bottom: 0px solid #dee2e6;
     span{
-      display: inline-block;
       padding: 0 6px;
       font-size: 14px;
+      display: flex;
       justify-content: center;
       align-items: center;
       margin-right: -3px;
