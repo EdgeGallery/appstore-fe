@@ -91,74 +91,6 @@
           </el-button>
         </p>
       </div>
-      <!-- <div class="app_synchronize">
-        <p class="synchronize_info">
-          可同步应用到MEAO，可方便对应用生命周期进行管理
-        </p>
-        <div
-          class="stepApp"
-          v-if="showlun"
-        >
-          <el-carousel
-            :interval="5000"
-            arrow="always"
-          >
-            <el-carousel-item v-if="hwMeAO">
-              <p
-                class="stepNames"
-              >
-                {{ language === 'cn'?this.MEAO[0].labelcn:this.MEAO[0].labelen }}
-              </p>
-              <el-progress
-                :text-inside="true"
-                :stroke-width="14"
-                :percentage="huaweiper"
-                style="width:116px;"
-              />
-            </el-carousel-item>
-            <el-carousel-item v-if="jzyMEAO">
-              <p
-                class="stepNames"
-              >
-                {{ language === 'cn'?this.MEAO[1].labelcn:this.MEAO[1].labelen }}
-              </p>
-              <el-progress
-                :text-inside="true"
-                :stroke-width="14"
-                :percentage="jiuzhouyunper"
-                style="width:116px;"
-              />
-            </el-carousel-item>
-            <p class="stepIng">
-              正在同步应用
-            </p>
-          </el-carousel>
-        </div>
-        <div class="stepDromdown">
-          <el-dropdown
-            @command="handleClick"
-            trigger="click"
-          >
-            <el-button
-              type="primary"
-            >
-              同步应用到MEAO
-            </el-button>
-            <el-dropdown-menu
-              slot="dropdown"
-              @change="handleClick"
-            >
-              <el-dropdown-item
-                v-for="(item,index) in this.MEAO"
-                :key="index"
-                :command="index"
-              >
-                <span>{{ language === 'cn'?item.labelcn:item.labelen }}</span>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-      </div> -->
       <div class="app_score">
         <p class="score_num">
           {{ score }}
@@ -230,14 +162,6 @@
               class="link-right"
             />
           </div>
-          <!-- <div
-            v-if="ifSynchronize===true && ifExperience===false && activeName !=='comment'"
-            class="horizontal-cell"
-          >
-            <link-right
-              class="link-right"
-            />
-          </div> -->
           <div
             v-if="activeName!=='appShow'&& ifExperience === true && ifSynchronize===true && activeName !=='comment'"
             class="horizontal-cell"
@@ -258,14 +182,6 @@
               {{ $t('store.showOnline') }}
             </span>
           </li>
-          <!-- <div
-            v-if="activeName!=='meao' && ifSynchronize===false && ifExperience===true && activeName !=='appShow'"
-            class="horizontal-cell"
-          >
-            <link-right
-              class="link-right"
-            />
-          </div> -->
           <div
             v-if="activeName!=='meao'&& ifExperience === true && ifSynchronize===true && activeName !=='appShow'"
             class="horizontal-cell"
@@ -625,15 +541,6 @@ export default {
   },
   methods: {
     beforeBuyIt () {
-      // subscribe.getMechosts().then(res => {
-      //   res.data.forEach(item => {
-      //     let obj = {}
-      //     obj.value = item.ip
-      //     obj.label = item.city
-      //     this.options.push(obj)
-      //   })
-      //   this.showSubDialog = true
-      // })
       this.showSubDialog = true
     },
     formatter (thistime, fmt) {
@@ -658,10 +565,6 @@ export default {
       return fmt
     },
     confirmToBuy () {
-      // let param = {
-      //   'appId': this.appId,
-      //   'mechostIp': this.mechostIp
-      // }
       let sessionData = {
         'orderId': 'aasaaadf',
         'orderNum': 'No.202110152458',
@@ -683,10 +586,6 @@ export default {
       })
       sessionStorage.setItem('newOrder', JSON.stringify(sessionData))
       this.$router.push('/orders')
-      // let userId = sessionStorage.getItem('userId')
-      // subscribe.createOrder(userId, param).then(res => {
-      //   this.showSubDialog = false
-      // })
     },
     getTableData () {
       let userId = null
@@ -706,7 +605,6 @@ export default {
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
           this.appIconPath = URL_PREFIX + 'apps/' + this.currentData.appId + '/packages/' + this.currentData.packageId + '/icon'
-          console.log(this.appIconPath)
           this.ifExperience = this.currentData.experienceAble
           if (sessionStorage.getItem('userNameRole') === 'tenant' && this.userId !== this.currentData.userId) {
             this.ifSynchronize = false
@@ -739,7 +637,6 @@ export default {
       this.ifExperience = this.currentData.experienceAble
       this.source = this.currentData.details
       this.appIconPath = URL_PREFIX + 'apps/' + this.currentData.appId + '/packages/' + this.currentData.packageId + '/icon'
-      console.log(this.appIconPath)
       this.checkProjectData()
     },
     dateChange (dateStr) {
@@ -883,7 +780,6 @@ export default {
       ? this.$route.params.item
       : JSON.parse(sessionStorage.getItem('appstordetail'))
     this.details = params
-    console.log(params)
     this.appId = this.details.appId
     this.packageId = this.details.packageId
     this.ifExperience = this.details.experienceAble
@@ -1101,7 +997,6 @@ export default {
          color: #FFFFFF;
         font-family: HarmonyHeiTi;
         font-weight: 300;
-        // box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
         .el-button--primary{
           font-size: 20px;
           background-color: #fff;
