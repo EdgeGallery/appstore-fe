@@ -79,7 +79,7 @@
           <el-table-column
             prop="version"
             :label="$t('common.version')"
-            width="120"
+            width="110"
           />
           <el-table-column
             prop="deployMode"
@@ -166,7 +166,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('myApp.operation')"
-            width="210"
+            width="220"
           >
             <template slot-scope="scope">
               <div>
