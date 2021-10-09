@@ -522,7 +522,6 @@ export default {
       })
     },
     getDetail (item) {
-      console.log(item)
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
       sessionStorage.setItem('pathSource', 'myapp')
       sessionStorage.setItem('myAppCurPageSize', this.curPageSize)
