@@ -50,7 +50,7 @@
             prop="name"
             :label="$t('common.appName')"
             sortable="custom"
-            width="135"
+            width="180"
             :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
@@ -74,27 +74,17 @@
           <el-table-column
             prop="provider"
             :label="$t('common.provider')"
-            width="90"
+            width="146"
           />
           <el-table-column
             prop="version"
             :label="$t('common.version')"
-            width="85"
-          />
-          <el-table-column
-            prop="type"
-            :label="$t('store.type')"
-            width="100"
-          />
-          <el-table-column
-            prop="affinity"
-            :label="$t('system.architecture')"
-            width="125"
+            width="120"
           />
           <el-table-column
             prop="deployMode"
             :label="$t('store.workloadType')"
-            width="145"
+            width="160"
           >
             <template slot-scope="scope">
               {{ scope.row.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
@@ -103,14 +93,14 @@
           <el-table-column
             prop="createTime"
             :label="$t('common.uploadTime')"
-            width="145"
+            width="186"
             sortable="custom"
           />
           <el-table-column
             prop="shortDesc"
             :label="$t('common.description')"
             :cell-class-name="hiddenClass"
-            width="120"
+            width="160"
           >
             <template slot-scope="scope">
               <el-popover
