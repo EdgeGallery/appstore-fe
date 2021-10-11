@@ -54,6 +54,7 @@
             :is="currentComponent"
             :app-data="currentPageData"
             @getAppData="getAppData"
+            v-if="loadFlag"
           />
           <pagination
             class="clearfix"
@@ -131,7 +132,6 @@ export default {
       prop: 'createTime',
       order: 'desc',
       screenHeight: document.body.clientHeight,
-      // searchCondition: {}
       searchCondition: {
         appName: '',
         types: [],
@@ -148,11 +148,12 @@ export default {
           sortItem: this.prop,
           sortType: this.order
         }
-      }
+      },
+      synResult: [],
+      loadFlag: false
     }
   },
   methods: {
-
     setDivHeight () {
       common.setDivHeightFun(this.screenHeight, 'home', 332)
     },
@@ -246,7 +247,6 @@ export default {
             default:
           }
         })
-
       this.getAppData(this.searchCondition)
     },
     buildQueryReq () {
@@ -274,28 +274,29 @@ export default {
         userId = sessionStorage.getItem('userId')
       }
       this.findAppData.forEach(itemBe => {
+        this.synResult.push(this.getSingleData(itemBe, userId))
+      })
+      Promise.all(this.synResult).then(() => {
+        setTimeout(() => {
+          this.loadFlag = true
+        }, 100)
+      }).catch(error => {
+        console.log('error', error)
+      })
+    },
+    getSingleData (itemBe, userId) {
+      return new Promise((resolve, reject) => {
         getAppDetailTableApi(itemBe.appId, userId, this.limitSize, this.offsetPage).then(res => {
           let data = res.data
           data.forEach(item => {
             itemBe.experienceAble = item.experienceAble
           })
+          resolve()
         })
       })
     },
     input (input) {
       this.uploadDiaVis = input
-    },
-    getTableData (appId) {
-      let userId = null
-      if (this.pathSource === 'myapp') {
-        userId = sessionStorage.getItem('userId')
-      }
-      getAppDetailTableApi(appId, userId, this.limitSize, this.offsetPage).then(res => {
-        let data = res.data
-        data.forEach(item => {
-          this.experienceAble = item.experienceAble
-        })
-      })
     },
     getAppData (searchCondition) {
       if (!searchCondition.queryCtrl.sortItem) {
