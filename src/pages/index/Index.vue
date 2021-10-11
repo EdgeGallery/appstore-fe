@@ -1198,7 +1198,6 @@ export default {
     width: 73.64%;
     margin-left:13.23%;
     margin-right: 13.23%;
-    // background:#f3f3f8;
     .hot_data{
       display: flex;
       width: 100%;
@@ -1290,6 +1289,7 @@ export default {
         color: #111111;
         line-height: 24px;
         text-align: center;
+        overflow: hidden;
       }
   }
   .senceCase{
@@ -1344,6 +1344,8 @@ export default {
             font-weight: 400;
             color: #111111;
             float: left;
+            width: 87%;
+            overflow: hidden;
           }
           .case_name2{
             width: 24px;
