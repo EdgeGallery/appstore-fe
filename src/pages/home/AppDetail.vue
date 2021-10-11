@@ -873,7 +873,7 @@ export default {
         margin-top: 10px;
         text-align: center;
         height: 40px !important;
-        width: 120px !important;
+        width: 160px !important;
         border-radius: 25px !important;
          color: #FFFFFF;
         font-family: HarmonyHeiTi, sans-serif;
