@@ -10,6 +10,7 @@
           v-model="time"
           :placeholder="$t('common.choose')"
           class="timeSelect"
+          @change="handleChangeTime"
         >
           <el-option
             v-for="item in options"
@@ -59,7 +60,7 @@
                 </div>
                 <div
                   class="top_list_content"
-                  v-for="(item,index) in topAppList"
+                  v-for="(item,index) in topSaleAppDataList"
                   :key="index"
                 >
                   <div class="appname">
@@ -85,7 +86,7 @@
                 </div>
                 <div
                   class="top_list_content"
-                  v-for="(item,index) in lastAppList"
+                  v-for="(item,index) in lastSaleAppDataList"
                   :key="index"
                 >
                   <div class="appname appname_last">
@@ -131,6 +132,24 @@
             </div>
           </template>
           <el-table-column
+            prop="createTime"
+            width="200"
+            :label="$t('bill.billTime')"
+          />
+          <el-table-column
+            v-if="isAdmin"
+            prop="billUserName"
+            :label="$t('bill.billUserName')"
+          />
+          <el-table-column
+            prop="orderNum"
+            :label="$t('order.orderNum')"
+          />
+          <el-table-column
+            prop="orderUserName"
+            :label="$t('bill.orderUserName')"
+          />
+          <el-table-column
             prop="appName"
             :label="$t('bill.appName')"
           />
@@ -139,34 +158,46 @@
             :label="$t('bill.provider')"
           />
           <el-table-column
-            prop="billFlag"
+            prop="billType"
             :label="$t('bill.type')"
           >
             <template slot-scope="scope">
-              {{ scope.row.billFlag == 'OUT' ?'支出':'收入' }}
+              {{ scope.row.billType == 'OUT' ? $t('bill.expenditure') : $t('bill.income') }}
             </template>
           </el-table-column>
-          <el-table-column
-            prop="userName"
-            :label="$t('bill.userName')"
-          />
           <el-table-column
             prop="billAmount"
             :label="$t('bill.billAmount')"
           />
           <el-table-column
-            prop="operatorFee"
-            :label="$t('bill.entryFee')"
-          />
-          <el-table-column
-            prop="supplierFee"
-            :label="$t('bill.billingFee')"
-          />
-          <el-table-column
-            prop="createTime"
-            :label="$t('bill.updateTime')"
-          />
+            :label="$t('bill.billAmountDesc')"
+          >
+            <template slot-scope="scope">
+              <span
+                v-if="scope.row.billType==='IN'"
+              >
+                {{ convertSubTypeOfInType(scope.row.billSubType) }}
+              </span>
+              <span v-else>
+                {{ $t('bill.supplierFee') + ': ' + scope.row.supplierFee + ' + ' + $t('bill.operatorFee') + ': ' + scope.row.operatorFee }}
+              </span>
+            </template>
+          </el-table-column>
         </el-table>
+        <div class="pageBar">
+          <el-pagination
+            background
+            class="rt"
+            @size-change="handlePageSizeChange"
+            @current-change="handleCurrentPageChange"
+            :current-page="pageCtrl.currentPage"
+            :page-sizes="[10, 15, 20, 25]"
+            :page-size="pageCtrl.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="pageCtrl.totalNum"
+            v-if="pageCtrl.totalNum!=0"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -174,6 +205,7 @@
 
 <script>
 import { subscribe } from '../../tools/api.js'
+import { common } from '../../tools/comon.js'
 import echarts from 'echarts'
 export default {
   data () {
@@ -196,30 +228,56 @@ export default {
           label: '近一年'
         }
       ],
-      time: '',
+      time: '7',
+      timeRangeCtrl: {
+        startTime: '',
+        endTime: ''
+      },
+      pageCtrl: {
+        totalNum: 0,
+        pageSize: 10,
+        currentPage: 1
+      },
       billList: [],
       overallData: [
-        {
-          'value': 200000.00,
-          'label': '收入'
-        },
-        {
-          'value': 80000.00,
-          'label': '支出'
-        }
       ],
-      userId: sessionStorage.getItem('userId'),
-      topAppList: [ ],
-      lastAppList: [ ]
+      isAdmin: sessionStorage.getItem('userName') === 'admin',
+      topSaleAppCriterion: 'SaleAmount',
+      topSaleAppDataList: [ ],
+      lastSaleAppCriterion: 'SaleAmount',
+      lastSaleAppDataList: [ ]
     }
   },
   mounted () {
-    this.getOverallData()
-    this.getTopAppList()
-    this.getBillList()
+    this.refreshOnTimeChange()
     this.regAndSetOption()
   },
   methods: {
+    handleChangeTime () {
+      this.refreshOnTimeChange()
+      this.regAndSetOption()
+    },
+    refreshOnTimeChange () {
+      let _currTime = new Date().getTime()
+      this.timeRangeCtrl.startTime = common.formatDate(_currTime - this.time * 24 * 3600 * 1000)
+      this.timeRangeCtrl.endTime = common.formatDate(_currTime)
+
+      this.getOverallData()
+      this.getTopSaleAppList('DESC', this.topSaleAppCriterion)
+      this.getTopSaleAppList('ASC', this.lastSaleAppCriterion)
+
+      this.pageCtrl.currentPage = 1
+      this.getBillsList()
+    },
+    handlePageSizeChange (val) {
+      this.pageCtrl.currentPage = 1
+      this.pageCtrl.pageSize = val
+      this.getBillsList()
+    },
+    handleCurrentPageChange (val) {
+      this.pageCtrl.currentPage = val
+      this.getBillsList()
+    },
     formatCount (val) {
       return () => {
         return val + '个'
@@ -232,44 +290,50 @@ export default {
     },
     getBillsList () {
       let param = {
-        'startTime': '',
-        'endTime': '',
+        'startTime': this.timeRangeCtrl.startTime,
+        'endTime': this.timeRangeCtrl.endTime,
         'queryCtrl': {
-          'offset': 0,
-          'limit': 20,
+          'offset': (this.pageCtrl.currentPage - 1) * this.pageCtrl.pageSize,
+          'limit': this.pageCtrl.pageSize,
           'sortItem': 'CREATETIME',
           'sortType': 'DESC'
         }
       }
-      subscribe.getBills(this.userId, param).then(res => {
+      subscribe.getBillsList(param).then(res => {
         this.billList = res.data.results
+        this.pageCtrl.totalNum = res.data.total
       })
     },
     getOverallData () {
       let param = {
-        'startTime': '',
-        'endTime': ''
+        'startTime': this.timeRangeCtrl.startTime,
+        'endTime': this.timeRangeCtrl.endTime
       }
-      subscribe.getoverallData(this.userId, param).then(res => {
-        let data = res.data.data
-        for (let i in data) {
-          let obj = {}
-          obj.value = data(i)
-          obj.label = i
-          this.overallData.push(obj)
-        }
+      this.overallData = []
+      subscribe.getOverAllData(param).then(res => {
+        let obj = {}
+        obj.value = res.data.data.incomeNum
+        obj.label = '收入'
+        this.overallData.push(obj)
+        obj.value = res.data.data.expendNum
+        obj.label = '支出'
+        this.overallData.push(obj)
       })
     },
-    getTopAppList () {
+    getTopSaleAppList (sortType, topCriterion) {
       let param = {
-        'startTime': '',
-        'endTime': '',
-        'sortType': 'DESC',
+        'startTime': this.timeRangeCtrl.startTime,
+        'endTime': this.timeRangeCtrl.endTime,
+        'sortType': sortType,
         'topNum': 5,
-        'topCriterion': 'SaleAmount'
+        'topCriterion': topCriterion
       }
-      subscribe.getTopApps(this.userId, param).then(res => {
-        this.topAppList = res.data.data
+      subscribe.getTopSaleApps(param).then(res => {
+        if (sortType === 'DESC') {
+          this.topSaleAppDataList = res.data.data
+        } else {
+          this.lastSaleAppDataList = res.data.data
+        }
       })
     },
     regAndSetOption (data) {
@@ -304,7 +368,7 @@ export default {
               color: '#fff',
               fontSize: 12
             },
-            margin: 26 // 刻度标签与轴线之间的距离。
+            margin: 26
           }
         },
         yAxis: {
@@ -370,7 +434,7 @@ export default {
             },
             data: seriesData
           },
-          { // 上半截柱子
+          {
             type: 'bar',
             barWidth: 24,
             barGap: '-100%',
@@ -448,6 +512,15 @@ export default {
       }
       let myChart = echarts.init(document.getElementById('billChart'))
       myChart.setOption(option)
+    },
+    convertSubTypeOfInType (billSubType) {
+      if (billSubType === 'OPERATOR') {
+        return this.$t('bill.operatorIncome')
+      } else if (billSubType === 'APPSUPPLY') {
+        return this.$t('bill.supplierIncome')
+      } else {
+        return this.$t('bill.operatorIncome')
+      }
     }
   }
 }

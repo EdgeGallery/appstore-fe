@@ -548,8 +548,11 @@ let subscribe = {
   getOverAllData: function (param) {
     return POST('bills/statistics/overall', param)
   },
-  getTopApps: function (param) {
+  getTopSaleApps: function (param) {
     return POST('bills/statistics/sales/topapps', param)
+  },
+  getTopOrderApps: function (param) {
+    return POST('bills/statistics/orders/topapps', param)
   },
   getMechosts: function () {
     return GET('mechosts')

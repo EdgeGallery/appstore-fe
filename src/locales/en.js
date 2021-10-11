@@ -68,16 +68,25 @@ const en = {
     orderTime: 'Order Time',
     nodeAddress: 'Node Location',
     status: 'Status',
+    orderUserName: 'User Name',
     activation: 'Activate',
     unsubscribe: 'Unsubscribe',
-    confirmToActivate: 'Confirm To Activate',
+    confirmToActivate: 'Are you sure to activate order: ',
     tip: 'Prompt',
     confirm: 'Confirm',
     cancel: 'Cancel',
     success: 'Operate Successfully!',
     canceled: 'Canceled!',
-    confirmToUnsub: 'Confirm to cancel ',
-    unsubSuccess: 'Unsubscribe Successfully'
+    confirmToUnsub: 'Are you sure to cancel order: ',
+    unsubSuccess: 'Unsubscribe Successfully',
+    orderStatus: {
+      activating: 'Activating',
+      activateFailed: 'Activate Failed',
+      activated: 'Activated',
+      deactivating: 'Deactivating',
+      deactivateFailed: 'Deactivate Failed',
+      deactivated: 'Deactivated'
+    }
   },
   bill: {
     billMana: 'Billing Management',
@@ -89,11 +98,15 @@ const en = {
     appName: 'App Name',
     provider: 'Provider',
     type: 'Type',
-    userName: 'User Name',
-    billAmount: 'Billing Amount',
-    entryFee: 'Entry Fee',
-    billingFee: 'Billing Fee',
-    updateTime: 'Update Time'
+    billUserName: 'Bill User Name',
+    orderUserName: 'Order User Name',
+    billAmount: 'Billing Amount(CNY)',
+    billAmountDesc: 'Amount Description',
+    operatorFee: 'Operator Fee',
+    supplierFee: 'Supplier Fee',
+    operatorIncome: 'Operator Income',
+    supplierIncome: 'Supplier Income',
+    billTime: 'Time'
   },
   split: {
     splitMana: 'Split Management',

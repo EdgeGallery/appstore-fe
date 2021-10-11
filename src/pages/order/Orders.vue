@@ -39,6 +39,11 @@
             :label="$t('order.orderNum')"
           />
           <el-table-column
+            v-if="isAdmin"
+            prop="userName"
+            :label="$t('order.orderUserName')"
+          />
+          <el-table-column
             prop="appName"
             :label="$t('order.appName')"
           />
@@ -64,17 +69,17 @@
           >
             <template slot-scope="scope">
               <span
-                v-if="scope.row.status=='3'"
+                v-if="scope.row.status==='ACTIVATING' || scope.row.status==='DEACTIVATING'"
                 style="color:#409EFF"
               >
                 <el-button
-                  :loading="scope.row.status=='3'"
+                  :loading="scope.row.status==='ACTIVATING' || scope.row.status==='DEACTIVATING'"
                   class="activatingBtn"
                 >
-                  激活中
+                  {{ convertOrderStatus(scope.row) }}
                 </el-button>
               </span>
-              <span v-else>{{ scope.row.status=='0'?'待激活':(scope.row.status=='4'?'已退订':'已激活') }}</span>
+              <span v-else>{{ convertOrderStatus(scope.row) }}</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -85,14 +90,14 @@
                 <el-button
                   @click="activate(scope.row)"
                   class="operations_btn"
-                  :disabled="scope.row.status!=='DEACTIVATED'"
+                  :disabled="scope.row.status!=='DEACTIVATED' && scope.row.status!=='ACTIVATE_FAILED'"
                 >
                   {{ $t('order.activation') }}
                 </el-button>
                 <el-button
                   @click="deactivate(scope.row)"
                   class="operations_btn"
-                  :disabled="scope.row.status=='4'"
+                  :disabled="scope.row.status!=='ACTIVATED' && scope.row.status!=='DEACTIVATE_FAILED'"
                 >
                   {{ $t('order.unsubscribe') }}
                 </el-button>
@@ -100,15 +105,21 @@
             </template>
           </el-table-column>
         </el-table>
+        <div class="pageBar">
+          <el-pagination
+            background
+            class="rt"
+            @size-change="handlePageSizeChange"
+            @current-change="handleCurrentPageChange"
+            :current-page="pageCtrl.currentPage"
+            :page-sizes="[10, 15, 20, 25]"
+            :page-size="pageCtrl.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="pageCtrl.totalNum"
+            v-if="pageCtrl.totalNum!=0"
+          />
+        </div>
       </div>
-      <eg-pagination
-        class="eg_pagination"
-        :page-num="pageNum"
-        :page-size="pageSize"
-        :total="total"
-        @sizeChange="sizeChange"
-        @currentChange="currentChange"
-      />
       <div class="clearfix" />
     </div>
   </div>
@@ -119,76 +130,90 @@ import { subscribe } from '../../tools/api.js'
 export default {
   data () {
     return {
-      pageSize: 10,
-      curPageSize: 10,
-      pageNum: 1,
-      total: 0,
       nameQueryVal: '',
+      pageCtrl: {
+        totalNum: 0,
+        pageSize: 10,
+        currentPage: 1
+      },
       orderList: [],
-      param: {
-        'appId': '',
-        'orderNum': '',
-        'status': '',
-        'orderTimeBegin': '',
-        'orderTimeEnd': '',
-        'queryCtrl': {
-          'offset': 0,
-          'limit': 20,
-          'sortItem': 'ORDERTIME',
-          'sortType': 'DESC'
-        }
-      }
+      isAdmin: sessionStorage.getItem('userName') === 'admin',
+      orderStatusOptionList: [
+        { value: 'ACTIVATING', label: this.$t('order.orderStatus.activating') },
+        { value: 'ACTIVATE_FAILED', label: this.$t('order.orderStatus.activateFailed') },
+        { value: 'ACTIVATED', label: this.$t('order.orderStatus.activated') },
+        { value: 'DEACTIVATING', label: this.$t('order.orderStatus.deactivating') },
+        { value: 'DEACTIVATE_FAILED', label: this.$t('order.orderStatus.deactivateFailed') },
+        { value: 'DEACTIVATED', label: this.$t('order.orderStatus.deactivated') }
+      ]
     }
   },
   mounted () {
     this.getOrderList()
   },
   methods: {
-    sizeChange () {
-      console.log(1)
+    handlePageSizeChange (val) {
+      this.pageCtrl.currentPage = 1
+      this.pageCtrl.pageSize = val
+      this.getOrderList()
     },
-    currentChange () {
-      console.log(2)
+    handleCurrentPageChange (val) {
+      this.pageCtrl.currentPage = val
+      this.getOrderList()
     },
     queryApp () {
       console.log(3)
     },
     getOrderList () {
-      subscribe.getOrderList(this.param).then(res => {
+      let _queryParam = {
+        'appId': '',
+        'orderNum': '',
+        'status': '',
+        'orderTimeBegin': '',
+        'orderTimeEnd': '',
+        'queryCtrl': {
+          'offset': (this.pageCtrl.currentPage - 1) * this.pageCtrl.pageSize,
+          'limit': this.pageCtrl.pageSize,
+          'sortItem': 'ORDERTIME',
+          'sortType': 'DESC'
+        }
+      }
+      subscribe.getOrderList(_queryParam).then(res => {
         this.orderList = res.data.results
+        this.pageCtrl.totalNum = res.data.total
       })
     },
     activate (row) {
-      this.$confirm(this.$t('order.confirmToActivate') + row.appName + ' ？', this.$t('order.tip'), {
+      this.$confirm(this.$t('order.confirmToActivate') + row.orderNum + ' ?', this.$t('order.tip'), {
         confirmButtonText: this.$t('order.confirm'),
         cancelButtonText: this.$t('order.cancel'),
         type: 'warning'
       }).then(() => {
         subscribe.activateApp(row.orderId).then(res => {
           this.$message.success(this.$t('order.success'))
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: this.$t('order.canceled')
+          this.getOrderList()
         })
       })
     },
     deactivate (row) {
-      this.$confirm(this.$t('order.confirmToUnsub') + row.appName + ' ？', this.$t('order.tip'), {
+      this.$confirm(this.$t('order.confirmToUnsub') + row.orderNum + ' ?', this.$t('order.tip'), {
         confirmButtonText: this.$t('order.confirm'),
         cancelButtonText: this.$t('order.cancel'),
         type: 'warning'
       }).then(() => {
         subscribe.deactivateApp(row.orderId).then(res => {
           this.$message.success(this.$t('order.unsubSuccess'))
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: this.$t('order.canceled')
+          this.getOrderList()
         })
       })
+    },
+    convertOrderStatus (row) {
+      let _statusOption = this.orderStatusOptionList.find(item => item.value === row.status)
+      if (_statusOption) {
+        return _statusOption.label
+      }
+
+      return row.status
     }
   }
 }
