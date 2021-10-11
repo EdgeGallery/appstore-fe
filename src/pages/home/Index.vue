@@ -276,7 +276,6 @@ export default {
       this.findAppData.forEach(itemBe => {
         getAppDetailTableApi(itemBe.appId, userId, this.limitSize, this.offsetPage).then(res => {
           let data = res.data
-          console.log(res.data)
           data.forEach(item => {
             itemBe.experienceAble = item.experienceAble
           })
@@ -299,7 +298,6 @@ export default {
       })
     },
     getAppData (searchCondition) {
-      console.log(searchCondition.queryCtrl.sortItem)
       if (!searchCondition.queryCtrl.sortItem) {
         searchCondition.queryCtrl.sortItem = 'createTime'
         searchCondition.queryCtrl.sortType = 'desc'
