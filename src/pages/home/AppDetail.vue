@@ -70,6 +70,27 @@
           </span>
         </p>
       </div>
+      <div
+        class="app_score"
+        style="position:relative;top:25px;margin-left:0;"
+        v-if="role==='tenant'||role==='admin'"
+      >
+        <p
+          class="download_num"
+          style="color:#ff5c02;"
+        >
+          1.99元（RMB）/小时
+        </p>
+        <p class="score_btn">
+          <el-button
+            type="primary"
+            class="batchProButton"
+            @click="beforeBuyIt()"
+          >
+            订购
+          </el-button>
+        </p>
+      </div>
       <!-- <div class="app_synchronize">
         <p class="synchronize_info">
           可同步应用到MEAO，可方便对应用生命周期进行管理
@@ -402,6 +423,64 @@
         >{{ $t('atp.confirm') }}</el-button>
       </span>
     </el-dialog>
+    <!-- 订购弹框 -->
+    <el-dialog
+      width="30%"
+      :visible.sync="showSubDialog"
+      :show-close="false"
+      class="dialog_host default_dialog"
+    >
+      <div
+        slot="title"
+        class="el-dialog__title"
+      >
+        <em class="title_icon" />
+        订购确认
+      </div>
+      <div class="buy_content">
+        <el-form>
+          <el-form-item
+            label="应用名称："
+          >
+            <span class="val_span">{{ currentData.name }}</span>
+          </el-form-item>
+          <el-form-item
+            label="订购价格:"
+          >
+            <span class="val_span">1.99元（RMB）/小时</span>
+          </el-form-item>
+          <el-form-item
+            label="部署区域:"
+          >
+            <el-select
+              v-model="mechostIp"
+              :placeholder="$t('common.choose')"
+              style="width: 260px;"
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span
+        slot="footer"
+        class="dialog-footer dialogPadding"
+      >
+        <el-button
+          @click="showSubDialog = false"
+          class="bgBtn"
+        >{{ $t('common.cancel') }}</el-button>
+        <el-button
+          @click="confirmToBuy"
+          class="bgBtn"
+        >{{ $t('common.confirm') }}</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -417,7 +496,8 @@ import {
   URL_PREFIX,
   URL_PREFIXV2,
   getAppListApi,
-  myApp
+  myApp,
+  subscribe
 } from '../../tools/api.js'
 import { INDUSTRY, TYPES, MEAO } from '../../tools/constant.js'
 import appTry from '@/assets/images/apptry.png'
@@ -536,6 +616,20 @@ export default {
     this.clearInterval()
   },
   methods: {
+    beforeBuyIt () {
+      subscribe.getMechosts().then(res => {
+        res.data.data.forEach(item => {
+          let obj = {}
+          obj.value = item.mechostIp
+          obj.label = item.mechostCity
+          this.options.push(obj)
+        })
+        this.showSubDialog = true
+      }).then(error => {
+        console.log(error)
+        this.$message.warning('没有可供使用的边缘节点！')
+      })
+    },
     formatter (thistime, fmt) {
       let $this = new Date(thistime)
       let o = {
@@ -556,6 +650,17 @@ export default {
         }
       }
       return fmt
+    },
+    confirmToBuy () {
+      let param = {
+        'appId': this.appId,
+        'mecHostIp': this.mechostIp,
+        'appPackageId': this.packageId
+      }
+      subscribe.createOrder(param).then(res => {
+        this.showSubDialog = false
+        this.$router.push('/orders')
+      })
     },
     getTableData () {
       let userId = null

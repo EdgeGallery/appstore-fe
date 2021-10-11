@@ -477,9 +477,9 @@ let myApp = {
     return POST(url)
   },
   // Publish the application
-  publishAppApi: function (appId, packageId) {
+  publishAppApi: function (appId, packageId, param) {
     let url = 'apps/' + appId + '/packages/' + packageId + '/action/publish'
-    return POST(url)
+    return POST(url, param)
   },
   // Get package detail
   getPackageDetailApi: function (appId, packageId) {
@@ -513,7 +513,6 @@ let myApp = {
     return PUTV2(url, appIds)
   }
 }
-<<<<<<< HEAD
 
 let subscribe = {
   createOrder: function (param) {
@@ -559,9 +558,8 @@ let subscribe = {
     return GET('mechosts')
   }
 }
-=======
->>>>>>> 3a919ba9b4cbe2173a71b46ec006574f56704b26
 export {
+  subscribe,
   System,
   Workspace,
   getCommentsApi,
