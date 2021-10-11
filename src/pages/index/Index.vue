@@ -1290,6 +1290,7 @@ export default {
         line-height: 24px;
         text-align: center;
         overflow: hidden;
+        white-space: nowrap;
       }
   }
   .senceCase{
@@ -1532,7 +1533,6 @@ export default {
         margin: 0;
         max-height: 90px;
         overflow: hidden;
-        text-overflow :ellipsis;
       }
     }
      .high_score{
