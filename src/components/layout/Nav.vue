@@ -229,42 +229,13 @@ export default {
           index: '1'
         },
         {
-          labelEn: 'User Center',
-          labelCn: '个人中心',
-          route: '',
-          pageId: '2.1.5',
+          labelEn: 'My App',
+          labelCn: '我的应用',
+          route: '/myapp',
+          pageId: '2.1.4',
           display: true,
           link: '',
-          index: '5',
-          children: [
-            {
-              labelEn: 'My App',
-              labelCn: '我的应用',
-              route: '/myapp',
-              pageId: '2.1.4',
-              display: true,
-              link: '',
-              index: '3'
-            },
-            {
-              labelEn: 'Order Management',
-              labelCn: '订单管理',
-              route: '/orders',
-              pageId: '2.1.6',
-              display: true,
-              link: '',
-              index: '6'
-            },
-            {
-              labelEn: 'Bill Management',
-              labelCn: '账单管理',
-              route: '/Bill',
-              pageId: '2.1.7',
-              display: true,
-              link: '',
-              index: '7'
-            }
-          ]
+          index: '3'
         },
         {
           labelEn: 'App Share',
@@ -343,14 +314,6 @@ export default {
               display: true,
               link: '',
               index: '6.2'
-            }, {
-              labelEn: 'Split Bill Management',
-              labelCn: '分账管理',
-              route: '/splitBill',
-              pageId: '2.1.6.3',
-              display: true,
-              link: '',
-              index: '6.3'
             }
           ]
         },
