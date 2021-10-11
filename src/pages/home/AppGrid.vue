@@ -29,9 +29,7 @@
         @mouseout="activeIndex=-1"
       >
         <div
-          class="img-box"
-          :class="{'img-boxen':item.experienceAble===true && language==='en' ,
-                   'img-boxcn':item.experienceAble===true && language==='cn'}"
+          :class="[item.experienceAble===false? 'img-box': (language==='cn'?'img-boxcn':'img-boxen')]"
         >
           <img
             :src="getAppIcon(item)"
@@ -102,7 +100,6 @@ export default {
   },
   methods: {
     hoverAppList (index) {
-      console.log(index)
       this.activeIndex = index
     },
     getAppInfo (type, item) {
@@ -173,7 +170,6 @@ export default {
         align-items: center;
         border-radius: 8px 8px 0 0;
         img {
-          // max-width: 150px;
           overflow: hidden;
           max-height: 75px;
         }
@@ -191,7 +187,6 @@ export default {
         justify-content: center;
         align-items: center;
         img {
-          // max-width: 150px;
           overflow: hidden;
           max-height: 75px;
         }
@@ -213,7 +208,6 @@ export default {
           max-height: 75px;
         }
       }
-
       .scoreMode{
         border-radius: 0 0 8px 8px;
         width: 100%;
@@ -229,7 +223,6 @@ export default {
           padding-left: 10px;
           line-height: 36px;
           position: relative;
-
         }
         .appNameStyle {
             overflow: hidden;
