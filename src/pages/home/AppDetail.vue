@@ -447,9 +447,6 @@ export default {
     sessionStorage.setItem('fromPath', from.path)
     next(true)
   },
-  beforeDestroy () {
-    this.clearInterval()
-  },
   methods: {
     formatter (thistime, fmt) {
       let $this = new Date(thistime)
