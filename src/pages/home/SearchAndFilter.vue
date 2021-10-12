@@ -375,7 +375,6 @@ export default ({
           if (condition.selected) this.selectedConditions.push(condition)
         })
       })
-      // this.searchCondition.appName = this.nameQuery.toLowerCase()
       this.searchCondition = {
         appName: '',
         types: [],

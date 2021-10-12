@@ -873,7 +873,7 @@ export default {
         margin-top: 10px;
         text-align: center;
         height: 40px !important;
-        width: 120px !important;
+        width: 160px !important;
         border-radius: 25px !important;
          color: #FFFFFF;
         font-family: HarmonyHeiTi, sans-serif;
@@ -960,7 +960,6 @@ export default {
         float: left;
         width: 2px;
         height: 50px;
-        // background: #d4d1ec;
         background-color: #d4d1ec;
     }
     .separator{
@@ -971,11 +970,9 @@ export default {
       position: absolute;
       top:10px;
       height: calc(100% - 2px);
-      // height: 60%;
       left:0;
       content: '';
       width:0;
-      // border-left: solid  darkblue 1px;
     }
     border-radius: 0 16px 16px 16px;
     background: #fff;
@@ -1164,9 +1161,8 @@ export default {
         }
       }
       .appShow_no_active{
-         background: #f4f3f7;
-         border-radius: 0 0 0 0;
-        // border-radius: 0 16px 0 0;
+        background: #f4f3f7;
+        border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
           background: #d4d1ec;
@@ -1228,7 +1224,7 @@ export default {
         }
       }
       .meao_default{
-       background: #fff;
+        background: #fff;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1276,7 +1272,6 @@ export default {
       .meao_no_active{
          background: #f4f3f7;
          border-radius: 0 0 0 0;
-        // border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
           background: #d4d1ec;
@@ -1316,7 +1311,6 @@ export default {
       }
       .vedio_default{
         background: #f4f3f7;
-        // border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
           background: #d4d1ec;
@@ -1326,7 +1320,7 @@ export default {
 
       }
       .vedio_default2{
-       background: #fff;
+        background: #fff;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1336,7 +1330,7 @@ export default {
         }
       }
       .vedio_default2_appShow_meao{
-       background: #fff;
+        background: #fff;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1346,7 +1340,7 @@ export default {
         }
       }
       .vedio_default2_no_AppshowMeao{
-       background: #fff;
+        background: #fff;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1417,7 +1411,6 @@ export default {
     height: 10px;
     border-right: solid #B3B0CA 2px;
   }
-    //老样式
     .submit_comment{
       padding: 20px;
       .score_span{
@@ -1456,7 +1449,6 @@ export default {
         }
       }
     }
-    //老样式
     .show_app {
       .show_common {
         display: inline-block;
@@ -1464,7 +1456,6 @@ export default {
         margin-top: 20px;
         text-align: center;
         .show_btn{
-          // width: 25%;
           display: inline-block;
         }
       }
@@ -1533,7 +1524,6 @@ export default {
 
       }
     }
-    //老样式
     .no_comment{
       color: #bbb;
       text-align: center;
@@ -1541,7 +1531,6 @@ export default {
         margin: 10px 0 30px;
       }
     }
-    //老样式
     .show_comment{
       padding: 20px;
       li{
@@ -1549,7 +1538,6 @@ export default {
         margin-left: 80px;
         padding: 20px 0;
         display: flex;
-        // align-items: center;
         .user_icon{
           img{
             width: 50px;
