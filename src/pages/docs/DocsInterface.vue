@@ -456,6 +456,7 @@ export default {
       box-shadow: inset 4px 4px 25px 5px rgba(36, 20, 119, 0.1) !important;
       border-radius: 16px;
       padding: 10px 30px 15px !important;
+      width: 1030px;
     }
     .novice{
       box-shadow: inset 4px 4px 25px 5px rgba(36, 20, 119, 0.1) !important;
