@@ -21,7 +21,6 @@
   >
     <ul
       class="scenceHref"
-      v-show="showHerf == 1"
     >
       <li class="li1">
         <el-tooltip
@@ -31,7 +30,7 @@
           placement="right-end"
         >
           <img
-            src="../../assets/images/hot_selected.png"
+            :src="showHerf === 1 ? require('@/assets/images/hot_selected.png'): require('@/assets/images/hot_unselected.png')"
             alt=""
             class="circle  hot_selected"
             @click="changeHash('#nearHotApp')"
@@ -47,7 +46,7 @@
           placement="right-end"
         >
           <img
-            src="../../assets/images/sence_unselected.png"
+            :src="showHerf === 2 ? require('@/assets/images/sence_selected.png'): require('@/assets/images/sence_unselected.png')"
             alt=""
             class="circle"
             @click="changeHash('#sceneCase')"
@@ -63,111 +62,7 @@
           placement="right-end"
         >
           <img
-            src="../../assets/images/high_unselected.png"
-            alt=""
-            class="circle"
-            @click="changeHash('#highScoreApp')"
-          >
-        </el-tooltip>
-      </li>
-    </ul>
-    <ul
-      class="scenceHref"
-      v-show="showHerf == 2"
-    >
-      <li class="li1">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.newUploadApp') "
-          placement="right-end"
-        >
-          <img
-            src="../../assets/images/hot_unselected.png"
-            alt=""
-            class="circle  hot_selected"
-            @click="changeHash('#nearHotApp')"
-          >
-        </el-tooltip>
-      </li>
-      <li class="lines" />
-      <li class="li2">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.senceCase') "
-          placement="right-end"
-        >
-          <img
-            src="../../assets/images/sence_selected.png"
-            alt=""
-            class="circle"
-            @click="changeHash('#sceneCase')"
-          >
-        </el-tooltip>
-      </li>
-      <li class="lines" />
-      <li class="li3">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.higherScore') "
-          placement="right-end"
-        >
-          <img
-            src="../../assets/images/high_unselected.png"
-            alt=""
-            class="circle"
-            @click="changeHash('#highScoreApp')"
-          >
-        </el-tooltip>
-      </li>
-    </ul>
-    <ul
-      class="scenceHref showHigh"
-      v-show="showHerf == 3"
-    >
-      <li class="li1">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.newUploadApp') "
-          placement="right-end"
-        >
-          <img
-            src="../../assets/images/hot_unselected.png"
-            alt=""
-            class="circle  hot_selected"
-            @click="changeHash('#nearHotApp')"
-          >
-        </el-tooltip>
-      </li>
-      <li class="lines" />
-      <li class="li2">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.senceCase') "
-          placement="right-end"
-        >
-          <img
-            src="../../assets/images/sence_unselected.png"
-            alt=""
-            class="circle"
-            @click="changeHash('#sceneCase')"
-          >
-        </el-tooltip>
-      </li>
-      <li class="lines" />
-      <li class="li3">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.higherScore') "
-          placement="right-end"
-        >
-          <img
-            src="../../assets/images/high_selected.png"
+            :src="showHerf === 3 ? require('@/assets/images/high_selected.png'): require('@/assets/images/high_unselected.png')"
             alt=""
             class="circle"
             @click="changeHash('#highScoreApp')"

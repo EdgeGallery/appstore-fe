@@ -101,15 +101,15 @@ export default {
       }, {
         value: 'WEEK',
         label: '一周内',
-        labelen: 'This Week'
+        labelen: 'Within a week'
       }, {
         value: 'MONTH',
         label: '一月内',
-        labelen: 'This Month'
+        labelen: 'Within a month'
       }, {
         value: 'EARLIER',
         label: '更早',
-        labelen: 'Old'
+        labelen: 'Earlier'
       }],
       value: 'TODAY',
       timeFlag: 'TODAY',

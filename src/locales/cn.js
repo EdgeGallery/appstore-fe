@@ -723,10 +723,6 @@ const cn = {
     existSameAppstoreName: '已存在同名外部仓库，请重新编辑外部仓库名称'
   },
   messageCenter: {
-    msgToday: '今天',
-    msgWeek: '一周内',
-    msgMonth: '一月内',
-    msgOld: '更早',
     acceptMsg: '接收',
     deleteMsg: '删除',
     appBasicInfo: '应用基本信息',

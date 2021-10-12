@@ -697,10 +697,6 @@ const en = {
     existSameAppstoreName: 'An external appstore with the same name already exists, please edit the name of the external appstore again!'
   },
   messageCenter: {
-    msgToday: 'Today',
-    msgWeek: 'This Week',
-    msgMonth: 'This Month',
-    msgOld: 'Old',
     acceptMsg: 'accept',
     deleteMsg: 'delete',
     appBasicInfo: 'APP Basic Information',
@@ -721,9 +717,9 @@ const en = {
     sourceAppStore: 'source',
     targetAppStore: 'target',
     operationType: 'operation',
-    unReadedMsg: 'unReaded',
-    readedMsg: 'readed',
-    allMsg: 'all messages',
+    unReadedMsg: 'Unread',
+    readedMsg: 'Read',
+    allMsg: 'All Messages',
     appStoreName: 'store name',
     testRepoKey: 'test report',
     clickToCheckRepo: 'click to view',
