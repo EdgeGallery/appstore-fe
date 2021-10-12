@@ -778,8 +778,8 @@ export default {
     changeHash (idName) {
       document.querySelector(idName).scrollIntoView(true)
     },
-    handleScrollx () {
-      const lengths = -this.$refs.pronbit.getBoundingClientRect().top
+    handleScroll () {
+      const lengths = this.$refs.pronbit.getBoundingClientRect().top
       if (lengths < 195) {
         this.showHerf = 1
       } else if (lengths > 195 && lengths < 975) {
@@ -1072,7 +1072,10 @@ export default {
     this.alertDia(this.aletMsg)
     this.refreshCondition()
     this.getPlatformUrl()
-    window.addEventListener('scroll', this.handleScrollx, true)
+    window.addEventListener('scroll', this.handleScroll, true)
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll, true)
   }
 }
 </script>
