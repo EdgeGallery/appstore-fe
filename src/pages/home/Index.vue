@@ -275,6 +275,7 @@ export default {
       }
       this.findAppData.forEach(itemBe => {
         this.synResult.push(this.getSingleData(itemBe, userId))
+        this.synResult = this.synResult.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
       })
       Promise.all(this.synResult).then(() => {
         setTimeout(() => {
@@ -289,7 +290,13 @@ export default {
         getAppDetailTableApi(itemBe.appId, userId, this.limitSize, this.offsetPage).then(res => {
           let data = res.data
           data.forEach(item => {
-            itemBe.experienceAble = item.experienceAble
+            if (item.status === 'published') {
+              itemBe.experienceAble = item.experienceAble
+              itemBe.packageId = item.packageId
+              itemBe.createTime = item.createTime
+              console.log(item.packageId)
+              console.log(itemBe.packageId)
+            }
           })
           resolve()
         })
