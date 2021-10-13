@@ -381,8 +381,7 @@ const en = {
     cleanEnvSuccess: 'Release resource Success',
     portRange: 'Range 30000-32000',
     getReleaseDataFail: 'Failed to get experience initialization information',
-    getNodePortSuccess: 'Success to obtain service borrowing point information',
-    uninvolved: 'uninvolved'
+    getNodePortSuccess: 'Success to obtain service borrowing point information'
   },
   store: {
     appChange: 'Application package conversion tool',
