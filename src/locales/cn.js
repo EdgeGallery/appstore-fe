@@ -317,6 +317,7 @@ const cn = {
     exceptionServer: '服务异常，请检查'
   },
   promptMessage: {
+    uninvolved: '请参考应用详情端口',
     hostErrorInfo: '请输入正确的Host地址',
     portErrorInfo: '端口号范围30000-32000',
     guestUser: 'guest用户无权操作! 请登录',
