@@ -364,7 +364,7 @@ export default {
           mecHost: ''
         }
         object.serviceName = item.serviceName
-        object.nodePort = item.nodePort === '' ? this.$t('promptMessage.uninvolved') : item.nodePort
+        object.nodePort = item.nodePort === '' ? this.$t('promptMessage.uninvlolved') : item.nodePort
         object.mecHost = item.mecHost
         this.experienceData.push(object)
       }
