@@ -290,7 +290,7 @@ export default {
         getAppDetailTableApi(itemBe.appId, userId, this.limitSize, this.offsetPage).then(res => {
           let data = res.data
           data.forEach(item => {
-            if (item.status === 'published') {
+            if (item.status === 'Published') {
               itemBe.experienceAble = item.experienceAble
               itemBe.packageId = item.packageId
               itemBe.createTime = item.createTime
