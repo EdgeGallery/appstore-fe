@@ -315,7 +315,7 @@ const en = {
     exceptionServer: 'Service abnormal, please check'
   },
   promptMessage: {
-    uninvlolved: 'Refer to port from app detail',
+    uninvolved: 'Refer to port from app detail',
     hostErrorInfo: 'Please enter the correct Host address',
     portErrorInfo: 'Port number range 30000-32000',
     guestUser: 'The guest user has no right to operate. please log in first!',
