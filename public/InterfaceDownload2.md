@@ -1,6 +1,6 @@
 ## 接口清单
 
-### /{packageId}/action/download-icon
+### /mec/appstore/v1/packages/{packageId}/action/download-icon
 ###  GET
 通过应用包ID下载应用图标
 ### 请求
