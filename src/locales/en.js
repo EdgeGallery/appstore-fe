@@ -68,16 +68,27 @@ const en = {
     orderTime: 'Order Time',
     nodeAddress: 'Node Location',
     status: 'Status',
+    orderUserName: 'User Name',
     activation: 'Activate',
     unsubscribe: 'Unsubscribe',
-    confirmToActivate: 'Confirm To Activate',
+    confirmToActivate: 'Are you sure to activate order: ',
     tip: 'Prompt',
     confirm: 'Confirm',
     cancel: 'Cancel',
     success: 'Operate Successfully!',
     canceled: 'Canceled!',
-    confirmToUnsub: 'Confirm to cancel ',
-    unsubSuccess: 'Unsubscribe Successfully'
+    confirmToUnsub: 'Are you sure to cancel order: ',
+    unsubSuccess: 'Unsubscribe Successfully',
+    orderStatus: {
+      activating: 'Activating',
+      activateFailed: 'Activate Failed',
+      activated: 'Activated',
+      deactivating: 'Deactivating',
+      deactivateFailed: 'Deactivate Failed',
+      deactivated: 'Deactivated'
+    },
+    subscribe: 'Subscribe',
+    price: 'Yuan (RMB)/ hour'
   },
   bill: {
     billMana: 'Billing Management',
@@ -89,17 +100,22 @@ const en = {
     appName: 'App Name',
     provider: 'Provider',
     type: 'Type',
-    userName: 'User Name',
-    billAmount: 'Billing Amount',
-    entryFee: 'Entry Fee',
-    billingFee: 'Billing Fee',
-    updateTime: 'Update Time'
+    billUserName: 'Bill User Name',
+    orderUserName: 'Order User Name',
+    billAmount: 'Billing Amount(CNY)',
+    billAmountDesc: 'Amount Description',
+    operatorFee: 'Operator Fee',
+    supplierFee: 'Supplier Fee',
+    operatorIncome: 'Operator Income',
+    supplierIncome: 'Supplier Income',
+    billTime: 'Time',
+    count: 'Count',
+    amount: 'Amount'
   },
   split: {
     splitMana: 'Split Management',
     default: 'Default split ratio',
     set: 'Set Up',
-    confirm: 'Confirm',
     add: 'Add',
     modify: 'Modify',
     addSplitSettings: 'Add split configuration',
@@ -107,8 +123,9 @@ const en = {
     moreThanOne: 'Please add at least one piece of data!',
     addSuccess: 'Added successfully!',
     setSuccess: 'Setted successfully!',
-    modifyThanOne: 'Modified successfully!',
-    splitRatio: 'Split Ratio'
+    modifySuccess: 'Modified successfully!',
+    splitRatio: 'Split Ratio',
+    confirmToDelete: 'Are you sure to delete this split config?'
   },
   system: {
     ipErrorInfo: 'Please enter the correct IP address',
@@ -312,7 +329,8 @@ const en = {
     exception401: 'Request is not authorized',
     exception403: 'Request denied access',
     exceptionxxx: 'Request exception, please check',
-    exceptionServer: 'Service abnormal, please check'
+    exceptionServer: 'Service abnormal, please check',
+    loading: 'Loading'
   },
   promptMessage: {
     uninvolved: 'Refer to port from app detail',

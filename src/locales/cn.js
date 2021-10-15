@@ -70,16 +70,27 @@ const cn = {
     orderTime: '下单时间',
     nodeAddress: '节点位置',
     status: '状态',
+    orderUserName: '用户名',
     activation: '激活',
     unsubscribe: '退订',
-    confirmToActivate: '确认激活 ',
+    confirmToActivate: '是否要激活订单： ',
     tip: '提示',
     confirm: '确定',
     cancel: '取消',
     success: '操作成功！',
     canceled: '已取消！',
-    confirmToUnsub: '确认取消 ',
-    unsubSuccess: '退订成功！'
+    confirmToUnsub: '是否要取消订单： ',
+    unsubSuccess: '退订成功！',
+    orderStatus: {
+      activating: '正在激活',
+      activateFailed: '激活失败',
+      activated: '已激活',
+      deactivating: '正在停用',
+      deactivateFailed: '停用失败',
+      deactivated: '已停用'
+    },
+    subscribe: '订购',
+    price: '元（RMB）/小时'
   },
   bill: {
     billMana: '账单管理',
@@ -89,19 +100,26 @@ const cn = {
     nums: '销售数量',
     money: '销售金额',
     appName: '应用名称',
-    provider: '厂商',
+    provider: '应用厂商',
     type: '类型',
-    userName: '用户名',
-    billAmount: '账单金额',
-    entryFee: '入账费用',
-    billingFee: '出账费用',
-    updateTime: '刷新日期'
+    billUserName: '账单用户名',
+    orderUserName: '订单用户名',
+    billAmount: '账单金额(元)',
+    billAmountDesc: '账单金额说明',
+    operatorFee: '运营商费用',
+    supplierFee: '应用供应商费用',
+    operatorIncome: '运营商分摊收入',
+    supplierIncome: '应用供应收入',
+    expenditure: '支出',
+    income: '收入',
+    billTime: '计费时间',
+    count: '按数量',
+    amount: '按金额'
   },
   split: {
     splitMana: '分账管理',
     default: '默认分账比例',
     set: '设置',
-    confirm: '确定',
     add: '添加',
     modify: '修改',
     addSplitSettings: '添加分账设置',
@@ -109,8 +127,9 @@ const cn = {
     moreThanOne: '请至少添加一条数据！',
     addSuccess: '添加成功！',
     setSuccess: '设置成功！',
-    modifyThanOne: '修改成功！',
-    splitRatio: '分账比例'
+    modifySuccess: '修改成功！',
+    splitRatio: '分账比例',
+    confirmToDelete: '确定要删除该条分账配置吗？'
   },
   system: {
     ipErrorInfo: '请输入正确的IP地址',
@@ -314,7 +333,8 @@ const cn = {
     exception401: '请求未授权',
     exception403: '请求被拒绝访问',
     exceptionxxx: '请求异常，请检查',
-    exceptionServer: '服务异常，请检查'
+    exceptionServer: '服务异常，请检查',
+    loading: '加载中'
   },
   promptMessage: {
     uninvolved: '请参考应用详情端口',

@@ -70,6 +70,95 @@
           </span>
         </p>
       </div>
+      <div
+        class="app_score"
+        style="position:relative;top:25px;margin-left:0;"
+        v-if="role==='tenant'||role==='admin'"
+      >
+        <p
+          class="download_num"
+          style="color:#ff5c02;"
+        >
+          {{ price }}{{ $t('oreder.price') }}
+        </p>
+        <p class="score_btn">
+          <el-button
+            type="primary"
+            class="batchProButton"
+            @click="beforeBuyIt()"
+          >
+            {{ $t('order.subscribe') }}
+          </el-button>
+        </p>
+      </div>
+      <!-- <div class="app_synchronize">
+        <p class="synchronize_info">
+          可同步应用到MEAO，可方便对应用生命周期进行管理
+        </p>
+        <div
+          class="stepApp"
+          v-if="showlun"
+        >
+          <el-carousel
+            :interval="5000"
+            arrow="always"
+          >
+            <el-carousel-item v-if="hwMeAO">
+              <p
+                class="stepNames"
+              >
+                {{ language === 'cn'?this.MEAO[0].labelcn:this.MEAO[0].labelen }}
+              </p>
+              <el-progress
+                :text-inside="true"
+                :stroke-width="14"
+                :percentage="huaweiper"
+                style="width:116px;"
+              />
+            </el-carousel-item>
+            <el-carousel-item v-if="jzyMEAO">
+              <p
+                class="stepNames"
+              >
+                {{ language === 'cn'?this.MEAO[1].labelcn:this.MEAO[1].labelen }}
+              </p>
+              <el-progress
+                :text-inside="true"
+                :stroke-width="14"
+                :percentage="jiuzhouyunper"
+                style="width:116px;"
+              />
+            </el-carousel-item>
+            <p class="stepIng">
+              正在同步应用
+            </p>
+          </el-carousel>
+        </div>
+        <div class="stepDromdown">
+          <el-dropdown
+            @command="handleClick"
+            trigger="click"
+          >
+            <el-button
+              type="primary"
+            >
+              同步应用到MEAO
+            </el-button>
+            <el-dropdown-menu
+              slot="dropdown"
+              @change="handleClick"
+            >
+              <el-dropdown-item
+                v-for="(item,index) in this.MEAO"
+                :key="index"
+                :command="index"
+              >
+                <span>{{ language === 'cn'?item.labelcn:item.labelen }}</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </div> -->
       <div class="app_score">
         <p class="score_num">
           {{ score }}
@@ -318,6 +407,64 @@
         >{{ $t('atp.confirm') }}</el-button>
       </span>
     </el-dialog>
+    <!-- 订购弹框 -->
+    <el-dialog
+      width="30%"
+      :visible.sync="showSubDialog"
+      :show-close="false"
+      class="dialog_host default_dialog"
+    >
+      <div
+        slot="title"
+        class="el-dialog__title"
+      >
+        <em class="title_icon" />
+        订购确认
+      </div>
+      <div class="buy_content">
+        <el-form>
+          <el-form-item
+            label="应用名称："
+          >
+            <span class="val_span">{{ currentData.name }}</span>
+          </el-form-item>
+          <el-form-item
+            label="订购价格:"
+          >
+            <span class="val_span">{{ price }}元（RMB）/小时</span>
+          </el-form-item>
+          <el-form-item
+            label="部署区域:"
+          >
+            <el-select
+              v-model="mechostIp"
+              :placeholder="$t('common.choose')"
+              style="width: 260px;"
+            >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span
+        slot="footer"
+        class="dialog-footer dialogPadding"
+      >
+        <el-button
+          @click="showSubDialog = false"
+          class="bgBtn"
+        >{{ $t('common.cancel') }}</el-button>
+        <el-button
+          @click="confirmToBuy"
+          class="bgBtn"
+        >{{ $t('common.confirm') }}</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -332,7 +479,8 @@ import {
   downloadAppPakageApi,
   URL_PREFIX,
   getAppListApi,
-  myApp
+  myApp,
+  subscribe
 } from '../../tools/api.js'
 import { INDUSTRY, TYPES, MEAO } from '../../tools/constant.js'
 import appTry from '@/assets/images/apptry.png'
@@ -423,7 +571,8 @@ export default {
       showSubDialog: false,
       options: [],
       mechostIp: '',
-      role: sessionStorage.getItem('userNameRole')
+      role: sessionStorage.getItem('userNameRole'),
+      price: 0
     }
   },
   watch: {
@@ -448,6 +597,23 @@ export default {
     next(true)
   },
   methods: {
+    beforeBuyIt () {
+      subscribe.getMechosts().then(res => {
+        if (res.data && res.data.data.length > 0) {
+          res.data.data.forEach(item => {
+            let obj = {}
+            obj.value = item.mechostIp
+            obj.label = item.mechostCity
+            this.options.push(obj)
+          })
+          this.showSubDialog = true
+        } else {
+          this.$message.warning('没有可供使用的边缘节点！')
+        }
+      }).then(error => {
+        console.log(error)
+      })
+    },
     formatter (thistime, fmt) {
       let $this = new Date(thistime)
       let o = {
@@ -468,6 +634,22 @@ export default {
         }
       }
       return fmt
+    },
+    confirmToBuy () {
+      let param = {
+        'appId': this.appId,
+        'mecHostIp': this.mechostIp,
+        'appPackageId': this.packageId
+      }
+      if (this.mechostIp !== '') {
+        subscribe.createOrder(param).then(res => {
+          this.showSubDialog = false
+          this.$message.warning('订购成功！')
+          this.$router.push('/orders')
+        })
+      } else {
+        this.$message.warning('请先选择部署区域！')
+      }
     },
     getTableData () {
       let userId = null
@@ -594,6 +776,9 @@ export default {
         (res) => {
           this.score = res.data.score
           this.downloadNum = res.data.downloadCount
+          if (!res.data.free) {
+            this.price = res.data.price
+          }
         },
         () => {
           this.$message({

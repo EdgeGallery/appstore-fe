@@ -477,9 +477,9 @@ let myApp = {
     return POST(url)
   },
   // Publish the application
-  publishAppApi: function (appId, packageId) {
+  publishAppApi: function (appId, packageId, param) {
     let url = 'apps/' + appId + '/packages/' + packageId + '/action/publish'
-    return POST(url)
+    return POST(url, param)
   },
   // Get package detail
   getPackageDetailApi: function (appId, packageId) {
@@ -513,7 +513,56 @@ let myApp = {
     return PUTV2(url, appIds)
   }
 }
+
+let subscribe = {
+  createOrder: function (param) {
+    return POST('orders', param)
+  },
+  getOrderList: function (param) {
+    return POST('orders/list', param)
+  },
+  getAppSubDetail: function (appId) {
+    return GET('apps/' + appId)
+  },
+  deactivateApp: function (orderId) {
+    return POST('orders/' + orderId + '/deactivation')
+  },
+  activateApp: function (orderId) {
+    return POST('orders/' + orderId + '/activation')
+  },
+  getSplitconfigs () {
+    return GET('apps/splitconfigs/')
+  },
+  addSplitconfigs (param) {
+    return POST('apps/splitconfigs', param)
+  },
+  modifySplitconfigs (appId, param) {
+    return PUT('apps/splitconfigs/' + appId, param)
+  },
+  deleteSplitconfigs (appId) {
+    return DELETE('apps/splitconfigs/' + appId)
+  },
+  modifyDefaultSplitconfigs (param) {
+    return PUT('apps/splitconfigs/all', param)
+  },
+  getBillsList: function (param) {
+    return POST('bills/list', param)
+  },
+  getOverAllData: function (param) {
+    return POST('bills/statistics/overall', param)
+  },
+  getTopSaleApps: function (param) {
+    return POST('bills/statistics/sales/topapps', param)
+  },
+  getTopOrderApps: function (param) {
+    return POST('bills/statistics/orders/topapps', param)
+  },
+  getMechosts: function () {
+    return GET('mechosts')
+  }
+}
 export {
+  subscribe,
   System,
   Workspace,
   getCommentsApi,

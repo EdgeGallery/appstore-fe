@@ -429,4 +429,29 @@ a{
 .el-progress-bar{
   width: 80% !important;
 }
+.el-progress{
+  width:100%;
+}
+.el-progress__text{
+  color: #fff;
+  font-size: 14px;
+}
+.el-progress-bar__outer{
+  height: 12px!important;
+  border: 1px solid #78335f;
+  background-color:transparent;
+}
+
+/* 渐变进度条 */
+.el-bg-inner-count .el-progress-bar__inner{
+  background-color: unset;
+  background-image: linear-gradient(to right, #34aaf5 , #00f8ff);
+}
+.el-bg-inner-amount .el-progress-bar__inner{
+  background-image: linear-gradient(to right, #fd8241 , #fde166);
+}
+
+.el-switch__label{
+  color: #FFFFFF!important;
+}
  
