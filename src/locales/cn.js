@@ -88,7 +88,9 @@ const cn = {
       deactivating: '正在停用',
       deactivateFailed: '停用失败',
       deactivated: '已停用'
-    }
+    },
+    subscribe: '订购',
+    price: '元（RMB）/小时'
   },
   bill: {
     billMana: '账单管理',

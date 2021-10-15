@@ -86,7 +86,9 @@ const en = {
       deactivating: 'Deactivating',
       deactivateFailed: 'Deactivate Failed',
       deactivated: 'Deactivated'
-    }
+    },
+    subscribe: 'Subscribe',
+    price: 'Yuan (RMB)/ hour'
   },
   bill: {
     billMana: 'Billing Management',

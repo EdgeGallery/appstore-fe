@@ -79,7 +79,7 @@
           class="download_num"
           style="color:#ff5c02;"
         >
-          {{ price }}元（RMB）/小时
+          {{ price }}{{ $t('oreder.price') }}
         </p>
         <p class="score_btn">
           <el-button
