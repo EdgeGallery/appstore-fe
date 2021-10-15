@@ -300,7 +300,7 @@ export default {
           index: '6',
           children: [
             {
-              labelEn: 'APP Manager',
+              labelEn: 'APP Management',
               labelCn: '应用管理',
               route: '/appManager',
               pageId: '2.5.1',
@@ -308,7 +308,7 @@ export default {
               link: '',
               index: '6.1'
             }, {
-              labelEn: 'SystemHost',
+              labelEn: 'Host Management',
               labelCn: '沙箱管理',
               route: '/systemHost',
               pageId: '2.5.2',

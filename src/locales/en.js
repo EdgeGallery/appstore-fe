@@ -752,11 +752,11 @@ const en = {
   appShare: {
     manager: 'External AppStore Manage',
     lookmore: 'see details',
-    appstoreManager: 'Operate on external repositories that can be shared, add, modify and delete external repositories that can be shared.',
+    appstoreManager: 'Add, modify and delete external warehouses that can be shared.',
     appstorePush: 'Manage and display application push messages in batches, select applications that need to be pushed to operators or third parties, and view application test reports. The operation is simple.',
     appstorePull: 'Batch management of the application list, display the application information that can be pulled, and select the applications that need to be pulled to perform batch operations.',
     appstoreMsg: 'View notification information, you can accept APP information that needs to be pushed from different operators.',
-    appstoreOperAna: 'Through multi-dimensional data statistics and comparison, statistics and analysis of applications, and check the application pull, download, push and other types of messages'
+    appstoreOperAna: 'Through multi-dimensional data statistics and comparison, statistics and analysis of applications, and check the application pull, download, push and other types of messages.'
   },
   appManager: {
     reSetting: 'reset',

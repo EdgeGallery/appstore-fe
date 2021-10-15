@@ -180,12 +180,14 @@
           </p>
         </div>
         <el-row>
-          <el-col>
+          <el-col
+            :class="{'formLeft':language==='en'}"
+          >
             <el-form
               :model="form"
               ref="form"
               :rules="rules"
-              label-width="140px"
+              label-width="160px"
             >
               <el-form-item
                 :label="$t('common.appStoreName')"
@@ -596,6 +598,9 @@ export default {
     width: 73.64%;
     margin: 23px  auto;
     min-width: 1200px;
+    .formLeft{
+      margin-left: 20px;
+    }
   .my-app-content {
     border-radius:16px ;
     position: relative;
@@ -715,5 +720,15 @@ div /deep/ .el-form-item .el-form-item__content {
 .el-button:hover{
   background: #5E40C8;
   color: #fff;
+}
+div /deep/ .el-form-item__error {
+    color: #F56C6C;
+    font-size: 12px;
+    line-height: 1;
+    padding-top: 4px;
+    position: absolute;
+    top: 100%;
+    left: 30px;
+    top:44px
 }
 </style>
