@@ -558,7 +558,7 @@ export default {
           title: '交通物流',
           contenten: 'People are pleased to walk, things are optimized for their flow, AI enabled, driving the digital transformation of transportation and logistics',
           content: '人悦其行,物优其流,AI使能,驱动交通物流数字化转型',
-          introduceen: 'In the field of transportation and logistics, make full use of technologies such as the Internet of Things, cloud computing, and the Internet, and collect traffic information through high-tech, so that the transportation system has the ability to sense, interconnect, analyze, predict, and control in the region and city, and improve the operation efficiency of the transportation system And management level',
+          introduceen: 'In the field of transportation and logistics, make full use of technologies such as the Internet of Things, cloud computing, and the Internet, and collect traffic information through high-tech, so that the transportation system has the ability to sense, interconnect, analyze, predict, and control in the region and city, and improve the operation efficiency of the transportation system And management level.',
           introduce: '在交通物流领域中充分运用物联网、云计算、互联网等技术，通过高新技术汇集交通信息,使交通系统在区域、城市范围具备感知、互联、分析、预测、控制等能力,提升交通系统运行效率和管理水平',
           industry: 'logistics',
           index: 7
