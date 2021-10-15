@@ -79,7 +79,7 @@
           class="download_num"
           style="color:#ff5c02;"
         >
-          1.99元（RMB）/小时
+          {{ price }}元（RMB）/小时
         </p>
         <p class="score_btn">
           <el-button
@@ -447,7 +447,7 @@
           <el-form-item
             label="订购价格:"
           >
-            <span class="val_span">1.99元（RMB）/小时</span>
+            <span class="val_span">{{ price }}元（RMB）/小时</span>
           </el-form-item>
           <el-form-item
             label="部署区域:"
@@ -588,7 +588,8 @@ export default {
       showSubDialog: false,
       options: [],
       mechostIp: '',
-      role: sessionStorage.getItem('userNameRole')
+      role: sessionStorage.getItem('userNameRole'),
+      price: 0
     }
   },
   watch: {
@@ -618,16 +619,19 @@ export default {
   methods: {
     beforeBuyIt () {
       subscribe.getMechosts().then(res => {
-        res.data.data.forEach(item => {
-          let obj = {}
-          obj.value = item.mechostIp
-          obj.label = item.mechostCity
-          this.options.push(obj)
-        })
-        this.showSubDialog = true
+        if (res.data && res.data.data.length > 0) {
+          res.data.data.forEach(item => {
+            let obj = {}
+            obj.value = item.mechostIp
+            obj.label = item.mechostCity
+            this.options.push(obj)
+          })
+          this.showSubDialog = true
+        } else {
+          this.$message.warning('没有可供使用的边缘节点！')
+        }
       }).then(error => {
         console.log(error)
-        this.$message.warning('没有可供使用的边缘节点！')
       })
     },
     formatter (thistime, fmt) {
@@ -657,10 +661,15 @@ export default {
         'mecHostIp': this.mechostIp,
         'appPackageId': this.packageId
       }
-      subscribe.createOrder(param).then(res => {
-        this.showSubDialog = false
-        this.$router.push('/orders')
-      })
+      if (this.mechostIp !== '') {
+        subscribe.createOrder(param).then(res => {
+          this.showSubDialog = false
+          this.$message.warning('订购成功！')
+          this.$router.push('/orders')
+        })
+      } else {
+        this.$message.warning('请先选择部署区域！')
+      }
     },
     getTableData () {
       let userId = null
@@ -786,6 +795,9 @@ export default {
           this.score = res.data.score
           console.log(res.data.score)
           this.downloadNum = res.data.downloadCount
+          if (!res.data.free) {
+            this.price = res.data.price
+          }
         },
         () => {
           this.$message({

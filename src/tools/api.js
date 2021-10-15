@@ -533,11 +533,14 @@ let subscribe = {
   getSplitconfigs () {
     return GET('apps/splitconfigs/')
   },
-  addSplitconfigs (appId, param) {
-    return POST('apps/splitconfigs/' + appId, param)
+  addSplitconfigs (param) {
+    return POST('apps/splitconfigs', param)
   },
   modifySplitconfigs (appId, param) {
     return PUT('apps/splitconfigs/' + appId, param)
+  },
+  deleteSplitconfigs (appId) {
+    return DELETE('apps/splitconfigs/' + appId)
   },
   modifyDefaultSplitconfigs (param) {
     return PUT('apps/splitconfigs/all', param)

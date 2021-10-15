@@ -1,5 +1,9 @@
 <template>
-  <div class="bill">
+  <div
+    class="bill"
+    v-loading="loading"
+    :element-loading-text="$t('common.loading')"
+  >
     <div class="title_top title_left defaultFontBlod clear">
       {{ $t('bill.billMana') }}
       <span class="line_bot1" />
@@ -53,6 +57,17 @@
             >
               <div class="chart_top">
                 <span class="chart_title">{{ $t('bill.sales') }}</span>
+                <el-switch
+                  v-model="sortType"
+                  :active-text="$t('bill.count')"
+                  :inactive-text="$t('bill.amount')"
+                  class="rt"
+                  active-color="#34aaf5"
+                  inactive-color="#fd8241"
+                  active-value="SaleCount"
+                  inactive-value="SaleAmount"
+                  @change="sortTypeChanged"
+                />
               </div>
               <el-col :span="12">
                 <div class="chart_sub_title">
@@ -68,14 +83,18 @@
                   </div>
                   <div>
                     <el-progress
+                      type="line"
                       :percentage="item.saleCount"
-                      color="#34aaf5"
                       :format="formatCount(item.saleCount)"
+                      v-if="sortType==='SaleCount'"
+                      class="el-bg-inner-count"
                     />
                     <el-progress
+                      type="line"
                       :percentage="item.saleAmount/1000"
-                      color="#fde166"
                       :format="formatAmount(item.saleAmount)"
+                      v-if="sortType==='SaleAmount'"
+                      class="el-bg-inner-amount"
                     />
                   </div>
                 </div>
@@ -93,25 +112,21 @@
                     {{ (index+1) +'.'+item.appName }}
                   </div>
                   <el-progress
+                    type="line"
                     :percentage="item.saleCount"
-                    color="#34aaf5"
                     :format="formatCount(item.saleCount)"
+                    v-if="sortType==='SaleCount'"
+                    class="el-bg-inner-count"
                   />
                   <el-progress
+                    type="line"
                     :percentage="item.saleAmount/1000"
-                    color="#fde166"
                     :format="formatAmount(item.saleAmount)"
+                    v-if="sortType==='SaleAmount'"
+                    class="el-bg-inner-amount"
                   />
                 </div>
               </el-col>
-              <el-row>
-                <el-col :span="12">
-                  <div class="mark_icon">
-                    <span class="mark_icon_label num">{{ $t('bill.nums') }}</span>
-                    <span class="mark_icon_label account">{{ $t('bill.money') }}</span>
-                  </div>
-                </el-col>
-              </el-row>
             </div>
           </el-col>
         </el-row>
@@ -242,20 +257,18 @@ export default {
       overallData: [
       ],
       isAdmin: sessionStorage.getItem('userName') === 'admin',
-      topSaleAppCriterion: 'SaleAmount',
       topSaleAppDataList: [ ],
-      lastSaleAppCriterion: 'SaleAmount',
-      lastSaleAppDataList: [ ]
+      lastSaleAppDataList: [ ],
+      sortType: 'SaleCount',
+      loading: true
     }
   },
   mounted () {
     this.refreshOnTimeChange()
-    this.regAndSetOption()
   },
   methods: {
     handleChangeTime () {
       this.refreshOnTimeChange()
-      this.regAndSetOption()
     },
     refreshOnTimeChange () {
       let _currTime = new Date().getTime()
@@ -263,8 +276,8 @@ export default {
       this.timeRangeCtrl.endTime = common.formatDate(_currTime)
 
       this.getOverallData()
-      this.getTopSaleAppList('DESC', this.topSaleAppCriterion)
-      this.getTopSaleAppList('ASC', this.lastSaleAppCriterion)
+      this.getTopSaleAppList('DESC', this.sortType)
+      this.getTopSaleAppList('ASC', this.sortType)
 
       this.pageCtrl.currentPage = 1
       this.getBillsList()
@@ -302,6 +315,7 @@ export default {
       subscribe.getBillsList(param).then(res => {
         this.billList = res.data.results
         this.pageCtrl.totalNum = res.data.total
+        this.loading = false
       })
     },
     getOverallData () {
@@ -313,12 +327,18 @@ export default {
       subscribe.getOverAllData(param).then(res => {
         let obj = {}
         obj.value = res.data.data.incomeNum
-        obj.label = '收入'
+        obj.label = this.$t('bill.income')
         this.overallData.push(obj)
-        obj.value = res.data.data.expendNum
-        obj.label = '支出'
-        this.overallData.push(obj)
+        let obj1 = {}
+        obj1.value = res.data.data.expendNum
+        obj1.label = this.$t('bill.expenditure')
+        this.overallData.push(obj1)
+        this.regAndSetOption()
       })
+    },
+    sortTypeChanged (val) {
+      this.getTopSaleAppList('DESC', val)
+      this.getTopSaleAppList('ASC', val)
     },
     getTopSaleAppList (sortType, topCriterion) {
       let param = {
@@ -561,6 +581,7 @@ export default {
       .chart_sub_title{
         font-size: 18px;
         color: #ffffff;
+        padding-bottom: 15px;
       }
     }
   }

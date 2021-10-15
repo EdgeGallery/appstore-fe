@@ -110,13 +110,14 @@ const cn = {
     supplierIncome: '应用供应收入',
     expenditure: '支出',
     income: '收入',
-    billTime: '计费时间'
+    billTime: '计费时间',
+    count: '按数量',
+    amount: '按金额'
   },
   split: {
     splitMana: '分账管理',
     default: '默认分账比例',
     set: '设置',
-    confirm: '确定',
     add: '添加',
     modify: '修改',
     addSplitSettings: '添加分账设置',
@@ -124,8 +125,9 @@ const cn = {
     moreThanOne: '请至少添加一条数据！',
     addSuccess: '添加成功！',
     setSuccess: '设置成功！',
-    modifyThanOne: '修改成功！',
-    splitRatio: '分账比例'
+    modifySuccess: '修改成功！',
+    splitRatio: '分账比例',
+    confirmToDelete: '确定要删除该条分账配置吗？'
   },
   system: {
     ipErrorInfo: '请输入正确的IP地址',
@@ -329,7 +331,8 @@ const cn = {
     exception401: '请求未授权',
     exception403: '请求被拒绝访问',
     exceptionxxx: '请求异常，请检查',
-    exceptionServer: '服务异常，请检查'
+    exceptionServer: '服务异常，请检查',
+    loading: '加载中'
   },
   promptMessage: {
     hostErrorInfo: '请输入正确的Host地址',

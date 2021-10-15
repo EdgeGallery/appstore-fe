@@ -1,11 +1,15 @@
 <template>
-  <div class="orders">
+  <div
+    class="orders"
+    v-loading="loading"
+    :element-loading-text="$t('common.loading')"
+  >
     <div class="title_top title_left defaultFontBlod clear">
       {{ $t('order.orderMana') }}
       <span class="line_bot1" />
     </div>
     <div class="content">
-      <el-input
+      <!-- <el-input
         v-model="nameQueryVal"
         :placeholder="$t('common.appName')"
         id="myAppSearch"
@@ -18,7 +22,7 @@
           class="search_icon"
           @click="queryApp"
         />
-      </el-input>
+      </el-input> -->
       <div class="orderTable">
         <el-table
           class="tableStyle"
@@ -145,7 +149,8 @@ export default {
         { value: 'DEACTIVATING', label: this.$t('order.orderStatus.deactivating') },
         { value: 'DEACTIVATE_FAILED', label: this.$t('order.orderStatus.deactivateFailed') },
         { value: 'DEACTIVATED', label: this.$t('order.orderStatus.deactivated') }
-      ]
+      ],
+      loading: true
     }
   },
   mounted () {
@@ -181,6 +186,7 @@ export default {
       subscribe.getOrderList(_queryParam).then(res => {
         this.orderList = res.data.results
         this.pageCtrl.totalNum = res.data.total
+        this.loading = false
       })
     },
     activate (row) {
@@ -191,6 +197,7 @@ export default {
       }).then(() => {
         subscribe.activateApp(row.orderId).then(res => {
           this.$message.success(this.$t('order.success'))
+          this.loading = true
           this.getOrderList()
         })
       })
@@ -203,6 +210,7 @@ export default {
       }).then(() => {
         subscribe.deactivateApp(row.orderId).then(res => {
           this.$message.success(this.$t('order.unsubSuccess'))
+          this.loading = true
           this.getOrderList()
         })
       })

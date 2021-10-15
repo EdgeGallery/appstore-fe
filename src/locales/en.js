@@ -106,13 +106,14 @@ const en = {
     supplierFee: 'Supplier Fee',
     operatorIncome: 'Operator Income',
     supplierIncome: 'Supplier Income',
-    billTime: 'Time'
+    billTime: 'Time',
+    count: 'Count',
+    amount: 'Amount'
   },
   split: {
     splitMana: 'Split Management',
     default: 'Default split ratio',
     set: 'Set Up',
-    confirm: 'Confirm',
     add: 'Add',
     modify: 'Modify',
     addSplitSettings: 'Add split configuration',
@@ -120,8 +121,9 @@ const en = {
     moreThanOne: 'Please add at least one piece of data!',
     addSuccess: 'Added successfully!',
     setSuccess: 'Setted successfully!',
-    modifyThanOne: 'Modified successfully!',
-    splitRatio: 'Split Ratio'
+    modifySuccess: 'Modified successfully!',
+    splitRatio: 'Split Ratio',
+    confirmToDelete: 'Are you sure to delete this split config?'
   },
   system: {
     ipErrorInfo: 'Please enter the correct IP address',
@@ -325,7 +327,8 @@ const en = {
     exception401: 'Request is not authorized',
     exception403: 'Request denied access',
     exceptionxxx: 'Request exception, please check',
-    exceptionServer: 'Service abnormal, please check'
+    exceptionServer: 'Service abnormal, please check',
+    loading: 'Loading'
   },
   promptMessage: {
     hostErrorInfo: 'Please enter the correct Host address',
