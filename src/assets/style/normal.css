@@ -432,7 +432,12 @@ a{
 .el-progress{
   width:100%;
 }
-.el-progress__text{
+
+.bills .el-progress__text{
+  color: #78335f;
+  font-size: 14px;
+}
+ .el-progress__text{
   color: #fff;
   font-size: 14px;
 }
