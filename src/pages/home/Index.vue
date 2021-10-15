@@ -54,6 +54,7 @@
             :is="currentComponent"
             :app-data="currentPageData"
             @getAppData="getAppData"
+            v-if="loadFlag"
           />
           <pagination
             class="clearfix"
@@ -79,7 +80,7 @@
 
 <script>
 import { TYPES, AFFINITY, SORT_BY, INDUSTRY, DEPLOYMODE } from '../../tools/constant.js'
-import { getAppTableApi } from '../../tools/api'
+import { getAppTableApi, getAppDetailTableApi } from '../../tools/api'
 import uploadPackage from './UploadPackage.vue'
 import appGrid from './AppGrid.vue'
 import appList from './AppList.vue'
@@ -131,7 +132,6 @@ export default {
       prop: 'createTime',
       order: 'desc',
       screenHeight: document.body.clientHeight,
-      // searchCondition: {}
       searchCondition: {
         appName: '',
         types: [],
@@ -141,17 +141,19 @@ export default {
         showType: ['public', 'inner-public'],
         workloadType: [],
         userId: '',
+        experienceAble: false,
         queryCtrl: {
           offset: this.offsetPage,
           limit: this.limitSize,
           sortItem: this.prop,
           sortType: this.order
         }
-      }
+      },
+      synResult: [],
+      loadFlag: false
     }
   },
   methods: {
-
     setDivHeight () {
       common.setDivHeightFun(this.screenHeight, 'home', 332)
     },
@@ -245,16 +247,10 @@ export default {
             default:
           }
         })
-
       this.getAppData(this.searchCondition)
     },
     buildQueryReq () {
       let _queryReq = this.searchCondition
-      // if (this.prop === 'appName') {
-      //   this.order = 'asc'
-      // } else {
-      //   this.order = 'desc'
-      // }
       this.prop = sessionStorage.getItem('sortItem')
       this.order = sessionStorage.getItem('sortType')
       this.searchCondition.queryCtrl = {
@@ -273,20 +269,36 @@ export default {
       this.currentPageData = data
     },
     checkProjectData () {
+      let userId = null
+      if (this.pathSource === 'myapp') {
+        userId = sessionStorage.getItem('userId')
+      }
       this.findAppData.forEach(itemBe => {
-        INDUSTRY.forEach(itemFe => {
-          if (itemBe.industry.match(itemFe.label[1]) && this.language === 'cn') {
-            itemBe.industry = itemBe.industry.replace(itemFe.labelen, itemFe.labelcn)
-          } else if (itemBe.industry.match(itemFe.label[1]) && this.language === 'en') {
-            itemBe.industry = itemBe.industry.replace(itemFe.labelcn, itemFe.labelen)
-          }
-        })
-        TYPES.forEach(itemFe => {
-          if (itemBe.type.match(itemFe.label[1]) && this.language === 'cn') {
-            itemBe.type = itemBe.type.replace(itemFe.label[1], itemFe.labelcn)
-          } else if (itemBe.type.match(itemFe.label[1]) && this.language === 'en') {
-            itemBe.type = itemBe.type.replace(itemFe.labelcn, itemFe.labelen)
-          }
+        this.synResult.push(this.getSingleData(itemBe, userId))
+        this.synResult = this.synResult.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
+      })
+      Promise.all(this.synResult).then(() => {
+        setTimeout(() => {
+          this.loadFlag = true
+        }, 100)
+      }).catch(error => {
+        console.log('error', error)
+      })
+    },
+    getSingleData (itemBe, userId) {
+      return new Promise((resolve, reject) => {
+        getAppDetailTableApi(itemBe.appId, userId, this.limitSize, this.offsetPage).then(res => {
+          let data = res.data
+          data.forEach(item => {
+            if (item.status === 'Published') {
+              itemBe.experienceAble = item.experienceAble
+              itemBe.packageId = item.packageId
+              itemBe.createTime = item.createTime
+              console.log(item.packageId)
+              console.log(itemBe.packageId)
+            }
+          })
+          resolve()
         })
       })
     },
@@ -294,7 +306,6 @@ export default {
       this.uploadDiaVis = input
     },
     getAppData (searchCondition) {
-      console.log(searchCondition.queryCtrl.sortItem)
       if (!searchCondition.queryCtrl.sortItem) {
         searchCondition.queryCtrl.sortItem = 'createTime'
         searchCondition.queryCtrl.sortType = 'desc'
@@ -309,7 +320,7 @@ export default {
             let newDateBegin = timeFormatTools.formatDateTime(item.createTime)
             item.createTime = newDateBegin
           })
-          // this.checkProjectData()
+          this.checkProjectData()
         },
         (error) => {
           let defaultMsg = this.$t('promptMessage.getAppFail')
@@ -351,6 +362,8 @@ export default {
     }
   },
   mounted () {
+    sessionStorage.removeItem('sortType')
+    sessionStorage.removeItem('sortItem')
     this.setDivHeight()
     if (sessionStorage.getItem('userNameRole') === 'guest') {
       this.ifShow = false

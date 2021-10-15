@@ -37,8 +37,8 @@ function getProgressByPackageId (packageId) {
   let url = 'upload_progress/package/' + packageId
   return GET(url, '')
 }
-// query thirdSystem by type
 
+// query thirdSystem by type
 function getThirdSystemByType (type) {
   let url = 'thirdsystem/systemType/' + type
   return GET(url, '')

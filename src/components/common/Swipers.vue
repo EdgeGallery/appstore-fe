@@ -38,6 +38,7 @@
           <img
             :src="language === 'cn' ? require('@/assets/images/banner1_cn.png'): require('@/assets/images/banner1_en.png')"
             class="img_words"
+            alt=""
           >
           <el-button
             class="upload_app"
@@ -53,6 +54,7 @@
           <img
             :src="language === 'cn' ? require('@/assets/images/banner2_cn.png'): require('@/assets/images/banner2_en.png')"
             class="img_words"
+            alt=""
           >
         </div>
       </el-carousel-item>
@@ -67,7 +69,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import uploadPackage from '../../pages/home/UploadPackage.vue'
 import { common } from '../../tools/comon.js'
 export default {
@@ -77,13 +78,11 @@ export default {
   },
 
   computed: {
-    ...mapState(['language'])
-  },
-  created () {
   },
   data () {
     return {
       uploadDiaVis: false,
+      language: localStorage.getItem('language'),
       screenHeight: document.body.clientHeight,
       SwiperList: [
         {
@@ -99,6 +98,13 @@ export default {
           style2: 'block'
         }]
     }
+  },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
+    }
+
   },
   mounted () {
     this.setDivHeight()
@@ -150,11 +156,9 @@ export default {
       background: linear-gradient(-37deg, #53DABD, #54AAF3);
       box-shadow: 0px 12px 12px 0px rgba(83,218,189, 0.7);
       border-radius: 30px;
-      color: #606266;
-      border-radius: 30px;
+      color: #FFFFFF;
       font-size: 20px;
       text-align: center;
-      color: #FFFFFF;;
       border: none;
       margin: 80px 0px 0px 95px;
     }

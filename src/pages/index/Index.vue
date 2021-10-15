@@ -21,7 +21,6 @@
   >
     <ul
       class="scenceHref"
-      v-show="showHerf == 1"
     >
       <li class="li1">
         <el-tooltip
@@ -31,7 +30,7 @@
           placement="right-end"
         >
           <img
-            src="../../assets/images/hot_selected.png"
+            :src="showHerf === 1 ? require('@/assets/images/hot_selected.png'): require('@/assets/images/hot_unselected.png')"
             alt=""
             class="circle  hot_selected"
             @click="changeHash('#nearHotApp')"
@@ -47,7 +46,7 @@
           placement="right-end"
         >
           <img
-            src="../../assets/images/sence_unselected.png"
+            :src="showHerf === 2 ? require('@/assets/images/sence_selected.png'): require('@/assets/images/sence_unselected.png')"
             alt=""
             class="circle"
             @click="changeHash('#sceneCase')"
@@ -63,111 +62,7 @@
           placement="right-end"
         >
           <img
-            src="../../assets/images/high_unselected.png"
-            alt=""
-            class="circle"
-            @click="changeHash('#highScoreApp')"
-          >
-        </el-tooltip>
-      </li>
-    </ul>
-    <ul
-      class="scenceHref"
-      v-show="showHerf == 2"
-    >
-      <li class="li1">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.newUploadApp') "
-          placement="right-end"
-        >
-          <img
-            src="../../assets/images/hot_unselected.png"
-            alt=""
-            class="circle  hot_selected"
-            @click="changeHash('#nearHotApp')"
-          >
-        </el-tooltip>
-      </li>
-      <li class="lines" />
-      <li class="li2">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.senceCase') "
-          placement="right-end"
-        >
-          <img
-            src="../../assets/images/sence_selected.png"
-            alt=""
-            class="circle"
-            @click="changeHash('#sceneCase')"
-          >
-        </el-tooltip>
-      </li>
-      <li class="lines" />
-      <li class="li3">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.higherScore') "
-          placement="right-end"
-        >
-          <img
-            src="../../assets/images/high_unselected.png"
-            alt=""
-            class="circle"
-            @click="changeHash('#highScoreApp')"
-          >
-        </el-tooltip>
-      </li>
-    </ul>
-    <ul
-      class="scenceHref showHigh"
-      v-show="showHerf == 3"
-    >
-      <li class="li1">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.newUploadApp') "
-          placement="right-end"
-        >
-          <img
-            src="../../assets/images/hot_unselected.png"
-            alt=""
-            class="circle  hot_selected"
-            @click="changeHash('#nearHotApp')"
-          >
-        </el-tooltip>
-      </li>
-      <li class="lines" />
-      <li class="li2">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.senceCase') "
-          placement="right-end"
-        >
-          <img
-            src="../../assets/images/sence_unselected.png"
-            alt=""
-            class="circle"
-            @click="changeHash('#sceneCase')"
-          >
-        </el-tooltip>
-      </li>
-      <li class="lines" />
-      <li class="li3">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.higherScore') "
-          placement="right-end"
-        >
-          <img
-            src="../../assets/images/high_selected.png"
+            :src="showHerf === 3 ? require('@/assets/images/high_selected.png'): require('@/assets/images/high_unselected.png')"
             alt=""
             class="circle"
             @click="changeHash('#highScoreApp')"
@@ -663,7 +558,7 @@ export default {
           title: '交通物流',
           contenten: 'People are pleased to walk, things are optimized for their flow, AI enabled, driving the digital transformation of transportation and logistics',
           content: '人悦其行,物优其流,AI使能,驱动交通物流数字化转型',
-          introduceen: 'In the field of transportation and logistics, make full use of technologies such as the Internet of Things, cloud computing, and the Internet, and collect traffic information through high-tech, so that the transportation system has the ability to sense, interconnect, analyze, predict, and control in the region and city, and improve the operation efficiency of the transportation system And management level',
+          introduceen: 'In the field of transportation and logistics, make full use of technologies such as the Internet of Things, cloud computing, and the Internet, and collect traffic information through high-tech, so that the transportation system has the ability to sense, interconnect, analyze, predict, and control in the region and city, and improve the operation efficiency of the transportation system And management level.',
           introduce: '在交通物流领域中充分运用物联网、云计算、互联网等技术，通过高新技术汇集交通信息,使交通系统在区域、城市范围具备感知、互联、分析、预测、控制等能力,提升交通系统运行效率和管理水平',
           industry: 'logistics',
           index: 7
@@ -778,8 +673,8 @@ export default {
     changeHash (idName) {
       document.querySelector(idName).scrollIntoView(true)
     },
-    handleScrollx () {
-      const lengths = -this.$refs.pronbit.getBoundingClientRect().top
+    handleScroll () {
+      const lengths = this.$refs.pronbit.getBoundingClientRect().top
       if (lengths < 195) {
         this.showHerf = 1
       } else if (lengths > 195 && lengths < 975) {
@@ -816,9 +711,9 @@ export default {
       }
     },
     randomRgb () {
-      let R = Math.floor(Math.random() * 130 + 60)
-      let G = Math.floor(Math.random() * 130 + 80)
-      let B = Math.floor(Math.random() * 130 + 100)
+      let R = Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 130 + 60)
+      let G = Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 130 + 80)
+      let B = Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 130 + 100)
       return {
         color: 'rgb(' + R + ',' + G + ',' + B + ')',
         background: 'rgba(' + R + ',' + G + ',' + B + ',0.25)'
@@ -1072,7 +967,10 @@ export default {
     this.alertDia(this.aletMsg)
     this.refreshCondition()
     this.getPlatformUrl()
-    window.addEventListener('scroll', this.handleScrollx, true)
+    window.addEventListener('scroll', this.handleScroll, true)
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll, true)
   }
 }
 </script>
@@ -1155,7 +1053,7 @@ export default {
     h3{
       height: 35px;
       font-size: 36px;
-      font-family: HarmonyOS Sans SC;
+      font-family: HarmonyOS Sans SC, sans-serif;
       font-weight: bold;
       color: #5D3DA0;
       margin-bottom:26px ;
@@ -1198,7 +1096,6 @@ export default {
     width: 73.64%;
     margin-left:13.23%;
     margin-right: 13.23%;
-    // background:#f3f3f8;
     .hot_data{
       display: flex;
       width: 100%;
@@ -1237,21 +1134,24 @@ export default {
       border-radius: 10px;
       img{
         margin-top: 10px;
-        width: 66.7%;
+        width: 54.7%;
         height: 42.2%;
       }
       .high_name{
         font-size: 16px;
-        font-family: HarmonyOS Sans SC;
+        font-family: HarmonyOS Sans SC, sans-serif;
         font-weight: 400;
         color: #111111;
         text-align: center;
+        width: 70%;
+        white-space: nowrap;
+        overflow: hidden;
         margin: 0;
       }
       .score_num{
         width: 80%;
         font-size: 14px;
-        font-family: HarmonyOS Sans SC;
+        font-family: HarmonyOS Sans SC, sans-serif;
         font-weight: 400;
         color: #380879;
         text-align: center;
@@ -1281,12 +1181,14 @@ export default {
        }
       .high_name{
         font-size: 16px;
-        font-family: HarmonyOS Sans SC;
+        font-family: HarmonyOS Sans SC, sans-serif;
         font-weight: 400;
         width: 80%;
         color: #111111;
         line-height: 24px;
         text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
       }
   }
   .senceCase{
@@ -1337,10 +1239,12 @@ export default {
           justify-content: space-between;
           .case_name1{
             font-size: 26px;
-            font-family: HarmonyOS Sans SC;
+            font-family: HarmonyOS Sans SC, sans-serif;
             font-weight: 400;
             color: #111111;
             float: left;
+            width: 87%;
+            overflow: hidden;
           }
           .case_name2{
             width: 24px;
@@ -1351,7 +1255,7 @@ export default {
      .case_content{
           margin: 0px 20px;
           font-size: 16px;
-          font-family: HarmonyOS Sans SC;
+          font-family: HarmonyOS Sans SC, sans-serif;
           font-weight: 400;
           height: 60px;
           line-height: 30px;
@@ -1386,7 +1290,7 @@ export default {
             p{
               float: left;
               font-size: 32px;
-              font-family: HarmonyOS Sans SC;
+              font-family: HarmonyOS Sans SC, sans-serif;
               font-weight: 400;
               color: #380879;
               margin-bottom: 10px;
@@ -1426,7 +1330,7 @@ export default {
                       color: #666666;
                       font-size: 16px;
                       line-height: 24px;
-                      font-family: HarmonyOS Sans SC;
+                      font-family: HarmonyOS Sans SC, sans-serif;
 
                   }
                 }
@@ -1438,7 +1342,7 @@ export default {
                       color: #666666;
                       font-size: 16px;
                       line-height: 22px;
-                      font-family: HarmonyOS Sans SC;
+                      font-family: HarmonyOS Sans SC, sans-serif;
                     }
                     .content_tags{
                       width: 100%;
@@ -1451,7 +1355,7 @@ export default {
                         padding: 2px 4px;
                         background-color:#6625CA ;
                         border-radius:10px ;
-                        font-family: HarmonyOS Sans SC;
+                        font-family: HarmonyOS Sans SC, sans-serif;
                         margin-top: 10px;
                       }
                     }
@@ -1463,7 +1367,7 @@ export default {
             margin-top:10px ;
             .footer_name{
               font-size: 28px;
-              font-family: HarmonyOS Sans SC;
+              font-family: HarmonyOS Sans SC, sans-serif;
               font-weight: 400;
               color: #111111;
               margin: 0;
@@ -1488,7 +1392,7 @@ export default {
                 p{
                   margin:0 ;
                   font-size: 14px;
-                  font-family: HarmonyOS Sans SC;
+                  font-family: HarmonyOS Sans SC, sans-serif;
                   font-weight: 400;
                   color: #111111;
                   text-align: center;
@@ -1527,7 +1431,6 @@ export default {
         margin: 0;
         max-height: 90px;
         overflow: hidden;
-        text-overflow :ellipsis;
       }
     }
      .high_score{
@@ -1603,7 +1506,7 @@ export default {
           justify-content: space-between;
           .case_name1{
             font-size: 18px;
-            font-family: HarmonyOS Sans SC;
+            font-family: HarmonyOS Sans SC, sans-serif;
             font-weight: 400;
             color: #111111;
             float: left;

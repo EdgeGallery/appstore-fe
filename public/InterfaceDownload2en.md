@@ -1,6 +1,6 @@
 ## Interface list
 
-### /{packageId}/action/download-icon
+### /mec/appstore/v1/packages/{packageId}/action/download-icon
 ### GET
 Download application icons by application package ID
 ### Request

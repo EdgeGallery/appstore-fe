@@ -331,6 +331,7 @@ const en = {
     loading: 'Loading'
   },
   promptMessage: {
+    uninvolved: 'Refer to port from app detail',
     hostErrorInfo: 'Please enter the correct Host address',
     portErrorInfo: 'Port number range 30000-32000',
     guestUser: 'The guest user has no right to operate. please log in first!',
@@ -396,8 +397,7 @@ const en = {
     cleanEnvSuccess: 'Release resource Success',
     portRange: 'Range 30000-32000',
     getReleaseDataFail: 'Failed to get experience initialization information',
-    getNodePortSuccess: 'Success to obtain service borrowing point information',
-    uninvolved: 'uninvolved'
+    getNodePortSuccess: 'Success to obtain service borrowing point information'
   },
   store: {
     appChange: 'Application package conversion tool',
@@ -713,10 +713,6 @@ const en = {
     existSameAppstoreName: 'An external appstore with the same name already exists, please edit the name of the external appstore again!'
   },
   messageCenter: {
-    msgToday: 'Today',
-    msgWeek: 'This Week',
-    msgMonth: 'This Month',
-    msgOld: 'Old',
     acceptMsg: 'accept',
     deleteMsg: 'delete',
     appBasicInfo: 'APP Basic Information',
@@ -737,9 +733,9 @@ const en = {
     sourceAppStore: 'source',
     targetAppStore: 'target',
     operationType: 'operation',
-    unReadedMsg: 'unReaded',
-    readedMsg: 'readed',
-    allMsg: 'all messages',
+    unReadedMsg: 'Unread',
+    readedMsg: 'Read',
+    allMsg: 'All Messages',
     appStoreName: 'store name',
     testRepoKey: 'test report',
     clickToCheckRepo: 'click to view',
@@ -772,11 +768,11 @@ const en = {
   appShare: {
     manager: 'External AppStore Manage',
     lookmore: 'see details',
-    appstoreManager: 'Operate on external repositories that can be shared, add, modify and delete external repositories that can be shared.',
+    appstoreManager: 'Add, modify and delete external warehouses that can be shared.',
     appstorePush: 'Manage and display application push messages in batches, select applications that need to be pushed to operators or third parties, and view application test reports. The operation is simple.',
     appstorePull: 'Batch management of the application list, display the application information that can be pulled, and select the applications that need to be pulled to perform batch operations.',
     appstoreMsg: 'View notification information, you can accept APP information that needs to be pushed from different operators.',
-    appstoreOperAna: 'Through multi-dimensional data statistics and comparison, statistics and analysis of applications, and check the application pull, download, push and other types of messages'
+    appstoreOperAna: 'Through multi-dimensional data statistics and comparison, statistics and analysis of applications, and check the application pull, download, push and other types of messages.'
   },
   appManager: {
     reSetting: 'reset',

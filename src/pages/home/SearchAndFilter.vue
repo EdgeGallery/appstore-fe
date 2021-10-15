@@ -197,14 +197,14 @@
         >
           <img
             class="header_img"
-            v-if="!iconAactive"
+            v-if="iconAactive === false || iconAactive === 'false'"
             src="../../assets/images/applist.png"
             @click="changeAppList"
             alt=""
           >
           <img
             class="header_img"
-            v-if="iconAactive"
+            v-if="iconAactive === true || iconAactive === 'true'"
             src="../../assets/images/appgrid.png"
             @click="changeAppList"
             alt=""
@@ -318,7 +318,7 @@ export default ({
       } else {
         this.order = 'desc'
         this.searchCondition.queryCtrl.sortType = 'desc'
-        sessionStorage.setItem('sortType', 'asc')
+        sessionStorage.setItem('sortType', 'desc')
       }
       this.$emit('getSearchCondition', this.searchCondition)
     },
@@ -375,7 +375,6 @@ export default ({
           if (condition.selected) this.selectedConditions.push(condition)
         })
       })
-      // this.searchCondition.appName = this.nameQuery.toLowerCase()
       this.searchCondition = {
         appName: '',
         types: [],
@@ -413,11 +412,12 @@ export default ({
         })
     },
     changeAppList () {
-      this.iconAactive = !this.iconAactive
-      if (this.iconAactive) {
+      if (this.iconAactive === false || this.iconAactive === 'false') {
+        this.iconAactive = true
         this.currentComponent = 'appList'
         sessionStorage.setItem('currentComponent', 'appList')
       } else {
+        this.iconAactive = false
         this.currentComponent = 'appGrid'
         sessionStorage.setItem('currentComponent', 'appGrid')
       }
@@ -425,6 +425,8 @@ export default ({
     }
   },
   mounted () {
+    sessionStorage.removeItem('sortType')
+    sessionStorage.removeItem('sortItem')
     this.appPkgTransToolCheck()
     this.$emit('getSearchCondition', this.searchCondition)
   },
@@ -440,8 +442,6 @@ export default ({
 <style lang='less'>
 .header_img{
   margin-top: 4px;
-}
-.header_img{
   cursor: pointer;
 }
 .checkboxChecked {

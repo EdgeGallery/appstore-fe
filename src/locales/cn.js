@@ -335,6 +335,7 @@ const cn = {
     loading: '加载中'
   },
   promptMessage: {
+    uninvolved: '请参考应用详情端口',
     hostErrorInfo: '请输入正确的Host地址',
     portErrorInfo: '端口号范围30000-32000',
     guestUser: 'guest用户无权操作! 请登录',
@@ -411,8 +412,7 @@ const cn = {
     cleanEnvSuccess: '释放资源成功',
     portRange: '范围30000 - 32000',
     getReleaseDataFail: '获取体验初始化信息失败',
-    getNodePortSuccess: '获取服务节点信息成功',
-    uninvolved: '不涉及'
+    getNodePortSuccess: '获取服务节点信息成功'
   },
   store: {
     appChange: '应用包转换工具',
@@ -741,10 +741,6 @@ const cn = {
     existSameAppstoreName: '已存在同名外部仓库，请重新编辑外部仓库名称'
   },
   messageCenter: {
-    msgToday: '今天',
-    msgWeek: '一周内',
-    msgMonth: '一月内',
-    msgOld: '更早',
     acceptMsg: '接收',
     deleteMsg: '删除',
     appBasicInfo: '应用基本信息',
@@ -800,11 +796,11 @@ const cn = {
   appShare: {
     manager: '外部应用仓库管理',
     lookmore: ' 查看详情',
-    appstoreManager: '对于可以共享的外部仓库进行操作,添加、修改和删除可以应用共享的外部仓库。',
+    appstoreManager: '对于可以应用共享的外部仓库进行添加、修改和删除等操作。',
     appstorePush: '批量管理并展示应用推送消息,选择需要推送给运营商或者第三方的应用,查看应用的测试报告,操作简洁。',
     appstorePull: '批量管理应用列表，展示可拉取的应用信息,选择需要拉取的应用可进行批量操作。',
     appstoreMsg: '查看通知信息，可以接受来自不同运营商推送的APP信息。',
-    appstoreOperAna: '通过多维度的数据统计与对比,对应用进行统计与分析,并查 看应用的拉去、下载、推送等类型的消息。'
+    appstoreOperAna: '通过多维度的数据统计与对比,对应用进行统计与分析,并查看应用的拉去、下载、推送等类型的消息。'
   },
   appManager: {
     reSetting: '重设',

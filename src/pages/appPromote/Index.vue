@@ -180,12 +180,14 @@
           </p>
         </div>
         <el-row>
-          <el-col>
+          <el-col
+            :class="{'formLeft':language==='en'}"
+          >
             <el-form
               :model="form"
               ref="form"
               :rules="rules"
-              label-width="140px"
+              label-width="160px"
             >
               <el-form-item
                 :label="$t('common.appStoreName')"
@@ -574,28 +576,31 @@ export default {
       height: 50px !important;
       width: 200px !important;
       border-radius: 25px !important;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       font-weight: 300;
       box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
     }
-   .addOutStore.addOutStoreen{
-     font-size: 14px;
-   }
+    .addOutStore.addOutStoreen{
+      font-size: 14px;
+    }
     .outHouseTitle{
       font-size: 36px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       font-weight: bold;
       color: #5E40C8;
       margin: 0;
-  }
-  outHouseTitle.outHouseTitleen{
-    font-size: 24px;
-  }
+      .outHouseTitleen{
+        font-size: 24px;
+      }
+    }
   }
   .contents {
     width: 73.64%;
     margin: 23px  auto;
     min-width: 1200px;
+    .formLeft{
+      margin-left: 20px;
+    }
   .my-app-content {
     border-radius:16px ;
     position: relative;
@@ -605,7 +610,7 @@ export default {
     .batchProm{
       width: 200px;
       .el-input{
-            margin-left: 40px;
+        margin-left: 40px;
       }
     }
     .packageTable{
@@ -650,7 +655,7 @@ export default {
   .dialogTitle2{
       margin-bottom: 16px;
       font-size: 20px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       font-weight: 300;
       color: #380879;
       letter-spacing:2px;
@@ -663,7 +668,7 @@ export default {
 .outHouseTop /deep/ .el-button{
     background-color:  #5E40C8 ;
     border-color:  #5E40C8;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 300;
     border-radius:10px ;
     span{
@@ -679,7 +684,7 @@ div /deep/ .el-dialog__title {
 div /deep/.el-form-item__label {
     color: #5E40C8 !important;
     font-size: 16px !important;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 300;
 }
 div /deep/ .el-icon-close:before {
@@ -715,5 +720,15 @@ div /deep/ .el-form-item .el-form-item__content {
 .el-button:hover{
   background: #5E40C8;
   color: #fff;
+}
+div /deep/ .el-form-item__error {
+    color: #F56C6C;
+    font-size: 12px;
+    line-height: 1;
+    padding-top: 4px;
+    position: absolute;
+    top: 100%;
+    left: 30px;
+    top:44px
 }
 </style>

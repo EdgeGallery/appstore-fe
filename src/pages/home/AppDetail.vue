@@ -87,7 +87,7 @@
             class="batchProButton"
             @click="beforeBuyIt()"
           >
-            订购
+            {{ $t('order.subscribe') }}
           </el-button>
         </p>
       </div>
@@ -230,14 +230,6 @@
               class="link-right"
             />
           </div>
-          <!-- <div
-            v-if="ifSynchronize===true && ifExperience===false && activeName !=='comment'"
-            class="horizontal-cell"
-          >
-            <link-right
-              class="link-right"
-            />
-          </div> -->
           <div
             v-if="activeName!=='appShow'&& ifExperience === true && ifSynchronize===true && activeName !=='comment'"
             class="horizontal-cell"
@@ -258,14 +250,6 @@
               {{ $t('store.showOnline') }}
             </span>
           </li>
-          <!-- <div
-            v-if="activeName!=='meao' && ifSynchronize===false && ifExperience===true && activeName !=='appShow'"
-            class="horizontal-cell"
-          >
-            <link-right
-              class="link-right"
-            />
-          </div> -->
           <div
             v-if="activeName!=='meao'&& ifExperience === true && ifSynchronize===true && activeName !=='appShow'"
             class="horizontal-cell"
@@ -494,7 +478,6 @@ import {
   getAppDetailTableApi,
   downloadAppPakageApi,
   URL_PREFIX,
-  URL_PREFIXV2,
   getAppListApi,
   myApp,
   subscribe
@@ -613,9 +596,6 @@ export default {
     sessionStorage.setItem('fromPath', from.path)
     next(true)
   },
-  beforeDestroy () {
-    this.clearInterval()
-  },
   methods: {
     beforeBuyIt () {
       subscribe.getMechosts().then(res => {
@@ -688,6 +668,7 @@ export default {
         if (Object.keys(this.currentData).length === 0 && this.currentData.constructor === Object && (this.tableData.length !== 0)) {
           this.currentData = this.tableData.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
           this.source = this.currentData.details
+          this.appIconPath = URL_PREFIX + 'apps/' + this.currentData.appId + '/packages/' + this.currentData.packageId + '/icon'
           this.ifExperience = this.currentData.experienceAble
           if (sessionStorage.getItem('userNameRole') === 'tenant' && this.userId !== this.currentData.userId) {
             this.ifSynchronize = false
@@ -710,7 +691,7 @@ export default {
         if (item.demoVideoName) {
           let val = {
             type: 'video/mp4',
-            src: URL_PREFIXV2 + 'apps/' + this.appId + '/demoVideo'
+            src: URL_PREFIX + 'apps/' + this.appId + '/demoVideo'
           }
           this.playerOptions.sources.push(val)
         }
@@ -719,6 +700,8 @@ export default {
     updateData () {
       this.ifExperience = this.currentData.experienceAble
       this.source = this.currentData.details
+      this.appIconPath = URL_PREFIX + 'apps/' + this.currentData.appId + '/packages/' + this.currentData.packageId + '/icon'
+      this.checkProjectData()
     },
     dateChange (dateStr) {
       if (dateStr) {
@@ -760,7 +743,6 @@ export default {
       }
     },
     download (row) {
-      console.log(this.currentData)
       this.ifDownloadImage(this.currentData, row)
       this.getAppData()
     },
@@ -793,7 +775,6 @@ export default {
       getAppListApi(this.appId).then(
         (res) => {
           this.score = res.data.score
-          console.log(res.data.score)
           this.downloadNum = res.data.downloadCount
           if (!res.data.free) {
             this.price = res.data.price
@@ -829,7 +810,6 @@ export default {
       })
     },
     handleExceptionMsg (error) {
-      console.log(error.response.data.retCode)
       if (error.response.data.code === 403) {
         this.$message({
           duration: 2000,
@@ -868,6 +848,7 @@ export default {
       : JSON.parse(sessionStorage.getItem('appstordetail'))
     this.details = params
     this.appId = this.details.appId
+    this.packageId = this.details.packageId
     this.ifExperience = this.details.experienceAble
     if (this.ifExperience) {
       this.noAppShowPage = false
@@ -887,13 +868,10 @@ export default {
         this.getMyAppData()
       }
     }
-
+    this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/packages/' + this.packageId + '/icon'
     this.getAppData()
     this.getTableData()
-    this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/icon'
     this.checkProjectData()
-    console.log(this.currentData.userId)
-    console.log(this.packageId)
     if ((sessionStorage.getItem('userNameRole') === 'guest')) {
       this.ifSynchronize = false
     } else {
@@ -909,10 +887,9 @@ export default {
     padding: 60px 0 20px !important;
     position: relative;
     font-size: 26px;
-    font-family: HarmonyOS Sans SC;
+    font-family: HarmonyOS Sans SC, sans-serif;
     font-weight: bold;
     color: #5D3DA0;
-    font-family:defaultFontBlod, Arial, Helvetica, sans-serif;
   }
   .btnPasses{
     background: #fff !important;
@@ -1041,7 +1018,6 @@ export default {
         }
       }
     }
-
     .app_score{
       width: 240px;
       text-align: center;
@@ -1076,17 +1052,16 @@ export default {
         }
       }
       .batchProButton{
-        width: 120px;
         margin-top: 10px;
         text-align: center;
         height: 40px !important;
-        width: 120px !important;
-        font-size:20px !important;
+        width: 160px !important;
         border-radius: 25px !important;
          color: #FFFFFF;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
-        // box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
+        font-size: 24px;
+        background: linear-gradient(to right, #4444D0, #6724CB) !important;
         .el-button--primary{
           font-size: 20px;
           background-color: #fff;
@@ -1109,7 +1084,7 @@ export default {
       .synchronize_info{
         width: 194px;
         font-size: 14px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         color: #5E40C8;
         margin-top: 24px;
@@ -1134,16 +1109,16 @@ export default {
           }
         }
       }
-
       .addOutStore{
         margin-top: 35px;
         font-size: 20px;
         height: 50px !important;
         width: 222px !important;
         border-radius: 25px !important;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
+        background: linear-gradient(to right, #4444D0, #6724CB) !important;
       }
     }
 
@@ -1167,7 +1142,6 @@ export default {
         float: left;
         width: 2px;
         height: 50px;
-        // background: #d4d1ec;
         background-color: #d4d1ec;
     }
     .separator{
@@ -1178,11 +1152,9 @@ export default {
       position: absolute;
       top:10px;
       height: calc(100% - 2px);
-      // height: 60%;
       left:0;
       content: '';
       width:0;
-      // border-left: solid  darkblue 1px;
     }
     border-radius: 0 16px 16px 16px;
     background: #fff;
@@ -1371,9 +1343,8 @@ export default {
         }
       }
       .appShow_no_active{
-         background: #f4f3f7;
-         border-radius: 0 0 0 0;
-        // border-radius: 0 16px 0 0;
+        background: #f4f3f7;
+        border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
           background: #d4d1ec;
@@ -1435,7 +1406,7 @@ export default {
         }
       }
       .meao_default{
-       background: #fff;
+        background: #fff;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1483,7 +1454,6 @@ export default {
       .meao_no_active{
          background: #f4f3f7;
          border-radius: 0 0 0 0;
-        // border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
           background: #d4d1ec;
@@ -1523,7 +1493,6 @@ export default {
       }
       .vedio_default{
         background: #f4f3f7;
-        // border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
           background: #d4d1ec;
@@ -1533,7 +1502,7 @@ export default {
 
       }
       .vedio_default2{
-       background: #fff;
+        background: #fff;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1543,7 +1512,7 @@ export default {
         }
       }
       .vedio_default2_appShow_meao{
-       background: #fff;
+        background: #fff;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1553,7 +1522,7 @@ export default {
         }
       }
       .vedio_default2_no_AppshowMeao{
-       background: #fff;
+        background: #fff;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1624,7 +1593,6 @@ export default {
     height: 10px;
     border-right: solid #B3B0CA 2px;
   }
-    //老样式
     .submit_comment{
       padding: 20px;
       .score_span{
@@ -1663,7 +1631,6 @@ export default {
         }
       }
     }
-    //老样式
     .show_app {
       .show_common {
         display: inline-block;
@@ -1671,7 +1638,6 @@ export default {
         margin-top: 20px;
         text-align: center;
         .show_btn{
-          // width: 25%;
           display: inline-block;
         }
       }
@@ -1740,7 +1706,6 @@ export default {
 
       }
     }
-    //老样式
     .no_comment{
       color: #bbb;
       text-align: center;
@@ -1748,7 +1713,6 @@ export default {
         margin: 10px 0 30px;
       }
     }
-    //老样式
     .show_comment{
       padding: 20px;
       li{
@@ -1756,7 +1720,6 @@ export default {
         margin-left: 80px;
         padding: 20px 0;
         display: flex;
-        // align-items: center;
         .user_icon{
           img{
             width: 50px;
@@ -1794,13 +1757,6 @@ export default {
     border-radius: 0 16px 16px 16px;
   }
 }
-.app_detail .app_info_div .app_synchronize .addOutStore {
-  background: linear-gradient(to right, #4444D0, #6724CB) !important;
-}
-.app_detail .app_info_div .app_score .batchProButton {
-  font-size: 24px;
-  background: linear-gradient(to right, #4444D0, #6724CB) !important;
-}
 .stepApp{
   width: 249px;
   height: 100px;
@@ -1815,7 +1771,7 @@ export default {
     padding-left: 20px;
     box-shadow: 5px 9px 63px 5px rgba(94, 64, 200, 0.06);
     font-size: 14px;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 300;
     color: #5E40C8;
     position: absolute;
@@ -1826,7 +1782,7 @@ export default {
     margin-top: 10px;
     margin-left:20px ;
     font-size: 14px;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 200;
     color: #8F859B;
   }
@@ -1848,7 +1804,7 @@ export default {
       background: linear-gradient(122deg, #4444D0, #6724CB);
       color: #FFFFFF;
       font-size: 20px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       height: 54px;
       border-radius: 23px;
       font-weight: 300;
@@ -1859,7 +1815,7 @@ export default {
     top: 1px;
     margin-left: -6px;
     border-top-width: 0;
-    border-bottom-color:#4444D0!important;
+    border-bottom-color: #4444D0 !important;
 }
   .el-dropdown-menu__item {
     padding: 0 20px;

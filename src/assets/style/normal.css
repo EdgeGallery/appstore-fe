@@ -201,7 +201,7 @@ a{
 .title_left{
   margin-left: 140px;
   font-size: 30px;
-  font-family: HarmonyOS Sans SC;
+  font-family: HarmonyOS Sans SC, sans-serif;
   font-weight: bold;
   color: #5D3DA0;
 }
@@ -361,7 +361,6 @@ a{
   border: none;
   color: #fff;
   border-radius: 10px;
-  font-family: defaultFontLight;
 }
 .el-button.operations_btn{
   background: #efefef;
@@ -406,7 +405,6 @@ a{
   padding: 0 80px 0 !important;
 }
 .default_dialog .el-dialog{
-  font-family: defaultFontLight;
   background: #efefef;
   border-radius: 12px;
 }

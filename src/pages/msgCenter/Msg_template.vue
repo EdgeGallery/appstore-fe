@@ -101,15 +101,15 @@ export default {
       }, {
         value: 'WEEK',
         label: '一周内',
-        labelen: 'This Week'
+        labelen: 'Within a week'
       }, {
         value: 'MONTH',
         label: '一月内',
-        labelen: 'This Month'
+        labelen: 'Within a month'
       }, {
         value: 'EARLIER',
         label: '更早',
-        labelen: 'Old'
+        labelen: 'Earlier'
       }],
       value: 'TODAY',
       timeFlag: 'TODAY',
@@ -211,6 +211,7 @@ export default {
     },
     updateMsgStatus (messageId) {
       updateStatus(messageId).then((res) => {
+        // This is intentional
       }).catch((error) => {
         let defaultMsg = this.$t('messageCenter.updateMsgFailed')
         commonUtil.showTipMsg(this.language, error, defaultMsg)
@@ -299,7 +300,7 @@ export default {
       margin-top: 44px;
       .titleName{
         font-size: 36px;
-        font-family: HarmonyOS Sans SC;
+        font-family: HarmonyOS Sans SC, sans-serif;
         font-weight: bold;
         color: #5E40C8;
         margin: 0;

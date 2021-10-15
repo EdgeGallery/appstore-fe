@@ -153,6 +153,7 @@
             <img
               :src="language === 'en' ? require('@/assets/images/icon_en.png'): require('@/assets/images/icon_cn.png')"
               class="iconLanguage"
+              alt=""
             >
           </span>
         </div>
@@ -214,7 +215,7 @@ export default {
           labelEn: 'Home',
           labelCn: '首页',
           route: '/home',
-          pageId: '2.1.1',
+          pageId: '2.1',
           display: true,
           link: '',
           index: '4'
@@ -223,7 +224,7 @@ export default {
           labelEn: 'App Warehouse',
           labelCn: '应用仓库',
           route: '/index',
-          pageId: '2.1.3',
+          pageId: '2.2',
           display: true,
           link: '',
           index: '1'
@@ -270,7 +271,7 @@ export default {
           labelEn: 'App Share',
           labelCn: '应用共享',
           route: '/appShare',
-          pageId: '2.1.6',
+          pageId: '2.4',
           display: true,
           link: '',
           index: '5',
@@ -279,7 +280,7 @@ export default {
               labelEn: 'External AppStore Management',
               labelCn: '外部应用仓库管理',
               route: '/apppromote',
-              pageId: '2.1.6.1',
+              pageId: '2.4.1',
               display: true,
               link: '',
               index: '5.1'
@@ -287,7 +288,7 @@ export default {
               labelEn: 'App Promote',
               labelCn: '应用推送',
               route: '/apppromotion',
-              pageId: '2.1.6.2',
+              pageId: '2.4.2',
               display: true,
               link: '',
               index: '5.2'
@@ -295,7 +296,7 @@ export default {
               labelEn: 'App Pull',
               labelCn: '应用拉取',
               route: '/appPull',
-              pageId: '2.1.6.3',
+              pageId: '2.4.3',
               display: true,
               link: '',
               index: '5.3'
@@ -303,7 +304,7 @@ export default {
               labelEn: 'Message Center',
               labelCn: '消息中心',
               route: '/msgCenter',
-              pageId: '2.1.6.4',
+              pageId: '2.4.4',
               display: true,
               link: '',
               index: '5.4'
@@ -311,7 +312,7 @@ export default {
               labelEn: 'Operation Analyse',
               labelCn: '操作分析',
               route: '/operationAnalyse',
-              pageId: '2.1.6.5',
+              pageId: '2.4.5',
               display: true,
               link: '',
               index: '5.5'
@@ -322,24 +323,24 @@ export default {
           labelEn: 'System',
           labelCn: '系统',
           route: '/system',
-          pageId: '2.1.7',
+          pageId: '2.5',
           display: true,
           link: '',
           index: '6',
           children: [
             {
-              labelEn: 'APP Manager',
+              labelEn: 'APP Management',
               labelCn: '应用管理',
               route: '/appManager',
-              pageId: '2.1.7.1',
+              pageId: '2.5.1',
               display: true,
               link: '',
               index: '6.1'
             }, {
-              labelEn: 'SystemHost',
+              labelEn: 'Host Management',
               labelCn: '沙箱管理',
               route: '/systemHost',
-              pageId: '2.1.6.2',
+              pageId: '2.5.2',
               display: true,
               link: '',
               index: '6.2'
@@ -358,7 +359,7 @@ export default {
           labelEn: 'Docs',
           labelCn: '文档',
           route: '/docs',
-          pageId: '2.1.8',
+          pageId: '2.6',
           display: true,
           link: '',
           index: '7'
@@ -622,6 +623,38 @@ export default {
       this.wsMsgSendInterval = setInterval(() => {
         this.wsSocketConn.send('')
       }, 10000)
+    },
+    initUserInfo () {
+      getUserInfo().then(res => {
+        sessionStorage.setItem('userId', res.data.userId)
+        sessionStorage.setItem('userName', res.data.userName)
+        this.userName = res.data.userName
+        this.loginPage = res.data.loginPage
+        this.userCenterPage = res.data.userCenterPage
+        if (res.data.authorities.indexOf('ROLE_APPSTORE_ADMIN') > -1) {
+          sessionStorage.setItem('userNameRole', 'admin')
+        } else if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1) {
+          sessionStorage.setItem('userNameRole', 'tenant')
+        } else {
+          sessionStorage.setItem('userNameRole', 'guest')
+        }
+        this.ifGuest = res.data.userName === 'guest'
+        this.forceModifyPwPage = res.data.forceModifyPwPage
+        if (this.jumpToForceModifyPw()) {
+          return
+        }
+        if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1 || res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
+          this.isAdmin = false
+          this.list.splice(4, 1)
+          this.list.splice(3, 1)
+        } else {
+          this.isAdmin = true
+        }
+        if (res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
+          this.list.splice(2, 1)
+        }
+        this.startHttpSessionInvalidListener(res.data.sessId)
+      })
     }
   },
 
@@ -630,36 +663,7 @@ export default {
     localStorage.setItem('language', 'cn')
     let path = this.$route.path
     this.judgeRoute(path)
-    getUserInfo().then(res => {
-      sessionStorage.setItem('userId', res.data.userId)
-      sessionStorage.setItem('userName', res.data.userName)
-      this.userName = res.data.userName
-      this.loginPage = res.data.loginPage
-      this.userCenterPage = res.data.userCenterPage
-      if (res.data.authorities.indexOf('ROLE_APPSTORE_ADMIN') > -1) {
-        sessionStorage.setItem('userNameRole', 'admin')
-      } else if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1) {
-        sessionStorage.setItem('userNameRole', 'tenant')
-      } else {
-        sessionStorage.setItem('userNameRole', 'guest')
-      }
-      this.ifGuest = res.data.userName === 'guest'
-      this.forceModifyPwPage = res.data.forceModifyPwPage
-      if (this.jumpToForceModifyPw()) {
-        return
-      }
-      if (res.data.authorities.indexOf('ROLE_APPSTORE_TENANT') > -1 || res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
-        this.isAdmin = false
-        this.list.splice(4, 1)
-        this.list.splice(3, 1)
-      } else {
-        this.isAdmin = true
-      }
-      if (res.data.authorities.indexOf('ROLE_APPSTORE_GUEST') > -1) {
-        this.list.splice(2, 1)
-      }
-      this.startHttpSessionInvalidListener(res.data.sessId)
-    })
+    this.initUserInfo()
     let historyRoute = sessionStorage.getItem('historyRoute')
     if (historyRoute) {
       this.$router.push(historyRoute)
@@ -674,11 +678,9 @@ export default {
     // message listener, message from unified platform
     window.addEventListener('message', (event) => {
       var data = event.data
-      switch (data.cmd) {
-        case 'iframeLanguageChange':
-          let lang = data.params.lang
-          this.changeLanguage(lang)
-          break
+      if (data.cmd === 'iframeLanguageChange') {
+        let lang = data.params.lang
+        this.changeLanguage(lang)
       }
     })
   },
@@ -735,14 +737,12 @@ export default {
     }
   .nav-tabs {
     padding-right: 20px;
-    //height: 65px;
     line-height: 65px;
     display: flex;
     justify-content: flex-end;
     box-sizing: border-box;
     border-bottom: 0px solid #dee2e6;
     span{
-      display: inline-block;
       padding: 0 6px;
       font-size: 14px;
       display: flex;

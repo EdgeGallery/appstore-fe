@@ -29,9 +29,7 @@
         @mouseout="activeIndex=-1"
       >
         <div
-          class="img-box"
-          :class="{'img-boxen':item.experienceAble===true && language==='en' ,
-                   'img-boxcn':item.experienceAble===true && language==='cn'}"
+          :class="[item.experienceAble===false? 'img-box': (language==='cn'?'img-boxcn':'img-boxen')]"
         >
           <img
             :src="getAppIcon(item)"
@@ -102,7 +100,6 @@ export default {
   },
   methods: {
     hoverAppList (index) {
-      console.log(index)
       this.activeIndex = index
     },
     getAppInfo (type, item) {
@@ -128,9 +125,10 @@ export default {
       sessionStorage.setItem('pathSource', 'index')
     },
     getAppIcon (item) {
-      console.log(this.appData)
       console.log(item)
-      return URL_PREFIX + 'apps/' + item.appId + '/icon'
+      console.log(item.appId)
+      console.log(item.packageId)
+      return URL_PREFIX + 'apps/' + item.appId + '/packages/' + item.packageId + '/icon'
     }
   },
   watch: {
@@ -175,7 +173,6 @@ export default {
         align-items: center;
         border-radius: 8px 8px 0 0;
         img {
-          // max-width: 150px;
           overflow: hidden;
           max-height: 75px;
         }
@@ -193,7 +190,6 @@ export default {
         justify-content: center;
         align-items: center;
         img {
-          // max-width: 150px;
           overflow: hidden;
           max-height: 75px;
         }
@@ -215,7 +211,6 @@ export default {
           max-height: 75px;
         }
       }
-
       .scoreMode{
         border-radius: 0 0 8px 8px;
         width: 100%;
@@ -224,14 +219,13 @@ export default {
         bottom: 0;
         .appName{
           font-size: 20px;
-          font-family: HarmonyOS Sans SC;
+          font-family: HarmonyOS Sans SC, sans-serif;
           font-weight: 400;
           color: #3E3E3E;
           padding-top: 4px;
           padding-left: 10px;
           line-height: 36px;
           position: relative;
-
         }
         .appNameStyle {
             overflow: hidden;
@@ -264,7 +258,7 @@ export default {
             .core{
               line-height: 40px;
               font-size: 14px;
-              font-family: HarmonyOS Sans SC;
+              font-family: HarmonyOS Sans SC, sans-serif;
               font-weight: 300;
               color: #929292;
               position: relative;
@@ -276,7 +270,7 @@ export default {
               height: 40px;
               line-height: 40px;
               font-size: 14px;
-              font-family: HarmonyOS Sans SC;
+              font-family: HarmonyOS Sans SC, sans-serif;
               font-weight: 300;
               color: #414040;
             }
