@@ -89,7 +89,7 @@ const en = {
       deactivated: 'Deactivated'
     },
     subscribe: 'Subscribe',
-    price: 'Yuan (RMB)/ hour',
+    price: ' Yuan (RMB)/ Hour',
     subPrice: 'Price: ',
     subSuccess: 'Subscribed successfully!',
     chooseArea: 'Please choose location first！',
@@ -586,7 +586,7 @@ const en = {
     getStatusFailed: 'failed to get app status',
     more: 'more',
     free: 'Free',
-    price: 'Yuan（RMB）/Hour',
+    price: ' Yuan（RMB）/Hour',
     priceTitle: 'Apply pricing settings'
   },
   report: {
