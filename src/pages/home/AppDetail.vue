@@ -530,6 +530,7 @@ export default {
   methods: {
     beforeBuyIt () {
       if (sessionStorage.getItem('userNameRole') === 'tenant' || sessionStorage.getItem('userNameRole') === 'admin') {
+        this.showSubDialog = true
         subscribe.getMechosts().then(res => {
           this.options = []
           if (res.data && res.data.data.length > 0) {
@@ -539,7 +540,6 @@ export default {
               obj.label = item.mechostCity
               this.options.push(obj)
             })
-            this.showSubDialog = true
           } else {
             this.$message.warning(this.$t('order.noNodes'))
           }
@@ -580,7 +580,7 @@ export default {
       if (this.mechostIp !== '') {
         subscribe.createOrder(param).then(res => {
           this.showSubDialog = false
-          this.$message.warning(this.$t('order.subSuccess'))
+          this.$message.success(this.$t('order.subSuccess'))
           this.$router.push('/orders')
         })
       } else {
