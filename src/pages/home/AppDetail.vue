@@ -108,7 +108,7 @@
         <el-button
           type="primary"
           class="batchProButton"
-          :disabled="ifDownload || currentData.userId===userId ? false : true"
+          :disabled="!canDownload || currentData.userId===userId ? false : true"
           @click="download(currentData)"
         >
           {{ $t('store.download') }}
@@ -123,9 +123,9 @@
         <ul class="list_top clear">
           <li
             @click="activeName='appDetail'"
-            :class="{'appDetail_active':activeName==='appDetail','appDetail_default':activeName==='comment','appDetail_default2':activeName==='comment',
-                     'appDetail_default3':activeName==='vedio' || activeName==='appShow' || activeName==='meao',
-                     'appDetail_default2_meao_no_Appshow':ifExperience===false && activeName==='meao'}"
+            :class="{'appDetail_active':activeName==='appDetail','appDetail_comment':activeName==='comment',
+                     'appDetail_vedio':activeName==='vedio' || activeName==='appShow' || activeName==='meao',
+                     'appDetail_comment_meao_no_appShow':ifExperience===false && activeName==='meao'}"
           >
             <span>
               {{ $t('store.introduction') }}
@@ -143,11 +143,11 @@
           <li
             @click="activeName='comment'"
             :class="{'comment_active':activeName==='comment','comment_default':activeName==='appDetail',
-                     'comment_default2_appShow_meao':ifSynchronize === true && ifExperience===true && activeName==='appShow',
-                     'comment_default2':ifExperience === false && activeName==='meao', 'comment_default_appShow_nomeao':ifSynchronize === false && activeName==='appShow',
+                     'comment_default_appShow_meao':ifSynchronize === true && ifExperience===true && activeName==='appShow',
+                     'comment_default_appShow_nomeao':ifSynchronize === false && activeName==='appShow',
                      'comment_default_no_appShow_meao':ifSynchronize === false && ifExperience===false && activeName==='vedio',
                      'comment_default_meao_noAppShow':ifExperience === false && activeName==='meao',
-                     'comment_default_vedio_noappShow':ifExperience === false && ifSynchronize === true && activeName ==='vedio'}"
+                     'comment_default_vedio_noAppShow':ifExperience === false && ifSynchronize === true && activeName ==='vedio'}"
           >
             <span>
               {{ $t('store.comments') }}
@@ -415,9 +415,6 @@ import {
   subscribe
 } from '../../tools/api.js'
 import { INDUSTRY, TYPES, MEAO } from '../../tools/constant.js'
-import appTry from '@/assets/images/apptry.png'
-import startTry from '@/assets/images/startTry.png'
-import commonUtil from '../../tools/commonUtil.js'
 export default {
   name: '',
   components: {
@@ -429,33 +426,22 @@ export default {
   },
   data () {
     return {
-      noAppShowPage: false,
-      appShowPage: true,
       MEAO: MEAO,
-      stepApp: [
-      ],
       activeName: 'appDetail',
-      activeTabIndex: '0',
-      deployMode: '',
       ifExperience: false,
       ifSynchronize: false,
-      appTry: appTry,
-      startTry: startTry,
-      ifDownload: 'true',
-      ifCarousel: true,
+      canDownload: false,
       userId: sessionStorage.getItem('userId'),
       details: '',
       appId: '',
       tableData: [],
       isDownloadImage: false,
       isShowDownload: false,
-      currentData: { },
+      currentData: {},
       comments: {
         score: 0,
         message: ''
       },
-
-      historyComentsList: [],
       source: 'this is test',
       appIconPath: '',
       playerOptions: {
@@ -464,46 +450,12 @@ export default {
         language: 'en',
         sources: []
       },
-      userIconUrl: require('../../assets/images/app_detail_user.jpg'),
-      noCommentIcon: require('../../assets/images/app_detail_info_icon.png'),
-      videoIconUrl: require('../../assets/images/app_detail_video.png'),
       language: localStorage.getItem('language'),
       pathSource: sessionStorage.getItem('pathSource'),
       packageId: '',
       downloadNum: 0,
       limit: 100,
       offset: 0,
-      name: '',
-      ip: '',
-      nodePort: '',
-      experienceData: [
-        {
-          serviceName: '',
-          nodePort: '',
-          mecHost: ''
-        }
-      ],
-      btnInstantiate: false,
-      btnClean: true,
-      deployStatus: 'NOTDEPLOY',
-      workStatus: '',
-      instantiateInfo: '',
-      displayDom: false,
-      version: '',
-      showSynchronize: false,
-      customColor: '#1ececa',
-      huaweiper: 0,
-      jiuzhouyunper: 0,
-      startSync: false,
-      hwMeAO: false,
-      jzyMEAO: false,
-      hwinterval: '',
-      jzyinterval: '',
-      showlun: false,
-      showSubDialog: false,
-      options: [],
-      mechostIp: '',
-      role: sessionStorage.getItem('userNameRole'),
       price: 0
     }
   },
@@ -518,11 +470,9 @@ export default {
       return ''
     },
     '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
+      this.language = localStorage.getItem('language')
       this.checkProjectData()
     }
-
   },
   beforeRouteLeave (to, from, next) {
     sessionStorage.setItem('fromPath', from.path)
@@ -545,27 +495,6 @@ export default {
       }).then(error => {
         console.log(error)
       })
-    },
-    formatter (thistime, fmt) {
-      let $this = new Date(thistime)
-      let o = {
-        'M+': $this.getMonth() + 1,
-        'd+': $this.getDate(),
-        'h+': $this.getHours(),
-        'm+': $this.getMinutes(),
-        's+': $this.getSeconds(),
-        'q+': Math.floor(($this.getMonth() + 3) / 3),
-        'S': $this.getMilliseconds()
-      }
-      if (/(y+)/.test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, ($this.getFullYear() + '').substr(4 - RegExp.$1.length))
-      }
-      for (var k in o) {
-        if (new RegExp('(' + k + ')').test(fmt)) {
-          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
-        }
-      }
-      return fmt
     },
     confirmToBuy () {
       let param = {
@@ -678,7 +607,6 @@ export default {
       this.ifDownloadImage(this.currentData, row)
       this.getAppData()
     },
-
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {
         if (this.language === 'cn') {
@@ -724,57 +652,21 @@ export default {
     getMyAppData () {
       myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
         let data = res.data
-        this.deployMode = data.deployMode
         let newDateBegin = this.dateChange(data.createTime)
         data.createTime = newDateBegin
         this.tableData.push(data)
-
         if (data) {
           this.source = data.details
         }
       })
-    },
-    handleUploadSuccess () {
-      this.$message({
-        duration: 2000,
-        message: this.$t('promptMessage.getNodePortSuccess'),
-        type: 'success'
-      })
-    },
-    handleExceptionMsg (error) {
-      if (error.response.data.code === 403) {
-        this.$message({
-          duration: 2000,
-          message: this.$t('promptMessage.guestUser'),
-          type: 'warning'
-        })
-      } else {
-        this.$message({
-          duration: 2000,
-          message: error.response.data.message,
-          type: 'warning'
-        })
-      }
-    },
-    showChangeErrorMessage (error) {
-      this.stepClean()
-      let retCode = error.response.data.retCode
-      let params = error.response.data.params
-      let errMsg = error.response.data.message
-      if (retCode) {
-        commonUtil.showTipMsg(this.language, retCode, params, errMsg)
-      } else {
-        this.handleExceptionMsg()
-      }
     }
   },
   mounted () {
     if ((sessionStorage.getItem('userNameRole') === 'guest') || (sessionStorage.getItem('userNameRole') === 'tenant')) {
-      this.ifDownload = false
+      this.canDownload = false
     } else {
-      this.ifDownload = true
+      this.canDownload = true
     }
-
     let params = this.$route.params.item
       ? this.$route.params.item
       : JSON.parse(sessionStorage.getItem('appstordetail'))
@@ -782,13 +674,6 @@ export default {
     this.appId = this.details.appId
     this.packageId = this.details.packageId
     this.ifExperience = this.details.experienceAble
-    if (this.ifExperience) {
-      this.noAppShowPage = false
-      this.appShowPage = true
-    } else {
-      this.noAppShowPage = true
-      this.appShowPage = false
-    }
     if (this.details.score) {
       this.score = this.details.score
       this.downloadNum = this.details.downloadCount
@@ -822,10 +707,6 @@ export default {
     font-family: HarmonyOS Sans SC, sans-serif;
     font-weight: bold;
     color: #5D3DA0;
-  }
-  .btnPasses{
-    background: #fff !important;
-    color:#67C23A !important;
   }
   .el-dialog{
     text-align: left;
@@ -869,7 +750,6 @@ export default {
     font-size: 14px;
     width: 100%;
   }
-
   .app_info_div{
     border-radius: 16px;
     background: #fff;
@@ -931,7 +811,6 @@ export default {
           background: center right no-repeat #eaf6f9;
           background-size: contain;
           color: #54AAF3;
-
         }
         .architecture{
           background: center right no-repeat #effafa;
@@ -963,7 +842,6 @@ export default {
         color: #5E40C8;
         font-size: 14px;
       }
-
       .score_num{
         color: #5E40C8;
         float: left;
@@ -1000,75 +878,13 @@ export default {
           border: none;
           color: #FFFFFF;
         }
-
-      }
-
-    }
-    .app_synchronize /deep/ .el-button--primary{
-      height: 40px !important;
-      border-radius:20px ;
-      background:  linear-gradient(to right, #4444D0, #6724CB) !important;
-    }
-    .app_synchronize{
-      height: 135px;
-      width: 300px;
-      position: relative;
-      .synchronize_info{
-        width: 194px;
-        font-size: 14px;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: 300;
-        color: #5E40C8;
-        margin-top: 24px;
-        margin-bottom: 20px;
-      }
-      .synchronize_process{
-        text-align: left;
-        font-size: 14px;
-        p{
-          font-size: 16px;
-          font-weight: 600;
-        }
-        .process{
-          display: flex;
-          align-items: center;
-          margin-top: 8px;
-          span{
-            width: 86px;
-          }
-          .el-progress{
-            width: 200px;
-          }
-        }
-      }
-      .addOutStore{
-        margin-top: 35px;
-        font-size: 20px;
-        height: 50px !important;
-        width: 222px !important;
-        border-radius: 25px !important;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: 300;
-        box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
-        background: linear-gradient(to right, #4444D0, #6724CB) !important;
-      }
-    }
-
-    .synchronize_div{
-      position: absolute;
-      top: 35px;
-      left: 0;
-      background: #688ef3;
-      width: 56%;
-      .transition-box{
-        line-height: 25px;
-      }
-      .transition-box:first-child{
-        border-bottom: 1px solid rgb(38, 19, 209);
       }
     }
   }
   .app_content{
+    border-radius: 0 16px 16px 16px;
+    background: #fff;
+    margin-top: 38px;
     .horizontal-cell{
         padding: 12px 0;
         float: left;
@@ -1088,9 +904,6 @@ export default {
       content: '';
       width:0;
     }
-    border-radius: 0 16px 16px 16px;
-    background: #fff;
-    margin-top: 38px;
     .list_top{
       background-color: #f0f2f5;
       margin-top: 58px;
@@ -1132,17 +945,7 @@ export default {
           transition: all 0.1s;
         }
       }
-      .appDetail_default{
-        background: #d4d1ec;
-        border-radius: 16px 0 16x 0;
-        transition: all 0.1s;
-        span{
-          background: #d4d1ec;
-          border-radius: 16px 0 16px 0;
-          transition: all 0.1s;
-        }
-      }
-      .appDetail_default2{
+      .appDetail_comment{
         background: #fff;
         border-radius: 16px 0 0 0;
         span{
@@ -1151,7 +954,7 @@ export default {
           transition: all 0.1s;
         }
       }
-      .appDetail_default2_meao_no_Appshow{
+      .appDetail_comment_meao_no_appShow{
         background: #fff;
         border-radius: 16px 0 0 0;
         span{
@@ -1160,7 +963,7 @@ export default {
           transition: all 0.1s;
         }
       }
-      .appDetail_default3{
+      .appDetail_vedio{
         background: #d4d1ec;
         border-radius: 16px 0 0 0;
         span{
@@ -1188,7 +991,7 @@ export default {
           transition: all 0.1s;
         }
       }
-      .comment_default2_appShow_meao{
+      .comment_default_appShow_meao{
         background: #fff;
         span{
           background: #d4d1ec;
@@ -1219,7 +1022,7 @@ export default {
           border-radius: 0 0 16px 0;
         }
       }
-      .comment_default_vedio_noappShow{
+      .comment_default_vedio_noAppShow{
         background: #fff;
         span{
           background: #d4d1ec;
@@ -1308,14 +1111,6 @@ export default {
           transition: all 0.1s;
         }
       }
-      .appShow_default2{
-        background: #f3f1f7;
-        border-radius: 0 0 0 0;
-
-        span{
-          border-radius: 0 16px 0 0;
-        }
-      }
       .appShow_default3{
         background: #fff;
         border-radius: 0 16px 0 0;
@@ -1383,35 +1178,6 @@ export default {
           transition: all 0.1s;
         }
       }
-      .meao_no_active{
-         background: #f4f3f7;
-         border-radius: 0 0 0 0;
-        transition: all 0.1s;
-        span{
-          background: #d4d1ec;
-          border-radius: 0 0 0 0;
-          transition: all 0.1s;
-        }
-
-      }
-      .meao_default2{
-        background: #f3f1f7;
-        border-radius: 0 0 0 16px;
-
-        span{
-          border-radius: 0 16px 0 0;
-        }
-      }
-      .meao_default3{
-        background: #fff;
-        border-radius: 0 16px 0 0;
-        transition: all 0.1s;
-        span{
-          background: #d4d1ec;
-          border-radius: 0 16px 0 16px;
-          transition: all 0.1s;
-        }
-        }
       .vedio_active{
         background: #d4d1ec;
         border-radius: 0 16px 0 0;
@@ -1431,7 +1197,6 @@ export default {
           border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
-
       }
       .vedio_default2{
         background: #fff;
@@ -1474,7 +1239,7 @@ export default {
         }
       }
       .vedio_default2_comment_no_Appshow{
-       background: #fff;
+        background: #fff;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1483,199 +1248,11 @@ export default {
           transition: all 0.1s;
         }
       }
-      .vedio_default3{
-        background: #fff;
-        span{
-
-          border-radius: 0 0 0 16px;
-        }
-      }
-      .vedio_active_notry{
-        background: #d4d1ec;
-        border-radius: 0 16px 16px 0;
-        transition: all 0.1s;
-        span{
-          background: #fff;
-          border-radius: 16px 16px 0 0;
-          color: #5e40c8;
-          transition: all 0.1s;
-        }
-      }
-      .vedio_default_notry{
-        background: #f4f3f7;
-        transition: all 0.1s;
-        span{
-          background: #d4d1ec;
-          border-radius: 0 16px 0 0;
-          transition: all 0.1s;
-        }
-      }
-      .vedio_default_notry1{
-        background: #fff;
-        transition: all 0.1s;
-        span{
-          background: #d4d1ec;
-          border-radius: 0 16px 0 16px;
-          transition: all 0.1s;
-        }
-      }
-  }
-  .link-right {
-    width: 3px;
-    height: 10px;
-    border-right: solid #B3B0CA 2px;
-  }
-    .submit_comment{
-      padding: 20px;
-      .score_span{
-        float: left;
-        font-size: 18px;
-        font-weight: bold;
-      }
-      .el-rate{
-        float: left;
-        margin: 3px 0 0 10px;
-        .el-rate__icon{
-          font-size: 22px;
-        }
-      }
-      .comment_input{
-        float: left;
-        width: 100%;
-        margin: 40px 0 20px;
-        display: flex;
-        .user_icon{
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          margin-right: 20px;
-        }
-        .el-textarea__inner{
-          height: 80px;
-        }
-      }
-      .submit_btn{
-        float: left;
-        width: 100%;
-        text-align: right;
-        .el-button{
-          border-radius: 0;
-        }
-      }
     }
-    .show_app {
-      .show_common {
-        display: inline-block;
-        width: 43%;
-        margin-top: 20px;
-        text-align: center;
-        .show_btn{
-          display: inline-block;
-        }
-      }
-      .show_step{
-        display: inline-block;
-        width: 57%;
-        .top_titile{
-          font-size: 18px;
-          font-weight: bold;
-          color: #282B33;
-          margin-bottom: 20px;
-          margin-top: 35px;
-        }
-        .bottom_titile{
-          font-size: 14px;
-          font-weight: 400;
-          color: #A680D7;
-          margin-bottom: 20px;
-        }
-        .footer_title{
-          width: 575px;
-          .bottom_titile1{
-          width: 20%;
-          font-size: 18px;
-          font-weight: bold;
-          color: #282B33;
-          }
-          .el-upload__tip{
-            width: 86%;
-            font-size: 14px;
-            font-weight: 400;
-            color: #8E8E8E;
-          }
-        }
-        .nodePortTable{
-          .el-table .cell {
-            text-align: center;
-          }
-        }
-        .card_content{
-          margin-left: 30px;
-          margin-bottom: 20px;
-          .line_top{
-            background: url('../../assets/images/startTry.png') left top no-repeat;
-            .el-timeline-item__node{
-              background: none;
-            }
-            .el-timeline-item__tail{
-              top: 12px;
-            }
-          }
-          .line_list{
-            .el-timeline-item__node--normal{
-              background: url('../../assets/images/inprogressTry.png') left top no-repeat;
-            }
-          }
-          .el-timeline-item__tail{
-            border-left: 1px dashed #7093EF;
-            left: 9px;
-          }
-          .el-timeline-item__node--normal{
-            width: 20px;
-            height: 20px;
-          }
-        }
-
-      }
-    }
-    .no_comment{
-      color: #bbb;
-      text-align: center;
-      p{
-        margin: 10px 0 30px;
-      }
-    }
-    .show_comment{
-      padding: 20px;
-      li{
-        border-top: 1px solid #ddd;
-        margin-left: 80px;
-        padding: 20px 0;
-        display: flex;
-        .user_icon{
-          img{
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-          }
-        }
-        .user_info{
-          margin: 0 20px 0 10px;
-          min-width: 115px;
-          .commentTime{
-            font-size: 12px;
-            color: #aaa;
-          }
-        }
-        .el-rate{
-          margin-top: 5px;
-        }
-      }
-    }
-    .video-js{
-      width: 80%;
-      min-height: 300px;
-      margin: 0px auto 50px;
+    .link-right {
+      width: 3px;
+      height: 10px;
+      border-right: solid #B3B0CA 2px;
     }
   }
   .container_div{
@@ -1688,94 +1265,5 @@ export default {
     background: #d4d1ec;
     border-radius: 0 16px 16px 16px;
   }
-}
-.stepApp{
-  width: 249px;
-  height: 100px;
-  background: #FFFFFF;
-  box-shadow: 5px 9px 63px 5px rgba(94, 64, 200, 0.06);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-top: -10px;
-  .stepIng{
-    height: 40px;
-    line-height: 40px;
-    padding-left: 20px;
-    box-shadow: 5px 9px 63px 5px rgba(94, 64, 200, 0.06);
-    font-size: 14px;
-    font-family: HarmonyHeiTi, sans-serif;
-    font-weight: 300;
-    color: #5E40C8;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-  .stepNames{
-    margin-top: 10px;
-    margin-left:20px ;
-    font-size: 14px;
-    font-family: HarmonyHeiTi, sans-serif;
-    font-weight: 200;
-    color: #8F859B;
-  }
-
-}
-.el-progress-bar__innerText {
-    display: inline-block;
-    vertical-align: middle;
-    color: #5E40C8;
-    font-size: 14px;
-    margin: 0 5px;
-    margin-top: -8px;
-}
-.el-progress-bar__outer{
-  box-shadow: 2px 2px 12px 0px rgba(36, 20, 119, 0.13);
-}
-.stepDromdown{
-  .el-button--primary {
-      background: linear-gradient(122deg, #4444D0, #6724CB);
-      color: #FFFFFF;
-      font-size: 20px;
-      font-family: HarmonyHeiTi, sans-serif;
-      height: 54px;
-      border-radius: 23px;
-      font-weight: 300;
-      box-shadow: 0px 16px 8px rgba(94, 44, 204 , 0.3);
-  }
-}
-  .el-popper .popper__arrow::after {
-    top: 1px;
-    margin-left: -6px;
-    border-top-width: 0;
-    border-bottom-color: #4444D0 !important;
-}
-  .el-dropdown-menu__item {
-    padding: 0 20px;
-    font-size: 14px;
-    color: #fff;
-    border-bottom:1px solid  #4215C8;
-    background: linear-gradient(122deg, #4444D0, #6724CB);
-}
-.el-dropdown-menu {
-     padding: 0px 0px;
-     border-radius:5px ;
-     .el-dropdown-menu__item:first-child{
-       border-top-left-radius: 5px;
-       border-top-right-radius: 5px;
-     }
-     .el-dropdown-menu__item:last-child{
-       border-bottom-left-radius: 10px !important;
-       border-bottom-right-radius: 10px !important;
-     }
-}
-// 订购
-.buy_content{
-  margin-top: 25px;
-  .val_span{
-    line-height: 33px;
-  }
-}
-.popper__arrow{
-  display: none!important;
 }
 </style>

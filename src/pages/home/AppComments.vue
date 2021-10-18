@@ -107,6 +107,7 @@ import {
   getCommentsApi,
   submitAppCommentApi
 } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   props: {
     appId: {
@@ -116,10 +117,6 @@ export default {
   },
   data () {
     return {
-      currentPageData: [],
-      dataLoading: true,
-      prop: 'isHotApp',
-      order: 'desc',
       userId: sessionStorage.getItem('userId'),
       appName: '',
       limit: 100,
@@ -150,25 +147,7 @@ export default {
           this.comments.message = ''
           this.getAppData()
         }).catch(error => {
-          if (error.response.data.code === 403) {
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.guestUser'),
-              type: 'warning'
-            })
-          } else if (error.response.data.message.indexOf('can not comment own app') !== -1) {
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.cannotComment')
-            })
-          } else {
-            this.$message({
-              duration: 2000,
-              message: this.$t('promptMessage.subCommentFail'),
-              type: 'warning'
-            })
-          }
+          commonUtil.showTipMsg(this.language, error, this.$t('promptMessage.subCommentFail'))
         })
       } else {
         this.$message({
@@ -206,8 +185,7 @@ export default {
   },
   watch: {
     '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
+      this.language = localStorage.getItem('language')
     },
     appId (newVal, oldVal) {
       this.appId = newVal
@@ -222,54 +200,55 @@ export default {
   background: #fff;
   border-radius: 16px;
   .submit_comment{
-      padding: 20px;
-      .score_span{
-        float: left;
-        font-size: 20px;
-        font-weight: bold;
-      }
-      .el-rate{
-        float: left;
-        margin: 3px 0 0 10px;
-        .el-rate__icon{
-          font-size: 22px;
-        }
-      }
-      .comment_input{
-        float: left;
-        width: 100%;
-        margin: 40px 0 20px;
-        display: flex;
-        .user_icon{
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          margin-right: 20px;
-        }
-        .el-textarea__inner{
-          height: 80px;
-          box-shadow: inset 4px 4px 25px 5px rgba(36, 20, 119, 0.1) !important;
-          border-radius: 12px;
-          padding: 10px 30px 15px !important;
-        }
-      }
-      .submit_btn{
-
-        float: left;
-        width: 100%;
-        text-align: right;
-        .el-button{
-          font-size: 16px;
-          background-color:  #8278B7;
-          color: #FFFFFF;
-          border-radius: 8pt;
-        }
+    padding: 20px;
+    .score_span{
+      float: left;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .el-rate{
+      float: left;
+      margin: 3px 0 0 10px;
+      .el-rate__icon{
+        font-size: 22px;
       }
     }
-  .paginationStyle{
-    float: right;
-    margin-top: 20px;
-    margin-right: 30px;
+    .comment_input{
+      float: left;
+      width: 100%;
+      margin: 40px 0 20px;
+      display: flex;
+      .user_icon{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 20px;
+      }
+      .el-textarea__inner{
+        height: 80px;
+        box-shadow: inset 4px 4px 25px 5px rgba(36, 20, 119, 0.1) !important;
+        border-radius: 12px;
+        padding: 10px 30px 15px !important;
+      }
+    }
+    .submit_btn{
+      float: left;
+      width: 100%;
+      text-align: right;
+      .el-button{
+        font-size: 16px;
+        background-color:  #8278B7;
+        color: #FFFFFF;
+        border-radius: 8pt;
+      }
+    }
+  }
+  .no_comment{
+    color: #bbb;
+    text-align: center;
+    p{
+      margin: 10px 0 30px;
+    }
   }
 }
 </style>

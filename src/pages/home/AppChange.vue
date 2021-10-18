@@ -28,7 +28,6 @@ export default ({
   data () {
     return {
       srcUrl: '',
-      isRouterAlive: true,
       changeStyle: this.$route.query.changeStyle
     }
   },
@@ -47,12 +46,6 @@ export default ({
           changeStyle: this.changeStyle
         }
       })
-    },
-    rebuileComponents () {
-      this.isRouterAlive = false
-      this.$nextTick(() => {
-        this.isRouterAlive = true
-      })
     }
   },
   mounted () {
@@ -60,7 +53,6 @@ export default ({
   },
   watch: {
     '$i18n.locale': function () {
-      this.rebuileComponents()
       this.getAtpUrl()
     }
   }

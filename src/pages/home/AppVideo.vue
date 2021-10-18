@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import { URL_PREFIX } from '../../tools/api.js'
 export default {
   props: {
     appId: {
@@ -52,34 +51,12 @@ export default {
       type: Object
     }
   },
-  components: {
-    // EgPagination
-  },
   data () {
     return {
       videoIconUrl: require('../../assets/images/app_detail_video.png'),
-      currentPageData: [],
-      dataLoading: true,
-      source: [
-        {
-          type: 'video/mp4', // 类型
-          src: URL_PREFIX + 'apps/' + this.appId + '/demoVideo' // url地址
-        }
-      ],
-      userId: sessionStorage.getItem('userId'),
-      appName: '',
-      language: localStorage.getItem('language')
-    }
-  },
-  methods: {
-  },
-  watch: {
-    '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
+      userId: sessionStorage.getItem('userId')
     }
   }
-
 }
 </script>
 <style lang="less">
@@ -89,11 +66,10 @@ export default {
   padding: 20px;
   .vedio{
     color: #fff;
-      text-align: center;
-      p{
-        margin: 10px 0 30px;
-      }
+    text-align: center;
+    p{
+      margin: 10px 0 30px;
+    }
   }
-
 }
 </style>

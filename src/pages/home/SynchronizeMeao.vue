@@ -148,20 +148,8 @@ export default {
   },
   data () {
     return {
-      customColor: '#6610f2',
       MEAO: MEAO,
       language: localStorage.getItem('language'),
-      ifSync: 'true',
-      userId: sessionStorage.getItem('userId'),
-      showSynchronize: false,
-      huaweiper: 0,
-      jiuzhouyunper: 0,
-      startSync: false,
-      hwMeAO: false,
-      jzyMEAO: false,
-      hwinterval: '',
-      jzyinterval: '',
-      showlun: false,
       total: 0,
       type: 'MEAO',
       systemName: '',
@@ -233,7 +221,6 @@ export default {
         this.showFaileMessage()
       })
     },
-
     addSystemNameData () {
       for (let item of this.systemData) {
         let object = {
@@ -286,28 +273,6 @@ export default {
         }
       }
     },
-    dateChange (dateStr) {
-      if (dateStr) {
-        let date = new Date(Date.parse(dateStr))
-        let Y = date.getFullYear()
-        let M = date.getMonth() + 1
-        let D = date.getDate()
-        let H = date.getHours()
-        let m = date.getMinutes()
-        let s = date.getSeconds()
-        return Y +
-          '-' +
-          (M > 9 ? M : '0' + M) +
-          '-' +
-          (D > 9 ? D : '0' + D) +
-          ' ' +
-          (H > 9 ? H : '0' + H) +
-          ':' +
-          (m > 9 ? m : '0' + m) +
-          ':' +
-          (s > 9 ? s : '0' + s)
-      }
-    },
     startInterval () {
       clearInterval(this.timer)
       this.timer = setInterval(() => {
@@ -342,6 +307,7 @@ export default {
 </script>
 <style lang='less'>
 .app-list{
+  background: #fff;
   .el-pagination {
     margin-bottom: 30px;
     margin-right: 30px;
@@ -349,26 +315,24 @@ export default {
     padding: 2px 5px;
     color: #303133;
     font-weight: bold;
-}
-  background: #fff;
-  // padding: 20px 0;
+  }
   .packageTable {
-      font-size: 16px;
-      margin: 50px 63px;
-      .el-table td{
-        padding: 0;
-        height: 60px;
-        max-height: 60px;
-        line-height: 60px;
-      }
-      em {
-        display: inline-block;
-        width: 18px;
-        height: 18px;
-        margin-right: 6px;
-        position: relative;
-        top: 3px;
-      }
+    font-size: 16px;
+    margin: 50px 63px;
+    .el-table td{
+      padding: 0;
+      height: 60px;
+      max-height: 60px;
+      line-height: 60px;
+    }
+    em {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      margin-right: 6px;
+      position: relative;
+      top: 3px;
+    }
     .uploading {
       background: url('../../assets/images/Test-waiting.png') no-repeat;
       background-size: cover;
@@ -400,38 +364,36 @@ export default {
     .el-progress_error .el-progress-bar__inner{
       background: linear-gradient(-37deg, #FF3232, #FF6F3F);
     }
-}
-
-.app_synchronize {
+  }
+  .app_synchronize {
     position: relative;
     top: 30px;
     left: 84%;
     .el-button--primary {
-        width: 160px;
-        background: linear-gradient(122deg, #4444D0, #6724CB);
-        color: #FFFFFF;
-        font-size: 16px;
-        font-family: HarmonyHeiTi, sans-serif;
-        height: 40px;
-        border-radius: 8px;
-        font-weight: 300;
-        padding: 0px;
-
+      width: 160px;
+      background: linear-gradient(122deg, #4444D0, #6724CB);
+      color: #FFFFFF;
+      font-size: 16px;
+      font-family: HarmonyHeiTi, sans-serif;
+      height: 40px;
+      border-radius: 8px;
+      font-weight: 300;
+      padding: 0px;
     }
-        .el-popper .popper__arrow::after {
+    .el-popper .popper__arrow::after {
       top: 1px;
       margin-left: -6px;
       border-top-width: 0;
       border-bottom-color:#4444D0!important;
-  }
+    }
     .el-dropdown-menu__item {
       padding: 0 20px;
       font-size: 14px;
       color: #fff;
       border-bottom:1px solid  #4215C8;
       background: linear-gradient(122deg, #4444D0, #6724CB);
-  }
-  .el-dropdown-menu {
+    }
+    .el-dropdown-menu {
       padding: 0px 0px;
       border-radius:5px ;
       .el-dropdown-menu__item:first-child{
@@ -442,58 +404,56 @@ export default {
         border-bottom-left-radius: 10px !important;
         border-bottom-right-radius: 10px !important;
       }
-  }
-
-  .el-progress-bar__innerText {
+    }
+    .el-progress-bar__innerText {
       display: inline-block;
       vertical-align: middle;
       color: #5E40C8;
       font-size: 14px;
       margin: 0 5px;
       margin-top: -8px;
-  }
-  .el-carousel__indicators {
+    }
+    .el-carousel__indicators {
       display: none;
-  }
-  .el-progress-bar__outer {
-    position: relative;
-    left: 110px;
-    top:-20px;
-    box-shadow: 2px 2px 12px 0px rgba(36, 20, 119, 0.13);
-  }
-  .el-progress-bar__inner{
-    background: linear-gradient(-37deg, #53DABD, #54AAF3);
-  }
-  .stepDromdown{
-    width: 200px;
-    position: relative;
-    margin: 20px 80%;
-    .el-button--primary {
-      background: linear-gradient(122deg, #4444D0, #6724CB);
-      color: #FFFFFF;
-      font-size: 20px;
-      font-family: HarmonyHeiTi, sans-serif;
-      height: 40px;
-      border-radius: 8px;
-      font-weight: 300;
+    }
+    .el-progress-bar__outer {
+      position: relative;
+      left: 110px;
+      top:-20px;
+      box-shadow: 2px 2px 12px 0px rgba(36, 20, 119, 0.13);
+    }
+    .el-progress-bar__inner{
+      background: linear-gradient(-37deg, #53DABD, #54AAF3);
+    }
+    .stepDromdown{
+      width: 200px;
+      position: relative;
+      margin: 20px 80%;
+      .el-button--primary {
+        background: linear-gradient(122deg, #4444D0, #6724CB);
+        color: #FFFFFF;
+        font-size: 20px;
+        font-family: HarmonyHeiTi, sans-serif;
+        height: 40px;
+        border-radius: 8px;
+        font-weight: 300;
+      }
     }
   }
- }
 }
 .tableStyle.el-table td .cell {
-    font-size: 14px !important;
+  font-size: 14px !important;
 }
 .el-table-filter .el-table-filter__list{
-      background-color: #EDEEF8;
-    }
+  background-color: #EDEEF8;
+}
 .el-table-filter .el-table-filter__list.el-table-filter__list-item{
-      background-color: #EDEEF8
-    }
-    .el-table-filter .el-table-filter__list li:first-child{
-      display: none;
-    }
-    .el-table-filter .el-table-filter__list li{
-      border-bottom: 1px solid #fff;
-    }
-
+  background-color: #EDEEF8
+}
+.el-table-filter .el-table-filter__list li:first-child{
+  display: none;
+}
+.el-table-filter .el-table-filter__list li{
+  border-bottom: 1px solid #fff;
+}
 </style>
