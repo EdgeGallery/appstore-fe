@@ -9,20 +9,6 @@
       <span class="line_bot1" />
     </div>
     <div class="content">
-      <!-- <el-input
-        v-model="nameQueryVal"
-        :placeholder="$t('common.appName')"
-        id="myAppSearch"
-        class="search_input"
-        @clear="queryApp"
-        @change="queryApp"
-      >
-        <em
-          slot="suffix"
-          class="search_icon"
-          @click="queryApp"
-        />
-      </el-input> -->
       <div class="orderTable">
         <el-table
           class="tableStyle"

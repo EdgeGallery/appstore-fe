@@ -549,7 +549,8 @@ export default {
 <style lang="less" scoped>
   .bill{
     padding: 0 13%;
-    .billContent{
+  }
+  .billContent{
       background: #ffffff;
       border-radius: 20px;
       padding: 30px 60px;
@@ -584,7 +585,6 @@ export default {
         padding-bottom: 15px;
       }
     }
-  }
   .el-progress-bar__inner{
     background-color: unset!important;
     background-image: linear-gradient(to right,#34aaf5,#00f8ff ) !important;
@@ -635,32 +635,30 @@ export default {
       background: #ffcc01;
     }
   }
-
-    .mark_icon_label{
-      height: 32px;
-      color: #fff;
-    }
-    .mark_icon_label::before{
-      content:'';
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      border-radius: 15px;
-      position: relative;
-      top: 2px;
-    }
-
-    .num::before{
-      background: #34aaf5;
-      margin: 0 8px 0 5px;
-    }
-    .account::before{
-      background: #fd8241;
-      margin: 0 8px 0 30px;
-    }
-    .mark_icon{
-      height: 40px;
-      line-height: 40px;
-      margin: 5px 0;
-    }
+  .mark_icon_label{
+    height: 32px;
+    color: #fff;
+  }
+  .mark_icon_label::before{
+    content:'';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    position: relative;
+    top: 2px;
+  }
+  .num::before{
+    background: #34aaf5;
+    margin: 0 8px 0 5px;
+  }
+  .account::before{
+    background: #fd8241;
+    margin: 0 8px 0 30px;
+  }
+  .mark_icon{
+    height: 40px;
+    line-height: 40px;
+    margin: 5px 0;
+  }
 </style>
