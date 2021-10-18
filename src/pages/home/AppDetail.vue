@@ -529,26 +529,26 @@ export default {
   },
   methods: {
     beforeBuyIt () {
-      // if (sessionStorage.getItem('userNameRole') === 'tenant' || sessionStorage.getItem('userNameRole') === 'admin') {
-      this.showSubDialog = true
-      subscribe.getMechosts().then(res => {
-        this.options = []
-        if (res.data && res.data.data.length > 0) {
-          res.data.data.forEach(item => {
-            let obj = {}
-            obj.value = item.mechostIp
-            obj.label = item.mechostCity
-            this.options.push(obj)
-          })
-        } else {
-          this.$message.warning(this.$t('order.noNodes'))
-        }
-      }).then(error => {
-        console.log(error)
-      })
-      // } else {
-      //   this.$message.warning(this.$t('system.guestPrompt'))
-      // }
+      if (sessionStorage.getItem('userNameRole') === 'tenant' || sessionStorage.getItem('userNameRole') === 'admin') {
+        this.showSubDialog = true
+        subscribe.getMechosts().then(res => {
+          this.options = []
+          if (res.data && res.data.data.length > 0) {
+            res.data.data.forEach(item => {
+              let obj = {}
+              obj.value = item.mechostIp
+              obj.label = item.mechostCity
+              this.options.push(obj)
+            })
+          } else {
+            this.$message.warning(this.$t('order.noNodes'))
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+      } else {
+        this.$message.warning(this.$t('system.guestPrompt'))
+      }
     },
     formatter (thistime, fmt) {
       let $this = new Date(thistime)
