@@ -132,7 +132,7 @@ export default {
   top: 0;
   left: 0;
   margin: 0 auto;
-  z-index: 99999;
+  z-index: 999;
   width: 100%;
   height: 100%;
   background-color: rgba(33,33,33,0.15);

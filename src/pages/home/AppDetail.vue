@@ -387,12 +387,13 @@
         class="dialog-footer dialogPadding"
       >
         <el-button
-          @click="showSubDialog = false"
+          @click="showSubDialog = false,btnLoading = false"
           class="bgBtn"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
           @click="confirmToBuy"
           class="bgBtn"
+          :loading="btnLoading"
         >{{ $t('common.confirm') }}</el-button>
       </span>
     </el-dialog>
@@ -455,7 +456,39 @@ export default {
       downloadNum: 0,
       limit: 100,
       offset: 0,
-      price: 0
+      name: '',
+      ip: '',
+      nodePort: '',
+      experienceData: [
+        {
+          serviceName: '',
+          nodePort: '',
+          mecHost: ''
+        }
+      ],
+      btnInstantiate: false,
+      btnClean: true,
+      deployStatus: 'NOTDEPLOY',
+      workStatus: '',
+      instantiateInfo: '',
+      displayDom: false,
+      version: '',
+      showSynchronize: false,
+      customColor: '#1ececa',
+      huaweiper: 0,
+      jiuzhouyunper: 0,
+      startSync: false,
+      hwMeAO: false,
+      jzyMEAO: false,
+      hwinterval: '',
+      jzyinterval: '',
+      showlun: false,
+      showSubDialog: false,
+      options: [],
+      mechostIp: '',
+      role: sessionStorage.getItem('userNameRole'),
+      price: 0,
+      btnLoading: false
     }
   },
   watch: {
@@ -507,8 +540,8 @@ export default {
         'appPackageId': this.packageId
       }
       if (this.mechostIp !== '') {
+        this.btnLoading = true
         subscribe.createOrder(param).then(res => {
-          this.showSubDialog = false
           this.$message.success(this.$t('order.subSuccess'))
           this.$router.push('/orders')
         })

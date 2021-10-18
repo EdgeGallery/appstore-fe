@@ -136,7 +136,7 @@ a{
 
 .el-message {
   top: calc(50%)!important;
-  z-index: 99999 !important;
+  z-index: 999 !important;
 }
 
 /* Normalization of navigation bar components */
@@ -414,9 +414,6 @@ a{
   border-radius: 0!important;
 }
 
-.bills .el-progress__text{
-  font-size: 14px!important;
-}
 .el-progress-bar__inner{
   border-radius: 6px!important;
 }
@@ -432,7 +429,7 @@ a{
 
 .bills .el-progress__text{
   color: #78335f;
-  font-size: 14px;
+  font-size: 14px!important;
 }
  .el-progress__text{
   color: #fff;

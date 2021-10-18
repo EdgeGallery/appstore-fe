@@ -74,6 +74,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('myApp.operation')"
+            width="180"
           >
             <template slot-scope="scope">
               <div>
