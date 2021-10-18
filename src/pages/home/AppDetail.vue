@@ -387,12 +387,13 @@
         class="dialog-footer dialogPadding"
       >
         <el-button
-          @click="showSubDialog = false"
+          @click="showSubDialog = false,btnLoading = false"
           class="bgBtn"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
           @click="confirmToBuy"
           class="bgBtn"
+          :loading="btnLoading"
         >{{ $t('common.confirm') }}</el-button>
       </span>
     </el-dialog>
@@ -503,7 +504,8 @@ export default {
       options: [],
       mechostIp: '',
       role: sessionStorage.getItem('userNameRole'),
-      price: 0
+      price: 0,
+      btnLoading: false
     }
   },
   watch: {
@@ -578,8 +580,8 @@ export default {
         'appPackageId': this.packageId
       }
       if (this.mechostIp !== '') {
+        this.btnLoading = true
         subscribe.createOrder(param).then(res => {
-          this.showSubDialog = false
           this.$message.success(this.$t('order.subSuccess'))
           this.$router.push('/orders')
         })

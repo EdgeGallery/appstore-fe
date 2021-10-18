@@ -782,7 +782,7 @@ export default {
     width: 350px;
     height: 300px;
     background-color: #404348;
-    z-index: 999999;
+    z-index: 998;
     right: 10px;
     float: right;
     position:absolute;
@@ -790,7 +790,7 @@ export default {
   .main-sidebar-small{
     position: relative;
     overflow-y: auto;
-    z-index: 9999;
+    z-index: 998;
     .el-menu{
       background: rgba(0, 0, 0, 0.6);
       border-right: none;
