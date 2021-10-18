@@ -66,6 +66,7 @@ const cn = {
     orderNum: '订单编号',
     nodeName: '节点名称',
     appName: '应用名称',
+    appNameLabel: '应用名称',
     nodeIp: '节点IP',
     orderTime: '下单时间',
     nodeAddress: '节点位置',
@@ -90,7 +91,11 @@ const cn = {
       deactivated: '已停用'
     },
     subscribe: '订购',
-    price: '元（RMB）/小时'
+    price: '元（RMB）/小时',
+    subPrice: '订购价格：',
+    subSuccess: '订购成功！',
+    chooseArea: '请先选择部署区域！',
+    noNodes: '没有可供使用的边缘节点！'
   },
   bill: {
     billMana: '账单管理',
