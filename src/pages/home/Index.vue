@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="home">
+  <div class="appStoreHome">
     <div class="title_top title_left defaultFontBlod clear appStoreTop">
       {{ $t('nav.appstore') }}
       <span class="line_bot1" />
@@ -32,7 +32,7 @@
         {{ $t('store.uploadApp') }}
       </el-button>
     </div>
-    <div class="app">
+    <div class="appMainContent">
       <el-row class="app-content">
         <el-col
           :span="24"
@@ -40,8 +40,8 @@
         >
           <div class="title">
             <Search
-              @getCurrentComponent="getCurrentComponent"
-              @getSearchCondition="getSearchCondition"
+              @changeAppShowType="changeAppShowType"
+              @initTableData="initTableData"
             />
           </div>
         </el-col>
@@ -51,7 +51,7 @@
           class="applist-content"
         >
           <component
-            :is="currentComponent"
+            :is="appShowType"
             :app-data="currentPageData"
             @getAppData="getAppData"
             v-if="loadFlag"
@@ -68,9 +68,9 @@
       </el-row>
     </div>
     <!-- Upload components -->
-    <div v-if="uploadDiaVis">
+    <div v-if="isShwoUploadDialog">
       <uploadPackage
-        v-model="uploadDiaVis"
+        v-model="isShwoUploadDialog"
         @input="input"
         @getAppData="getAppData"
       />
@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { TYPES, AFFINITY, SORT_BY, INDUSTRY, DEPLOYMODE } from '../../tools/constant.js'
+import { TYPES, AFFINITY, SORTITEM, INDUSTRY, DEPLOYMODE } from '../../tools/constant.js'
 import { getAppTableApi, getAppDetailTableApi } from '../../tools/api'
 import uploadPackage from './UploadPackage.vue'
 import appGrid from './AppGrid.vue'
@@ -90,7 +90,6 @@ import uploadAppLogo from '@/assets/images/upload.png'
 import appgridLogo from '@/assets/images/appgrid.png'
 import applistLogo from '@/assets/images/applist.png'
 import HomeSwiper from '../../components/common/Swipers.vue'
-import timeFormatTools from '../../tools/timeFormatTools.js'
 import { common } from '../../tools/comon.js'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
@@ -105,33 +104,28 @@ export default {
   },
   data () {
     return {
-      ifShow: true,
       language: localStorage.getItem('language'),
-      advancedStatus: false,
-      uploadDiaVis: false,
-      iconAactive: false,
+      isShwoUploadDialog: false,
       selectedConditions: [],
-      types: TYPES,
-      affinity: AFFINITY,
-      sortBy: SORT_BY,
-      industry: INDUSTRY,
+      appTypes: TYPES,
+      appAffinity: AFFINITY,
+      sortItems: SORTITEM,
+      appIndustry: INDUSTRY,
       workloadType: DEPLOYMODE,
-      currentComponent: 'appGrid',
+      appShowType: 'appGrid',
       currentPageData: [],
-      appData: [],
       findAppData: [],
       uploadAppLogo: uploadAppLogo,
       appgridLogo: appgridLogo,
       applistLogo: applistLogo,
-      currentPage: 2,
+      currentPage: 1,
       limitSize: 15,
       appName: '',
       userId: sessionStorage.getItem('userId'),
       offsetPage: sessionStorage.getItem('offsetRepo') || 0,
       total: 0,
-      prop: 'createTime',
-      order: 'desc',
-      screenHeight: document.body.clientHeight,
+      sortItem: 'createTime',
+      sortType: 'desc',
       searchCondition: {
         appName: '',
         types: [],
@@ -145,8 +139,8 @@ export default {
         queryCtrl: {
           offset: this.offsetPage,
           limit: this.limitSize,
-          sortItem: this.prop,
-          sortType: this.order
+          sortItem: this.sortItem,
+          sortType: this.sortType
         }
       },
       synResult: [],
@@ -155,42 +149,34 @@ export default {
   },
   methods: {
     setDivHeight () {
-      common.setDivHeightFun(this.screenHeight, 'home', 332)
+      let screenHeight = document.body.clientHeight
+      common.setDivHeightFun(screenHeight, 'home', 332)
     },
-    ifFromDetail () {
+    checkFromDetail () {
       let fromPath = sessionStorage.getItem('fromPath') || ''
       if (fromPath === '/detail') {
         this.currentPage = Number(sessionStorage.getItem('currentPage'))
-        this.currentComponent = sessionStorage.getItem('currentComponent')
-        if (this.currentComponent === 'appGrid') {
-          this.iconAactive = false
-        } else if (this.currentComponent === 'appList') {
-          this.iconAactive = true
-        }
-
         this.getAppData(this.searchCondition)
-      } else {
-        this.currentPage = 1
       }
     },
     uploadPackage () {
       let userName = sessionStorage.getItem('userNameRole')
       if (userName === 'guest') {
-        this.uploadDiaVis = false
+        this.isShwoUploadDialog = false
       } else {
-        this.uploadDiaVis = true
+        this.isShwoUploadDialog = true
       }
     },
-    getCurrentComponent (currentComponent) {
-      this.currentComponent = currentComponent
+    changeAppShowType (appShowType) {
+      this.appShowType = appShowType
     },
-    getSearchCondition (searchCondition) {
+    initTableData (searchCondition) {
       this.searchCondition = searchCondition
       this.getAppData(searchCondition)
     },
     doQuery () {
       this.selectedConditions = []
-      let types = ['types', 'affinity', 'sortBy', 'industry', 'workloadType']
+      let types = ['types', 'affinity', 'sortType', 'industry', 'workloadType']
       types.forEach((item) => {
         this[item].forEach((condition) => {
           if (condition.selected) this.selectedConditions.push(condition)
@@ -209,8 +195,8 @@ export default {
         queryCtrl: {
           offset: this.offsetPage,
           limit: this.limitSize,
-          sortItem: this.prop,
-          sortType: this.order
+          sortItem: this.sortItem,
+          sortType: this.sortType
         }
       }
       this.selectedConditions.forEach(
@@ -228,19 +214,19 @@ export default {
             case 'workloadType':
               this.searchCondition.workloadType.push(item.value)
               break
-            case 'sortBy':
+            case 'sortType':
               switch (item.value) {
                 case 'Most':
-                  this.prop = this.searchCondition.queryCtrl.sortItem = 'downloadCount'
+                  this.sortItem = this.searchCondition.queryCtrl.sortItem = 'downloadCount'
                   break
                 case 'Score':
-                  this.prop = this.searchCondition.queryCtrl.sortItem = 'score'
+                  this.sortItem = this.searchCondition.queryCtrl.sortItem = 'score'
                   break
                 case 'Name':
-                  this.prop = this.searchCondition.queryCtrl.sortItem = 'appName'
+                  this.sortItem = this.searchCondition.queryCtrl.sortItem = 'appName'
                   break
                 case 'UploadTime':
-                  this.prop = this.searchCondition.queryCtrl.sortItem = 'createTime'
+                  this.sortItem = this.searchCondition.queryCtrl.sortItem = 'createTime'
                   break
               }
               break
@@ -250,16 +236,15 @@ export default {
       this.getAppData(this.searchCondition)
     },
     buildQueryReq () {
-      let _queryReq = this.searchCondition
-      this.prop = sessionStorage.getItem('sortItem')
-      this.order = sessionStorage.getItem('sortType')
+      this.sortItem = sessionStorage.getItem('sortItem')
+      this.sortType = sessionStorage.getItem('sortType')
       this.searchCondition.queryCtrl = {
-        'offset': this.offsetPage,
-        'limit': this.limitSize,
-        'sortItem': this.prop,
-        'sortType': this.order
+        offset: this.offsetPage,
+        limit: this.limitSize,
+        sortItem: this.sortItem,
+        sortType: this.sortType
       }
-      return _queryReq
+      return this.searchCondition
     },
 
     getCurrentPageData (data, pageSize, start) {
@@ -275,7 +260,6 @@ export default {
       }
       this.findAppData.forEach(itemBe => {
         this.synResult.push(this.getSingleData(itemBe, userId))
-        this.synResult = this.synResult.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())[0]
       })
       Promise.all(this.synResult).then(() => {
         setTimeout(() => {
@@ -290,36 +274,24 @@ export default {
         getAppDetailTableApi(itemBe.appId, userId, this.limitSize, this.offsetPage).then(res => {
           let data = res.data
           data.forEach(item => {
-            if (item.status === 'Published') {
-              itemBe.experienceAble = item.experienceAble
-              itemBe.packageId = item.packageId
-              itemBe.createTime = item.createTime
-              console.log(item.packageId)
-              console.log(itemBe.packageId)
-            }
+            itemBe.experienceAble = item.experienceAble
           })
           resolve()
         })
       })
     },
     input (input) {
-      this.uploadDiaVis = input
+      this.isShwoUploadDialog = input
     },
     getAppData (searchCondition) {
       if (!searchCondition.queryCtrl.sortItem) {
         searchCondition.queryCtrl.sortItem = 'createTime'
         searchCondition.queryCtrl.sortType = 'desc'
       }
-      this.uploadDiaVis = false
-      this.currentComponent = sessionStorage.getItem('currentComponent') || 'appGrid'
+      this.isShwoUploadDialog = false
       getAppTableApi(searchCondition).then(
         (res) => {
-          this.appData = this.findAppData = res.data.results
-          this.total = res.data.total
-          this.appData.forEach(item => {
-            let newDateBegin = timeFormatTools.formatDateTime(item.createTime)
-            item.createTime = newDateBegin
-          })
+          this.findAppData = res.data.results
           this.checkProjectData()
         },
         (error) => {
@@ -328,7 +300,6 @@ export default {
         }
       )
     },
-    // home page method
     setItemSelectedValue (item) {
       item.selected = false
       if (item.value === this.selectedConditions[0].label[1]) {
@@ -339,8 +310,7 @@ export default {
   },
   watch: {
     '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
+      this.language = localStorage.getItem('language')
       this.getAppData(this.searchCondition)
     },
     offsetPage (val, oldVal) {
@@ -365,45 +335,33 @@ export default {
     sessionStorage.removeItem('sortType')
     sessionStorage.removeItem('sortItem')
     this.setDivHeight()
-    if (sessionStorage.getItem('userNameRole') === 'guest') {
-      this.ifShow = false
-    }
-    this.types.forEach((item) => {
-      item.selected = false
-    })
-    this.affinity.forEach((item) => {
-      item.selected = false
-    })
-    this.sortBy.forEach((item) => {
+    this.sortItems.forEach((item) => {
       item.selected = false
       if (item.value === 'UploadTime') {
         item.selected = true
       }
     })
-    this.industry.forEach((item) => {
-      item.selected = false
-    })
     if (this.$route.params.data) {
       let params = JSON.parse(this.$route.params.data)
       this.selectedConditions = params
-      this.industry.forEach((item) => {
+      this.appIndustry.forEach((item) => {
         this.setItemSelectedValue(item)
       })
-      this.affinity.forEach((item) => {
+      this.appAffinity.forEach((item) => {
         item.selected = false
         if (item.value === this.selectedConditions[0].label) {
           item.selected = true
           this.doQuery()
         }
       })
-      this.sortBy.forEach((item) => {
+      this.sortItems.forEach((item) => {
         this.setItemSelectedValue(item)
       })
-      this.types.forEach((item) => {
+      this.appTypes.forEach((item) => {
         this.setItemSelectedValue(item)
       })
     }
-    this.ifFromDetail()
+    this.checkFromDetail()
   },
   destroyed () {
     sessionStorage.removeItem('offsetRepo')
@@ -413,7 +371,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.home {
+.appStoreHome {
   .uploadApp_btn{
     position:absolute;
     right: 0;
@@ -435,7 +393,6 @@ export default {
     height: 20px;
     margin-right: 6px;
   }
-
   .el-dialog {
     height: 333px;
     width: 535px;
@@ -446,57 +403,12 @@ export default {
     .el-dialog__body{
       font-size: 20px;
     }
-    .info1 {
-      font-size: 20px;
-    }
     .dialog-footer{
       text-align: center;
       margin-top: 2%;
     }
   }
-  // margin-top: 65px;
-  .el-form-item {
-    margin-bottom: 0;
-  }
-  .searchAndButton {
-    float: right;
-    width: 500px;
-  }
-  .searchBox {
-    float: right;
-    width: 300px;
-    margin-top: -2px;
-  }
-  .icon-group {
-    float: right;
-    width: 158px;
-    padding-right: 56px;
-    em {
-      line-height: 55px;
-      margin-right: 36px;
-      font-size: 24px;
-    }
-    .iconAactive {
-      color: #f66f6a;
-      font-size: 30px;
-    }
-    em:last-child {
-      margin-right: 0;
-    }
-    .uploadAppLogo {
-      width: 31px;
-      height: 25px;
-      margin-right: 20px;
-      cursor: pointer;
-    }
-    .header_img {
-      width: 25px;
-      height: 25px;
-      cursor: pointer;
-    }
-  }
-  .app {
-    // padding: 30px 10%;
+  .appMainContent {
     box-sizing: border-box;
     .app-content {
       background: white;
@@ -508,80 +420,6 @@ export default {
       .search {
         font-size: 16px;
         padding-bottom: 10px;
-        .left {
-          float: left;
-          .search-title {
-            color: #688ef3;
-            margin: 0 0 0 16px;
-          }
-          .select-raw {
-            display: inline-block;
-            border: 8px solid transparent;
-            margin: 0 8px;
-            position: relative;
-          }
-          .select-raw-false {
-            border-top-color: #688ef3;
-            top: 5px;
-          }
-          .select-raw-true {
-            border-bottom-color: #688ef3;
-            border-top-left-radius: 50%;
-          }
-          .select-condition {
-            display: inline-block;
-            padding: 5px 11px;
-            border-radius: 12px;
-            font-size: 14px;
-            margin-right: 20px;
-            margin-bottom: 10px;
-            border: 1px solid #688ef3;
-            color: #688ef3;
-          }
-        }
-        .right {
-          float: right;
-        }
-      }
-      .condition-list {
-        margin-bottom: 18px;
-        padding-top: 10px;
-        .underline {
-          padding-bottom: 10px;
-          border-bottom: 1px solid #e7ebf5;
-        }
-        .sort-type {
-          margin-top: 15px;
-          min-height: 36px;
-          line-height: 36px;
-          strong {
-            margin-right: 50px;
-            font-size: 14px;
-            color: #FFFFFF;
-            font-weight: bold;
-            display: inline-block;
-            width: 85px;
-            height: 30px;
-            line-height: 30px;
-            background: #688ef3;
-            text-align: center;
-          }
-          .box {
-            display: inline-block;
-            margin: 0 10px;
-            font-size: 14px;
-            position: relative;
-          }
-          .selected {
-            color: #688ef3;
-            font-weight: bold;
-          }
-        }
-        .sort-type.sort-type-en{
-          strong{
-            width: 105px;
-          }
-        }
       }
     }
   }

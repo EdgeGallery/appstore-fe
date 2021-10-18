@@ -30,15 +30,9 @@
           size="small"
           v-model="nameQueryVal"
           :placeholder="$t('common.appName')"
-          @keyup.enter.native="queryApp"
+          @change="queryApp"
           suffix-icon="el-icon-search"
-        >
-          <em
-            slot="suffix"
-            class="search_icon"
-            @click="queryApp"
-          />
-        </el-input>
+        />
       </el-form-item>
       <el-form-item
         prop="sortType"
@@ -47,18 +41,18 @@
         <el-dropdown
           :hide-on-click="true"
           split-button
-          @command="handleClick"
+          @command="sortData"
         >
           <span class="el-dropdown-link">
-            {{ this.sortByTitle === '' ? $t('common.sort') : this.sortByTitle }}
+            {{ this.sortItemLabel === '' ? $t('common.sort') : this.sortItemLabel }}
           </span>
           <el-dropdown-menu
             slot="dropdown"
             align="center"
-            @change="handleClick"
+            @change="sortData"
           >
             <el-dropdown-item
-              v-for="(item, index) in sortBy"
+              v-for="(item, index) in sortItems"
               :key="index"
               class="box curp"
               :class="{selected: item.selected}"
@@ -78,22 +72,22 @@
           width="67.2%"
           trigger="click"
           transition="fade-in-linear"
-          v-model="visible"
+          v-model="isShowFilterDialog"
         >
           <div>
             <el-checkbox-group
-              v-model=" searchCondition.industry"
+              v-model="searchCondition.industry"
             >
               <label style="height:20px;width:65px;position: relative;font-size:14px;top: 7px;">
                 {{ $t('common.industry') }}
               </label>
               <el-checkbox-button
-                v-for="(item, index) in industry"
+                v-for="(item, index) in appIndustry"
                 :key="item.value"
                 class="myCheckBox"
                 :label="item.labelen"
                 :checked="item.selected"
-                @change="getSortedItem(item.type, item.value,index)"
+                @change="getSortedItem(item.type, item.value, index)"
               >
                 <span>{{ language==='cn'?item.labelcn:item.labelen }}</span>
               </el-checkbox-button>
@@ -105,7 +99,7 @@
                 {{ $t('common.type') }}
               </label>
               <el-checkbox-button
-                v-for="(item, index) in types"
+                v-for="(item, index) in appTypes"
                 :key="item.value"
                 class="box curp"
                 :label="item.labelen"
@@ -122,7 +116,7 @@
                 {{ $t('common.architecture') }}
               </label>
               <el-checkbox-button
-                v-for="(item, index) in affinity"
+                v-for="(item, index) in appAffinity"
                 :key="item.value"
                 class="box curp"
                 :label="item.label"
@@ -154,14 +148,14 @@
             <el-button
               class="confirmBtn"
               size="mini"
-              @click="confirmbtn"
+              @click="getAppData"
             >
               {{ $t('common.confirm') }}
             </el-button>
             <el-button
               class="clearBtn"
               size="mini"
-              @click="cancelbtn"
+              @click="cancelAction"
             >
               {{ $t('common.clean') }}
             </el-button>
@@ -186,7 +180,6 @@
           </el-button>
         </el-popover>
       </el-form-item>
-
       <el-form-item class="lt">
         <el-tooltip
           class="item"
@@ -197,14 +190,14 @@
         >
           <img
             class="header_img"
-            v-if="iconAactive === false || iconAactive === 'false'"
+            v-if="appShowType === 'appList'"
             src="../../assets/images/applist.png"
             @click="changeAppList"
             alt=""
           >
           <img
             class="header_img"
-            v-if="iconAactive === true || iconAactive === 'true'"
+            v-if="appShowType === 'appGrid'"
             src="../../assets/images/appgrid.png"
             @click="changeAppList"
             alt=""
@@ -212,7 +205,7 @@
         </el-tooltip>
       </el-form-item>
       <el-form-item
-        v-if="ifPkgTrans"
+        v-if="isShowAppdTrans"
         class="lt"
       >
         <el-tooltip
@@ -237,35 +230,28 @@
 
 <script>
 import { appPkgTransToolCheck } from '../../tools/api'
-import { TYPES, AFFINITY, SORT_BY, INDUSTRY, DEPLOYMODE } from '../../tools/constant.js'
+import { TYPES, AFFINITY, SORTITEM, INDUSTRY, DEPLOYMODE } from '../../tools/constant.js'
 export default ({
   name: 'SearchAndFilter',
   data () {
     return {
-      ifPkgTrans: false,
-      value: '',
+      isShowAppdTrans: false,
       language: localStorage.getItem('language'),
-      iconAactive: this.$route.query.changeStyle || false,
-      currentComponent: '',
-      singleItemList: [],
-      singleItem: '',
-      visible: false,
-      types: TYPES,
-      affinity: AFFINITY,
-      industry: INDUSTRY,
+      appShowType: 'appGrid',
+      isShowFilterDialog: false,
+      appTypes: TYPES,
+      appAffinity: AFFINITY,
+      appIndustry: INDUSTRY,
       workloadType: DEPLOYMODE,
-      sortBy: SORT_BY,
-      dialogVisible: false,
-      ifShow: true,
-      statusOptionList: [],
+      sortItems: SORTITEM,
       nameQueryVal: '',
       appName: '',
       selectedConditions: [],
       offsetPage: sessionStorage.getItem('offsetRepo') || 0,
-      sortByTitle: '',
+      sortItemLabel: '',
       limitSize: 15,
-      prop: 'createTime',
-      order: 'desc',
+      sortItem: 'createTime',
+      sortType: 'desc',
       searchCondition: {
         appName: '',
         types: [],
@@ -278,55 +264,54 @@ export default ({
         queryCtrl: {
           offset: 0,
           limit: 15,
-          sortItem: this.prop,
-          sortType: this.order
+          sortItem: this.sortItem,
+          sortType: this.sortType
         }
       }
     }
   },
   methods: {
-    appPkgTransToolCheck () {
+    initAppdTrans () {
       appPkgTransToolCheck().then(
         (res) => {
-          this.ifPkgTrans = res.data
+          this.isShowAppdTrans = res.data
         }
       )
     },
     queryApp () {
       sessionStorage.setItem('currentPage', 1)
       this.searchCondition.appName = this.nameQueryVal.toLowerCase()
-      this.$emit('getSearchCondition', this.searchCondition)
+      this.$emit('initTableData', this.searchCondition)
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
       this.$emit('getSearchData', this.appName)
     },
-    handleClick (singleEvent) {
-      this.singleItemList.push(this.sortBy[singleEvent].value)
+    sortData (singleEvent) {
       if (this.language === 'cn') {
-        this.sortByTitle = this.sortBy[singleEvent].labelcn
+        this.sortItemLabel = this.sortItems[singleEvent].labelcn
       } else {
-        this.sortByTitle = this.sortBy[singleEvent].labelen
+        this.sortItemLabel = this.sortItems[singleEvent].labelen
       }
-      this.prop = this.sortBy[singleEvent].value
-      this.searchCondition.queryCtrl.sortItem = this.prop
-      sessionStorage.setItem('sortItem', this.prop)
-      if (this.sortBy[singleEvent].value === 'AppName') {
-        this.order = 'asc'
+      this.sortItem = this.sortItems[singleEvent].value
+      this.searchCondition.queryCtrl.sortItem = this.sortItem
+      sessionStorage.setItem('sortItem', this.sortItem)
+      if (this.sortItem === 'AppName') {
+        this.sortType = 'asc'
         this.searchCondition.queryCtrl.sortType = 'asc'
         sessionStorage.setItem('sortType', 'asc')
       } else {
-        this.order = 'desc'
+        this.sortType = 'desc'
         this.searchCondition.queryCtrl.sortType = 'desc'
         sessionStorage.setItem('sortType', 'desc')
       }
-      this.$emit('getSearchCondition', this.searchCondition)
+      this.$emit('initTableData', this.searchCondition)
     },
-    confirmbtn () {
-      this.$emit('getSearchCondition', this.searchCondition)
-      this.visible = false
+    getAppData () {
+      this.$emit('initTableData', this.searchCondition)
+      this.isShowFilterDialog = false
     },
-    cancelbtn () {
+    cancelAction () {
       this.searchCondition = {
         appName: '',
         types: [],
@@ -344,17 +329,16 @@ export default ({
         }
       }
       this.selectedConditions = []
-
-      this.industry.forEach((item) => {
+      this.appIndustry.forEach((item) => {
         item.selected = false
       })
-      this.types.forEach((item) => {
+      this.appTypes.forEach((item) => {
         item.selected = false
       })
       this.workloadType.forEach((item) => {
         item.selected = false
       })
-      this.affinity.forEach((item) => {
+      this.appAffinity.forEach((item) => {
         item.selected = false
       })
     },
@@ -362,7 +346,7 @@ export default ({
       this.$router.push({
         path: '/appChange',
         query: {
-          changeStyle: this.iconAactive
+          changeStyle: this.appShowType
         }
       })
     },
@@ -380,16 +364,16 @@ export default ({
         types: [],
         affinity: [],
         industry: [],
+        workloadType: [],
         status: 'Published',
         showType: ['public', 'inner-public'],
-        workloadType: [],
         createTime: '',
         userId: '',
         queryCtrl: {
           offset: this.offsetPage,
           limit: this.limitSize,
-          sortItem: this.prop,
-          sortType: this.order
+          sortItem: this.sortItem,
+          sortType: this.sortType
         }
       }
       this.selectedConditions.forEach(
@@ -412,28 +396,25 @@ export default ({
         })
     },
     changeAppList () {
-      if (this.iconAactive === false || this.iconAactive === 'false') {
-        this.iconAactive = true
-        this.currentComponent = 'appList'
+      if (this.appShowType === 'appGrid') {
+        this.appShowType = 'appList'
         sessionStorage.setItem('currentComponent', 'appList')
       } else {
-        this.iconAactive = false
-        this.currentComponent = 'appGrid'
+        this.appShowType = 'appGrid'
         sessionStorage.setItem('currentComponent', 'appGrid')
       }
-      this.$emit('getCurrentComponent', this.currentComponent)
+      this.$emit('changeAppShowType', this.appShowType)
     }
   },
   mounted () {
     sessionStorage.removeItem('sortType')
     sessionStorage.removeItem('sortItem')
-    this.appPkgTransToolCheck()
-    this.$emit('getSearchCondition', this.searchCondition)
+    this.initAppdTrans()
+    this.$emit('initTableData', this.searchCondition)
   },
   watch: {
     '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
+      this.language = localStorage.getItem('language')
     }
   }
 })
@@ -444,47 +425,40 @@ export default ({
   margin-top: 4px;
   cursor: pointer;
 }
-.checkboxChecked {
-  color: #606266;
-  background-color: #fff;
-  border-left: 0px;
-  border: 0px;
-  box-shadow: 0px 0 0 0 #a4bbf8;
-}
 .el-dropdown-menu{
   padding: 0;
   border-radius: 8px;
 }
 .el-dropdown-menu__item:not(.is-disabled):hover, .el-dropdown-menu__item:focus{
-      background-color: #9374FF;
-      color: #fff;
-      border-radius: 8px;
-    }
-    .el-dropdown-menu__item--divided{
-      margin-top: 0;
-    }
-    .el-dropdown-menu__item--divided:before{
-      height: 0;
-    }
+  background-color: #9374FF;
+  color: #fff;
+  border-radius: 8px;
+}
+.el-dropdown-menu__item--divided{
+  margin-top: 0;
+}
+.el-dropdown-menu__item--divided:before{
+  height: 0;
+}
 .search{
+  margin-top: 10px;
   .clear {
     .el-checkbox-button__inner {
       border: 0px;
     }
   }
-  margin-top: 10px;
   .search_input{
     float: left;
-      width: 200px;
-      .el-input__inner {
-        border: 1px solid #5E40C8;
-        border-radius: 8px;
-      }
+    width: 200px;
+    .el-input__inner {
+      border: 1px solid #5E40C8;
+      border-radius: 8px;
+    }
   }
   .el-input--small .el-input__inner {
-        border: 1.5px solid #5E40C8;
-        border-radius: 4px;
-      }
+    border: 1.5px solid #5E40C8;
+    border-radius: 4px;
+  }
   .el-button--primary {
     color: #0e0d0d;
     background-color: #fff;
@@ -497,88 +471,45 @@ export default ({
   }
   .el-dropdown{
     border: 0px;
-    // -webkit-box-shadow:0px 3px 3px #c8c8c8;
-    // -moz-box-shadow:0px 3px 3px #c8c8c8 ;
-    // box-shadow:0px 3px 3px #c8c8c8;
   }
   .el-dropdown .el-button:first-child{
     border-right: none;
   }
-     .el-dropdown .el-dropdown__caret-button::before {
-        display: none !important;
-    }
-.el-button-group.element.style {
-  border: 0px;
-  -webkit-box-shadow:0px 3px 3px #c8c8c8 ;
-  -moz-box-shadow:0px 3px 3px #c8c8c8 ;
-  box-shadow:0px 3px 3px #c8c8c8;
-}
-
-.element.style {
-    height: 20px;
-    width: 50px;
-    font-size: 14px;
-    top: 7px;
-    position: relative;
-}
-.create_time{
-  width: 260px;
-  border-radius: 8px;
-  border-color: #5e40c8;
-  height: 30px;
-  margin-left: 30px;
-  position: relative;
-  top: -1px;
-  .el-icon-date:before{
-    display: none;
-  }
-  .el-range-input{
-    width: 45%;
-  }
-  .el-icon-circle-close:before{
-    position: relative;
-    top: 2px;
-  }
-}
-.el-range-editor.el-input__inner{
-  padding: 0;
-}
-  .el-select{
-    width:80%;
+  .el-dropdown .el-dropdown__caret-button::before {
+    display: none !important;
   }
 }
 .el-checkbox-group {
-    margin: -10px 0px !important;
+  margin: -10px 0px !important;
 }
 .el-checkbox-button__inner:hover{
   color: #5E40C8;
 }
-
 .el-popover.el-popper{
-    position: absolute;
-    top: 90px;
-    width: 67.2%;
-    left: 16% !important;
-    transform-origin: center bottom;
-    z-index: 2007;
+  position: absolute;
+  top: 90px;
+  width: 67.2%;
+  left: 16% !important;
+  transform-origin: center bottom;
+  z-index: 2007;
   .el-button{
-      background: #FFFFFF;
-      color: #5F45BE;
-      border: 1px solid #5F45BE;
+    background: #FFFFFF;
+    color: #5F45BE;
+    border: 1px solid #5F45BE;
   }
   .el-button:hover{
-  background: #5F45BE;
-  color: #fff;
+    background: #5F45BE;
+    color: #fff;
+  }
 }
+@media (max-width: 1800px) and (min-width: 1400px) {
+  .el-popover.el-popper{
+    left: 16.8% !important;
+  }
 }
-   @media (max-width: 1800px) and (min-width: 1400px) {
-    .el-popover.el-popper{
-        left: 16.8% !important;
-    }
-}
-  @media (max-width: 1400px) and (min-width: 1200px) {
-    .el-popover.el-popper{
-        left: 13% !important;
-    }
+@media (max-width: 1400px) and (min-width: 1200px) {
+  .el-popover.el-popper{
+    left: 13% !important;
+  }
 }
 </style>
