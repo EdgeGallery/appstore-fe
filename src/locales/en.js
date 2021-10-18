@@ -340,7 +340,7 @@ const en = {
     uploadFailed: 'Upload failure!',
     checkName: 'Authentication Failure, please recheck the User Name or Password.',
     repeatEnter: 'The input information is wrong, please re-enter it.',
-    userResistedSuccess: 'User is registered successfully!!',
+    userResistedSuccess: 'User is registered successfully!',
     userResistedFaile: 'Failed to register user',
     deletePrompt: 'This operation will delete the app permanently. Do you want to continue?',
     prompt: 'Prompt',
@@ -519,7 +519,7 @@ const en = {
     beginnerGuides: "Beginner's Guide",
     beginnerGuide: "Beginner's Guide",
     coreFunGuide: 'Core function operation guidance',
-    operaContent: 'A picture teaches you to quickly become familiar with the basic functions of the AppStore, from viewing applications to sharing applications is that simple！',
+    operaContent: 'A picture teaches you to quickly become familiar with the basic functions of the AppStore, from viewing applications to sharing applications is that simple!',
     toscaFolder: 'TOSCA-Metadata Directory',
     APPDFolder: 'APPD Directory',
     imageFolder: 'Image Directory',
@@ -537,7 +537,7 @@ const en = {
     titleContent: 'Quickly help you familiarize yourself with the core functions of the edgegallery warehouse',
     titleContentAPPD: 'Quickly help you familiarize yourself with how to define an application package',
     titleContentinter: 'Quickly help you realize application sharing between warehouses',
-    beginnerPart1: 'Hello, welcome to use Edgegallery application warehouse panorama。',
+    beginnerPart1: 'Hello, welcome to use Edgegallery application warehouse panorama.',
     beginnerPart2: 'Using this warehouse, you can evaluate and download applications, upload and publish applications, share applications, etc.',
     appPublishdoc: 'Application Publish'
   },
@@ -756,11 +756,11 @@ const en = {
   appShare: {
     manager: 'External AppStore Manage',
     lookmore: 'see details',
-    appstoreManager: 'Operate on external repositories that can be shared, add, modify and delete external repositories that can be shared.',
+    appstoreManager: 'Add, modify and delete external warehouses that can be shared.',
     appstorePush: 'Manage and display application push messages in batches, select applications that need to be pushed to operators or third parties, and view application test reports. The operation is simple.',
     appstorePull: 'Batch management of the application list, display the application information that can be pulled, and select the applications that need to be pulled to perform batch operations.',
     appstoreMsg: 'View notification information, you can accept APP information that needs to be pushed from different operators.',
-    appstoreOperAna: 'Through multi-dimensional data statistics and comparison, statistics and analysis of applications, and check the application pull, download, push and other types of messages'
+    appstoreOperAna: 'Through multi-dimensional data statistics and comparison, statistics and analysis of applications, and check the application pull, download, push and other types of messages.'
   },
   appManager: {
     reSetting: 'reset',

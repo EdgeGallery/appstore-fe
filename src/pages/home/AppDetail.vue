@@ -759,7 +759,7 @@ export default {
   .app_info_div{
     border-radius: 16px;
     background: #fff;
-    padding: 20px 0 20px 70px;
+    padding: 20px 70px 20px 70px;
     display: flex;
     align-items: center;
     .app_icon{
@@ -840,6 +840,7 @@ export default {
       width: 240px;
       text-align: center;
       float: right;
+      margin-left: 19%;
       .download_num{
         float: left;
         height: 26px;
