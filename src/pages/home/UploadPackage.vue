@@ -135,7 +135,7 @@
         </el-form-item>
         <el-form-item
           :label="$t('store.appIcon')"
-          :label-width="formLabelWidth"
+          label-width="110px"
           prop="type"
           class="icon"
         >
@@ -332,8 +332,6 @@ export default {
   },
   data () {
     return {
-      deployPlatform: 'min',
-      formLabelWidth: '110px',
       ifUploadBig: false,
       ifUploadMin: true,
       radioData: [
@@ -477,10 +475,6 @@ export default {
       let fileTypeArr = ['mp4']
       this.checkFileType(file, 'videoFile', fileTypeArr)
     },
-    handleChangeApi (file, fileList) {
-      let fileTypeArr = ['json']
-      this.checkFileType(file, 'apiFileList', fileTypeArr)
-    },
     removeUploadLogo (file) {
       this.uploadIcon = false
       this.logoFileList = []
@@ -492,7 +486,6 @@ export default {
         this.$message.warning(this.$t('promptMessage.onlyOneFile'))
       }
     },
-
     // Upload icon
     handleChangeLogo (file) {
       let listTemp = []
@@ -524,42 +517,11 @@ export default {
       }
       this.showErr = !this.logoFileList
     },
-    handleChangeAppIcon (file, fileList) {
-      this.packageForm.appIcon = []
-      this.defaultIconFile = []
-      this.defaultActive = ''
-      let type = file.raw.type.split('/')[0]
-      let fileSize = file.size / 1024 / 1024
-      if (type === 'image') {
-        this.packageForm.appIcon.push(file.raw)
-      } else {
-        this.packageForm.appIcon = []
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.uploadPicture')
-        })
-      }
-      if (fileSize > 2) {
-        this.packageForm.appIcon = []
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('store.iconSizeLimit')
-        })
-      }
-    },
     handleDelte (file, fileList) {
       this.packageForm.fileList = fileList
     },
     handleDelteVideoFile (file, fileList) {
       this.packageForm.videoFile = fileList
-    },
-    handleDelteAppIcon (file, fileList) {
-      this.packageForm.appIcon = fileList
-    },
-    removeUploadapi (file, fileList) {
-      this.packageForm.apiFileList = fileList
     },
     getBase64Image (img) {
       let canvas = document.createElement('canvas')
@@ -680,21 +642,6 @@ export default {
         this.showErr = !this.defaultIconFile
       }
     },
-    // default icon
-    chooseDefaultIcons (file, index) {
-      this.packageForm.appIcon = []
-      if (this.defaultActive === index) {
-        this.defaultActive = ''
-      } else {
-        this.defaultActive = index
-      }
-      let image = new Image()
-      image.src = file
-      image.onload = () => {
-        this.defaultUrl = file
-        this.defaultIconFile = this.getFileStream(image)
-      }
-    },
     getShowType (packageForm) {
       if (packageForm.checkList.length === 0) {
         return 'private'
@@ -762,49 +709,42 @@ export default {
       let types = this.packageForm.types
       let affinity = this.packageForm.affinity.length
       let shortDesc = this.packageForm.shortDesc
-
       if (!appFilePackage) {
         this.$message({
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.uploadPackageFile')
         })
-        // this.uploadBtnLoading = false
       } else if (!appFileIcon) {
         this.$message({
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.uploadIconFile')
         })
-        // this.uploadBtnLoading = false
       } else if (!industry) {
         this.$message({
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.industryEmpty')
         })
-        // this.uploadBtnLoading = false
       } else if (!affinity) {
         this.$message({
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.architectureEmpty')
         })
-        // this.uploadBtnLoading = false
       } else if (!types) {
         this.$message({
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.typeEmpty')
         })
-        // this.uploadBtnLoading = false
       } else if (!shortDesc) {
         this.$message({
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.shortDescEmpty')
         })
-        // this.uploadBtnLoading = false
       } else {
         if (this.ifUploadBig) {
           this.upload()
@@ -951,7 +891,7 @@ export default {
     margin-top: 6px;
     color: #606266;
     .el-icon-warning:before {
-    content: aqua;
+      content: aqua;
     }
     .lableStyle{
       margin-left: 10px;
@@ -1006,12 +946,12 @@ export default {
       opacity: 0;
     }
     .el-icon-plus:before {
-        content: "\e6d9";
+      content: "\e6d9";
     }
   }
   .el-icon-question{
-      float: left;
-      margin-top: 12px;
+    float: left;
+    margin-top: 12px;
   }
   .el-icon-question:before {
     color: #688ef3;

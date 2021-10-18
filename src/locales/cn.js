@@ -431,7 +431,6 @@ const cn = {
     advancedSearch: '高级搜索',
     clearAll: '清空',
     screening: '筛选',
-    sortBy: '排序',
     most: '下载量',
     downloadcount: ' 次下载',
     name: '名称',

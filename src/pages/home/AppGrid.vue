@@ -33,7 +33,7 @@
         >
           <img
             :src="getAppIcon(item)"
-            alt
+            alt=""
           >
         </div>
         <div
@@ -41,7 +41,6 @@
         >
           <p
             class="appNameStyle"
-            :class="{'appNameStyleAuto':activeIndex===index}"
           >
             {{ item.name }}
           </p>
@@ -92,9 +91,7 @@ export default {
   },
   data () {
     return {
-      ifShow: true,
       language: localStorage.getItem('language'),
-      rate: 3,
       activeIndex: -1
     }
   },
@@ -102,39 +99,18 @@ export default {
     hoverAppList (index) {
       this.activeIndex = index
     },
-    getAppInfo (type, item) {
-      if (type === 'name') {
-        if (item.name) {
-          return item.name.length >= 14
-            ? item.name.slice(0, 11) + '...'
-            : item.name
-        } else {
-          return ''
-        }
-      } else if (type === 'version') {
-        if (item.version) {
-          return '(V' + item.version + ')'
-        } else {
-          return ''
-        }
-      }
-    },
     jumpToDetai (item) {
       this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
       sessionStorage.setItem('pathSource', 'index')
     },
     getAppIcon (item) {
-      console.log(item)
-      console.log(item.appId)
-      console.log(item.packageId)
-      return URL_PREFIX + 'apps/' + item.appId + '/packages/' + item.packageId + '/icon'
+      return URL_PREFIX + 'apps/' + item.appId + '/icon'
     }
   },
   watch: {
     '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
+      this.language = localStorage.getItem('language')
     }
   }
 }
@@ -155,12 +131,12 @@ export default {
     box-sizing: border-box;
     margin-bottom: 20px;
     .application {
-          box-shadow: 0px 1.5px 20px #dad8d8 !important;
-          -webkit-box-shadow: 0px 1.5px 20px #dad8d8 !important;
-          border-radius: 8px;
-          width: 97%;
-          height: 234px;
-          position: relative;
+      box-shadow: 0px 1.5px 20px #dad8d8 !important;
+      -webkit-box-shadow: 0px 1.5px 20px #dad8d8 !important;
+      border-radius: 8px;
+      width: 97%;
+      height: 234px;
+      position: relative;
       .img-box {
         position: relative;
         background-color: #fff;
@@ -228,19 +204,13 @@ export default {
           position: relative;
         }
         .appNameStyle {
-            overflow: hidden;
-            width: 100%;
-            font-size: 20px;
-            margin-top: 3px;
-            margin-bottom: 1px;
-            padding: 4px 0 0 8px;
-            max-height: 36px;
-          }
-          .appNameStyleAuto{
-            max-height: 100px;
-          }
-        .appNameAuto{
-          max-height: 100px;
+          overflow: hidden;
+          width: 100%;
+          font-size: 20px;
+          margin-top: 3px;
+          margin-bottom: 1px;
+          padding: 4px 0 0 8px;
+          max-height: 36px;
         }
         .scoreIcon{
           width: 100%;
@@ -266,22 +236,16 @@ export default {
             }
           }
           .deployMode{
-              margin-right: 15px;
-              height: 40px;
-              line-height: 40px;
-              font-size: 14px;
-              font-family: HarmonyOS Sans SC, sans-serif;
-              font-weight: 300;
-              color: #414040;
-            }
+            margin-right: 15px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            font-family: HarmonyOS Sans SC, sans-serif;
+            font-weight: 300;
+            color: #414040;
+          }
         }
-
       }
-      .scoreModeAuto{
-        height: auto;
-        border: 1px solid green;
-      }
-
     }
     .application:hover{
       transition: transform .3s ease-in-out, box-shadow .3s cubic-bezier(0, 0, 0, .715), border .3s linear .1s;
@@ -290,62 +254,59 @@ export default {
       background-color: #fff;
       transform:translatey(-7px)
     }
-
   }
   @media screen and (max-width: 1800px) and (min-width: 1200px){
-     .content {
-    padding-left: 10px;
-    height: 140px;
-    margin-right: 2.4%;
-    margin-bottom: 30px;
-    .application {
-          height: 120px;
-      .img-box {
-        height: 80px;
-        img {
-          height: 40px;
-        }
-      }
-      .scoreMode{
-        border-radius: 0 0 8px 8px;
-        height: 76px;
-        .appName{
-          height: 30px;
-          padding-top: 4px;
-          padding-left: 10px;
-          line-height: 30px;
-          font-size: 14px;
-        }
-        .appNameStyle {
-          font-size: 14px;
-          margin-top: 3px;
-          margin-bottom: 1px;
-        }
-
-        .scoreIcon{
-          padding-top: 4px;
-          .score{
-            margin-left: 10px;
-            img{
-              width: 14px;
-              height: 14px;
-              margin-right:6px ;
-            }
-            .core{
-              line-height: 24px;
-              position: relative;
-              top: 2px;
-              font-size: 14px;
-            }
+    .content {
+      padding-left: 10px;
+      height: 140px;
+      margin-right: 2.4%;
+      margin-bottom: 30px;
+      .application {
+        height: 120px;
+        .img-box {
+          height: 80px;
+          img {
+            height: 40px;
           }
-          .deployMode{
+        }
+        .scoreMode{
+          border-radius: 0 0 8px 8px;
+          height: 76px;
+          .appName{
+            height: 30px;
+            padding-top: 4px;
+            padding-left: 10px;
+            line-height: 30px;
+            font-size: 14px;
+          }
+          .appNameStyle {
+            font-size: 14px;
+            margin-top: 3px;
+            margin-bottom: 1px;
+          }
+          .scoreIcon{
+            padding-top: 4px;
+            .score{
+              margin-left: 10px;
+              img{
+                width: 14px;
+                height: 14px;
+                margin-right:6px ;
+              }
+              .core{
+                line-height: 24px;
+                position: relative;
+                top: 2px;
+                font-size: 14px;
+              }
+            }
+            .deployMode{
               margin-right: 10px;
+            }
           }
         }
       }
     }
-
-  }
   }
 }
 </style>

@@ -17,7 +17,6 @@
 <template>
   <div
     class="app-list"
-    style="padding-right:30px"
   >
     <el-table
       :data="appData"
@@ -28,7 +27,6 @@
         prop="name"
         :label="$t('common.appName')"
         width="200"
-        :cell-class-name="hiddenClass"
       >
         <template slot-scope="scope">
           <el-popover
@@ -80,7 +78,6 @@
         prop="shortDesc"
         :label="$t('common.description')"
         width="230"
-        :cell-class-name="hiddenClass"
       >
         <template slot-scope="scope">
           <el-popover
@@ -116,14 +113,14 @@
         <template slot-scope="scope">
           <el-button
             id="applist_detail"
-            @click="detail(scope.row)"
+            @click="enterDetail(scope.row)"
             class="detailStyle"
           >
             {{ $t('common.detail') }}
           </el-button>
           <el-button
             id="applist_delete"
-            :disabled="ifDelete || userId === scope.row.userId ? false : true"
+            :disabled="!isDelete || userId === scope.row.userId ? false : true"
             @click="deleteRow(scope.row)"
             class="detailStyle"
           >
@@ -158,12 +155,12 @@ export default {
   data () {
     return {
       language: localStorage.getItem('language'),
-      ifDelete: 'true',
+      isDelete: false,
       userId: sessionStorage.getItem('userId')
     }
   },
   methods: {
-    detail (item) {
+    enterDetail (item) {
       this.$router.push({ name: 'appstordetail', params: { item } })
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
       sessionStorage.setItem('pathSource', 'index')
@@ -188,24 +185,18 @@ export default {
           commonUtil.showTipMsg(this.language, error, defaultMsg)
         })
       })
-    },
-    hiddenClass (row) {
-      if (row.columnIndex === 5 || row.columnIndex === 0) {
-        return 'hiddenClass'
-      }
     }
   },
   watch: {
     '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
+      this.language = localStorage.getItem('language')
     }
   },
   mounted () {
     if ((sessionStorage.getItem('userNameRole') === 'guest') || (sessionStorage.getItem('userNameRole') === 'tenant')) {
-      this.ifDelete = false
+      this.isDelete = false
     } else {
-      this.ifDelete = true
+      this.isDelete = true
     }
   }
 }
@@ -213,16 +204,11 @@ export default {
 </script>
 <style lang='less' scoped>
 .app-list{
-  // padding: 20px 0;
-  .pagination{
-    margin: 20px;
-  }
   .detailStyle{
     background-color: #EFEFEF;
     color: #7A6E8A;
     border: 0px;
     padding: 6px;
   }
-
 }
 </style>

@@ -21,7 +21,6 @@
         class="show_common lt"
       >
         <img
-          class="status3-pic"
           :src="appTry"
           alt=""
         >
@@ -60,7 +59,7 @@
                 placement="top"
                 :type="primary"
                 :autofocus="true"
-                :icon="iconStart"
+                icon="el-icon-more"
                 class="line_top"
               />
               <el-timeline-item
@@ -138,7 +137,7 @@
                 </p>
               </el-timeline-item>
               <el-timeline-item
-                :icon="iconStart"
+                icon="el-icon-more"
                 placement="top"
                 class="line_top"
               />
@@ -204,24 +203,13 @@ export default {
     appId: {
       required: true,
       type: String
-    },
-    ifExperience: {
-      required: true,
-      type: Boolean
     }
-  },
-  components: {
-    // EgPagination
   },
   data () {
     return {
-      deployMode: '',
       appTry: appTry,
       startTry: startTry,
-      currentPageData: [],
-      dataLoading: true,
       userId: sessionStorage.getItem('userId'),
-      language: localStorage.getItem('language'),
       userName: sessionStorage.getItem('userName'),
       name: '',
       ip: '',
@@ -229,9 +217,6 @@ export default {
       experienceData: [],
       btnInstantiate: false,
       btnClean: true,
-      deployStatus: 'NOTDEPLOY',
-      workStatus: '',
-      instantiateInfo: '',
       btnType: 'info',
       btnType1: 'info',
       btnType2: 'info',
@@ -246,25 +231,10 @@ export default {
       tip31: true,
       tip32: false,
       tip33: false,
-      iconStart: 'el-icon-more',
-      icon1: 'el-icon-more',
-      icon2: 'el-icon-more',
-      icon3: 'el-icon-more',
-      displayDom: false,
-      version: ''
+      displayDom: false
     }
   },
   methods: {
-    getExperienceAbleInfo () {
-      myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
-        let data = res.data
-        let experienceAble = data.experienceAble
-        this.deployMode = data.deployMode
-        if (experienceAble) {
-          this.ifExperience = true
-        }
-      })
-    },
     step () {
       this.btnType = 'primary'
       this.tip11 = false
@@ -334,7 +304,6 @@ export default {
     stepClean () {
       this.btnClean = true
       this.btnInstantiate = false
-
       this.tip33 = false
       this.tip31 = true
       this.btnType = 'info'
@@ -440,13 +409,8 @@ export default {
         type: 'success'
       })
     }
-
   },
   watch: {
-    '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
-    },
     appId (newVal, oldVal) {
       this.appId = newVal
     },
@@ -455,9 +419,6 @@ export default {
       if (this.packageId) {
         this.initStatus()
       }
-    },
-    ifExperience (newStr) {
-      this.ifExperience = newStr
     }
   },
   mounted () {
@@ -470,11 +431,78 @@ export default {
   margin: auto;
   background: #fff;
   border-radius: 16px;
-
-  .paginationStyle{
-    float: right;
-    margin-top: 20px;
-    margin-right: 30px;
+  .show_app {
+    .show_common {
+      display: inline-block;
+      width: 43%;
+      margin-top: 20px;
+      text-align: center;
+      .show_btn{
+        display: inline-block;
+      }
+    }
+    .show_step{
+      display: inline-block;
+      width: 57%;
+      .top_titile{
+        font-size: 18px;
+        font-weight: bold;
+        color: #282B33;
+        margin-bottom: 20px;
+        margin-top: 35px;
+      }
+      .bottom_titile{
+        font-size: 14px;
+        font-weight: 400;
+        color: #A680D7;
+        margin-bottom: 20px;
+      }
+      .footer_title{
+        width: 575px;
+        .bottom_titile1{
+        width: 20%;
+        font-size: 18px;
+        font-weight: bold;
+        color: #282B33;
+        }
+        .el-upload__tip{
+          width: 86%;
+          font-size: 14px;
+          font-weight: 400;
+          color: #8E8E8E;
+        }
+      }
+      .card_content{
+        margin-left: 30px;
+        margin-bottom: 20px;
+        .line_top{
+          background: url('../../assets/images/startTry.png') left top no-repeat;
+          .el-timeline-item__node{
+            background: none;
+          }
+          .el-timeline-item__tail{
+            top: 12px;
+          }
+        }
+        .line_list{
+          .el-timeline-item__node--normal{
+            background: url('../../assets/images/inprogressTry.png') left top no-repeat;
+          }
+        }
+        .el-timeline-item__tail{
+          border-left: 1px dashed #7093EF;
+          left: 9px;
+        }
+        .el-timeline-item__node--normal{
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
   }
+}
+.btnPasses{
+  background: #fff !important;
+  color:#67C23A !important;
 }
 </style>

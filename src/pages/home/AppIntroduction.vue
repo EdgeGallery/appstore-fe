@@ -35,26 +35,7 @@ export default {
       required: true,
       type: String
     }
-  },
-  data () {
-    return {
-      currentPageData: [],
-      dataLoading: true,
-      // source: 'this is app detail test',
-      userId: sessionStorage.getItem('userId'),
-      appName: '',
-      language: localStorage.getItem('language')
-    }
-  },
-  methods: {
-  },
-  watch: {
-    '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
-    }
   }
-
 }
 </script>
 <style lang="less">
@@ -62,11 +43,5 @@ export default {
   margin: auto;
   background: #fff;
   border-radius: 16px;
-
-  .paginationStyle{
-    float: right;
-    margin-top: 20px;
-    margin-right: 30px;
-  }
 }
 </style>

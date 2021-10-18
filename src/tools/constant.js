@@ -232,34 +232,34 @@ const DEPLOYMODE = [
   }
 ]
 
-const SORT_BY = [
+const SORTITEM = [
   {
     labelcn: '下载量',
     labelen: 'DownloadCount',
     value: 'DownloadCount',
     selected: false,
-    type: 'sortBy'
+    type: 'sortItem'
   },
   {
     labelcn: '名称',
     labelen: 'AppName',
     value: 'AppName',
     selected: false,
-    type: 'sortBy'
+    type: 'sortItem'
   },
   {
     labelcn: '评分',
     labelen: 'Score',
     value: 'Score',
     selected: false,
-    type: 'sortBy'
+    type: 'sortItem'
   },
   {
     labelcn: '上传时间',
     labelen: 'CreateTime',
     value: 'CreateTime',
     selected: false,
-    type: 'sortBy'
+    type: 'sortItem'
   }
 ]
 
@@ -290,5 +290,5 @@ const Architecture = [
 ]
 
 export {
-  TYPES, AFFINITY, SORT_BY, INDUSTRY, TTYPES, DEPLOYMODE, Architecture, MEAO
+  TYPES, AFFINITY, SORTITEM, INDUSTRY, TTYPES, DEPLOYMODE, Architecture, MEAO
 }

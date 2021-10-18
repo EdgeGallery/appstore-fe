@@ -416,7 +416,6 @@ const en = {
     advancedSearch: 'Advanced Search',
     clearAll: 'Delete',
     screening: 'Screening',
-    sortBy: 'Sort By',
     most: 'Most',
     name: 'Name',
     downloadcount: ' downloads',

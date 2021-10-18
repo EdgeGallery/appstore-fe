@@ -387,7 +387,7 @@
 </template>
 <script>
 import { getAppTableApi, URL_PREFIX } from '../../tools/api.js'
-import { INDUSTRY, TYPES, AFFINITY, SORT_BY } from '../../tools/constant.js'
+import { INDUSTRY, TYPES, AFFINITY, SORTITEM } from '../../tools/constant.js'
 import HomeSwiper from '../../components/common/Swipers.vue'
 import uploadPackage from '../home/UploadPackage.vue'
 import { mapState } from 'vuex'
@@ -454,7 +454,7 @@ export default {
       ],
       scoreData: [
         {
-          type: 'sortBy',
+          type: 'sortItem',
           index: 2
         }],
       floor: [],
@@ -609,7 +609,7 @@ export default {
       industry: INDUSTRY,
       types: TYPES,
       affinity: AFFINITY,
-      sortBy: SORT_BY,
+      sortItem: SORTITEM,
       developerUrl: '',
       language: localStorage.getItem('language'),
       mecmUrl: '',
@@ -742,9 +742,6 @@ export default {
       this[type][index].selected = !this[type][index].selected
       this.selectedCondition2()
     },
-    selectedCondition1 (type, index) {
-      this.selectedCondition2()
-    },
     refreshCondition () {
       let types = ['types', 'affinity', 'industry']
       if (this.selectedConditions) {
@@ -757,7 +754,7 @@ export default {
     },
     selectedCondition2 () {
       this.selectedConditions = []
-      let types = ['types', 'affinity', 'industry', 'sortBy']
+      let types = ['types', 'affinity', 'industry', 'sortItem']
       if (this.selectedConditions) {
         types.forEach((item) => {
           this[item].forEach((condition) => {
