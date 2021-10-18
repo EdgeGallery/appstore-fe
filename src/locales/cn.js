@@ -91,7 +91,7 @@ const cn = {
       deactivated: '已停用'
     },
     subscribe: '订购',
-    price: '元（RMB）/小时',
+    price: ' 元（RMB）/小时',
     subPrice: '订购价格：',
     subSuccess: '订购成功！',
     chooseArea: '请先选择部署区域！',
@@ -613,7 +613,7 @@ const cn = {
     getStatusFailed: '获取应用状态失败',
     more: '更多',
     free: '免费',
-    price: '元（RMB）/小时',
+    price: ' 元（RMB）/小时',
     priceTitle: '应用定价设置'
   },
   report: {
