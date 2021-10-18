@@ -286,6 +286,51 @@ export default {
     EgPagination
   },
   data () {
+    const validateName = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(`${this.$t('apppromotion.nameCheck')}`))
+      } else {
+        callback()
+      }
+    }
+    const validateVersion = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(`${this.$t('apppromotion.versionCheck')}`))
+      } else {
+        callback()
+      }
+    }
+    const validateCompany = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(`${this.$t('apppromotion.companyCheck')}`))
+      } else {
+        callback()
+      }
+    }
+    const validateUrl = (rule, value, callback) => {
+      let reg = /^((http:\/\/|https:\/\/)?([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(:\d{0,5})?(\/.*)?$/
+      if (!value) {
+        callback(new Error(`${this.$t('apppromotion.addrCheck')}`))
+      } else if (!reg.test(value)) {
+        callback(new Error(`${this.$t('promptMessage.normalVerify')}`))
+      } else {
+        callback()
+      }
+    }
+    const validateId = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(`${this.$t('apppromotion.appdCheck')}`))
+      } else {
+        callback()
+      }
+    }
+    const validateDesc = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(`${this.$t('apppromotion.descriptionCheck')}`))
+      } else {
+        callback()
+      }
+    }
     return {
       screenHeight: document.body.clientHeight,
       pointNum: 5,
@@ -315,7 +360,27 @@ export default {
       offsetPage: sessionStorage.getItem('offsetAppstore') || 0,
       total: 0,
       language: localStorage.getItem('language'),
-      bannerImg: 'images/appstorecn.jpg'
+      bannerImg: 'images/appstorecn.jpg',
+      rules: {
+        appStoreName: [
+          { required: true, validator: validateName }
+        ],
+        appStoreVersion: [
+          { required: true, validator: validateVersion }
+        ],
+        company: [
+          { required: true, validator: validateCompany }
+        ],
+        url: [
+          { required: true, validator: validateUrl }
+        ],
+        appdTransId: [
+          { required: true, validator: validateId }
+        ],
+        description: [
+          { required: true, validator: validateDesc }
+        ]
+      }
     }
   },
   methods: {
@@ -508,29 +573,6 @@ export default {
         return this.$t('myApp.addApp')
       } else {
         return this.$t('myApp.modifyAppStore')
-      }
-    },
-    rules () {
-      return {
-        appStoreName: [
-          { required: true, message: this.$t('apppromotion.nameCheck'), trigger: 'blur' }
-        ],
-        appStoreVersion: [
-          { required: true, message: this.$t('apppromotion.versionCheck'), trigger: 'blur' }
-        ],
-        company: [
-          { required: true, message: this.$t('apppromotion.companyCheck'), trigger: 'blur' }
-        ],
-        url: [
-          { required: true, message: this.$t('apppromotion.addrCheck'), trigger: 'blur' },
-          { pattern: /^((http:\/\/|https:\/\/)?([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(:\d{0,5})?(\/.*)?$/, message: this.$t('promptMessage.normalVerify') }
-        ],
-        appdTransId: [
-          { required: true, message: this.$t('apppromotion.appdCheck'), trigger: 'change' }
-        ],
-        shortDesc: [
-          { required: true, message: this.$t('apppromotion.descriptionCheck'), trigger: 'change' }
-        ]
       }
     }
   },
@@ -727,7 +769,6 @@ div /deep/ .el-form-item__error {
     line-height: 1;
     padding-top: 4px;
     position: absolute;
-    top: 100%;
     left: 30px;
     top:44px
 }
