@@ -73,7 +73,6 @@
       <div
         class="app_score"
         style="position:relative;top:25px;margin-left:0;"
-        v-if="role==='tenant'||role==='admin'"
       >
         <p
           class="download_num"
@@ -351,22 +350,22 @@
         class="el-dialog__title"
       >
         <em class="title_icon" />
-        订购确认
+        {{ $t('order.subscribe') }}
       </div>
       <div class="buy_content">
         <el-form>
           <el-form-item
-            label="应用名称："
+            :label="$t('order.appNameLabe')"
           >
             <span class="val_span">{{ currentData.name }}</span>
           </el-form-item>
           <el-form-item
-            label="订购价格:"
+            :label="$t('order.subPrice')"
           >
-            <span class="val_span">{{ price }}元（RMB）/小时</span>
+            <span class="val_span">{{ price }}{{ $t('oreder.price') }}</span>
           </el-form-item>
           <el-form-item
-            label="部署区域:"
+            :label="$t('system.address')"
           >
             <el-select
               v-model="mechostIp"
@@ -530,21 +529,25 @@ export default {
   },
   methods: {
     beforeBuyIt () {
-      subscribe.getMechosts().then(res => {
-        if (res.data && res.data.data.length > 0) {
-          res.data.data.forEach(item => {
-            let obj = {}
-            obj.value = item.mechostIp
-            obj.label = item.mechostCity
-            this.options.push(obj)
-          })
-          this.showSubDialog = true
-        } else {
-          this.$message.warning('没有可供使用的边缘节点！')
-        }
-      }).then(error => {
-        console.log(error)
-      })
+      if (sessionStorage.getItem('userNameRole') === 'tenant' || sessionStorage.getItem('userNameRole') === 'admin') {
+        subscribe.getMechosts().then(res => {
+          if (res.data && res.data.data.length > 0) {
+            res.data.data.forEach(item => {
+              let obj = {}
+              obj.value = item.mechostIp
+              obj.label = item.mechostCity
+              this.options.push(obj)
+            })
+            this.showSubDialog = true
+          } else {
+            this.$message.warning(this.$t('order.noNodes'))
+          }
+        }).then(error => {
+          console.log(error)
+        })
+      } else {
+        this.$message.warning(this.$t('system.guestPrompt'))
+      }
     },
     formatter (thistime, fmt) {
       let $this = new Date(thistime)
@@ -576,11 +579,11 @@ export default {
       if (this.mechostIp !== '') {
         subscribe.createOrder(param).then(res => {
           this.showSubDialog = false
-          this.$message.warning('订购成功！')
+          this.$message.warning(this.$t('order.subSuccess'))
           this.$router.push('/orders')
         })
       } else {
-        this.$message.warning('请先选择部署区域！')
+        this.$message.warning(this.$t('order.chooseArea'))
       }
     },
     getTableData () {

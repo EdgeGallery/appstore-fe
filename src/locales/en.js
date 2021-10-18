@@ -64,6 +64,7 @@ const en = {
     orderNum: 'Order Number',
     nodeName: 'Node Name',
     appName: 'App Name',
+    appNameLabel: 'App Name: ',
     nodeIp: 'Node IP',
     orderTime: 'Order Time',
     nodeAddress: 'Node Location',
@@ -88,7 +89,11 @@ const en = {
       deactivated: 'Deactivated'
     },
     subscribe: 'Subscribe',
-    price: 'Yuan (RMB)/ hour'
+    price: 'Yuan (RMB)/ hour',
+    subPrice: 'Price: ',
+    subSuccess: 'Subscribed successfully!',
+    chooseArea: 'Please choose location first！',
+    noNodes: 'There is no nodes can be used!'
   },
   bill: {
     billMana: 'Billing Management',
