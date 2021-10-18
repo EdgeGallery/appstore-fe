@@ -78,7 +78,7 @@
           class="download_num"
           style="color:#ff5c02;"
         >
-          {{ price }}{{ $t('oreder.price') }}
+          {{ price }}{{ $t('order.price') }}
         </p>
         <p class="score_btn">
           <el-button
@@ -362,7 +362,7 @@
           <el-form-item
             :label="$t('order.subPrice')"
           >
-            <span class="val_span">{{ price }}{{ $t('oreder.price') }}</span>
+            <span class="val_span">{{ price }}{{ $t('order.price') }}</span>
           </el-form-item>
           <el-form-item
             :label="$t('system.address')"
@@ -531,6 +531,7 @@ export default {
     beforeBuyIt () {
       if (sessionStorage.getItem('userNameRole') === 'tenant' || sessionStorage.getItem('userNameRole') === 'admin') {
         subscribe.getMechosts().then(res => {
+          this.options = []
           if (res.data && res.data.data.length > 0) {
             res.data.data.forEach(item => {
               let obj = {}
