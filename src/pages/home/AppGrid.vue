@@ -294,13 +294,13 @@ export default {
     padding-left: 10px;
     height: 140px;
     margin-right: 2.4%;
-    margin-bottom: 30px;
+    margin-bottom: 100px;
     .application {
-          height: 120px;
+          height: 205px;
       .img-box {
-        height: 80px;
+        height: 160px;
         img {
-          height: 40px;
+          height: 52px;
         }
       }
       .scoreMode{
