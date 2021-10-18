@@ -355,7 +355,7 @@
       <div class="buy_content">
         <el-form>
           <el-form-item
-            :label="$t('order.appNameLabe')"
+            :label="$t('order.appNameLabel')"
           >
             <span class="val_span">{{ currentData.name }}</span>
           </el-form-item>
@@ -479,26 +479,26 @@ export default {
   },
   methods: {
     beforeBuyIt () {
-      if (sessionStorage.getItem('userNameRole') === 'tenant' || sessionStorage.getItem('userNameRole') === 'admin') {
-        this.showSubDialog = true
-        subscribe.getMechosts().then(res => {
-          this.options = []
-          if (res.data && res.data.data.length > 0) {
-            res.data.data.forEach(item => {
-              let obj = {}
-              obj.value = item.mechostIp
-              obj.label = item.mechostCity
-              this.options.push(obj)
-            })
-          } else {
-            this.$message.warning(this.$t('order.noNodes'))
-          }
-        }).then(error => {
-          console.log(error)
-        })
-      } else {
-        this.$message.warning(this.$t('system.guestPrompt'))
-      }
+      // if (sessionStorage.getItem('userNameRole') === 'tenant' || sessionStorage.getItem('userNameRole') === 'admin') {
+      this.showSubDialog = true
+      subscribe.getMechosts().then(res => {
+        this.options = []
+        if (res.data && res.data.data.length > 0) {
+          res.data.data.forEach(item => {
+            let obj = {}
+            obj.value = item.mechostIp
+            obj.label = item.mechostCity
+            this.options.push(obj)
+          })
+        } else {
+          this.$message.warning(this.$t('order.noNodes'))
+        }
+      }).then(error => {
+        console.log(error)
+      })
+      // } else {
+      //   this.$message.warning(this.$t('system.guestPrompt'))
+      // }
     },
     confirmToBuy () {
       let param = {

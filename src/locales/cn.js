@@ -66,7 +66,7 @@ const cn = {
     orderNum: '订单编号',
     nodeName: '节点名称',
     appName: '应用名称',
-    appNameLabel: '应用名称',
+    appNameLabel: '应用名称：',
     nodeIp: '节点IP',
     orderTime: '下单时间',
     nodeAddress: '节点位置',
