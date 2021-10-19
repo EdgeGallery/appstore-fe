@@ -105,7 +105,7 @@ export default {
       sessionStorage.setItem('pathSource', 'index')
     },
     getAppIcon (item) {
-      return URL_PREFIX + 'apps/' + item.appId + '/icon'
+      return URL_PREFIX + 'apps/' + item.appId + '/packages/' + item.packageId + '/icon'
     }
   },
   watch: {

@@ -72,7 +72,6 @@
       <uploadPackage
         v-model="isShwoUploadDialog"
         @input="input"
-        @getAppData="getAppData"
       />
     </div>
   </div>
@@ -80,7 +79,7 @@
 
 <script>
 import { TYPES, AFFINITY, SORTITEM, INDUSTRY, DEPLOYMODE } from '../../tools/constant.js'
-import { getAppTableApi, getAppDetailTableApi } from '../../tools/api'
+import { myApp, getAppTableApi } from '../../tools/api'
 import uploadPackage from './UploadPackage.vue'
 import appGrid from './AppGrid.vue'
 import appList from './AppList.vue'
@@ -144,7 +143,9 @@ export default {
         }
       },
       synResult: [],
-      loadFlag: false
+      loadFlag: false,
+      allPackages: [],
+      queryPackagesOffsetPage: 0
     }
   },
   methods: {
@@ -154,6 +155,7 @@ export default {
     },
     checkFromDetail () {
       let fromPath = sessionStorage.getItem('fromPath') || ''
+      sessionStorage.removeItem('fromPath')
       if (fromPath === '/detail') {
         this.currentPage = Number(sessionStorage.getItem('currentPage'))
         this.getAppData(this.searchCondition)
@@ -171,69 +173,9 @@ export default {
       this.appShowType = appShowType
     },
     initTableData (searchCondition) {
+      this.loadFlag = false
       this.searchCondition = searchCondition
       this.getAppData(searchCondition)
-    },
-    doQuery () {
-      this.selectedConditions = []
-      let types = ['types', 'affinity', 'sortType', 'industry', 'workloadType']
-      types.forEach((item) => {
-        this[item].forEach((condition) => {
-          if (condition.selected) this.selectedConditions.push(condition)
-        })
-      })
-      this.searchCondition = {
-        appName: '',
-        types: [],
-        affinity: [],
-        industry: [],
-        status: 'Published',
-        showType: ['public', 'inner-public'],
-        workloadType: [],
-        createTime: '',
-        userId: '',
-        queryCtrl: {
-          offset: this.offsetPage,
-          limit: this.limitSize,
-          sortItem: this.sortItem,
-          sortType: this.sortType
-        }
-      }
-      this.selectedConditions.forEach(
-        (item) => {
-          switch (item.type) {
-            case 'affinity':
-              this.searchCondition.affinity.push(item.value)
-              break
-            case 'types':
-              this.searchCondition.types.push(item.value)
-              break
-            case 'industry':
-              this.searchCondition.industry.push(item.value)
-              break
-            case 'workloadType':
-              this.searchCondition.workloadType.push(item.value)
-              break
-            case 'sortType':
-              switch (item.value) {
-                case 'Most':
-                  this.sortItem = this.searchCondition.queryCtrl.sortItem = 'downloadCount'
-                  break
-                case 'Score':
-                  this.sortItem = this.searchCondition.queryCtrl.sortItem = 'score'
-                  break
-                case 'Name':
-                  this.sortItem = this.searchCondition.queryCtrl.sortItem = 'appName'
-                  break
-                case 'UploadTime':
-                  this.sortItem = this.searchCondition.queryCtrl.sortItem = 'createTime'
-                  break
-              }
-              break
-            default:
-          }
-        })
-      this.getAppData(this.searchCondition)
     },
     buildQueryReq () {
       this.sortItem = sessionStorage.getItem('sortItem')
@@ -253,35 +195,14 @@ export default {
       sessionStorage.setItem('offsetRepo', this.offsetPage)
       this.currentPageData = data
     },
-    checkProjectData () {
-      let userId = null
-      if (this.pathSource === 'myapp') {
-        userId = sessionStorage.getItem('userId')
-      }
-      this.findAppData.forEach(itemBe => {
-        this.synResult.push(this.getSingleData(itemBe, userId))
-      })
-      Promise.all(this.synResult).then(() => {
-        setTimeout(() => {
-          this.loadFlag = true
-        }, 100)
-      }).catch(error => {
-        console.log('error', error)
-      })
-    },
-    getSingleData (itemBe, userId) {
-      return new Promise((resolve, reject) => {
-        getAppDetailTableApi(itemBe.appId, userId, this.limitSize, this.offsetPage).then(res => {
-          let data = res.data
-          data.forEach(item => {
-            itemBe.experienceAble = item.experienceAble
-          })
-          resolve()
-        })
-      })
-    },
     input (input) {
       this.isShwoUploadDialog = input
+    },
+    resetAndUpdateData () {
+      this.queryPackagesOffsetPage = 0
+      this.synResult = []
+      this.updateAppExperience(this.findAppData)
+      this.loadFlag = true
     },
     getAppData (searchCondition) {
       if (!searchCondition.queryCtrl.sortItem) {
@@ -289,23 +210,54 @@ export default {
         searchCondition.queryCtrl.sortType = 'desc'
       }
       this.isShwoUploadDialog = false
-      getAppTableApi(searchCondition).then(
-        (res) => {
-          this.findAppData = res.data.results
-          this.checkProjectData()
-        },
-        (error) => {
-          let defaultMsg = this.$t('promptMessage.getAppFail')
-          commonUtil.showTipMsg(this.language, error, defaultMsg)
-        }
-      )
+      getAppTableApi(searchCondition).then((res) => {
+        this.findAppData = res.data.results
+        this.getAllPackagesAndUpdateApp()
+      }).catch(error => {
+        let defaultMsg = this.$t('promptMessage.getAppFail')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
+      })
     },
-    setItemSelectedValue (item) {
-      item.selected = false
-      if (item.value === this.selectedConditions[0].label[1]) {
-        item.selected = true
-        this.doQuery()
-      }
+    getAllPackagesAndUpdateApp () {
+      this.getPackages('', 500, this.queryPackagesOffsetPage, '', 'Published', 'createTime', 'desc').then((res) => {
+        for (let i = 0; i < Math.ceil(res.data.total / 500) - 1; i++) {
+          this.queryPackagesOffsetPage++
+          this.synResult.push(this.getPackages('', 500, this.queryPackagesOffsetPage, '', 'Published', 'createTime', 'desc'))
+        }
+        if (this.synResult.length === 0) {
+          this.resetAndUpdateData()
+          return
+        }
+        Promise.all(this.synResult).then(() => {
+          this.resetAndUpdateData()
+        }).catch(error => {
+          console.log('error:', error)
+        })
+      }).catch((error) => {
+        console.log('error:', error)
+      })
+    },
+    updateAppExperience (appDatas) {
+      appDatas.forEach(item => {
+        for (let i = 0; i < this.allPackages.length; i++) {
+          if (this.allPackages[i].appId === item.appId) {
+            item.experienceAble = this.allPackages[i].experienceAble
+            item.packageId = this.allPackages[i].packageId
+            break
+          }
+        }
+      })
+    },
+    getPackages (userId, curPageSize, offsetPage, appName, status, sortItem, sortType) {
+      return new Promise((resolve, reject) => {
+        myApp.getMyAppPackageApi(userId, curPageSize, offsetPage, appName, status, sortItem, sortType)
+          .then(res => {
+            this.allPackages = this.allPackages.concat(res.data.results)
+            resolve(res)
+          }).catch((error) => {
+            console.log('error:', error)
+          })
+      })
     }
   },
   watch: {
@@ -341,26 +293,6 @@ export default {
         item.selected = true
       }
     })
-    if (this.$route.params.data) {
-      let params = JSON.parse(this.$route.params.data)
-      this.selectedConditions = params
-      this.appIndustry.forEach((item) => {
-        this.setItemSelectedValue(item)
-      })
-      this.appAffinity.forEach((item) => {
-        item.selected = false
-        if (item.value === this.selectedConditions[0].label) {
-          item.selected = true
-          this.doQuery()
-        }
-      })
-      this.sortItems.forEach((item) => {
-        this.setItemSelectedValue(item)
-      })
-      this.appTypes.forEach((item) => {
-        this.setItemSelectedValue(item)
-      })
-    }
     this.checkFromDetail()
   },
   destroyed () {
