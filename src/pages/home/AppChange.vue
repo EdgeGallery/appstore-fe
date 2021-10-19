@@ -99,7 +99,7 @@ export default ({
   }
   .appChangeContent{
     width: 100%;
-    height: 632px;
+    height: 732px;
   }
 }
 </style>
