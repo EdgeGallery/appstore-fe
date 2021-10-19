@@ -410,7 +410,10 @@ export default ({
     sessionStorage.removeItem('sortType')
     sessionStorage.removeItem('sortItem')
     this.initAppdTrans()
-    this.$emit('initTableData', this.searchCondition)
+    let fromPath = sessionStorage.getItem('fromPath') || ''
+    if (fromPath !== '/detail') {
+      this.$emit('initTableData', this.searchCondition)
+    }
   },
   watch: {
     '$i18n.locale': function () {
