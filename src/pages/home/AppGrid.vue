@@ -150,7 +150,9 @@ export default {
         border-radius: 8px 8px 0 0;
         img {
           overflow: hidden;
-          max-height: 75px;
+          height: 90px;
+          border-radius: 10%;
+          margin-top: -29px;
         }
       }
       .img-boxen {
@@ -167,7 +169,9 @@ export default {
         align-items: center;
         img {
           overflow: hidden;
-          max-height: 75px;
+          height: 90px;
+          border-radius: 10%;
+          margin-top: -29px;
         }
       }
       .img-boxcn {
@@ -184,7 +188,9 @@ export default {
         align-items: center;
         img {
           overflow: hidden;
-          max-height: 75px;
+          height: 90px;
+          border-radius: 10%;
+          margin-top: -29px;
         }
       }
       .scoreMode{
@@ -224,6 +230,7 @@ export default {
               width: 14px;
               height: 14px;
               margin-right:6px ;
+              margin-top: 4px;
             }
             .core{
               line-height: 40px;
@@ -232,7 +239,6 @@ export default {
               font-weight: 300;
               color: #929292;
               position: relative;
-              top: -1px;
             }
           }
           .deployMode{
@@ -262,9 +268,9 @@ export default {
       margin-right: 2.4%;
       margin-bottom: 30px;
       .application {
-        height: 120px;
+        height: 205px;
         .img-box {
-          height: 80px;
+          height: 160px;
           img {
             height: 40px;
           }
@@ -296,7 +302,6 @@ export default {
               .core{
                 line-height: 24px;
                 position: relative;
-                top: 2px;
                 font-size: 14px;
               }
             }
