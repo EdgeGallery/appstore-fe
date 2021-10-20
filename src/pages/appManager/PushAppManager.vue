@@ -232,8 +232,7 @@ export default {
       this.getTableData()
     },
     '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
+      this.language = localStorage.getItem('language')
     }
   },
   mounted () {
@@ -259,14 +258,6 @@ export default {
   }
   .pushAppManagerTable{
     margin-right: 30px;
-    // .headerStyle{
-    //   background: #e1e7f5;
-    //   color: #575d6c;
-    //   border-right: 2px solid #fff;
-    //   padding: 0;
-    //   height: 40px;
-    //   line-height: 40px;
-    // }
     .el-table td{
       padding: 0;
       height: 60px;

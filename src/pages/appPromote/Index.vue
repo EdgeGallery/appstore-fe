@@ -332,7 +332,6 @@ export default {
       }
     }
     return {
-      screenHeight: document.body.clientHeight,
       pointNum: 5,
       tableData: [],
       userId: '',
@@ -385,7 +384,7 @@ export default {
   },
   methods: {
     setDivHeight () {
-      common.setDivHeightFun(this.screenHeight, 'contents', 616)
+      common.setDivHeightFun(document.body.clientHeight, 'contents', 616)
     },
     sizeChange (val) {
       this.curPageSize = val
@@ -643,38 +642,38 @@ export default {
     .formLeft{
       margin-left: 20px;
     }
-  .my-app-content {
-    border-radius:16px ;
-    position: relative;
-    min-height: 568px;
-    background:#fff;
-    padding: 20px;
-    .batchProm{
-      width: 200px;
-      .el-input{
-        margin-left: 40px;
+    .my-app-content {
+      border-radius:16px ;
+      position: relative;
+      min-height: 568px;
+      background:#fff;
+      padding: 20px;
+      .batchProm{
+        width: 200px;
+        .el-input{
+          margin-left: 40px;
+        }
       }
-    }
-    .packageTable{
-      margin: 20px 0;
-      display: none;
-      .el-table thead{
-        th {
-          background-color: #eee;
+      .packageTable{
+        margin: 20px 0;
+        display: none;
+        .el-table thead{
+          th {
+            background-color: #eee;
+          }
         }
       }
     }
+    .pagination {
+      background-color: #fff;
+      float: right;
+      justify-content: flex-end;
+      display: flex;
+      width: 100%;
+      padding-right: 20px;
+      padding-bottom: 20px;
+    }
   }
-  .pagination {
-    background-color: #fff;
-    float: right;
-    justify-content: flex-end;
-    display: flex;
-    width: 100%;
-    padding-right: 20px;
-    padding-bottom: 20px;
-}
-   }
   .space>div{
     background: #000;
     height: 300px;
@@ -695,64 +694,63 @@ export default {
     margin-top: 8px;
   }
   .dialogTitle2{
-      margin-bottom: 16px;
-      font-size: 20px;
-      font-family: HarmonyHeiTi, sans-serif;
-      font-weight: 300;
-      color: #380879;
-      letter-spacing:2px;
-    }
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-family: HarmonyHeiTi, sans-serif;
+    font-weight: 300;
+    color: #380879;
+    letter-spacing:2px;
+  }
 }
 .outHouseTop /deep/ .el-button--primary{
-    height: 40px !important;
-    background:  linear-gradient(to right, #4444D0, #6724CB) !important;
+  height: 40px !important;
+  background:  linear-gradient(to right, #4444D0, #6724CB) !important;
 }
 .outHouseTop /deep/ .el-button{
-    background-color:  #5E40C8 ;
-    border-color:  #5E40C8;
-    font-family: HarmonyHeiTi, sans-serif;
-    font-weight: 300;
-    border-radius:10px ;
-    span{
-      color: #fff;
-    }
+  background-color:  #5E40C8 ;
+  border-color:  #5E40C8;
+  font-family: HarmonyHeiTi, sans-serif;
+  font-weight: 300;
+  border-radius:10px ;
+  span{
+    color: #fff;
+  }
 }
 div /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
-    background-color: #5E40C8 !important;
+  background-color: #5E40C8 !important;
 }
 div /deep/ .el-dialog__title {
-    color: #5E40C8 !important;
+  color: #5E40C8 !important;
 }
 div /deep/.el-form-item__label {
-    color: #5E40C8 !important;
-    font-size: 16px !important;
-    font-family: HarmonyHeiTi, sans-serif;
-    font-weight: 300;
+  color: #5E40C8 !important;
+  font-size: 16px !important;
+  font-family: HarmonyHeiTi, sans-serif;
+  font-weight: 300;
 }
 div /deep/ .el-icon-close:before {
-     display: none;
+  display: none;
 }
 div /deep/.el-dialog{
-    background-color: #f6f5f8 !important;
-    border-radius: 12px;
+  background-color: #f6f5f8 !important;
+  border-radius: 12px;
 }
 div /deep/.el-dialog__header {
-    background-color: #f6f5f8 !important;
-    border-radius: 12px;
+  background-color: #f6f5f8 !important;
+  border-radius: 12px;
 }
 div /deep/.el-dialog__body {
-    padding: 10px 68px 0 0 !important;
+  padding: 10px 68px 0 0 !important;
 }
 div /deep/ .el-form-item .el-form-item__content {
-    padding: 0 20px;
+  padding: 0 20px;
 }
 .dialogSelect{
   border: none !important;
 }
-
 .outAppDialog /deep/ .el-input__inner {
-    border: 1px solid #fff !important;
-        border-radius: 8px !important;
+  border: 1px solid #fff !important;
+  border-radius: 8px !important;
 }
 .el-button{
   background: #fff;
@@ -764,12 +762,12 @@ div /deep/ .el-form-item .el-form-item__content {
   color: #fff;
 }
 div /deep/ .el-form-item__error {
-    color: #F56C6C;
-    font-size: 12px;
-    line-height: 1;
-    padding-top: 4px;
-    position: absolute;
-    left: 30px;
-    top:44px
+  color: #F56C6C;
+  font-size: 12px;
+  line-height: 1;
+  padding-top: 4px;
+  position: absolute;
+  left: 30px;
+  top:44px
 }
 </style>

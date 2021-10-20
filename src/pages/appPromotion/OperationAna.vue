@@ -967,8 +967,7 @@ export default {
   },
   watch: {
     '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
+      this.language = localStorage.getItem('language')
       this.$router.replace('/refresh')
     },
     curPageSize: function () {

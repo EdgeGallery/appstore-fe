@@ -821,9 +821,8 @@ export default {
   },
   watch: {
     '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
-      this.changeCnEn(language)
+      this.language = localStorage.getItem('language')
+      this.changeCnEn(this.language)
     },
     value: function (newVal) {
       this.dialogVisible = newVal

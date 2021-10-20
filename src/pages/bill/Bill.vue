@@ -270,11 +270,10 @@ export default {
         currentPage: 1
       },
       billList: [],
-      overallData: [
-      ],
+      overallData: [],
       isAdmin: sessionStorage.getItem('userName') === 'admin',
-      topSaleAppDataList: [ ],
-      lastSaleAppDataList: [ ],
+      topSaleAppDataList: [],
+      lastSaleAppDataList: [],
       sortType: 'SaleCount',
       loading: true
     }
