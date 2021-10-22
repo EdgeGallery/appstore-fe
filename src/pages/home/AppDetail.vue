@@ -448,6 +448,7 @@ export default {
         muted: false,
         playbackRates: [0.7, 1.0, 1.5, 2.0],
         language: 'en',
+        aspectRatio: '16:9',
         sources: []
       },
       language: localStorage.getItem('language'),
