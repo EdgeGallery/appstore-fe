@@ -16,6 +16,13 @@
 
 const INDUSTRY = [
   {
+    labelcn: '智慧城市',
+    labelen: 'Smart City',
+    value: 'Smart City',
+    selected: false,
+    type: 'industry'
+  },
+  {
     labelcn: '智慧园区',
     labelen: 'Smart Park',
     value: 'Smart Park',
@@ -23,16 +30,16 @@ const INDUSTRY = [
     type: 'industry'
   },
   {
-    labelcn: '智慧商超',
-    labelen: 'Smart Supermarket',
-    value: 'Smart Supermarket',
+    labelcn: '智慧农业',
+    labelen: 'Smart Agriculture',
+    value: 'Smart Agriculture',
     selected: false,
     type: 'industry'
   },
   {
-    labelcn: '工业制造',
-    labelen: 'Industrial Manufacturing',
-    value: 'Industrial Manufacturing',
+    labelcn: '工业互联网',
+    labelen: 'Industrial Internet',
+    value: 'Industrial Internet',
     selected: false,
     type: 'industry'
   },
@@ -44,9 +51,51 @@ const INDUSTRY = [
     type: 'industry'
   },
   {
-    labelcn: '水利',
-    labelen: 'Water Conservancy',
-    value: 'Water Conservancy',
+    labelcn: '能源',
+    labelen: 'Internet',
+    value: 'Internet',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    labelcn: '金融',
+    labelen: 'Finance',
+    value: 'Finance',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    labelcn: '教育',
+    labelen: 'Education',
+    value: 'Education',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    labelcn: '文化旅游',
+    labelen: 'Cultural Tourism',
+    value: 'Cultural Tourism',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    labelcn: '医疗健康',
+    labelen: 'Medical Health',
+    value: 'Medical Health',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    labelcn: '数字政府',
+    labelen: 'Digital Government',
+    value: 'Digital Government',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    labelcn: '生态环境',
+    labelen: 'Ecosystem',
+    value: 'Ecosystem',
     selected: false,
     type: 'industry'
   },
@@ -54,13 +103,6 @@ const INDUSTRY = [
     labelcn: '游戏竞技',
     labelen: 'Game Competition',
     value: 'Game Competition',
-    selected: false,
-    type: 'industry'
-  },
-  {
-    labelcn: '开源',
-    labelen: 'Open Source',
-    value: 'Open Source',
     selected: false,
     type: 'industry'
   },
@@ -82,20 +124,6 @@ const TYPES = [
     type: 'types'
   },
   {
-    labelcn: '游戏',
-    labelen: 'Game',
-    value: 'Game',
-    selected: false,
-    type: 'types'
-  },
-  {
-    labelcn: '视频监控',
-    labelen: 'Video Surveillance',
-    value: 'Video Surveillance',
-    selected: false,
-    type: 'types'
-  },
-  {
     labelcn: '安全',
     labelen: 'Safety',
     value: 'Safety',
@@ -106,13 +134,6 @@ const TYPES = [
     labelcn: '区块链',
     labelen: 'Blockchain',
     value: 'Blockchain',
-    selected: false,
-    type: 'types'
-  },
-  {
-    labelcn: '智能设备',
-    labelen: 'Smart Device',
-    value: 'Smart Device',
     selected: false,
     type: 'types'
   },
@@ -138,23 +159,9 @@ const TYPES = [
     type: 'types'
   },
   {
-    labelcn: 'API',
-    labelen: 'API',
-    value: 'API',
-    selected: false,
-    type: 'types'
-  },
-  {
-    labelcn: 'SDK',
-    labelen: 'SDK',
-    value: 'SDK',
-    selected: false,
-    type: 'types'
-  },
-  {
-    labelcn: 'MEP',
-    labelen: 'MEP',
-    value: 'MEP',
+    labelcn: '游戏',
+    labelen: 'Game',
+    value: 'Game',
     selected: false,
     type: 'types'
   },
