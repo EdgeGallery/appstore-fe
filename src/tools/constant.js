@@ -108,8 +108,8 @@ const INDUSTRY = [
   },
   {
     labelcn: '其他',
-    labelen: 'Other',
-    value: 'Other',
+    labelen: 'Others',
+    value: 'Others',
     selected: false,
     type: 'industry'
   }
