@@ -52,8 +52,8 @@ const INDUSTRY = [
   },
   {
     labelcn: '能源',
-    labelen: 'Internet',
-    value: 'Internet',
+    labelen: 'Energy',
+    value: 'Energy',
     selected: false,
     type: 'industry'
   },
