@@ -173,7 +173,6 @@ export default {
       this.appShowType = appShowType
     },
     initTableData (searchCondition) {
-      this.loadFlag = false
       this.searchCondition = searchCondition
       this.getAppData(searchCondition)
     },
@@ -210,6 +209,7 @@ export default {
         searchCondition.queryCtrl.sortType = 'desc'
       }
       this.isShwoUploadDialog = false
+      this.loadFlag = false
       getAppTableApi(searchCondition).then((res) => {
         this.findAppData = res.data.results
         this.getAllPackagesAndUpdateApp()
