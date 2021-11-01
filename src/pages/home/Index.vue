@@ -204,13 +204,17 @@ export default {
       this.loadFlag = true
     },
     getAppData (searchCondition) {
-      if (!searchCondition.queryCtrl.sortItem) {
+      let searchParam = null
+      if (typeof searchCondition !== 'undefined' && !searchCondition.queryCtrl.sortItem) {
         searchCondition.queryCtrl.sortItem = 'createTime'
         searchCondition.queryCtrl.sortType = 'desc'
+        searchParam = searchCondition
+      } else {
+        searchParam = this.searchCondition
       }
       this.isShwoUploadDialog = false
       this.loadFlag = false
-      getAppTableApi(searchCondition).then((res) => {
+      getAppTableApi(searchParam).then((res) => {
         this.findAppData = res.data.results
         this.getAllPackagesAndUpdateApp()
       }).catch(error => {
