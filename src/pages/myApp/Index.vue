@@ -478,7 +478,15 @@ export default {
       if (this.prop === 'name') {
         this.prop = 'appName'
       }
-      myApp.getMyAppPackageApi(this.userId, this.curPageSize, this.offsetPage, this.appName, this.status, this.prop, this.order)
+      let params = {
+        limit: this.curPageSize,
+        offset: this.offsetPage,
+        appName: this.appName,
+        status: this.status,
+        sortItem: this.prop,
+        sortType: this.order
+      }
+      myApp.getMyAppPackage(params)
         .then(res => {
           this.appPackageData = res.data.results
           this.total = res.data.total

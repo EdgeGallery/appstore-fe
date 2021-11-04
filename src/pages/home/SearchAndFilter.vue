@@ -253,15 +253,15 @@ export default ({
       sortItem: 'createTime',
       sortType: 'desc',
       searchCondition: {
-        appName: '',
         types: [],
         affinity: [],
         industry: [],
-        status: 'Published',
         showType: ['public', 'inner-public'],
         workloadType: [],
         userId: '',
         queryCtrl: {
+          status: ['Published'],
+          appName: '',
           offset: 0,
           limit: 15,
           sortItem: this.sortItem,
@@ -280,7 +280,7 @@ export default ({
     },
     queryApp () {
       sessionStorage.setItem('currentPage', 1)
-      this.searchCondition.appName = this.nameQueryVal.toLowerCase()
+      this.searchCondition.queryCtrl.appName = this.nameQueryVal.toLowerCase()
       this.$emit('initTableData', this.searchCondition)
     },
     resetForm (formName) {

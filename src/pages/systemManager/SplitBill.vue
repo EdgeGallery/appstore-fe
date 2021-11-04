@@ -243,7 +243,7 @@
 </template>
 
 <script>
-import { subscribe, getAppTableApi } from '../../tools/api.js'
+import { subscribe, queryApp } from '../../tools/api.js'
 export default {
   data () {
     return {
@@ -350,18 +350,18 @@ export default {
       this.showAddDialog = true
       this.splitRatioForAdd = 15
       this.selectedAppListToAdd = []
-      let queryCtrl = {
-        offset: 0,
-        limit: 100000,
-        sortItem: 'createTime',
-        sortType: 'desc'
+      let queryParam = {
+        queryCtrl: {
+          status: ['Published'],
+          appName: '',
+          offset: 0,
+          limit: 100000,
+          sortItem: 'createTime',
+          sortType: 'desc'
+        },
+        showType: ['inner-public', 'public']
       }
-      let params = {
-        queryCtrl: queryCtrl,
-        showType: ['inner-public', 'public'],
-        status: 'Published'
-      }
-      getAppTableApi(params).then(res => {
+      queryApp(queryParam).then(res => {
         this.appList = res.data.results
         for (let _splitConfig of this.splitConfigList) {
           let _idx = this.appList.findIndex(item => item.appId === _splitConfig.appId)

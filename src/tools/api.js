@@ -145,8 +145,8 @@ function getAppDetailFileApi (path, id) {
   return GET(url)
 }
 
-function getAppTableApi (params) {
-  let url = 'query/apps'
+function queryApp (params) {
+  let url = 'apps/action/query'
   return POSTV2(url, params)
 }
 
@@ -463,9 +463,9 @@ let myApp = {
     return POST(url, params)
   },
   // Get my app package
-  getMyAppPackageApi: function (userId, limit, offset, appName, status, sortItem, sortType) {
-    let url = 'packages?userId=' + userId + '&limit=' + limit + '&offset=' + offset + '&appName=' + appName + '&status=' + status + '&sortItem=' + sortItem + '&sortType=' + sortType
-    return GETV2(url)
+  getMyAppPackage: function (params) {
+    let url = 'packages/action/query'
+    return POSTV2(url, params)
   },
   getMyAppPackageApiPage: function (userId) {
     let url = 'packages?userId=' + userId
@@ -568,7 +568,7 @@ export {
   getCommentsApi,
   getAppDetailTableApi,
   getAppDetailFileApi,
-  getAppTableApi,
+  queryApp,
   startTestApi,
   getTaskListApi,
   getSubTasksApi,

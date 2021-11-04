@@ -144,7 +144,6 @@ export default {
       total: 0,
       prop: 'createTime',
       order: 'desc',
-      appName: '',
       status: ['Published'],
       searchCondition: {},
       appPackageData: [],
@@ -177,8 +176,15 @@ export default {
       this.getTableData()
     },
     getTableData () {
-      this.appName = this.nameQueryVal
-      myApp.getMyAppPackageApi('', this.curPageSize, this.offsetPage, this.appName, this.status, this.prop, this.order)
+      let params = {
+        limit: this.curPageSize,
+        offset: this.offsetPage,
+        appName: this.nameQueryVal.toLowerCase(),
+        status: this.status,
+        sortItem: this.prop,
+        sortType: this.order
+      }
+      myApp.getMyAppPackage(params)
         .then(res => {
           this.appPackageData = res.data.results
           this.total = res.data.total
