@@ -42,10 +42,6 @@
 <script>
 export default {
   props: {
-    appId: {
-      required: true,
-      type: String
-    },
     playerOptions: {
       required: true,
       type: Object

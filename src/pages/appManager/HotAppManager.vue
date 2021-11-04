@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import { myApp, getAppTableApi } from '../../tools/api.js'
+import { myApp, queryApp } from '../../tools/api.js'
 import timeFormatTools from '../../tools/timeFormatTools.js'
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
 import commonUtil from '../../tools/commonUtil.js'
@@ -141,8 +141,7 @@ export default {
       prop: 'isHotApp',
       order: 'desc',
       userId: sessionStorage.getItem('userId'),
-      appName: '',
-      status: 'Published',
+      status: ['Published'],
       searchCondition: {},
       appPackageData: [],
       defaultSelectedIds: [],
@@ -183,20 +182,19 @@ export default {
       this.curPageSize = val
     },
     getTableData () {
-      let queryCtrl = {
-        offset: this.offsetPage,
-        limit: this.curPageSize,
-        sortItem: this.prop,
-        sortType: this.order,
-        createTime: 'createTime'
-      }
       let params = {
-        queryCtrl: queryCtrl,
-        showType: ['inner-public', 'public'],
-        status: this.status,
-        appName: this.nameQueryVal
+        queryCtrl: {
+          status: this.status,
+          appName: this.nameQueryVal,
+          offset: this.offsetPage,
+          limit: this.curPageSize,
+          sortItem: this.prop,
+          sortType: this.order,
+          createTime: 'createTime'
+        },
+        showType: ['inner-public', 'public']
       }
-      getAppTableApi(params)
+      queryApp(params)
         .then(res => {
           this.defaultSelectedIds = []
           this.appPackageData = res.data.results

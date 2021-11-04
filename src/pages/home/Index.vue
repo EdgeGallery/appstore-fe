@@ -54,7 +54,7 @@
             :is="appShowType"
             :app-data="currentPageData"
             @getAppData="getAppData"
-            v-if="loadFlag"
+            v-if="isShowComponent"
           />
           <pagination
             class="clearfix"
@@ -79,7 +79,7 @@
 
 <script>
 import { TYPES, AFFINITY, SORTITEM, INDUSTRY, DEPLOYMODE } from '../../tools/constant.js'
-import { myApp, getAppTableApi } from '../../tools/api'
+import { queryApp } from '../../tools/api'
 import uploadPackage from './UploadPackage.vue'
 import appGrid from './AppGrid.vue'
 import appList from './AppList.vue'
@@ -119,33 +119,29 @@ export default {
       applistLogo: applistLogo,
       currentPage: 1,
       limitSize: 15,
-      appName: '',
       userId: sessionStorage.getItem('userId'),
       offsetPage: sessionStorage.getItem('offsetRepo') || 0,
       total: 0,
       sortItem: 'createTime',
       sortType: 'desc',
       searchCondition: {
-        appName: '',
         types: [],
         affinity: [],
         industry: [],
-        status: 'Published',
         showType: ['public', 'inner-public'],
         workloadType: [],
         userId: '',
         experienceAble: false,
         queryCtrl: {
+          status: ['Published'],
+          appName: '',
           offset: this.offsetPage,
           limit: this.limitSize,
           sortItem: this.sortItem,
           sortType: this.sortType
         }
       },
-      synResult: [],
-      loadFlag: false,
-      allPackages: [],
-      queryPackagesOffsetPage: 0
+      isShowComponent: false
     }
   },
   methods: {
@@ -180,6 +176,8 @@ export default {
       this.sortItem = sessionStorage.getItem('sortItem')
       this.sortType = sessionStorage.getItem('sortType')
       this.searchCondition.queryCtrl = {
+        status: ['Published'],
+        appName: '',
         offset: this.offsetPage,
         limit: this.limitSize,
         sortItem: this.sortItem,
@@ -197,12 +195,6 @@ export default {
     input (input) {
       this.isShwoUploadDialog = input
     },
-    resetAndUpdateData () {
-      this.queryPackagesOffsetPage = 0
-      this.synResult = []
-      this.updateAppExperience(this.findAppData)
-      this.loadFlag = true
-    },
     getAppData (searchCondition) {
       let searchParam = null
       if (typeof searchCondition !== 'undefined' && !searchCondition.queryCtrl.sortItem) {
@@ -213,54 +205,13 @@ export default {
         searchParam = this.searchCondition
       }
       this.isShwoUploadDialog = false
-      this.loadFlag = false
-      getAppTableApi(searchParam).then((res) => {
+      this.isShowComponent = false
+      queryApp(searchParam).then((res) => {
         this.findAppData = res.data.results
-        this.getAllPackagesAndUpdateApp()
+        this.isShowComponent = true
       }).catch(error => {
         let defaultMsg = this.$t('promptMessage.getAppFail')
         commonUtil.showTipMsg(this.language, error, defaultMsg)
-      })
-    },
-    getAllPackagesAndUpdateApp () {
-      this.getPackages('', 500, this.queryPackagesOffsetPage, '', 'Published', 'createTime', 'desc').then((res) => {
-        for (let i = 0; i < Math.ceil(res.data.total / 500) - 1; i++) {
-          this.queryPackagesOffsetPage++
-          this.synResult.push(this.getPackages('', 500, this.queryPackagesOffsetPage, '', 'Published', 'createTime', 'desc'))
-        }
-        if (this.synResult.length === 0) {
-          this.resetAndUpdateData()
-          return
-        }
-        Promise.all(this.synResult).then(() => {
-          this.resetAndUpdateData()
-        }).catch(error => {
-          console.log('error:', error)
-        })
-      }).catch((error) => {
-        console.log('error:', error)
-      })
-    },
-    updateAppExperience (appDatas) {
-      appDatas.forEach(item => {
-        for (let i = 0; i < this.allPackages.length; i++) {
-          if (this.allPackages[i].appId === item.appId) {
-            item.experienceAble = this.allPackages[i].experienceAble
-            item.packageId = this.allPackages[i].packageId
-            break
-          }
-        }
-      })
-    },
-    getPackages (userId, curPageSize, offsetPage, appName, status, sortItem, sortType) {
-      return new Promise((resolve, reject) => {
-        myApp.getMyAppPackageApi(userId, curPageSize, offsetPage, appName, status, sortItem, sortType)
-          .then(res => {
-            this.allPackages = this.allPackages.concat(res.data.results)
-            resolve(res)
-          }).catch((error) => {
-            console.log('error:', error)
-          })
       })
     }
   },

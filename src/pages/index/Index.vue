@@ -386,7 +386,7 @@
   </div>
 </template>
 <script>
-import { getAppTableApi, URL_PREFIX } from '../../tools/api.js'
+import { queryApp, URL_PREFIX } from '../../tools/api.js'
 import { INDUSTRY, TYPES, AFFINITY, SORTITEM } from '../../tools/constant.js'
 import HomeSwiper from '../../components/common/Swipers.vue'
 import uploadPackage from '../home/UploadPackage.vue'
@@ -609,11 +609,6 @@ export default {
       showDefaultScoreData: false,
       scoreHighDataLoading: true,
       scoreHighestDataBe: [],
-      limitSize: 100,
-      appName: '',
-      offsetPage: 0,
-      prop: 'createTime',
-      order: 'asc',
       dialog_datas: {},
       dialog_type: '',
       parkcn: [ { title: '高效' },
@@ -636,19 +631,19 @@ export default {
         { title: 'AI' },
         { title: 'Predict' }],
       searchCondition: {
-        appName: '',
         type: [],
         affinity: [],
         industry: [],
-        status: 'Published',
         deployMode: [],
         workloadType: [],
         userId: '',
         queryCtrl: {
-          offset: this.offsetPage,
-          limit: this.limitSize,
-          sortItem: this.prop,
-          sortType: this.order
+          status: ['Published'],
+          appName: '',
+          offset: 0,
+          limit: 100,
+          sortItem: 'createTime',
+          sortType: 'asc'
         }
       }
     }
@@ -766,16 +761,6 @@ export default {
         this.recommendData[2].introduce = this.recommendDatas[2].introduce
       }
     },
-    buildQueryReq () {
-      let _queryReq = this.searchCondition
-      this.searchCondition.queryCtrl = {
-        offset: this.offsetPage,
-        limit: this.limitSize,
-        sortItem: this.prop,
-        sortType: this.order
-      }
-      return _queryReq
-    },
     getRandomArrayElements (arr, count) {
       let shuffled = arr.slice(0); let i = arr.length; let min = i - count; let temp; let index
       while (i-- > min) {
@@ -787,18 +772,18 @@ export default {
       return shuffled.slice(min)
     },
     getHotAppData () {
-      let queryCtrl = {
-        offset: 0,
-        limit: 1000,
-        sortItem: 'isHotApp',
-        sortType: 'desc'
+      let queryParam = {
+        queryCtrl: {
+          status: ['Published'],
+          appName: '',
+          offset: 0,
+          limit: 1000,
+          sortItem: 'isHotApp',
+          sortType: 'desc'
+        },
+        showType: ['inner-public', 'public']
       }
-      let params = {
-        queryCtrl: queryCtrl,
-        showType: ['inner-public', 'public'],
-        status: 'Published'
-      }
-      getAppTableApi(params)
+      queryApp(queryParam)
         .then(res => {
           let resDatas = res.data.results
           if (resDatas.length >= 6) {
@@ -833,17 +818,19 @@ export default {
         })
     },
     getDialogApp () {
-      let params = {
+      let queryParam = {
         queryCtrl: {
+          status: ['Published'],
+          appName: '',
           offset: 0,
           limit: 1000,
           sortItem: '',
-          sortType: '' },
+          sortType: ''
+        },
         industry: [this.dialog_type],
-        showType: ['inner-public', 'public'],
-        status: 'Published'
+        showType: ['inner-public', 'public']
       }
-      getAppTableApi(params)
+      queryApp(queryParam)
         .then(res => {
           this.appData = res.data.results
           if (this.appData.length === 0) {
@@ -858,7 +845,7 @@ export default {
         })
     },
     getAppData () {
-      getAppTableApi(this.buildQueryReq()).then(
+      queryApp(this.searchCondition).then(
         (res) => {
           let data = res.data.results
           data.sort(function (a, b) {
