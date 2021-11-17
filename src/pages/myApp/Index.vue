@@ -314,7 +314,7 @@
 </template>
 
 <script>
-import { myApp, deleteAppPackageApi, PROXY_PREFIX_APPSTORE } from '../../tools/api.js'
+import { myApp, deleteAppPackageApi, PROXY_PREFIX_CURRENTSERVER, PROXY_PREFIX_ATP } from '../../tools/api.js'
 import timeFormatTools from '../../tools/timeFormatTools.js'
 import egPagination from 'eg-view/src/components/EgPagination.vue'
 import appModify from './AppModify.vue'
@@ -534,8 +534,8 @@ export default {
     jumperToTestRepo (testTaskId) {
       let currUrl = window.location.origin
       let language = localStorage.getItem('language')
-      if (PROXY_PREFIX_APPSTORE) {
-        currUrl = currUrl + '/edgagallery/atp/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
+      if (PROXY_PREFIX_CURRENTSERVER) {
+        currUrl = currUrl + PROXY_PREFIX_ATP + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
       } else {
         if (currUrl.indexOf('30091') !== -1) {
           let originUrl = currUrl.replace('30091', '30094')

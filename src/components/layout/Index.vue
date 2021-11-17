@@ -31,7 +31,7 @@
 
 <script>
 import EgFooter from 'eg-view/src/components/EgFooter.vue'
-import { PROXY_PREFIX_APPSTORE } from '../../tools/api.js'
+import { PROXY_PREFIX_CURRENTSERVER, PROXY_PREFIX_DEVELOPER, PROXY_PREFIX_ATP, PROXY_PREFIX_MECM } from '../../tools/api.js'
 export default {
   name: 'Layout',
   components: {
@@ -82,10 +82,10 @@ export default {
     },
     getPlatformUrl () {
       let currUrl = window.location.origin
-      if (PROXY_PREFIX_APPSTORE) {
-        this.developerUrl = currUrl + '/edgegallery/appstore'
-        this.atpUrl = currUrl + '/edgegallery/atp'
-        this.mecmUrl = currUrl + '/edgegallery/mecm'
+      if (PROXY_PREFIX_CURRENTSERVER) {
+        this.developerUrl = currUrl + PROXY_PREFIX_DEVELOPER
+        this.atpUrl = currUrl + PROXY_PREFIX_ATP
+        this.mecmUrl = currUrl + PROXY_PREFIX_MECM
       } else {
         if (currUrl.indexOf('30091') !== -1) {
           this.developerUrl = currUrl.replace('30091', '30092')

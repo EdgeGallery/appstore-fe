@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { PROXY_PREFIX_APPSTORE } from '../../tools/api.js'
+import { PROXY_PREFIX_CURRENTSERVER, PROXY_PREFIX_ATP } from '../../tools/api.js'
 export default {
   name: 'Task',
   data () {
@@ -48,8 +48,8 @@ export default {
     getAtpUrl () {
       let language = localStorage.getItem('language')
       let currUrl = window.location.origin
-      if (PROXY_PREFIX_APPSTORE) {
-        this.srcUrl = currUrl + '/edgagallery/atp/#/atpprocess' + '?taskId=' + this.taskId + '&language=' + language
+      if (PROXY_PREFIX_CURRENTSERVER) {
+        this.srcUrl = currUrl + PROXY_PREFIX_ATP + '/#/atpprocess' + '?taskId=' + this.taskId + '&language=' + language
       } else {
         if (currUrl.indexOf('30091') !== -1) {
           let originUrl = currUrl.replace('30091', '30094')
