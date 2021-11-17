@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { PROXY_PREFIX_APPSTORE } from '../../tools/api.js'
 export default ({
   name: 'AppChange',
   components: {
@@ -49,9 +50,13 @@ export default ({
   methods: {
     getAtpUrl () {
       let currUrl = window.location.origin
-      if (currUrl.indexOf('30091') !== -1) {
-        let originUrl = currUrl.replace('30091', '30087')
-        this.srcUrl = originUrl + '/#/home'
+      if (PROXY_PREFIX_APPSTORE) {
+        this.srcUrl = currUrl + '/edgegallery/appd/#/home'
+      } else {
+        if (currUrl.indexOf('30091') !== -1) {
+          let originUrl = currUrl.replace('30091', '30087')
+          this.srcUrl = originUrl + '/#/home'
+        }
       }
     },
     jumpToIndex () {

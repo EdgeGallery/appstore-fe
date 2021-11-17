@@ -200,7 +200,7 @@
 </template>
 
 <script>
-import { getUserInfo, logoutApi, myApp } from '../../tools/api.js'
+import { getUserInfo, logoutApi, myApp, PROXY_PREFIX_APPSTORE } from '../../tools/api.js'
 import messageDialog from '../../pages/msgCenter/MessageDialog.vue'
 export default {
   name: 'HeaderComp',
@@ -488,7 +488,7 @@ export default {
     },
     enterLoginPage () {
       let _protocol = window.location.href.indexOf('https') > -1 ? 'https://' : 'http://'
-      window.location.href = this.loginPage + '&return_to=' + _protocol + window.location.host
+      window.location.href = this.loginPage + '&return_to=' + _protocol + window.location.host + PROXY_PREFIX_APPSTORE
     },
     enter () {
       this.seen = true

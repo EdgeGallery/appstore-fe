@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { PROXY_PREFIX_APPSTORE } from '../../tools/api.js'
 export default {
   name: 'Task',
   data () {
@@ -44,12 +45,16 @@ export default {
     getAtpUrl () {
       let language = localStorage.getItem('language')
       let currUrl = window.location.origin
-      if (currUrl.indexOf('30091') !== -1) {
-        let originUrl = currUrl.replace('30091', '30094')
-        this.srcUrl = originUrl + '/#/app/test/task' + '?language=' + language
+      if (PROXY_PREFIX_APPSTORE) {
+        this.srcUrl = currUrl + '/edgagallery/atp/#/app/test/task' + '?language=' + language
       } else {
-        this.srcUrl = currUrl.replace('appstore', 'atp')
-        this.srcUrl = this.srcUrl + '/#/app/test/task' + '?language=' + language
+        if (currUrl.indexOf('30091') !== -1) {
+          let originUrl = currUrl.replace('30091', '30094')
+          this.srcUrl = originUrl + '/#/app/test/task' + '?language=' + language
+        } else {
+          this.srcUrl = currUrl.replace('appstore', 'atp')
+          this.srcUrl = this.srcUrl + '/#/app/test/task' + '?language=' + language
+        }
       }
     },
     rebuileComponents () {

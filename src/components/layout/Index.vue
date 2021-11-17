@@ -31,6 +31,7 @@
 
 <script>
 import EgFooter from 'eg-view/src/components/EgFooter.vue'
+import { PROXY_PREFIX_APPSTORE } from '../../tools/api.js'
 export default {
   name: 'Layout',
   components: {
@@ -39,7 +40,7 @@ export default {
   data () {
     return {
       language: localStorage.getItem('language'),
-      appStoreUrl: '',
+      developerUrl: '',
       atpUrl: '',
       mecmUrl: '',
       platformData: [
@@ -81,18 +82,24 @@ export default {
     },
     getPlatformUrl () {
       let currUrl = window.location.origin
-      if (currUrl.indexOf('30091') !== -1) {
-        this.appStoreUrl = currUrl.replace('30091', '30092')
-        this.atpUrl = currUrl.replace('30091', '30094')
-        this.mecmUrl = currUrl.replace('30091', '30093')
+      if (PROXY_PREFIX_APPSTORE) {
+        this.developerUrl = currUrl + '/edgegallery/appstore'
+        this.atpUrl = currUrl + '/edgegallery/atp'
+        this.mecmUrl = currUrl + '/edgegallery/mecm'
       } else {
-        this.appStoreUrl = currUrl.replace('appstore', 'developer')
-        this.atpUrl = currUrl.replace('appstore', 'atp')
-        this.mecmUrl = currUrl.replace('appstore', 'mecm')
+        if (currUrl.indexOf('30091') !== -1) {
+          this.developerUrl = currUrl.replace('30091', '30092')
+          this.atpUrl = currUrl.replace('30091', '30094')
+          this.mecmUrl = currUrl.replace('30091', '30093')
+        } else {
+          this.developerUrl = currUrl.replace('appstore', 'developer')
+          this.atpUrl = currUrl.replace('appstore', 'atp')
+          this.mecmUrl = currUrl.replace('appstore', 'mecm')
+        }
       }
       this.platformData.forEach(item => {
         if (item.name === 'Developer') {
-          item.url = this.appStoreUrl
+          item.url = this.developerUrl
         } else if (item.name === 'ATP') {
           item.url = this.atpUrl
         } else if (item.name === 'MECM') {
