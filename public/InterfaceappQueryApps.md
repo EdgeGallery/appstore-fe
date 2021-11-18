@@ -1,38 +1,49 @@
 ## 接口清单
 
-### /mec/appstore/v2/query/apps
+### /mec/appstore/v2/apps/action/query
 ###  POST
 获取本仓库的应用列表
 ### 请求
 #### 请求参数
-|参数 |位置 | 是否必选 | 类型 |说明|
-|-----|-----|----|------|-----|
-|appName | requestBody |N| String | App name |
-|limit | requestBody |Y| String | app limit |
-|offset | requestBody |Y| String | app offset |
-|sortType | requestBody |Y| String | app sortType |
-|sortItem | requestBody |N| String | app sortItem|
-|type | requesretBody |N| String | app type|
-|affinity | requestBody |N| String | affinity|
-|industry | requestBody |N| String | industry|
-|createTime | requestBody |N| String | createTime|
-|downloadCount | requestBody |N| String | downloadCount|
-|score | requestBody |N| String | score|
+| 字段名       | 描述         |位置   | 字段类型        | 必选  |
+| ------------ | ------------ | ------------ |--------------- | ---- |
+| types        | 应用类型     | requestBody | List<String>    | no   |
+| showType     | 应用显示类型 | requestBody | List<String>    | no   |
+| affinity     | 应用架构     | requestBody | List<String>    | no   |
+| industry     | 应用行业     | requestBody | List<String>    | no   |
+| workloadType | 应用负载类型 | requestBody | List<String>    | no   |
+| userId       | 用户Id       | requestBody | String          | no   |
+| queryCtrl    | 查询条件     | requestBody | QueryAppCtrlDto | yes  |
+
+QueryAppCtrlDto
+
+| 字段名   | 描述                        | 字段类型     | 必选 |
+| -------- | --------------------------- | ------------ | ---- |
+| limit    | 分页查询每页查询数量[1,500] | int          | yes  |
+| offset   | 分页查询起始页，从0开始     | int          | yes  |
+| sortItem | 查询排序字段                | String       | no   |
+| sortType | 查询排序方式升序/降序       | String       | no   |
+| status   | 应用状态                    | List<String> | no   |
+| appName  | 应用名称                    | String       | no   |
 
 #### 请求示例
 ```
 {
-    "limit": 10,
-    "offset": 0,
-    "appName": "String",
-    "sortType": "desc",
-    "type": "string",
-    "affinity": "string",
-    "sortItem": "string",
-    "industry": "industry",
-    "createTime": "string",
-    "downloadCount": "string",
-    "score": "string"
+    "queryCtrl":
+    {
+        "limit": 10,
+        "offset": 0,
+        "sortType": "",
+        "sortItem": "",
+        "status": [""],
+        "appName": ""
+    },
+    "types": [""],
+    "showType": [""],
+    "affinity": [""],
+    "industry": [""],
+    "workloadType": [""],
+    "userId": ""
 }
 ```
 
@@ -48,6 +59,7 @@
 |返回字段  |描述|
 |-----|-----|
 |appId | 应用 id |
+|packageId | 应用包 id |
 |name | 应用名 |
 |provider | 提供者 |
 |iconUrl | icon路径 |
@@ -66,32 +78,37 @@
 |userName | 用户名 |
 |status | 状态 |
 |deployMode | 负载类型 |
+|hotApp | 是否热门应用 |
+|exprienceAble | 是否可以在线体验 |
 
 #### 响应示例
 ```
 {
-    "results": [{
-        "appId": "String",
-        "name": "String",
-        "provider": "String",
-        "iconUrl": "string",
-        "version": "string",
-        "affinity": "string",
-        "shortDesc": "String",
-        "industry": "String",
-        "type": null,
-        "showType": 0,
-        "score": int,
-        "details": null,
-        "affinity": "affinity",
-        "shortDesc": "shortdesc",
-        "downloadCount": int "contact": "string",
-        "createTime": "2021-04-29 19:56:44",
-        "deployMode": "container",
-        "userId": "string",
-        "userName": "string",
-        "status": "string"
-    }],
+    "results": [
+        {
+            "appId": "string",
+            "packageId": "string",
+            "iconUrl": "string",
+            "name": "string",
+            "provider": "string",
+            "type": "string",
+            "shortDesc": "string",
+            "showType": "string",
+            "createTime": "string",
+            "details": "string",
+            "downloadCount": int,
+            "affinity": "string",
+            "industry": "string",
+            "contact": "string",
+            "score": 5.0,
+            "userId": "string",
+            "userName": "string",
+            "status": "string",
+            "deployMode": "string",
+            "hotApp": false,
+            "exprienceAble": false
+        }
+    ],
     "limit": 10,
     "offset": 0,
     "total": 1

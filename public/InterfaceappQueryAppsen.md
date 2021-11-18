@@ -1,41 +1,51 @@
 ## Interface list
 
-### /mec/appstore/v2/query/apps
+### /mec/appstore/v2/apps/action/query
 ###  POST
 
 get app list
 
 ### Request
 #### Request parameters
+| Parameter     | Description               | Position |Type            | Required or not |
+| ------------ | -------------------------- | -------- | --------------- | -------- |
+| types        | application types          | requestBody | List<String>    | no       |
+| showType     | application show types     | requestBody | List<String>    | no       |
+| affinity     | application architectures  | requestBody | List<String>    | no       |
+| industry     | application industries     | requestBody | List<String>    | no       |
+| workloadType | application workload types | requestBody | List<String>    | no       |
+| userId       | user id                    | requestBody | String          | no       |
+| queryCtrl    | query condition            | requestBody | QueryAppCtrlDto | yes      |
 
-|Parameter |Position | Required or not | Type |Description|
-|-----|-----|----|------|-----|
-|appName | requestBody |N| String | App name |
-|limit | requestBody |Y| String | app limit |
-|offset | requestBody |Y| String | app offset |
-|sortType | requestBody |Y| String | app sortType |
-|sortItem | requestBody |N| String | app sortItem|
-|type | requestBody |N| String | app type|
-|affinity | requestBody |N| String | affinity|
-|industry | requestBody |N| String | industry|
-|createTime | requestBody |N| String | createTime|
-|downloadCount | requestBody |N| String | downloadCount|
-|score | requestBody |N| String | score|
+QueryAppCtrlDto
+
+| Name     | Definition                               | Type         | Required |
+| -------- | ---------------------------------------- | ------------ | -------- |
+| limit    | number of queries per page, [1,500]      | int          | yes      |
+| offset   | paging query start page, starting from 0 | int          | yes      |
+| sortItem | query sort field                         | String       | no       |
+| sortType | query sorting method, ASC/DESC           | String       | no       |
+| status   | application status                       | List<String> | no       |
+| appName  | application name                         | String       | no       |
 
 #### Example request
 ```
 {
-    "limit": 10,
-    "offset": 0,
-    "appName": "String",
-    "sortType": "desc",
-    "type": "string",
-    "affinity": "string",
-    "sortItem": "string",
-    "industry": "industry",
-    "createTime": "string",
-    "downloadCount": "string",
-    "score": "string"
+    "queryCtrl":
+    {
+        "limit": 10,
+        "offset": 0,
+        "sortType": "",
+        "sortItem": "",
+        "status": [""],
+        "appName": ""
+    },
+    "types": [""],
+    "showType": [""],
+    "affinity": [""],
+    "industry": [""],
+    "workloadType": [""],
+    "userId": ""
 }
 ```
 
@@ -51,6 +61,7 @@ get app list
 |Back to Field   |Description|
 |-----|-----|
 |appId | Application id |
+|packageId | Application package id |
 |name | Name |
 |provider | Provider |
 |iconUrl | iconUrl |
@@ -69,32 +80,37 @@ get app list
 |userName | userName |
 |status | status |
 |deployMode | workloadType |
+|hotApp | application is hot or not |
+|exprienceAble | application is exprienceAble or not |
 
 #### Example response
 ```
 {
-    "results": [{
-        "appId": "String",
-        "name": "String",
-        "provider": "String",
-        "iconUrl": "string",
-        "version": "string",
-        "affinity": "string",
-        "shortDesc": "String",
-        "industry": "String",
-        "type": null,
-        "showType": 0,
-        "score": int,
-        "details": null,
-        "affinity": "affinity",
-        "shortDesc": "shortdesc",
-        "downloadCount": int "contact": "string",
-        "createTime": "2021-04-29 19:56:44",
-        "deployMode": "container",
-        "userId": "string",
-        "userName": "string",
-        "status": "string"
-    }],
+    "results": [
+        {
+            "appId": "string",
+            "packageId": "string",
+            "iconUrl": "string",
+            "name": "string",
+            "provider": "string",
+            "type": "string",
+            "shortDesc": "string",
+            "showType": "string",
+            "createTime": "string",
+            "details": "string",
+            "downloadCount": int,
+            "affinity": "string",
+            "industry": "string",
+            "contact": "string",
+            "score": 5.0,
+            "userId": "string",
+            "userName": "string",
+            "status": "string",
+            "deployMode": "string",
+            "hotApp": false,
+            "exprienceAble": false
+        }
+    ],
     "limit": 10,
     "offset": 0,
     "total": 1
