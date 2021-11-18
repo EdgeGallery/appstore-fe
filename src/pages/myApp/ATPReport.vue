@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { common } from '../../tools/comon.js'
+import { PLATFORMNAME_ATP } from '../../tools/constant.js'
 export default {
   name: 'Atpreport',
   data () {
@@ -37,14 +39,8 @@ export default {
   },
   methods: {
     getAtpUrl () {
-      let currUrl = window.location.origin
-      if (currUrl.indexOf('30091') !== -1) {
-        let originUrl = currUrl.replace('30091', '30094')
-        this.srcUrl = originUrl + '/#/atpreport' + '?taskid=' + this.taskId
-      } else {
-        this.srcUrl = currUrl.replace('appstore', 'atp')
-        this.srcUrl = this.srcUrl + '/#/atpreport' + '?taskid=' + this.taskId
-      }
+      this.srcUrl = common.getPlatformUrlPrefix(PLATFORMNAME_ATP)
+      this.srcUrl = this.srcUrl + '/#/atpreport' + '?taskid=' + this.taskId
     }
   },
   mounted () {

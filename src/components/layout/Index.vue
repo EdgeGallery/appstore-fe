@@ -31,6 +31,8 @@
 
 <script>
 import EgFooter from 'eg-view/src/components/EgFooter.vue'
+import { common } from '../../tools/comon.js'
+import { PLATFORMNAME_DEVELOPER, PLATFORMNAME_ATP, PLATFORMNAME_MECM } from '../../tools/constant.js'
 export default {
   name: 'Layout',
   components: {
@@ -39,7 +41,7 @@ export default {
   data () {
     return {
       language: localStorage.getItem('language'),
-      appStoreUrl: '',
+      developerUrl: '',
       atpUrl: '',
       mecmUrl: '',
       platformData: [
@@ -48,11 +50,11 @@ export default {
           url: ''
         },
         {
-          name: 'ATP',
+          name: PLATFORMNAME_ATP,
           url: ''
         },
         {
-          name: 'MECM',
+          name: PLATFORMNAME_MECM,
           url: ''
         }
       ],
@@ -80,22 +82,15 @@ export default {
       this.scrollTop = this.$refs.app.getBoundingClientRect().top
     },
     getPlatformUrl () {
-      let currUrl = window.location.origin
-      if (currUrl.indexOf('30091') !== -1) {
-        this.appStoreUrl = currUrl.replace('30091', '30092')
-        this.atpUrl = currUrl.replace('30091', '30094')
-        this.mecmUrl = currUrl.replace('30091', '30093')
-      } else {
-        this.appStoreUrl = currUrl.replace('appstore', 'developer')
-        this.atpUrl = currUrl.replace('appstore', 'atp')
-        this.mecmUrl = currUrl.replace('appstore', 'mecm')
-      }
+      this.developerUrl = common.getPlatformUrlPrefix(PLATFORMNAME_DEVELOPER)
+      this.atpUrl = common.getPlatformUrlPrefix(PLATFORMNAME_ATP)
+      this.mecmUrl = common.getPlatformUrlPrefix(PLATFORMNAME_MECM)
       this.platformData.forEach(item => {
         if (item.name === 'Developer') {
-          item.url = this.appStoreUrl
-        } else if (item.name === 'ATP') {
+          item.url = this.developerUrl
+        } else if (item.name === PLATFORMNAME_ATP) {
           item.url = this.atpUrl
-        } else if (item.name === 'MECM') {
+        } else if (item.name === PLATFORMNAME_MECM) {
           item.url = this.mecmUrl
         }
       })

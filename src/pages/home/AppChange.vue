@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import { common } from '../../tools/comon.js'
+import { PLATFORMNAME_APPD } from '../../tools/constant.js'
 export default ({
   name: 'AppChange',
   components: {
@@ -47,12 +49,9 @@ export default ({
     }
   },
   methods: {
-    getAtpUrl () {
-      let currUrl = window.location.origin
-      if (currUrl.indexOf('30091') !== -1) {
-        let originUrl = currUrl.replace('30091', '30087')
-        this.srcUrl = originUrl + '/#/home'
-      }
+    getAppdUrl () {
+      this.srcUrl = common.getPlatformUrlPrefix(PLATFORMNAME_APPD)
+      this.srcUrl = this.srcUrl + '/#/home'
     },
     jumpToIndex () {
       this.$router.push({
@@ -64,11 +63,11 @@ export default ({
     }
   },
   mounted () {
-    this.getAtpUrl()
+    this.getAppdUrl()
   },
   watch: {
     '$i18n.locale': function () {
-      this.getAtpUrl()
+      this.getAppdUrl()
     }
   }
 })

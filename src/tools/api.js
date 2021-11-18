@@ -25,12 +25,15 @@ import {
   DELETE,
   getCookie
 } from './request.js'
+import {
+  PROXY_PREFIX_CURRENTSERVER
+} from './constant.js'
 
 import axios from 'axios'
 
-const URL_PREFIX = '/mec-appstore/mec/appstore/v1/'
-const URL_PREFIXV2 = '/mec-appstore/mec/appstore/v2/'
-const URL_PREFIX_GATEWAY = '/mec/res/v2/'
+const URL_PREFIX = PROXY_PREFIX_CURRENTSERVER + '/mec-appstore/mec/appstore/v1/'
+const URL_PREFIXV2 = PROXY_PREFIX_CURRENTSERVER + '/mec-appstore/mec/appstore/v2/'
+const URL_PREFIX_GATEWAY = PROXY_PREFIX_CURRENTSERVER + '/mec/res/v2/'
 
 // get meao list by pacakgeId
 function getProgressByPackageId (packageId) {
@@ -326,7 +329,7 @@ function getInterface (language, activeName) {
       default:
     }
   }
-  return axios.get(url)
+  return axios.get(PROXY_PREFIX_CURRENTSERVER + url)
 }
 
 function getDocsApi (language, activeName) {
@@ -377,7 +380,7 @@ function getDocsApi (language, activeName) {
       default:
     }
   }
-  return axios.get(url)
+  return axios.get(PROXY_PREFIX_CURRENTSERVER + url)
 }
 
 function downloadAppPakageApi (appId, row, isDownloadImage) {
@@ -392,7 +395,7 @@ function synchronizedPakageApi (currentData, meaoId) {
 }
 
 function getUserInfo () {
-  let url = '/auth/login-info'
+  let url = PROXY_PREFIX_CURRENTSERVER + '/auth/login-info'
   return new Promise((resolve, reject) => {
     axios({
       method: 'GET',
@@ -413,7 +416,7 @@ function getUserInfo () {
 function logoutApi () {
   return axios({
     method: 'POST',
-    url: '/logout',
+    url: PROXY_PREFIX_CURRENTSERVER + '/logout',
     withCredentials: true,
     headers: {
       'Content-Type': 'application/json',
