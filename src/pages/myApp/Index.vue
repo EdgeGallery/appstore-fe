@@ -314,7 +314,9 @@
 </template>
 
 <script>
-import { myApp, deleteAppPackageApi, PROXY_PREFIX_CURRENTSERVER, PROXY_PREFIX_ATP } from '../../tools/api.js'
+import { myApp, deleteAppPackageApi } from '../../tools/api.js'
+import { common } from '../../tools/comon.js'
+import { PLATFORMNAME_ATP } from '../../tools/constant.js'
 import timeFormatTools from '../../tools/timeFormatTools.js'
 import egPagination from 'eg-view/src/components/EgPagination.vue'
 import appModify from './AppModify.vue'
@@ -532,19 +534,9 @@ export default {
       this.$router.push({ name: 'appstordetail', params: { item } })
     },
     jumperToTestRepo (testTaskId) {
-      let currUrl = window.location.origin
       let language = localStorage.getItem('language')
-      if (PROXY_PREFIX_CURRENTSERVER) {
-        currUrl = currUrl + PROXY_PREFIX_ATP + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
-      } else {
-        if (currUrl.indexOf('30091') !== -1) {
-          let originUrl = currUrl.replace('30091', '30094')
-          currUrl = originUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
-        } else {
-          currUrl = currUrl.replace('appstore', 'atp')
-          currUrl = currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
-        }
-      }
+      let currUrl = common.getPlatformUrlPrefix(PLATFORMNAME_ATP)
+      currUrl = currUrl + '/#/atpreport' + '?taskId=' + testTaskId + '&language=' + language
       window.open(currUrl, '_blank')
     },
     testMessage (row) {

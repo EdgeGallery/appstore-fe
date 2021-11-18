@@ -25,14 +25,11 @@ import {
   DELETE,
   getCookie
 } from './request.js'
+import {
+  PROXY_PREFIX_CURRENTSERVER
+} from './constant.js'
 
 import axios from 'axios'
-
-const PROXY_PREFIX_CURRENTSERVER = window.location.pathname.slice(0, window.location.pathname.length - 1)
-const PROXY_PREFIX_DEVELOPER = '/edgegallery/developer'
-const PROXY_PREFIX_ATP = '/edgegallery/atp'
-const PROXY_PREFIX_MECM = '/edgegallery/mecm'
-const PROXY_PREFIX_APPD = '/edgegallery/appd'
 
 const URL_PREFIX = PROXY_PREFIX_CURRENTSERVER + '/mec-appstore/mec/appstore/v1/'
 const URL_PREFIXV2 = PROXY_PREFIX_CURRENTSERVER + '/mec-appstore/mec/appstore/v2/'
@@ -591,11 +588,6 @@ export {
   URL_PREFIX,
   URL_PREFIXV2,
   URL_PREFIX_GATEWAY,
-  PROXY_PREFIX_CURRENTSERVER,
-  PROXY_PREFIX_DEVELOPER,
-  PROXY_PREFIX_ATP,
-  PROXY_PREFIX_MECM,
-  PROXY_PREFIX_APPD,
   getUserInfo,
   logoutApi,
   uploadAppApi,

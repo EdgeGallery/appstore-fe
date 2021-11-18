@@ -200,7 +200,8 @@
 </template>
 
 <script>
-import { getUserInfo, logoutApi, myApp, PROXY_PREFIX_CURRENTSERVER } from '../../tools/api.js'
+import { getUserInfo, logoutApi, myApp } from '../../tools/api.js'
+import { PROXY_PREFIX_CURRENTSERVER } from '../../tools/constant.js'
 import messageDialog from '../../pages/msgCenter/MessageDialog.vue'
 export default {
   name: 'HeaderComp',

@@ -36,7 +36,8 @@
 </template>
 
 <script>
-import { PROXY_PREFIX_CURRENTSERVER, PROXY_PREFIX_APPD } from '../../tools/api.js'
+import { common } from '../../tools/comon.js'
+import { PLATFORMNAME_APPD } from '../../tools/constant.js'
 export default {
   name: 'AppdConversion',
   data () {
@@ -46,16 +47,9 @@ export default {
     }
   },
   methods: {
-    getAtpUrl () {
-      let currUrl = window.location.origin
-      if (PROXY_PREFIX_CURRENTSERVER) {
-        this.srcUrl = currUrl + PROXY_PREFIX_APPD + '/#/home'
-      } else {
-        if (currUrl.indexOf('30091') !== -1) {
-          let originUrl = currUrl.replace('30091', '30087')
-          this.srcUrl = originUrl + '/#/home'
-        }
-      }
+    getAppdUrl () {
+      this.srcUrl = common.getPlatformUrlPrefix(PLATFORMNAME_APPD)
+      this.srcUrl = this.srcUrl + '/#/home'
     },
     jumpToIndex () {
       this.$router.push('/index')
@@ -71,12 +65,12 @@ export default {
   },
   mounted () {
     this.taskId = this.$route.params.taskId
-    this.getAtpUrl()
+    this.getAppdUrl()
   },
   watch: {
     '$i18n.locale': function () {
       this.rebuileComponents()
-      this.getAtpUrl()
+      this.getAppdUrl()
     }
   }
 }

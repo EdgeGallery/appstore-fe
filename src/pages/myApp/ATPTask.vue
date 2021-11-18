@@ -32,7 +32,8 @@
 </template>
 
 <script>
-import { PROXY_PREFIX_CURRENTSERVER, PROXY_PREFIX_ATP } from '../../tools/api.js'
+import { common } from '../../tools/comon.js'
+import { PLATFORMNAME_ATP } from '../../tools/constant.js'
 export default {
   name: 'Task',
   data () {
@@ -44,18 +45,8 @@ export default {
   methods: {
     getAtpUrl () {
       let language = localStorage.getItem('language')
-      let currUrl = window.location.origin
-      if (PROXY_PREFIX_CURRENTSERVER) {
-        this.srcUrl = currUrl + PROXY_PREFIX_ATP + '/#/app/test/task' + '?language=' + language
-      } else {
-        if (currUrl.indexOf('30091') !== -1) {
-          let originUrl = currUrl.replace('30091', '30094')
-          this.srcUrl = originUrl + '/#/app/test/task' + '?language=' + language
-        } else {
-          this.srcUrl = currUrl.replace('appstore', 'atp')
-          this.srcUrl = this.srcUrl + '/#/app/test/task' + '?language=' + language
-        }
-      }
+      this.srcUrl = common.getPlatformUrlPrefix(PLATFORMNAME_ATP)
+      this.srcUrl = this.srcUrl + '/#/app/test/task' + '?language=' + language
     },
     rebuileComponents () {
       // Destroy subtag

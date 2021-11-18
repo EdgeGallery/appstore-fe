@@ -14,6 +14,42 @@
  *  limitations under the License.
  */
 
+const PROXY_PREFIX_CURRENTSERVER = window.location.pathname.slice(0, window.location.pathname.length - 1)
+const PORT_CURRENTSERVER = '30091'
+const DOMAINNAME_CURRENTSERVER = 'appstore'
+
+const PLATFORMNAME_DEVELOPER = 'DEVELOPER'
+const PLATFORMNAME_MECM = 'MECM'
+const PLATFORMNAME_ATP = 'ATP'
+const PLATFORMNAME_APPD = 'APPD'
+
+const PLATFORM_LIST = [
+  {
+    name: PLATFORMNAME_DEVELOPER,
+    port: '30092',
+    domain: 'developer',
+    proxyPrefix: '/edgegallery/developer'
+  },
+  {
+    name: PLATFORMNAME_MECM,
+    port: '30093',
+    domain: 'mecm',
+    proxyPrefix: '/edgegallery/developer'
+  },
+  {
+    name: PLATFORMNAME_ATP,
+    port: '30094',
+    domain: 'atp',
+    proxyPrefix: '/edgegallery/atp'
+  },
+  {
+    name: PLATFORMNAME_APPD,
+    port: '30087',
+    domain: 'appd',
+    proxyPrefix: '/edgegallery/appd'
+  }
+]
+
 const INDUSTRY = [
   {
     labelcn: '智慧城市',
@@ -297,5 +333,13 @@ const Architecture = [
 ]
 
 export {
-  TYPES, AFFINITY, SORTITEM, INDUSTRY, TTYPES, DEPLOYMODE, Architecture, MEAO
+  TYPES, AFFINITY, SORTITEM, INDUSTRY, TTYPES, DEPLOYMODE, Architecture, MEAO,
+  PROXY_PREFIX_CURRENTSERVER,
+  PORT_CURRENTSERVER,
+  DOMAINNAME_CURRENTSERVER,
+  PLATFORMNAME_DEVELOPER,
+  PLATFORMNAME_MECM,
+  PLATFORMNAME_ATP,
+  PLATFORMNAME_APPD,
+  PLATFORM_LIST
 }

@@ -31,7 +31,8 @@
 
 <script>
 import EgFooter from 'eg-view/src/components/EgFooter.vue'
-import { PROXY_PREFIX_CURRENTSERVER, PROXY_PREFIX_DEVELOPER, PROXY_PREFIX_ATP, PROXY_PREFIX_MECM } from '../../tools/api.js'
+import { common } from '../../tools/comon.js'
+import { PLATFORMNAME_DEVELOPER, PLATFORMNAME_ATP, PLATFORMNAME_MECM } from '../../tools/constant.js'
 export default {
   name: 'Layout',
   components: {
@@ -45,15 +46,15 @@ export default {
       mecmUrl: '',
       platformData: [
         {
-          name: 'Developer',
+          name: PLATFORMNAME_DEVELOPER,
           url: ''
         },
         {
-          name: 'ATP',
+          name: PLATFORMNAME_ATP,
           url: ''
         },
         {
-          name: 'MECM',
+          name: PLATFORMNAME_MECM,
           url: ''
         }
       ],
@@ -81,28 +82,15 @@ export default {
       this.scrollTop = this.$refs.app.getBoundingClientRect().top
     },
     getPlatformUrl () {
-      let currUrl = window.location.origin
-      if (PROXY_PREFIX_CURRENTSERVER) {
-        this.developerUrl = currUrl + PROXY_PREFIX_DEVELOPER
-        this.atpUrl = currUrl + PROXY_PREFIX_ATP
-        this.mecmUrl = currUrl + PROXY_PREFIX_MECM
-      } else {
-        if (currUrl.indexOf('30091') !== -1) {
-          this.developerUrl = currUrl.replace('30091', '30092')
-          this.atpUrl = currUrl.replace('30091', '30094')
-          this.mecmUrl = currUrl.replace('30091', '30093')
-        } else {
-          this.developerUrl = currUrl.replace('appstore', 'developer')
-          this.atpUrl = currUrl.replace('appstore', 'atp')
-          this.mecmUrl = currUrl.replace('appstore', 'mecm')
-        }
-      }
+      this.developerUrl = common.getPlatformUrlPrefix(PLATFORMNAME_DEVELOPER)
+      this.atpUrl = common.getPlatformUrlPrefix(PLATFORMNAME_ATP)
+      this.mecmUrl = common.getPlatformUrlPrefix(PLATFORMNAME_MECM)
       this.platformData.forEach(item => {
-        if (item.name === 'Developer') {
+        if (item.name === PLATFORMNAME_DEVELOPER) {
           item.url = this.developerUrl
-        } else if (item.name === 'ATP') {
+        } else if (item.name === PLATFORMNAME_ATP) {
           item.url = this.atpUrl
-        } else if (item.name === 'MECM') {
+        } else if (item.name === PLATFORMNAME_MECM) {
           item.url = this.mecmUrl
         }
       })
