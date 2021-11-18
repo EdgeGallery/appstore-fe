@@ -86,7 +86,7 @@ export default {
       this.atpUrl = common.getPlatformUrlPrefix(PLATFORMNAME_ATP)
       this.mecmUrl = common.getPlatformUrlPrefix(PLATFORMNAME_MECM)
       this.platformData.forEach(item => {
-        if (item.name === PLATFORMNAME_DEVELOPER) {
+        if (item.name === 'Developer') {
           item.url = this.developerUrl
         } else if (item.name === PLATFORMNAME_ATP) {
           item.url = this.atpUrl
