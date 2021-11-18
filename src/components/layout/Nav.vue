@@ -488,8 +488,7 @@ export default {
       sessionStorage.removeItem('userId')
     },
     enterLoginPage () {
-      let _protocol = window.location.href.indexOf('https') > -1 ? 'https://' : 'http://'
-      window.location.href = this.loginPage + '&return_to=' + _protocol + window.location.host + PROXY_PREFIX_CURRENTSERVER
+      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER
     },
     enter () {
       this.seen = true
