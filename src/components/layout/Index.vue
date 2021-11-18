@@ -46,7 +46,7 @@ export default {
       mecmUrl: '',
       platformData: [
         {
-          name: PLATFORMNAME_DEVELOPER,
+          name: 'Developer',
           url: ''
         },
         {

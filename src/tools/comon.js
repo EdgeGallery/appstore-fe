@@ -22,8 +22,8 @@ import {
 } from './constant.js'
 
 let common = {
-  getPlatformUrlPrefix: function (platform) {
-    let _platform = PLATFORM_LIST.find(item => item.name === platform)
+  getPlatformUrlPrefix: function (platformName) {
+    let _platform = PLATFORM_LIST.find(platformItem => platformItem.name === platformName)
 
     let _proxyPrefix = _platform ? _platform.proxyPrefix : PROXY_PREFIX_CURRENTSERVER
     let _port = _platform ? _platform.port : PORT_CURRENTSERVER
