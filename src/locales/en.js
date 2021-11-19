@@ -785,9 +785,9 @@ const en = {
     appCreateTime: 'create time',
     queryHotAppFailed: 'Failed to get recently popular apps',
     queryAppFailed: 'Failed to get apps',
-    hotAppTitle: 'Recently popular apps management',
-    storeAppTitle: 'Appstore displayed apps management',
-    pushAppTitle: 'Shareable apps management',
+    hotAppTitle: 'Recently popular apps',
+    storeAppTitle: 'Appstore displayed apps',
+    pushAppTitle: 'External shareable apps',
     pushSwitch: 'Shareable',
     repoSwitch: 'Displayable',
     hotSwitch: 'Popular'
