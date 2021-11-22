@@ -503,7 +503,7 @@ const cn = {
     taskCreateTime: '任务创建时间',
     taskStatus: '任务状态',
     taskProgress: '任务进度',
-    synchronizeToMeao: '同步到 MEAO'
+    synchronizeToMeao: '同步应用到 MEAO'
 
   },
   docs: {

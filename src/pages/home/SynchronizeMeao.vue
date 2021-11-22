@@ -22,9 +22,10 @@
         trigger="click"
       >
         <el-button
+          style="width:165px"
           type="primary"
         >
-          同步应用到MEAO
+          {{ $t('store.synchronizeToMeao') }}
         </el-button>
         <el-dropdown-menu
           slot="dropdown"
