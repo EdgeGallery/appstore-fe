@@ -483,7 +483,7 @@ const en = {
     taskCreateTime: 'TaskCreateTime',
     taskStatus: 'TaskStatus',
     taskProgress: 'TaskProgress',
-    synchronizeToMeao: 'Synchronize To MEAO'
+    synchronizeToMeao: 'Sync APP To MEAO'
   },
   docs: {
     step1: 'Open source MEP platform',
