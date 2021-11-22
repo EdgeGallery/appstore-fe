@@ -816,9 +816,9 @@ const cn = {
     pushAppSetTipMsg: '设置应用为可对外推送',
     queryHotAppFailed: '获取热门应用失败',
     queryAppFailed: '获取应用失败',
-    hotAppTitle: '近期热门应用管理',
-    storeAppTitle: '应用展示仓库应用列表管理',
-    pushAppTitle: '可推广应用列表管理',
+    hotAppTitle: '近期热门应用',
+    storeAppTitle: '应用仓库展示应用',
+    pushAppTitle: '可对外推广应用',
     pushSwitch: '可推广',
     repoSwitch: '可展示',
     hotSwitch: '热门'
