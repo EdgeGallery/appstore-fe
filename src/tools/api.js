@@ -490,20 +490,26 @@ let myApp = {
     return GET(url)
   },
   // getNodePort
-  getNodePort: function (appId, packageId, userId, name, ip) {
-    let url = 'experience/deploy?appId=' + appId + '&packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
-    return GET(url)
+  getNodePort: function (appId, packageId, userId) {
+    let url = 'experience/deploy?appId=' + appId + '&packageId=' + packageId + '&userId=' + userId
+    return POST(url)
   },
 
   // getNodePortStatus
-  getNodeStatus: function (packageId, userId, name, ip) {
-    let url = 'experience/container/workStatus?packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
+  getNodeStatus: function (packageId, userId) {
+    let url = 'experience/container/workStatus?packageId=' + packageId + '&userId=' + userId
+    return GET(url)
+  },
+
+  // getExperienceStatus
+  getExperienceStatus: function (packageId) {
+    let url = 'experience/packages/' + packageId + '/status'
     return GET(url)
   },
 
   // clean test env
-  cleanTestEnv: function (packageId, userId, name, ip) {
-    let url = 'experience/clean?packageId=' + packageId + '&userId=' + userId + '&name=' + name + '&ip=' + ip
+  cleanTestEnv: function (packageId) {
+    let url = 'experience/clean?packageId=' + packageId
     return POST(url)
   },
   modifyAppAttr: function (param, appId, packageId) {

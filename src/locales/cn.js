@@ -501,6 +501,7 @@ const cn = {
     releaseResource: '释放资源',
     tryAppTip: '需要提供可供体验的前台界面，并在描述里面添加界面访问的URL',
     releaseAppResource: '体验完成后请及时释放资源，避免资源占用，否则系统24小时后自动释放',
+    urlTip: '请根据如下服务信息，结合应用描述中界面体验URL进行体验',
     serviceName: '服务名称',
     Ip: 'IP',
     port: '端口',
@@ -512,11 +513,11 @@ const cn = {
     step13: '测试节点已分配完成',
     experiencePhase: '体验阶段',
     pleaseInstantiateApp: '请实例化应用',
-    waitInstantiatedApp: '正在实例化应用，请耐心等待',
+    waitInstantiatedApp: '正在实例化应用，请耐心等待...',
     StartDeployApp: '应用开始部署',
     queryDeployStatus: '请查询部署状态',
     waitQueryStatus: '正在查询部署状态，请耐心等待',
-    deployFinished: '应用部署完成',
+    deployFinished: '应用部署已完成',
     tryAppDes: '请根据如下服务信息，结合应用描述中界面体验url进行体验',
     serviceNodeInfo: '服务节点信息',
     appdConversion: '应用包转换',
@@ -527,7 +528,11 @@ const cn = {
     taskCreateTime: '任务创建时间',
     taskStatus: '任务状态',
     taskProgress: '任务进度',
-    synchronizeToMeao: '同步到 MEAO'
+    startExperience: '点击在线体验按钮,马上进行体验...',
+    waitUploadApp: '正在上传应用,请耐心等待...',
+    waitDistributeApp: '正在分发应用,请耐心等待...',
+    waitGetInstantiatedInfo: '正在获取实例化信息,请耐心等待...',
+    synchronizeToMeao: '同步应用到 MEAO'
 
   },
   docs: {

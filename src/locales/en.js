@@ -482,11 +482,12 @@ const en = {
     releaseResource: 'Release resources',
     tryAppTip: 'Need to provide a front-end interface for experience, and add the URL of the interface access in the descriptionn',
     releaseAppResource: 'After the experience is completed, please release the resources in time to avoid resource occupation, otherwise the system will release automatically after 24 hours',
+    urlTip: 'Please experience according to the following service information in combination with the interface experience URL in the application description',
     serviceName: 'ServiceName',
     Ip: 'IP',
     port: 'Port',
     assignTestNodes: 'Assign Test Nodes',
-    instantiateApplication: 'Instantiate Application',
+    instantiateApplication: 'Instantiate Application...',
     getDeploymentStatus: 'Get Deployment Status',
     experiencePhase: 'Experience phase',
     pleaseInstantiateApp: 'Please instantiate the app',
@@ -505,7 +506,11 @@ const en = {
     taskCreateTime: 'TaskCreateTime',
     taskStatus: 'TaskStatus',
     taskProgress: 'TaskProgress',
-    synchronizeToMeao: 'Synchronize To MEAO'
+    Startexperience: 'Click the online experience button to experience immediately...',
+    Waituploadapp: 'Aploading app, please wait...',
+    Waitdistributeapp: 'App is being distributed, please wait patiently...',
+    Waitgetistantiatedinfo: 'Getting instantiation information, please wait patiently...',
+    synchronizeToMeao: 'Sync APP To MEAO'
   },
   docs: {
     step1: 'Open source MEP platform',
