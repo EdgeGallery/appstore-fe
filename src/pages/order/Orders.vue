@@ -54,10 +54,6 @@
             :label="$t('order.appName')"
           />
           <el-table-column
-            prop="mecHostName"
-            :label="$t('order.nodeName')"
-          />
-          <el-table-column
             prop="mecHostIp"
             :label="$t('order.nodeIp')"
           />

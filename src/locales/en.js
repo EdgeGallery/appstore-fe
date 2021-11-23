@@ -62,7 +62,6 @@ const en = {
   order: {
     orderMana: 'Order Management',
     orderNum: 'Order Number',
-    nodeName: 'Node Name',
     appName: 'App Name',
     appNameLabel: 'App Name: ',
     nodeIp: 'Node IP',
