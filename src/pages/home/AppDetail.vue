@@ -28,7 +28,7 @@
       </div>
       <div class="app_info">
         <p class="app_title">
-          {{ currentData.name }}
+          {{ details.name }}
           <span class="createTime">{{ currentData.createTime }}</span>
         </p>
         <div class="app_version">
@@ -48,25 +48,25 @@
           </select>
           <span v-show="pathSource==='myapp'">{{ currentData.version }}</span>
           <span class="fg" />
-          {{ currentData.provider }}
+          {{ details.provider }}
           <span class="fg" />
-          {{ currentData.size }}
+          {{ details.size }}
         </div>
         <p class="app_desc">
-          {{ currentData.shortDesc }}
+          {{ details.shortDesc }}
         </p>
         <p class="app_tag clearfix">
           <span class="industry">
-            {{ currentData.industry }}
+            {{ details.industry }}
           </span>
           <span class="architecture">
-            {{ currentData.affinity }}
+            {{ details.affinity }}
           </span>
           <span class="type">
-            {{ currentData.type }}
+            {{ details.type }}
           </span>
           <span class="deployMode">
-            {{ currentData.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
+            {{ details.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
           </span>
         </p>
       </div>
@@ -489,7 +489,8 @@ export default {
       mechostIp: '',
       role: sessionStorage.getItem('userNameRole'),
       price: 0,
-      btnLoading: false
+      btnLoading: false,
+      score: ''
     }
   },
   watch: {
@@ -648,23 +649,23 @@ export default {
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {
         if (this.language === 'cn') {
-          if (this.currentData.industry === itemFe.labelen) {
-            this.currentData.industry = itemFe.labelcn
+          if (this.details.industry === itemFe.labelen) {
+            this.details.industry = itemFe.labelcn
           }
         } else {
-          if (this.currentData.industry === itemFe.labelcn) {
-            this.currentData.industry = itemFe.labelen
+          if (this.details.industry === itemFe.labelcn) {
+            this.details.industry = itemFe.labelen
           }
         }
       })
       TYPES.forEach(itemFe => {
         if (this.language === 'cn') {
-          if (this.currentData.type === itemFe.labelen) {
-            this.currentData.type = itemFe.labelcn
+          if (this.details.type === itemFe.labelen) {
+            this.details.type = itemFe.labelcn
           }
         } else {
-          if (this.currentData.type === itemFe.labelcn) {
-            this.currentData.type = itemFe.labelen
+          if (this.details.type === itemFe.labelcn) {
+            this.details.type = itemFe.labelen
           }
         }
       })
@@ -672,11 +673,7 @@ export default {
     getAppData () {
       getAppListApi(this.appId).then(
         (res) => {
-          this.score = res.data.score
           this.downloadNum = res.data.downloadCount
-          if (!res.data.free) {
-            this.price = res.data.price
-          }
         },
         () => {
           this.$message({
@@ -716,6 +713,9 @@ export default {
       this.score = this.details.score
       this.downloadNum = this.details.downloadCount
     }
+    if (!this.details.free) {
+      this.price = this.details.price
+    }
     if (this.details.packageId) {
       this.packageId = this.details.packageId
       if (this.pathSource === 'myapp') {
@@ -724,7 +724,6 @@ export default {
       }
     }
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/packages/' + this.packageId + '/icon'
-    this.getAppData()
     this.getTableData()
     this.checkProjectData()
     if ((sessionStorage.getItem('userNameRole') === 'guest')) {
