@@ -17,12 +17,14 @@
 <template>
   <div class="my-app outHouse">
     <div class="outHouseTop">
-      <p
-        class="outHouseTitle"
-        :class="{'outHouseTitleen':language==='en'}"
-      >
-        {{ $t("nav.externalAppManagement") }}
-      </p>
+      <div class="title">
+        <p
+          class="title_left"
+        >
+          {{ $t("nav.externalAppManagement") }}
+        </p>
+        <span class="line_bot1 title_line" />
+      </div>
       <el-button
         id="addAppBtn"
         type="primary"
@@ -606,9 +608,9 @@ export default {
   width: 100%;
   .outHouseTop{
     width: 73.64%;
-    margin: 61px 13.18% 0 13.18%;
+    margin: 60px 13.18% 60px 13.18%;
     min-width: 1200px;
-    height: 50px;
+    height: 63px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -621,18 +623,9 @@ export default {
       font-weight: 300;
       box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
     }
-    .addOutStore.addOutStoreen{
-      font-size: 14px;
-    }
-    .outHouseTitle{
-      font-size: 36px;
-      font-family: HarmonyHeiTi, sans-serif;
-      font-weight: bold;
-      color: #5E40C8;
-      margin: 0;
-      .outHouseTitleen{
-        font-size: 24px;
-      }
+    .title_line{
+      margin-left: 140px;
+      width: 210px;
     }
   }
   .contents {

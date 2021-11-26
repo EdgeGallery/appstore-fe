@@ -157,8 +157,8 @@ export default {
         })
       }
     },
-
     getComments () {
+      console.log(this.appId)
       getCommentsApi(this.appId, this.limit, this.offset).then(res => {
         this.historyComentsList = res.data.results
         this.handleDate()
@@ -186,11 +186,10 @@ export default {
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
-    },
-    appId (newVal, oldVal) {
-      this.appId = newVal
-      this.getComments()
     }
+  },
+  mounted () {
+    this.getComments()
   }
 }
 </script>

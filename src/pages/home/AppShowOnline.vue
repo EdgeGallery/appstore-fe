@@ -656,11 +656,11 @@ export default {
       .show_btn{
         display: inline-block;
         .batchProButton{
-        width:139px;
-        height:40px;
-        margin-top: 30px;
-        background-color: #5F45BE;
-      }
+          width:139px;
+          height:40px;
+          margin-top: 30px;
+          background-color: #5F45BE;
+        }
       }
       .tryBigTip{
         margin-left:30%;
@@ -675,18 +675,14 @@ export default {
         display: flex;
         margin-bottom: 70px;
         .spanTitle{
-        display: flex;
           display: flex;
           margin-left: 5px;
           width: 245px;
           text-align: left;
         }
-
       }
-
       .stepTitle{
         margin-top: 11px;
-        // width: 96px;
         height: 15px;
         font-size: 16px;
         font-family: HarmonyHeiTi;
@@ -694,19 +690,18 @@ export default {
         color: #000000;
         line-height: 24px;
       }
-
     }
     .stepTitleNode{
-        padding-top: 50px;
-        margin: 0px 0 30px 98px;
-        width: 185px;
-        height: 19px;
-        font-size: 20px;
-        font-family: HarmonyHeiTi;
-        font-weight: 600;
-        color: #5844BE;
-        line-height: 15px;
-      }
+      padding-top: 50px;
+      margin: 0px 0 30px 98px;
+      width: 185px;
+      height: 19px;
+      font-size: 20px;
+      font-family: HarmonyHeiTi;
+      font-weight: 600;
+      color: #5844BE;
+      line-height: 15px;
+    }
     .circle-progress {
       display: flex;
       justify-content: center;
@@ -714,12 +709,10 @@ export default {
       top: -80px;
     }
     .footer_title{
-        //
         width: 55%;
         display:flex;
         flex-direction: column;
         .bottom_titile1{
-          // display:flex;
           margin-top: 50px;
           height: 19px;
           font-size: 20px;
@@ -758,6 +751,5 @@ export default {
       cursor: pointer;
     }
   }
-
 }
 </style>

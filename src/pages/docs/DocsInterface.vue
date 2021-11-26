@@ -353,7 +353,7 @@ export default {
   margin-bottom: -100px;
 }
 .docTop{
-  padding-top:60px;
+  padding-top:40px;
   padding-left:20.42% ;
   width: 100%;
   height: 314px;
@@ -376,14 +376,14 @@ export default {
   }
 }
 .docContent{
-  margin-top: -120px;
+  margin-top: -140px;
   width: 100%;
   display: flex;
   justify-content: center;
 }
-    p{
-      margin: 0;
-    }
+p{
+  margin: 0;
+}
 .docs {
     width: 73.64%;
     min-height: 600px;

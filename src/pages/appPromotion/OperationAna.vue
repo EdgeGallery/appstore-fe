@@ -16,9 +16,12 @@
 
 <template>
   <div class="my-app">
-    <p class="operTitle">
-      {{ $t("nav.operAna") }}
-    </p>
+    <div class="title">
+      <p class="title_left">
+        {{ $t("nav.operAna") }}
+      </p>
+      <span class="line_bot1 title_line" />
+    </div>
     <div class="chart-content">
       <div
         class="analyseAnaNoData"
@@ -980,29 +983,26 @@ export default {
 .my-app {
   width: 100%;
   .loolReport{
-      background: #EFEFEF;
-      border-radius: 5px;
-      font-size: 14px;
-      font-family: HarmonyHeiTi, sans-serif;
-      font-weight: 200;
-      width: 62px;
-      height: 24px;
-      line-height: 24px;
-      color: #7A6E8A;
-      text-align: center;
+    background: #EFEFEF;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: HarmonyHeiTi, sans-serif;
+    font-weight: 200;
+    width: 62px;
+    height: 24px;
+    line-height: 24px;
+    color: #7A6E8A;
+    text-align: center;
   }
   .lookReport:hover{
     background: #5E40C8;
     color: #fff;
   }
-  .operTitle{
-    font-size: 36px;
-    font-family: HarmonyHeiTi, sans-serif;
-    font-weight: bold;
-    color: #5E40C8;
-    margin-left: 13.18%;
-    margin-top:50px ;
-    margin-bottom: 20px;
+  .title{
+    margin: 61px 13.18%;
+    .title_line{
+      margin-left: 140px;
+    }
   }
   .chart-content{
     width: 73.64%;
@@ -1021,44 +1021,42 @@ export default {
         height: 375px;
         display: flex;
         justify-content: space-between;
-
       }
       .levelBottom{
         width: 100% ;
         height: 375px;
         display: flex;
         justify-content: space-between;
-
       }
       .chartDesc{
-            width: 100%;
-            height: 30px;
-            margin: auto;
-            text-align: center;
-            margin-top: 10px;
-            .desc-font{
-              font-size: 14px;
-              color: #B2B2B2;
-            }
+        width: 100%;
+        height: 30px;
+        margin: auto;
+        text-align: center;
+        margin-top: 10px;
+        .desc-font{
+          font-size: 14px;
+          color: #B2B2B2;
         }
+      }
       .mychartDiv1{
-          width: 48%;
-          height: 375px;
-          .mychart{
-            width: 100%;
-            height: 325px;
-            background: #FFFFFF;
-          }
-        }
-        .mychartDiv2{
-          width: 48%;
+        width: 48%;
+        height: 375px;
+        .mychart{
+          width: 100%;
           height: 325px;
-          .mychart{
-            width: 100%;
-            height: 100%;
-            background: #FFFFFF;
-          }
+          background: #FFFFFF;
         }
+      }
+      .mychartDiv2{
+        width: 48%;
+        height: 325px;
+        .mychart{
+          width: 100%;
+          height: 100%;
+          background: #FFFFFF;
+        }
+      }
     }
     .analyseAnaNoData{
       width: 100%;
@@ -1167,13 +1165,13 @@ export default {
   }
 }
 div /deep/ .headerStyle {
-     border-right: none !important;
-     background: #EDEEF8 !important;
+  border-right: none !important;
+  background: #EDEEF8 !important;
 }
 div /deep/.el-table th  .cell {
-    font-size: 20px;
-    font-weight: 400;
-    color: #62517A;
+  font-size: 20px;
+  font-weight: 400;
+  color: #62517A;
 }
 div /deep/.el-table td  .cell {
   font-size: 14px;

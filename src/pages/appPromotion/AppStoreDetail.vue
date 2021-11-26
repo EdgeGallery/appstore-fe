@@ -17,9 +17,12 @@
 <template>
   <div class="app-pull">
     <div class="contents">
-      <p class="pushTitle">
-        {{ $t("nav.appPull") }}
-      </p>
+      <div class="title">
+        <p class="title_left ">
+          {{ $t("nav.appPull") }}
+        </p>
+        <span class="line_bot1 title_line" />
+      </div>
       <div class="packageTable">
         <div
           class="search_pull"
@@ -265,54 +268,56 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.app-pull{
   .contents{
-          position: relative;
-            min-height: 750px;
-            padding-bottom: 40px;
-  }
-  .pushTitle{
-      font-size: 36px;
-      font-family: HarmonyHeiTi, sans-serif;
-      font-weight: bold;
-      color: #5E40C8;
-      line-height: 24px;
-      margin:-84px 0  48px -31px ;
-  }
-.packageTable{
-  .el-table thead{
-    th {
-      background-color: #eee;
+    position: absoulue;
+    min-height: 750px;
+    padding-bottom: 40px;
+    .title{
+      position: relative;
+      top: -130px;
+      .title_line{
+      margin-left: 140px;
+      }
+    }
+    .packageTable{
+      padding: 31px;
+      position: relative;
+      top: -60px;
+      .el-table thead{
+        th {
+          background-color: #eee;
+        }
+      }
+      .search_pull {
+        margin-bottom: 15px;
+        margin-top: 0px;
+        float:left;
+        .search_input{
+          width: 200px;
+          float: right;
+          margin-top: -2px;
+        }
+      }
+    }
+    .paginationStyle{
+      position: absolute;
+      right: 20px;
+      bottom: -10px;
     }
   }
-  .search_pull {
-    margin-bottom: 15px;
-    margin-top: 0px;
-    float:left;
-    .search_input{
-      width: 200px;
-      float: right;
-      margin-top: -2px;
-    }
-  }
-}
-.paginationStyle{
-    position: absolute;
-    right: 20px;
-    bottom: -10px;
-
 }
 .search_input /deep/ .el-input__inner {
-    height: 40px !important;
+  height: 40px !important;
 }
-
 div /deep/ .el-button--primary.is-disabled, .el-button--primary.is-disabled:hover, .el-button--primary.is-disabled:focus, .el-button--primary.is-disabled:active {
-    background-color:  #5E40C8  !important;
-    border-color:  #5E40C8 !important;
+  background-color:  #5E40C8  !important;
+  border-color:  #5E40C8 !important;
 }
 div /deep/ .headerStyle {
-     border-right: none !important;
-     background-color: #EDEEF8 !important;
-     color: #62517A !important;
+  border-right: none !important;
+  background-color: #EDEEF8 !important;
+  color: #62517A !important;
 }
 .lookReport{
   text-decoration: none;
@@ -322,9 +327,9 @@ div /deep/ .headerStyle {
   border-radius: 12px;
 }
 div /deep/ .el-table th > .cell {
-    font-size: 20px !important;
-    font-weight: 400;
-    color: #62517A;
+  font-size: 20px !important;
+  font-weight: 400;
+  color: #62517A;
 }
 div /deep/ .el-table th{
   height: 60px !important;
