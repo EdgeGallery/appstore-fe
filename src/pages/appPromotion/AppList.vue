@@ -17,9 +17,12 @@
 <template>
   <div class="my-app pushApp">
     <div class="my-app-content">
-      <p class="pushTitle">
-        {{ $t("nav.appPush") }}
-      </p>
+      <div class="title">
+        <p class="title_left">
+          {{ $t("nav.appPush") }}
+        </p>
+        <span class="line_bot1 title_line" />
+      </div>
       <div class="app-list">
         <div class="batchProm">
           <el-button
@@ -440,15 +443,13 @@ export default {
     width: 73.64%;
     margin: 61px 13.18%;
     min-width: 1200px;
-
-    .pushTitle{
-      font-size: 36px;
-      margin-bottom: 30px;
-      font-family: HarmonyHeiTi, sans-serif;
-      font-weight: bold;
-      color: #5E40C8;
-      line-height: 24px;
+    .title{
+      margin-bottom: 60px;
+      .title_line{
+        margin-left: 140px;
+      }
     }
+
   }
   .paginationStyle{
     position: absolute;

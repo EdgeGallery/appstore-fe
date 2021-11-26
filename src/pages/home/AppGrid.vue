@@ -143,16 +143,16 @@ export default {
         box-sizing: border-box;
         text-align: center;
         width: 100%;
-        height: 160px;
+        height: 153px;
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 8px 8px 0 0;
         img {
           overflow: hidden;
-          height: 90px;
+          height: 68px;
+          width: 68px;
           border-radius: 10%;
-          margin-top: -29px;
         }
       }
       .img-boxen {
@@ -163,15 +163,15 @@ export default {
         box-sizing: border-box;
         text-align: center;
         width: 100%;
-        height: 160px;
+        height: 153px;
         display: flex;
         justify-content: center;
         align-items: center;
         img {
           overflow: hidden;
-          height: 90px;
+          height: 68px;
+          width: 68px;
           border-radius: 10%;
-          margin-top: -29px;
         }
       }
       .img-boxcn {
@@ -182,15 +182,15 @@ export default {
         box-sizing: border-box;
         text-align: center;
         width: 100%;
-        height: 160px;
+        height: 153px;
         display: flex;
         justify-content: center;
         align-items: center;
         img {
           overflow: hidden;
-          height: 90px;
+          height: 68px;
+          width: 68px;
           border-radius: 10%;
-          margin-top: -29px;
         }
       }
       .scoreMode{
@@ -224,27 +224,25 @@ export default {
           display: flex;
           justify-content: space-between;
           align-content: center;
+          padding-top: 12px;
           .score{
-            margin-left: 10px;
+            margin-left:10px;
+            display: flex;
             img{
               width: 14px;
               height: 14px;
-              margin-right:6px ;
-              margin-top: 4px;
+              margin:2px 6px 0 0 ;
             }
             .core{
-              line-height: 40px;
+              display: block;
               font-size: 14px;
               font-family: HarmonyOS Sans SC, sans-serif;
               font-weight: 300;
               color: #929292;
-              position: relative;
             }
           }
           .deployMode{
             margin-right: 15px;
-            height: 40px;
-            line-height: 40px;
             font-size: 14px;
             font-family: HarmonyOS Sans SC, sans-serif;
             font-weight: 300;
@@ -263,51 +261,16 @@ export default {
   }
   @media screen and (max-width: 1800px) and (min-width: 1200px){
     .content {
-      padding-left: 10px;
-      height: 140px;
-      margin-right: 2.4%;
-      margin-bottom: 30px;
+      height: 207px;
       .application {
         height: 205px;
         .img-box {
-          height: 160px;
-          img {
-            height: 40px;
-          }
+          height: 130px;
         }
         .scoreMode{
-          border-radius: 0 0 8px 8px;
           height: 76px;
-          .appName{
-            height: 30px;
-            padding-top: 4px;
-            padding-left: 10px;
-            line-height: 30px;
-            font-size: 14px;
-          }
           .appNameStyle {
             font-size: 14px;
-            margin-top: 3px;
-            margin-bottom: 1px;
-          }
-          .scoreIcon{
-            padding-top: 4px;
-            .score{
-              margin-left: 10px;
-              img{
-                width: 14px;
-                height: 14px;
-                margin-right:6px ;
-              }
-              .core{
-                line-height: 24px;
-                position: relative;
-                font-size: 14px;
-              }
-            }
-            .deployMode{
-              margin-right: 10px;
-            }
           }
         }
       }

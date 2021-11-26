@@ -20,9 +20,10 @@
   >
     <div>
       <div class="title">
-        <p class="titleName">
+        <p class="title_left">
           {{ $t("nav.msgCenter") }}
         </p>
+        <span class="line_bot1 title_line" />
       </div>
       <div class="message">
         <div class="timeSelect">
@@ -297,22 +298,9 @@ export default {
     .title{
       min-width: 1200px;
       margin-left:13.18% ;
-      margin-top: 44px;
-      .titleName{
-        font-size: 36px;
-        font-family: HarmonyOS Sans SC, sans-serif;
-        font-weight: bold;
-        color: #5E40C8;
-        margin: 0;
-      }
-      .lines{
-        margin-top: 22px;
-        width: 88px;
-        height: 7px;
-        background: #9E7BCD;
-        opacity: 0.2;
-        border-radius: 4px;
-        margin-bottom: 0;
+      margin: 60px 0 60px 13.18%;
+      .title_line{
+        margin-left: 140px;
       }
     }
     .message{
@@ -330,7 +318,6 @@ export default {
       right: 0;
     }
     .messageContent{
-      padding-top: 10px;
       width: 100%;
     }
     }

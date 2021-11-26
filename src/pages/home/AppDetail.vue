@@ -48,25 +48,25 @@
           </select>
           <span v-show="pathSource==='myapp'">{{ currentData.version }}</span>
           <span class="fg" />
-          {{ details.provider }}
+          {{ currentData.provider }}
           <span class="fg" />
-          {{ details.size }}
+          {{ currentData.size }}
         </div>
         <p class="app_desc">
-          {{ details.shortDesc }}
+          {{ currentData.shortDesc }}
         </p>
         <p class="app_tag clearfix">
           <span class="industry">
-            {{ details.industry }}
+            {{ currentData.industry }}
           </span>
           <span class="architecture">
-            {{ details.affinity }}
+            {{ currentData.affinity }}
           </span>
           <span class="type">
-            {{ details.type }}
+            {{ currentData.type }}
           </span>
           <span class="deployMode">
-            {{ details.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
+            {{ currentData.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
           </span>
         </p>
       </div>
@@ -103,7 +103,6 @@
         <p class="download_num">
           {{ downloadNum }}{{ this.$t('store.downloadNum') }}
         </p>
-
         <el-button
           type="primary"
           class="batchProButton"
@@ -269,30 +268,30 @@
         :class="{'container_div_active':activeName!=='appDetail'}"
       >
         <appIntroduction
-          v-show="activeName==='appDetail'"
+          v-if="activeName==='appDetail'"
           :source="this.source"
           ref="appIntroduction"
         />
         <appComments
-          v-show="activeName==='comment'"
+          v-if="activeName==='comment'"
           :app-id="this.appId"
           ref="appComments"
         />
         <appShowOnline
-          v-show="activeName==='appShow'"
+          v-if="activeName==='appShow'"
           :package-id="this.packageId"
           :app-id="this.appId"
           :if-experience="this.ifExperience"
           ref="appShowOnline"
         />
         <synchronizeMeao
-          v-show="activeName==='meao'"
+          v-if="activeName==='meao'"
           :package-id="this.packageId"
           :current-data="this.currentData"
           ref="synchronizeMeao"
         />
         <appVideo
-          v-show="activeName==='vedio'"
+          v-if="activeName==='vedio'"
           :player-options="this.playerOptions"
           ref="appVideo"
         />
@@ -649,23 +648,23 @@ export default {
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {
         if (this.language === 'cn') {
-          if (this.details.industry === itemFe.labelen) {
-            this.details.industry = itemFe.labelcn
+          if (this.currentData.industry === itemFe.labelen) {
+            this.currentData.industry = itemFe.labelcn
           }
         } else {
-          if (this.details.industry === itemFe.labelcn) {
-            this.details.industry = itemFe.labelen
+          if (this.currentData.industry === itemFe.labelcn) {
+            this.currentData.industry = itemFe.labelen
           }
         }
       })
       TYPES.forEach(itemFe => {
         if (this.language === 'cn') {
-          if (this.details.type === itemFe.labelen) {
-            this.details.type = itemFe.labelcn
+          if (this.currentData.type === itemFe.labelen) {
+            this.currentData.type = itemFe.labelcn
           }
         } else {
-          if (this.details.type === itemFe.labelcn) {
-            this.details.type = itemFe.labelen
+          if (this.currentData.type === itemFe.labelcn) {
+            this.currentData.type = itemFe.labelen
           }
         }
       })
@@ -673,7 +672,11 @@ export default {
     getAppData () {
       getAppListApi(this.appId).then(
         (res) => {
+          this.score = res.data.score
           this.downloadNum = res.data.downloadCount
+          if (!res.data.free) {
+            this.price = res.data.price
+          }
         },
         () => {
           this.$message({
@@ -713,9 +716,6 @@ export default {
       this.score = this.details.score
       this.downloadNum = this.details.downloadCount
     }
-    if (!this.details.free) {
-      this.price = this.details.price
-    }
     if (this.details.packageId) {
       this.packageId = this.details.packageId
       if (this.pathSource === 'myapp') {
@@ -750,10 +750,10 @@ export default {
     box-shadow: 2px 5px 23px 10px rgba(104, 142, 243, 0.2) inset;
     width: 535px;
   }
- .el-dialog__header{
-   border-bottom: 2px solid #e0e0e0;
-   background: transparent !important;
- }
+  .el-dialog__header{
+    border-bottom: 2px solid #e0e0e0;
+    background: transparent !important;
+  }
   .down_radio{
     padding: 18px 25px;
     width: 400px;
