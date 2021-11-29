@@ -18,7 +18,7 @@
   <div class="appShowOnline">
     <div class="show_app">
       <div
-        id="tableId"
+        id="left_tableId"
         v-if="isTableShow"
         class="show_common lt"
       >
@@ -51,7 +51,8 @@
         </p>
       </div>
       <div
-        id="tableId"
+        id="right_tableId"
+        class="lt"
         v-if="isTableShow"
       >
         <div class="footer_title">
@@ -135,6 +136,19 @@
         {{ $t('store.releaseResource') }}
       </el-button>
     </div>
+    <div
+      v-if="isTipShow"
+      class="div_title_tip"
+      slot="tip"
+    >
+      <img
+        :src="this.experienceSmallTip"
+        alt=""
+      >
+      <p class="title_tip">
+        {{ $t('store.releaseAppResource') }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -161,6 +175,7 @@ import pkgUploadingTip from '@/assets/images/pkg_uploadingTip.png'
 import pkgGetStatusEndTip from '@/assets/images/pkg_getStatusEndTip.png'
 import pkgInstatiateEndTip from '@/assets/images/pkg_instatiateEndTip.png'
 import pkgUploadingEndTip from '@/assets/images/pkg_uploadingEndTip.png'
+import experienceSmallTip from '@/assets/images/experienceSmallTip.png'
 export default {
   props: {
     packageId: {
@@ -176,6 +191,7 @@ export default {
   data () {
     return {
       experienceData: [],
+      isTipShow: false,
       btnShow: true,
       isTableShow: false,
       isCanvasHidden: false,
@@ -202,6 +218,7 @@ export default {
       pkgInstatiateEndTip: pkgInstatiateEndTip,
       pkgUploadingEndTip: pkgUploadingEndTip,
       pkgUploading: pkgUploading,
+      experienceSmallTip: experienceSmallTip,
       userId: sessionStorage.getItem('userId'),
       userName: sessionStorage.getItem('userName'),
       name: '',
@@ -554,7 +571,6 @@ export default {
     },
     stepClean () {
       this.isTableShow = false
-      this.progress = 0
     },
     startInterval () {
       clearInterval(this.timer)
@@ -567,10 +583,12 @@ export default {
     },
     slideToggle () {
       $('#canvasId').fadeToggle(1300)
+      $('#circleTitle').hide()
       this.btnShow = false
       setTimeout(() => {
         this.isTableShow = true
-        $('#tableId').slideDown(400)
+        $('#right_tableId').slideDown(400)
+        $('#left_tableId').slideDown(400)
       }, 1296)
     },
     initHidden () {
@@ -578,9 +596,11 @@ export default {
       $('#circleTitle').hide()
       this.btnShow = false
       this.isTableShow = true
-      $('#tableId').slideDown(400)
+      $('#right_tableId').slideDown(400)
+      $('#left_tableId').slideDown(400)
     },
     showCanvas () {
+      this.progress = 0
       this.isTableShow = false
       $('#canvasId').show()
       $('#circleTitle').show()
@@ -675,12 +695,15 @@ export default {
         display: flex;
         margin-bottom: 70px;
         .spanTitle{
+        display: flex;
           display: flex;
           margin-left: 5px;
           width: 245px;
           text-align: left;
         }
+
       }
+
       .stepTitle{
         margin-top: 11px;
         height: 15px;
@@ -692,16 +715,16 @@ export default {
       }
     }
     .stepTitleNode{
-      padding-top: 50px;
-      margin: 0px 0 30px 98px;
-      width: 185px;
-      height: 19px;
-      font-size: 20px;
-      font-family: HarmonyHeiTi;
-      font-weight: 600;
-      color: #5844BE;
-      line-height: 15px;
-    }
+        padding-top: 50px;
+        margin: 0px 0 30px 98px;
+        width: 185px;
+        height: 19px;
+        font-size: 20px;
+        font-family: HarmonyHeiTi;
+        font-weight: 600;
+        color: #5844BE;
+        line-height: 15px;
+      }
     .circle-progress {
       display: flex;
       justify-content: center;
@@ -751,5 +774,24 @@ export default {
       cursor: pointer;
     }
   }
+  .div_title_tip{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-left: 55.5%;
+    top: -160px;
+    padding-bottom: 30px;
+    width: 34%;
+    font-size: 12px;
+    font-family: HarmonyHeiTi;
+    font-weight: 200;
+    color: #5E40C8;
+    line-height: 17px;
+    .title_tip{
+      padding: 0 0 0 6px;
+    }
+  }
+
 }
 </style>

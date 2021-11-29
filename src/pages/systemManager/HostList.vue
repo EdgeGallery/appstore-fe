@@ -680,7 +680,7 @@ export default {
           if (!this.showOther) {
             this.form.parameter = ''
           }
-          System.saveHostInfo({ ...this.form, ...params, userId: this.userName }).then(res => {
+          System.saveHostInfo({ ...this.form, ...params, userId: this.userId }).then(res => {
             if (res.data) {
               this.$eg_messagebox((this.form.hostId ? this.$t('system.modify') : this.$t('system.addHost')) + this.$t('system.success'), 'success')
 
