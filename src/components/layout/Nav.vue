@@ -151,7 +151,7 @@
             class="curp"
           >
             <img
-              :src="language === 'en' ? require('@/assets/images/icon_en.png'): require('@/assets/images/icon_cn.png')"
+              :src="language === 'en' ? require('@/assets/images/icon_cn.png'): require('@/assets/images/icon_en.png')"
               class="iconLanguage"
               alt=""
             >
@@ -642,7 +642,7 @@ export default {
   },
   mounted () {
     this.language = localStorage.getItem('language') || 'cn'
-    localStorage.setItem('language', this.language)
+    this.$i18n.locale = localStorage.getItem('language') || 'cn'
     this.getResCodeInfo()
     let path = this.$route.path
     this.judgeRoute(path)
