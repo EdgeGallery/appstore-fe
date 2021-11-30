@@ -407,7 +407,6 @@ export default {
     sessionStorage.removeItem('offsetAppPush')
   },
   mounted () {
-    this.$i18n.locale = this.language
     this.setDivHeight()
     this.getTableData()
     this.getProviders()
