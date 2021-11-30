@@ -210,7 +210,7 @@ export default {
   },
   data () {
     return {
-      language: 'cn',
+      language: '',
       list: [
         {
           labelEn: 'Home',
@@ -640,10 +640,10 @@ export default {
       })
     }
   },
-
   mounted () {
+    this.language = localStorage.getItem('language') || 'cn'
+    localStorage.setItem('language', this.language)
     this.getResCodeInfo()
-    localStorage.setItem('language', 'cn')
     let path = this.$route.path
     this.judgeRoute(path)
     this.initUserInfo()
