@@ -183,6 +183,7 @@
           :label="$t('common.description')"
         >
           <el-input
+            :disabled="true"
             class="desc-input"
             id="appDescription"
             type="textarea"
