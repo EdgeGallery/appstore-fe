@@ -144,11 +144,11 @@ const cn = {
     uploadSuccess: '上传成功！',
     uploadFailed: '上传失败！',
     guestPrompt: 'Guest用户无权操作，请先登录！',
-    downloadPrompt: '您没有权限下载!',
+    downloadPrompt: '您没有权限下载！',
     modify: '修改',
     noDataNotice: '暂无数据',
     typeError: '格式错误',
-    typeConfig: '请上传config文件!',
+    typeConfig: '请上传config文件！',
     networkConfig: '网络配置',
     log: {
       userName: '使用者',

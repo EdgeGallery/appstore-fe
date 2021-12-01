@@ -392,7 +392,7 @@ import appShowOnline from './AppShowOnline.vue'
 import synchronizeMeao from './SynchronizeMeao.vue'
 import {
   getAppDetailTableApi,
-  downloadAppPakageApi,
+  downloadAppPackageApi,
   URL_PREFIX,
   getAppListApi,
   myApp,
@@ -614,7 +614,7 @@ export default {
       this.isShowDownload = false
     },
     confirmImage (row) {
-      downloadAppPakageApi(this.appId, row, this.isDownloadImage)
+      downloadAppPackageApi(this.appId, row, this.isDownloadImage)
       this.isShowDownload = false
       this.isDownloadImage = false
     },
@@ -623,7 +623,7 @@ export default {
         this.isShowDownload = true
       } else {
         this.isDownloadImage = false
-        downloadAppPakageApi(this.appId, row, this.isDownloadImage)
+        downloadAppPackageApi(this.appId, row, this.isDownloadImage)
       }
     },
     download (row) {

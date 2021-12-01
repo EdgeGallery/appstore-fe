@@ -125,7 +125,7 @@
 <script>
 import {
   getProgressByPackageId,
-  synchronizedPakageApi,
+  synchronizedPackageApi,
   getThirdSystemByType
 } from '../../tools/api.js'
 import { MEAO } from '../../tools/constant.js'
@@ -233,31 +233,35 @@ export default {
       }
     },
     synchronizePackage (item) {
-      this.startInterval()
-      if (this.timer !== null) {
-        setTimeout(() => {
-          clearInterval(this.timer)
-        }, 600000)
-      }
-      synchronizedPakageApi(this.currentData, item.id).then(res => {
-        this.$message({
-          duration: 2000,
-          message: this.$t('store.synchronizedwaiting'),
-          type: 'success'
-        })
-      }).catch(error => {
-        let defaultMsg = this.$t('promptMessage.operationFailed')
-        let retCode = error.response.data.retCode
-        if (retCode) {
-          commonUtil.showTipMsg(this.language, error, defaultMsg)
-        } else {
+      if (sessionStorage.getItem('userId') === this.currentData.userId || sessionStorage.getItem('userNameRole') === 'admin') {
+        this.startInterval()
+        if (this.timer !== null) {
+          setTimeout(() => {
+            clearInterval(this.timer)
+          }, 600000)
+        }
+        synchronizedPackageApi(this.currentData, item.id).then(res => {
           this.$message({
             duration: 2000,
-            message: this.$t('promptMessage.operationFailed'),
-            type: 'warning'
+            message: this.$t('store.synchronizedwaiting'),
+            type: 'success'
           })
-        }
-      })
+        }).catch(error => {
+          let defaultMsg = this.$t('promptMessage.operationFailed')
+          let retCode = error.response.data.retCode
+          if (retCode) {
+            commonUtil.showTipMsg(this.language, error, defaultMsg)
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.operationFailed'),
+              type: 'warning'
+            })
+          }
+        })
+      } else {
+        this.$message.warning(this.$t('system.downloadPrompt'))
+      }
     },
     checkFailedData () {
       for (let item of this.tableData) {
@@ -296,6 +300,7 @@ export default {
   },
   mounted () {
     this.getThirdSystemByType()
+    this.getProgressByPackageId()
     this.startInterval()
     setTimeout(() => {
       clearInterval(this.timer)
