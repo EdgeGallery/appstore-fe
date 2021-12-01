@@ -661,8 +661,7 @@ export default {
   },
   watch: {
     '$i18n.locale': function () {
-      let language = localStorage.getItem('language')
-      this.language = language
+      this.language = localStorage.getItem('language') || 'cn'
       this.getAppData()
     },
     curPageSize: function () {
@@ -670,6 +669,7 @@ export default {
     }
   },
   mounted () {
+    this.language = localStorage.getItem('language')
     this.userId = sessionStorage.getItem('userId')
     this.getAppData()
     this.interval = setInterval(() => {
