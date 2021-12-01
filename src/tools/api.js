@@ -383,13 +383,13 @@ function getDocsApi (language, activeName) {
   return axios.get(PROXY_PREFIX_CURRENTSERVER + url)
 }
 
-function downloadAppPakageApi (appId, row, isDownloadImage) {
+function downloadAppPackageApi (appId, row, isDownloadImage) {
   let url = 'apps/' + appId + '/packages/' + row.packageId + '/action/download?isDownloadImage=' + isDownloadImage
   let URL = URL_PREFIX + url
   window.open(URL)
 }
 
-function synchronizedPakageApi (currentData, meaoId) {
+function synchronizePackageApi (currentData, meaoId) {
   let url = 'apps/' + currentData.appId + '/packages/' + currentData.packageId + '/meao/' + meaoId + '/action/sync'
   return GET(url)
 }
@@ -589,8 +589,8 @@ export {
   getDocsApi,
   getAppByAppstoreIdV1,
   getInterface,
-  downloadAppPakageApi,
-  synchronizedPakageApi,
+  downloadAppPackageApi,
+  synchronizePackageApi,
   URL_PREFIX,
   URL_PREFIXV2,
   URL_PREFIX_GATEWAY,

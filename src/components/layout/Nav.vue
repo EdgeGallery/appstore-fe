@@ -151,7 +151,7 @@
             class="curp"
           >
             <img
-              :src="language === 'en' ? require('@/assets/images/icon_en.png'): require('@/assets/images/icon_cn.png')"
+              :src="language === 'en' ? require('@/assets/images/icon_cn.png'): require('@/assets/images/icon_en.png')"
               class="iconLanguage"
               alt=""
             >
@@ -210,7 +210,7 @@ export default {
   },
   data () {
     return {
-      language: 'cn',
+      language: '',
       list: [
         {
           labelEn: 'Home',
@@ -640,10 +640,10 @@ export default {
       })
     }
   },
-
   mounted () {
+    this.language = localStorage.getItem('language') || 'cn'
+    this.$i18n.locale = localStorage.getItem('language') || 'cn'
     this.getResCodeInfo()
-    localStorage.setItem('language', 'cn')
     let path = this.$route.path
     this.judgeRoute(path)
     this.initUserInfo()
