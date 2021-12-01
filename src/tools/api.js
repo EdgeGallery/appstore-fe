@@ -389,7 +389,7 @@ function downloadAppPackageApi (appId, row, isDownloadImage) {
   window.open(URL)
 }
 
-function synchronizedPackageApi (currentData, meaoId) {
+function synchronizePackageApi (currentData, meaoId) {
   let url = 'apps/' + currentData.appId + '/packages/' + currentData.packageId + '/meao/' + meaoId + '/action/sync'
   return GET(url)
 }
@@ -590,7 +590,7 @@ export {
   getAppByAppstoreIdV1,
   getInterface,
   downloadAppPackageApi,
-  synchronizedPackageApi,
+  synchronizePackageApi,
   URL_PREFIX,
   URL_PREFIXV2,
   URL_PREFIX_GATEWAY,

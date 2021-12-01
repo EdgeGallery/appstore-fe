@@ -125,7 +125,7 @@
 <script>
 import {
   getProgressByPackageId,
-  synchronizedPackageApi,
+  synchronizePackageApi,
   getThirdSystemByType
 } from '../../tools/api.js'
 import { MEAO } from '../../tools/constant.js'
@@ -240,7 +240,7 @@ export default {
             clearInterval(this.timer)
           }, 600000)
         }
-        synchronizedPackageApi(this.currentData, item.id).then(res => {
+        synchronizePackageApi(this.currentData, item.id).then(res => {
           this.$message({
             duration: 2000,
             message: this.$t('store.synchronizedwaiting'),
