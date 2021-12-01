@@ -761,7 +761,7 @@ export default {
         // This is intentional
       })
     },
-    changeCnEn (language) {
+    changeLanguage (language) {
       if (language === 'en') {
         this.radioData[0].value = 'less than 10MB'
         this.radioData[1].value = 'more than 10MB'
@@ -808,7 +808,7 @@ export default {
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language') || 'cn'
-      this.changeCnEn(this.language)
+      this.changeLanguage(this.language)
     },
     value: function (newVal) {
       this.dialogVisible = newVal
@@ -816,7 +816,7 @@ export default {
   },
   mounted () {
     this.language = localStorage.getItem('language') || 'cn'
-    this.changeCnEn(this.language)
+    this.changeLanguage(this.language)
     this.showErr = this.logoFileList
     this.chooseDefaultIcon(this.defaultIcon[0], 0)
     this.getRadioVal()

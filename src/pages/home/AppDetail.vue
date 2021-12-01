@@ -618,7 +618,7 @@ export default {
       this.isShowDownload = false
       this.isDownloadImage = false
     },
-    ifDownloadImage (currentData, row) {
+    downloadImage (currentData, row) {
       if (this.currentData.deployMode === 'vm') {
         this.isShowDownload = true
       } else {
@@ -628,7 +628,7 @@ export default {
     },
     download (row) {
       if (sessionStorage.getItem('userId') === this.currentData.userId || sessionStorage.getItem('userNameRole') === 'admin') {
-        this.ifDownloadImage(this.currentData, row)
+        this.downloadImage(this.currentData, row)
         this.getAppData()
       } else {
         this.$message.warning(this.$t('system.downloadPrompt'))

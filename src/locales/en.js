@@ -179,11 +179,11 @@ const en = {
     uploadSuccess: 'Upload success!',
     uploadFailed: 'Upload failure!',
     guestPrompt: 'The guest user has no right to operate, please log in first!',
-    downloadPrompt: 'You do not have permission to download',
+    downloadPrompt: 'You do not have permission to download!',
     modify: 'Modify',
     noDataNotice: 'No data available',
     typeError: 'Format error',
-    typeConfig: 'Please upload config file',
+    typeConfig: 'Please upload config file!',
     networkConfig: 'Network Config',
     log: {
       userName: 'Username',
