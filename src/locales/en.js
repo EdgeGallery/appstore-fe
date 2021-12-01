@@ -591,7 +591,8 @@ const en = {
     more: 'more',
     free: 'Free',
     price: ' Yuan（RMB）/Hour',
-    priceTitle: 'Apply pricing settings'
+    priceTitle: 'Apply pricing settings',
+    subscribe: 'Subscribe'
   },
   report: {
     version: 'Version',

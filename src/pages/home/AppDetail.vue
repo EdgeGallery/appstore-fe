@@ -334,19 +334,19 @@
         class="el-dialog__title"
       >
         <em class="title_icon" />
-        {{ $t('order.subscribe') }}
+        {{ $t('myApp.subscribe') }}
       </div>
       <div class="buy_content">
         <el-form>
           <el-form-item
             :label="$t('order.appNameLabel')"
           >
-            <span class="val_span">{{ currentData.name }}</span>
+            <p class="val_span">{{ currentData.name }}</p>
           </el-form-item>
           <el-form-item
             :label="$t('order.subPrice')"
           >
-            <span class="val_span">{{ price }}{{ $t('order.price') }}</span>
+            <p class="val_span">{{ price }}{{ $t('myApp.price') }}</p>
           </el-form-item>
           <el-form-item
             :label="$t('system.address')"
@@ -1269,6 +1269,9 @@ export default {
       height: 10px;
       border-right: solid #B3B0CA 2px;
     }
+  }
+  .val_span {
+    line-height: 32px;
   }
   .container_div{
     background: #fff;
