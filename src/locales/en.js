@@ -507,9 +507,9 @@ const en = {
     taskStatus: 'TaskStatus',
     taskProgress: 'TaskProgress',
     startExperience: 'Click the online experience button to experience immediately...',
-    waituploadapp: 'Aploading app, please wait...',
-    waitdistributeapp: 'App is being distributed, please wait patiently...',
-    waitgetistantiatedinfo: 'Getting instantiation information, please wait patiently...',
+    waitUploadApp: 'Aploading app, please wait...',
+    waitDistributeApp: 'App is being distributed, please wait patiently...',
+    waitGetInstantiatedInfo: 'Getting instantiation information, please wait patiently...',
     synchronizeToMeao: 'Sync APP To MEAO'
   },
   docs: {
