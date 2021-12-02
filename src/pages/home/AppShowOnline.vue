@@ -236,13 +236,8 @@ export default {
       name: '',
       ip: '',
       nodePort: '',
-      btnInstantiate: false,
-      reduceDeg: 60,
       progress: 0,
-      onePercentDeg: 0,
-      cradius: 185,
-      circleX: 0,
-      circleY: 0
+      cradius: 185
 
     }
   },
@@ -382,15 +377,13 @@ export default {
         this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusEndTipEn)
       }
     },
-    toCanvas (id, color, progress) {
+    drawCanvas (id, color, progress) {
       let _canvas = document.getElementById(id)
       let _context = _canvas.getContext('2d')
       let _percent = progress
       this.process = progress
       let _circleX = _canvas.width / 2
       let _circleY = _canvas.height / 2
-      this.circleX = _canvas.width / 2
-      this.circleY = _canvas.height / 2
       let _radius = 185
       let _lineWidth = 18
       let _fontSize = 25
@@ -404,7 +397,7 @@ export default {
       _context.fillStyle = '#999'
       _context.clearRect(_circleX - 103, _circleY + 10, _canvas.width / 2, _canvas.height / 4)
       this.drawText(this.fillText, _circleX, _circleY + 50, 198, _context)
-      this.toCanvasGray('circle', '#E6EAED', 0)
+      this.drawCanvasGray('circle', '#E6EAED', 0)
       this.drawLeftCircle(
         this.cradius + Math.cos(((2 * Math.PI) / 60) * 120) * _radius,
         this.cradius + Math.sin(((2 * Math.PI) / 30) * 130) * _radius,
@@ -470,7 +463,7 @@ export default {
       let _ctx = _canvas.getContext('2d')
       _ctx.clearRect(0, 0, _canvas.width, _canvas.height)
     },
-    toCanvasGray (id, color, progress) {
+    drawCanvasGray (id, color, progress) {
       let _canvas = document.getElementById(id)
       let _context = _canvas.getContext('2d')
       let _percent = progress
@@ -652,8 +645,8 @@ export default {
       this.switchBtn = true
     },
     initCanvas () {
-      this.toCanvas('circle', this.color, this.progress)
-      this.toCanvasGray('circle', '#E6EAED', 0)
+      this.drawCanvas('circle', this.color, this.progress)
+      this.drawCanvasGray('circle', '#E6EAED', 0)
     }
   },
   computed: {
@@ -675,7 +668,7 @@ export default {
     },
     progress (newStr) {
       this.progress = newStr
-      this.toCanvas('circle', this.color, this.progress)
+      this.drawCanvas('circle', this.color, this.progress)
     }
   },
   mounted () {
