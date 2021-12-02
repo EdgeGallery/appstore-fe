@@ -212,7 +212,7 @@ export default {
       this.$message({
         duration: 2000,
         type: 'warning',
-        message: this.$t('promptMessage.getCommentFail')
+        message: this.$t('promptMessage.getUploadProgressFail')
       })
     },
     getThirdSystemByType () {
