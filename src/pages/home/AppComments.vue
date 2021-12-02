@@ -103,6 +103,7 @@
 </template>
 
 <script>
+import commonUtil from '../../tools/commonUtil.js'
 import {
   getCommentsApi,
   submitAppCommentApi
@@ -178,17 +179,14 @@ export default {
         })
       }
     },
-
     getComments () {
       getCommentsApi(this.appId, this.limit, this.offset).then(res => {
         this.historyComentsList = res.data.results
-        this.handleDate()
-      }, () => {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.getCommentFail')
-        })
+        if (this.historyComentsList.length > 0) {
+          this.handleDate()
+        }
+      }).catch(error => {
+        commonUtil.showTipMsg(this.language, error, this.$t('promptMessage.getCommentFail'))
       })
     },
     handleDate () {
@@ -214,6 +212,7 @@ export default {
       this.getComments()
     }
   }
+
 }
 </script>
 <style lang="less">
