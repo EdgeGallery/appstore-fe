@@ -89,7 +89,7 @@ const cn = {
       deactivateFailed: '停用失败',
       deactivated: '已停用'
     },
-    subscribe: '订购 (',
+    subscribe: '订购 (￥',
     price: '/h)',
     subPrice: '订购价格：',
     subSuccess: '订购成功！',
@@ -343,6 +343,7 @@ const cn = {
     phoneNumIsExists: '电话号码已经注册了。',
     subCommentFail: '提交评论失败。',
     getCommentFail: '获取评论失败。',
+    getUploadProgressFail: '获取应用同步进度失败。',
     getAppFail: '获取App数据失败。',
     reLogin: '会话超时,请重新登录.',
     getTaskListFail: '获取测试任务失败。',
