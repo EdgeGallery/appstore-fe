@@ -254,7 +254,7 @@
           ref="appIntroduction"
         />
         <appComments
-          v-show="activeName==='comment'"
+          v-if="activeName==='comment'"
           :app-id="this.appId"
           ref="appComments"
         />
@@ -266,7 +266,7 @@
           ref="appShowOnline"
         />
         <synchronizeMeao
-          v-show="activeName==='meao'"
+          v-if="activeName==='meao'"
           :package-id="this.packageId"
           :current-data="this.currentData"
           ref="synchronizeMeao"
