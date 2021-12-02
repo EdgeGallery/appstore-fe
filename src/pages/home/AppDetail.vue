@@ -341,12 +341,16 @@
           <el-form-item
             :label="$t('order.appNameLabel')"
           >
-            <p class="val_span">{{ currentData.name }}</p>
+            <p class="val_span">
+              {{ currentData.name }}
+            </p>
           </el-form-item>
           <el-form-item
             :label="$t('order.subPrice')"
           >
-            <p class="val_span">{{ price }}{{ $t('myApp.price') }}</p>
+            <p class="val_span">
+              {{ price }}{{ $t('myApp.price') }}
+            </p>
           </el-form-item>
           <el-form-item
             :label="$t('system.address')"
@@ -808,8 +812,8 @@ export default {
         }
         .fg{
           display: inline-block;
-          width: 1px;
-          height: 14px;
+          width: 2px;
+          height: 15px;
           background: #A1A7E6;
           margin: 0 10px;
           position: relative;
@@ -840,7 +844,7 @@ export default {
           color: #61CDD0;
         }
         .type{
-          background: center right no-repeat #effcf9;
+          background: center right no-repeat #eae5f991;
           background-size: contain;
           color: #5E40C8;
         }
@@ -865,7 +869,7 @@ export default {
           margin-top: 10px;
           text-align: center;
           height: 40px !important;
-          width: 160px !important;
+          width: 183px !important;
           border-radius: 25px !important;
           color: #FFFFFF;
           font-family: HarmonyHeiTi, sans-serif;
@@ -884,7 +888,7 @@ export default {
           margin-top: 20px;
           text-align: center;
           height: 40px !important;
-          width: 160px !important;
+          width: 183px !important;
           border-radius: 25px !important;
           color: #6525CB;
           font-family: HarmonyHeiTi, sans-serif;

@@ -87,7 +87,7 @@ const en = {
       deactivateFailed: 'Deactivate Failed',
       deactivated: 'Deactivated'
     },
-    subscribe: 'Subscribe (',
+    subscribe: 'Subscribe (￥',
     price: '/h)',
     subPrice: 'Price: ',
     subSuccess: 'Subscribed successfully!',
@@ -374,6 +374,7 @@ const en = {
     phoneNumIsExists: 'The phone number is registered.',
     subCommentFail: 'Comment submission failed.',
     getCommentFail: 'Failed to get comment.',
+    getUploadProgressFail: 'Failed to get app sync progress.',
     getAppFail: 'Failed to get App data.',
     reLogin: 'Access token expired,please log in again.',
     getTaskListFail: 'Failed to get test task.',
