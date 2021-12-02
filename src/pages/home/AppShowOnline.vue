@@ -383,38 +383,36 @@ export default {
       }
     },
     toCanvas (id, color, progress) {
-      var canvas = document.getElementById(id)
-      var ctx = canvas.getContext('2d')
-      var percent = progress
+      let _canvas = document.getElementById(id)
+      let _context = _canvas.getContext('2d')
+      let _percent = progress
       this.process = progress
-      var circleX = canvas.width / 2
-      var circleY = canvas.height / 2
-      this.circleX = canvas.width / 2
-      this.circleY = canvas.height / 2
-      var radius = 185
-      var lineWidth = 18
-      var fontSize = 25
-      ctx.font = fontSize + 'px April'
-      ctx.textAlign = 'center'
-      ctx.fillStyle = '#000'
-      fontSize = 18
-      ctx.font = fontSize + 'px April'
-      ctx.fillStyle = '#999'
-      this.loadWords(this.progress, circleX, circleY, ctx)
-      console.log(circleX)
-
-      ctx.fillStyle = '#999'
-      ctx.clearRect(circleX - 103, circleY + 10, canvas.width / 2, canvas.height / 4)
-      this.drawText(this.fillText, circleX, circleY + 50, 198, ctx)
+      let _circleX = _canvas.width / 2
+      let _circleY = _canvas.height / 2
+      this.circleX = _canvas.width / 2
+      this.circleY = _canvas.height / 2
+      let _radius = 185
+      let _lineWidth = 18
+      let _fontSize = 25
+      _context.font = _fontSize + 'px April'
+      _context.textAlign = 'center'
+      _context.fillStyle = '#000'
+      _fontSize = 18
+      _context.font = _fontSize + 'px April'
+      _context.fillStyle = '#999'
+      this.loadWords(this.progress, _circleX, _circleY, _context)
+      _context.fillStyle = '#999'
+      _context.clearRect(_circleX - 103, _circleY + 10, _canvas.width / 2, _canvas.height / 4)
+      this.drawText(this.fillText, _circleX, _circleY + 50, 198, _context)
       this.toCanvasGray('circle', '#E6EAED', 0)
       this.drawLeftCircle(
-        this.cradius + Math.cos(((2 * Math.PI) / 60) * 120) * radius,
-        this.cradius + Math.sin(((2 * Math.PI) / 30) * 130) * radius,
-        6.5, ctx
+        this.cradius + Math.cos(((2 * Math.PI) / 60) * 120) * _radius,
+        this.cradius + Math.sin(((2 * Math.PI) / 30) * 130) * _radius,
+        6.5, _context
       )
       this.drawRightCircle(
-        circleX, circleY,
-        6.5, ctx
+        _circleX, _circleY,
+        6.5, _context
       )
       // control move speed
       if (this.process / this.percent > 0.9) {
@@ -427,14 +425,14 @@ export default {
         this.process += 1.0
       }
       // draw arc
-      this.circle(circleX, circleY, radius, lineWidth, ctx)
-      this.sector(circleX, circleY, radius, percent, lineWidth, ctx)
-      this.loadingPicByProgress(this.progress, circleX, circleY, ctx)
+      this.circle(_circleX, _circleY, _radius, _lineWidth, _context)
+      this.sector(_circleX, _circleY, _radius, _percent, _lineWidth, _context)
+      this.loadingPicByProgress(this.progress, _circleX, _circleY, _context)
     },
     clearCanvas () {
-      var canvas = document.getElementById('circle')
-      const context = canvas.getContext('2d')
-      context.clearRect(0, 0, canvas.width, canvas.height)
+      let _canvas = document.getElementById('circle')
+      const context = _canvas.getContext('2d')
+      context.clearRect(0, 0, _canvas.width, _canvas.height)
     },
     circle (circleX, circleY, radius, lineWidth, ctx) {
       ctx.beginPath()
@@ -468,30 +466,30 @@ export default {
       ctx.stroke()
     },
     drawImage (id, color, progress) {
-      var canvas = document.getElementById(id)
-      var ctx = canvas.getContext('2d')
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      let _canvas = document.getElementById(id)
+      let _ctx = _canvas.getContext('2d')
+      _ctx.clearRect(0, 0, _canvas.width, _canvas.height)
     },
     toCanvasGray (id, color, progress) {
-      var canvas = document.getElementById(id)
-      var ctx = canvas.getContext('2d')
-      var percent = progress
-      var circleX = canvas.width / 2
-      var circleY = canvas.height / 2
-      var radius = 145
-      var lineWidth = 10
+      let _canvas = document.getElementById(id)
+      let _context = _canvas.getContext('2d')
+      let _percent = progress
+      let _circleX = _canvas.width / 2
+      let _circleY = _canvas.height / 2
+      let _radius = 145
+      let _lineWidth = 10
       function circle (cx, cy, r) {
-        ctx.beginPath()
-        ctx.lineWidth = lineWidth
-        ctx.strokeStyle = '#E6EAED'
-        ctx.arc(cx, cy, r, 100, 0, (Math.PI * 1) / 3)
-        ctx.stroke()
+        _context.beginPath()
+        _context.lineWidth = _lineWidth
+        _context.strokeStyle = '#E6EAED'
+        _context.arc(cx, cy, r, 100, 0, (Math.PI * 1) / 3)
+        _context.stroke()
       }
       function sector (cx, cy, r, startAngle, endAngle) {
-        ctx.beginPath()
-        ctx.lineWidth = lineWidth
-        ctx.lineCap = 'round'
-        ctx.arc(
+        _context.beginPath()
+        _context.lineWidth = _lineWidth
+        _context.lineCap = 'round'
+        _context.arc(
           cx,
           cy,
           r,
@@ -499,10 +497,10 @@ export default {
           (Math.PI * 2) / 3 + (endAngle / 100) * ((Math.PI * 5) / 3),
           false
         )
-        ctx.stroke()
+        _context.stroke()
       }
-      circle(circleX, circleY, radius)
-      sector(circleX, circleY, radius, (Math.PI * 2) / 3, percent)
+      circle(_circleX, _circleY, _radius)
+      sector(_circleX, _circleY, _radius, (Math.PI * 2) / 3, _percent)
     },
     deployPackage () {
       this.switchBtn = false
