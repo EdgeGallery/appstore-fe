@@ -479,7 +479,7 @@ const en = {
     need: 'App package with image',
     noNeed: 'App package without image',
     showOnline: 'Try it online',
-    releaseResource: 'Release resources',
+    releaseResource: 'Release Resource',
     tryAppTip: 'Need to provide a front-end interface for experience, and add the URL of the interface access in the descriptionn',
     releaseAppResource: 'After the experience is completed, please release the resources in time to avoid resource occupation, otherwise the system will release automatically after 24 hours',
     urlTip: 'Please experience according to the following service information in combination with the interface experience URL in the application description',
@@ -506,10 +506,10 @@ const en = {
     taskCreateTime: 'TaskCreateTime',
     taskStatus: 'TaskStatus',
     taskProgress: 'TaskProgress',
-    Startexperience: 'Click the online experience button to experience immediately...',
-    Waituploadapp: 'Aploading app, please wait...',
-    Waitdistributeapp: 'App is being distributed, please wait patiently...',
-    Waitgetistantiatedinfo: 'Getting instantiation information, please wait patiently...',
+    startExperience: 'Click the online experience button to experience immediately...',
+    waitUploadApp: 'Aploading app, please wait...',
+    waitDistributeApp: 'App is being distributed, please wait patiently...',
+    waitGetInstantiatedInfo: 'Getting instantiation information, please wait patiently...',
     synchronizeToMeao: 'Sync APP To MEAO'
   },
   docs: {
@@ -591,7 +591,8 @@ const en = {
     more: 'more',
     free: 'Free',
     price: ' Yuan（RMB）/Hour',
-    priceTitle: 'Apply pricing settings'
+    priceTitle: 'Apply pricing settings',
+    subscribe: 'Subscribe'
   },
   report: {
     version: 'Version',
