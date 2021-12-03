@@ -428,6 +428,7 @@ const en = {
     synchronizedwaiting: 'Uploading package takes a long time.',
     notSupportSynchronized: 'Not support synchronized pacakge',
     comments: 'Comments',
+    allComments: 'All Comments',
     introduction: 'Application Details',
     demo: 'Video',
     message: 'Message',
