@@ -404,6 +404,7 @@ const cn = {
     synchronizedwaiting: '需要一定时间上传应用包',
     notSupportSynchronized: '暂时不支持此平台同步',
     comments: '评论',
+    allComments: '全部评论',
     introduction: '应用详情',
     demo: '视频',
     message: '消息',

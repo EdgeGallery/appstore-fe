@@ -156,6 +156,7 @@
 import en from '../../locales/en.js'
 import cn from '../../locales/cn.js'
 import $ from 'jquery'
+import commonUtil from '../../tools/commonUtil.js'
 import { myApp } from '../../tools/api.js'
 import deployFinish from '@/assets/images/deployFinish.png'
 import showEnd from '@/assets/images/showEnd.png'
@@ -507,14 +508,7 @@ export default {
         (res) => {
           let experienceInfo = res.data
           let tmpExperienceData = experienceInfo.data
-          if (experienceInfo.message.indexOf('please register host') !== -1) {
-            this.showCanvas()
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.registerHost')
-            })
-          } else if (experienceInfo.message.indexOf('instantiate application failed.') !== -1) {
+          if (experienceInfo.message.indexOf('instantiate application failed.') !== -1) {
             this.showCanvas()
             this.$message({
               duration: 2000,
@@ -539,7 +533,21 @@ export default {
               message: experienceInfo.message
             })
           }
-        })
+        }).catch(error => {
+        let defaultMsg = this.$t('promptMessage.registerHost')
+        let retCode = error.response.data.retCode
+        if (retCode) {
+          this.showCanvas()
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
+        } else {
+          this.showCanvas()
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.getNodePortFailed'),
+            type: 'warning'
+          })
+        }
+      })
     },
     filterExperienceInfo (tmpExperienceData) {
       this.experienceData = []
