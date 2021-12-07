@@ -322,6 +322,7 @@ export default ({
         workloadType: [],
         userId: '',
         queryCtrl: {
+          status: ['Published'],
           offset: 0,
           limit: 15,
           sortItem: 'createTime',

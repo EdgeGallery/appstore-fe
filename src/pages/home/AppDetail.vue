@@ -260,6 +260,7 @@
         <appComments
           v-if="activeName==='comment'"
           :app-id="this.appId"
+          :current-data="this.currentData"
           ref="appComments"
         />
         <appShowOnline
