@@ -209,6 +209,7 @@ export default {
       queryApp(searchParam).then((res) => {
         this.findAppData = res.data.results
         this.isShowComponent = true
+        this.total = res.data.total
       }).catch(error => {
         let defaultMsg = this.$t('promptMessage.getAppFail')
         commonUtil.showTipMsg(this.language, error, defaultMsg)

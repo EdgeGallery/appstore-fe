@@ -694,7 +694,6 @@ export default {
       let industry = this.packageForm.industry.length
       let types = this.packageForm.types
       let affinity = this.packageForm.affinity.length
-      let shortDesc = this.packageForm.shortDesc
       if (!appFilePackage) {
         this.$message({
           duration: 2000,
@@ -724,12 +723,6 @@ export default {
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.typeEmpty')
-        })
-      } else if (!shortDesc) {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.shortDescEmpty')
         })
       } else {
         if (this.ifUploadBig) {

@@ -508,7 +508,7 @@ export default {
         (res) => {
           let experienceInfo = res.data
           let tmpExperienceData = experienceInfo.data
-          if (experienceInfo.message.indexOf('instantiate application failed.') !== -1) {
+          if (experienceInfo.message.indexOf('instantiate package failed.') !== -1) {
             this.showCanvas()
             this.$message({
               duration: 2000,
