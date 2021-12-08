@@ -566,8 +566,8 @@ let subscribe = {
   getTopOrderApps: function (param) {
     return POST('bills/statistics/orders/topapps', param)
   },
-  getMechosts: function () {
-    return GET('mechosts')
+  getMechosts: function (appId, packageId) {
+    return GET('mechosts?appId=' + appId + '&packageId=' + packageId)
   }
 }
 export {
