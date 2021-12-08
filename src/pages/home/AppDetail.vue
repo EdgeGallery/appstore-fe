@@ -505,7 +505,7 @@ export default {
     beforeBuyIt () {
       if (sessionStorage.getItem('userNameRole') === 'tenant' || sessionStorage.getItem('userNameRole') === 'admin') {
         this.showSubDialog = true
-        subscribe.getMechosts().then(res => {
+        subscribe.getMechosts(this.appId, this.packageId).then(res => {
           this.options = []
           if (res.data && res.data.data.length > 0) {
             res.data.data.forEach(item => {
