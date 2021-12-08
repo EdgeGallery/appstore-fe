@@ -569,7 +569,7 @@ export default {
         return
       }
       let _wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://'
-      this.wsSocketConn = new WebSocket(_wsProtocol + window.location.host + '/wsserver/' + sessId)
+      this.wsSocketConn = new WebSocket(_wsProtocol + window.location.host + PROXY_PREFIX_CURRENTSERVER + '/wsserver/' + sessId)
       let _thisObj = this
       this.wsSocketConn.onmessage = function (msg) {
         clearTimeout(_thisObj.wsMsgSendInterval)
