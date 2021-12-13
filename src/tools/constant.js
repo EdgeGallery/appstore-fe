@@ -34,7 +34,7 @@ const PLATFORM_LIST = [
     name: PLATFORMNAME_MECM,
     port: '30093',
     domain: 'mecm',
-    proxyPrefix: '/edgegallery/developer'
+    proxyPrefix: '/edgegallery/mecm'
   },
   {
     name: PLATFORMNAME_ATP,
