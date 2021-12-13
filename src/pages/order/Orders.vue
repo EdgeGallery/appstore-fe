@@ -71,11 +71,17 @@
           >
             <template slot-scope="scope">
               <span
-                v-if="scope.row.status==='ACTIVATING' || scope.row.status==='DEACTIVATING'"
+                v-if="
+                  scope.row.status === 'ACTIVATING' ||
+                    scope.row.status === 'DEACTIVATING'
+                "
                 style="color:#409EFF"
               >
                 <el-button
-                  :loading="scope.row.status==='ACTIVATING' || scope.row.status==='DEACTIVATING'"
+                  :loading="
+                    scope.row.status === 'ACTIVATING' ||
+                      scope.row.status === 'DEACTIVATING'
+                  "
                   class="activatingBtn"
                 >
                   {{ convertOrderStatus(scope.row) }}
@@ -86,28 +92,56 @@
           </el-table-column>
           <el-table-column
             :label="$t('myApp.operation')"
-            width="180"
+            width="330"
           >
             <template slot-scope="scope">
               <div>
                 <el-button
                   @click="activate(scope.row)"
                   class="operations_btn"
-                  :disabled="scope.row.status!=='DEACTIVATED' && scope.row.status!=='ACTIVATE_FAILED'"
+                  :disabled="
+                    scope.row.status !== 'DEACTIVATED' &&
+                      scope.row.status !== 'ACTIVATE_FAILED'
+                  "
                 >
                   {{ $t('order.activation') }}
                 </el-button>
                 <el-button
                   @click="deactivate(scope.row)"
                   class="operations_btn"
-                  :disabled="scope.row.status!=='ACTIVATED' && scope.row.status!=='DEACTIVATE_FAILED'"
+                  :disabled="
+                    scope.row.status !== 'ACTIVATED' &&
+                      scope.row.status !== 'DEACTIVATE_FAILED'
+                  "
                 >
                   {{ $t('order.unsubscribe') }}
+                </el-button>
+                <el-button
+                  class="operations_btn"
+                  @click="handleClick(scope.row)"
+                >
+                  {{ $t('order.record') }}
                 </el-button>
               </div>
             </template>
           </el-table-column>
         </el-table>
+        <el-dialog
+          :visible.sync="dialogVisible"
+          width="30%"
+        >
+          <span style="white-space: pre-wrap;">{{ language === 'cn' ? detailCn : detailEn}}</span>
+          <span
+            slot="footer"
+            class="dialog-footer"
+          >
+            <el-button @click="dialogVisible = false"> {{ $t('order.cancel') }}</el-button>
+            <el-button
+              type="primary"
+              @click="dialogVisible = false"
+            > {{ $t('order.confirm') }}</el-button>
+          </span>
+        </el-dialog>
         <div class="pageBar">
           <el-pagination
             background
@@ -119,7 +153,7 @@
             :page-size="pageCtrl.pageSize"
             layout="total, sizes, prev, pager, next, jumper"
             :total="pageCtrl.totalNum"
-            v-if="pageCtrl.totalNum!=0"
+            v-if="pageCtrl.totalNum != 0"
           />
         </div>
       </div>
@@ -134,6 +168,9 @@ export default {
   data () {
     return {
       nameQueryVal: '',
+      detailCn:'',
+      detailEn:'',
+      language: localStorage.getItem('language'),
       pageCtrl: {
         totalNum: 0,
         pageSize: 10,
@@ -143,17 +180,31 @@ export default {
       isAdmin: sessionStorage.getItem('userName') === 'admin',
       orderStatusOptionList: [
         { value: 'ACTIVATING', label: this.$t('order.orderStatus.activating') },
-        { value: 'ACTIVATE_FAILED', label: this.$t('order.orderStatus.activateFailed') },
+        {
+          value: 'ACTIVATE_FAILED',
+          label: this.$t('order.orderStatus.activateFailed')
+        },
         { value: 'ACTIVATED', label: this.$t('order.orderStatus.activated') },
-        { value: 'DEACTIVATING', label: this.$t('order.orderStatus.deactivating') },
-        { value: 'DEACTIVATE_FAILED', label: this.$t('order.orderStatus.deactivateFailed') },
-        { value: 'DEACTIVATED', label: this.$t('order.orderStatus.deactivated') }
+        {
+          value: 'DEACTIVATING',
+          label: this.$t('order.orderStatus.deactivating')
+        },
+        {
+          value: 'DEACTIVATE_FAILED',
+          label: this.$t('order.orderStatus.deactivateFailed')
+        },
+        {
+          value: 'DEACTIVATED',
+          label: this.$t('order.orderStatus.deactivated')
+        }
       ],
-      loading: true
+      loading: true,
+      dialogVisible: false
     }
   },
   mounted () {
     this.getOrderList()
+    this.language = localStorage.getItem('language')
   },
   methods: {
     handlePageSizeChange (val) {
@@ -170,16 +221,16 @@ export default {
     },
     getOrderList () {
       let _queryParam = {
-        'appId': '',
-        'orderNum': '',
-        'status': '',
-        'orderTimeBegin': '',
-        'orderTimeEnd': '',
-        'queryCtrl': {
-          'offset': (this.pageCtrl.currentPage - 1) * this.pageCtrl.pageSize,
-          'limit': this.pageCtrl.pageSize,
-          'sortItem': 'ORDERTIME',
-          'sortType': 'DESC'
+        appId: '',
+        orderNum: '',
+        status: '',
+        orderTimeBegin: '',
+        orderTimeEnd: '',
+        queryCtrl: {
+          offset: (this.pageCtrl.currentPage - 1) * this.pageCtrl.pageSize,
+          limit: this.pageCtrl.pageSize,
+          sortItem: 'ORDERTIME',
+          sortType: 'DESC'
         }
       }
       subscribe.getOrderList(_queryParam).then(res => {
@@ -189,11 +240,15 @@ export default {
       })
     },
     activate (row) {
-      this.$confirm(this.$t('order.confirmToActivate') + row.orderNum + ' ?', this.$t('order.tip'), {
-        confirmButtonText: this.$t('order.confirm'),
-        cancelButtonText: this.$t('order.cancel'),
-        type: 'warning'
-      }).then(() => {
+      this.$confirm(
+        this.$t('order.confirmToActivate') + row.orderNum + ' ?',
+        this.$t('order.tip'),
+        {
+          confirmButtonText: this.$t('order.confirm'),
+          cancelButtonText: this.$t('order.cancel'),
+          type: 'warning'
+        }
+      ).then(() => {
         subscribe.activateApp(row.orderId).then(res => {
           this.$message.success(this.$t('order.success'))
           this.loading = true
@@ -202,11 +257,15 @@ export default {
       })
     },
     deactivate (row) {
-      this.$confirm(this.$t('order.confirmToUnsub') + row.orderNum + ' ?', this.$t('order.tip'), {
-        confirmButtonText: this.$t('order.confirm'),
-        cancelButtonText: this.$t('order.cancel'),
-        type: 'warning'
-      }).then(() => {
+      this.$confirm(
+        this.$t('order.confirmToUnsub') + row.orderNum + ' ?',
+        this.$t('order.tip'),
+        {
+          confirmButtonText: this.$t('order.confirm'),
+          cancelButtonText: this.$t('order.cancel'),
+          type: 'warning'
+        }
+      ).then(() => {
         subscribe.deactivateApp(row.orderId).then(res => {
           this.$message.success(this.$t('order.unsubSuccess'))
           this.loading = true
@@ -215,19 +274,27 @@ export default {
       })
     },
     convertOrderStatus (row) {
-      let _statusOption = this.orderStatusOptionList.find(item => item.value === row.status)
+      let _statusOption = this.orderStatusOptionList.find(
+        item => item.value === row.status
+      )
       if (_statusOption) {
         return _statusOption.label
       }
 
       return row.status
+    },
+    handleClick(order) {
+      this.language = localStorage.getItem('language')
+      this.detailCn = order.detailCn
+      this.detailEn = order.detailEn
+      this.dialogVisible = true
     }
   }
 }
 </script>
 
-<style lang='less' scoped>
-.orders{
+<style lang="less" scoped>
+.orders {
   padding: 0 13%;
   .content {
     background: #ffffff;
@@ -239,15 +306,15 @@ export default {
       float: left;
       width: 200px;
     }
-    .orderTable{
+    .orderTable {
       margin: 50px 0;
-      .el-table td{
+      .el-table td {
         padding: 0;
         height: 60px;
         max-height: 60px;
         line-height: 60px;
       }
-      .operation_button{
+      .operation_button {
         background: #efefef;
         border: none;
         color: #7a6e8a;
@@ -266,8 +333,8 @@ export default {
     }
   }
 }
-.activatingBtn{
+.activatingBtn {
   border: none !important;
-  color: #409EFF;
+  color: #409eff;
 }
 </style>
