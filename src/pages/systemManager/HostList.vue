@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="hostManagement padding_default">
+  <div class="hostManagement">
     <div class="title_top title_left defaultFontBlod">
       {{ $t('nav.systemHost') }}
       <span class="line_bot1" />
@@ -680,7 +680,7 @@ export default {
           if (!this.showOther) {
             this.form.parameter = ''
           }
-          System.saveHostInfo({ ...this.form, ...params, userId: this.userName }).then(res => {
+          System.saveHostInfo({ ...this.form, ...params, userId: this.userId }).then(res => {
             if (res.data) {
               this.$eg_messagebox((this.form.hostId ? this.$t('system.modify') : this.$t('system.addHost')) + this.$t('system.success'), 'success')
 
@@ -823,6 +823,7 @@ export default {
 
 }
 .hostManagement {
+  margin: 0 13.18%;
   .dialog_host .el-dialog{
     min-width: 850px;
   }

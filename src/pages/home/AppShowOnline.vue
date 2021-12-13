@@ -18,7 +18,7 @@
   <div class="appShowOnline">
     <div class="show_app">
       <div
-        id="tableId"
+        id="left_tableId"
         v-if="isTableShow"
         class="show_common lt"
       >
@@ -51,7 +51,8 @@
         </p>
       </div>
       <div
-        id="tableId"
+        id="right_tableId"
+        class="lt"
         v-if="isTableShow"
       >
         <div class="footer_title">
@@ -135,6 +136,19 @@
         {{ $t('store.releaseResource') }}
       </el-button>
     </div>
+    <div
+      v-if="isTipShow"
+      class="div_title_tip"
+      slot="tip"
+    >
+      <img
+        :src="this.experienceSmallTip"
+        alt=""
+      >
+      <p class="title_tip">
+        {{ $t('store.releaseAppResource') }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -142,6 +156,7 @@
 import en from '../../locales/en.js'
 import cn from '../../locales/cn.js'
 import $ from 'jquery'
+import commonUtil from '../../tools/commonUtil.js'
 import { myApp } from '../../tools/api.js'
 import deployFinish from '@/assets/images/deployFinish.png'
 import showEnd from '@/assets/images/showEnd.png'
@@ -161,6 +176,13 @@ import pkgUploadingTip from '@/assets/images/pkg_uploadingTip.png'
 import pkgGetStatusEndTip from '@/assets/images/pkg_getStatusEndTip.png'
 import pkgInstatiateEndTip from '@/assets/images/pkg_instatiateEndTip.png'
 import pkgUploadingEndTip from '@/assets/images/pkg_uploadingEndTip.png'
+import pkgGetStatusTipEn from '@/assets/images/pkg_getStatusTipEn.png'
+import pkgInstatiateTipEn from '@/assets/images/pkg_instatiateTipEn.png'
+import pkgUploadingTipEn from '@/assets/images/pkg_uploadingTipEn.png'
+import pkgGetStatusEndTipEn from '@/assets/images/pkg_getStatusEndTipEn.png'
+import pkgInstatiateEndTipEn from '@/assets/images/pkg_instatiateEndTipEn.png'
+import pkgUploadingEndTipEn from '@/assets/images/pkg_uploadingEndTipEn.png'
+import experienceSmallTip from '@/assets/images/experienceSmallTip.png'
 export default {
   props: {
     packageId: {
@@ -176,6 +198,7 @@ export default {
   data () {
     return {
       experienceData: [],
+      isTipShow: false,
       btnShow: true,
       isTableShow: false,
       isCanvasHidden: false,
@@ -201,19 +224,21 @@ export default {
       pkgGetStatusEndTip: pkgGetStatusEndTip,
       pkgInstatiateEndTip: pkgInstatiateEndTip,
       pkgUploadingEndTip: pkgUploadingEndTip,
+      pkgGetStatusTipEn: pkgGetStatusTipEn,
+      pkgInstatiateTipEn: pkgInstatiateTipEn,
+      pkgUploadingTipEn: pkgUploadingTipEn,
+      pkgGetStatusEndTipEn: pkgGetStatusEndTipEn,
+      pkgInstatiateEndTipEn: pkgInstatiateEndTipEn,
+      pkgUploadingEndTipEn: pkgUploadingEndTipEn,
       pkgUploading: pkgUploading,
+      experienceSmallTip: experienceSmallTip,
       userId: sessionStorage.getItem('userId'),
       userName: sessionStorage.getItem('userName'),
       name: '',
       ip: '',
       nodePort: '',
-      btnInstantiate: false,
-      reduceDeg: 60,
       progress: 0,
-      onePercentDeg: 0,
-      cradius: 185,
-      circleX: 0,
-      circleY: 0
+      cradius: 185
 
     }
   },
@@ -264,7 +289,7 @@ export default {
         this.fillText = _store.waitDistributeApp
       } else if (progress >= 45 && progress <= 50) {
         this.fillText = _store.waitInstantiatedApp
-      } else if (progress > 50 && progress <= 90) {
+      } else if (progress > 50 && progress < 90) {
         this.fillText = _store.waitGetInstantiatedInfo
       } else {
         this.fillText = _store.deployFinished
@@ -278,37 +303,56 @@ export default {
       }
     },
     loadingPicByProgress (progress, circleX, circleY, ctx) {
+      let _isCn = this.language === 'cn'
       if (progress < 10) {
-        this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingTip)
-        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTip)
-        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
+        if (_isCn) {
+          this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingTip)
+          this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTip)
+          this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
+        } else {
+          this.loadImage(circleX / 3 - 50, circleY + 88, ctx, this.pkgUploadingTipEn)
+          this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTipEn)
+          this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTipEn)
+        }
         this.loadImage(circleX - 190, circleY + 50, ctx, this.pkgUploadingNone)
         this.loadImage(circleX - 25, circleY - 205, ctx, this.pkgInstatiateNone)
         this.loadImage(circleX + 150, circleY + 50, ctx, this.pkgGetStatusNone)
         this.loadImage(circleX - 70, circleY - 80, ctx, this.pkgReadyDeploy)
       }
       if (progress >= 10 && progress < 50) {
-        this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingEndTip)
-        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTip)
-        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
+        if (_isCn) {
+          this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingEndTip)
+          this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTip)
+          this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
+        } else {
+          this.loadImage(circleX / 3 - 50, circleY + 88, ctx, this.pkgUploadingEndTipEn)
+          this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTipEn)
+          this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTipEn)
+        }
+
         this.loadImage(circleX - 190, circleY + 50, ctx, this.showEnd)
         this.loadImage(circleX - 25, circleY - 205, ctx, this.pkgInstatiateNone)
         this.loadImage(circleX + 150, circleY + 50, ctx, this.pkgGetStatusNone)
         this.loadImage(circleX - 70, circleY - 80, ctx, this.pkgUploading)
       }
       if (progress >= 50 && progress < 90) {
-        this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingEndTip)
-        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateEndTip)
-        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
+        if (_isCn) {
+          this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingEndTip)
+          this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateEndTip)
+          this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
+        } else {
+          this.loadImage(circleX / 3 - 50, circleY + 88, ctx, this.pkgUploadingEndTipEn)
+          this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateEndTipEn)
+          this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTipEn)
+        }
+
         this.loadImage(circleX - 190, circleY + 50, ctx, this.showEnd)
         this.loadImage(circleX - 25, circleY - 205, ctx, this.showEnd)
         this.loadImage(circleX + 150, circleY + 50, ctx, this.pkgGetStatusNone)
         this.loadImage(circleX - 70, circleY - 80, ctx, this.pkgInstatiateFinish)
       }
       if (progress >= 90 && progress < 100) {
-        this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingEndTip)
-        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateEndTip)
-        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusEndTip)
+        this.loadCommonTip(_isCn, circleX, circleY, ctx)
         this.loadImage(circleX - 190, circleY + 50, ctx, this.showEnd)
         this.loadImage(circleX - 25, circleY - 205, ctx, this.showEnd)
         this.loadImage(circleX + 150, circleY + 50, ctx, this.showEnd)
@@ -316,48 +360,53 @@ export default {
       }
 
       if (progress === 100) {
-        this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingEndTip)
-        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateEndTip)
-        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusEndTip)
+        this.loadCommonTip(_isCn, circleX, circleY, ctx)
         this.loadImage(circleX - 190, circleY + 50, ctx, this.showEnd)
         this.loadImage(circleX - 25, circleY - 205, ctx, this.showEnd)
         this.loadImage(circleX + 150, circleY + 50, ctx, this.showEnd)
         this.loadImage(circleX - 70, circleY - 80, ctx, this.pkgDeployFinish)
       }
     },
-    toCanvas (id, color, progress) {
-      var canvas = document.getElementById(id)
-      var ctx = canvas.getContext('2d')
-      var percent = progress
+    loadCommonTip (_isCn, circleX, circleY, ctx) {
+      if (_isCn) {
+        this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingEndTip)
+        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateEndTip)
+        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusEndTip)
+      } else {
+        this.loadImage(circleX / 3 - 50, circleY + 88, ctx, this.pkgUploadingEndTipEn)
+        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateEndTipEn)
+        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusEndTipEn)
+      }
+    },
+    drawCanvas (id, color, progress) {
+      let _canvas = document.getElementById(id)
+      let _context = _canvas.getContext('2d')
+      let _percent = progress
       this.process = progress
-      var circleX = canvas.width / 2
-      var circleY = canvas.height / 2
-      this.circleX = canvas.width / 2
-      this.circleY = canvas.height / 2
-      var radius = 185
-      var lineWidth = 18
-      var fontSize = 25
-      ctx.font = fontSize + 'px April'
-      ctx.textAlign = 'center'
-      ctx.fillStyle = '#000'
-      fontSize = 18
-      ctx.font = fontSize + 'px April'
-      ctx.fillStyle = '#999'
-      this.loadWords(this.progress, circleX, circleY, ctx)
-      console.log(circleX)
-
-      ctx.fillStyle = '#999'
-      ctx.clearRect(circleX - 103, circleY + 10, canvas.width / 2, canvas.height / 4)
-      this.drawText(this.fillText, circleX, circleY + 50, 198, ctx)
-      this.toCanvasGray('circle', '#E6EAED', 0)
+      let _circleX = _canvas.width / 2
+      let _circleY = _canvas.height / 2
+      let _radius = 185
+      let _lineWidth = 18
+      let _fontSize = 25
+      _context.font = _fontSize + 'px April'
+      _context.textAlign = 'center'
+      _context.fillStyle = '#000'
+      _fontSize = 18
+      _context.font = _fontSize + 'px April'
+      _context.fillStyle = '#999'
+      this.loadWords(this.progress, _circleX, _circleY, _context)
+      _context.fillStyle = '#999'
+      _context.clearRect(_circleX - 103, _circleY + 10, _canvas.width / 2, _canvas.height / 4)
+      this.drawText(this.fillText, _circleX, _circleY + 50, 198, _context)
+      this.drawCanvasWithGray('circle', '#E6EAED', 0)
       this.drawLeftCircle(
-        this.cradius + Math.cos(((2 * Math.PI) / 60) * 120) * radius,
-        this.cradius + Math.sin(((2 * Math.PI) / 30) * 130) * radius,
-        6.5, ctx
+        this.cradius + Math.cos(((2 * Math.PI) / 60) * 120) * _radius,
+        this.cradius + Math.sin(((2 * Math.PI) / 30) * 130) * _radius,
+        6.5, _context
       )
       this.drawRightCircle(
-        circleX, circleY,
-        6.5, ctx
+        _circleX, _circleY,
+        6.5, _context
       )
       // control move speed
       if (this.process / this.percent > 0.9) {
@@ -370,9 +419,14 @@ export default {
         this.process += 1.0
       }
       // draw arc
-      this.circle(circleX, circleY, radius, lineWidth, ctx)
-      this.sector(circleX, circleY, radius, percent, lineWidth, ctx)
-      this.loadingPicByProgress(this.progress, circleX, circleY, ctx)
+      this.circle(_circleX, _circleY, _radius, _lineWidth, _context)
+      this.sector(_circleX, _circleY, _radius, _percent, _lineWidth, _context)
+      this.loadingPicByProgress(this.progress, _circleX, _circleY, _context)
+    },
+    clearCanvas () {
+      let _canvas = document.getElementById('circle')
+      const context = _canvas.getContext('2d')
+      context.clearRect(0, 0, _canvas.width, _canvas.height)
     },
     circle (circleX, circleY, radius, lineWidth, ctx) {
       ctx.beginPath()
@@ -406,30 +460,30 @@ export default {
       ctx.stroke()
     },
     drawImage (id, color, progress) {
-      var canvas = document.getElementById(id)
-      var ctx = canvas.getContext('2d')
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      let _canvas = document.getElementById(id)
+      let _ctx = _canvas.getContext('2d')
+      _ctx.clearRect(0, 0, _canvas.width, _canvas.height)
     },
-    toCanvasGray (id, color, progress) {
-      var canvas = document.getElementById(id)
-      var ctx = canvas.getContext('2d')
-      var percent = progress
-      var circleX = canvas.width / 2
-      var circleY = canvas.height / 2
-      var radius = 145
-      var lineWidth = 10
+    drawCanvasWithGray (id, color, progress) {
+      let _canvas = document.getElementById(id)
+      let _context = _canvas.getContext('2d')
+      let _percent = progress
+      let _circleX = _canvas.width / 2
+      let _circleY = _canvas.height / 2
+      let _radius = 145
+      let _lineWidth = 10
       function circle (cx, cy, r) {
-        ctx.beginPath()
-        ctx.lineWidth = lineWidth
-        ctx.strokeStyle = '#E6EAED'
-        ctx.arc(cx, cy, r, 100, 0, (Math.PI * 1) / 3)
-        ctx.stroke()
+        _context.beginPath()
+        _context.lineWidth = _lineWidth
+        _context.strokeStyle = '#E6EAED'
+        _context.arc(cx, cy, r, 100, 0, (Math.PI * 1) / 3)
+        _context.stroke()
       }
       function sector (cx, cy, r, startAngle, endAngle) {
-        ctx.beginPath()
-        ctx.lineWidth = lineWidth
-        ctx.lineCap = 'round'
-        ctx.arc(
+        _context.beginPath()
+        _context.lineWidth = _lineWidth
+        _context.lineCap = 'round'
+        _context.arc(
           cx,
           cy,
           r,
@@ -437,10 +491,10 @@ export default {
           (Math.PI * 2) / 3 + (endAngle / 100) * ((Math.PI * 5) / 3),
           false
         )
-        ctx.stroke()
+        _context.stroke()
       }
-      circle(circleX, circleY, radius)
-      sector(circleX, circleY, radius, (Math.PI * 2) / 3, percent)
+      circle(_circleX, _circleY, _radius)
+      sector(_circleX, _circleY, _radius, (Math.PI * 2) / 3, _percent)
     },
     deployPackage () {
       this.switchBtn = false
@@ -454,14 +508,7 @@ export default {
         (res) => {
           let experienceInfo = res.data
           let tmpExperienceData = experienceInfo.data
-          if (experienceInfo.message.indexOf('please register host') !== -1) {
-            this.showCanvas()
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.registerHost')
-            })
-          } else if (experienceInfo.message.indexOf('instantiate application failed.') !== -1) {
+          if (experienceInfo.message.indexOf('instantiate package failed.') !== -1) {
             this.showCanvas()
             this.$message({
               duration: 2000,
@@ -486,7 +533,21 @@ export default {
               message: experienceInfo.message
             })
           }
-        })
+        }).catch(error => {
+        let defaultMsg = this.$t('promptMessage.registerHost')
+        let retCode = error.response.data.retCode
+        if (retCode) {
+          this.showCanvas()
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
+        } else {
+          this.showCanvas()
+          this.$message({
+            duration: 2000,
+            message: this.$t('promptMessage.getNodePortFailed'),
+            type: 'warning'
+          })
+        }
+      })
     },
     filterExperienceInfo (tmpExperienceData) {
       this.experienceData = []
@@ -554,7 +615,6 @@ export default {
     },
     stepClean () {
       this.isTableShow = false
-      this.progress = 0
     },
     startInterval () {
       clearInterval(this.timer)
@@ -567,10 +627,12 @@ export default {
     },
     slideToggle () {
       $('#canvasId').fadeToggle(1300)
+      $('#circleTitle').hide()
       this.btnShow = false
       setTimeout(() => {
         this.isTableShow = true
-        $('#tableId').slideDown(400)
+        $('#right_tableId').slideDown(400)
+        $('#left_tableId').slideDown(400)
       }, 1296)
     },
     initHidden () {
@@ -578,9 +640,11 @@ export default {
       $('#circleTitle').hide()
       this.btnShow = false
       this.isTableShow = true
-      $('#tableId').slideDown(400)
+      $('#right_tableId').slideDown(400)
+      $('#left_tableId').slideDown(400)
     },
     showCanvas () {
+      this.progress = 0
       this.isTableShow = false
       $('#canvasId').show()
       $('#circleTitle').show()
@@ -589,8 +653,8 @@ export default {
       this.switchBtn = true
     },
     initCanvas () {
-      this.toCanvas('circle', this.color, this.progress)
-      this.toCanvasGray('circle', '#E6EAED', 0)
+      this.drawCanvas('circle', this.color, this.progress)
+      this.drawCanvasWithGray('circle', '#E6EAED', 0)
     }
   },
   computed: {
@@ -598,6 +662,8 @@ export default {
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
+      this.clearCanvas()
+      this.initCanvas()
     },
     appId (newVal, oldVal) {
       this.appId = newVal
@@ -610,7 +676,7 @@ export default {
     },
     progress (newStr) {
       this.progress = newStr
-      this.toCanvas('circle', this.color, this.progress)
+      this.drawCanvas('circle', this.color, this.progress)
     }
   },
   mounted () {
@@ -656,11 +722,11 @@ export default {
       .show_btn{
         display: inline-block;
         .batchProButton{
-        width:139px;
-        height:40px;
-        margin-top: 30px;
-        background-color: #5F45BE;
-      }
+          width:139px;
+          height:40px;
+          margin-top: 30px;
+          background-color: #5F45BE;
+        }
       }
       .tryBigTip{
         margin-left:30%;
@@ -686,7 +752,6 @@ export default {
 
       .stepTitle{
         margin-top: 11px;
-        // width: 96px;
         height: 15px;
         font-size: 16px;
         font-family: HarmonyHeiTi;
@@ -694,7 +759,6 @@ export default {
         color: #000000;
         line-height: 24px;
       }
-
     }
     .stepTitleNode{
         padding-top: 50px;
@@ -714,12 +778,10 @@ export default {
       top: -80px;
     }
     .footer_title{
-        //
         width: 55%;
         display:flex;
         flex-direction: column;
         .bottom_titile1{
-          // display:flex;
           margin-top: 50px;
           height: 19px;
           font-size: 20px;
@@ -752,10 +814,29 @@ export default {
     top: -110px;
     padding-bottom: 30px;
     .batchProButtonTry{
-      width:110px;
+      padding: 0px;
+      width:120px;
       height:35px;
       background-color: #5F45BE;
       cursor: pointer;
+    }
+  }
+  .div_title_tip{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-left: 55.5%;
+    top: -160px;
+    padding-bottom: 30px;
+    width: 34%;
+    font-size: 12px;
+    font-family: HarmonyHeiTi;
+    font-weight: 200;
+    color: #5E40C8;
+    line-height: 17px;
+    .title_tip{
+      padding: 0 0 0 6px;
     }
   }
 

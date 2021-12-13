@@ -151,7 +151,7 @@
             class="curp"
           >
             <img
-              :src="language === 'en' ? require('@/assets/images/icon_en.png'): require('@/assets/images/icon_cn.png')"
+              :src="language === 'en' ? require('@/assets/images/icon_cn.png'): require('@/assets/images/icon_en.png')"
               class="iconLanguage"
               alt=""
             >
@@ -210,7 +210,7 @@ export default {
   },
   data () {
     return {
-      language: 'cn',
+      language: '',
       list: [
         {
           labelEn: 'Home',
@@ -569,7 +569,7 @@ export default {
         return
       }
       let _wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://'
-      this.wsSocketConn = new WebSocket(_wsProtocol + window.location.host + '/wsserver/' + sessId)
+      this.wsSocketConn = new WebSocket(_wsProtocol + window.location.host + PROXY_PREFIX_CURRENTSERVER + '/wsserver/' + sessId)
       let _thisObj = this
       this.wsSocketConn.onmessage = function (msg) {
         clearTimeout(_thisObj.wsMsgSendInterval)
@@ -640,10 +640,10 @@ export default {
       })
     }
   },
-
   mounted () {
+    this.language = localStorage.getItem('language') || 'cn'
+    this.$i18n.locale = localStorage.getItem('language') || 'cn'
     this.getResCodeInfo()
-    localStorage.setItem('language', 'cn')
     let path = this.$route.path
     this.judgeRoute(path)
     this.initUserInfo()

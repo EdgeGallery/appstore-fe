@@ -63,6 +63,14 @@
       class="show_comment"
       v-if="historyComentsList.length!==0"
     >
+      <div class="div_comment_total">
+        <p class="p_count_Title">
+          {{ $t('store.allComments') }}
+        </p>
+        <p class="p_total">
+          {{ this.total }}
+        </p>
+      </div>
       <ul>
         <li
           v-for="(item,index) in historyComentsList"
@@ -81,13 +89,14 @@
             >
           </div>
           <div class="user_info">
-            <p>{{ item.user.userName }}</p>
+            <p class="p_userName">
+              {{ item.user.userName }}
+            </p>
             <p class="commentTime">
               {{ item.commentTime }}
             </p>
           </div>
           <div class="comment_content">
-            {{ item.body }}
             <el-rate
               v-model="item.score"
               disabled
@@ -95,6 +104,7 @@
               score-template="{value}"
               show-score
             />
+            {{ item.body }}
           </div>
         </li>
       </ul>
@@ -110,6 +120,10 @@ import {
 import commonUtil from '../../tools/commonUtil.js'
 export default {
   props: {
+    currentData: {
+      required: true,
+      type: Array
+    },
     appId: {
       required: true,
       type: String
@@ -128,46 +142,51 @@ export default {
         message: ''
       },
       historyComentsList: [],
-      language: localStorage.getItem('language')
+      language: localStorage.getItem('language'),
+      total: 0
     }
   },
   methods: {
     submitComment () {
-      if (this.comments.score && this.comments.message) {
-        let params = {
-          score: this.comments.score,
-          body: this.comments.message
-        }
-        params = JSON.stringify(params)
-        let userId = sessionStorage.getItem('userId')
-        let userName = sessionStorage.getItem('userName')
-        submitAppCommentApi(this.appId, params, userId, userName).then(res => {
-          this.getComments()
-          this.comments.score = 0
-          this.comments.message = ''
-          this.getAppData()
-        }).catch(error => {
-          commonUtil.showTipMsg(this.language, error, this.$t('promptMessage.subCommentFail'))
-        })
+      if (sessionStorage.getItem('userNameRole') === 'guest') {
+        this.$message.warning(this.$t('system.guestPrompt'))
+      } else if (sessionStorage.getItem('userId') === this.currentData.userId) {
+        this.$message.warning(this.$t('promptMessage.cannotComment'))
       } else {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.subCommentFailReason')
-        })
+        if (this.comments.score && this.comments.message) {
+          let params = {
+            score: this.comments.score,
+            body: this.comments.message
+          }
+          params = JSON.stringify(params)
+          let userId = sessionStorage.getItem('userId')
+          let userName = sessionStorage.getItem('userName')
+          submitAppCommentApi(this.appId, params, userId, userName).then(res => {
+            this.getComments()
+            this.comments.score = 0
+            this.comments.message = ''
+            this.getAppData()
+          }).catch(error => {
+            commonUtil.showTipMsg(this.language, error, this.$t('promptMessage.subCommentFail'))
+          })
+        } else {
+          this.$message({
+            duration: 2000,
+            type: 'warning',
+            message: this.$t('promptMessage.subCommentFailReason')
+          })
+        }
       }
     },
-
     getComments () {
       getCommentsApi(this.appId, this.limit, this.offset).then(res => {
         this.historyComentsList = res.data.results
-        this.handleDate()
-      }, () => {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.getCommentFail')
-        })
+        this.total = this.historyComentsList.length
+        if (this.historyComentsList.length > 0) {
+          this.handleDate()
+        }
+      }).catch(error => {
+        commonUtil.showTipMsg(this.language, error, this.$t('promptMessage.getCommentFail'))
       })
     },
     handleDate () {
@@ -186,11 +205,10 @@ export default {
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
-    },
-    appId (newVal, oldVal) {
-      this.appId = newVal
-      this.getComments()
     }
+  },
+  mounted () {
+    this.getComments()
   }
 }
 </script>
@@ -205,6 +223,7 @@ export default {
       float: left;
       font-size: 20px;
       font-weight: bold;
+      color: #8F859B;
     }
     .el-rate{
       float: left;
@@ -241,6 +260,74 @@ export default {
         color: #FFFFFF;
         border-radius: 8pt;
       }
+    }
+  }
+  .show_comment{
+    padding: 0 0 50px 20px;
+    margin-top: -40px;
+    .div_comment_total{
+      position: relative;
+      top: -11px;
+      left: 80px;
+      margin-top: 26px;
+      .p_count_Title {
+        float: left;
+        margin-right: 20px;
+        font-size: 16px;
+        font-family: HarmonyHeiTi;
+        font-weight: 300;
+        color: #8F859B;
+      }
+      .p_total {
+        float: left;
+        font-size: 16px;
+        font-family: HarmonyHeiTi;
+        font-weight: 300;
+        color: #CAC1D4;
+      }
+    }
+    .user_icon {
+      float: left;
+      width: 100px;
+      img{width:60px;height:60px}
+    }
+    .user_info {
+      display: flex;
+      .p_userName {
+        height: 16px;
+        font-size: 16px;
+        font-family: HarmonyHeiTi;
+        font-weight: 300;
+        color: #675E71;
+        line-height: 24px;
+      }
+      .commentTime {
+        height: 16px;
+        font-size: 16px;
+        font-family: HarmonyHeiTi;
+        font-weight: 300;
+        color: #CAC1D4;
+        line-height: 24px;
+      }
+      p{
+        margin-right: 10px;
+        float: left;
+        }
+    }
+    .comment_content {
+      width: 100%;
+      height: 17px;
+      font-size: 16px;
+      font-family: HarmonyHeiTi;
+      font-weight: 200;
+      color: #8F859B;
+      line-height: 45px;
+      padding: 0px 6px 0 100px;
+      margin-top: 11px;
+    }
+    li{
+      margin-left: 80px;
+      padding: 34px 0;
     }
   }
   .no_comment{

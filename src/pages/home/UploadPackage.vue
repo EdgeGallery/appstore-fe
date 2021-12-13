@@ -246,20 +246,6 @@
           </el-select>
         </el-form-item>
         <el-form-item
-          :label="$t('common.description')"
-          prop="shortDesc"
-        >
-          <div>
-            <el-input
-              type="textarea"
-              :rows="4"
-              v-model="packageForm.shortDesc"
-              maxlength="1024"
-              show-word-limit
-            />
-          </div>
-        </el-form-item>
-        <el-form-item
           class="showType"
           :label="$t('common.appDisplay')"
         >
@@ -708,7 +694,6 @@ export default {
       let industry = this.packageForm.industry.length
       let types = this.packageForm.types
       let affinity = this.packageForm.affinity.length
-      let shortDesc = this.packageForm.shortDesc
       if (!appFilePackage) {
         this.$message({
           duration: 2000,
@@ -738,12 +723,6 @@ export default {
           duration: 2000,
           type: 'warning',
           message: this.$t('promptMessage.typeEmpty')
-        })
-      } else if (!shortDesc) {
-        this.$message({
-          duration: 2000,
-          type: 'warning',
-          message: this.$t('promptMessage.shortDescEmpty')
         })
       } else {
         if (this.ifUploadBig) {
@@ -775,7 +754,7 @@ export default {
         // This is intentional
       })
     },
-    changeCnEn (language) {
+    changeLanguage (language) {
       if (language === 'en') {
         this.radioData[0].value = 'less than 10MB'
         this.radioData[1].value = 'more than 10MB'
@@ -821,16 +800,16 @@ export default {
   },
   watch: {
     '$i18n.locale': function () {
-      this.language = localStorage.getItem('language')
-      this.changeCnEn(this.language)
+      this.language = localStorage.getItem('language') || 'cn'
+      this.changeLanguage(this.language)
     },
     value: function (newVal) {
       this.dialogVisible = newVal
     }
   },
   mounted () {
-    let language = localStorage.getItem('language')
-    this.changeCnEn(language)
+    this.language = localStorage.getItem('language') || 'cn'
+    this.changeLanguage(this.language)
     this.showErr = this.logoFileList
     this.chooseDefaultIcon(this.defaultIcon[0], 0)
     this.getRadioVal()
@@ -838,14 +817,13 @@ export default {
   created () {
     this.options.headers = { 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN') }
     let url = window.location.origin
-    url = url.replace('8083', '9082')
     this.options.target = url + URL_PREFIX + 'apps/upload'
     this.mergerUrl = url + URL_PREFIX + 'apps/merge?fileName='
   }
 }
 
 </script>
-<style lang='less' >
+<style lang='less'>
 .upload-package{
   .uploadMin{
     float: left;

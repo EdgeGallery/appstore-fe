@@ -209,6 +209,7 @@ export default {
       queryApp(searchParam).then((res) => {
         this.findAppData = res.data.results
         this.isShowComponent = true
+        this.total = res.data.total
       }).catch(error => {
         let defaultMsg = this.$t('promptMessage.getAppFail')
         commonUtil.showTipMsg(this.language, error, defaultMsg)
@@ -274,6 +275,7 @@ export default {
     width: 73.64%;
     min-width: 1200px;
     margin:0 auto ;
+    padding-left: 140px !important;
   }
   .uploadApp{
     width: 20px;
@@ -304,6 +306,7 @@ export default {
       width: 73.64%;
       min-width: 1200px;
       margin: 0 auto;
+      border-radius: 20px;
       .search {
         font-size: 16px;
         padding-bottom: 10px;

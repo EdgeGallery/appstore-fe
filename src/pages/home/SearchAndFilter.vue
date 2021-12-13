@@ -322,6 +322,7 @@ export default ({
         workloadType: [],
         userId: '',
         queryCtrl: {
+          status: ['Published'],
           offset: 0,
           limit: 15,
           sortItem: 'createTime',
@@ -481,9 +482,6 @@ export default ({
   .el-dropdown .el-dropdown__caret-button::before {
     display: none !important;
   }
-}
-.el-checkbox-group {
-  margin: -10px 0px !important;
 }
 .el-checkbox-button__inner:hover{
   color: #5E40C8;

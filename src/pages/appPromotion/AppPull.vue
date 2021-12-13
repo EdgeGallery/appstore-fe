@@ -203,32 +203,32 @@ export default {
     width: 73.64%;
     margin: 61px 13.18%;
     min-width: 1200px;
-
     .pull_container {
       border-radius:16px ;
       background: white;
-      padding: 31px;
+      margin-top:74px;
       .selectStyle{
         z-index: 10;
         width: 260px;
         float:right;
-        margin-top: 2px;
+        margin-top: 32px;
       }
       .btn_select{
-      .batch_pull {
-        margin-bottom: 15px;
-        margin-top: -36px;
-        margin-left: 10px;
-        float: right;
-        .pullBtn{
-          height:40px;
-          margin-top: 38px;
-          font-size: 16px !important;
-          font-weight: 300 !important;
-          z-index: 2000 !important;
-          position: relative !important;
+        .batch_pull {
+          margin-bottom: 15px;
+          margin-top: -36px;
+          margin-left: 10px;
+          margin: -6px 31px 15px 34px;
+          float: right;
+          .pullBtn{
+            height:40px;
+            margin-top: 38px;
+            font-size: 16px !important;
+            font-weight: 300 !important;
+            z-index: 2000 !important;
+            position: relative !important;
+          }
         }
-      }
       }
       .el-tabs__nav-scroll{
         display: flex;
@@ -289,12 +289,12 @@ export default {
     }
   }
 }
- .el-button--primary.is-disabled, .el-button--primary.is-disabled:hover, .el-button--primary.is-disabled:focus, .el-button--primary.is-disabled:active {
-    background-color:  #5E40C8  !important;
-    border-color:  #5E40C8 !important;
+.el-button--primary.is-disabled, .el-button--primary.is-disabled:hover, .el-button--primary.is-disabled:focus, .el-button--primary.is-disabled:active {
+  background-color:#5E40C8 !important;
+  border-color:  #5E40C8 !important;
 }
 .el-button--primary {
-      background-color:  #5E40C8  !important;
-    border-color:  #5E40C8 !important;
+  background-color:#5E40C8 !important;
+  border-color:  #5E40C8 !important;
 }
 </style>

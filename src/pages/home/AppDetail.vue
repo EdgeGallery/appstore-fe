@@ -27,10 +27,17 @@
         >
       </div>
       <div class="app_info">
-        <p class="app_title">
-          {{ currentData.name }}
-          <span class="createTime">{{ currentData.createTime }}</span>
-        </p>
+        <div class="div_title">
+          <p class="app_title">
+            {{ currentData.name }}
+          </p>
+          <el-rate
+            v-model="score"
+            disabled
+            text-color="#ff9900"
+            score-template="{value}"
+          />
+        </div>
         <div class="app_version">
           <select
             class="drop-down"
@@ -50,7 +57,7 @@
           <span class="fg" />
           {{ currentData.provider }}
           <span class="fg" />
-          {{ currentData.size }}
+          {{ downloadNum }}{{ this.$t('store.downloadNum') }}
         </div>
         <p class="app_desc">
           {{ currentData.shortDesc }}
@@ -70,48 +77,25 @@
           </span>
         </p>
       </div>
-      <div
-        class="app_score"
-        style="position:relative;top:25px;margin-left:0;"
-      >
-        <p
-          class="download_num"
-          style="color:#ff5c02;"
-        >
-          {{ price }}{{ $t('order.price') }}
-        </p>
+      <div class="app_score">
         <p class="score_btn">
           <el-button
             type="primary"
             class="batchProButton"
-            @click="beforeBuyIt()"
+            @click="download(currentData)"
           >
-            {{ $t('order.subscribe') }}
+            {{ $t('store.download') }}{{ currentData.size }} {{ ')' }}
           </el-button>
         </p>
-      </div>
-      <div class="app_score">
-        <p class="score_num">
-          {{ score }}
+        <p class="score_btn">
+          <el-button
+            type="primary"
+            class="subscribeButton"
+            @click="beforeBuyIt()"
+          >
+            {{ $t('order.subscribe') }}{{ price }}{{ $t('order.price') }}
+          </el-button>
         </p>
-        <el-rate
-          v-model="score"
-          disabled
-          text-color="#ff9900"
-          score-template="{value}"
-        />
-        <p class="download_num">
-          {{ downloadNum }}{{ this.$t('store.downloadNum') }}
-        </p>
-
-        <el-button
-          type="primary"
-          class="batchProButton"
-          :disabled="!canDownload || currentData.userId===userId ? false : true"
-          @click="download(currentData)"
-        >
-          {{ $t('store.download') }}
-        </el-button>
       </div>
     </div>
 
@@ -269,13 +253,14 @@
         :class="{'container_div_active':activeName!=='appDetail'}"
       >
         <appIntroduction
-          v-show="activeName==='appDetail'"
+          v-if="activeName==='appDetail'"
           :source="this.source"
           ref="appIntroduction"
         />
         <appComments
-          v-show="activeName==='comment'"
+          v-if="activeName==='comment'"
           :app-id="this.appId"
+          :current-data="this.currentData"
           ref="appComments"
         />
         <appShowOnline
@@ -286,13 +271,13 @@
           ref="appShowOnline"
         />
         <synchronizeMeao
-          v-show="activeName==='meao'"
+          v-if="activeName==='meao'"
           :package-id="this.packageId"
           :current-data="this.currentData"
           ref="synchronizeMeao"
         />
         <appVideo
-          v-show="activeName==='vedio'"
+          v-if="activeName==='vedio'"
           :player-options="this.playerOptions"
           ref="appVideo"
         />
@@ -350,19 +335,23 @@
         class="el-dialog__title"
       >
         <em class="title_icon" />
-        {{ $t('order.subscribe') }}
+        {{ $t('myApp.subscribe') }}
       </div>
       <div class="buy_content">
         <el-form>
           <el-form-item
             :label="$t('order.appNameLabel')"
           >
-            <span class="val_span">{{ currentData.name }}</span>
+            <p class="val_span">
+              {{ currentData.name }}
+            </p>
           </el-form-item>
           <el-form-item
             :label="$t('order.subPrice')"
           >
-            <span class="val_span">{{ price }}{{ $t('order.price') }}</span>
+            <p class="val_span">
+              {{ price }}{{ $t('myApp.price') }}
+            </p>
           </el-form-item>
           <el-form-item
             :label="$t('system.address')"
@@ -408,7 +397,7 @@ import appShowOnline from './AppShowOnline.vue'
 import synchronizeMeao from './SynchronizeMeao.vue'
 import {
   getAppDetailTableApi,
-  downloadAppPakageApi,
+  downloadAppPackageApi,
   URL_PREFIX,
   getAppListApi,
   myApp,
@@ -489,7 +478,8 @@ export default {
       mechostIp: '',
       role: sessionStorage.getItem('userNameRole'),
       price: 0,
-      btnLoading: false
+      btnLoading: false,
+      score: ''
     }
   },
   watch: {
@@ -515,7 +505,7 @@ export default {
     beforeBuyIt () {
       if (sessionStorage.getItem('userNameRole') === 'tenant' || sessionStorage.getItem('userNameRole') === 'admin') {
         this.showSubDialog = true
-        subscribe.getMechosts().then(res => {
+        subscribe.getMechosts(this.appId, this.packageId).then(res => {
           this.options = []
           if (res.data && res.data.data.length > 0) {
             res.data.data.forEach(item => {
@@ -629,21 +619,25 @@ export default {
       this.isShowDownload = false
     },
     confirmImage (row) {
-      downloadAppPakageApi(this.appId, row, this.isDownloadImage)
+      downloadAppPackageApi(this.appId, row, this.isDownloadImage)
       this.isShowDownload = false
       this.isDownloadImage = false
     },
-    ifDownloadImage (currentData, row) {
+    downloadImage (currentData, row) {
       if (this.currentData.deployMode === 'vm') {
         this.isShowDownload = true
       } else {
         this.isDownloadImage = false
-        downloadAppPakageApi(this.appId, row, this.isDownloadImage)
+        downloadAppPackageApi(this.appId, row, this.isDownloadImage)
       }
     },
     download (row) {
-      this.ifDownloadImage(this.currentData, row)
-      this.getAppData()
+      if (sessionStorage.getItem('userId') === this.currentData.userId || sessionStorage.getItem('userNameRole') === 'admin') {
+        this.downloadImage(this.currentData, row)
+        this.getAppData()
+      } else {
+        this.$message.warning(this.$t('system.downloadPrompt'))
+      }
     },
     checkProjectData () {
       INDUSTRY.forEach(itemFe => {
@@ -700,11 +694,7 @@ export default {
     }
   },
   mounted () {
-    if ((sessionStorage.getItem('userNameRole') === 'guest') || (sessionStorage.getItem('userNameRole') === 'tenant')) {
-      this.canDownload = false
-    } else {
-      this.canDownload = true
-    }
+    this.language = localStorage.getItem('language')
     let params = this.$route.params.item
       ? this.$route.params.item
       : JSON.parse(sessionStorage.getItem('appstordetail'))
@@ -724,7 +714,6 @@ export default {
       }
     }
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/packages/' + this.packageId + '/icon'
-    this.getAppData()
     this.getTableData()
     this.checkProjectData()
     if ((sessionStorage.getItem('userNameRole') === 'guest')) {
@@ -751,10 +740,10 @@ export default {
     box-shadow: 2px 5px 23px 10px rgba(104, 142, 243, 0.2) inset;
     width: 535px;
   }
- .el-dialog__header{
-   border-bottom: 2px solid #e0e0e0;
-   background: transparent !important;
- }
+  .el-dialog__header{
+    border-bottom: 2px solid #e0e0e0;
+    background: transparent !important;
+  }
   .down_radio{
     padding: 18px 25px;
     width: 400px;
@@ -783,11 +772,6 @@ export default {
       margin-right: 30px !important;
     }
   }
-  p{
-    margin-bottom: 0;
-    font-size: 14px;
-    width: 100%;
-  }
   .app_info_div{
     border-radius: 16px;
     background: #fff;
@@ -804,15 +788,20 @@ export default {
       width: calc(100% - 610px);
       padding: 0 20px;
       word-wrap: break-word;
-      .app_title{
-        font-size: 36px;
-        color: #380879;
-        font-weight: bold;
-        .createTime{
-          font-size: 16px;
-          font-weight: normal;
-          color: #666;
-          margin-left: 10px;
+      .div_title{
+        display: flex;
+        .app_title{
+          font-size: 36px;
+          color: #380879;
+          font-weight: bold;
+        }
+        .el-rate{
+          text-align: left;
+          line-height: 86px;
+          .el-rate__icon{
+            font-size: 22px;
+            margin: 0 0 0 6px;
+          }
         }
       }
       .app_version{
@@ -824,8 +813,8 @@ export default {
         }
         .fg{
           display: inline-block;
-          width: 1px;
-          height: 14px;
+          width: 2px;
+          height: 15px;
           background: #A1A7E6;
           margin: 0 10px;
           position: relative;
@@ -856,7 +845,7 @@ export default {
           color: #61CDD0;
         }
         .type{
-          background: center right no-repeat #effcf9;
+          background: center right no-repeat #eae5f991;
           background-size: contain;
           color: #5E40C8;
         }
@@ -868,54 +857,47 @@ export default {
       }
     }
     .app_score{
-      width: 240px;
-      text-align: center;
+      width: 31%;
+      text-align: right;
       float: right;
-      .download_num{
-        float: left;
-        height: 26px;
-        line-height: 30px;
-        text-align: center;
-        margin-bottom: 5px;
-        color: #5E40C8;
-        font-size: 14px;
-      }
-      .score_num{
-        color: #5E40C8;
-        float: left;
-        text-align: center;
-        height: 20px;
-        line-height: 20px;
-        font-size: 24px;
-        font-weight: bold;
-        margin: 5px 0;
-      }
-      .el-rate{
-        float: left;
+      .score_btn{
         width: 100%;
-        text-align: center;
-        .el-rate__icon{
-          font-size: 22px;
-          margin: 0 0 0 6px;
-        }
-      }
-      .batchProButton{
-        margin-top: 10px;
-        text-align: center;
-        height: 40px !important;
-        width: 160px !important;
-        border-radius: 25px !important;
-         color: #FFFFFF;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: 300;
-        font-size: 24px;
-        background: linear-gradient(to right, #4444D0, #6724CB) !important;
-        .el-button--primary{
-          font-size: 20px;
-          background-color: #fff;
-          border: none;
+        margin-bottom: 0;
+        font-size: 14px;
+        float: right;
+        .batchProButton{
+          padding: 0px;
+          margin-top: 10px;
+          text-align: center;
+          height: 40px !important;
+          width: 183px !important;
+          border-radius: 25px !important;
           color: #FFFFFF;
+          font-family: HarmonyHeiTi, sans-serif;
+          font-weight: 300;
+          font-size: 18px;
+          background: linear-gradient(to right, #4444D0, #6724CB) !important;
+          .el-button--primary{
+            font-size: 20px;
+            background-color: #fff;
+            border: none;
+            color: #FFFFFF;
+          }
         }
+        .subscribeButton{
+          padding: 0px;
+          margin-top: 20px;
+          text-align: center;
+          height: 40px !important;
+          width: 183px !important;
+          border-radius: 25px !important;
+          color: #6525CB;
+          font-family: HarmonyHeiTi, sans-serif;
+          font-weight: 400;
+          font-size: 18px;
+          background: #FFF;
+          border: 2px solid #6525CB !important;
+      }
       }
     }
   }
@@ -1292,6 +1274,9 @@ export default {
       height: 10px;
       border-right: solid #B3B0CA 2px;
     }
+  }
+  .val_span {
+    line-height: 32px;
   }
   .container_div{
     background: #fff;
