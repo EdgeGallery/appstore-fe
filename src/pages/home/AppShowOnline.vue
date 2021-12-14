@@ -264,14 +264,15 @@ export default {
       ctx.font = '20px Arial'
       ctx.fillStyle = 'black'
       ctx.textBaseline = 'middle'
-      for (var a = 0; a < chr.length; a++) {
+      // for (var a = 0; a < chr.length; a++) {
+      for (let a of chr) {
         if (ctx.measureText(temp).width < width) {
-          ;
+          temp += a
         } else {
           rows.push(temp)
           temp = ''
         }
-        temp += chr[a]
+        // temp += chr[a]
       }
       rows.push(temp)
       for (var b = 0; b < rows.length; b++) {

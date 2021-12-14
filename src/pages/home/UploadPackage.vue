@@ -677,8 +677,7 @@ export default {
       myApp.uploadAppPackageApi(fd).then(res => {
         this.handleUploadSuccess()
       }).catch(error => {
-        let defaultMsg = this.$t('promptMessage.uploadFailed')
-        commonUtil.showTipMsg(this.language, error, defaultMsg)
+        this.showErrorMessage(error)
         this.handleClose()
       })
     },
