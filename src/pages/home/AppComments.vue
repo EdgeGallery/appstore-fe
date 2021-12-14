@@ -274,14 +274,14 @@ export default {
         float: left;
         margin-right: 20px;
         font-size: 16px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         color: #8F859B;
       }
       .p_total {
         float: left;
         font-size: 16px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         color: #CAC1D4;
       }
@@ -296,7 +296,7 @@ export default {
       .p_userName {
         height: 16px;
         font-size: 16px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         color: #675E71;
         line-height: 24px;
@@ -304,7 +304,7 @@ export default {
       .commentTime {
         height: 16px;
         font-size: 16px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 300;
         color: #CAC1D4;
         line-height: 24px;
@@ -318,7 +318,7 @@ export default {
       width: 100%;
       height: 17px;
       font-size: 16px;
-      font-family: HarmonyHeiTi;
+      font-family: HarmonyHeiTi, sans-serif;
       font-weight: 200;
       color: #8F859B;
       line-height: 45px;

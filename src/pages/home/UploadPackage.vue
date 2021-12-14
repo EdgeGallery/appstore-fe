@@ -677,7 +677,8 @@ export default {
       myApp.uploadAppPackageApi(fd).then(res => {
         this.handleUploadSuccess()
       }).catch(error => {
-        this.showErrorMessage(error)
+        let defaultMsg = this.$t('promptMessage.uploadFailed')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
         this.handleClose()
       })
     },
@@ -694,7 +695,7 @@ export default {
       let industry = this.packageForm.industry.length
       let types = this.packageForm.types
       let affinity = this.packageForm.affinity.length
-      if (!appFilePackage) {
+      if (appFilePackage === 0) {
         this.$message({
           duration: 2000,
           type: 'warning',
