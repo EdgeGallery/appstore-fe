@@ -130,7 +130,7 @@
           :visible.sync="dialogVisible"
           width="30%"
         >
-          <span style="white-space: pre-wrap;">{{ language === 'cn' ? detailCn : detailEn}}</span>
+          <span style="white-space: pre-wrap;">{{ language === 'cn' ? detailCn : detailEn }}</span>
           <span
             slot="footer"
             class="dialog-footer"
@@ -168,8 +168,8 @@ export default {
   data () {
     return {
       nameQueryVal: '',
-      detailCn:'',
-      detailEn:'',
+      detailCn: '',
+      detailEn: '',
       language: localStorage.getItem('language'),
       pageCtrl: {
         totalNum: 0,
@@ -204,7 +204,6 @@ export default {
   },
   mounted () {
     this.getOrderList()
-    this.language = localStorage.getItem('language')
   },
   methods: {
     handlePageSizeChange (val) {
@@ -283,7 +282,7 @@ export default {
 
       return row.status
     },
-    handleClick(order) {
+    handleClick (order) {
       this.language = localStorage.getItem('language')
       this.detailCn = order.detailCn
       this.detailEn = order.detailEn
