@@ -159,11 +159,15 @@ export default {
       }
     },
     uploadPackage () {
-      let userName = sessionStorage.getItem('userNameRole')
-      if (userName === 'guest') {
-        this.isShwoUploadDialog = false
+      if (sessionStorage.getItem('userNameRole') === 'guest') {
+        this.$message.warning(this.$t('system.guestPrompt'))
       } else {
-        this.isShwoUploadDialog = true
+        let userName = sessionStorage.getItem('userNameRole')
+        if (userName === 'guest') {
+          this.isShwoUploadDialog = false
+        } else {
+          this.isShwoUploadDialog = true
+        }
       }
     },
     changeAppShowType (appShowType) {
