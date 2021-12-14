@@ -57,6 +57,8 @@ function getTipMsg (resMap, retCode, params) {
         for (let param of params) {
           msgTip = msg.replace('%s', param)
         }
+      } else {
+        msgTip = msg
       }
       showWarningDlg(msgTip)
       return
