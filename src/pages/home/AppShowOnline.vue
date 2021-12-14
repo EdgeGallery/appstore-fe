@@ -583,6 +583,7 @@ export default {
               this.experienceData = []
               this.showCanvas()
               this.activeFlag = false
+              this.clearCanvas()
               this.$message({
                 duration: 2000,
                 type: 'success',
@@ -711,7 +712,7 @@ export default {
         width: 185px;
         height: 19px;
         font-size: 20px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 600;
         color: #5844BE;
         line-height: 15px;
@@ -733,7 +734,7 @@ export default {
         width: 100%;
         height: 29px;
         font-size: 12px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 200;
         color: #5E40C8;
         line-height: 17px;
@@ -741,7 +742,6 @@ export default {
         display: flex;
         margin-bottom: 70px;
         .spanTitle{
-        display: flex;
           display: flex;
           margin-left: 5px;
           width: 245px;
@@ -754,7 +754,7 @@ export default {
         margin-top: 11px;
         height: 15px;
         font-size: 16px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 400;
         color: #000000;
         line-height: 24px;
@@ -766,7 +766,7 @@ export default {
         width: 185px;
         height: 19px;
         font-size: 20px;
-        font-family: HarmonyHeiTi;
+        font-family: HarmonyHeiTi, sans-serif;
         font-weight: 600;
         color: #5844BE;
         line-height: 15px;
@@ -785,7 +785,7 @@ export default {
           margin-top: 50px;
           height: 19px;
           font-size: 20px;
-          font-family: HarmonyHeiTi;
+          font-family: HarmonyHeiTi, sans-serif;
           font-weight: 600;
           color: #5844BE;
           line-height: 15px;
@@ -831,7 +831,7 @@ export default {
     padding-bottom: 30px;
     width: 34%;
     font-size: 12px;
-    font-family: HarmonyHeiTi;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 200;
     color: #5E40C8;
     line-height: 17px;
