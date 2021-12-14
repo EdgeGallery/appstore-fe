@@ -91,6 +91,7 @@ import applistLogo from '@/assets/images/applist.png'
 import HomeSwiper from '../../components/common/Swipers.vue'
 import { common } from '../../tools/comon.js'
 import commonUtil from '../../tools/commonUtil.js'
+import timeFormatTools from '../../tools/timeFormatTools.js'
 export default {
   name: 'Home',
   components: {
@@ -210,6 +211,10 @@ export default {
         this.findAppData = res.data.results
         this.isShowComponent = true
         this.total = res.data.total
+        this.findAppData.forEach(item => {
+          let newDateBegin = timeFormatTools.formatDateTime(item.createTime)
+          item.createTime = newDateBegin
+        })
       }).catch(error => {
         let defaultMsg = this.$t('promptMessage.getAppFail')
         commonUtil.showTipMsg(this.language, error, defaultMsg)

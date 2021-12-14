@@ -368,12 +368,12 @@
         <el-table-column
           prop="status"
           :label="$t('system.status')"
-          min-width="11%"
+          min-width="9%"
         />
         <el-table-column
           prop="architecture"
           :label="$t('system.architecture')"
-          min-width="9%"
+          min-width="11"
         />
         <el-table-column
           :label="$t('system.operation')"
