@@ -52,12 +52,15 @@ function getTipMsg (resMap, retCode, params) {
   for (let code of resMap.keys()) {
     if (retCode === Number(code)) {
       let msg = resMap.get(code)
+      let msgTip = ''
       if (msg.indexOf('%s') !== -1 && params !== null) {
         for (let param of params) {
-          msg.splice(msg.indexOf('%s'), 1, param)
+          msgTip = msg.replace('%s', param)
         }
+      } else {
+        msgTip = msg
       }
-      showWarningDlg(msg)
+      showWarningDlg(msgTip)
       return
     }
   }

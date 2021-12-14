@@ -215,9 +215,6 @@ export default {
       }
       .btn_select{
         .batch_pull {
-          margin-bottom: 15px;
-          margin-top: -36px;
-          margin-left: 10px;
           margin: -6px 31px 15px 34px;
           float: right;
           .pullBtn{

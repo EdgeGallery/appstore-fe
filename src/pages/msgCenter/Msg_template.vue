@@ -297,7 +297,6 @@ export default {
     background-color: #f0f2f5;
     .title{
       min-width: 1200px;
-      margin-left:13.18% ;
       margin: 60px 0 60px 13.18%;
       .title_line{
         margin-left: 140px;
