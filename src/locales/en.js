@@ -92,7 +92,8 @@ const en = {
     subPrice: 'Price: ',
     subSuccess: 'Subscribed successfully!',
     chooseArea: 'Please choose location first！',
-    noNodes: 'There is no nodes can be used!'
+    noNodes: 'There is no nodes can be used!',
+    record: 'Record'
   },
   bill: {
     billMana: 'Billing Management',

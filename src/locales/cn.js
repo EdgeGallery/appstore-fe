@@ -94,7 +94,8 @@ const cn = {
     subPrice: '订购价格：',
     subSuccess: '订购成功！',
     chooseArea: '请先选择部署区域！',
-    noNodes: '没有可供使用的边缘节点！'
+    noNodes: '没有可供使用的边缘节点！',
+    record: '记录'
   },
   system: {
     ipErrorInfo: '请输入正确的IP地址',
