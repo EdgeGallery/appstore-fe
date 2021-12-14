@@ -699,6 +699,7 @@ export default {
         this.$message({
           duration: 2000,
           type: 'warning',
+          customClass: 'zZindex',
           message: this.$t('promptMessage.uploadPackageFile')
         })
       } else if (!appFileIcon) {
@@ -1013,5 +1014,8 @@ export default {
 }
 .uploader-file[status=success] .uploader-file-remove{
   display: block !important;
+}
+.zZindex {
+  z-index: 3000 !important;
 }
 </style>
