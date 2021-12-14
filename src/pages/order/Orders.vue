@@ -130,7 +130,7 @@
           :visible.sync="dialogVisible"
           width="30%"
         >
-          <span style="white-space: pre-wrap;">{{ language === 'cn' ? detailCn : detailEn}}</span>
+          <span style="white-space: pre-wrap;">{{ language === 'cn' ? detailCn : detailEn }}</span>
           <span
             slot="footer"
             class="dialog-footer"
