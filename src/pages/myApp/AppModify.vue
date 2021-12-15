@@ -111,15 +111,17 @@
             name="file"
           >
             <em class="el-icon-plus" />
+            <div
+              class="el-upload__tip"
+              style="line-height:-5px"
+              slot="tip"
+            >
+              <em class="el-icon-warning" />
+              <span class="warning-tip">
+                {{ $t('store.limitition') }}
+              </span>
+            </div>
           </el-upload>
-          <el-tooltip
-            class="item"
-            effect="dark"
-            :content="this.$t('store.limitition')"
-            placement="right"
-          >
-            <em class="el-icon-warning" />
-          </el-tooltip>
           <div
             class="el-form-error"
             v-if="showErr"
@@ -164,6 +166,42 @@
           </el-upload>
         </el-form-item>
         <el-form-item
+          :label="$t('store.appDetail')"
+        >
+          <el-upload
+            ref="upload"
+            style="position:relative;top:3px;"
+            action=""
+            :limit="1"
+            :on-exceed="handleExceed"
+            :on-change="handleChangeMd"
+            :on-remove="handleDelteMdFile"
+            :file-list="appModifyInfo.mdFile"
+            :auto-upload="false"
+            accept=".md"
+          >
+            <el-button
+              slot="trigger"
+              size="big"
+              type="primary"
+              class="app-upload"
+              plain
+            >
+              {{ $t('store.uploadDetail') }}
+            </el-button>
+            <div
+              class="el-upload__tip"
+              slot="tip"
+            >
+              <em class="el-icon-warning" />
+              <span class="warning-tip">
+                {{ $t('store.onlyMd') }}
+                {{ $t('store.videoSizeLimit') }}
+              </span>
+            </div>
+          </el-upload>
+        </el-form-item>
+        <el-form-item
           :label="$t('system.architecture')"
         >
           <el-select
@@ -183,12 +221,13 @@
           :label="$t('common.description')"
         >
           <el-input
-            :disabled="true"
             class="desc-input"
             id="appDescription"
             type="textarea"
             resize="none"
             v-model="appModifyInfo.shortDesc"
+            maxlength="1024"
+            show-word-limit
           />
         </el-form-item>
         <el-form-item
@@ -237,6 +276,7 @@
       </el-form>
       <span
         slot="footer"
+        class="el-dialog__footer"
       >
         <el-button
           @click="handleClose"
@@ -277,6 +317,7 @@ export default {
         isSelectInnerPublic: false,
         defaultActive: '',
         videoFile: [],
+        mdFile: [],
         appId: '',
         packageId: '',
         experienceAble: false
@@ -333,9 +374,13 @@ export default {
       this.appModifyInfo.industry = 'Smart Park'
       this.appModifyInfo.type = 'Video Application'
       this.appModifyInfo.affinity = 'X86'
+      this.appModifyInfo.mdFile = []
     },
     handleChangeVideo (file) {
       this.checkFileType(file, 'videoFile', 'mp4')
+    },
+    handleChangeMd (file) {
+      this.checkFileType(file, 'mdFile', 'md')
     },
     checkFileType (file, packageFormKey, fileType) {
       let type = file.raw.name.split('.')
@@ -362,6 +407,9 @@ export default {
     },
     handleDelteVideoFile (file, fileList) {
       this.appModifyInfo.videoFile = fileList
+    },
+    handleDelteMdFile (file, fileList) {
+      this.appModifyInfo.mdFile = fileList
     },
     chooseDefaultIcon (file, index) {
       this.logoFileList = []
@@ -453,6 +501,7 @@ export default {
       fd.append('shortDesc', this.appModifyInfo.shortDesc)
       fd.append('experienceAble', this.appModifyInfo.experienceAble)
       fd.append('showType', this.setShowTypeValue())
+      fd.append('doc', this.appModifyInfo.mdFile[0])
       myApp.modifyAppAttr(fd, this.appModifyInfo.appId, this.appModifyInfo.packageId).then(res => {
         this.$message({
           duration: 2000,
@@ -590,6 +639,7 @@ export default {
         isSelectInnerPublic: data.isSelectInnerPublic,
         defaultActive: '',
         videoFile: [],
+        mdFile: [],
         appId: data.appId,
         packageId: data.packageId,
         experienceAble: data.experienceAble
@@ -615,7 +665,7 @@ export default {
 .appModify {
   .el-dialog{
     width: 911px;
-    height: 635px;
+    max-height: 745px;
     border-radius: 20px;
     background: #EFEFEF;
   }
@@ -676,6 +726,10 @@ export default {
     }
     .el-icon-plus:before {
         content: "\e6d9";
+    }
+    .el-upload__tip {
+      margin-top: 13px;
+      margin-left: -12px;
     }
   }
   .el-icon-question{
@@ -746,17 +800,18 @@ export default {
     }
     .el-input__inner {
       border-radius: 10px;
-      width: 656px;
+      width: 95%;
       color: #380879;
     }
     .el-input__suffix{
       right: 79px;
     }
     .desc-input{
+      width: 95%;
       .el-textarea__inner {
         height: 80px;
         border-radius: 10px;
-        width: 656px;
+        width: 100%;
         color: #380879;
       }
     }
@@ -766,6 +821,7 @@ export default {
     font-size: 12px;
   }
   .footer-button{
+    margin-bottom: 25px;
     background: #fff;
     color: #5844BE;
     border-radius: 10px;
