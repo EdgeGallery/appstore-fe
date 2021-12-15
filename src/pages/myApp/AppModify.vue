@@ -663,24 +663,6 @@ export default {
 </script>
 <style lang="less" >
 .appModify {
-  .tipFile{
-    float: left;
-    font-size: 12px;
-    margin-left: 10px;
-    margin-top: 6px;
-    color: #606266;
-    .el-icon-warning:before {
-      content: aqua;
-    }
-    .lableStyle{
-      margin-left: 10px;
-      font-size: 12px;
-      color: #606266;
-      input{
-        background: #688ef3;
-      }
-    }
-  }
   .el-dialog{
     width: 911px;
     max-height: 745px;
