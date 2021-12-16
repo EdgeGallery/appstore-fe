@@ -301,54 +301,61 @@ export default {
         ctx.drawImage(this, circleX, circleY)
       }
     },
+    loadingUploadByProgress (_isCn, circleX, circleY, ctx) {
+      if (_isCn) {
+        this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingTip)
+        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTip)
+        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
+      } else {
+        this.loadImage(circleX / 3 - 50, circleY + 88, ctx, this.pkgUploadingTipEn)
+        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTipEn)
+        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTipEn)
+      }
+      this.loadImage(circleX - 190, circleY + 50, ctx, this.pkgUploadingNone)
+      this.loadImage(circleX - 25, circleY - 205, ctx, this.pkgInstatiateNone)
+      this.loadImage(circleX + 150, circleY + 50, ctx, this.pkgGetStatusNone)
+      this.loadImage(circleX - 70, circleY - 80, ctx, this.pkgReadyDeploy)
+    },
+    loadingInstatiateByProgress (_isCn, circleX, circleY, ctx) {
+      if (_isCn) {
+        this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingEndTip)
+        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTip)
+        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
+      } else {
+        this.loadImage(circleX / 3 - 50, circleY + 88, ctx, this.pkgUploadingEndTipEn)
+        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTipEn)
+        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTipEn)
+      }
+      this.loadImage(circleX - 190, circleY + 50, ctx, this.showEnd)
+      this.loadImage(circleX - 25, circleY - 205, ctx, this.pkgInstatiateNone)
+      this.loadImage(circleX + 150, circleY + 50, ctx, this.pkgGetStatusNone)
+      this.loadImage(circleX - 70, circleY - 80, ctx, this.pkgUploading)
+    },
+    loadingGetStatusByProgress (_isCn, circleX, circleY, ctx) {
+      if (_isCn) {
+        this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingEndTip)
+        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateEndTip)
+        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
+      } else {
+        this.loadImage(circleX / 3 - 50, circleY + 88, ctx, this.pkgUploadingEndTipEn)
+        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateEndTipEn)
+        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTipEn)
+      }
+      this.loadImage(circleX - 190, circleY + 50, ctx, this.showEnd)
+      this.loadImage(circleX - 25, circleY - 205, ctx, this.showEnd)
+      this.loadImage(circleX + 150, circleY + 50, ctx, this.pkgGetStatusNone)
+      this.loadImage(circleX - 70, circleY - 80, ctx, this.pkgInstatiateFinish)
+    },
     loadingPicByProgress (progress, circleX, circleY, ctx) {
       let _isCn = this.language === 'cn'
       if (progress < 10) {
-        if (_isCn) {
-          this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingTip)
-          this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTip)
-          this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
-        } else {
-          this.loadImage(circleX / 3 - 50, circleY + 88, ctx, this.pkgUploadingTipEn)
-          this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTipEn)
-          this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTipEn)
-        }
-        this.loadImage(circleX - 190, circleY + 50, ctx, this.pkgUploadingNone)
-        this.loadImage(circleX - 25, circleY - 205, ctx, this.pkgInstatiateNone)
-        this.loadImage(circleX + 150, circleY + 50, ctx, this.pkgGetStatusNone)
-        this.loadImage(circleX - 70, circleY - 80, ctx, this.pkgReadyDeploy)
+        this.loadingUploadByProgress(_isCn, circleX, circleY, ctx)
       }
       if (progress >= 10 && progress < 50) {
-        if (_isCn) {
-          this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingEndTip)
-          this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTip)
-          this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
-        } else {
-          this.loadImage(circleX / 3 - 50, circleY + 88, ctx, this.pkgUploadingEndTipEn)
-          this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTipEn)
-          this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTipEn)
-        }
-
-        this.loadImage(circleX - 190, circleY + 50, ctx, this.showEnd)
-        this.loadImage(circleX - 25, circleY - 205, ctx, this.pkgInstatiateNone)
-        this.loadImage(circleX + 150, circleY + 50, ctx, this.pkgGetStatusNone)
-        this.loadImage(circleX - 70, circleY - 80, ctx, this.pkgUploading)
+        this.loadingInstatiateByProgress(_isCn, circleX, circleY, ctx)
       }
       if (progress >= 50 && progress < 90) {
-        if (_isCn) {
-          this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingEndTip)
-          this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateEndTip)
-          this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
-        } else {
-          this.loadImage(circleX / 3 - 50, circleY + 88, ctx, this.pkgUploadingEndTipEn)
-          this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateEndTipEn)
-          this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTipEn)
-        }
-
-        this.loadImage(circleX - 190, circleY + 50, ctx, this.showEnd)
-        this.loadImage(circleX - 25, circleY - 205, ctx, this.showEnd)
-        this.loadImage(circleX + 150, circleY + 50, ctx, this.pkgGetStatusNone)
-        this.loadImage(circleX - 70, circleY - 80, ctx, this.pkgInstatiateFinish)
+        this.loadingGetStatusByProgress(_isCn, circleX, circleY, ctx)
       }
       if (progress >= 90 && progress < 100) {
         this.loadCommonTip(_isCn, circleX, circleY, ctx)
@@ -357,7 +364,6 @@ export default {
         this.loadImage(circleX + 150, circleY + 50, ctx, this.showEnd)
         this.loadImage(circleX - 70, circleY - 80, ctx, this.pkgGetStatusFinish)
       }
-
       if (progress === 100) {
         this.loadCommonTip(_isCn, circleX, circleY, ctx)
         this.loadImage(circleX - 190, circleY + 50, ctx, this.showEnd)
