@@ -241,11 +241,20 @@ export default {
           }, 600000)
         }
         synchronizePackageApi(this.currentData, item.id).then(res => {
-          this.$message({
-            duration: 2000,
-            message: this.$t('store.synchronizedwaiting'),
-            type: 'success'
-          })
+          let syncResult = res.data
+          if (syncResult.message.indexOf('can not support container app.') !== -1) {
+            this.$message({
+              duration: 2000,
+              message: this.$t('store.notSupportContainerApp'),
+              type: 'success'
+            })
+          } else {
+            this.$message({
+              duration: 2000,
+              message: this.$t('store.synchronizedwaiting'),
+              type: 'success'
+            })
+          }
         }).catch(error => {
           let defaultMsg = this.$t('promptMessage.operationFailed')
           let retCode = error.response.data.retCode

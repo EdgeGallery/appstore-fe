@@ -94,7 +94,8 @@ const cn = {
     subPrice: '订购价格：',
     subSuccess: '订购成功！',
     chooseArea: '请先选择部署区域！',
-    noNodes: '没有可供使用的边缘节点！'
+    noNodes: '没有可供使用的边缘节点！',
+    subFail: '订购失败！'
   },
   system: {
     ipErrorInfo: '请输入正确的IP地址',
@@ -402,6 +403,7 @@ const cn = {
     download: '下载 (',
     synchronize: '同步',
     synchronizedwaiting: '需要一定时间上传应用包',
+    notSupportContainerApp: 'can not support container app.',
     notSupportSynchronized: '暂时不支持此平台同步',
     comments: '评论',
     allComments: '全部评论',

@@ -92,7 +92,8 @@ const en = {
     subPrice: 'Price: ',
     subSuccess: 'Subscribed successfully!',
     chooseArea: 'Please choose location first！',
-    noNodes: 'There is no nodes can be used!'
+    noNodes: 'There is no nodes can be used!',
+    subFail: 'Subscribe Fail!'
   },
   bill: {
     billMana: 'Billing Management',
@@ -426,6 +427,7 @@ const en = {
     download: 'Download (',
     synchronize: 'Synchronize',
     synchronizedwaiting: 'Uploading package takes a long time.',
+    notSupportContainerApp: 'can not support container app.',
     notSupportSynchronized: 'Not support synchronized pacakge',
     comments: 'Comments',
     allComments: 'All Comments',
