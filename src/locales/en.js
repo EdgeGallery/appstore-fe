@@ -93,8 +93,7 @@ const en = {
     subSuccess: 'Subscribed successfully!',
     chooseArea: 'Please choose location first！',
     noNodes: 'There is no nodes can be used!',
-    record: 'Record',
-    subFail: 'Subscribe Fail!'
+    record: 'Record'
   },
   bill: {
     billMana: 'Billing Management',
@@ -428,7 +427,6 @@ const en = {
     download: 'Download (',
     synchronize: 'Synchronize',
     synchronizedwaiting: 'Uploading package takes a long time.',
-     notSupportContainerApp: 'can not support container app.',
     notSupportSynchronized: 'Not support synchronized pacakge',
     comments: 'Comments',
     allComments: 'All Comments',
@@ -600,8 +598,7 @@ const en = {
     free: 'Free',
     price: ' Yuan（RMB）/Hour',
     priceTitle: 'Apply pricing settings',
-    subscribe: 'Subscribe',
-    uploader: 'Owner'
+    subscribe: 'Subscribe'
   },
   report: {
     version: 'Version',
