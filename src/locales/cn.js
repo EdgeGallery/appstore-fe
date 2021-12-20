@@ -95,7 +95,8 @@ const cn = {
     subSuccess: '订购成功！',
     chooseArea: '请先选择部署区域！',
     noNodes: '没有可供使用的边缘节点！',
-    record: '记录'
+    record: '记录',
+    subFail: '订购失败！'
   },
   system: {
     ipErrorInfo: '请输入正确的IP地址',
@@ -499,7 +500,8 @@ const cn = {
     waitUploadApp: '正在上传应用,请耐心等待...',
     waitDistributeApp: '正在分发应用,请耐心等待...',
     waitGetInstantiatedInfo: '正在获取实例化信息,请耐心等待...',
-    synchronizeToMeao: '同步应用到 MEAO'
+    synchronizeToMeao: '同步应用到 MEAO',
+    notSupportContainerApp: 'can not support container app.'
 
   },
   docs: {
@@ -587,7 +589,8 @@ const cn = {
     free: '免费',
     price: ' 元（RMB）/小时',
     priceTitle: '应用定价设置',
-    subscribe: '订购'
+    subscribe: '订购',
+    uploader: 'Owner'
   },
   report: {
     version: '版本',
