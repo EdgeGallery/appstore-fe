@@ -91,6 +91,11 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="userName"
+            :label="$t('myApp.uploader')"
+            width="110"
+          />
+          <el-table-column
             prop="createTime"
             :label="$t('common.uploadTime')"
             width="186"

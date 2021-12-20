@@ -194,7 +194,7 @@
 <script>
 import {
   modifyAppPackageDetailApi,
-  downloadAppPakageApi,
+  downloadAppPackageApi,
   deleteAppPackageApi,
   myApp,
   URL_PREFIX
@@ -328,7 +328,7 @@ export default {
       }
     },
     download (row) {
-      downloadAppPakageApi(this.appId, row)
+      downloadAppPackageApi(this.appId, row)
     },
     getDelete (row) {
       this.$confirm(this.$t('promptMessage.deletePrompt'), this.$t('promptMessage.prompt'), {
