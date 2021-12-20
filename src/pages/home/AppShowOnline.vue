@@ -705,7 +705,6 @@ export default {
     }
     this.initCanvas()
     this.experienceData = []
-    this.initStatus()
     this.startInterval()
     setTimeout(() => {
       clearInterval(this.timer)
