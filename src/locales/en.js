@@ -93,6 +93,7 @@ const en = {
     subSuccess: 'Subscribed successfully!',
     chooseArea: 'Please choose location first！',
     noNodes: 'There is no nodes can be used!',
+    record: 'Record',
     subFail: 'Subscribe Fail!'
   },
   bill: {
@@ -427,7 +428,7 @@ const en = {
     download: 'Download (',
     synchronize: 'Synchronize',
     synchronizedwaiting: 'Uploading package takes a long time.',
-    notSupportContainerApp: 'can not support container app.',
+     notSupportContainerApp: 'can not support container app.',
     notSupportSynchronized: 'Not support synchronized pacakge',
     comments: 'Comments',
     allComments: 'All Comments',

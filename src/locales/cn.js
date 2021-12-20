@@ -95,6 +95,7 @@ const cn = {
     subSuccess: '订购成功！',
     chooseArea: '请先选择部署区域！',
     noNodes: '没有可供使用的边缘节点！',
+    record: '记录',
     subFail: '订购失败！'
   },
   system: {
