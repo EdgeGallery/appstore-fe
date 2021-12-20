@@ -93,8 +93,7 @@ const en = {
     subSuccess: 'Subscribed successfully!',
     chooseArea: 'Please choose location first！',
     noNodes: 'There is no nodes can be used!',
-    record: 'Record',
-    subFail: 'Subscribe Fail!'
+    record: 'Record'
   },
   bill: {
     billMana: 'Billing Management',
@@ -517,8 +516,7 @@ const en = {
     waitUploadApp: 'Aploading app, please wait...',
     waitDistributeApp: 'App is being distributed, please wait patiently...',
     waitGetInstantiatedInfo: 'Getting instantiation information, please wait patiently...',
-    synchronizeToMeao: 'Sync APP To MEAO',
-    notSupportContainerApp: 'can not support container app.'
+    synchronizeToMeao: 'Sync APP To MEAO'
   },
   docs: {
     step1: 'Open source MEP platform',

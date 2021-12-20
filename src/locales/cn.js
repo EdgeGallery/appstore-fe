@@ -95,8 +95,7 @@ const cn = {
     subSuccess: '订购成功！',
     chooseArea: '请先选择部署区域！',
     noNodes: '没有可供使用的边缘节点！',
-    record: '记录',
-    subFail: '订购失败！'
+    record: '记录'
   },
   system: {
     ipErrorInfo: '请输入正确的IP地址',
@@ -500,8 +499,7 @@ const cn = {
     waitUploadApp: '正在上传应用,请耐心等待...',
     waitDistributeApp: '正在分发应用,请耐心等待...',
     waitGetInstantiatedInfo: '正在获取实例化信息,请耐心等待...',
-    synchronizeToMeao: '同步应用到 MEAO',
-    notSupportContainerApp: 'can not support container app.'
+    synchronizeToMeao: '同步应用到 MEAO'
 
   },
   docs: {
