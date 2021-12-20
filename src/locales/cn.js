@@ -589,8 +589,7 @@ const cn = {
     free: '免费',
     price: ' 元（RMB）/小时',
     priceTitle: '应用定价设置',
-    subscribe: '订购',
-    uploader: 'Owner'
+    subscribe: '订购'
   },
   report: {
     version: '版本',
