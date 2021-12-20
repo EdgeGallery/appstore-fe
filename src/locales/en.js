@@ -598,7 +598,7 @@ const en = {
     price: ' Yuan（RMB）/Hour',
     priceTitle: 'Apply pricing settings',
     subscribe: 'Subscribe',
-    uploader: 'Uploader'
+    uploader: 'Owner'
   },
   report: {
     version: 'Version',
