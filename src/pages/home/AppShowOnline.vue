@@ -525,14 +525,14 @@ export default {
             this.$message({
               duration: 2000,
               type: 'warning',
-              message: this.$t('promptMessage.instantiateFailed')
+              message: this.$t('promptMessage.uploadFileFailed')
             })
           } else if (experienceInfo.message.indexOf('distributed package failed.') !== -1) {
             this.showCanvas()
             this.$message({
               duration: 2000,
               type: 'warning',
-              message: this.$t('promptMessage.instantiateFailed')
+              message: this.$t('promptMessage.distributeFailed')
             })
           } else if (experienceInfo.message.indexOf('get app nodeport url failed.') !== -1) {
             this.showCanvas()
@@ -705,7 +705,6 @@ export default {
     }
     this.initCanvas()
     this.experienceData = []
-    this.initStatus()
     this.startInterval()
     setTimeout(() => {
       clearInterval(this.timer)
