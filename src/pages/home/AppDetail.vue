@@ -404,6 +404,7 @@ import {
   subscribe
 } from '../../tools/api.js'
 import { INDUSTRY, TYPES, MEAO } from '../../tools/constant.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   name: '',
   components: {
@@ -533,8 +534,16 @@ export default {
       if (this.mechostIp !== '') {
         this.btnLoading = true
         subscribe.createOrder(param).then(res => {
-          this.$message.success(this.$t('order.subSuccess'))
+          this.$message({
+            duration: 2000,
+            message: this.$t('order.subSuccess'),
+            type: 'success'
+          })
           this.$router.push('/orders')
+        }).catch((error) => {
+          let defaultMsg = this.$t('order.subFail')
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
+          this.showSubDialog = false
         })
       } else {
         this.$message.warning(this.$t('order.chooseArea'))
