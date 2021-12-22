@@ -166,25 +166,29 @@ export default {
       sessionStorage.setItem('pathSource', 'index')
     },
     deleteRow (row) {
-      this.$confirm(this.$t('promptMessage.deletePrompt'), this.$t('promptMessage.prompt'), {
-        confirmButtonText: this.$t('common.confirm'),
-        cancelButtonText: this.$t('common.cancel'),
-        type: 'warning'
-      }).then(() => {
-        let userId = sessionStorage.getItem('userId')
-        let userName = sessionStorage.getItem('userName')
-        deleteAppApi(row.appId, userId, userName).then(res => {
-          this.$emit('getAppData')
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.deleteSuccess'),
-            type: 'success'
+      if (sessionStorage.getItem('userId') === row.userId || sessionStorage.getItem('userNameRole') === 'admin') {
+        this.$confirm(this.$t('promptMessage.deletePrompt'), this.$t('promptMessage.prompt'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
+          type: 'warning'
+        }).then(() => {
+          let userId = sessionStorage.getItem('userId')
+          let userName = sessionStorage.getItem('userName')
+          deleteAppApi(row.appId, userId, userName).then(res => {
+            this.$emit('getAppData')
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.deleteSuccess'),
+              type: 'success'
+            })
+          }).catch((error) => {
+            let defaultMsg = this.$t('promptMessage.operationFailed')
+            commonUtil.showTipMsg(this.language, error, defaultMsg)
           })
-        }).catch((error) => {
-          let defaultMsg = this.$t('promptMessage.operationFailed')
-          commonUtil.showTipMsg(this.language, error, defaultMsg)
         })
-      })
+      } else {
+        this.$message.warning(this.$t('system.downloadPrompt'))
+      }
     }
   },
   watch: {
