@@ -93,7 +93,7 @@
             class="subscribeButton"
             @click="beforeBuyIt()"
           >
-            {{ $t('order.subscribe') }}{{ price }}{{ $t('order.price') }}
+            {{ $t('order.subscribe') }}{{ currentData.price }}{{ $t('order.price') }}
           </el-button>
         </p>
       </div>
@@ -477,6 +477,7 @@ export default {
       showSubDialog: false,
       options: [],
       mechostIp: '',
+      mechostCity: '',
       role: sessionStorage.getItem('userNameRole'),
       price: 0,
       btnLoading: false,
@@ -526,10 +527,17 @@ export default {
       }
     },
     confirmToBuy () {
+      for (let item of this.options) {
+        if (this.mechostIp === item.value) {
+          this.mechostCity = item.label
+        }
+      }
       let param = {
         'appId': this.appId,
         'mecHostIp': this.mechostIp,
-        'appPackageId': this.packageId
+        'appPackageId': this.packageId,
+        'appName': this.currentData.name,
+        'mecHostCity': this.mechostCity
       }
       if (this.mechostIp !== '') {
         this.btnLoading = true
