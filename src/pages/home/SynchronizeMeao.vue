@@ -234,7 +234,7 @@ export default {
     },
     synchronizePackage (item) {
       if (sessionStorage.getItem('userId') === this.currentData.userId || sessionStorage.getItem('userNameRole') === 'admin') {
-        this.startInterval()
+        this.getProgressByPackageId()
         if (this.timer !== null) {
           setTimeout(() => {
             clearInterval(this.timer)
@@ -246,7 +246,7 @@ export default {
             this.$message({
               duration: 2000,
               message: this.$t('store.notSupportContainerApp'),
-              type: 'success'
+              type: 'warning'
             })
           } else {
             this.$message({
