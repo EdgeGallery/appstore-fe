@@ -87,13 +87,16 @@
             {{ $t('store.download') }}{{ currentData.size }} {{ ')' }}
           </el-button>
         </p>
-        <p class="score_btn">
+        <p
+          class="score_btn"
+          v-show="ifSubscribe"
+        >
           <el-button
             type="primary"
             class="subscribeButton"
             @click="beforeBuyIt()"
           >
-            {{ $t('order.subscribe') }}{{ currentData.price }}{{ $t('order.price') }}
+            {{ $t('order.subscribe') }}{{ this.price }}{{ $t('order.price') }}
           </el-button>
         </p>
       </div>
@@ -418,6 +421,7 @@ export default {
     return {
       MEAO: MEAO,
       activeName: 'appDetail',
+      ifSubscribe: false,
       ifExperience: false,
       ifSynchronize: false,
       canDownload: false,
@@ -703,6 +707,12 @@ export default {
         let data = res.data
         let newDateBegin = this.dateChange(data.createTime)
         data.createTime = newDateBegin
+        let size = (Number(data.size) / 1024).toFixed(2)
+        if (size >= 1024) {
+          data.size = (size / 1024).toFixed(2) + ' MB'
+        } else {
+          data.size = size + ' KB'
+        }
         this.tableData.push(data)
         if (data) {
           this.source = data.details
@@ -716,6 +726,10 @@ export default {
       ? this.$route.params.item
       : JSON.parse(sessionStorage.getItem('appstordetail'))
     this.details = params
+    if (this.details.price) {
+      this.price = this.details.price
+      this.ifSubscribe = true
+    }
     this.appId = this.details.appId
     this.packageId = this.details.packageId
     this.ifExperience = this.details.experienceAble
