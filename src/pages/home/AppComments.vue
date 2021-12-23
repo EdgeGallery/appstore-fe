@@ -316,7 +316,7 @@ export default {
     }
     .comment_content {
       width: 100%;
-      height: 17px;
+      max-height: 150px;
       font-size: 16px;
       font-family: HarmonyHeiTi, sans-serif;
       font-weight: 200;
