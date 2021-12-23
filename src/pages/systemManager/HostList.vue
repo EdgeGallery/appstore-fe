@@ -689,7 +689,12 @@ export default {
               throw new Error()
             }
           }).catch(() => {
-            this.$eg_messagebox(this.$t('system.saveFail'), 'error')
+            this.$message({
+              duration: 2000,
+              type: 'warning',
+              customClass: 'zZindex',
+              message: this.$t('system.saveFail')
+            })
           }).finally(() => {
             this.loading = false
             this.getListData()
@@ -910,6 +915,9 @@ export default {
       }
     }
   }
+}
+.zZindex {
+  z-index: 3000 !important;
 }
 
 </style>
