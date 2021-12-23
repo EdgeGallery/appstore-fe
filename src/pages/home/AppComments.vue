@@ -322,7 +322,7 @@ export default {
       font-weight: 200;
       color: #8F859B;
       line-height: 45px;
-      padding: 0px 6px 0 100px;
+      padding: 0px 20px 0 100px;
       margin-top: 11px;
     }
     li{

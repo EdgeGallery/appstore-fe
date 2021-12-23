@@ -52,7 +52,7 @@
       </div>
       <div
         id="right_tableId"
-        class="lt"
+        class="dic_table_lt"
         v-if="isTableShow"
       >
         <div class="footer_title">
@@ -71,23 +71,24 @@
           class="experienceData"
         >
           <el-table
+            class="table_class"
             :data="experienceData"
             header-cell-class-name="headerStyle"
           >
             <el-table-column
               prop="serviceName"
               :label="$t('store.serviceName')"
-              width="235"
+              width="215"
             />
             <el-table-column
               prop="mecHost"
               :label="$t('store.Ip')"
-              width="235"
+              width="215"
             />
             <el-table-column
               prop="nodePort"
               :label="$t('store.port')"
-              width="235"
+              width="200"
             />
           </el-table>
         </div>
@@ -745,6 +746,7 @@ export default {
           height:40px;
           margin-top: 30px;
           background-color: #5F45BE;
+          padding: 0;
         }
       }
       .tryBigTip{
@@ -795,33 +797,41 @@ export default {
       position: relative;
       top: -80px;
     }
-    .footer_title{
-        width: 55%;
-        display:flex;
-        flex-direction: column;
-        .bottom_titile1{
-          margin-top: 50px;
-          height: 19px;
-          font-size: 20px;
-          font-family: HarmonyHeiTi, sans-serif;
-          font-weight: 600;
-          color: #5844BE;
-          line-height: 15px;
-          width: 100%;
+    .dic_table_lt {
+      float: left;
+      width: 50%;
+      .footer_title{
+          width: 55%;
+          display:flex;
+          flex-direction: column;
+          .bottom_titile1{
+            margin-top: 50px;
+            height: 19px;
+            font-size: 20px;
+            font-family: HarmonyHeiTi, sans-serif;
+            font-weight: 600;
+            color: #5844BE;
+            line-height: 15px;
+            width: 100%;
+          }
+          .el-upload__tip{
+            padding-left: 0px;
+            width: 500px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #8E8E8E;
+            margin-top: 10px;
+          }
         }
-        .el-upload__tip{
-          padding-left: 0px;
-          width: 76%;
-          font-size: 14px;
-          font-weight: 400;
-          color: #8E8E8E;
-          margin-top: 10px;
+
+      .experienceData{
+        flex-direction: column;
+        margin-top: 30px;
+        display: flex;
+        .table_class{
+          widows: 400px;
         }
       }
-    .experienceData{
-      flex-direction: column;
-      margin-top: 30px;
-      display: flex;
     }
   }
   .btnClass{
