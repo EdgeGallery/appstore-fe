@@ -28,7 +28,6 @@
       <el-button
         id="addAppBtn"
         type="primary"
-        :class="{'addOutStoreen':language==='en'}"
         class="batchProButton addOutStore"
         @click="register"
       >
@@ -616,8 +615,8 @@ export default {
     align-items: center;
     .addOutStore{
       font-size: 20px;
-      height: 50px !important;
-      width: 200px !important;
+      padding: 25px 32px;
+      line-height: 4px;
       border-radius: 25px !important;
       font-family: HarmonyHeiTi, sans-serif;
       font-weight: 300;
