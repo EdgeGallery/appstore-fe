@@ -421,7 +421,7 @@ export default {
     return {
       MEAO: MEAO,
       activeName: 'appDetail',
-      ifSubscribe: false,
+      ifSubscribe: true,
       ifExperience: false,
       ifSynchronize: false,
       canDownload: false,
@@ -568,6 +568,7 @@ export default {
       }
       getAppDetailTableApi(this.appId, userId, this.limit, this.offset).then(res => {
         let data = res.data
+        console.log(data)
         data.forEach(item => {
           if (this.pathSource !== 'myapp' && item.status === 'Published') {
             this.ifExperience = item.experienceAble
@@ -703,7 +704,7 @@ export default {
       )
     },
     getMyAppData () {
-      myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
+      myApp.getPackageDetailApi(this.appId).then(res => {
         let data = res.data
         let newDateBegin = this.dateChange(data.createTime)
         data.createTime = newDateBegin
@@ -718,6 +719,13 @@ export default {
           this.source = data.details
         }
       })
+    },
+    getAppDetailApi () {
+      myApp.getAppDetailApi(this.appId, this.packageId).then(res => {
+        let data = res.data.data
+        this.score = data.score
+        this.downloadNum = data.downloadCount
+      })
     }
   },
   mounted () {
@@ -726,10 +734,7 @@ export default {
       ? this.$route.params.item
       : JSON.parse(sessionStorage.getItem('appstordetail'))
     this.details = params
-    if (this.details.price) {
-      this.price = this.details.price
-      this.ifSubscribe = true
-    }
+    this.price = this.details.price
     this.appId = this.details.appId
     this.packageId = this.details.packageId
     this.ifExperience = this.details.experienceAble
@@ -740,8 +745,10 @@ export default {
     if (this.details.packageId) {
       this.packageId = this.details.packageId
       if (this.pathSource === 'myapp') {
+        this.ifSubscribe = false
         this.source = this.details.details
         this.getMyAppData()
+        this.getAppDetailApi()
       }
     }
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/packages/' + this.packageId + '/icon'
