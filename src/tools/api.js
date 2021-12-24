@@ -489,6 +489,11 @@ let myApp = {
     let url = 'apps/' + appId + '/packages/' + packageId
     return GET(url)
   },
+  // Get application detail
+  getAppDetailApi: function (appId) {
+    let url = 'apps/' + appId
+    return GETV2(url)
+  },
   // getNodePort
   getNodePort: function (appId, packageId, userId) {
     let url = 'experience/deploy?appId=' + appId + '&packageId=' + packageId + '&userId=' + userId
