@@ -73,6 +73,7 @@ const cn = {
     orderUserName: '用户名',
     activation: '激活',
     unsubscribe: '退订',
+    OrderOperation: '订单操作记录',
     confirmToActivate: '是否要激活订单： ',
     tip: '提示',
     confirm: '确定',

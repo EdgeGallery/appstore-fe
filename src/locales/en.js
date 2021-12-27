@@ -71,6 +71,7 @@ const en = {
     orderUserName: 'User Name',
     activation: 'Activate',
     unsubscribe: 'Unsubscribe',
+    OrderOperation: 'Order operation record',
     confirmToActivate: 'Are you sure to activate order: ',
     tip: 'Prompt',
     confirm: 'Confirm',
