@@ -503,71 +503,75 @@ export default {
       sector(_circleX, _circleY, _radius, (Math.PI * 2) / 3, _percent)
     },
     deployPackage () {
-      this.switchBtn = false
-      this.startInterval()
-      if (this.timer !== null) {
-        setTimeout(() => {
-          clearInterval(this.timer)
-        }, 800000)
-      }
-      myApp.getNodePort(this.appId, this.packageId, this.userId).then(
-        (res) => {
-          let experienceInfo = res.data
-          let tmpExperienceData = experienceInfo.data
-          if (experienceInfo.message.indexOf('instantiate package failed.') !== -1) {
+      if (sessionStorage.getItem('userNameRole') === 'guest') {
+        this.$message.warning(this.$t('system.guestPrompt'))
+      } else {
+        this.switchBtn = false
+        this.startInterval()
+        if (this.timer !== null) {
+          setTimeout(() => {
+            clearInterval(this.timer)
+          }, 800000)
+        }
+        myApp.getNodePort(this.appId, this.packageId, this.userId).then(
+          (res) => {
+            let experienceInfo = res.data
+            let tmpExperienceData = experienceInfo.data
+            if (experienceInfo.message.indexOf('instantiate package failed.') !== -1) {
+              this.showCanvas()
+              this.$message({
+                duration: 2000,
+                type: 'warning',
+                message: this.$t('promptMessage.instantiateFailed')
+              })
+            } else if (experienceInfo.message.indexOf('upload to remote file server failed.') !== -1) {
+              this.showCanvas()
+              this.$message({
+                duration: 2000,
+                type: 'warning',
+                message: this.$t('promptMessage.uploadFileFailed')
+              })
+            } else if (experienceInfo.message.indexOf('distributed package failed.') !== -1) {
+              this.showCanvas()
+              this.$message({
+                duration: 2000,
+                type: 'warning',
+                message: this.$t('promptMessage.distributeFailed')
+              })
+            } else if (experienceInfo.message.indexOf('get app nodeport url failed.') !== -1) {
+              this.showCanvas()
+              this.$message({
+                duration: 2000,
+                type: 'warning',
+                message: this.$t('promptMessage.getNodePortFailed')
+              })
+            } else if (experienceInfo.message.indexOf('get app url success.') !== -1) {
+              this.filterExperienceInfo(tmpExperienceData)
+              setTimeout(() => this.slideToggle(), 500)
+            } else {
+              this.showCanvas()
+              this.$message({
+                duration: 2000,
+                type: 'warning',
+                message: experienceInfo.message
+              })
+            }
+          }).catch(error => {
+          let defaultMsg = this.$t('promptMessage.registerHost')
+          let retCode = error.response.data.retCode
+          if (retCode) {
             this.showCanvas()
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.instantiateFailed')
-            })
-          } else if (experienceInfo.message.indexOf('upload to remote file server failed.') !== -1) {
-            this.showCanvas()
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.uploadFileFailed')
-            })
-          } else if (experienceInfo.message.indexOf('distributed package failed.') !== -1) {
-            this.showCanvas()
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.distributeFailed')
-            })
-          } else if (experienceInfo.message.indexOf('get app nodeport url failed.') !== -1) {
-            this.showCanvas()
-            this.$message({
-              duration: 2000,
-              type: 'warning',
-              message: this.$t('promptMessage.getNodePortFailed')
-            })
-          } else if (experienceInfo.message.indexOf('get app url success.') !== -1) {
-            this.filterExperienceInfo(tmpExperienceData)
-            setTimeout(() => this.slideToggle(), 500)
+            commonUtil.showTipMsg(this.language, error, defaultMsg)
           } else {
             this.showCanvas()
             this.$message({
               duration: 2000,
-              type: 'warning',
-              message: experienceInfo.message
+              message: this.$t('promptMessage.getNodePortFailed'),
+              type: 'warning'
             })
           }
-        }).catch(error => {
-        let defaultMsg = this.$t('promptMessage.registerHost')
-        let retCode = error.response.data.retCode
-        if (retCode) {
-          this.showCanvas()
-          commonUtil.showTipMsg(this.language, error, defaultMsg)
-        } else {
-          this.showCanvas()
-          this.$message({
-            duration: 2000,
-            message: this.$t('promptMessage.getNodePortFailed'),
-            type: 'warning'
-          })
-        }
-      })
+        })
+      }
     },
     filterExperienceInfo (tmpExperienceData) {
       this.experienceData = []
@@ -592,32 +596,36 @@ export default {
       console.log(this.progress)
     },
     cleanTestEnv () {
-      this.switchBtn = true
-      if (this.userName === 'guest') {
-        this.$message.error(this.$t('system.guestPrompt'))
+      if (sessionStorage.getItem('userNameRole') === 'guest') {
+        this.$message.warning(this.$t('system.guestPrompt'))
       } else {
-        myApp.cleanTestEnv(this.packageId).then(
-          (res) => {
-            let result = res.data
-            if (result) {
-              this.experienceData = []
-              this.showCanvas()
-              this.activeFlag = false
-              this.clearCanvas()
-              this.$message({
-                duration: 2000,
-                type: 'success',
-                class: 'btnPasses',
-                message: this.$t('promptMessage.cleanEnvSuccess')
-              })
-            } else {
-              this.$message({
-                duration: 2000,
-                message: this.$t('promptMessage.cleanEnvFailed'),
-                type: 'warning'
-              })
-            }
-          })
+        this.switchBtn = true
+        if (this.userName === 'guest') {
+          this.$message.error(this.$t('system.guestPrompt'))
+        } else {
+          myApp.cleanTestEnv(this.packageId).then(
+            (res) => {
+              let result = res.data
+              if (result) {
+                this.experienceData = []
+                this.showCanvas()
+                this.activeFlag = false
+                this.clearCanvas()
+                this.$message({
+                  duration: 2000,
+                  type: 'success',
+                  class: 'btnPasses',
+                  message: this.$t('promptMessage.cleanEnvSuccess')
+                })
+              } else {
+                this.$message({
+                  duration: 2000,
+                  message: this.$t('promptMessage.cleanEnvFailed'),
+                  type: 'warning'
+                })
+              }
+            })
+        }
       }
     },
     initStatus () {

@@ -17,13 +17,21 @@
 <template>
   <div class="upload-package">
     <el-dialog
-      :title="$t('store.uploadApp')"
       :visible.sync="dialogVisible"
-      width="40%"
+      width="63%"
       :before-close="handleClose"
       :close-on-click-modal="false"
       @close="clearForm"
     >
+      <div class="modify_header">
+        <span class="title_icon" />
+        <div
+          slot="title"
+          class="header-title"
+        >
+          {{ $t('store.uploadApp') }}
+        </div>
+      </div>
       <el-form
         :model="packageForm"
         label-width="110px"
@@ -88,11 +96,13 @@
               </el-radio-group>
             </div>
             <div
-              class="tipFile"
+              class="el-upload__tip"
               slot="tip"
             >
               <em class="el-icon-warning" />
-              {{ $t('store.onlyCsar') }}
+              <span class="warning-tip">
+                {{ $t('store.onlyCsar') }}
+              </span>
             </div>
           </div>
         </el-form-item>
@@ -177,15 +187,17 @@
             name="file"
           >
             <em class="el-icon-plus" />
+            <div
+              class="el-upload__tip"
+              style="line-height:-5px"
+              slot="tip"
+            >
+              <em class="el-icon-warning" />
+              <span class="warning-tip">
+                {{ $t('store.limitition') }}
+              </span>
+            </div>
           </el-upload>
-          <el-tooltip
-            class="item"
-            effect="dark"
-            :content="this.$t('store.limitition')"
-            placement="right"
-          >
-            <em class="el-icon-question" />
-          </el-tooltip>
           <div
             class="el-form-error"
             v-if="showErr"
@@ -213,6 +225,7 @@
               slot="trigger"
               size="small"
               type="primary"
+              class="app-upload"
               plain
             >
               {{ $t('store.uploadVideo') }}
@@ -222,8 +235,10 @@
               slot="tip"
             >
               <em class="el-icon-warning" />
-              {{ $t('store.onlyVideo') }}
-              {{ $t('store.videoSizeLimit') }}
+              <span class="warning-tip">
+                {{ $t('store.onlyVideo') }}
+                {{ $t('store.videoSizeLimit') }}
+              </span>
             </div>
           </el-upload>
         </el-form-item>
@@ -273,14 +288,16 @@
           <div class="showTypeCheckbox">
             <el-switch
               v-model="packageForm.experienceAble"
-              active-color="#13ce66"
+              active-color="#54C3D7"
             />
             <div
               class="el-upload__tip"
               slot="tip"
             >
               <em class="el-icon-warning" />
-              {{ $t('store.tryAppTip') }}
+              <span class="warning-tip">
+                {{ $t('store.tryAppTip') }}
+              </span>
             </div>
           </div>
         </el-form-item>
@@ -291,9 +308,11 @@
       >
         <el-button
           @click="handleClose"
+          class="footer-button"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
           type="primary"
+          class="footer-button"
           :loading="uploadBtnLoading"
           @click="submitPackage"
         >{{ $t('common.confirm') }}</el-button>
@@ -826,35 +845,137 @@ export default {
 </script>
 <style lang='less'>
 .upload-package{
+  .el-dialog{
+    width: 911px;
+    max-height: 745px;
+    border-radius: 20px;
+    background: #EFEFEF;
+  }
+  .el-dialog__header {
+    background: #EFEFEF !important;
+    border-radius: 20px;
+  }
+//new style
+  .modify_header{
+    display: inline-flex;
+    margin-bottom: 20px;
+    .title_icon{
+      padding: 0 8px;
+      margin: 7px 5px 0px;
+      height: 16px;
+      background-image: linear-gradient(127deg, #54aaf3, #53dabd);
+    }
+    .header-title{
+      background: #EFEFEF;
+      margin-left: 10px;
+      color: #380879;
+      font-size: 20px;
+    }
+  }
+  .el-form-item__label{
+    font-size: 16px;
+    color: #380879;
+  }
+
+  .el-form-item {
+    margin-bottom: 8px;
+    .app-upload{
+      background: #59508f;
+      border: none;
+      color: #FFFFFF;
+      width: 169px;
+      height: 36px;
+    }
+    .el-input__inner {
+      border-radius: 10px;
+      width: 95%;
+      color: #380879;
+    }
+    .el-input__suffix{
+      right: 79px;
+    }
+    .desc-input{
+      width: 95%;
+      .el-textarea__inner {
+        height: 80px;
+        border-radius: 10px;
+        width: 100%;
+        color: #380879;
+      }
+    }
+  }
+  .showType{
+    margin-top: 11px;
+    .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+      border-color: #54C3D7;
+      background-color:#54C3D7;
+      .warning-tip{
+    color: #380879;
+    font-size: 12px;
+  }
+    }
+  }
+  .warning-tip{
+    color: #380879;
+    font-size: 12px;
+  }
+  .footer-button{
+    margin-bottom: 25px;
+    background: #fff;
+    color: #5844BE;
+    border-radius: 10px;
+    border: none;
+  }
+  .el-radio__label{
+    color: #380879;
+    font-size: 12px;
+  }
+  .el-radio__input.is-checked + .el-radio__label {
+    color: #380879;
+}
+  .el-radio__input.is-checked .el-radio__inner {
+    border-color: #54C3D7;
+    background-color:#54C3D7;
+  }
+  .footer-button:hover{
+     background: #5844BE;
+     color: #fff;
+  }
+  .el-checkbox__input.is-checked + .el-checkbox__label {
+    color: #380879;
+    font-size: 12px;
+  }
+  .el-checkbox__label {
+    display: inline-block;
+    padding-left: 10px;
+    line-height: 19px;
+    color: #380879;
+    font-size: 12px;
+}
+  .el-icon-warning{
+    color: #5844BE;
+    margin-right: 5px;
+    font-size: 12px;
+  }
   .uploadMin{
     float: left;
     .el-button--primary.is-plain {
-      margin-top: 5px;
-      display: inline-block;
-      position: relative;
-      padding: 4px 22px;
-      font-size: 100%;
-      line-height: 1.4;
-      color: #688ef3;
-      border: 1px solid #c3d2fa;
-      cursor: pointer;
-      border-radius: 2px;
-      background: #f0f4fe;
-      outline: none
+      background: #59508f;
+      border: none;
+      color: #FFFFFF;
+      width: 169px;
+      height: 36px;
     }
     .uploader-btn {
-      margin-top: 5px;
-      display: inline-block;
-      position: relative;
-      padding: 4px 22px;
-      font-size: 100%;
-      line-height: 1.4;
-      color: #688ef3;
-      border: 1px solid #c3d2fa;
-      cursor: pointer;
-      border-radius: 2px;
-      background: #f0f4fe;
-      outline: none
+      background: #59508f;
+      border: none;
+      color: #FFFFFF;
+      width: 169px;
+      height: 36px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 2.4;
+      margin: 0;
     }
     .uploader-drop{
       padding: 0;
@@ -867,10 +988,6 @@ export default {
     font-size: 12px;
     margin-left: 10px;
     margin-top: 6px;
-    color: #606266;
-    .el-icon-warning:before {
-      content: aqua;
-    }
     .lableStyle{
       margin-left: 10px;
       font-size: 12px;
@@ -879,10 +996,6 @@ export default {
         background: #688ef3;
       }
     }
-  }
-
-  .el-dialog__header{
-    background-color: #5abdc7 ;
   }
   .el-form-error{
     display: inline-block;
@@ -902,16 +1015,11 @@ export default {
   .upload-demo{
     float: left;
     .el-button--primary{
-      background-color: #fff;
-      border-color: #688ef3;
-      color: #688ef3;
-      padding: 6px 20px;
-      margin-top: 8px;
-    }
-    .el-icon-warning{
-      color: #688ef3;
-      margin-right: 5px;
-      font-size: 14px;
+      background: #59508f;
+      border: none;
+      color: #FFFFFF;
+      width: 169px;
+      height: 36px;
     }
     .el-upload{
       width: 34px;
@@ -926,14 +1034,10 @@ export default {
     .el-icon-plus:before {
       content: "\e6d9";
     }
-  }
-  .el-icon-question{
-    float: left;
-    margin-top: 12px;
-  }
-  .el-icon-question:before {
-    color: #688ef3;
-    font-size: 16px;
+    .el-upload__tip {
+      margin-top: 13px;
+      margin-left: -12px;
+    }
   }
   .default-icon{
     float: left;
@@ -1002,9 +1106,15 @@ export default {
     border-color: #fea712;
   }
   .showType{
+    color: #380879;
+    font-size: 12px;
     margin-top: -10px;
     .showTypeCheckbox{
       margin-top: 11px;
+      .warning-tip {
+        color: #380879;
+        font-size: 12px;
+      }
     }
   }
 }

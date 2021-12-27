@@ -233,7 +233,7 @@ export default {
       }
     },
     synchronizePackage (item) {
-      if (sessionStorage.getItem('userId') === this.currentData.userId || sessionStorage.getItem('userNameRole') === 'admin') {
+      if (sessionStorage.getItem('userNameRole') === 'admin') {
         this.getProgressByPackageId()
         if (this.timer !== null) {
           setTimeout(() => {
@@ -269,7 +269,7 @@ export default {
           }
         })
       } else {
-        this.$message.warning(this.$t('system.downloadPrompt'))
+        this.$message.warning(this.$t('system.synchronizePrompt'))
       }
     },
     checkFailedData () {
