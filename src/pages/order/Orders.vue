@@ -128,19 +128,61 @@
         </el-table>
         <el-dialog
           :visible.sync="dialogVisible"
-          width="30%"
+          width="500px"
+          class="recordDialog"
         >
-          <span style="white-space: pre-wrap;">{{ language === 'cn' ? detailCn : detailEn }}</span>
-          <span
-            slot="footer"
-            class="dialog-footer"
-          >
-            <el-button @click="dialogVisible = false"> {{ $t('order.cancel') }}</el-button>
+          <div class="recordTitle">
+            <p class="recordTitle-circle" />
+            <p class="recordTitle-content">
+              {{ $t('order.OrderOperation') }}
+            </p>
+          </div>
+          <div class="recordContent">
+            <div class="recordContent-lines">
+              <p
+                v-for="(item,index) in recordDay"
+                :key="index"
+                class="lines"
+              >
+                <span class="lines-circle" /><span class="lines-line" />
+              </p>
+            </div>
+            <div class="recordContent-item">
+              <p
+                v-for="(item,index) in recordDay"
+                :key="index"
+              >
+                {{ item }}
+              </p>
+            </div>
+            <div class="recordContent-item dayStyle">
+              <p
+                v-for="(item,index) in recordTime"
+                :key="index"
+              >
+                {{ item }}
+              </p>
+            </div>
+            <div class="recordContent-item stateStyle">
+              <p
+                v-for="(item,index) in recordState"
+                :key="index"
+              >
+                {{ item }}
+              </p>
+            </div>
+          </div>
+          <div class="recordBtns">
+            <el-button @click="dialogVisible = false">
+              {{ $t('order.cancel') }}
+            </el-button>
             <el-button
               type="primary"
               @click="dialogVisible = false"
-            > {{ $t('order.confirm') }}</el-button>
-          </span>
+            >
+              {{ $t('order.confirm') }}
+            </el-button>
+          </div>
         </el-dialog>
         <div class="pageBar">
           <el-pagination
@@ -199,7 +241,11 @@ export default {
         }
       ],
       loading: true,
-      dialogVisible: false
+      dialogVisible: false,
+      recordInfo: [],
+      recordDay: [],
+      recordTime: [],
+      recordState: []
     }
   },
   mounted () {
@@ -279,13 +325,16 @@ export default {
       if (_statusOption) {
         return _statusOption.label
       }
-
       return row.status
     },
     handleClick (order) {
       this.language = localStorage.getItem('language')
-      this.detailCn = order.detailCn
-      this.detailEn = order.detailEn
+      this.recordInfo = this.language === 'cn' ? order.detailCn.split('\n') : order.detailEn.split('\n')
+      this.recordInfo.forEach(item => {
+        this.recordDay.push(item.substring(0, 10))
+        this.recordTime.push(item.substring(11, 19))
+        this.recordState.push(item.substring(20, 50))
+      })
       this.dialogVisible = true
     }
   }
@@ -329,11 +378,111 @@ export default {
         position: relative;
         top: 3px;
       }
+      .recordDialog{
+        border: 10px solid red;
+        .el-dialog{
+          border-radius: 10px !important;
+          border:10xp solid red;
+          padding-bottom: 20px;
+        }
+        .recordTitle{
+          display: flex;
+          width: 90%;
+          margin-top: -20px;
+          margin-left: 20px;
+          .recordTitle-circle{
+            width: 17px;
+            height: 17px;
+            background: #55D8BF;
+            border-radius: 3px;
+            margin-right: 9px;
+            margin-top: 8px;
+          }
+          .recordTitle-content{
+            color:#380879;
+            font-Size:20px;
+          }
+        }
+        .recordContent{
+          display: flex;
+          justify-content: flex-start;
+          margin-left: 46px;
+          margin-top: 20px;
+          .recordContent-lines{
+            margin-right: 10px;
+            .lines{
+              margin: -4px 0 0 0;
+              .lines-circle{
+                display: block;
+                width: 10px;
+                height: 10px;
+                background: #61CDD0;
+                border-radius: 5px;
+              }
+              .lines-line{
+                display: block;
+                width: 1px;
+                height: 45px;
+                border-right: 1px solid #61CDD0;
+                opacity: 0.6;
+                margin-left: 4px;
+              }
+            }
+          }
+          .recordContent-lines .lines:last-child{
+              .lines-line{
+                display: none;
+              }
+          }
+          .recordContent-item{
+            color: #380879;
+            width: 100px;
+            margin-right: 10px;
+            p{
+              margin: -10px 0 0 10px;
+              height: 61px;
+              font-size: 16px;
+            }
+          }
+          .dayStyle{
+            margin-right: 30px;
+            width: 80px;
+          }
+          .stateStyle{
+            width: 160px;
+          }
+        }
+        .recordBtns{
+          display: flex;
+          justify-content: flex-end;
+          margin-right: 20px;
+          .el-button{
+            background: #5844BE;
+            border-radius: 10px;
+            color: #fff;
+          }
+          .el-button:hover{
+            background: #fff;
+            color: #5844BE;
+          }
+        }
+      }
     }
   }
 }
 .activatingBtn {
   border: none !important;
   color: #409eff;
+}
+div /deep/ .el-dialog__header{
+  border-radius: 12px !important;
+}
+div /deep/ .el-dialog{
+  border-radius: 12px !important;
+  padding-bottom: 30px;
+}
+div /deep/ .el-icon-close:before{
+  font-size: 30px !important;
+  color: #999999 !important;
 }
 </style>
