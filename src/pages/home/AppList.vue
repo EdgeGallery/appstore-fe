@@ -187,7 +187,7 @@ export default {
           })
         })
       } else {
-        this.$message.warning(this.$t('system.downloadPrompt'))
+        this.$message.warning(this.$t('system.downloadDelete'))
       }
     }
   },
