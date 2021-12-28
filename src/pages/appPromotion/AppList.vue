@@ -85,13 +85,13 @@
               prop="name"
               :label="$t('apppromotion.appName')"
               sortable="custom"
-              width="300"
+              width="260"
               :cell-class-name="hiddenClass"
             >
               <template slot-scope="scope">
                 <el-popover
                   placement="bottom"
-                  width="300"
+                  width="260"
                   trigger="hover"
                   v-if="scope.row.name.length>20"
                 >
@@ -116,7 +116,7 @@
             <el-table-column
               prop="deployMode"
               :label="$t('store.workloadType')"
-              width="125"
+              width="160"
             >
               <template slot-scope="scope">
                 {{ scope.row.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}

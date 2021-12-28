@@ -180,14 +180,14 @@
             </div>
           </div>
           <div class="recordBtns">
-            <el-button @click="dialogVisible = false">
-              {{ $t('order.cancel') }}
-            </el-button>
             <el-button
               type="primary"
               @click="dialogVisible = false"
             >
               {{ $t('order.confirm') }}
+            </el-button>
+            <el-button @click="dialogVisible = false">
+              {{ $t('order.cancel') }}
             </el-button>
           </div>
         </el-dialog>

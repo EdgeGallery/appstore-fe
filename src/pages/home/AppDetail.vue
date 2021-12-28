@@ -656,6 +656,7 @@ export default {
       if (sessionStorage.getItem('userId') === this.currentData.userId || sessionStorage.getItem('userNameRole') === 'admin') {
         this.downloadImage(this.currentData, row)
         this.getAppData()
+        this.downloadNum++
       } else {
         this.$message.warning(this.$t('system.downloadPrompt'))
       }
