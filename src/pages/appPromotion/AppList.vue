@@ -85,13 +85,13 @@
               prop="name"
               :label="$t('apppromotion.appName')"
               sortable="custom"
-              width="260"
+              width="220"
               :cell-class-name="hiddenClass"
             >
               <template slot-scope="scope">
                 <el-popover
                   placement="bottom"
-                  width="260"
+                  width="220"
                   trigger="hover"
                   v-if="scope.row.name.length>20"
                 >
@@ -108,10 +108,12 @@
             <el-table-column
               prop="provider"
               :label="$t('apppromotion.provider')"
+              width="120"
             />
             <el-table-column
               prop="version"
               :label="$t('apppromotion.version')"
+              width="80"
             />
             <el-table-column
               prop="deployMode"
@@ -124,6 +126,7 @@
             </el-table-column>
             <el-table-column
               prop="latestPushTime"
+              width="160"
               :label="$t('apppromotion.lastProTime')"
               sortable="custom"
             />
@@ -144,6 +147,7 @@
             </template>
             <el-table-column
               :label="$t('apppromotion.testRepo')"
+              width="160"
             >
               <template slot-scope="scope">
                 <a
