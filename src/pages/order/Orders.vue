@@ -79,9 +79,11 @@
             <template slot-scope="scope">
               <span
                 v-if="
+
                   scope.row.status === 'ACTIVATING' ||
                     scope.row.status === 'DEACTIVATING'
                 "
+                class="activeStyle"
                 style="color:#409EFF"
               >
                 <el-button
@@ -94,7 +96,9 @@
                   {{ convertOrderStatus(scope.row) }}
                 </el-button>
               </span>
-              <span v-else>{{ convertOrderStatus(scope.row) }}</span>
+              <span
+                v-else
+              >{{ convertOrderStatus(scope.row) }}</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -373,6 +377,9 @@ export default {
     }
     .orderTable {
       margin: 50px 0;
+      .activeStyle{
+        margin-left: -24px;
+      }
       .el-table td {
         padding: 0;
         height: 60px;
