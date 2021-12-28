@@ -42,31 +42,38 @@
           </template>
           <el-table-column
             prop="orderNum"
+            width="140"
             :label="$t('order.orderNum')"
           />
           <el-table-column
             v-if="isAdmin"
             prop="userName"
+            width="150"
             :label="$t('order.orderUserName')"
           />
           <el-table-column
             prop="appName"
+            width="130"
             :label="$t('order.appName')"
           />
           <el-table-column
             prop="mecHostIp"
+            width="140"
             :label="$t('order.nodeIp')"
           />
           <el-table-column
             prop="mecHostCity"
+            width="200"
             :label="$t('order.nodeAddress')"
           />
           <el-table-column
             prop="orderTime"
+            width="180"
             :label="$t('order.orderTime')"
           />
           <el-table-column
             prop="status"
+            width="80"
             :label="$t('order.status')"
           >
             <template slot-scope="scope">
@@ -92,7 +99,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('myApp.operation')"
-            width="330"
+            width="220"
           >
             <template slot-scope="scope">
               <div>
@@ -478,5 +485,14 @@ div /deep/ .el-dialog{
 div /deep/ .el-icon-close:before{
   font-size: 30px !important;
   color: #999999 !important;
+}
+.el-table th>.cell {
+    font-size: 20px;
+    height: 59px;
+    line-height: 59px;
+    font-weight: lighter;
+}
+.el-table td>.cell {
+    font-size: 14px;
 }
 </style>
