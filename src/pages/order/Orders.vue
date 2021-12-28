@@ -458,13 +458,13 @@ export default {
           justify-content: flex-end;
           margin-right: 20px;
           .el-button{
-            background: #5844BE;
-            border-radius: 10px;
-            color: #fff;
+            background: #fff;
+            color: #5e40c8;
+            border: 1px solid #5e40c8;
           }
           .el-button:hover{
-            background: #fff;
-            color: #5844BE;
+            background: #5e40c8;
+            color: #fff;
           }
         }
       }
