@@ -150,6 +150,7 @@ const cn = {
     downloadPrompt: '您没有权限下载！',
     downloadDelete: '您没有权限删除！',
     synchronizePrompt: '您没有权限，只有管理员可以同步',
+    synchronizeToMEAO: '同步应用到MEAO',
     modify: '修改',
     noDataNotice: '暂无数据',
     typeError: '格式错误',
