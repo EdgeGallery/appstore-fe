@@ -28,9 +28,19 @@
       </div>
       <div class="app_info">
         <div class="div_title">
-          <p class="app_title">
-            {{ currentData.name }}
-          </p>
+          <el-tooltip
+            class="item"
+            effect="light"
+            :content="currentData.name"
+            placement="right-start"
+          >
+            <p
+              class="app_title"
+            >
+              {{ currentData.name }}
+            </p>
+          </el-tooltip>
+
           <el-rate
             v-model="score"
             disabled
@@ -826,12 +836,17 @@ export default {
       width: calc(100% - 610px);
       padding: 0 20px;
       word-wrap: break-word;
+      min-width: 450px;
       .div_title{
         display: flex;
         .app_title{
           font-size: 36px;
           color: #380879;
           font-weight: bold;
+          width: 193px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         .el-rate{
           text-align: left;
