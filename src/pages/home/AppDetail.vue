@@ -748,12 +748,12 @@ export default {
         this.ifSubscribe = false
         this.source = this.details.details
         this.getMyAppData()
-        this.getAppDetailApi()
       }
     }
     this.appIconPath = URL_PREFIX + 'apps/' + this.appId + '/packages/' + this.packageId + '/icon'
     this.getTableData()
     this.checkProjectData()
+    this.getAppDetailApi()
     if ((sessionStorage.getItem('userNameRole') === 'guest')) {
       this.ifSynchronize = false
     } else {

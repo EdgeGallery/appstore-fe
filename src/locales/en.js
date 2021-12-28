@@ -185,6 +185,7 @@ const en = {
     downloadPrompt: 'You do not have permission to download!',
     downloadDelete: 'You do not have permission to delete!',
     synchronizePrompt: 'You do not have permission. Only administrators can synchronize',
+    synchronizeToMEAO: 'Syn To MEAO',
     modify: 'Modify',
     noDataNotice: 'No data available',
     typeError: 'Format error',
