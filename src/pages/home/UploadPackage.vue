@@ -282,7 +282,7 @@
           </div>
         </el-form-item>
         <el-form-item
-          class="showType"
+          class="showAble"
           :label="$t('common.experienceable')"
         >
           <div class="showTypeCheckbox">
@@ -855,7 +855,6 @@ export default {
     background: #EFEFEF !important;
     border-radius: 20px;
   }
-//new style
   .modify_header{
     display: inline-flex;
     margin-bottom: 20px;
@@ -878,7 +877,7 @@ export default {
   }
 
   .el-form-item {
-    margin-bottom: 8px;
+    margin-bottom: 17px;
     .app-upload{
       background: #59508f;
       border: none;
@@ -906,13 +905,21 @@ export default {
   }
   .showType{
     margin-top: 11px;
+    .showTypeCheckbox{
+      margin-top: 11px;
+    }
     .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
       border-color: #54C3D7;
       background-color:#54C3D7;
       .warning-tip{
-    color: #380879;
-    font-size: 12px;
+        color: #380879;
+        font-size: 12px;
+      }
+    }
   }
+  .showAble {
+    .showTypeCheckbox{
+      margin-top: 6px;
     }
   }
   .warning-tip{
@@ -1072,9 +1079,6 @@ export default {
   .upIcon.active{
     color: #409EFF;
   }
-  .el-form-item{
-    margin-bottom: 15px;
-  }
   .el-form-item.icon{
     content: '';
     display: block;
@@ -1104,18 +1108,6 @@ export default {
     color: #fff;
     background-color: #fea712;
     border-color: #fea712;
-  }
-  .showType{
-    color: #380879;
-    font-size: 12px;
-    margin-top: -10px;
-    .showTypeCheckbox{
-      margin-top: 11px;
-      .warning-tip {
-        color: #380879;
-        font-size: 12px;
-      }
-    }
   }
 }
 .el-form-item__error{
