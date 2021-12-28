@@ -48,7 +48,7 @@
           <el-table-column
             v-if="isAdmin"
             prop="userName"
-            width="150"
+            width="120"
             :label="$t('order.orderUserName')"
           />
           <el-table-column
@@ -63,7 +63,7 @@
           />
           <el-table-column
             prop="mecHostCity"
-            width="200"
+            width="180"
             :label="$t('order.nodeAddress')"
           />
           <el-table-column
@@ -73,7 +73,7 @@
           />
           <el-table-column
             prop="status"
-            width="80"
+            width="130"
             :label="$t('order.status')"
           >
             <template slot-scope="scope">
@@ -247,7 +247,7 @@ export default {
           label: this.$t('order.orderStatus.deactivated')
         }
       ],
-      loading: false,
+      loading: true,
       dialogVisible: false,
       recordInfo: [],
       recordDay: [],
