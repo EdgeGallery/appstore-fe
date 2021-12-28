@@ -379,12 +379,6 @@ export default {
         top: 3px;
       }
       .recordDialog{
-        border: 10px solid red;
-        .el-dialog{
-          border-radius: 10px !important;
-          border:10xp solid red;
-          padding-bottom: 20px;
-        }
         .recordTitle{
           display: flex;
           width: 90%;
