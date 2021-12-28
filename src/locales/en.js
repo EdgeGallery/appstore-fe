@@ -184,7 +184,7 @@ const en = {
     guestPrompt: 'The guest user has no right to operate, please log in first!',
     downloadPrompt: 'You do not have permission to download!',
     downloadDelete: 'You do not have permission to delete!',
-    synchronizePrompt: 'You do not have permission. Only administrators can synchronize!',
+    synchronizePrompt: 'You do not have permission. Only administrators can synchronize',
     modify: 'Modify',
     noDataNotice: 'No data available',
     typeError: 'Format error',

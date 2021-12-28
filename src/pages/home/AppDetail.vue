@@ -704,7 +704,7 @@ export default {
       )
     },
     getMyAppData () {
-      myApp.getPackageDetailApi(this.appId).then(res => {
+      myApp.getPackageDetailApi(this.appId, this.packageId).then(res => {
         let data = res.data
         let newDateBegin = this.dateChange(data.createTime)
         data.createTime = newDateBegin
@@ -721,7 +721,7 @@ export default {
       })
     },
     getAppDetailApi () {
-      myApp.getAppDetailApi(this.appId, this.packageId).then(res => {
+      myApp.getAppDetailApi(this.appId).then(res => {
         let data = res.data.data
         this.score = data.score
         this.downloadNum = data.downloadCount
