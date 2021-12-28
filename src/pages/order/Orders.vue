@@ -247,12 +247,17 @@ export default {
           label: this.$t('order.orderStatus.deactivated')
         }
       ],
-      loading: true,
+      loading: false,
       dialogVisible: false,
       recordInfo: [],
       recordDay: [],
       recordTime: [],
-      recordState: []
+      recordState: [],
+      ceString: '',
+      ceInfo: [],
+      ceDay: [],
+      ceTime: [],
+      ceState: []
     }
   },
   mounted () {
@@ -336,11 +341,16 @@ export default {
     },
     handleClick (order) {
       this.language = localStorage.getItem('language')
+      this.recordInfo = []
+      this.recordDay = []
+      this.recordTime = []
+      this.recordState = []
       this.recordInfo = this.language === 'cn' ? order.detailCn.split('\n') : order.detailEn.split('\n')
       this.recordInfo.forEach(item => {
-        this.recordDay.push(item.substring(0, 10))
-        this.recordTime.push(item.substring(11, 19))
-        this.recordState.push(item.substring(20, 50))
+        let _infoTempArr = item.split(' ')
+        this.recordDay.push(_infoTempArr[0])
+        this.recordTime.push(_infoTempArr[1])
+        this.recordState.push(_infoTempArr[2])
       })
       this.dialogVisible = true
     }
