@@ -354,7 +354,7 @@ export default {
         let _infoTempArr = item.split(' ')
         this.recordDay.push(_infoTempArr[0])
         this.recordTime.push(_infoTempArr[1])
-        this.recordState.push(_infoTempArr[2])
+        this.recordState.push(_infoTempArr.slice(2).join(' '))
       })
       this.dialogVisible = true
     }
