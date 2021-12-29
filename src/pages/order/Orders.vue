@@ -151,7 +151,7 @@
           <div class="recordContent">
             <div class="recordContent-lines">
               <p
-                v-for="(item,index) in recordDay"
+                v-for="(item,index) in recordTime"
                 :key="index"
                 class="lines"
               >
@@ -159,14 +159,6 @@
               </p>
             </div>
             <div class="recordContent-item">
-              <p
-                v-for="(item,index) in recordDay"
-                :key="index"
-              >
-                {{ item }}
-              </p>
-            </div>
-            <div class="recordContent-item dayStyle">
               <p
                 v-for="(item,index) in recordTime"
                 :key="index"
@@ -176,7 +168,7 @@
             </div>
             <div class="recordContent-item stateStyle">
               <p
-                v-for="(item,index) in recordState"
+                v-for="(item,index) in recordOperation"
                 :key="index"
               >
                 {{ item }}
@@ -254,14 +246,8 @@ export default {
       loading: true,
       dialogVisible: false,
       recordInfo: [],
-      recordDay: [],
       recordTime: [],
-      recordState: [],
-      ceString: '',
-      ceInfo: [],
-      ceDay: [],
-      ceTime: [],
-      ceState: []
+      recordOperation: []
     }
   },
   mounted () {
@@ -346,15 +332,13 @@ export default {
     handleClick (order) {
       this.language = localStorage.getItem('language')
       this.recordInfo = []
-      this.recordDay = []
       this.recordTime = []
-      this.recordState = []
+      this.recordOperation = []
       this.recordInfo = this.language === 'cn' ? order.detailCn.split('\n') : order.detailEn.split('\n')
       this.recordInfo.forEach(item => {
-        let _infoTempArr = item.split(' ')
-        this.recordDay.push(_infoTempArr[0])
-        this.recordTime.push(_infoTempArr[1])
-        this.recordState.push(_infoTempArr[2])
+        let _infoTempArr = item.split(',')
+        this.recordTime.push(_infoTempArr[0])
+        this.recordOperation.push(_infoTempArr[1])
       })
       this.dialogVisible = true
     }
