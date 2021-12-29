@@ -158,7 +158,7 @@
                 <span class="lines-circle" /><span class="lines-line" />
               </p>
             </div>
-            <div class="recordContent-item dayStyle">
+            <div class="recordContent-item">
               <p
                 v-for="(item,index) in recordTime"
                 :key="index"
