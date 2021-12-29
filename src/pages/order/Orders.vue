@@ -438,17 +438,13 @@ export default {
           }
           .recordContent-item{
             color: #380879;
-            width: 100px;
+            width: 200px;
             margin-right: 10px;
             p{
               margin: -10px 0 0 10px;
               height: 61px;
               font-size: 16px;
             }
-          }
-          .dayStyle{
-            margin-right: 30px;
-            width: 80px;
           }
           .stateStyle{
             width: 160px;
