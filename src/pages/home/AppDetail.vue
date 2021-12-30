@@ -1330,6 +1330,7 @@ export default {
   }
   .val_span {
     line-height: 32px;
+    padding-left: 71px
   }
   .container_div{
     background: #fff;
