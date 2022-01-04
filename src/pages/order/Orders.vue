@@ -209,6 +209,7 @@
 
 <script>
 import { subscribe } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   data () {
     return {
@@ -247,7 +248,8 @@ export default {
       dialogVisible: false,
       recordInfo: [],
       recordTime: [],
-      recordOperation: []
+      recordOperation: [],
+      timer: null
     }
   },
   mounted () {
@@ -284,6 +286,8 @@ export default {
         this.orderList = res.data.results
         this.pageCtrl.totalNum = res.data.total
         this.loading = false
+      }).catch((error) => {
+        commonUtil.showTipMsg(this.language, error, error.data.message)
       })
     },
     activate (row) {
@@ -299,8 +303,12 @@ export default {
         subscribe.activateApp(row.orderId).then(res => {
           this.$message.success(this.$t('order.success'))
           this.loading = true
-          this.getOrderList()
+          this.timer = setInterval(() => {
+            this.getOrderList()
+          }, 3000)
         })
+      }).catch((error) => {
+        commonUtil.showTipMsg(this.language, error, error.data.message)
       })
     },
     deactivate (row) {
@@ -317,6 +325,8 @@ export default {
           this.$message.success(this.$t('order.unsubSuccess'))
           this.loading = true
           this.getOrderList()
+        }).catch((error) => {
+          commonUtil.showTipMsg(this.language, error, error.data.message)
         })
       })
     },
@@ -341,6 +351,11 @@ export default {
         this.recordOperation.push(_infoTempArr[1])
       })
       this.dialogVisible = true
+    }
+  },
+  beforeDestroy () {
+    if (this.timer) {
+      clearInterval(this.timer)
     }
   }
 }
