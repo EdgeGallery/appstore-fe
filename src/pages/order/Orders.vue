@@ -112,7 +112,7 @@
                   class="operations_btn"
                   :disabled="
                     scope.row.status !== 'DEACTIVATED' &&
-                      scope.row.status !== 'ACTIVATE_FAILED'
+                      scope.row.status !== 'ACTIVATE_FAILED'&& scope.row.userId !== userId
                   "
                 >
                   {{ $t('order.activation') }}
@@ -122,7 +122,7 @@
                   class="operations_btn"
                   :disabled="
                     scope.row.status !== 'ACTIVATED' &&
-                      scope.row.status !== 'DEACTIVATE_FAILED'
+                      scope.row.status !== 'DEACTIVATE_FAILED' && scope.row.userId !== userId
                   "
                 >
                   {{ $t('order.unsubscribe') }}
@@ -249,7 +249,8 @@ export default {
       recordInfo: [],
       recordTime: [],
       recordOperation: [],
-      timer: null
+      timer: null,
+      userId: sessionStorage.getItem('userId')
     }
   },
   mounted () {
