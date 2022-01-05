@@ -287,7 +287,7 @@ export default {
         this.pageCtrl.totalNum = res.data.total
         this.loading = false
       }).catch((error) => {
-        commonUtil.showTipMsg(this.language, error, error.data.message)
+        commonUtil.showTipMsg(this.language, error, error.response.data.message)
       })
     },
     activate (row) {
@@ -326,7 +326,7 @@ export default {
           this.loading = true
           this.getOrderList()
         }).catch((error) => {
-          commonUtil.showTipMsg(this.language, error, error.data.message)
+          commonUtil.showTipMsg(this.language, error, error.response.data.message)
         })
       })
     },
