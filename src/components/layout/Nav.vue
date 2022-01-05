@@ -471,7 +471,7 @@ export default {
       sessionStorage.removeItem('userId')
     },
     enterLoginPage () {
-      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER
+      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER + '&lang=' + this.language
     },
     enter () {
       this.seen = true
@@ -490,7 +490,7 @@ export default {
       this.$router.push({ name: 'msgCenter' })
     },
     openUserAccountCenter () {
-      window.open(this.userCenterPage)
+      window.open(this.userCenterPage + '?lang=' + this.language)
     },
     jumpToForceModifyPw () {
       if (this.ifGuest) {
