@@ -306,9 +306,9 @@ export default {
           this.timer = setInterval(() => {
             this.getOrderList()
           }, 3000)
+        }).catch((error) => {
+          commonUtil.showTipMsg(this.language, error, error.response.data.message)
         })
-      }).catch((error) => {
-        commonUtil.showTipMsg(this.language, error, error.response.data.message)
       })
     },
     deactivate (row) {
