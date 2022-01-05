@@ -308,7 +308,7 @@ export default {
           }, 3000)
         })
       }).catch((error) => {
-        commonUtil.showTipMsg(this.language, error, error.data.message)
+        commonUtil.showTipMsg(this.language, error, error.response.data.message)
       })
     },
     deactivate (row) {
