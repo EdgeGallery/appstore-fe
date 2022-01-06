@@ -111,8 +111,8 @@
                   @click="activate(scope.row)"
                   class="operations_btn"
                   :disabled="
-                    scope.row.status !== 'DEACTIVATED' &&
-                      scope.row.status !== 'ACTIVATE_FAILED'&& scope.row.userId !== userId
+                    (scope.row.status !== 'DEACTIVATED' &&
+                      scope.row.status !== 'ACTIVATE_FAILED') || scope.row.userId !== userId
                   "
                 >
                   {{ $t('order.activation') }}
@@ -121,8 +121,8 @@
                   @click="deactivate(scope.row)"
                   class="operations_btn"
                   :disabled="
-                    scope.row.status !== 'ACTIVATED' &&
-                      scope.row.status !== 'DEACTIVATE_FAILED' && scope.row.userId !== userId
+                    (scope.row.status !== 'ACTIVATED' &&
+                      scope.row.status !== 'DEACTIVATE_FAILED') || scope.row.userId !== userId
                   "
                 >
                   {{ $t('order.unsubscribe') }}
