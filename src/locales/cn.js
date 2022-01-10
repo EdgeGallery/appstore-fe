@@ -150,7 +150,7 @@ const cn = {
     downloadPrompt: '您没有权限下载！',
     downloadDelete: '您没有权限删除！',
     synchronizePrompt: '您没有权限，只有管理员可以同步',
-    synchronizeToMEAO: '同步应用到MEAO',
+    synchronizeToMEAO: '创建同步任务',
     modify: '修改',
     noDataNotice: '暂无数据',
     typeError: '格式错误',
@@ -507,7 +507,8 @@ const cn = {
     waitDistributeApp: '正在分发应用,请耐心等待...',
     waitGetInstantiatedInfo: '正在获取实例化信息,请耐心等待...',
     synchronizeToMeao: '同步应用到 MEAO',
-    notSupportContainerApp: 'can not support container app.'
+    notSupportContainerApp: 'can not support container app.',
+    syncTitleTip: '应用同步状态描述：应用市场支持集成第三方多接入边缘应用编排平台（meao）,可以通过创建同步任务，将应用同步至第三方MEAO,以便于进行应用的编排部署。'
 
   },
   docs: {
