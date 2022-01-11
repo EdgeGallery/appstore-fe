@@ -523,9 +523,9 @@ const en = {
     waitUploadApp: 'Aploading app, please wait...',
     waitDistributeApp: 'App is being distributed, please wait patiently...',
     waitGetInstantiatedInfo: 'Getting instantiation information, please wait patiently...',
-    synchronizeToMeao: 'Sync APP To MEAO',
+    synchronizeToMeao: 'App Sync Status',
     notSupportContainerApp: 'can not support container app.',
-    syncTitleTip: 'Application synchronization status description: the application market supports the integration of the third-party multi access edge application orchestration platform (meao). You can synchronize applications to the third-party meao by creating synchronization tasks to facilitate the orchestration and deployment of applications.'
+    syncTitleTip: 'The application store supports the integration of the third-party multi access edge application orchestration platform (meao). You can synchronize applications to the third-party meao by creating synchronization tasks to facilitate the orchestration and deployment of applications.'
   },
   docs: {
     step1: 'Open source MEP platform',

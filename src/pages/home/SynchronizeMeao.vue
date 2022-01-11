@@ -331,9 +331,8 @@ export default {
 .app-list{
   background: #fff;
   .el-upload__tip {
-      margin-left: -12px;
+      margin-left: 52px;
       padding-top: 55px;
-      margin: 0 60px;
       width: 72%;
   }
   .el-icon-warning{
