@@ -149,6 +149,7 @@ a{
   height: 40px;
   line-height: 40px;
   min-width: 200px;
+  background: #2E147C 70%;
 }
 .search_input .el-input__icon{
   line-height: 40px;
@@ -333,7 +334,7 @@ a{
   border-radius: 50%;
 }
 .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next {
-  background-color: #fff !important;
+  background: #2E147C 70%;
 }
 
 .el-button.linearGradient2{
@@ -412,6 +413,7 @@ a{
   border: none !important;
   border-bottom: 1px solid #dddddd !important;
   border-radius: 0!important;
+  background: #2E147C 70%;
 }
 
 .el-progress-bar__inner{

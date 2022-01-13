@@ -122,7 +122,8 @@ export default {
   .el-pagination .el-select .el-input .el-input__inner {
     padding-right: 20px;
     border-radius: 8px;
-    background-color: #F0F0F0;
+    background: #2E147C 70%;
+    color: #fff;
 }
   .el-input--mini .el-input__inner,.el-pager li,.el-pagination button, .el-pagination span:not([class*=suffix]),.el-pagination__editor.el-input .el-input__inner{
     height: 24px;
