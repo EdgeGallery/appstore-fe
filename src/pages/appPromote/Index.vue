@@ -638,7 +638,7 @@ export default {
       border-radius:16px ;
       position: relative;
       min-height: 568px;
-      background:#fff;
+      background: #2E147C 70%;
       padding: 20px;
       .batchProm{
         width: 200px;
@@ -675,6 +675,7 @@ export default {
   }
 }
 .dialogTitle{
+  border-radius: 8px 8px 0 0;
   display: flex;
   margin-left:30px ;
   .dialogTitle1{

@@ -175,19 +175,19 @@ p{
         padding-top: 30px;
   }
     .application:hover .img-box{
-        display: none;
+      border-radius: 8px 8px 0 0;
+      display: none;
   }
     .application {
      border-radius: 8px ;
       height: 280px;
       width: 22.2%;
       margin-top: 40px;
-      border: 1px solid #e6e6e6;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
-      background: #fafafa;
+      background: #6e59a7;
       margin-right: 2.5%;
       .img-box{
         height: 170px;
@@ -202,13 +202,13 @@ p{
         width: 100%;
         padding: 0 30px;
         overflow:hidden;
-        background-color: #fff;
+        background-color: #4E3494;
+        border-radius: 0 0 8px 8px;
         .type-size{
           display: flex;
           .type{
             font-size: 14px;
-            font-weight: 300;
-            color: #380879;
+            color: #fff;
             line-height: 35px;
             margin-right: 20px;
             min-width: 70px;
@@ -216,7 +216,7 @@ p{
           .size{
             font-size: 16px;
             font-weight: bolder;
-            color: #380879;
+            color: #fff;
             line-height: 35px;
             white-space: nowrap;
             overflow: hidden;
@@ -231,12 +231,13 @@ p{
         margin-top: 20px;
         .el-button {
           width: 31%;
-          height: 30px;
+          height: 25px;
           border: 1px solid #e6e6e6;
           padding: 0;
+          color: #5944C0;
         }
         .el-button.is-plain:focus {
-          color: #688ef3!important;
+          color: #fff;
         }
       }
     }

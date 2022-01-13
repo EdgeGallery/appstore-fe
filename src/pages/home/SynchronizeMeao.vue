@@ -100,9 +100,9 @@
               v-if="scope.row.status==='success'"
               class="success"
             />
-            <span v-if="scope.row.status==='uploading'">进行中</span>
-            <span v-if="scope.row.status==='failed'">失败</span>
-            <span v-if="scope.row.status==='success'">成功</span>
+            <span v-if="scope.row.status==='uploading'">{{ $t('store.uploading') }}</span>
+            <span v-if="scope.row.status==='failed'">{{ $t('store.failed') }}</span>
+            <span v-if="scope.row.status==='success'">{{ $t('store.success') }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -132,6 +132,8 @@
 </template>
 
 <script>
+import en from '../../locales/en.js'
+import cn from '../../locales/cn.js'
 import {
   getProgressByPackageId,
   synchronizePackageApi,
@@ -172,12 +174,14 @@ export default {
   },
   methods: {
     format (percentage) {
+      let _isCn = this.language === 'cn'
+      let _store = _isCn ? cn.store : en.store
       for (let item of this.testColor) {
         if (item.color === true && item.percentage === percentage) {
-          return '失败'
+          return _store.failed
         }
       }
-      return percentage === 100 ? '完成' : `${percentage}%`
+      return percentage === 100 ? _store.finished : `${percentage}%`
     },
     filterTagTable (filters) {
       this.systemName = filters
