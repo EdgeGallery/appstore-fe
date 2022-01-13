@@ -117,8 +117,7 @@ export default {
 </script>
 <style lang="less">
 .my-paginations{
-  // margin-right: 30px;
-  padding: 15px 30px;
+  padding: 40px 30px;
   .el-pagination .el-select .el-input .el-input__inner {
     padding-right: 20px;
     border-radius: 8px;

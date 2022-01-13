@@ -508,8 +508,11 @@ const cn = {
     waitGetInstantiatedInfo: '正在获取实例化信息,请耐心等待...',
     synchronizeToMeao: '应用同步状态',
     notSupportContainerApp: 'can not support container app.',
-    syncTitleTip: '应用仓库支持集成第三方多接入边缘应用编排平台（meao），可以通过创建同步任务，将应用同步至第三方MEAO，以便于进行应用的编排部署。'
-
+    syncTitleTip: '应用仓库支持集成第三方多接入边缘应用编排平台（meao），可以通过创建同步任务，将应用同步至第三方MEAO，以便于进行应用的编排部署。',
+    uploading: '进行中',
+    failed: '失败',
+    success: '成功',
+    finished: '完成'
   },
   docs: {
     // step1: '开源MEP平台',
