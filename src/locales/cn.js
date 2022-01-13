@@ -31,6 +31,7 @@ const cn = {
     hsInvalidHintForLogout: '您通过其它页面执行了登录或注销操作，',
     hsInvalidHintForServerStopped: '后台服务升级，',
     hsInvalidHint: '当前会话已失效。请选择刷新页面或重新登录。',
+    accountInconsistent: '非常抱歉！可能是由于浏览器安全策略的原因，这里遇到了cookie被拦截从而导致帐号不同步的问题，请重新登录以尝试消除该情况。',
     refresh: '刷新',
     reLogin: '重新登录',
     appstore: '应用仓库',
