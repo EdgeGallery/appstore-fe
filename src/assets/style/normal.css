@@ -398,7 +398,7 @@ a{
   font-size: 16px;
 }
 .default_dialog .el-dialog__header{
-  background: #efefef !important;
+  background: #2E147C 70%;
   border-radius: 12px 12px 0 0;
   padding: 40px 40px 20px 40px;
 }
@@ -406,7 +406,7 @@ a{
   padding: 0 80px 0 !important;
 }
 .default_dialog .el-dialog{
-  background: #efefef;
+  background: #2E147C 70%;
   border-radius: 12px;
 }
 .top .el-input__inner{
