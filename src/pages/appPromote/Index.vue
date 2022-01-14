@@ -671,6 +671,7 @@ export default {
     height: 300px;
   }
   .el-dialog__footer {
+    background: #2E147C 70%;
     text-align: center;
   }
 }
@@ -691,7 +692,7 @@ export default {
     font-size: 20px;
     font-family: HarmonyHeiTi, sans-serif;
     font-weight: 300;
-    color: #380879;
+    color: #fff;
     letter-spacing:2px;
   }
 }
@@ -716,7 +717,7 @@ div /deep/ .el-dialog__title {
   color: #5E40C8 !important;
 }
 div /deep/.el-form-item__label {
-  color: #5E40C8 !important;
+  color: #fff !important;
   font-size: 16px !important;
   font-family: HarmonyHeiTi, sans-serif;
   font-weight: 300;
@@ -725,14 +726,15 @@ div /deep/ .el-icon-close:before {
   display: none;
 }
 div /deep/.el-dialog{
-  background-color: #f6f5f8 !important;
+  background: #2E147C 70%;
   border-radius: 12px;
 }
 div /deep/.el-dialog__header {
-  background-color: #f6f5f8 !important;
-  border-radius: 12px;
+  background: #2E147C 70%;
+  border-radius: 10px 10px 0 0;
 }
 div /deep/.el-dialog__body {
+  background: #2E147C 70%;
   padding: 10px 68px 0 0 !important;
 }
 div /deep/ .el-form-item .el-form-item__content {
@@ -742,8 +744,9 @@ div /deep/ .el-form-item .el-form-item__content {
   border: none !important;
 }
 .outAppDialog /deep/ .el-input__inner {
-  border: 1px solid #fff !important;
+  border: 1px solid #4E3494 !important;
   border-radius: 8px !important;
+  background: #4E3494;
 }
 .el-button{
   background: #fff;

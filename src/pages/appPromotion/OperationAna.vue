@@ -264,12 +264,14 @@ import { getMessages, getAllMessages } from '../../tools/api.js'
 import egPagination from 'eg-view/src/components/EgPagination.vue'
 import eCharts from 'echarts'
 import commonUtil from '../../tools/commonUtil.js'
+import { INDUSTRY } from '../../tools/constant.js'
 export default {
   components: {
     egPagination
   },
   data () {
     return {
+      appIndustry: INDUSTRY,
       width: '500px',
       visible: false,
       appData: [],
@@ -289,7 +291,8 @@ export default {
       pageNum: 1,
       messageType: '',
       prop: 'time',
-      order: 'desc'
+      order: 'desc',
+      legendWidth: '430'
     }
   },
   computed: {
@@ -599,6 +602,20 @@ export default {
         })
       })
     },
+    getHotIndustryName (appName) {
+      let _isCn = this.language === 'cn'
+      for (let item of this.appIndustry) {
+        if (item.value === appName) {
+          if (_isCn) {
+            this.legendWidth = '430'
+            return item.labelcn
+          } else {
+            this.legendWidth = '375'
+            return item.labelen
+          }
+        }
+      }
+    },
     initChart1 () {
       let industryArr = []
       let nameArr = []
@@ -607,10 +624,11 @@ export default {
         (item) => {
           let industryPullNum = this.getIndustrybeDownloadNum(item)
           if (industryPullNum > 0) {
-            nameArr.push(item)
+            let industryName = this.getHotIndustryName(item)
+            nameArr.push(industryName)
             let providerInfo = {
               value: industryPullNum,
-              name: item
+              name: industryName
             }
             industryArr.push(providerInfo)
           }
@@ -642,7 +660,7 @@ export default {
         },
         legend: {
           orient: 'vertical',
-          left: '430',
+          left: this.legendWidth,
           top: '50',
           data: nameArr,
           textStyle: {
