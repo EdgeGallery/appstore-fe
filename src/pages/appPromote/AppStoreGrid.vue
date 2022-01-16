@@ -173,6 +173,7 @@ p{
         height: 280px;
         z-index: 100;
         padding-top: 30px;
+        border-radius: 8px;
   }
     .application:hover .img-box{
         display: none;
@@ -182,14 +183,15 @@ p{
       height: 280px;
       width: 22.2%;
       margin-top: 40px;
-      border: 1px solid #e6e6e6;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
-      background: #fafafa;
+      background: rgba(250,250,250,0.3);
       margin-right: 2.5%;
       .img-box{
+        border-top-left-radius:8px ;
+        border-top-right-radius:8px ;
         height: 170px;
         width: 100%;
         img{
@@ -202,21 +204,25 @@ p{
         width: 100%;
         padding: 0 30px;
         overflow:hidden;
-        background-color: #fff;
+        background-color: #4E3494;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
         .type-size{
           display: flex;
           .type{
             font-size: 14px;
-            font-weight: 300;
-            color: #380879;
+            color: #fff;
             line-height: 35px;
             margin-right: 20px;
             min-width: 70px;
+            font-family: defaultFontLight,
+              Arial,
+              Helvetica,
+              sans-serif !important;
           }
           .size{
-            font-size: 16px;
-            font-weight: bolder;
-            color: #380879;
+            font-size: 14px;
+            color: #fff;
             line-height: 35px;
             white-space: nowrap;
             overflow: hidden;
@@ -232,8 +238,14 @@ p{
         .el-button {
           width: 31%;
           height: 30px;
-          border: 1px solid #e6e6e6;
+          color: #5944C0;
+          background: #fff;
+          border: none;
           padding: 0;
+        }
+        .el-button:hover{
+          color: #fff;
+          background: #5944C0;
         }
         .el-button.is-plain:focus {
           color: #688ef3!important;

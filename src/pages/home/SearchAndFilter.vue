@@ -28,6 +28,7 @@
         <el-input
           maxlength="50"
           size="small"
+          class="common_input"
           v-model="nameQueryVal"
           :placeholder="$t('common.appName')"
           @change="queryApp"
@@ -41,6 +42,7 @@
         <el-dropdown
           :hide-on-click="true"
           split-button
+          class="common_dropdown"
           @command="sortData"
         >
           <span class="el-dropdown-link">
