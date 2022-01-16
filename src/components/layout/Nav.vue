@@ -471,7 +471,7 @@ export default {
       sessionStorage.removeItem('userId')
     },
     enterLoginPage () {
-      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER
+      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER + '&lang=' + this.language
     },
     enter () {
       this.seen = true
@@ -490,7 +490,7 @@ export default {
       this.$router.push({ name: 'msgCenter' })
     },
     openUserAccountCenter () {
-      window.open(this.userCenterPage)
+      window.open(this.userCenterPage + '?lang=' + this.language)
     },
     jumpToForceModifyPw () {
       if (this.ifGuest) {
@@ -607,6 +607,17 @@ export default {
         this.wsSocketConn.send('')
       }, 10000)
     },
+    handleSubpageLoadedMsg (eventData) {
+      if (eventData.params.userId !== sessionStorage.getItem('userId')) {
+        this.$alert(this.$t('nav.accountInconsistent'), this.$t('promptMessage.prompt'), {
+          confirmButtonText: this.$t('nav.reLogin'),
+          type: 'warning',
+          callback: () => {
+            this.logout()
+          }
+        })
+      }
+    },
     initUserInfo () {
       getUserInfo().then(res => {
         sessionStorage.setItem('userId', res.data.userId)
@@ -637,7 +648,16 @@ export default {
           this.list.splice(2, 1)
         }
         this.startHttpSessionInvalidListener(res.data.sessId)
+        this.sendPageLoadedMsg(res.data.userId)
       })
+    },
+    sendPageLoadedMsg (userId) {
+      if (window.parent !== window) {
+        window.top.postMessage({
+          cmd: 'subpageLoaded',
+          params: { userId }
+        }, '*')
+      }
     }
   },
   mounted () {
@@ -664,6 +684,8 @@ export default {
       if (data.cmd === 'iframeLanguageChange') {
         let lang = data.params.lang
         this.changeLanguage(lang)
+      } else if (data.cmd === 'subpageLoaded') {
+        this.handleSubpageLoadedMsg(data)
       }
     })
   },

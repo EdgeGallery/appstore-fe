@@ -264,12 +264,14 @@ import { getMessages, getAllMessages } from '../../tools/api.js'
 import egPagination from 'eg-view/src/components/EgPagination.vue'
 import eCharts from 'echarts'
 import commonUtil from '../../tools/commonUtil.js'
+import { INDUSTRY } from '../../tools/constant.js'
 export default {
   components: {
     egPagination
   },
   data () {
     return {
+      appIndustry: INDUSTRY,
       width: '500px',
       visible: false,
       appData: [],
@@ -289,7 +291,8 @@ export default {
       pageNum: 1,
       messageType: '',
       prop: 'time',
-      order: 'desc'
+      order: 'desc',
+      legendWidth: '430'
     }
   },
   computed: {
@@ -599,6 +602,20 @@ export default {
         })
       })
     },
+    getHotIndustryName (appName) {
+      let _isCn = this.language === 'cn'
+      for (let item of this.appIndustry) {
+        if (item.value === appName) {
+          if (_isCn) {
+            this.legendWidth = '430'
+            return item.labelcn
+          } else {
+            this.legendWidth = '375'
+            return item.labelen
+          }
+        }
+      }
+    },
     initChart1 () {
       let industryArr = []
       let nameArr = []
@@ -607,10 +624,11 @@ export default {
         (item) => {
           let industryPullNum = this.getIndustrybeDownloadNum(item)
           if (industryPullNum > 0) {
-            nameArr.push(item)
+            let industryName = this.getHotIndustryName(item)
+            nameArr.push(industryName)
             let providerInfo = {
               value: industryPullNum,
-              name: item
+              name: industryName
             }
             industryArr.push(providerInfo)
           }
@@ -624,15 +642,15 @@ export default {
         }
         industryArr.push(defaultData)
       }
-      let colors = ['#688EF3', '#754BAC', '#1FCAA8', '#FAC858', '#EE6666']
+      let colors = ['#3AC372', '#FF4A55', '#1FCAA8', '#FAC858', '#EE6666']
       return {
         color: colors,
         title: {
           text: this.$t('apppromotion.hotIndustry'),
           align: 'left',
           textStyle: {
-            color: '#280B4E',
-            fontWeight: 'bold',
+            color: '#fff',
+            fontWeight: 'normal',
             fontSize: 14
           }
         },
@@ -642,15 +660,19 @@ export default {
         },
         legend: {
           orient: 'vertical',
-          left: '430',
+          left: this.legendWidth,
           top: '50',
-          data: nameArr
+          data: nameArr,
+          textStyle: {
+            color: '#f2f2f2',
+            fontSize: 14
+          }
         },
         series: [
           {
             name: 'Hot edge APP Distribution',
             type: 'pie',
-            radius: ['50%', '70%'],
+            radius: ['30%', '70%'],
             avoidLabelOverlap: false,
             center: [ '33%', '50%' ],
             label: {
@@ -668,6 +690,76 @@ export default {
               show: true
             },
             data: industryArr
+          },
+          {
+            radius: ['65%', '75%'],
+            center: ['33%', '50%'],
+            type: 'pie',
+            label: {
+              normal: {
+                show: false
+              },
+              emphasis: {
+                show: false
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              },
+              emphasis: {
+                show: false
+              }
+            },
+            animation: false,
+            tooltip: {
+              show: false
+            },
+            itemStyle: {
+              normal: {
+                color: '#4E3494'
+              }
+            },
+            data: [
+              {
+                value: 1
+              }
+            ]
+          },
+          {
+            radius: ['30%', '35%'],
+            center: ['33%', '50%'],
+            type: 'pie',
+            label: {
+              normal: {
+                show: false
+              },
+              emphasis: {
+                show: false
+              }
+            },
+            labelLine: {
+              normal: {
+                show: false
+              },
+              emphasis: {
+                show: false
+              }
+            },
+            animation: false,
+            tooltip: {
+              show: false
+            },
+            itemStyle: {
+              normal: {
+                color: '#4E3494'
+              }
+            },
+            data: [
+              {
+                value: 1
+              }
+            ]
           }
         ]
       }
@@ -716,8 +808,9 @@ export default {
         title: {
           text: this.$t('apppromotion.appPushStatistic'),
           textStyle: {
-            color: '#280B4E',
-            fontWeight: 'bold',
+            color: '#fff',
+            fontWeight: 'normal',
+            fontStyle: 'normal',
             fontSize: 14
           }
         },
@@ -736,6 +829,12 @@ export default {
         xAxis: [
           {
             type: 'category',
+            axisLine: {
+              lineStyle: {
+                color: '#f4f3f7',
+                width: 0.5
+              }
+            },
             axisLabel: {
               interval: 0,
               formatter: function (value, index) {
@@ -743,12 +842,32 @@ export default {
                 return value.length > 9 ? v : value
               }
             },
+            splitLine: {
+              type: true,
+              lineStyle: {
+                color: '#4E3494',
+                type: 'dashed'
+              }
+            },
             data: top5Name
           }
         ],
         yAxis: [
           {
+            axisLine: {
+              lineStyle: {
+                color: '#f4f3f7',
+                width: 0.5
+              }
+            },
             type: 'value',
+            splitLine: {
+              type: true,
+              lineStyle: {
+                color: '#4E3494',
+                type: 'dashed'
+              }
+            },
             name: this.$t('apppromotion.pushChartUnit')
           }
         ],
@@ -757,11 +876,19 @@ export default {
             name: 'PUSH',
             type: 'bar',
             stack: 'name',
-            barWidth: 40,
+            barWidth: 18,
             data: appStorePushArr,
             itemStyle: {
+              barBorderRadius: [10, 10, 0, 0],
               normal: {
-                color: '#688EF3'
+                barBorderRadius: [30, 30, 0, 0],
+                color: new eCharts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: '#03D4B9'
+                }, {
+                  offset: 1,
+                  color: '#54AAF3'
+                }])
               }
             }
           }
@@ -812,8 +939,9 @@ export default {
         title: {
           text: this.$t('apppromotion.appNoticeStatistic'),
           textStyle: {
-            color: '#280B4E',
-            fontWeight: 'bold',
+            color: '#fff',
+            fontWeight: 'normal',
+            fontStyle: 'normal',
             fontSize: 14
           }
         },
@@ -832,6 +960,12 @@ export default {
         xAxis: [
           {
             type: 'category',
+            axisLine: {
+              lineStyle: {
+                color: '#f4f3f7',
+                width: 0.5
+              }
+            },
             axisLabel: {
               interval: 0,
               formatter: function (value, index) {
@@ -845,6 +979,19 @@ export default {
         yAxis: [
           {
             type: 'value',
+            axisLine: {
+              lineStyle: {
+                color: '#f4f3f7',
+                width: 0.5
+              }
+            },
+            splitLine: {
+              type: true,
+              lineStyle: {
+                color: '#4E3494',
+                type: 'dashed'
+              }
+            },
             name: this.$t('apppromotion.pushChartUnit')
           }
         ],
@@ -853,11 +1000,19 @@ export default {
             name: 'NOTICE',
             type: 'bar',
             stack: 'name',
-            barWidth: 40,
+            barWidth: 18,
             data: appStoreNoticeArr,
             itemStyle: {
+              barBorderRadius: [10, 10, 0, 0],
               normal: {
-                color: '#BB9AF5'
+                barBorderRadius: [30, 30, 0, 0],
+                color: new eCharts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: '#C16BE2'
+                }, {
+                  offset: 1,
+                  color: '#6931FC'
+                }])
               }
             }
           }
@@ -880,21 +1035,18 @@ export default {
                 type: 'line',
                 stack: this.$t('apppromotion.totalNum'),
                 data: pullAppNum,
+                smooth: true,
                 areaStyle: {
                   normal: {
                     color: new eCharts.graphic.LinearGradient(
                       0, 0, 0, 1, [
                         {
                           offset: 0,
-                          color: '#E0DDFC'
-                        },
-                        {
-                          offset: 0.5,
-                          color: '#F2F1FE'
+                          color: 'rgba(67, 246, 173, 0.6)'
                         },
                         {
                           offset: 1,
-                          color: '#FFFFFF'
+                          color: 'rgba(67, 246, 173, 0.1)'
                         }
                       ])
                   }
@@ -911,8 +1063,9 @@ export default {
         title: {
           text: this.$t('apppromotion.appDownloadTrend'),
           textStyle: {
-            color: '#280B4E',
-            fontWeight: 'bold',
+            color: '#fff',
+            fontWeight: 'normal',
+            fontStyle: 'normal',
             fontSize: 14
           }
         },
@@ -922,7 +1075,11 @@ export default {
         legend: {
           data: sourceAppStoreArr,
           right: 30,
-          top: 30
+          top: 30,
+          textStyle: {
+            color: '#f2f2f2',
+            fontSize: 14
+          }
         },
         grid: {
           left: '6%',
@@ -932,6 +1089,12 @@ export default {
         },
         xAxis: {
           type: 'category',
+          axisLine: {
+            lineStyle: {
+              color: '#f4f3f7',
+              width: 0.5
+            }
+          },
           boundaryGap: false,
           axisLabel: {
             interval: 0
@@ -940,7 +1103,20 @@ export default {
         },
         yAxis: {
           type: 'value',
+          axisLine: {
+            lineStyle: {
+              color: '#f4f3f7',
+              width: 0.5
+            }
+          },
           minInterval: 1,
+          splitLine: {
+            type: true,
+            lineStyle: {
+              color: '#4E3494',
+              type: 'dashed'
+            }
+          },
           name: this.$t('apppromotion.pushChartUnit')
         },
         series: sourceAppStorePullArr
@@ -1021,12 +1197,14 @@ export default {
         height: 375px;
         display: flex;
         justify-content: space-between;
+        background: #3E279B;
       }
       .levelBottom{
         width: 100% ;
         height: 375px;
         display: flex;
         justify-content: space-between;
+        background: #3E279B;
       }
       .chartDesc{
         width: 100%;
@@ -1045,7 +1223,8 @@ export default {
         .mychart{
           width: 100%;
           height: 325px;
-          background: #FFFFFF;
+          background: #2E147C 70%;
+          border-radius: 16px;
         }
       }
       .mychartDiv2{
@@ -1054,7 +1233,8 @@ export default {
         .mychart{
           width: 100%;
           height: 100%;
-          background: #FFFFFF;
+          background: #2E147C 70%;
+          border-radius: 16px;
         }
       }
     }
@@ -1066,23 +1246,26 @@ export default {
     }
   }
   .my-app-content {
-    background: white;
+    background: #2E147C 70%;
     padding: 20px;
     width: 73.64%;
     margin: auto;
     min-width: 1200px;
+    border-radius: 16px 16px 0 0;
   }
   .paginations {
     width:73.64%;
     height: 60px;
     margin: auto;
     min-width: 1200px;
-    background-color: #fff;
+    background: #2E147C 70%;
     position: relative;
     .pagination{
     position: absolute;
     right: 20px;
     bottom: 20px;
+    border-radius: 0 0 16px 16px;
+    background: #2E147C 70%;
     }
   }
 }
@@ -1166,7 +1349,7 @@ export default {
 }
 div /deep/ .headerStyle {
   border-right: none !important;
-  background: #EDEEF8 !important;
+  background: #4E3494 !important;
 }
 div /deep/.el-table th  .cell {
   font-size: 20px;

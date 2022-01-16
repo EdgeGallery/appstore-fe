@@ -176,7 +176,8 @@ p{
         border-radius: 8px;
   }
     .application:hover .img-box{
-        display: none;
+      border-radius: 8px 8px 0 0;
+      display: none;
   }
     .application {
      border-radius: 8px ;
@@ -222,6 +223,7 @@ p{
           }
           .size{
             font-size: 14px;
+
             color: #fff;
             line-height: 35px;
             white-space: nowrap;
@@ -237,10 +239,11 @@ p{
         margin-top: 20px;
         .el-button {
           width: 31%;
-          height: 30px;
           color: #5944C0;
           background: #fff;
           border: none;
+          height: 25px;
+          border: 1px solid #e6e6e6;
           padding: 0;
         }
         .el-button:hover{
@@ -248,17 +251,15 @@ p{
           background: #5944C0;
         }
         .el-button.is-plain:focus {
-          color: #688ef3!important;
+          color: #fff;
         }
       }
     }
     .application:hover{
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
       background-color: #fff;
-
     }
   }
-
 @media screen and (max-width:1890px) {
   .content{
     width: calc(33.33% - 30px)!important;

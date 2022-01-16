@@ -252,7 +252,6 @@ blockquote,q {
 
 blockquote:before,blockquote:after,q:before,q:after {
     content: '';
-    content: none;
 }
 
 textarea {
@@ -497,7 +496,7 @@ a{
   border-radius: 50%;
 }
 .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next {
-  background-color: #fff !important;
+  background: #2E147C 70%;
 }
 
 .el-button.linearGradient2{
@@ -561,7 +560,7 @@ a{
   font-size: 16px;
 }
 .default_dialog .el-dialog__header{
-  background: #efefef !important;
+  background: #2E147C 70%;
   border-radius: 12px 12px 0 0;
   padding: 40px 40px 20px 40px;
 }
@@ -569,13 +568,14 @@ a{
   padding: 0 80px 0 !important;
 }
 .default_dialog .el-dialog{
-  background: #efefef;
+  background: #2E147C 70%;
   border-radius: 12px;
 }
 .top .el-input__inner{
   border: none !important;
   border-bottom: 1px solid #dddddd !important;
   border-radius: 0!important;
+  background: #2E147C 70%;
 }
 
 .el-progress-bar__inner{

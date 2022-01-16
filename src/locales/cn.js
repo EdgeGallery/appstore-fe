@@ -31,6 +31,7 @@ const cn = {
     hsInvalidHintForLogout: '您通过其它页面执行了登录或注销操作，',
     hsInvalidHintForServerStopped: '后台服务升级，',
     hsInvalidHint: '当前会话已失效。请选择刷新页面或重新登录。',
+    accountInconsistent: '非常抱歉！可能是由于浏览器安全策略的原因，这里遇到了cookie被拦截从而导致帐号不同步的问题，请重新登录以尝试消除该情况。',
     refresh: '刷新',
     reLogin: '重新登录',
     appstore: '应用仓库',
@@ -150,7 +151,7 @@ const cn = {
     downloadPrompt: '您没有权限下载！',
     downloadDelete: '您没有权限删除！',
     synchronizePrompt: '您没有权限，只有管理员可以同步',
-    synchronizeToMEAO: '同步应用到MEAO',
+    synchronizeToMEAO: '创建同步任务',
     modify: '修改',
     noDataNotice: '暂无数据',
     typeError: '格式错误',
@@ -507,9 +508,13 @@ const cn = {
     waitUploadApp: '正在上传应用,请耐心等待...',
     waitDistributeApp: '正在分发应用,请耐心等待...',
     waitGetInstantiatedInfo: '正在获取实例化信息,请耐心等待...',
-    synchronizeToMeao: '同步应用到 MEAO',
-    notSupportContainerApp: 'can not support container app.'
-
+    synchronizeToMeao: '应用同步状态',
+    notSupportContainerApp: 'can not support container app.',
+    syncTitleTip: '应用仓库支持集成第三方多接入边缘应用编排平台（meao），可以通过创建同步任务，将应用同步至第三方MEAO，以便于进行应用的编排部署。',
+    uploading: '进行中',
+    failed: '失败',
+    success: '成功',
+    finished: '完成'
   },
   docs: {
     // step1: '开源MEP平台',
