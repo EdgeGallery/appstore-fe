@@ -201,7 +201,8 @@
 
 <script>
 import { getUserInfo, logoutApi, myApp } from '../../tools/api.js'
-import { PROXY_PREFIX_CURRENTSERVER } from '../../tools/constant.js'
+import { PROXY_PREFIX_CURRENTSERVER, PLATFORMNAME_EG } from '../../tools/constant.js'
+import { common } from '../../tools/comon.js'
 import messageDialog from '../../pages/msgCenter/MessageDialog.vue'
 export default {
   name: 'HeaderComp',
@@ -653,10 +654,18 @@ export default {
     },
     sendPageLoadedMsg (userId) {
       if (window.parent !== window) {
-        window.top.postMessage({
-          cmd: 'subpageLoaded',
-          params: { userId }
-        }, '*')
+        let _possibleTopWinOriginUrlList = []
+        if (PROXY_PREFIX_CURRENTSERVER) {
+          _possibleTopWinOriginUrlList.push(window.location.origin)
+        } else {
+          _possibleTopWinOriginUrlList.push(common.getPlatformUrlPrefix(PLATFORMNAME_EG))
+        }
+        _possibleTopWinOriginUrlList.forEach(_possibleTopWinOriginUrl => {
+          window.top.postMessage({
+            cmd: 'subpageLoaded',
+            params: { userId }
+          }, _possibleTopWinOriginUrl)
+        })
       }
     }
   },
