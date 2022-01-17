@@ -185,7 +185,7 @@ const en = {
     downloadPrompt: 'You do not have permission to download!',
     downloadDelete: 'You do not have permission to delete!',
     synchronizePrompt: 'You do not have permission. Only administrators can synchronize',
-    synchronizeToMEAO: 'Sync APP To MEAO',
+    synchronizeToMEAO: 'Create Sync Task',
     modify: 'Modify',
     noDataNotice: 'No data available',
     typeError: 'Format error',
@@ -523,8 +523,13 @@ const en = {
     waitUploadApp: 'Aploading app, please wait...',
     waitDistributeApp: 'App is being distributed, please wait patiently...',
     waitGetInstantiatedInfo: 'Getting instantiation information, please wait patiently...',
-    synchronizeToMeao: 'Sync APP To MEAO',
-    notSupportContainerApp: 'can not support container app.'
+    synchronizeToMeao: 'App Sync',
+    notSupportContainerApp: 'can not support container app.',
+    syncTitleTip: 'The application store supports the integration of the third-party multi access MEC Application Orchestration (MEAO). You can synchronize applications to the third-party MEAO by creating synchronization tasks to facilitate the orchestration and deployment of applications.',
+    uploading: 'Uploading',
+    failed: 'Failed',
+    success: 'Success',
+    finished: 'Finished'
   },
   docs: {
     step1: 'Open source MEP platform',

@@ -150,7 +150,7 @@ const cn = {
     downloadPrompt: '您没有权限下载！',
     downloadDelete: '您没有权限删除！',
     synchronizePrompt: '您没有权限，只有管理员可以同步',
-    synchronizeToMEAO: '同步应用到MEAO',
+    synchronizeToMEAO: '创建同步任务',
     modify: '修改',
     noDataNotice: '暂无数据',
     typeError: '格式错误',
@@ -506,9 +506,13 @@ const cn = {
     waitUploadApp: '正在上传应用,请耐心等待...',
     waitDistributeApp: '正在分发应用,请耐心等待...',
     waitGetInstantiatedInfo: '正在获取实例化信息,请耐心等待...',
-    synchronizeToMeao: '同步应用到 MEAO',
-    notSupportContainerApp: 'can not support container app.'
-
+    synchronizeToMeao: '应用同步',
+    notSupportContainerApp: 'can not support container app.',
+    syncTitleTip: '应用仓库支持集成第三方多接入边缘计算应用编排器（MEAO），可以通过创建同步任务，将应用同步至第三方MEAO，以便进行应用的编排部署。',
+    uploading: '进行中',
+    failed: '失败',
+    success: '成功',
+    finished: '完成'
   },
   docs: {
     // step1: '开源MEP平台',
