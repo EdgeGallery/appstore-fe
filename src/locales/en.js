@@ -525,7 +525,7 @@ const en = {
     waitGetInstantiatedInfo: 'Getting instantiation information, please wait patiently...',
     synchronizeToMeao: 'App Sync',
     notSupportContainerApp: 'can not support container app.',
-    syncTitleTip: 'The application store supports the integration of the third-party multi access MEC Application Orchestration (MEAO). You can synchronize applications to the third-party MEAO by creating synchronization tasks to facilitate the orchestration and deployment of applications.',
+    syncTitleTip: 'The application store supports the integration of the third-party multi access MEC application orchestration (MEAO). You can synchronize applications to the third-party MEAO by creating synchronization tasks to facilitate the orchestration and deployment of applications.',
     uploading: 'Uploading',
     failed: 'Failed',
     success: 'Success',
