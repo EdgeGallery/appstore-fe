@@ -16,15 +16,6 @@
 
 <template>
   <div class="app-list">
-    <div
-      class="el-upload__tip"
-      slot="tip"
-    >
-      <em class="el-icon-warning" />
-      <span class="warning-tip">
-        {{ $t('store.syncTitleTip') }}
-      </span>
-    </div>
     <div class="app_synchronize">
       <el-dropdown
         @command="synchronizePackage"
@@ -100,9 +91,9 @@
               v-if="scope.row.status==='success'"
               class="success"
             />
-            <span v-if="scope.row.status==='uploading'">{{ $t('store.uploading') }}</span>
-            <span v-if="scope.row.status==='failed'">{{ $t('store.failed') }}</span>
-            <span v-if="scope.row.status==='success'">{{ $t('store.success') }}</span>
+            <span v-if="scope.row.status==='uploading'">进行中</span>
+            <span v-if="scope.row.status==='failed'">失败</span>
+            <span v-if="scope.row.status==='success'">成功</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -132,8 +123,6 @@
 </template>
 
 <script>
-import en from '../../locales/en.js'
-import cn from '../../locales/cn.js'
 import {
   getProgressByPackageId,
   synchronizePackageApi,
@@ -174,14 +163,12 @@ export default {
   },
   methods: {
     format (percentage) {
-      let _isCn = this.language === 'cn'
-      let _store = _isCn ? cn.store : en.store
       for (let item of this.testColor) {
         if (item.color === true && item.percentage === percentage) {
-          return _store.failed
+          return '失败'
         }
       }
-      return percentage === 100 ? _store.finished : `${percentage}%`
+      return percentage === 100 ? '完成' : `${percentage}%`
     },
     filterTagTable (filters) {
       this.systemName = filters
@@ -334,22 +321,6 @@ export default {
 <style lang='less'>
 .app-list{
   background: #fff;
-  .el-upload__tip {
-      margin-left: 52px;
-      padding-top: 55px;
-      width: 72%;
-  }
-  .el-icon-warning{
-    color: #b6a9f7;
-    margin-right: 5px;
-    font-size: 16px;
-  }
-  .warning-tip{
-    color: #5E40C8;
-    font-size: 12px;
-    font-family: HarmonyHeiTi, sans-serif;
-
-  }
   .el-pagination {
     margin-bottom: 30px;
     margin-right: 30px;
@@ -360,7 +331,7 @@ export default {
   }
   .packageTable {
     font-size: 16px;
-    margin: -15px 63px;
+    margin: 50px 63px;
     .el-table td{
       padding: 0;
       height: 60px;
@@ -409,8 +380,8 @@ export default {
   }
   .app_synchronize {
     position: relative;
-    top: -60px;
-    left: 79%;
+    top: 30px;
+    left: 84%;
     .el-button--primary {
       width: 160px;
       background: linear-gradient(122deg, #4444D0, #6724CB);
@@ -418,7 +389,7 @@ export default {
       font-size: 16px;
       font-family: HarmonyHeiTi, sans-serif;
       height: 40px;
-      border-radius: 12px;
+      border-radius: 8px;
       font-weight: 300;
       padding: 0px;
     }
@@ -477,7 +448,7 @@ export default {
         font-size: 20px;
         font-family: HarmonyHeiTi, sans-serif;
         height: 40px;
-        border-radius: 12px;
+        border-radius: 8px;
         font-weight: 300;
       }
     }

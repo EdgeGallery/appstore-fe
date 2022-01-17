@@ -16,18 +16,24 @@
 
 <template>
   <div class="appStoreHome">
-    <div class="common_title defaultFontBlod clear">
+    <div class="title_top title_left defaultFontBlod clear appStoreTop">
       {{ $t('nav.appstore') }}
+      <span class="line_bot1" />
       <el-button
-        class="uploadApp_btn common_button defaultFontLight"
+        class="uploadApp_btn linearGradient"
         id="myapp_checktest"
         @click="uploadPackage"
       >
+        <img
+          src="../../assets/images/uploadApp.png"
+          alt=""
+          class="uploadApp"
+        >
         {{ $t('store.uploadApp') }}
       </el-button>
     </div>
     <div class="appMainContent">
-      <el-row class="app-content common_background">
+      <el-row class="app-content">
         <el-col
           :span="24"
           class="search"
@@ -266,7 +272,19 @@ export default {
   .uploadApp_btn{
     position:absolute;
     right: 0;
-    bottom: 40px;
+    bottom: 30px;
+    height: 50px;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 25px;
+    padding: 0 40px 0 35px;
+    box-shadow: 0px 16px 10px  rgba(83,201,208,0.3);
+  }
+  .appStoreTop{
+    width: 73.64%;
+    min-width: 1200px;
+    margin:0 auto ;
+    padding-left: 140px !important;
   }
   .uploadApp{
     width: 20px;
@@ -291,6 +309,7 @@ export default {
   .appMainContent {
     box-sizing: border-box;
     .app-content {
+      background: white;
       padding: 30px 0px 30px 30px;
       box-sizing: border-box;
       width: 73.64%;

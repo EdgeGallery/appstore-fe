@@ -849,50 +849,37 @@ export default {
     width: 911px;
     max-height: 745px;
     border-radius: 20px;
-    background: rgba(46, 20, 124, 0.7);
+    background: #EFEFEF;
   }
   .el-dialog__header {
-    background: rgba(46, 20, 124, 0.7) !important;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-  }
-  .el-dialog__body{
-     background: rgba(46, 20, 124, 0.7) !important;
-     padding: 0 !important;
-  }
-  .el-dialog__footer{
-    margin-top: -20px;
-    background: rgba(46, 20, 124, 0.7) !important;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    background: #EFEFEF !important;
+    border-radius: 20px;
   }
   .modify_header{
     display: inline-flex;
     margin-bottom: 20px;
-    margin-left: 20px;
     .title_icon{
-      background: #43F6AD;
-      border-radius: 50%;
-      height: 9px;
-      width: 9px;
-      position: relative;
-      top: 10px;
+      padding: 0 8px;
+      margin: 7px 5px 0px;
+      height: 16px;
+      background-image: linear-gradient(127deg, #54aaf3, #53dabd);
     }
     .header-title{
+      background: #EFEFEF;
       margin-left: 10px;
-      color: #fff;
-      font-size: 16px;
+      color: #380879;
+      font-size: 20px;
     }
   }
   .el-form-item__label{
-    font-size: 14px;
-    color: #fff;
+    font-size: 16px;
+    color: #380879;
   }
 
   .el-form-item {
     margin-bottom: 17px;
     .app-upload{
-      background: #4E3494;
+      background: #59508f;
       border: none;
       color: #FFFFFF;
       width: 169px;
@@ -901,9 +888,7 @@ export default {
     .el-input__inner {
       border-radius: 10px;
       width: 95%;
-      color: #C9BDF3;
-      border: none;
-      background: #4E3494;
+      color: #380879;
     }
     .el-input__suffix{
       right: 79px;
@@ -914,7 +899,7 @@ export default {
         height: 80px;
         border-radius: 10px;
         width: 100%;
-        color: #fff;
+        color: #380879;
       }
     }
   }
@@ -927,7 +912,7 @@ export default {
       border-color: #54C3D7;
       background-color:#54C3D7;
       .warning-tip{
-        color: #fff;
+        color: #380879;
         font-size: 12px;
       }
     }
@@ -938,22 +923,22 @@ export default {
     }
   }
   .warning-tip{
-    color: #fff;
+    color: #380879;
     font-size: 12px;
   }
   .footer-button{
     margin-bottom: 25px;
     background: #fff;
-    color: #5944C0;
+    color: #5844BE;
     border-radius: 10px;
     border: none;
   }
   .el-radio__label{
-    color: #fff;
+    color: #380879;
     font-size: 12px;
   }
   .el-radio__input.is-checked + .el-radio__label {
-    color: #fff;
+    color: #380879;
 }
   .el-radio__input.is-checked .el-radio__inner {
     border-color: #54C3D7;
@@ -964,14 +949,14 @@ export default {
      color: #fff;
   }
   .el-checkbox__input.is-checked + .el-checkbox__label {
-    color: #fff;
+    color: #380879;
     font-size: 12px;
   }
   .el-checkbox__label {
     display: inline-block;
     padding-left: 10px;
     line-height: 19px;
-    color: #fff;
+    color: #380879;
     font-size: 12px;
 }
   .el-icon-warning{
@@ -982,16 +967,16 @@ export default {
   .uploadMin{
     float: left;
     .el-button--primary.is-plain {
-      background: #4E3494;
+      background: #59508f;
       border: none;
-      color: #fff;
+      color: #FFFFFF;
       width: 169px;
       height: 36px;
     }
     .uploader-btn {
-      background: #4E3494;
+      background: #59508f;
       border: none;
-      color: #fff;
+      color: #FFFFFF;
       width: 169px;
       height: 36px;
       text-align: center;
@@ -1013,7 +998,7 @@ export default {
     .lableStyle{
       margin-left: 10px;
       font-size: 12px;
-      color: #fff;
+      color: #606266;
       input{
         background: #688ef3;
       }
@@ -1039,7 +1024,7 @@ export default {
     .el-button--primary{
       background: #59508f;
       border: none;
-      color: #fff;
+      color: #FFFFFF;
       width: 169px;
       height: 36px;
     }
@@ -1081,7 +1066,7 @@ export default {
         right: 0;
       }
       .active{
-        color: #fff;
+        color: #409EFF;
       }
     }
   }
@@ -1092,7 +1077,7 @@ export default {
     z-index: 99;
   }
   .upIcon.active{
-    color: #fff;
+    color: #409EFF;
   }
   .el-form-item.icon{
     content: '';
@@ -1133,8 +1118,5 @@ export default {
 }
 .zZindex {
   z-index: 3000 !important;
-}
-.el-icon-close:before{
-   color: #fff !important;
 }
 </style>
