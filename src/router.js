@@ -381,6 +381,14 @@ export default new Router({
           meta: {
             id: '2.12'
           }
+        },
+        {
+          path: 'senceDetail',
+          name: 'senceDetail',
+          component: () => import('./pages/index/senceDetail.vue'),
+          meta: {
+            id: '2.13'
+          }
         }
       ]
     }

@@ -20,7 +20,7 @@
   >
     <el-table
       :data="appData"
-      class="tableStyle"
+      class="common_table"
       style="width: 100%"
     >
       <el-table-column
@@ -114,7 +114,7 @@
           <el-button
             id="applist_detail"
             @click="enterDetail(scope.row)"
-            class="detailStyle"
+            class="common_operationBtn"
           >
             {{ $t('common.detail') }}
           </el-button>
@@ -122,7 +122,7 @@
             id="applist_delete"
             :disabled="!isDelete || userId === scope.row.userId ? false : true"
             @click="deleteRow(scope.row)"
-            class="detailStyle"
+            class="common_operationBtn"
           >
             {{ $t('common.delete') }}
           </el-button>
@@ -206,7 +206,7 @@ export default {
 }
 
 </script>
-<style lang='less' scoped>
+<style lang='less'>
 .app-list{
   .detailStyle{
     background-color: #EFEFEF;

@@ -131,15 +131,13 @@ export default {
     box-sizing: border-box;
     margin-bottom: 20px;
     .application {
-      box-shadow: 0px 1.5px 20px #dad8d8 !important;
-      -webkit-box-shadow: 0px 1.5px 20px #dad8d8 !important;
       border-radius: 8px;
       width: 97%;
       height: 234px;
       position: relative;
       .img-box {
         position: relative;
-        background-color: #fff;
+        background-color: rgba(250, 250, 250, 0.2);
         box-sizing: border-box;
         text-align: center;
         width: 100%;
@@ -159,7 +157,7 @@ export default {
         background-image: url(../../assets/images/experienceFlagen.png) ;
         background-size: 100% 100%;
         position: relative;
-        background-color: #fff;
+        background-color: rgba(250, 250, 250, 0.2);
         box-sizing: border-box;
         text-align: center;
         width: 100%;
@@ -178,7 +176,7 @@ export default {
         background-image: url(../../assets/images/experienceFlag.png) ;
         background-size: 100% 100%;
         position: relative;
-        background-color: #fff;
+        background-color: rgba(250, 250, 250, 0.2);
         box-sizing: border-box;
         text-align: center;
         width: 100%;
@@ -196,14 +194,14 @@ export default {
       .scoreMode{
         border-radius: 0 0 8px 8px;
         width: 100%;
-        background-color: #F9F9F9;
+        background-color: #4E3494;
         position: absolute;
         bottom: 0;
+        color: #fff;
         .appName{
           font-size: 20px;
           font-family: HarmonyOS Sans SC, sans-serif;
           font-weight: 400;
-          color: #3E3E3E;
           padding-top: 4px;
           padding-left: 10px;
           line-height: 36px;
@@ -238,7 +236,6 @@ export default {
               font-size: 14px;
               font-family: HarmonyOS Sans SC, sans-serif;
               font-weight: 300;
-              color: #929292;
             }
           }
           .deployMode{
@@ -246,17 +243,9 @@ export default {
             font-size: 14px;
             font-family: HarmonyOS Sans SC, sans-serif;
             font-weight: 300;
-            color: #414040;
           }
         }
       }
-    }
-    .application:hover{
-      transition: transform .3s ease-in-out, box-shadow .3s cubic-bezier(0, 0, 0, .715), border .3s linear .1s;
-      box-shadow: 0px 3px 3px #c8c8c8 !important;
-      -webkit-box-shadow: 0px 3px 3px #c8c8c8 !important;
-      background-color: #fff;
-      transform:translatey(-7px)
     }
   }
   @media screen and (max-width: 1800px) and (min-width: 1200px){
