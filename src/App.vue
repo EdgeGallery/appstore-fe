@@ -48,7 +48,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-width: 1200px;
-  background: #F0F2F5;
+  background: #3e279b;
   overflow: auto;
 }
 .view{

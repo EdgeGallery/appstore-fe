@@ -16,10 +16,23 @@
 
 @font-face
 {
-  font-family: HarmonyOS_Sans_Regular;
-  src: url(../fonts/Harmony-Regular.ttf);
+  font-family: defaultFont;
+  src: url(../fonts//Harmony-Regular.ttf);
+}
+@font-face
+{
+  font-family: defaultFontBlod;
+  src: url(../fonts/Harmony-SemiBold.ttf);
+}
+@font-face {
+  font-family: defaultFontUltraLight;
+  src: url(../fonts/Harmony-UltraLight.ttf);
 }
 
+@font-face {
+  font-family: defaultFontLight;
+  src: url(../fonts/Harmony-Light.ttf);
+}
 html, body, #app{
   height: 100%;
 }
@@ -49,7 +62,174 @@ body,div,p,a,h1,h2,h3,h4,h5,ul,li,span {
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
     display: block;
 }
+.defaultFont button{
+  font-family:defaultFont, Arial, Helvetica, sans-serif;
+}
+.defaultFont{
+  font-family:defaultFont, Arial, Helvetica, sans-serif;
+}
+.defaultFontBlod{
+  font-family:defaultFontBlod, Arial, Helvetica, sans-serif;
+}
+.fontUltraLight {
+  font-family: defaultFontUltraLight,
+    Arial,
+    Helvetica,
+    sans-serif !important;
+}
 
+.defaultFontLight {
+  font-family: defaultFontLight,
+    Arial,
+    Helvetica,
+    sans-serif !important;
+}
+.defaultFontLight button {
+  font-family: defaultFontLight,
+    Arial,
+    Helvetica,
+    sans-serif !important;
+}
+.hover_pointer:hover{
+  cursor: pointer;
+}
+.common_background{
+  background: rgba(46, 20, 124, 0.7);
+}
+.common_title{
+  padding: 54px 0 54px !important;
+  position: relative;
+  margin-left: 140px;
+  color: #fff;
+  letter-spacing: 4px;
+  width: 73.64%;
+  min-width: 1200px;
+  margin:0 auto ;
+  font-size: 30px;
+}
+.common_button.el-button{
+  background: #3E279B;
+  border: 1px solid rgba(51, 26, 133, 0.5);
+  color: #fff;
+  padding: 16px 49px;
+  border-radius: 16px;
+  font-size: 20px;
+  box-shadow: inset 0px 0px 1px 1px  rgba(256, 256, 256, 0.5 );
+}
+.common_button.el-button:hover{
+  font-weight: bold;
+}
+.common_dropdown .el-button {
+  border: 1px solid rgba(250, 250, 250, 0.6) !important;
+  background: rgba(46, 20, 124, 0.7);
+  color: rgba(250, 250, 250, 0.6);
+}
+.common_input .el-input__inner{
+  border: 1px solid rgba(250, 250, 250, 0.6) !important;
+  background: rgba(46, 20, 124, 0.7);
+  color: rgba(250, 250, 250, 0.6);
+}
+.el-dropdown-menu{
+  background:#2E147C ;
+  border: none !important;
+  color: rgba(250, 250, 250, 0.6);
+}
+.el-dropdown-menu__item{
+  color: rgba(250, 250, 250, 0.6);
+  border: none;
+}
+.el-popper .popper__arrow{
+  display: none;
+}
+.el-dropdown-menu__item:hover{
+ background-color: rgba(96, 86, 154, 0.5) !important;
+ border: none !important;
+}
+.el-checkbox-button__inner{
+  background:rgba(46, 20, 124, 0.7) !important;
+  color: rgba(250, 250, 250, 0.6);
+}
+.el-checkbox-button.is-checked .el-checkbox-button__inner{
+  color: #fff !important;
+}
+.el-checkbox-button__inner:hover{
+  color: #fff !important;
+}
+.el-popover{
+  background: #2E147C !important;
+  border: none;
+  border-radius: 6px;
+  color: rgba(250, 250, 250, 0.6);
+}
+.common_table.el-table{
+  background: none;
+}
+.common_table.el-table th{
+  background: #4E3494;
+  padding: 0;
+}
+.common_table.el-table tbody td{
+  border-bottom:2px solid #4E3494;
+  background: none !important;
+  height: 60px;
+  padding: none;
+}
+.common_table.el-table tr {
+  background: none;
+}
+.common_table.el-table th.is-leaf, .el-table td {
+   border-bottom: none;
+}
+.common_table.el-table th .cell {
+  color: #fff;
+  height: 51px;
+  line-height: 51px;
+  font-size: 16px;
+  font-family: defaultFontLight,
+    Arial,
+    Helvetica,
+    sans-serif !important;
+  word-wrap : break-word ;
+  word-break:keep-all;
+  max-height: 60px;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.common_table.el-table .cell{
+  height: 60px;
+  color: #fff;
+  line-height: 60px;
+  font-family: defaultFontLight,
+  Arial,
+  Helvetica,
+  sans-serif !important;
+}
+.common_operationBtn.el-button{
+  background: #4E3494;
+  padding: 5px 10px;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+}
+.common_operationBtn:hover{
+  background: #fff;
+  color: #4E3494;
+}
+.common_dialog.el-dialog{
+  background: red !important;
+}
+.common_dialog.el-dialog__header{
+  background: #2E147C !important;
+}
+.common_dialog.el-dialog__body{
+  background: #2E147C;
+}
+.common_dialog.el-dialog__footer{
+  background: #2E147C;
+}
 .el-dialog__title {
   color: #fff;
 }
@@ -72,7 +252,6 @@ blockquote,q {
 
 blockquote:before,blockquote:after,q:before,q:after {
     content: '';
-    content: none;
 }
 
 textarea {
@@ -146,12 +325,15 @@ a{
 /* Normalization of search box and button components */
   /* Search box input add class search_input */
 .search_input .el-input__inner{
-  height: 40px;
-  line-height: 40px;
+  height: 30px;
+  line-height: 30px;
   min-width: 200px;
+  border: 1px solid rgba(250, 250, 250, 0.6) !important;
+  background: rgba(46, 20, 124, 0.7) !important;
+  color: rgba(250, 250, 250, 0.6) !important;
 }
 .search_input .el-input__icon{
-  line-height: 40px;
+  line-height: 30px;
 }
 .el-button{
   padding: 8px 24px;
@@ -246,22 +428,6 @@ a{
   border: 0px;
   box-shadow: 0px 0 0 0 #a4bbf8;
 }
-.tableStyle.el-table th .cell {
-  word-wrap : break-word ;
-  word-break:keep-all;
-  max-height: 50px;
-  font-size: 20px;
-  display: -webkit-box;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-.el-table td .cell {
-  font-size: 14px;
-  font-weight: 400;
-  color: #62517A;
-}
 .tableStyle.el-table tbody td {
   border-bottom: 2px solid #f5eeff;
   padding: 10px 0 !important;
@@ -322,9 +488,6 @@ a{
  .el-table::before, .el-table--group::after, .el-table--border::after {
   background-color: none  !important;
 }
- .el-table tr td .cell{
-  color: #7A6E8A !important;
-}
 .el-pagination.is-background .el-pager .number:not(.disabled).active {
   background-color:#5E40C8 !important;
   min-height: 30px;
@@ -333,7 +496,7 @@ a{
   border-radius: 50%;
 }
 .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next {
-  background-color: #fff !important;
+  background: #2E147C 70%;
 }
 
 .el-button.linearGradient2{
@@ -397,7 +560,7 @@ a{
   font-size: 16px;
 }
 .default_dialog .el-dialog__header{
-  background: #efefef !important;
+  background: #2E147C 70%;
   border-radius: 12px 12px 0 0;
   padding: 40px 40px 20px 40px;
 }
@@ -405,13 +568,14 @@ a{
   padding: 0 80px 0 !important;
 }
 .default_dialog .el-dialog{
-  background: #efefef;
+  background: #2E147C 70%;
   border-radius: 12px;
 }
 .top .el-input__inner{
   border: none !important;
   border-bottom: 1px solid #dddddd !important;
   border-radius: 0!important;
+  background: #2E147C 70%;
 }
 
 .el-progress-bar__inner{

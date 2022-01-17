@@ -19,369 +19,191 @@
     class="apphome"
     ref="apphome"
   >
-    <ul
-      class="scenceHref"
-    >
-      <li class="li1">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.newUploadApp') "
-          placement="right-end"
-        >
-          <img
-            :src="showHerf === 1 ? require('@/assets/images/hot_selected.png'): require('@/assets/images/hot_unselected.png')"
-            alt=""
-            class="circle  hot_selected"
-            @click="changeHash('#nearHotApp')"
-          >
-        </el-tooltip>
-      </li>
-      <li class="lines" />
-      <li class="li2">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.senceCase') "
-          placement="right-end"
-        >
-          <img
-            :src="showHerf === 2 ? require('@/assets/images/sence_selected.png'): require('@/assets/images/sence_unselected.png')"
-            alt=""
-            class="circle"
-            @click="changeHash('#sceneCase')"
-          >
-        </el-tooltip>
-      </li>
-      <li class="lines" />
-      <li class="li3">
-        <el-tooltip
-          class="item"
-          effect="dark"
-          :content=" $t('store.higherScore') "
-          placement="right-end"
-        >
-          <img
-            :src="showHerf === 3 ? require('@/assets/images/high_selected.png'): require('@/assets/images/high_unselected.png')"
-            alt=""
-            class="circle"
-            @click="changeHash('#highScoreApp')"
-          >
-        </el-tooltip>
-      </li>
-    </ul>
     <div class="banner">
       <home-swiper />
     </div>
-    <!-- Near Hot app -->
-    <div
-      class="hot_background"
-    >
-      <div
-        class="score"
-        id="nearHotApp"
-        ref="pronbit"
-      >
-        <div class="titles">
-          <h3>
-            {{ $t('store.newUploadApp') }}
-          </h3>
-          <p class="lines" />
-        </div>
-        <div
-          class="hot_data"
-          v-loading="newAppDataLoading"
-        >
-          <div
-            v-for="(item,index) in newAppData"
-            :key="index"
-            class="hotApp_bg"
-            v-show="showDefaultData"
-          >
-            <img
-              :src="item.imgSrc"
-              alt=""
-              @click="jumpToAppList"
-            >
-            <p class="high_name">
-              {{ item.name }}
-            </p>
-          </div>
-          <div
-            v-for="(item,index) in newAppDataBe"
-            :key="index"
-            class="hotApp_bg"
-            v-show="!showDefaultData"
-          >
-            <img
-              :src="getImageUrl(item.appId)"
-              alt=""
-              @click="jumpToDetai(item)"
-            >
-            <p class="high_name">
-              {{ item.name }}
-            </p>
-          </div>
-        </div>
-        <div class="more">
-          <p
-            class="home_more"
-            :underline="false"
-            @click="jumpToAppList"
-          >
-            {{ $t('store.viewMore') }}
-          </p>
-        </div>
-      </div>
-    </div>
-    <!-- Sence Case -->
-    <div
-      id="sceneCase"
-      class="senceCase"
-    >
-      <div class="titles">
-        <h3>
-          {{ $t('store.senceCase') }}
-        </h3>
-        <p class="lines" />
-      </div>
-      <div class="case_data">
-        <div
-          class="oneCase"
-          v-for="(item,index) in recommendData"
-          :key="index"
-          @click="dialogDetil(item)"
-        >
-          <img
-            :src="language === 'cn' ? item.imgSrccn: item.imgSrcen"
-            alt=""
-          >
-          <div :class="{'addHeight':language==='en'}">
-            <div class="case_name">
-              <p class="case_name1">
-                {{ item.title }}
-              </p>
-              <img
-                src="../../assets/images/case_name2.png"
-                alt=""
-                class="case_name2"
-              >
-            </div>
-            <p class="case_content">
-              {{ item.content }}
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="more">
+    <div class="sence_app common_background">
+      <div class="sence">
         <p
-          class="home_more"
-          :underline="false"
+          class="sence_title defaultFontBlod"
+          :class="{'sence_title_en': language === 'en' }"
+        >
+          {{ $t('store.senceCase') }}
+        </p>
+        <p class="sence_line" />
+        <div class="sence_case">
+          <div
+            class="oneCase"
+            v-for="(item ,index) in senceCaseData"
+            :key="index"
+          >
+            <img
+              class="oneCase_img hover_pointer"
+              :src="item.imgSrc"
+              @click="senceDetail(item)"
+              alt=""
+            >
+            <div class="oneCase_content">
+              <p class="oneCase_content_name">
+                {{ item.nameCn }}
+              </p>
+              <div class="oneCase_content_labels">
+                <div
+                  v-for="(label,i ) in item.label"
+                  :key="i"
+                  class="oneLabel"
+                >
+                  <p class="oneLabel_spot" />
+                  <p class="oneLabel_name">
+                    {{ label.labelCn }}
+                  </p>
+                </div>
+              </div>
+              <p class="oneCase_content_desc">
+                {{ item.describtionCn }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <p
+          class="more defaultFontLight"
           @click="jumpToAppList"
         >
           {{ $t('store.viewMore') }}
         </p>
       </div>
-      <el-dialog
-        :visible.sync="dialogVisible"
-        class="sence_dialog"
-      >
-        <div class="dialog_data">
-          <div class="dialog_top">
-            <p>{{ this.dialog_datas.title }}</p>
-            <img
-              src="../../assets/images/closeDialog.png"
-              alt=""
-              @click="dialogVisible= false"
-            >
-          </div>
-          <div class="dialog_center">
-            <div class="center_left">
-              <img
-                :src="this.dialog_datas.senceDialogImg"
-                alt=""
-              >
-            </div>
-            <div class="center_right">
-              <div class="right_content1">
-                <p class="content_introduct">
-                  {{ $t('store.introduct') }}
-                </p>
-                <p class="content_introduct introducts">
-                  {{ this.dialog_datas.introduce }}
-                </p>
-              </div>
-              <div class="right_content2">
-                <p class="content_tag">
-                  {{ $t('store.tag') }}:
-                </p>
-                <div class="content_tags">
-                  <span
-                    class="dialog_label"
-                    v-for="(label,index) in this.floor"
-                    :key="index"
-                    :style="randomRgb()"
-                  >{{ label.title }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="dialog_footer">
-            <p class="footer_name">
-              {{ $t('store.reapp') }}
-            </p>
-            <div
-              class="footer_apps"
-            >
-              <div
-                class="footer_app"
-                v-for="(item,index) in apps"
-                :key="index"
-                v-show="showApp"
-              >
-                <img
-                  :src="item.appId"
-                  alt=""
-                  @click="jumpToAppList"
-                >
-                <el-tooltip
-                  class="item"
-                  effect="light"
-                  :content="item.name"
-                  placement="right"
-                >
-                  <p>{{ item.name }}</p>
-                </el-tooltip>
-              </div>
-              <div
-                class="footer_app"
-                v-for="(item,index) in this.appData"
-                :key="index"
-                v-show="!showApp"
-              >
-                <img
-                  :src="getImageUrl(item.appId)"
-                  @click="jumpToDetai(item)"
-                  alt=""
-                >
-                <el-tooltip
-                  class="item"
-                  effect="light"
-                  :content="item.name"
-                  placement="right"
-                >
-                  <p>{{ item.name }}</p>
-                </el-tooltip>
-              </div>
-            </div>
-          </div>
+      <div class="app_recommend">
+        <p
+          class="sence_title defaultFontBlod"
+          :class="{'apprecommend_title_en': language === 'en' }"
+        >
+          {{ $t('store.appRecommend') }}
+        </p>
+        <p class="sence_line" />
+        <div class="app_tab">
+          <p
+            class="app_tab_title hover_pointer"
+            :class="{'hotApp_title_en': language === 'en', 'app_tab_title_click': hotappType === true}"
+            @click="showHotApp"
+          >
+            {{ $t('store.hotApp') }}
+            <span
+              v-if="hotappType"
+              class="title_line"
+            />
+          </p>
+          <p
+            class="app_tab_title hover_pointer scoreApp_title"
+            :class="{'scoreApp_title_en': language === 'en', 'app_tab_title_click': hotappType === false}"
+            @click="showScoreApp"
+          >
+            {{ $t('store.higherScore') }}
+            <span
+              v-if="!hotappType"
+              class="title_line"
+            />
+          </p>
         </div>
-      </el-dialog>
-    </div>
-    <!-- Highest rate-->
-    <div
-      class="score"
-      id="highScoreApp"
-    >
-      <div class="titles">
-        <h3 class="highScoreTitle">
-          {{ $t('store.higherScore') }}
-        </h3>
-        <p class="lines" />
       </div>
       <div
-        v-loading="scoreHighDataLoading"
-        class="high_score"
+        v-show="hotappType"
+        class="hotApp"
+        v-loading="newAppDataLoading"
       >
-        <swiper
-          :options="swiperOption"
-          v-show="showDefaultScoreData"
-        >
-          <swiper-slide
-            v-for="(item,index) in scoreHighestData"
-            :key="index"
-            class="high_data"
-          >
-            <img
-              :src="item.imgSrc"
-              alt=""
-              @click="jumpToAppList"
-            >
-            <p class="high_name">
-              {{ item.name }}
-            </p>
-            <el-rate
-              v-model="item.score"
-              disabled
-              text-color="#ff9900"
-              score-template="{value}"
-            />
-            <p class="score_num">
-              {{ item.score }}
-            </p>
-          </swiper-slide>
-          <div
-            class="swiper-button-prev"
-            slot="button-prev"
-          />
-          <div
-            class="swiper-button-next"
-            slot="button-next"
-          />
-        </swiper>
-        <swiper
-          :options="swiperOption"
-          v-show="!showDefaultScoreData"
-        >
-          <swiper-slide
-            v-for="(item,index) in scoreHighestDataBe"
-            :key="index"
-            class="high_data"
-          >
-            <img
-              :src="getImageUrl(item.appId)"
-              alt=""
-              @click="jumpToDetai(item)"
-            >
-            <p class="high_name">
-              {{ item.name }}
-            </p>
-            <el-rate
-              v-model="item.score"
-              disabled
-              text-color="#ff9900"
-              score-template="{value}"
-            />
-            <p class="score_num">
-              {{ item.score }}
-            </p>
-          </swiper-slide>
-          <div
-            class="swiper-button-prev"
-            slot="button-prev"
-          />
-          <div
-            class="swiper-button-next"
-            slot="button-next"
-          />
-        </swiper>
-      </div>
-      <div class="more">
-        <p
-          class="home_more"
-          v-for="(item,index) in scoreData"
+        <div
+          v-for="(item,index) in newAppData"
           :key="index"
-          @click="selectedCondition(item.type,item.index)"
+          class="oneAppStyle"
+          v-show="showDefaultData"
         >
-          {{ $t('store.viewMore') }}
-        </p>
+          <img
+            :src="item.imgSrc"
+            class="oneApp_img hover_pointer"
+            alt=""
+            @click="jumpToAppList"
+          >
+          <p class="oneApp_name defaultFontLight">
+            {{ item.name }}
+          </p>
+        </div>
+        <div
+          v-for="(item,index) in newAppDataBe"
+          :key="index"
+          class="oneAppStyle"
+          v-show="!showDefaultData"
+        >
+          <img
+            :src="getImageUrl(item.appId)"
+            class="oneApp_img hover_pointer"
+            alt=""
+            @click="jumpToDetai(item)"
+          >
+          <p class="oneApp_name defaultFontLight">
+            {{ item.name }}
+          </p>
+        </div>
       </div>
-      <!-- Upload component -->
-      <div v-show="uploadDiaVis">
-        <uploadPackage
-          v-model="uploadDiaVis"
-        />
+      <div
+        v-show="!hotappType"
+        class="hotApp"
+        v-loading="scoreHighDataLoading"
+      >
+        <div
+          v-for="(item,index) in scoreHighestData"
+          :key="index"
+          class="oneAppStyle"
+          v-show="showDefaultData"
+        >
+          <img
+            :src="item.imgSrc"
+            alt=""
+            class="oneApp_img hover_pointer"
+            @click="jumpToAppList"
+          >
+          <p class="oneApp_name">
+            {{ item.name }}
+          </p>
+          <el-rate
+            v-model="item.score"
+            disabled
+            text-color="#ff9900"
+            score-template="{value}"
+          />
+        </div>
+        <div
+          v-for="(item,index) in scoreHighestDataBe"
+          :key="index"
+          class="oneAppStyle"
+          v-show="!showDefaultData"
+        >
+          <img
+            :src="getImageUrl(item.appId)"
+            alt=""
+            class="oneApp_img hover_pointer"
+            @click="jumpToDetai(item)"
+          >
+          <p class="oneApp_name">
+            {{ item.name }}
+          </p>
+          <el-rate
+            v-model="item.score"
+            disabled
+            text-color="#ff9900"
+            score-template="{value}"
+          />
+        </div>
       </div>
+      <p
+        class="more defaultFontLight hotAppMore scoreMore"
+        @click="jumpToAppList"
+      >
+        {{ $t('store.viewMore') }}
+      </p>
+    </div>
+    <div v-show="uploadDiaVis">
+      <uploadPackage
+        v-model="uploadDiaVis"
+      />
     </div>
   </div>
 </template>
@@ -392,6 +214,7 @@ import HomeSwiper from '../../components/common/Swipers.vue'
 import uploadPackage from '../home/UploadPackage.vue'
 import { mapState } from 'vuex'
 import commonUtil from '../../tools/commonUtil.js'
+import { eventBus } from '../../tools/bus.js'
 export default {
   name: 'Home',
   components: {
@@ -401,7 +224,7 @@ export default {
   data () {
     return {
       dialogVisible: false,
-      showHerf: 1,
+      hotappType: true,
       appData: [],
       apps: [],
       selectedConditions: [],
@@ -417,6 +240,110 @@ export default {
           prevEl: '.swiper-button-prev'
         }
       },
+      senceCaseData: [
+        {
+          imgSrc: require('../../assets/images/senceCase1.png'),
+          nameCn: '5G移动',
+          nameEn: '5G Mobile',
+          label: [
+            {
+              labelCn: '生态环境',
+              labelEn: 'Ecological environment'
+            },
+            {
+              labelCn: '智慧工地',
+              labelEn: 'Smart site'
+            }
+          ],
+          describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
+          describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
+        },
+        {
+          imgSrc: require('../../assets/images/senceCase2.png'),
+          nameCn: '5G移动',
+          nameEn: '5G Mobile',
+          label: [
+            {
+              labelCn: '生态环境',
+              labelEn: 'Ecological environment'
+            },
+            {
+              labelCn: '智慧工地',
+              labelEn: 'Smart site'
+            }
+          ],
+          describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
+          describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
+        },
+        {
+          imgSrc: require('../../assets/images/senceCase3.png'),
+          nameCn: '5G移动',
+          nameEn: '5G Mobile',
+          label: [
+            {
+              labelCn: '生态环境',
+              labelEn: 'Ecological environment'
+            },
+            {
+              labelCn: '智慧工地',
+              labelEn: 'Smart site'
+            }
+          ],
+          describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
+          describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
+        },
+        {
+          imgSrc: require('../../assets/images/senceCase4.png'),
+          nameCn: '5G移动',
+          nameEn: '5G Mobile',
+          label: [
+            {
+              labelCn: '生态环境',
+              labelEn: 'Ecological environment'
+            },
+            {
+              labelCn: '智慧工地',
+              labelEn: 'Smart site'
+            }
+          ],
+          describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
+          describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
+        },
+        {
+          imgSrc: require('../../assets/images/senceCase5.png'),
+          nameCn: '5G移动',
+          nameEn: '5G Mobile',
+          label: [
+            {
+              labelCn: '生态环境',
+              labelEn: 'Ecological environment'
+            },
+            {
+              labelCn: '智慧工地',
+              labelEn: 'Smart site'
+            }
+          ],
+          describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
+          describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
+        },
+        {
+          imgSrc: require('../../assets/images/senceCase6.png'),
+          nameCn: '5G移动',
+          nameEn: '5G Mobile',
+          label: [
+            {
+              labelCn: '生态环境',
+              labelEn: 'Ecological environment'
+            },
+            {
+              labelCn: '智慧工地',
+              labelEn: 'Smart site'
+            }
+          ],
+          describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
+          describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
+        }
+      ],
       newAppData: [
         {
           imgSrc: require('../../assets/images/hotApp1.jpg'),
@@ -495,64 +422,6 @@ export default {
         {
           name: 'roadSideUnit',
           appId: require('../../assets/images/roadSideUnit.jpg')
-        }
-      ],
-      recommendDatas: [
-        {
-          title: '智慧园区',
-          content: '重新定义园区,以数字平台打造智慧园区的数字底座,让智慧触手可及',
-          introduce: '园区是生活和工作的载体,是经济发展的核心助手,是构建万物互联的智能世界的落脚点。EdgeGallery解决方案源于自身管理变革和数字化转型实践,依托数字平台,联合生态伙伴,实现园区整体智慧化,使能业务创新,提高运营效率,引领至简体验'
-        },
-        {
-          title: '工业制造',
-          content: '采用数字技术简化流程,广泛使用智能化信息提高质量与效率,使机器与思想数字化融合',
-          introduce: '工业制造智能化是指具有信息自感知、自决策、自执行等功能的先进制造过程、系统与模式的总称。具体体现在制造过程中的各个环节与新一代信息技术的深度融合,如物联网、大数据、云计算、人工智能等'
-        },
-        {
-          title: '交通物流',
-          content: '人悦其行,物优其流,AI使能,驱动交通物流数字化转型',
-          introduce: '在交通物流领域中充分运用物联网、云计算、互联网等技术，通过高新技术汇集交通信息,使交通系统在区域、城市范围具备感知、互联、分析、预测、控制等能力,提升交通系统运行效率和管理水平'
-        }
-      ],
-      recommendData: [
-        {
-          imgSrccn: require('../../assets/images/sence1cn.png'),
-          imgSrcen: require('../../assets/images/sence1en.png'),
-          senceDialogImg: require('../../assets/images/senceDialog1.png'),
-          title: '智慧园区',
-          titleen: 'Smart Park',
-          content: '重新定义园区,以数字平台打造智慧园区的数字底座,让智慧触手可及',
-          contenten: 'Redefine the park, build the digital base of the smart park with a digital platform, and make wisdom at your fingertips',
-          industry: 'Smart Park',
-          introduceen: 'The park is the carrier of life and work, the core assistant of economic development, and the foothold of building an intelligent world with all things connected. The EdgeGallery solution is derived from its own management reform and digital transformation practices. It relies on digital platforms and cooperates with ecological partners to realize the overall intelligence of the park, enable business innovation, improve operational efficiency, and lead to a simple experience.',
-          introduce: '园区是生活和工作的载体,是经济发展的核心助手,是构建万物互联的智能世界的落脚点。EdgeGallery解决方案源于自身管理变革和数字化转型实践,依托数字平台,联合生态伙伴,实现园区整体智慧化,使能业务创新,提高运营效率,引领至简体验',
-          index: 5
-        },
-        {
-          imgSrccn: require('../../assets/images/sence2cn.png'),
-          imgSrcen: require('../../assets/images/sence2en.png'),
-          senceDialogImg: require('../../assets/images/senceDialog2.png'),
-          title: '工业制造',
-          titleen: 'Industry manufacture',
-          industry: 'Industrial Manufacturing',
-          contenten: 'Using digital technology to simplify the process, extensive use of intelligent information to improve quality and efficiency, and digital integration of machines and ideas',
-          content: '采用数字技术简化流程,广泛使用智能化信息提高质量与效率,使机器与思想数字化融合',
-          introduceen: 'Industrial manufacturing intelligence refers to the general term for advanced manufacturing processes, systems and models with functions such as information self-perception, self-decision-making, and self-execution. It is specifically reflected in the in-depth integration of various links in the manufacturing process with a new generation of information technology, such as the Internet of Things, big data, cloud computing, artificial intelligence, etc.',
-          introduce: '工业制造智能化是指具有信息自感知、自决策、自执行等功能的先进制造过程、系统与模式的总称。具体体现在制造过程中的各个环节与新一代信息技术的深度融合,如物联网、大数据、云计算、人工智能等',
-          index: 0
-        },
-        {
-          imgSrccn: require('../../assets/images/sence3cn.png'),
-          imgSrcen: require('../../assets/images/sence3en.png'),
-          senceDialogImg: require('../../assets/images/senceDialog3.png'),
-          titleen: 'Traffic logistics',
-          title: '交通物流',
-          contenten: 'People are pleased to walk, things are optimized for their flow, AI enabled, driving the digital transformation of transportation and logistics',
-          content: '人悦其行,物优其流,AI使能,驱动交通物流数字化转型',
-          introduceen: 'In the field of transportation and logistics, make full use of technologies such as the Internet of Things, cloud computing, and the Internet, and collect traffic information through high-tech, so that the transportation system has the ability to sense, interconnect, analyze, predict, and control in the region and city, and improve the operation efficiency of the transportation system And management level.',
-          introduce: '在交通物流领域中充分运用物联网、云计算、互联网等技术，通过高新技术汇集交通信息,使交通系统在区域、城市范围具备感知、互联、分析、预测、控制等能力,提升交通系统运行效率和管理水平',
-          industry: 'logistics',
-          index: 7
         }
       ],
       scoreHighestData: [
@@ -652,15 +521,9 @@ export default {
     changeHash (idName) {
       document.querySelector(idName).scrollIntoView(true)
     },
-    handleScroll () {
-      const lengths = this.$refs.pronbit.getBoundingClientRect().top
-      if (lengths < 195) {
-        this.showHerf = 1
-      } else if (lengths > 195 && lengths < 975) {
-        this.showHerf = 2
-      } else if (lengths > 1125) {
-        this.showHerf = 3
-      }
+    senceDetail (data) {
+      this.$router.push({ name: 'senceDetail' })
+      eventBus.$emit('senceContent', data)
     },
     dialogDetil (item) {
       this.appData = []
@@ -724,43 +587,6 @@ export default {
     jumpToAppList () {
       this.$router.push('/index')
     },
-    changeEnCn (language) {
-      if (language === 'en') {
-        if (this.dialog_type === 'Smart Park') {
-          this.floor = this.parken
-        } else if (this.dialog_type === 'Industrial Manufacturing') {
-          this.floor = this.industrialen
-        } else if (this.dialog_type === 'logistics') {
-          this.floor = this.logisticsen
-        }
-        this.recommendData[0].title = this.recommendData[0].titleen
-        this.recommendData[0].content = this.recommendData[0].contenten
-        this.recommendData[0].introduce = this.recommendData[0].introduceen
-        this.recommendData[1].title = this.recommendData[1].titleen
-        this.recommendData[1].content = this.recommendData[1].contenten
-        this.recommendData[1].introduce = this.recommendData[1].introduceen
-        this.recommendData[2].title = this.recommendData[2].titleen
-        this.recommendData[2].content = this.recommendData[2].contenten
-        this.recommendData[2].introduce = this.recommendData[2].introduceen
-      } else {
-        if (this.dialog_type === 'Smart Park') {
-          this.floor = this.parkcn
-        } else if (this.dialog_type === 'Industrial Manufacturing') {
-          this.floor = this.industrialcn
-        } else if (this.dialog_type === 'logistics') {
-          this.floor = this.logisticscn
-        }
-        this.recommendData[0].title = this.recommendDatas[0].title
-        this.recommendData[0].content = this.recommendDatas[0].content
-        this.recommendData[0].introduce = this.recommendDatas[0].introduce
-        this.recommendData[1].title = this.recommendDatas[1].title
-        this.recommendData[1].content = this.recommendDatas[1].content
-        this.recommendData[1].introduce = this.recommendDatas[1].introduce
-        this.recommendData[2].title = this.recommendDatas[2].title
-        this.recommendData[2].content = this.recommendDatas[2].content
-        this.recommendData[2].introduce = this.recommendDatas[2].introduce
-      }
-    },
     getRandomArrayElements (arr, count) {
       let shuffled = arr.slice(0); let i = arr.length; let min = i - count; let temp; let index
       while (i-- > min) {
@@ -786,7 +612,7 @@ export default {
       queryApp(queryParam)
         .then(res => {
           let resDatas = res.data.results
-          if (resDatas.length >= 6) {
+          if (resDatas.length >= 15) {
             let tempPopularApp = []
             let tempDisplayApp = []
             for (let item of resDatas) {
@@ -796,15 +622,15 @@ export default {
                 tempDisplayApp.push(item)
               }
             }
-            if (tempPopularApp.length >= 6) {
-              this.newAppDataBe = this.getRandomArrayElements(tempPopularApp, 6)
+            if (tempPopularApp.length >= 15) {
+              this.newAppDataBe = this.getRandomArrayElements(tempPopularApp, 15)
             } else {
               if (tempPopularApp.length > 0) {
                 let part1 = this.getRandomArrayElements(tempPopularApp, tempPopularApp.length)
-                let part2 = this.getRandomArrayElements(tempDisplayApp, 6 - tempPopularApp.length)
+                let part2 = this.getRandomArrayElements(tempDisplayApp, 15 - tempPopularApp.length)
                 this.newAppDataBe = part1.concat(part2)
               } else {
-                this.newAppDataBe = this.getRandomArrayElements(tempDisplayApp, 6)
+                this.newAppDataBe = this.getRandomArrayElements(tempDisplayApp, 15)
               }
             }
             this.showDefaultData = false
@@ -835,12 +661,12 @@ export default {
           this.appData = res.data.results
           if (this.appData.length === 0) {
             this.showApp = true
-          } else if (this.appData.length > 0 && this.appData.length < 6) {
+          } else if (this.appData.length > 0 && this.appData.length < 15) {
             this.showApp = false
             this.appData = this.getRandomArrayElements(this.appData, this.appData.length)
           } else {
             this.showApp = false
-            this.appData = this.getRandomArrayElements(this.appData, 6)
+            this.appData = this.getRandomArrayElements(this.appData, 15)
           }
         })
     },
@@ -852,8 +678,8 @@ export default {
             return a.score < b.score ? 1 : -1
           })
           this.scoreHighestDataBe = []
-          if (data.length >= 8) {
-            for (let i = 0; i <= 7; i++) {
+          if (data.length >= 15) {
+            for (let i = 0; i <= 14; i++) {
               this.scoreHighestDataBe.push(data[i])
             }
           } else {
@@ -874,6 +700,12 @@ export default {
         }
       )
     },
+    showHotApp () {
+      this.hotappType = true
+    },
+    showScoreApp () {
+      this.hotappType = false
+    },
     getImageUrl (appId) {
       return URL_PREFIX + 'apps/' + appId + '/icon'
     },
@@ -889,13 +721,11 @@ export default {
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
-      this.changeEnCn(this.language)
     }
   },
   mounted () {
     this.getAppData()
     this.getHotAppData()
-    this.changeEnCn(this.language)
     this.refreshCondition()
     window.addEventListener('scroll', this.handleScroll, true)
   },
@@ -910,670 +740,351 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   min-width: 1200px;
+  color: #fff;
   .banner{
     padding: 0;
-    color: #fff;
   }
-  .home_content{
-    padding: 70px 15% 50px;
-    .home_tit{
-      font-size: 32px;
-      text-align: center;
-    }
-  }
-  .home_content:last-child{
-    padding: 70px 15% 0;
-  }
-  .scenceHref{
-    padding-top: 30px;
-    position: fixed;
-    left: 30px;
-    top:150px;
-    li{
-      display: flex;
-    }
-    li:hover{
-      cursor: pointer;
-    }
-    a{
-      text-decoration: none;
-    }
-    .lineHref{
-      height: 35px;
-      color: #CBCBCB;
-      margin: -2px -6px -6px 6px
-    }
-    .lines{
-      border-left: 1px solid #E3E3E3;
-      height: 20px;
-      width: 10px;
-      margin: -4px 0 4px 16px;
-    }
-    .circle{
-      display: block;
-      width: 36px;
-      height: 36px;
-      margin-bottom: 10px;
-      border-radius:50% ;
-    }
-  }
-  .home_more:hover{
-    cursor: pointer;
-    color: #5d3da0;
-    border:1px solid #5d3da0 ;
-    background-color: rgb(239, 230, 240);
-  }
-  .home_more{
-    width: 148px;
-    height: 48px;
-    border: 1px solid #5D3DA0;
-    border-radius: 4px;
-    text-align: center;
-    margin: 15px 0 30px;
-    color: #5D3DA0;
-    line-height: 48px;
-  }
-  .titles{
-    width: 1412px;
-    height: 235px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    h3{
-      height: 35px;
-      font-size: 36px;
-      font-family: HarmonyOS Sans SC, sans-serif;
-      font-weight: bold;
-      color: #5D3DA0;
-      margin-bottom:26px ;
-    }
-    .lines{
-      width: 88px;
-      height: 7px;
-      background: #9E7BCD;
-      opacity: 0.2;
-      border-radius: 4px;
-    }
+  p{
+    margin: 0;
   }
   .more{
-    width: 100%;
-    min-width: 1200px;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0px auto;
+    font-size: 18px;
+    color:#5944C0;
+    width: 120px;
+    height: 40px;
+    position: relative;
+    top: 8px;
+    left: 0;
+    text-align: center;
+    line-height: 40px;
+    background: #fff;
+    border-radius: 28px;
+    margin-top: 10px;
   }
-  .el-rate__decimal{
-    color: rgb(239,242,247);
+  .scoreMore{
+    position: relative;
+    top: -58px;
+    left: 0;
   }
-  .hot_background{
-    width: 100%;
-    height: 590px;
-    background-image: url(../../assets/images/hotAppBackground.png);
-    background-repeat: no-repeat;
-    background-size: 100% 60%;
-    background-position: 0 200px;
-    z-index:1000;
-  }
-  .score{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 590px;
-    width: 73.64%;
-    margin-left:13.23%;
-    margin-right: 13.23%;
-    .hot_data{
-      display: flex;
-      width: 100%;
-      height: 180px;
-      justify-content: space-between;
-    }
-  }
-  .high_score{
-    width: 100%;
-    height: 260px;
-    .swiper-container{
-      width: 100%;
-      height: 260px;
-    }
-    .swiper-button-prev{
-      margin: -30px 30px 0px -10px;
-    }
-    .swiper-button-next{
-      margin: -30px -10px 0px 30px;
-    }
-    .swiper-button-prev:after, .swiper-button-next:after{
-      font-size: 26px;
-    }
-    .high_data:hover{
-      box-shadow: 0px 30px 50px 0px rgba(66, 36, 157, 0.15);
-      background-color: rgba(248,248,248);
-      cursor: pointer;
-    }
-    .high_data{
-      width: 12.7%;
-      height: 260px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
-      border-radius: 10px;
-      img{
-        margin-top: 10px;
-        width: 54.7%;
-        height: 42.2%;
-      }
-      .high_name{
-        font-size: 16px;
-        font-family: HarmonyOS Sans SC, sans-serif;
-        font-weight: 400;
-        color: #111111;
-        text-align: center;
-        width: 70%;
-        white-space: nowrap;
-        overflow: hidden;
-        margin: 0;
-      }
-      .score_num{
-        width: 80%;
-        font-size: 14px;
-        font-family: HarmonyOS Sans SC, sans-serif;
-        font-weight: 400;
-        color: #380879;
-        text-align: center;
-        margin: 0;
-      }
-    }
-  }
-  .hotApp_bg:hover{
-    box-shadow: 0px 30px 50px 0px rgba(66, 36, 157, 0.15);
-    background-color: rgba(248,248,248);
+  .more:hover{
+    color:#fff;
     cursor: pointer;
+    background: #5944C0;
   }
-  .hotApp_bg{
-    background-color: #fff;
-    width: 12.7%;
-    padding-top: 2%;
-    height: 180px;
-    border-radius:10px ;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    img{
-      border-radius: 16px;
-      width: 44.4%;
-      height:45%;
-    }
-    .high_name{
-      font-size: 16px;
-      font-family: HarmonyOS Sans SC, sans-serif;
-      font-weight: 400;
-      width: 80%;
-      color: #111111;
-      line-height: 24px;
-      text-align: center;
-      overflow: hidden;
-      white-space: nowrap;
-    }
+  .sence_title{
+    font-size: 36px;
+    margin: 20px auto 6px;
+    width: 174px;
+    letter-spacing: 4px;
   }
-  .senceCase{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 911px;
-    width: 73.54%;
-    margin-left:13.23%;
-    margin-right: 13.23%;
-    .case_data{
-      height:520px;
+  .sence_title_en{
+    width: 234px;
+  }
+  .apprecommend_title_en{
+    width: 350px;
+  }
+  .hotApp_title_en{
+    width: 58px;
+  }
+  .scoreApp_title_en{
+    width: 110px;
+  }
+  .sence_line{
+    width: 80px;
+    height: 6px;
+    margin: 0 auto;
+    border-radius: 4px;
+    background: rgba(250,250,250,0.3);
+  }
+  .sence_app{
+    width: 76.08%;
+    border-radius: 24px;
+    z-index: 1000;
+    margin: 0 auto;
+    .sence{
       width: 100%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      .oneCase:hover{
-        transform: scale( 1.02);
-        transition: all 0.5s;
-        cursor: pointer;
-      }
-      .oneCase:hover .addHeight{
-        border-top-left-radius:30px ;
-        border-top-right-radius:30px ;
-        transform: translateY(-80px);
-        background-color: #fff;
-        padding-top: 10px;
-        transition: linear 0.1s;
-      }
-      .oneCase:hover .case_content{
-        height: 120px;
-      }
-      .oneCase{
-        width: 28%;
-        height: 500px;
-        background: #FFFFFF;
-        box-shadow: 0px 30px 50px 0px rgba(66, 36, 157, 0.15);
-        border-radius: 4px;
-        img{
-          width:100%;
-          height: 340px;
-          border-radius: 8px 8px 0px 0px;
-        }
-        .case_name{
-          padding: 36px 16px 0px 20px;
-          display: flex;
-          justify-content: space-between;
-          .case_name1{
-            font-size: 26px;
-            font-family: HarmonyOS Sans SC, sans-serif;
-            font-weight: 400;
-            color: #111111;
-            float: left;
-            width: 87%;
-            overflow: hidden;
-          }
-          .case_name2{
-            width: 24px;
-            height: 24px;
-            margin-top: 10px;
-          }
-        }
-        .case_content{
-          margin: 0px 20px;
-          font-size: 16px;
-          font-family: HarmonyOS Sans SC, sans-serif;
-          font-weight: 400;
-          height: 60px;
-          line-height: 30px;
-          width: 90%;
-          color: #666666;
-          display: -webkit-box;
-          overflow: hidden;
-        }
-      }
-    }
-  }
-  .sence_dialog{
-    width: 100%;
-    .el-dialog__header {
-     width: 100%;
-     padding: 0;
-    }
-    .el-dialog__body{
-      width: 100%;
-      height: 640px;
-      background: #FFFFFF;
-      box-shadow: 0px 20px 30px 0px rgba(66, 36, 157, 0.1);
-      padding: 0 !important;
-      .dialog_data{
+      height: 1000px;
+      padding: 0 2%;
+      padding-bottom:30px;
+      .sence_case{
         width: 100%;
-        height: 640px;
-        padding: 4% 4%;
-        .dialog_top{
-          width: 100%;
-          height: 32px;
-          p{
-            float: left;
-            font-size: 32px;
-            font-family: HarmonyOS Sans SC, sans-serif;
-            font-weight: 400;
-            color: #380879;
-            margin-bottom: 10px;
+        height: 85.4%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        .oneCase{
+          width:28%;
+          height: 43%;
+          .oneCase_img{
+            width: 100%;
+            height: 60%;
+            border-radius: 10px;
           }
-          img:hover{
-            cursor: pointer;
-          }
-          img{
-            width: 28px;
-            height: 28px;
-            float: right;
-          }
-        }
-        .dialog_center{
-          height: 340px;
-          width: 100%;
-          display: flex;
-          justify-content: space-around;
-          .center_left{
-            width: 50%;
-            margin-right:10% ;
-            height: 340px;
-            img{
-              width: 100%;
-              height: 100%;
+          .oneCase_content{
+            border-radius: 10px;
+            width: 100%;
+            height: 50%;
+            position: relative;
+            top: -10%;
+            left: 0;
+            background: #4e3494;
+            .oneCase_content_name{
+              width: 85%;
+              margin: 2% auto;
+              font-size: 24px;
+              height: 48px;
+              line-height: 60px;
             }
-          }
-          .center_right{
-            width: 40%;
-            height: 340px;
-            .right_content1{
-              height: 260px;
-              width: 100%;
-              margin-bottom: 20px;
-              overflow-y: auto;
-              .content_introduct{
-                color: #666666;
-                font-size: 16px;
-                line-height: 24px;
-                font-family: HarmonyOS Sans SC, sans-serif;
-              }
-            }
-            .right_content2{
-              margin-top:10px ;
-              height: 80px;
-              width: 100%;
-              .content_tag{
-                color: #666666;
-                font-size: 16px;
-                line-height: 22px;
-                font-family: HarmonyOS Sans SC, sans-serif;
-              }
-              .content_tags{
-                width: 100%;
+            .oneCase_content_labels{
+              width: 85%;
+              margin: 0 auto;
+              display: flex;
+              .oneLabel{
                 display: flex;
-                justify-content: flex-start;
-                .dialog_label{
-                  margin-right:6px ;
-                  min-width: 50px;
-                  text-align: center;
-                  padding: 2px 4px;
-                  background-color:#6625CA ;
-                  border-radius:10px ;
-                  font-family: HarmonyOS Sans SC, sans-serif;
-                  margin-top: 10px;
+                width: 140px;
+                .oneLabel_spot{
+                  width: 10px;
+                  height: 10px;
+                  position: relative;
+                  top:4px;
+                  left: 0;
+                  border-radius: 50%;
+                  background: #43F6AD;
+                  margin: 2% 8% 2% 0;
+                }
+                .oneLabel_name{
+                  font-size: 18px;
                 }
               }
             }
-          }
-        }
-        .dialog_footer{
-          width: 100%;
-          margin-top:10px ;
-          .footer_name{
-            font-size: 28px;
-            font-family: HarmonyOS Sans SC, sans-serif;
-            font-weight: 400;
-            color: #111111;
-            margin: 0;
-          }
-          .footer_apps{
-            width: 100%;
-            .footer_app{
-              margin-top:8px ;
-              float: left;
-              width: 8%;
-              height: 110px;
-              margin-right: 30px;
-              img:hover{
-                cursor: pointer;
-              }
-              img{
-                width: 100%;
-                height: 60px;
-                margin-bottom: 10px;
-                border-radius:6px ;
-              }
-              p{
-                margin:0 ;
-                font-size: 14px;
-                font-family: HarmonyOS Sans SC, sans-serif;
-                font-weight: 400;
-                color: #111111;
-                text-align: center;
-                overflow: hidden;
-                text-overflow:ellipsis;
-                white-space: nowrap;
-              }
-              p:hover{
-                cursor: pointer;
-              }
+            .oneCase_content_desc{
+              width: 85%;
+              margin: 2% auto;
+              font-size: 16px;
+              color:#fff;
+              text-indent: 2em;
+              line-height: 26px;
+              text-overflow: -o-ellipsis-lastline;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 3;
+              -webkit-box-orient: vertical;
             }
           }
         }
       }
     }
-    .el-icon-close:before {
-      display: none;
-    }
-  }
-  .highScoreTitle{
-    margin-top: 50px;
-  }
-  @media screen and (max-width: 1380px){
-    .home_content{
-      padding: 50px 8%;
-    }
-  }
-  @media (max-width: 1400px) and (min-width: 1200px) {
-    .hotApp_bg{
-      height: 120px;
-      img{
-        width: 44.4%;
-      }
-      .high_name{
-        font-size: 14px;
-        margin: 0;
-        max-height: 90px;
-        overflow: hidden;
-      }
-    }
-    .high_score{
-      display: flex;
+    .app_recommend{
       width: 100%;
-      height: 160px;
-      justify-content: space-between;
-      .swiper-button-prev{
-        margin: -70px 30px 0px -12px;
-      }
-      .swiper-button-next{
-        margin: -70px -12px 0px 30px;
-      }
-      .swiper-button-prev:after, .swiper-button-next:after{
-        font-size: 22px;
-      }
-      .high_data{
-        width: 12.7%;
-        height: 160px;
+      height:80px;
+      padding: 0 2%;
+      .app_tab{
+        margin: 20px 3.2% 0;
         display: flex;
-        border-radius: 10px;
-        img{
-          margin-top: 10px;
-          width: 53.7%;
-          height: 44.2%;
-        }
-        .el-rate {
-          height: 14px;
-          line-height: 1;
-          .el-rate__item {
-            width: 14px;
-            margin: 0 2px;
+        .app_tab_title{
+          font-size:20px;
+          margin-right: 20px;
+          min-width: 80px;
+          line-height: 20px;
+          .title_line{
+            display: block;
+            width: 40px;
+            height: 8px;
+            margin: 8px auto;
+            text-align: center;
+            border-bottom: 2px solid #43F6AD;
           }
         }
-        .high_name{
-          font-size: 14px;
-          max-height: 56px;
-          overflow: hidden;
-          text-overflow :ellipsis;
+        .scoreApp_title{
+          width: 152px;
         }
-        .score_num{
+        .app_tab_title_click{
+          font-size: 22px;
+        }
+        .app_tab_title:hover{
+          font-size: 22px;
+        }
+      }
+    }
+    .hotApp{
+      width: 100%;
+      padding-top: 2%;
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      padding-left: 4%;
+      padding-bottom: 80px;
+      .oneAppStyle{
+        width: 14.3%;
+        border-radius: 8px;
+        height: 220px;
+        margin: 5% 4% 0 1.5%;
+        display: flex;
+        justify-content: center;
+        background: #4e3494;
+        flex-direction: column;
+        .oneApp_img{
+          width: 55.56%;
+          height: 50%;
+          border-radius: 10px;
+          margin: 10px auto;
+        }
+        .oneApp_name{
+          font-size: 20px;
+          width: 80%;
+          height: 24px;
+          margin: 0 auto;
+          text-align: center;
+          text-overflow:ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+        .el-rate{
+          margin:0 auto;
+        }
+        .el-rate__icon{
           font-size: 14px;
         }
       }
     }
-    .senceCase{
-      height: 911px;
-      width: 73.54%;
-      margin-left:13.23%;
-      margin-right: 13.23%;
-      .case_data{
-        height:360px;
-        width: 100%;
-        display: flex;
-        .oneCase:hover .case_content{
-          height: 150px;
-        }
-        .oneCase{
-          width: 28%;
-          height: 360px;
-          background: #FFFFFF;
-          box-shadow: 0px 30px 50px 0px rgba(66, 36, 157, 0.15);
-          border-radius: 4px;
-          img{
-            width:100%;
-            height: 200px;
-            border-radius: 8px 8px 0px 0px;
-          }
-          .case_name{
-            margin-bottom: 6px;
-            display: flex;
-            justify-content: space-between;
-            .case_name1{
-              font-size: 18px;
-              font-family: HarmonyOS Sans SC, sans-serif;
-              font-weight: 400;
-              color: #111111;
-              float: left;
-              margin: 0;
-            }
-            .case_name2{
-              width: 24px;
-              height: 24px;
-              margin-top: 2px;
-            }
-          }
-          .case_content{
-            font-size: 14px;
-            line-height: 26px;
-            height: 52px;
-          }
-        }
-      }
+    .hotAppMore{
+      margin: 20px auto 30px ;
     }
   }
   @media (max-width: 1600px) and (min-width: 1200px) {
-    .sence_dialog{
-      width: 100%;
-      .el-dialog__header {
-      width: 100%;
-      padding: 0;
-      }
-      .el-dialog__body{
-        height: 440px;
-        .dialog_data{
-          height: 440px;
-          .dialog_top{
-            width: 100%;
-            height: 32px;
-            p{
-              float: left;
-              font-size: 24px;
-              font-weight: 400;
-            }
-            img{
-              width: 28px;
-              height: 28px;
-
-            }
-          }
-          .dialog_center{
-            height: 240px;
-            .center_left{
-              margin-right:10% ;
-              height: 240px;
-            }
-            .center_right{
-              width: 40%;
-              height: 240px;
-              .right_content1{
-                height: 180px;
-                margin-bottom: 10px;
-                .content_introduct{
-                  font-size: 14px;
-                  line-height: 20px;
-                  margin-bottom:4px ;
-                }
+    .more{
+      font-size: 14px;
+      width: 100px;
+      height: 28px;
+      position: relative;
+      top: 8px;
+      left: 0;
+      line-height: 24px;
+      border-radius: 28px;
+      margin-top: 10px;
+    }
+    .scoreMore{
+      position: relative;
+      top: -40px;
+      left: 0;
+    }
+    .sence_title{
+      font-size: 24px;
+      margin: 20px auto 6px;
+      width: 120px;
+      letter-spacing: 4px;
+    }
+    .sence_title_en{
+      width: 168px;
+    }
+    .apprecommend_title_en{
+      width: 250px;
+    }
+    .hotApp_title_en{
+      width: 58px;
+    }
+    .scoreApp_title_en{
+      width: 110px;
+    }
+    .sence_line{
+      width: 40px;
+      height: 4px;
+      border-radius: 4px;
+    }
+    .sence_app{
+      border-radius: 24px;
+      margin: 0 auto 100px;
+      .sence{
+        height: 670px;
+        padding-top: 10px;
+        padding-bottom:30px;
+        .sence_case{
+          .oneCase{
+            .oneCase_content{
+              .oneCase_content_name{
+                font-size: 16px;
+                height: 36px;
+                line-height: 48px;
               }
-              .right_content2{
-                margin-top:10px ;
-                height: 80px;
-                width: 100%;
-                .content_tag{
-                  font-size: 14px;
-                  line-height: 20px;
-                }
-                .content_tags{
-                  font-size: 14px;
-                  .dialog_label{
-                    margin-top:6px ;
-                    margin-right:6px ;
-                    min-width: 50px;
-                    text-align: center;
-                    padding: 1px 2px;
+              .oneCase_content_labels{
+                .oneLabel{
+                  width: 100px;
+                  .oneLabel_spot{
+                    width: 5px;
+                    height: 5px;
+                  }
+                  .oneLabel_name{
+                    font-size: 14px;
                   }
                 }
               }
-            }
-          }
-          .dialog_footer{
-            width: 100%;
-            margin-top:10px ;
-            .footer_name{
-              font-size: 20px;
-            }
-            .footer_apps{
-              width: 100%;
-              .footer_app{
-                margin-top:8px ;
-                width: 8%;
-                height: 110px;
-                margin-right: 30px;
-                img{
-                  height: 40px;
-                  margin-bottom: 2px;
-                  border-radius:6px ;
-                }
-                p{
-                  font-size: 12px;
-                }
+              .oneCase_content_desc{
+                font-size: 12px;
+                -webkit-line-clamp: 2;
+                line-height: 22px;
               }
             }
           }
         }
       }
-    }
-    .senceCase{
-      .case_data{
-        .oneCase{
-          .case_name_top{
-            position: absolute;
-            left: 20px;
-            top:24px ;
-            font-size: 24px;
+      .app_recommend{
+        width: 100%;
+        height:80px;
+        padding: 0 2%;
+        .app_tab{
+          margin: 20px 3.2% 0;
+          .app_tab_title{
+            font-size:14px;
+            margin-right: 20px;
+            line-height: 20px;
+            .title_line{
+              width: 30px;
+              height: 6px;
+              margin: 4px auto;
+              border-bottom: 2px solid #43F6AD;
+            }
           }
-          .case_name_top.case_name_topen{
-            font-size: 18px;
+          .app_tab_title_click{
+            font-size: 16px;
           }
-          .case_lines{
-            height: 2px;
-            left: 20px;
-            top: 20px;
+          .app_tab_title:hover{
+            font-size: 16px;
           }
         }
       }
-    }
-  }
-  @media (max-width: 1800px) and (min-width: 1400px) {
-    .high_score .high_data {
-      height: 221px;
-      img{
-        margin-top: 10px;
-        width: 45.7%;
-        height: 39.2%;
+      .hotApp{
+        width: 100%;
+        padding-top: 2%;
+        padding-left: 4%;
+        .oneAppStyle{
+          width: 14.3%;
+          border-radius: 8px;
+          height: 160px;
+          margin: 5% 4% 0 1.5%;
+          .oneApp_img{
+            width: 55.56%;
+            height: 50%;
+            border-radius: 10px;
+            margin: 10px auto;
+          }
+          .oneApp_name{
+            font-size: 14px;
+            width: 80%;
+            height: 24px;
+          }
+          .el-rate__icon{
+            font-size: 14px;
+          }
+        }
+      }
+      .hotAppMore{
+        margin: 20px auto 30px ;
       }
     }
   }
 }
+
 </style>
