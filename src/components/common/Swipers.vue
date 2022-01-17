@@ -128,9 +128,9 @@ export default {
 .wrapper{
   position: relative;
   .banner{
-    overflow: hidden;
+        overflow: hidden;
     .banner_img{
-      height: 100%;
+       height: 100%;
     }
     .home_text{
       position: absolute;
@@ -197,9 +197,7 @@ export default {
         display:block;
     }
     .upload_app{
-      position: relative;
-      top: -60px;
-      left: 40px;
+      margin-left:100px !important;
     }
     }
       .el-carousel__indicators--outside {

@@ -20,7 +20,7 @@
       :gutter="10"
     >
       <el-col
-        :lg="4"
+        :lg="5"
         :md="4"
         :sm="14"
         :xs="13"
@@ -34,7 +34,7 @@
         </div>
       </el-col>
       <el-col
-        :lg="15"
+        :lg="14"
         :md="12"
         class="navList"
       >
@@ -471,7 +471,7 @@ export default {
       sessionStorage.removeItem('userId')
     },
     enterLoginPage () {
-      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER + '&lang=' + this.language
+      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER
     },
     enter () {
       this.seen = true
@@ -490,7 +490,7 @@ export default {
       this.$router.push({ name: 'msgCenter' })
     },
     openUserAccountCenter () {
-      window.open(this.userCenterPage + '?lang=' + this.language)
+      window.open(this.userCenterPage)
     },
     jumpToForceModifyPw () {
       if (this.ifGuest) {
@@ -607,17 +607,6 @@ export default {
         this.wsSocketConn.send('')
       }, 10000)
     },
-    handleSubpageLoadedMsg (eventData) {
-      if (eventData.params.userId !== sessionStorage.getItem('userId')) {
-        this.$alert(this.$t('nav.accountInconsistent'), this.$t('promptMessage.prompt'), {
-          confirmButtonText: this.$t('nav.reLogin'),
-          type: 'warning',
-          callback: () => {
-            this.logout()
-          }
-        })
-      }
-    },
     initUserInfo () {
       getUserInfo().then(res => {
         sessionStorage.setItem('userId', res.data.userId)
@@ -648,16 +637,7 @@ export default {
           this.list.splice(2, 1)
         }
         this.startHttpSessionInvalidListener(res.data.sessId)
-        this.sendPageLoadedMsg(res.data.userId)
       })
-    },
-    sendPageLoadedMsg (userId) {
-      if (window.parent !== window) {
-        window.top.postMessage({
-          cmd: 'subpageLoaded',
-          params: { userId }
-        }, '*')
-      }
     }
   },
   mounted () {
@@ -684,8 +664,6 @@ export default {
       if (data.cmd === 'iframeLanguageChange') {
         let lang = data.params.lang
         this.changeLanguage(lang)
-      } else if (data.cmd === 'subpageLoaded') {
-        this.handleSubpageLoadedMsg(data)
       }
     })
   },
@@ -701,7 +679,7 @@ export default {
 .headerComp {
   height: 65px;
   color: white;
-  background: #3e279b;
+  background: #5E40C8;
   position: fixed;
   z-index: 2001;
   width: 100%;
@@ -709,12 +687,10 @@ export default {
 
   .logo {
     height: 65px;
-    width: 110px;
     line-height: 65px;
     margin-left: -15px;
     img {
-      height: 28px;
-      width: 110px;
+      height: 65px;
     }
     span {
       font-size: 18px;
@@ -722,45 +698,25 @@ export default {
     }
   }
     .navList {
-      ul{
-        background: #3e279b !important;
-      }
       .el-menu--horizontal {
         border: none;
-        background: #3e279b !important;
       }
       .el-menu--horizontal>.el-menu-item {
         height: 65px;
         line-height: 65px;
         font-size: 14px;
-        font-weight: 400;
+        font-weight: 700;
         margin-right: 0px;
         vertical-align: bottom;
-        background: #3e279b !important;
-      }
-       .el-menu--horizontal>.el-menu-item:hover {
-         color: #fff !important;
-      }
-      .el-menu--horizontal>.el-menu-item.is-active {
-         color: #fff !important;
-         border-bottom: 2px solid #43f6ad !important;
       }
       .el-submenu__title {
         font-size: 14px;
-        font-weight: 400;
+        font-weight: 700;
       }
       .el-menu--horizontal>.el-submenu .el-submenu__title {
         height: 65px;
         line-height: 65px;
-        background: #3e279b !important;
-      }
-      .el-menu--horizontal>.el-submenu.is-active .el-submenu__title{
-        color: #fff !important;
-        border-bottom: 2px solid #43f6ad !important;
-      }
-      .el-menu--horizontal>.el-submenu .el-submenu__title:hover {
-         color: #fff !important;
-      }
+    }
     }
   .nav-tabs {
     padding-right: 20px;
@@ -819,13 +775,16 @@ export default {
     overflow-y: auto;
     z-index: 998;
     .el-menu{
-      background: #3e279b !important;
+      background: rgba(0, 0, 0, 0.6);
       border-right: none;
-    .el-submenu, .el-menu-item{
-      background: #3e279b !important;
+    .el-submenu.is-active, .el-menu-item.is-active{
+      background: rgba(0, 0, 0, 0.3);
+      .first-menu{
+        color: #6c92fa;
+      }
     }
     .el-submenu__title{
-      background: #3e279b !important;
+      background-color: rgba(0, 0, 0, 0.4) !important;
     }
     .el-icon-arrow-down:before{
       color: #fff;
@@ -888,26 +847,12 @@ export default {
     }
   }
 }
-.el-menu--horizontal{
-  background: #321882 !important;
-  .el-menu .el-menu-item:hover{
-    background: #49378e !important;
-    color:#fff !important;
-  }
-  .el-menu .el-menu-item{
-    background: #321882 !important;
-    color: rgba(250,250,250,0.8) !important;
-  }
-  .el-menu .el-menu-item:first-child{
-    margin-top: -10px;
-  }
-  .el-menu .el-menu-item:last-child{
-    margin-bottom: -5px;
-  }
-}
 @media screen and (max-width:1380px){
   .headerComp{
     padding: 0 56px;
   }
+}
+.headerComp .navList .el-menu--horizontal > .el-menu-item.is-active {
+    color: #FFFFFF !important;
 }
 </style>

@@ -23,7 +23,7 @@
         :platform-data="platformData"
         :show-full-footer-page="showFullFooterPage"
         :specific-bg="specificBg"
-        :specific-bg-color="bgColor"
+        specific-bg-color="#ffffff"
       />
     </el-main>
   </div>
@@ -59,8 +59,7 @@ export default {
         }
       ],
       showFullFooterPage: true,
-      specificBg: true,
-      bgColor: '#3e279b'
+      specificBg: false
     }
   },
   watch: {

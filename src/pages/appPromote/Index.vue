@@ -18,12 +18,17 @@
   <div class="my-app outHouse">
     <div class="outHouseTop">
       <div class="title">
-        {{ $t("nav.externalAppManagement") }}
+        <p
+          class="title_left"
+        >
+          {{ $t("nav.externalAppManagement") }}
+        </p>
+        <span class="line_bot1 title_line" />
       </div>
       <el-button
         id="addAppBtn"
         type="primary"
-        class="addOutStore"
+        class="batchProButton addOutStore"
         @click="register"
       >
         {{ $t('myApp.addApp') }}
@@ -602,33 +607,24 @@ export default {
   width: 100%;
   .outHouseTop{
     width: 73.64%;
-    margin: 51px auto;
+    margin: 60px 13.18% 60px 13.18%;
     min-width: 1200px;
     height: 63px;
-    letter-spacing: 4px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .title{
-       font-size: 30px;
-       color: #fff;
-       font-family:defaultFontBlod, Arial, Helvetica, sans-serif;
-    }
     .addOutStore{
-      background: #3E279B;
-      border: 1px solid rgba(51, 26, 133, 0.5);
-      color: #fff;
-      padding: 16px 49px;
-      border-radius: 16px;
       font-size: 20px;
-      box-shadow: inset 0px 0px 1px 1px rgba(255,255,255,0.5) !important;
-      font-family: defaultFontLight,
-        Arial,
-        Helvetica,
-        sans-serif !important;
+      padding: 25px 32px;
+      line-height: 4px;
+      border-radius: 25px !important;
+      font-family: HarmonyHeiTi, sans-serif;
+      font-weight: 300;
+      box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
     }
-    .addOutStore:hover{
-      font-weight: bold;
+    .title_line{
+      margin-left: 140px;
+      width: 210px;
     }
   }
   .contents {
@@ -639,11 +635,10 @@ export default {
       margin-left: 20px;
     }
     .my-app-content {
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
+      border-radius:16px ;
       position: relative;
       min-height: 568px;
-      background:rgba(46,20,124,0.7);
+      background:#fff;
       padding: 20px;
       .batchProm{
         width: 200px;
@@ -662,9 +657,7 @@ export default {
       }
     }
     .pagination {
-      border-top-left-radius: 0px;
-      border-top-right-radius: 0px;
-      background-color: rgba(46,20,124,0.7);
+      background-color: #fff;
       float: right;
       justify-content: flex-end;
       display: flex;
@@ -678,32 +671,41 @@ export default {
     height: 300px;
   }
   .el-dialog__footer {
-    background: #2E147C 70%;
     text-align: center;
   }
 }
 .dialogTitle{
-  border-radius: 8px 8px 0 0;
   display: flex;
   margin-left:30px ;
   .dialogTitle1{
-    width:9px;
-    height:9px;
-    border-radius: 50%;
-    background-color:#43F6AD;
+    width:15px;
+    height:15px;
+    border-radius: 3px;
+    background-color:#55D8BF;
     margin-right: 14px;
     margin-top: 8px;
   }
   .dialogTitle2{
     margin-bottom: 16px;
     font-size: 20px;
+    font-family: HarmonyHeiTi, sans-serif;
     font-weight: 300;
-    color: #fff;
+    color: #380879;
     letter-spacing:2px;
-    font-family: defaultFontLight,
-    Arial,
-    Helvetica,
-    sans-serif !important;
+  }
+}
+.outHouseTop /deep/ .el-button--primary{
+  height: 40px !important;
+  background:  linear-gradient(to right, #4444D0, #6724CB) !important;
+}
+.outHouseTop /deep/ .el-button{
+  background-color:  #5E40C8 ;
+  border-color:  #5E40C8;
+  font-family: HarmonyHeiTi, sans-serif;
+  font-weight: 300;
+  border-radius:10px ;
+  span{
+    color: #fff;
   }
 }
 div /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
@@ -713,38 +715,24 @@ div /deep/ .el-dialog__title {
   color: #5E40C8 !important;
 }
 div /deep/.el-form-item__label {
-  color: #fff !important;
-  font-size: 14px !important;
-  height: 25px;
-  line-height: 25px;
-  font-family: defaultFontLight,
-    Arial,
-    Helvetica,
-    sans-serif !important;
+  color: #5E40C8 !important;
+  font-size: 16px !important;
+  font-family: HarmonyHeiTi, sans-serif;
+  font-weight: 300;
 }
 div /deep/ .el-icon-close:before {
   display: none;
 }
 div /deep/.el-dialog{
-  background: #2E147C 70%;
+  background-color: #f6f5f8 !important;
   border-radius: 12px;
-  background: rgba(46,20,124,0.7) !important;
 }
 div /deep/.el-dialog__header {
   background-color: #f6f5f8 !important;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  background: rgba(46,20,124,0.7) !important;
+  border-radius: 12px;
 }
 div /deep/.el-dialog__body {
-  background: #2E147C 70%;
   padding: 10px 68px 0 0 !important;
-  background: rgba(46,20,124,0.7) !important;
-}
-div /deep/.el-dialog__footer {
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
-  background: rgba(46,20,124,0.7) !important;
 }
 div /deep/ .el-form-item .el-form-item__content {
   padding: 0 20px;
@@ -753,12 +741,8 @@ div /deep/ .el-form-item .el-form-item__content {
   border: none !important;
 }
 .outAppDialog /deep/ .el-input__inner {
+  border: 1px solid #fff !important;
   border-radius: 8px !important;
-  background: #4E3494 !important;
-  border: none !important;
-  height: 25px;
-  color: #fff !important;
-  line-height: 25px;
 }
 .el-button{
   background: #fff;
@@ -776,10 +760,6 @@ div /deep/ .el-form-item__error {
   padding-top: 4px;
   position: absolute;
   left: 30px;
-  top:29px
-}
-div /deep/ .el-icon-arrow-up:before{
-  position: relative !important;
-  left: -6px !important;
+  top:44px
 }
 </style>
