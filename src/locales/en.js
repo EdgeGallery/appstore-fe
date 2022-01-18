@@ -29,6 +29,7 @@ const en = {
     hsInvalidHintForLogout: 'You have logged in or logged out through other pages, ',
     hsInvalidHintForServerStopped: 'The server has been upgraded, ',
     hsInvalidHint: 'the current session has expired. Please choose to refresh the page or log in again.',
+    accountInconsistent: 'Sorry! Maybe due to the browser\'s security policy, there is a problem that the cookie is blocked, resulting in the account being out of sync. Please log in again to try to eliminate the situation.',
     refresh: 'Refresh',
     reLogin: 'Login',
     appstore: 'APP Warehouse',
