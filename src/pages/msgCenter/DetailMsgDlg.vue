@@ -94,7 +94,7 @@
         <p @click="handleDelete">
           {{ $t("system.delete") }}
         </p>
-        <p @click="handleAccept">
+        <p @click.stop="handleAccept">
           {{ $t("apppromotion.accept") }}
         </p>
       </div>
@@ -128,10 +128,19 @@ export default {
     },
     handleAccept () {
       acceptMsg(this.data.messageId).then((res) => {
-        this.$message.success(this.$t('apppromotion.acceptSuccess'))
+        this.$message({
+          duration: 2000,
+          type: 'success',
+          customClass: 'zZindex',
+          message: this.$t('apppromotion.acceptSuccess')
+        })
+        this.$emit('deletedMsgId', this.data.messageId)
+        this.$emit('isShowDetailMsgDlg', false)
       }).catch((error) => {
         let defaultMsg = this.$t('apppromotion.acceptFailed')
         commonUtil.showTipMsg(this.language, error, defaultMsg)
+        this.$emit('deletedMsgId', this.data.messageId)
+        this.$emit('isShowDetailMsgDlg', false)
       })
     },
     handleDelete () {
@@ -142,6 +151,8 @@ export default {
       }).catch((error) => {
         let defaultMsg = this.$t('apppromotion.deleteMsgFailed')
         commonUtil.showTipMsg(this.language, error, defaultMsg)
+        this.$emit('deletedMsgId', this.data.messageId)
+        this.$emit('isShowDetailMsgDlg', false)
       })
     }
 
@@ -404,5 +415,8 @@ export default {
     color: #380879;
     word-wrap: break-word;
     word-break: break-all;
+}
+.zZindex {
+  z-index: 3000 !important;
 }
 </style>
