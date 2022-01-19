@@ -16,7 +16,7 @@
 
 <template>
   <div class="app_detail padding56">
-    <div class="title_top">
+    <div class="common_title">
       {{ $t('store.introduction') }}
     </div>
     <div class="app_info_div">
@@ -807,6 +807,7 @@ export default {
 
 <style lang="less">
 .app_detail{
+  color: #fff;
   .title_top{
     padding: 60px 0 20px !important;
     position: relative;
@@ -854,7 +855,7 @@ export default {
   }
   .app_info_div{
     border-radius: 16px;
-    background: #fff;
+    background: #2E147C;
     padding: 20px 0 20px 70px;
     display: flex;
     align-items: center;
@@ -873,7 +874,7 @@ export default {
         display: flex;
         .app_title{
           font-size: 36px;
-          color: #380879;
+          color: #fff;
           font-weight: bold;
           width: 193px;
           white-space: nowrap;
@@ -913,29 +914,24 @@ export default {
       .app_tag{
         span{
           float: left;
-          font-size: 12pt;
-          font-weight: Light;
-          padding: 5px 20px 5px 10px;
-          margin-right: 20px;
-          border-radius: 12pt  12pt   12pt  0pt;
+          padding: 4px 10px;
+          background:#4E3494;
+          margin-right: 10px;
+          border-radius: 4px;
         }
         .industry{
-          background: center right no-repeat #eaf6f9;
           background-size: contain;
-          color: #54AAF3;
+          color: #FFB800;
         }
         .architecture{
-          background: center right no-repeat #effafa;
           background-size: contain;
-          color: #61CDD0;
+          color: #16E9EF;
         }
         .type{
-          background: center right no-repeat #eae5f991;
           background-size: contain;
-          color: #5E40C8;
+          color: #9374FF;
         }
         .deployMode{
-          background: center right no-repeat #fff2ed;
           background-size: contain;
           color: #FF7C50;
         }
@@ -957,17 +953,25 @@ export default {
           height: 40px !important;
           width: 183px !important;
           border-radius: 25px !important;
-          color: #FFFFFF;
-          font-family: HarmonyHeiTi, sans-serif;
-          font-weight: 300;
+          color: #0F0D87;
           font-size: 18px;
-          background: linear-gradient(to right, #4444D0, #6724CB) !important;
+          background:#fff;
           .el-button--primary{
             font-size: 20px;
             background-color: #fff;
             border: none;
             color: #FFFFFF;
           }
+        }
+        .batchProButton:hover{
+          color: #fff;
+          font-size: 18px;
+          background:#0F0D87;
+        }
+        .subscribeButton:hover{
+          color: #fff;
+          font-size: 18px;
+          background:#0F0D87;
         }
         .subscribeButton{
           padding: 0px;
@@ -976,12 +980,9 @@ export default {
           height: 40px !important;
           width: 183px !important;
           border-radius: 25px !important;
-          color: #6525CB;
-          font-family: HarmonyHeiTi, sans-serif;
-          font-weight: 400;
+          color: #0F0D87;
           font-size: 18px;
-          background: #FFF;
-          border: 2px solid #6525CB !important;
+          background: #fff;
       }
       }
     }
@@ -995,7 +996,7 @@ export default {
         float: left;
         width: 2px;
         height: 50px;
-        background-color: #d4d1ec;
+        background-color: #4E3494;
     }
     .separator{
         position: relative;
@@ -1010,14 +1011,14 @@ export default {
       width:0;
     }
     .list_top{
-      background-color: #f0f2f5;
+      background-color: #3e279b;
       margin-top: 58px;
       li{
         float: left;
         height: 50px;
         line-height: 50px;
         cursor: pointer;
-        background: #D4D1EC;
+        background: #2E147C;
         span{
           display: block;
           width: 100%;
@@ -1026,6 +1027,7 @@ export default {
           font-size: 20px;
           color: #fff;
           transition: all 0.1s;
+          background: #4E3494;
         }
       }
       .last_li{
@@ -1040,21 +1042,21 @@ export default {
         margin-right: 10px;
       }
       .appDetail_active{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 16px 0 0 0;
         transition: all 0.1s;
         span{
-          background: #fff;
+          background: #2E147C;
           border-radius: 16px 16px 0 0;
-          color: #5e40c8;
+          color: #fff;
           transition: all 0.1s;
         }
       }
       .appDetail_comment{
-        background: #fff;
+        background: #2E147C;
         border-radius: 16px 0 0 0;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 16px 0 16px 0;
           transition: all 0.1s;
         }
@@ -1077,29 +1079,29 @@ export default {
         }
       }
       .comment_active{
-        background: #d4d1ec;
+        background: #4E3494;
         transition: all 0.1s;
         span{
-          background: #fff;
+          background: #2E147C;
           border-radius: 16px 16px 0 0;
-          color: #5e40c8;
+          color: #fff;
           transition: all 0.1s;
         }
       }
       .comment_default{
-        background: #fff;
+        background: #2E147C;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 0 16px;
           transition: all 0.1s;
         }
       }
       .comment_default_appShow_meao{
-        background: #fff;
+        background: #2E147C;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 16px 0;
           transition: all 0.1s;
         }
@@ -1156,17 +1158,17 @@ export default {
         }
       }
       .last_li.last_default{
-        background: #d4d1ec;
+        background: #4E3494;
         span{
-          background: linear-gradient(to bottom, #f5f4f8, #f1edf6);
+          background: #3e279b;
           border-radius: 0 0 0 16px;
           transition: all 0.1s;
         }
       }
       .last_li.last_default2{
-        background: #fff;
+        background: #2E147C;
         span{
-          background: linear-gradient(to bottom, #f5f4f8, #f1edf6);
+          background: #3e279b;
           border-radius: 0 0 0 16px;
           transition: all 0.1s;
         }
@@ -1188,46 +1190,46 @@ export default {
         }
       }
       .appShow_active{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
-          background: #fff;
+          background: #2E147C;
           border-radius: 16px 16px 0 0;
-          color: #5e40c8;
+          color: #fff;
           transition: all 0.1s;
         }
       }
       .appShow_no_active{
-        background: #f4f3f7;
+        background: #2E147C;
         border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 0 0;
           transition: all 0.1s;
         }
       }
       .appShow_default{
-        background: #fff;
+        background: #2E147C;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 0 16px;
           transition: all 0.1s;
         }
       }
       .appShow_default_meao{
-        background: #fff;
+        background: #2E147C;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 16px 0;
           transition: all 0.1s;
         }
       }
       .meao_default_comment{
-        background: #f4f3f7;
+        background: #3e279b;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
@@ -1243,22 +1245,22 @@ export default {
         }
       }
       .meao_active{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: #fff;
+          background: #2E147C;
           border-radius: 16px 16px 0 0;
           color: #5e40c8;
           transition: all 0.1s;
         }
       }
       .meao_default{
-        background: #fff;
+        background: #3e279b;
         border-radius: 0 16px 0 16px;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
@@ -1274,11 +1276,11 @@ export default {
         }
       }
       .vedio_default_appshow_meao{
-        background: #fff;
+        background: #2E147C;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 0 16px;
           transition: all 0.1s;
         }
@@ -1303,30 +1305,30 @@ export default {
         }
       }
       .meao_default_vedio_appShow{
-        background: #fff;
+        background: #3e279b;
         border-radius: 0 16px 0 0;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 16px 0 16px;
           transition: all 0.1s;
         }
       }
       .meao_default_vedio_appDetail{
-        background: #f4f3f7;
+        background: #3e279b;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
       }
       .vedio_active{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
-          background: #fff;
+          background: #2E147C;
           border-radius: 16px 16px 0 0;
-          color: #5e40c8;
+          color: #fff;
           transition: all 0.1s;
         }
       }
@@ -1342,10 +1344,10 @@ export default {
         }
       }
       .vedio_default{
-        background: #fff;
+        background: #2E147C;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 0 0;
           transition: all 0.1s;
         }
@@ -1379,11 +1381,11 @@ export default {
         }
       }
       .vedio_default2_appShow_meao{
-        background: #fff;
+        background: #2E147C;
         border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 16px 0;
           transition: all 0.1s;
         }
@@ -1446,7 +1448,7 @@ export default {
     box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);
   }
   .container_div_active{
-    background: #d4d1ec;
+    background: #4E3494;
     border-radius: 0 16px 16px 16px;
   }
 }

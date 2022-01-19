@@ -16,28 +16,30 @@
 
 <template>
   <div class="hostManagement">
-    <div class="title_top title_left defaultFontBlod">
-      {{ $t('nav.systemHost') }}
-      <span class="line_bot1" />
-      <el-button
-        class="createimage_btn linearGradient2 image_mgmt"
+    <div class="sandboxTop">
+      <p class="sandebox_title defaultFontBlod">
+        {{ $t('nav.systemHost') }}
+      </p>
+      <p
+        class="addSandbox_btn hover_pointer"
         @click="handleShowForm(defaultForm)"
       >
-        <em class="new_icon" />
         {{ $t('system.addHost') }}
-      </el-button>
+      </p>
     </div>
     <el-dialog
       :close-on-click-modal="false"
       :visible.sync="visible"
       @close="onClose"
-      class="dialog_host default_dialog"
     >
       <div
         slot="title"
-        class="el-dialog__title"
+        class="title_content"
       >
-        <em class="title_icon" />{{ form.hostId ? $t('system.modify') : $t('system.addHost') }}
+        <p class="title_line" />
+        <p class="defaultFontLight title_name">
+          {{ form.hostId ? $t('system.modify') : $t('system.addHost') }}
+        </p>
       </div>
       <el-form
         v-show="visible"
@@ -221,7 +223,7 @@
               slot="trigger"
               size="medium"
               plain
-              class="featuresBtn"
+              class="uploadFile"
             >
               {{ $t('system.upload') + $t('system.config_id') }}
             </el-button>
@@ -238,13 +240,16 @@
           :visible.sync="innerVisible"
           :close-on-click-modal="false"
           append-to-body
-          class="other_setting default_dialog"
+          class="other_setting"
         >
           <div
             slot="title"
-            class="el-dialog__title"
+            class="title_content"
           >
-            <em class="title_icon" />{{ $t('system.networkConfig') }}
+            <p class="title_line" />
+            <p class="defaultFontLight title_name">
+              {{ $t('system.networkConfig') }}
+            </p>
             <em
               v-if="true"
               class="el-icon-circle-plus-outline rt editBtn"
@@ -279,16 +284,16 @@
             slot="footer"
             class="dialog-footer"
           >
-            <el-button
-              @click="innerVisible=false"
-              class="bgBtn"
-            >{{ $t('common.cancel') }}</el-button>
 
             <el-button
               type="primary"
               @click="confirmData"
-              class="bgBtn"
+              class="cancle_btn"
             >{{ $t('common.confirm') }}</el-button>
+            <el-button
+              @click="innerVisible=false"
+              class="cancle_btn btnMargin"
+            >{{ $t('common.cancel') }}</el-button>
           </span>
         </el-dialog>
       </el-form>
@@ -298,19 +303,19 @@
         class="dialog-footer"
       >
         <el-button
-          @click="visible = false"
-          class="bgBtn"
-        >
-          {{ $t('common.cancel') }}
-        </el-button>
-        <el-button
           type="primary"
           size="medium"
           :loading="loading"
           @click="onSubmit"
-          class="bgBtn"
+          class="cancle_btn"
         >
           {{ $t('common.confirm') }}
+        </el-button>
+        <el-button
+          @click="visible = false"
+          class="cancle_btn btnMargin"
+        >
+          {{ $t('common.cancel') }}
         </el-button>
       </div>
     </el-dialog>
@@ -333,7 +338,7 @@
         v-loading="loading"
         row-key="hostId"
         :data="allListData"
-        class="tableStyle"
+        class="common_table"
       >
         <el-table-column
           prop="name"
@@ -382,7 +387,7 @@
           <template slot-scope="scope">
             <el-button
               :loading="loading"
-              class="operations_btn"
+              class="common_operationBtn"
               @click="handleShowForm(scope.row)"
             >
               {{ $t('system.modify') }}
@@ -390,7 +395,7 @@
 
             <el-button
               :loading="loading"
-              class="operations_btn"
+              class="common_operationBtn"
               @click="handleDelete(scope.row)"
             >
               {{ $t('system.delete') }}
@@ -780,21 +785,8 @@ export default {
 
 <style lang="less">
 .other_setting{
-  .el-dialog{
-    width: 600px;
-    .editBtn:before{
-      font-size: 20px;
-      color: #a9a2c3;
-      cursor: pointer;
-    }
-  }
-  .el-dialog__body{
-    max-height: 525px;
-    overflow: auto;
-    padding-right: 40px !important;
-  }
-  .dialog-footer{
-    padding-right: 50px !important;
+  .el-dialog .el-icon-close:before {
+    display: none;
   }
 }
 .innerVisible_div{
@@ -829,17 +821,52 @@ export default {
 }
 .hostManagement {
   margin: 0 13.18%;
+  .sandboxTop{
+    display: flex;
+    justify-content: space-between;
+    margin: 51px 0 28px;
+    .sandebox_title{
+      position: relative;
+      color: #fff;
+      letter-spacing: 4px;
+      font-size: 30px;
+    }
+    .addSandbox_btn{
+      background: #3E279B;
+      border: 1px solid rgba(51, 26, 133, 0.5);
+      color: #fff;
+      padding: 16px 49px;
+      border-radius: 16px;
+      font-size: 20px;
+      box-shadow: inset 0px 0px 1px 1px rgba(255, 255 ,255 ,0.5);
+    }
+    .addSandbox_btn:hover{
+      font-weight: bold;
+    }
+  }
+  .uploadFile{
+    background: #4E3494;
+    color: #fff;
+  }
+  .uploadFile:hover{
+    background: #fff;
+    color: #4E3494;
+  }
   .dialog_host .el-dialog{
     min-width: 850px;
   }
   .view_more_btn{
-    color: #7a6e8a;
-    background: #efefef;
+    color: #fff;
+    background: #4E3494;
     padding: 2px 8px;
     border-radius: 5px;
     position: relative;
     top: 7px;
     cursor: pointer;
+  }
+  .view_more_btn:hover{
+    color: #4E3494;
+    background: #fff;
   }
   .createimage_btn{
     position: absolute;
@@ -877,7 +904,7 @@ export default {
   }
   .list {
     border-radius: 16px;
-    background: #fff;
+    background: #2E147C;
     padding: 30px 60px;
     box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);
     .title{
@@ -886,38 +913,49 @@ export default {
       justify-content: space-between;
       margin-bottom: 20px;
     }
-    .el-table {
-      font-size: 14px;
-      .icon_pic {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-      }
-      thead {
-        color: #282b33;
-        font-weight: 100;
-        font-size: 14px;
-        th,
-        tr {
-          background-color: #f5f5f5;
-        }
-      }
-      tbody {
-        td {
-          padding: 8px;
-          .el-button--text {
-            color: #5b7ede;
-          }
-          .cell{
-            padding-left: 0;
-          }
-        }
-      }
+  }
+}
+.title_content{
+    display: flex;
+    .title_line{
+      position: relative;
+      top: 8px;
+      width: 9px;
+      height: 9px;
+      margin-right: 10px;
+      border-radius: 50%;
+      background: #43F6AD;
+    }
+    .title_name{
+      color: #fff !important;
+      font-size: 16px;
     }
   }
+.cancle_btn{
+  padding: 8px 21px;
+  margin-bottom: 25px;
+  background: #fff;
+  color: #5944C0;
+  border-radius: 10px;
+  border: none;
+  float: right;
+  font-size: 14px;
+  text-align: center;
+}
+.cancle_btn:hover{
+  background: #5944C0;
+  color: #fff;
+}
+.btnMargin{
+  margin-right: 15px !important;
 }
 .zZindex {
   z-index: 3000 !important;
 }
-
+.el-icon-circle-plus-outline:before{
+  color: #fff;
+  position: relative;
+  font-size: 23px !important;
+  right: -650px;
+}
 </style>

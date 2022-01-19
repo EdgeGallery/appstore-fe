@@ -18,16 +18,12 @@
   <div class="my-app pushApp">
     <div class="my-app-content">
       <div class="title">
-        <p class="title_left">
-          {{ $t("nav.appPush") }}
-        </p>
-        <span class="line_bot1 title_line" />
+        {{ $t("nav.appPush") }}
       </div>
       <div class="app-list">
         <div class="batchProm">
           <el-button
-            type="primary"
-            class="appPull"
+            class="appPull commonBtnDisabled defaultFontLight"
             :disabled="btnChangeEnable"
             @click="showPushAppDialog"
           >
@@ -67,6 +63,7 @@
 
         <div class="appPromPackageTable">
           <el-table
+            class="common_table"
             :data="currentPageData"
             :default-sort="{prop: 'latestPushTime', order: 'descending'}"
             @sort-change="sortChanged"
@@ -74,7 +71,6 @@
             ref="multipleTable"
             :row-key="getRowKeys"
             style="width: 100%"
-            header-cell-class-name="headerStyle"
           >
             <el-table-column
               type="selection"
@@ -445,15 +441,15 @@ export default {
   .my-app-content {
     min-height: 500px;
     width: 73.64%;
-    margin: 61px 13.18%;
+    margin: 51px 13.18%;
     min-width: 1200px;
     .title{
-      margin-bottom: 60px;
-      .title_line{
-        margin-left: 140px;
-      }
+      font-size: 30px;
+       color: #fff;
+       font-family:defaultFontBlod, Arial, Helvetica, sans-serif;
+       margin-bottom: 60px;
+       letter-spacing: 4px;
     }
-
   }
   .paginationStyle{
     position: absolute;
@@ -463,7 +459,7 @@ export default {
 }
 
 .app-list {
-  background:#fff;
+  background:rgba(46, 20, 124, 0.7);
   padding: 31px;
   position: relative;
   border-radius:16px ;
@@ -474,9 +470,8 @@ export default {
     margin-bottom: 15px;
     margin-left: 10px;
     float: right;
-    .appPull{
-      font-size: 16px !important;
-       font-weight: 300 !important;
+    .appPull:hover{
+      font-weight: bold;
     }
   }
   .search_input{
@@ -520,21 +515,28 @@ div /deep/ .headerStyle {
 }
 .lookReport{
   text-decoration: none;
-  color: #7A6E8A;
+  color: #fff;
   padding: 4px 12px;
-  background: #EFEFEF;
-  border-radius: 12px;
+  background: #4E3494;
+  border-radius: 5px;
 }
  div /deep/ .el-select-dropdown__list {
      padding: 20px !important;
 }
-div /deep/ .el-table th > .cell {
-    font-size: 20px;
-    height: 59px;
-    line-height: 59px;
-    font-weight: lighter;
+div /deep/  .el-input--suffix .el-input__inner {
+      height: 30px  !important;
+      line-height: 30px !important;
+      border: 1px solid rgba(250, 250, 250, 0.6) !important;
+      background: rgba(46, 20, 124, 0.7) !important;
+      color: rgba(250, 250, 250, 0.6) !important;
 }
-div /deep/ .el-table td > .cell {
-    font-size: 14px;
+div /deep/ .el-tag.el-tag--info {
+     background: rgba(250, 250, 250, 0.2) !important;
+    border: none !important;
+    color: #fff !important;
+}
+div /deep/ .el-icon-arrow-up:before{
+  position: relative;
+  top: -5px;
 }
 </style>

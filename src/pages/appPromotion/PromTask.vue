@@ -17,19 +17,27 @@
 <template>
   <div class="promTask">
     <el-dialog
-      :title="$t('apppromotion.appPromotion')"
       :visible.sync="dialogVisible"
       width="50%"
       :before-close="handleClose"
       :close-on-click-modal="false"
     >
+      <div class="modify_header">
+        <span class="title_icon" />
+        <div
+          slot="title"
+          class="header-title"
+        >
+          {{ $t('apppromotion.appPromotion') }}
+        </div>
+      </div>
       <div
         class="app-prom"
       >
         <el-table
           :data="appData"
+          class="common_table"
           style="width: 100%"
-          header-cell-class-name="headerStyle"
         >
           <el-table-column
             prop="name"
@@ -71,6 +79,7 @@
         class="dialog-footer"
       >
         <el-button
+          class="footer-button"
           @click="handleCloseDirect"
         >{{
           $t("apppromotion.closePanel")
@@ -197,26 +206,29 @@ export default {
 </script>
 <style lang="less">
 .promTask {
-  .el-dialog__header{
-    background-color: #688ef3 ;
-    .el-dialog__title {
-      color: #fff;
+  position: absolute;
+  .modify_header{
+    position: absolute;
+    top: 40px;
+    display: inline-flex;
+    .title_icon{
+      background: #43F6AD;
+      border-radius: 50%;
+      height: 9px;
+      width: 9px;
+      position: relative;
+      top: 10px;
     }
-    .el-dialog__close {
+    .header-title{
+      margin-left: 10px;
       color: #fff;
+      font-size: 16px;
     }
   }
   .app-prom {
+    margin-top: 40px;
     height: 400px;
     overflow:auto;
-    .el-icon-close:before{
-      font-size: 25px;
-      color: #d8363e;
-    }
-  }
-
-  .el-dialog__footer {
-    text-align: center;
   }
   .el-icon-loading {
     color: #607B36;

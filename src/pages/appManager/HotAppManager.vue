@@ -29,11 +29,11 @@
       <el-table
         v-loading="dataLoading"
         :data="currentPageData"
-        class="tableStyle"
         :default-sort="{ prop: 'createTime', order: 'descending' }"
         @sort-change="sortChange"
         @filter-change="filterChange"
         ref="multipleTable"
+        class="common_table"
       >
         <el-table-column
           prop="name"
@@ -247,9 +247,8 @@ export default {
 </script>
 <style lang="less">
 .hotAppManager {
-  width: 1416px;
   margin: auto;
-  background: #fff;
+  background: #2E147C;
   border-radius: 16px;
   padding: 31px 0 0 31px;
   .clearbtAndSearch{
