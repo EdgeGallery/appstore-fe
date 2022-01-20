@@ -29,7 +29,7 @@
       <el-table
         v-loading="dataLoading"
         :data="currentPageData"
-        class="tableStyle"
+        class="common_table"
         :default-sort="{ prop: 'createTime', order: 'descending' }"
         @sort-change="sortChange"
         @filter-change="filterChange"
@@ -250,7 +250,7 @@ export default {
 .storeAppManager {
   width: 1416px;
   margin: auto;
-  background: #fff;
+  background: #2E147C;
   border-radius: 16px;
   padding: 31px 0px 0px 31px ;
   .clearbtAndSearch{

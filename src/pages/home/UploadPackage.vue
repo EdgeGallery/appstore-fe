@@ -851,20 +851,8 @@ export default {
     border-radius: 20px;
     background: rgba(46, 20, 124, 0.7);
   }
-  .el-dialog__header {
-    background: rgba(46, 20, 124, 0.7) !important;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-  }
-  .el-dialog__body{
-     background: rgba(46, 20, 124, 0.7) !important;
-     padding: 0 !important;
-  }
   .el-dialog__footer{
     margin-top: -20px;
-    background: rgba(46, 20, 124, 0.7) !important;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
   }
   .modify_header{
     display: inline-flex;
@@ -941,13 +929,6 @@ export default {
     color: #fff;
     font-size: 12px;
   }
-  .footer-button{
-    margin-bottom: 25px;
-    background: #fff;
-    color: #5944C0;
-    border-radius: 10px;
-    border: none;
-  }
   .el-radio__label{
     color: #fff;
     font-size: 12px;
@@ -958,10 +939,6 @@ export default {
   .el-radio__input.is-checked .el-radio__inner {
     border-color: #54C3D7;
     background-color:#54C3D7;
-  }
-  .footer-button:hover{
-     background: #5844BE;
-     color: #fff;
   }
   .el-checkbox__input.is-checked + .el-checkbox__label {
     color: #fff;
@@ -1133,8 +1110,5 @@ export default {
 }
 .zZindex {
   z-index: 3000 !important;
-}
-.el-icon-close:before{
-   color: #fff !important;
 }
 </style>

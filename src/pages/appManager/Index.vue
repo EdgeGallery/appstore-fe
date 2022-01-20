@@ -16,11 +16,8 @@
 
 <template>
   <div class="myApp padding56 minHeight">
-    <div class="headerTitle">
-      <p class="subheaderTitle">
-        {{ $t('nav.appMgmt') }}
-      </p>
-      <div class="subBack" />
+    <div class="common_title">
+      {{ $t('nav.appMgmt') }}
     </div>
     <ul class="list_top clear">
       <li
@@ -28,7 +25,7 @@
         :class="{'container_active':activeName==='hot','container_default':activeName==='store','container_default2':activeName==='push',}"
       >
         <span>
-          <em class="image_container" />{{ $t('appManager.hotAppTitle') }}
+          {{ $t('appManager.hotAppTitle') }}
         </span>
       </li>
       <div
@@ -44,7 +41,7 @@
         :class="{'vm_active':activeName==='store','vm_default':activeName==='hot','vm_default2':activeName==='push'}"
       >
         <span>
-          <em class="image_vm" />{{ $t('appManager.storeAppTitle') }}
+          {{ $t('appManager.storeAppTitle') }}
         </span>
       </li>
       <div
@@ -60,7 +57,7 @@
         :class="{'push_active':activeName==='push','push_default':activeName!=='push','push_default2':activeName==='store'}"
       >
         <span>
-          <em class="push_container" />{{ $t('appManager.pushAppTitle') }}
+          {{ $t('appManager.pushAppTitle') }}
         </span>
       </li>
       <li
@@ -134,32 +131,13 @@ export default {
 .myApp {
   border: none;
   .horizontal-cell{
-        padding: 12px 0;
-        float: left;
-        width: 2px;
-        height: 50px;
-        background-color: #d4d1ec;
-    }
-  .headerTitle{
-    margin-top: 59px;
-    margin-left: 126px;
-    .subheaderTitle {
-        font-size: 30px;
-        font-weight: bold;
-        color: #5d3da0;
-        font-family: HarmonyOS_Sans_SC_Bold, sans-serif;
-      }
-    .subBack{
-      // margin-top: 51px;
-      background-color: rgba(158,123,205,.2);
-      width: 88px;
-      height: 7px;
-      border-radius: 16pt  16pt   16pt  16pt;
-    }
-
+    padding: 12px 0;
+    float: left;
+    width: 2px;
+    height: 50px;
+    background-color: #4E3494;
   }
   .list_top{
-    margin-top: 58px;
     li{
       float: left;
       height: 50px;
@@ -187,48 +165,34 @@ export default {
       top: 4px;
       margin-right: 10px;
     }
-    .image_container{
-      background: url('../../assets/images/popular_enable_icon.png');
-    }
-    .image_vm{
-      background: url('../../assets/images/display_enable_icon.png');
-    }
-    .container_active .image_container{
-      background: url('../../assets/images/popular_able_icon.png');
-    }
-    .vm_active .image_vm{
-      background: url('../../assets/images/display_able_icon.png');
-    }
-    .push_active .push_container{
-      background: url('../../assets/images/push_able_icon.png');
-    }
-    .push_container{
-      background: url('../../assets/images/push_enable_icon.png');
-    }
     .container_active{
-      background: #d4d1ec;
+      background: #4E3494;
       border-radius: 16px 0 0 0;
       transition: all 0.5s;
       span{
-        background: #fff;
+        background: #2E147C;
         border-radius: 16px 16px 0 0;
-        color: #5e40c8;
+        color: #fff;
         transition: all 0.5s;
       }
     }
     .container_default{
-      background: #fff;
+      background: #2E147C;
       border-radius: 16px 0 0 0;
       transition: all 0.5s;
       span{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 16px 0 16px 0;
         transition: all 0.5s;
       }
     }
     .container_default2{
-      background: #d4d1ec;
+      background: #2E147C;
       border-radius: 16px 0 0 0;
+      span{
+        background: #4E3494;
+        border-radius: 16px 0 0 0;
+      }
     }
     .container_push_default{
       background: #fff;
@@ -242,29 +206,29 @@ export default {
 
     }
     .vm_active{
-      background: #d4d1ec;
+      background: #4E3494;
       transition: all 0.5s;
       span{
-        background: #fff;
+        background: #2E147C;
         border-radius: 16px 16px 0 0;
-        color: #5e40c8;
+        color: #fff;
         transition: all 0.5s;
       }
     }
     .vm_default{
-      background: #fff;
+      background: #2E147C;
       border-radius: 0 16px 0 0;
       transition: all 0.5s;
       span{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 0 0 0 16px;
         transition: all 0.5s;
       }
     }
     .vm_default2{
-      background: #fff;
+      background: #2E147C;
       span{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 0 0 16px 0;
       }
     }
@@ -276,61 +240,60 @@ export default {
       }
     }
     .last_li.last_default{
-      background: #d4d1ec;
+      background: #4E3494;
       span{
-        background: linear-gradient(to bottom, #f5f4f8, #f1edf6);
+        background: #3e279b;
         border-radius: 0 0 0 16px;
         transition: all 0.5s;
       }
     }
     .last_li.last_default2{
-      background: #fff;
+      background: #2E147C;
       span{
-        background: linear-gradient(to bottom, #f5f4f8, #f1edf6);
+        background: #3e279b;
         border-radius: 0 0 0 16px;
         transition: all 0.5s;
       }
     }
     .push_active{
-      background: #d4d1ec;
+      background: #4E3494;
       border-radius: 0 16px 0 0;
       transition: all 0.5s;
       span{
-        background: #fff;
+        background: #2E147C;
         border-radius: 16px 16px 0 0;
-        color: #5e40c8;
+        color: #fff;
         transition: all 0.5s;
       }
     }
     .push_default{
-      background: #f4f3f7;
-      // border-radius: 0 16px 0 0;
+      background: #3e279b;
       transition: all 0.5s;
       span{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 0 16px 0 0px;
         transition: all 0.5s;
       }
 
     }
     .push_default2{
-      background: #fff;
+      background: #2E147C;
       border-radius: 0 16px 0 0;
-
       span{
+        background: #4E3494;
         border-radius: 0 16px 0 16px;
       }
     }
   }
   .container_div{
     margin-top: 0px;
-    background: #fff;
+    background: #2E147C;
     border-radius: 0 16px 16px 16px;
     transition: all 0.5s;
     box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);
   }
   .container_div_active{
-    background: #d4d1ec;
+    background: #4E3494;
   }
   .vm_div{
     background: #d4d1ec;
@@ -344,12 +307,12 @@ export default {
   .link-left {
     width: 3px;
     height: 10px;
-    border-left: solid #B3B0CA 2px;
+    border-left:2px solid #331A85 ;
   }
   .link-right {
     width: 3px;
     height: 10px;
-    border-right: solid #B3B0CA 2px;
+    border-right:2px solid #331A85 ;
   }
 }
 .minHeight{

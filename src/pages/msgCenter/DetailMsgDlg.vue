@@ -18,18 +18,17 @@
   <div class="detailContent">
     <div class="messageTop">
       <div class="messageDetile">
-        <img
-          src="../../assets/images/messageTop.png"
-          alt=""
-        >
-        <p>{{ $t("messageCenter.msgDetailInfo") }}</p>
+        <p class="title_line" />
+        <p class="title defaultFontLight">
+          {{ $t("messageCenter.msgDetailInfo") }}
+        </p>
       </div>
-      <img
-        src="../../assets/images/messageClose.png"
-        alt=""
-        class="messageClose"
+      <p
+        class="messageClose defaultFontLight"
         @click="returnToList"
       >
+        ×
+      </p>
     </div>
     <div class="appMessage">
       <div class="appMessageTop">
@@ -37,7 +36,9 @@
           src="../../assets/images/messageAppInfo.png"
           alt=""
         >
-        <p>{{ $t("messageCenter.appBasicInfo") }}</p>
+        <p class="defaultFontLight">
+          {{ $t("messageCenter.appBasicInfo") }}
+        </p>
       </div>
       <div class="appMessageContent">
         <div class="appInfoImg">
@@ -47,18 +48,18 @@
           >
         </div>
         <div class="appInfo1">
-          <p><span>{{ $t('messageCenter.appLabel') }}</span><span>{{ data.basicInfo.name }}</span></p>
-          <p><span>{{ $t('messageCenter.appStruct') }}</span><span>{{ data.basicInfo.affinity }}</span></p>
-          <p><span>{{ $t('messageCenter.appVersion') }}</span><span>{{ data.basicInfo.version }}</span></p>
+          <p><span class="defaultFontLight">{{ $t('messageCenter.appLabel') }}</span><span class="defaultFontLight">{{ data.basicInfo.name }}</span></p>
+          <p><span class="defaultFontLight">{{ $t('messageCenter.appStruct') }}</span><span class="defaultFontLight">{{ data.basicInfo.affinity }}</span></p>
+          <p><span class="defaultFontLight">{{ $t('messageCenter.appVersion') }}</span><span class="defaultFontLight">{{ data.basicInfo.version }}</span></p>
         </div>
         <div class="appInfo1 appInfo2">
-          <p><span>{{ $t('messageCenter.appProvider') }}</span><span> {{ data.basicInfo.provider }}</span></p>
-          <p><span>{{ $t('messageCenter.appType') }}</span><span>  {{ data.basicInfo.type }}</span></p>
-          <p><span>{{ $t('messageCenter.appIndustry') }}</span><span>{{ data.basicInfo.industry }}</span></p>
+          <p><span class="defaultFontLight">{{ $t('messageCenter.appProvider') }}</span><span class="defaultFontLight"> {{ data.basicInfo.provider }}</span></p>
+          <p><span class="defaultFontLight">{{ $t('messageCenter.appType') }}</span><span class="defaultFontLight">  {{ data.basicInfo.type }}</span></p>
+          <p><span class="defaultFontLight">{{ $t('messageCenter.appIndustry') }}</span><span class="defaultFontLight">{{ data.basicInfo.industry }}</span></p>
         </div>
       </div>
       <p class="desc">
-        <span>{{ $t('messageCenter.appShortDes') }}</span><span>{{ data.basicInfo.shortDesc }}</span>
+        <span class="defaultFontLight">{{ $t('messageCenter.appShortDes') }}</span><span class="defaultFontLight">{{ data.basicInfo.shortDesc }}</span>
       </p>
       <div class="appTestReport">
         <div class="appTestReportTop">
@@ -66,7 +67,9 @@
             src="../../assets/images/messageAppInfo.png"
             alt=""
           >
-          <p> {{ $t("messageCenter.appTestRepo") }}</p>
+          <p class="defaultFontLight">
+            {{ $t("messageCenter.appTestRepo") }}
+          </p>
         </div>
         <div class="appTestReportContent">
           <div class="appTestReportContentImg">
@@ -76,13 +79,13 @@
             >
           </div>
           <div class="testInfo">
-            <p><span>{{ $t('messageCenter.appStoreName') }}</span><span>{{ data.sourceAppStore }}</span></p>
-            <p><span>{{ $t('messageCenter.appTestPlatform') }}</span><span>{{ $t("messageCenter.atpTestPlatform") }}</span></p>
+            <p><span class="defaultFontLight">{{ $t('messageCenter.appStoreName') }}</span><span class="defaultFontLight">{{ data.sourceAppStore }}</span></p>
+            <p><span>{{ $t('messageCenter.appTestPlatform') }}</span><span class="defaultFontLight">{{ $t("messageCenter.atpTestPlatform") }}</span></p>
           </div>
           <div class="testInfo">
-            <p><span>{{ $t('messageCenter.atpTestStatus') }}</span><span> {{ data.atpTestStatus }}</span></p>
+            <p><span class="defaultFontLight">{{ $t('messageCenter.atpTestStatus') }}</span><span class="defaultFontLight"> {{ data.atpTestStatus }}</span></p>
             <p>
-              <span>{{ $t('messageCenter.testRepoKey') }}</span><span class="seeTestReport"> <a
+              <span class="defaultFontLight">{{ $t('messageCenter.testRepoKey') }}</span><span class="seeTestReport defaultFontLight"> <a
                 :href="atpRepoUrl"
                 target="_blank"
               >{{ $t("messageCenter.clickToCheckRepo") }}</a></span>
@@ -90,11 +93,17 @@
           </div>
         </div>
       </div>
-      <div class="btns">
-        <p @click="handleDelete">
+      <div class="btns ">
+        <p
+          @click="handleDelete"
+          class="defaultFontLight"
+        >
           {{ $t("system.delete") }}
         </p>
-        <p @click.stop="handleAccept">
+        <p
+          @click.stop="handleAccept"
+          class="defaultFontLight"
+        >
           {{ $t("apppromotion.accept") }}
         </p>
       </div>
@@ -175,7 +184,7 @@ export default {
   width: 911px;
   height: 560px;
   padding: 39px 42px;
-  background: #EFEFEF;
+  background:#2E147C;
   border-radius: 12px;
   p{
     margin: 0;
@@ -185,24 +194,27 @@ export default {
     justify-content: space-between;
     .messageDetile{
       display: flex;
-      p{
-        font-size: 20px;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: 300;
-        color: #380879;
-        }
-      img{
-        width: 17px;
-        margin-top: 6.5px;
-        height: 17px;
-        background: #55D8BF;
-        border-radius: 3px;
-        margin-right: 21px;
+      .title{
+        color: #fff;
+        font-size: 16px;
+      }
+      .title_line{
+        position: relative;
+        top: 8px;
+        width: 9px;
+        height: 9px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background: #43F6AD;
       }
     }
     .messageClose{
         width: 20px;
         height: 20px;
+        font-size: 40px;
+        color: #fff;
+        position: relative;
+        top: -20px;
       }
     .messageClose:hover{
         cursor: pointer;
@@ -218,7 +230,7 @@ export default {
       align-items: center;
       width: 100%;
       padding-left: 10px;
-      background: #fff;
+      background: #4E3494;
       box-shadow: 0px 7px 21px 0px rgba(40, 12, 128, 0.08);
       border-radius: 6px;
       img{
@@ -231,9 +243,7 @@ export default {
       }
       p{
         font-size: 16px;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: 300;
-        color: #380879;
+        color: #fff;
       }
     }
     .appMessageContent{
@@ -260,17 +270,13 @@ export default {
           line-height: 36px;
           span:first-child{
             display: block;
-                font-size: 16px;
-                font-family: HarmonyHeiTi, sans-serif;
-                font-weight: 300;
-                color: #662FB2;
-                min-width: 100px;
+            font-size: 14px;
+            color: #fff;
+            min-width: 100px;
           }
            span:nth-child(2){
-                font-size: 16px;
-                font-family: HarmonyHeiTi, sans-serif;
-                font-weight: 400;
-                color: #380879;
+                font-size: 14px;
+                color: #fff;
           }
         }
       }
@@ -292,7 +298,7 @@ export default {
         align-items: center;
         width: 100%;
         padding-left: 10px;
-        background: #fff;
+        background: #4E3494;
         box-shadow: 0px 7px 21px 0px rgba(40, 12, 128, 0.08);
         border-radius: 6px;
       img{
@@ -305,9 +311,7 @@ export default {
       }
       p{
         font-size: 16px;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: 300;
-        color: #380879;
+        color: #fff;
       }
   }
   .appTestReportContent{
@@ -334,36 +338,35 @@ export default {
             line-height: 50px;
             span:first-child{
               display: block;
-                  font-size: 16px;
-                  font-family: HarmonyHeiTi, sans-serif;
-                  font-weight: 300;
-                  color: #662FB2;
-                  min-width:100px;
+              font-size: 14px;
+              color: #fff;
+              min-width:100px;
             }
             span:nth-child(2){
-                  font-size: 16px;
-                  font-family: HarmonyHeiTi, sans-serif;
-                  font-weight: 400;
-                  color: #380879;
+              font-size: 14px;
+              color: #fff;
             }
           }
           .seeTestReport{
             a{
-              color:#fff !important;
+              background: #4E3494;
+              color:#fff;
               text-decoration: none;
               font-size: 14px;
+              padding: 6px 30px;
+              border-radius: 10px;
+              position: relative;
+              top: -14px;
             }
             margin-top: 12px;
-            border-radius: 20px;
-            padding: 0 10px;
-            height: 25px;
-            line-height: 23px;
-            background: #59508f;
-            color:#fff !important;
-            box-shadow: 2px 2px 29px 0px rgba(36, 20, 119, 0.13);
+            margin-bottom: 25px;
           }
           .seeTestReport:hover{
             cursor: pointer;
+            a{
+              background: #fff;
+              color:#4E3494;
+            }
           }
         }
   }
@@ -376,21 +379,18 @@ export default {
     }
     p:hover{
       cursor: pointer;
+      background: #5944C0;
       color: #fff;
-      background-color: #380879;
     }
     p{
+      padding: 4px 20px !important;
+      margin-bottom: 25px;
+      background: #fff;
+      color: #5944C0;
+      border-radius: 10px;
+      border: none;
       float: right;
       font-size: 14px;
-      font-family: HarmonyHeiTi, sans-serif;
-      font-weight: 300;
-      width: 67px;
-      height: 33px;
-      background-color: #fff ;
-      color: #380879 ;
-      border: 1px solid #380879;
-      line-height: 33px;
-      border-radius: 10px;
       text-align: center;
     }
   }
@@ -401,10 +401,8 @@ export default {
    margin-bottom: 30px !important;
 }
 .desc span:first-child{
-    font-size: 16px;
-    font-family: HarmonyHeiTi, sans-serif;
-    font-weight: 300;
-    color: #662FB2;
+    font-size: 14px;
+    color: #fff;
     min-width: 100px;
     margin-right: 20px;
 }

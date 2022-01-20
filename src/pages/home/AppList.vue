@@ -208,6 +208,7 @@ export default {
 </script>
 <style lang='less'>
 .app-list{
+  background: none !important;
   .detailStyle{
     background-color: #EFEFEF;
     color: #7A6E8A;

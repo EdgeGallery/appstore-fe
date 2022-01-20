@@ -22,7 +22,7 @@
         :class="{'container_active':activeName==='unReadedMsg','container_default':activeName==='readedMsg','container_default2':activeName==='allMsg',}"
       >
         <span>
-          <em class="image_container" />{{ $t('messageCenter.unReadedMsg') }}
+          {{ $t('messageCenter.unReadedMsg') }}
         </span>
       </li>
       <li
@@ -36,7 +36,7 @@
             margin="5px"
             class="link-right"
           />
-          <em class="image_vm" />{{ $t('messageCenter.readedMsg') }}
+          {{ $t('messageCenter.readedMsg') }}
         </span>
       </li>
       <li
@@ -50,7 +50,7 @@
             margin="5px"
             class="link-right"
           />
-          <em class="push_container" />{{ $t('messageCenter.allMsg') }}
+          {{ $t('messageCenter.allMsg') }}
         </span>
       </li>
       <li
@@ -72,7 +72,7 @@
               :data="msgcontents"
               :row-style="{height: '120px'}"
               :show-header="false"
-              class="allContent"
+              class="allContent common_background"
             >
               <el-table-column class="width:90%">
                 <template slot-scope="scope">
@@ -86,10 +86,10 @@
                       class="appIcon"
                     >
                     <div>
-                      <div class="appName">
+                      <div class="appName defaultFontLight">
                         <span :class="!scope.row.readed?'fontStyle':''"> {{ scope.row.basicInfo.name }} </span>
                       </div>
-                      <div class="appDesc">
+                      <div class="appDesc defaultFontLight">
                         <span :class="!scope.row.readed?'fontStyle':''"> {{ scope.row.description }} </span>
                       </div>
                     </div>
@@ -103,19 +103,19 @@
                     class="timeContent"
                   >
                     <div>
-                      <div class="timeLine">
+                      <div class="timeLine defaultFontLight">
                         <span> {{ scope.row.time }} </span>
                       </div>
                       <div class="opeLine">
                         <p
                           @click.stop="handleAccept(scope.row.messageId)"
-                          class="acceptMsg"
+                          class="acceptMsg defaultFontLight"
                         >
                           {{ $t('messageCenter.acceptMsg') }}
                         </p>
                         <p
                           @click.stop="handleDelete(scope.$index, scope.row.messageId)"
-                          class="deleteMsg"
+                          class="deleteMsg defaultFontLight"
                         >
                           {{ $t('messageCenter.deleteMsg') }}
                         </p>
@@ -256,10 +256,15 @@ export default {
         display: block;
         width: 100%;
         height: 100%;
+        font-size: 16px;
         padding: 0 50px;
         font-size: 20px;
         color: #fff;
         transition: all 0.5s;
+        font-family: defaultFontLight,
+        Arial,
+        Helvetica,
+        sans-serif !important;
       }
     }
     .last_li{
@@ -279,78 +284,73 @@ export default {
     .image_vm{
       background: url('../../assets/images/read_unactive.png');
     }
-    .container_active .image_container{
-      background: url('../../assets/images/noread_active.png');
-    }
-    .vm_active .image_vm{
-      background: url('../../assets/images/read_active.png');
-    }
-    .push_active .push_container{
-      background: url('../../assets/images/all_active.png');
-    }
-    .push_container{
-      background: url('../../assets/images/all_unactive.png');
+    span{
+      text-align: center;
     }
     .container_active{
-      background: #d4d1ec;
+      background: #4E3494;
       border-radius: 16px 0 0 0;
       transition: all 0.5s;
       span{
-        background: #fff;
+        background: #2E147C;
         border-radius: 16px 16px 0 0;
-        color: #5e40c8;
+        color: #fff;
         transition: all 0.5s;
       }
     }
     .container_default{
-      background: #fff;
+      background: #2E147C;
       border-radius: 16px 0 0 0;
       transition: all 0.5s;
       span{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 16px 0 16px 0;
         transition: all 0.5s;
       }
     }
     .container_default2{
-      background: #d4d1ec;
+      background: #2E147C;
       border-radius: 16px 0 0 0;
+      span{
+        border-radius: 16px 0 0 0;
+        background: #4E3494;
+      }
     }
     .container_push_default{
       background: #fff;
       border-radius: 0 0 0 0;
       transition: all 0.5s;
       span{
-        background: #d4d1ec;
+        background: #2E147C;
         border-radius: 0 0 0 0;
         transition: all 0.5s;
       }
 
     }
     .vm_active{
-      background: #d4d1ec;
+      background: #4E3494;
       transition: all 0.5s;
       span{
-        background: #fff;
+        background: #2E147C;
         border-radius: 16px 16px 0 0;
-        color: #5e40c8;
+        color: #fff;
         transition: all 0.5s;
       }
     }
     .vm_default{
-      background: #fff;
+      background: #2E147C;
       border-radius: 0 16px 0 0;
       transition: all 0.5s;
       span{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 0 0 0 16px;
         transition: all 0.5s;
       }
     }
     .vm_default2{
-      background: #fff;
+      background: #2E147C;
       span{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 0 0 16px 0;
       }
     }
@@ -362,60 +362,58 @@ export default {
       }
     }
     .last_li.last_default{
-      background: #d4d1ec;
+      background: #4E3494;
       span{
-        background: #f0f2f5;
+        background: #3e279b;
         border-radius: 0 0 0 16px;
         transition: all 0.5s;
       }
     }
     .last_li.last_default2{
-      background: #fff;
+      background: #2E147C;
       span{
-        background: #f0f2f5;
+        background: #3e279b;
         border-radius: 0 0 0 16px;
         transition: all 0.5s;
       }
     }
     .push_active{
-      background: #d4d1ec;
+      background: #4E3494;
       border-radius: 0 16px 0 0;
       transition: all 0.5s;
       span{
-        background: #fff;
+        background: #2E147C;
         border-radius: 16px 16px 0 0;
         color: #5e40c8;
         transition: all 0.5s;
       }
     }
     .push_default{
-      background: #f4f3f7;
-      // border-radius: 0 16px 0 0;
+      background: #3e279b;
       transition: all 0.5s;
       span{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 0 16px 0 0px;
         transition: all 0.5s;
       }
 
     }
     .push_default2{
-      background: #fff;
+      background: #4E3494;
       border-radius: 0 16px 0 0;
-
       span{
         border-radius: 0 16px 0 16px;
       }
     }
   }
   .container_div{
-    background: #fff;
+    background: #2E147C;
     border-radius: 0 16px 16px 16px;
     transition: all 0.5s;
     box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);
   }
   .container_div_active{
-     background: #d4d1ec;
+     background: #4E3494;
   }
   .vm_div{
     background: #d4d1ec;
@@ -429,32 +427,25 @@ export default {
   .link-left {
     width: 3px;
     height: 10px;
-    border-left: solid #B3B0CA 2px;
+    border-left:2px solid #331A85 ;
   }
   .link-right {
     width: 3px;
     height: 10px;
     margin-right: 10px;
-    border-right: solid #B3B0CA 2px;
+    border-right:2px solid #331A85 ;
   }
 }
 .tables{
   width: 100%;
   min-height: 16px;
-  background-color: #fff !important;
+  background-color:#2E147C!important;
   border-radius: 16px 0 0 0 ;
   border-top-right-radius:16px !important;
 }
 div /deep/ .el-table__body-wrapper {
     margin-top: -10px !important;
 }
-div /deep/ .el-table{
-  border-bottom-left-radius:16px !important;
-  border-bottom-right-radius:16px !important;
-   border-top-left-radius:0px !important;
-  border-top-right-radius:0px !important;
-}
-
 .imgContent{
   display: flex;
   justify-content: flex-start;
@@ -474,24 +465,21 @@ div /deep/ .el-table{
   margin-right: 29px;
 }
 .appName{
+  color: #fff;
   font-size: 20px;
-  font-family: HarmonyHeiTi, sans-serif;
-  font-weight: 400;
-  color: #62517A;
   line-height: 50px;
   margin-top: -14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .appDesc{
-  font-size: 16px;
-  font-family: HarmonyHeiTi, sans-serif;
-  font-weight: 200;
-  color: #7A6E8A;
+  color: #fff;
+  font-size: 14px;
 }
 .timeLine{
   font-size: 14px;
-  font-family: HarmonyHeiTi, sans-serif;
-  font-weight: 200;
-  color: #7A6E8A;
+  color: #fff;
   margin-bottom: 10px;
 }
 .opeLine{
@@ -499,6 +487,8 @@ div /deep/ .el-table{
   justify-content: space-around;
   p:hover{
     cursor: pointer;
+    background: #5944C0;
+    color: #fff;
   }
   p{
     width: 55px;
@@ -506,9 +496,7 @@ div /deep/ .el-table{
     font-size: 14px;
     background: #EFEFEF;
     border-radius: 5px;
-    font-family: HarmonyHeiTi, sans-serif;
-    font-weight: 200;
-    color: #7A6E8A;
+    color: #5944C0;
     text-align: center;
     line-height: 24px;
     margin: 0;

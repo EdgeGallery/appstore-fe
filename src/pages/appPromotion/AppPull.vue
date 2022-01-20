@@ -19,7 +19,7 @@
     <div class="app-pull-content ">
       <div class="pull_container">
         <div
-          class="pullNoData contents"
+          class="pullNoData"
           v-if="appStoreList.length <1"
         >
           <img
@@ -39,8 +39,7 @@
             v-if="appStoreList.length > 0"
           >
             <el-button
-              type="primary"
-              class="pullBtn"
+              class="pullBtn appPull commonBtnDisabled defaultFontLight"
               :disabled="btnChangeEnable"
               @click="showPullAppDialog"
             >
@@ -218,10 +217,8 @@ export default {
           margin: -6px 31px 15px 34px;
           float: right;
           .pullBtn{
-            height:40px;
-            margin-top: 38px;
-            font-size: 16px !important;
-            font-weight: 300 !important;
+            margin-top: 36px;
+            line-height: 12px !important;
             z-index: 2000 !important;
             position: relative !important;
           }
@@ -285,13 +282,5 @@ export default {
       }
     }
   }
-}
-.el-button--primary.is-disabled, .el-button--primary.is-disabled:hover, .el-button--primary.is-disabled:focus, .el-button--primary.is-disabled:active {
-  background-color:#5E40C8 !important;
-  border-color:  #5E40C8 !important;
-}
-.el-button--primary {
-  background-color:#5E40C8 !important;
-  border-color:  #5E40C8 !important;
 }
 </style>

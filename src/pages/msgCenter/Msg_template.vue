@@ -20,10 +20,7 @@
   >
     <div>
       <div class="title">
-        <p class="title_left">
-          {{ $t("nav.msgCenter") }}
-        </p>
-        <span class="line_bot1 title_line" />
+        {{ $t("nav.msgCenter") }}
       </div>
       <div class="message">
         <div class="timeSelect">
@@ -291,74 +288,74 @@ export default {
 
 <style lang="less" scoped>
 .box {
-    width: 100%;
+  width: 100%;
+  min-width: 1200px;
+  min-height:660px;
+  .title{
     min-width: 1200px;
-    min-height:660px;
-    background-color: #f0f2f5;
-    .title{
-      min-width: 1200px;
-      margin: 60px 0 60px 13.18%;
-      .title_line{
-        margin-left: 140px;
-      }
-    }
-    .message{
-      width: 73.64%;
-      margin: auto;
-      min-width: 1200px;
-      min-height: 380px;
-      margin-top: 10px;
-      position: relative;
+    margin: 51px auto;
+    width: 300px;
+    font-size: 30px;
+    color: #fff;
+    font-family: defaultFontBlod, Arial, Helvetica, sans-serif;
+    letter-spacing: 4px;
+  }
+  .message{
+    width: 73.64%;
+    margin: auto;
+    min-width: 1200px;
+    min-height: 380px;
+    margin-top: 10px;
+    position: relative;
     .timeSelect{
-      background: #FFFFFF;
       width: 160px;
-      height: 40px;
       position: absolute;
       right: 0;
     }
     .messageContent{
       width: 100%;
     }
-    }
-    .dialogs{
-      position:absolute;
-      left: 0;
-      top: 0px;
-      width: 100%;
-      height: 100%;
-      z-index: 10001;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .dialogShadow{
-        position: absolute;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        background: #4A4D54;
-        opacity: 0.8;
-      }
-      .rightMsg{
-        z-index: 10;
-
-      }
+  }
+  .dialogs{
+    position:absolute;
+    left: 0;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 10001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .dialogShadow{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background: #4A4D54;
+    opacity: 0.8;
+  }
+  .rightMsg{
+    z-index: 10;
+  }
 }
 .messagePage{
   height: 70px;
   width: 100%;
-  background-color: #fff;
+  background-color: #2E147C;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
   .paginationStyle{
     float: right;
     margin: 20px 20px 0 0;
   }
 }
 div /deep/ .el-table::before {
-    height: 0px !important;
+  height: 0px !important;
 }
 div /deep/  .el-table::before, .el-table--group::after, .el-table--border::after {
-    background-color:none !important;
-    z-index: 0 none !important;
+  background-color:none !important;
+  z-index: 0 none !important;
 }
 </style>

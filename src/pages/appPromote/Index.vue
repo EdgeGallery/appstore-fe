@@ -677,10 +677,6 @@ export default {
     background: #000;
     height: 300px;
   }
-  .el-dialog__footer {
-    background: #2E147C 70%;
-    text-align: center;
-  }
 }
 .dialogTitle{
   border-radius: 8px 8px 0 0;
@@ -724,27 +720,6 @@ div /deep/.el-form-item__label {
 }
 div /deep/ .el-icon-close:before {
   display: none;
-}
-div /deep/.el-dialog{
-  background: #2E147C 70%;
-  border-radius: 12px;
-  background: rgba(46,20,124,0.7) !important;
-}
-div /deep/.el-dialog__header {
-  background-color: #f6f5f8 !important;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  background: rgba(46,20,124,0.7) !important;
-}
-div /deep/.el-dialog__body {
-  background: #2E147C 70%;
-  padding: 10px 68px 0 0 !important;
-  background: rgba(46,20,124,0.7) !important;
-}
-div /deep/.el-dialog__footer {
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
-  background: rgba(46,20,124,0.7) !important;
 }
 div /deep/ .el-form-item .el-form-item__content {
   padding: 0 20px;
