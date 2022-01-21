@@ -165,6 +165,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 8px 8px 0 0;
         img {
           overflow: hidden;
           height: 68px;
@@ -184,6 +185,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 8px 8px 0 0;
         img {
           overflow: hidden;
           height: 68px;

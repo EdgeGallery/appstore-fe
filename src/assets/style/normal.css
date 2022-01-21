@@ -99,7 +99,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 .common_title{
   padding: 54px 0 54px !important;
   position: relative;
-  margin-left: 140px;
   color: #fff;
   letter-spacing: 4px;
   width: 73.64%;
@@ -146,11 +145,11 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
  border: none !important;
 }
 .el-checkbox-button__inner{
+  border: 0px;
+  border-left: 0px;
+  text-indent : 0px;
   background:rgba(46, 20, 124, 0.7) !important;
   color: rgba(250, 250, 250, 0.6);
-}
-.el-checkbox-button.is-checked .el-checkbox-button__inner{
-  color: #fff !important;
 }
 .el-checkbox-button__inner:hover{
   color: #fff !important;
@@ -221,9 +220,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 .el-table--enable-row-transition .el-table__body tr:hover td {
   background: #2E147C !important;
 }
-/* .el-table--enable-row-transition .el-table__body{
- padding: 0 20px !important;
-} */
 .common_operationBtn.el-button{
   background: #4E3494;
   padding: 5px 10px;
@@ -343,9 +339,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 .apppull:hover{
   font-weight: bold;
 }
-/* .el-menu--horizontal .el-menu .el-menu-item, .el-menu--horizontal .el-menu .el-submenu__title{
-  color:#fff!important;
-} */
 
 ol,ul {
     list-style: none;
@@ -413,11 +406,6 @@ a{
   padding: 20px;
   box-sizing: border-box;
 }
-
-.el-dialog__header{
-  background-color: #688ef3 ;
-}
-
 .el-message {
   top: calc(50%)!important;
   z-index: 999 !important;
@@ -492,9 +480,6 @@ a{
   font-weight: bold;
   color: #5D3DA0;
 }
-.defaultFontBlod{
-  font-family:defaultFontBlod, Arial, Helvetica, sans-serif;
-}
 .line_bot1{
   display: block;
   width: 88px;
@@ -515,16 +500,8 @@ a{
   color: #62517a;
   font-weight: normal;
 }
-.el-form-item .el-form-item__content{
-  padding: 0 20px;
-}
 .el-table__header-wrapper{
   border-radius: 8px;
-}
-.el-checkbox-button__inner{
-  border: 0px;
-  border-left: 0px;
-  text-indent : 0px;
 }
 .el-checkbox-button.is-checked .el-checkbox-button__inner {
   color: #5E40C8;

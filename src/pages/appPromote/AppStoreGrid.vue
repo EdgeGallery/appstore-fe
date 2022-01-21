@@ -243,7 +243,6 @@ p{
           background: #fff;
           border: none;
           height: 25px;
-          border: 1px solid #e6e6e6;
           padding: 0;
         }
         .el-button:hover{
