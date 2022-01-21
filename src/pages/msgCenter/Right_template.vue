@@ -258,7 +258,6 @@ export default {
         height: 100%;
         font-size: 16px;
         padding: 0 50px;
-        font-size: 20px;
         color: #fff;
         transition: all 0.5s;
         font-family: defaultFontLight,

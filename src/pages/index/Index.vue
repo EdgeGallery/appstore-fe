@@ -939,7 +939,6 @@ export default {
           margin: 0 auto;
           text-align: center;
           text-overflow:ellipsis;
-          overflow: hidden;
           white-space: nowrap;
         }
         .el-rate{
