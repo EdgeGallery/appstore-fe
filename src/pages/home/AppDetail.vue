@@ -1071,9 +1071,10 @@ export default {
         }
       }
       .appDetail_vedio{
-        background: #d4d1ec;
+        background: #2E147C;
         border-radius: 16px 0 0 0;
         span{
+          background: #4E3494;
           border-radius: 16px 0 0 0;
           transition: all 0.1s;
         }
@@ -1115,9 +1116,9 @@ export default {
         }
       }
       .comment_default_meao_noAppShow{
-        background: #fff;
+        background: #2E147C;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 0 0;
           transition: all 0.1s;
         }
@@ -1130,9 +1131,9 @@ export default {
         }
       }
       .comment_default_vedio_noAppShow{
-        background: #fff;
+        background: #2E147C;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 16px 0;
         }
       }
@@ -1251,7 +1252,7 @@ export default {
         span{
           background: #2E147C;
           border-radius: 16px 16px 0 0;
-          color: #5e40c8;
+          color: #fff;
           transition: all 0.1s;
         }
       }
@@ -1286,10 +1287,10 @@ export default {
         }
       }
       .meao_default_comment_noappShow{
-        background: #f4f3f7;
+        background: #3e279b;
         border-radius: 0 0 0 16px;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 16px 0 0;
         }
 
@@ -1411,21 +1412,21 @@ export default {
         }
       }
       .vedio_default2_meao_no_Appshow{
-       background: #fff;
+       background: #2E147C;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 16px 0;
           transition: all 0.1s;
         }
       }
       .vedio_default2_comment_no_Appshow{
-        background: #fff;
+        background: #2E147C;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 0 16px;
           transition: all 0.1s;
         }
@@ -1434,7 +1435,7 @@ export default {
     .link-right {
       width: 3px;
       height: 10px;
-      border-right: solid #B3B0CA 2px;
+      border-right: solid #331A85 2px;
     }
   }
   .val_span {

@@ -20,14 +20,13 @@
     v-loading="loading"
     :element-loading-text="$t('common.loading')"
   >
-    <div class="title_top title_left defaultFontBlod clear">
+    <div class="order_title">
       {{ $t('order.orderMana') }}
-      <span class="line_bot1" />
     </div>
     <div class="content">
       <div class="orderTable">
         <el-table
-          class="tableStyle"
+          class="common_table"
           :data="orderList"
         >
           <template slot="empty">
@@ -109,7 +108,7 @@
               <div>
                 <el-button
                   @click="activate(scope.row)"
-                  class="operations_btn"
+                  class="common_operationBtn"
                   :disabled="
                     (scope.row.status !== 'DEACTIVATED' &&
                       scope.row.status !== 'ACTIVATE_FAILED') || scope.row.userId !== userId
@@ -119,7 +118,7 @@
                 </el-button>
                 <el-button
                   @click="deactivate(scope.row)"
-                  class="operations_btn"
+                  class="common_operationBtn"
                   :disabled="
                     (scope.row.status !== 'ACTIVATED' &&
                       scope.row.status !== 'DEACTIVATE_FAILED') || scope.row.userId !== userId
@@ -128,7 +127,7 @@
                   {{ $t('order.unsubscribe') }}
                 </el-button>
                 <el-button
-                  class="operations_btn"
+                  class="common_operationBtn"
                   @click="handleClick(scope.row)"
                 >
                   {{ $t('order.record') }}
@@ -144,7 +143,7 @@
         >
           <div class="recordTitle">
             <p class="recordTitle-circle" />
-            <p class="recordTitle-content">
+            <p class="recordTitle-content defaultFontLight">
               {{ $t('order.OrderOperation') }}
             </p>
           </div>
@@ -158,7 +157,7 @@
                 <span class="lines-circle" /><span class="lines-line" />
               </p>
             </div>
-            <div class="recordContent-item">
+            <div class="recordContent-item defaultFontLight">
               <p
                 v-for="(item,index) in recordTime"
                 :key="index"
@@ -166,7 +165,7 @@
                 {{ item }}
               </p>
             </div>
-            <div class="recordContent-item stateStyle">
+            <div class="recordContent-item stateStyle defaultFontLight">
               <p
                 v-for="(item,index) in recordOperation"
                 :key="index"
@@ -176,11 +175,14 @@
             </div>
           </div>
           <div class="recordBtns">
-            <el-button @click="dialogVisible = false">
+            <el-button
+              @click="dialogVisible = false"
+              class="footer-button"
+            >
               {{ $t('order.cancel') }}
             </el-button>
             <el-button
-              type="primary"
+              class="footer-button"
               @click="dialogVisible = false"
             >
               {{ $t('order.confirm') }}
@@ -364,9 +366,16 @@ export default {
 
 <style lang="less" scoped>
 .orders {
-  padding: 0 13%;
+  width: 73.64%;
+  margin: 0 auto;
+  .order_title{
+    padding: 54px 0 54px !important;
+    color: #fff;
+    letter-spacing: 4px;
+    font-size: 30px;
+  }
   .content {
-    background: #ffffff;
+    background: #2E147C;
     border-radius: 20px;
     padding: 30px 60px;
     min-height: 500px;
@@ -403,22 +412,24 @@ export default {
         top: 3px;
       }
       .recordDialog{
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
         .recordTitle{
           display: flex;
           width: 90%;
           margin-top: -20px;
           margin-left: 20px;
           .recordTitle-circle{
-            width: 17px;
-            height: 17px;
+            width: 9px;
+            height: 9px;
             background: #55D8BF;
-            border-radius: 3px;
+            border-radius: 50%;
             margin-right: 9px;
-            margin-top: 8px;
+            margin-top: 6px;
           }
           .recordTitle-content{
-            color:#380879;
-            font-Size:20px;
+            color:#fff;
+            font-Size:16px;
           }
         }
         .recordContent{
@@ -453,7 +464,7 @@ export default {
               }
           }
           .recordContent-item{
-            color: #380879;
+            color: #fff;
             width: 200px;
             margin-right: 10px;
             p{
@@ -488,24 +499,8 @@ export default {
   border: none !important;
   color: #409eff;
 }
-div /deep/ .el-dialog__header{
-  border-radius: 12px !important;
-}
-div /deep/ .el-dialog{
-  border-radius: 12px !important;
-  padding-bottom: 30px;
-}
-div /deep/ .el-icon-close:before{
-  font-size: 30px !important;
-  color: #999999 !important;
-}
-.el-table th>.cell {
-    font-size: 20px;
-    height: 59px;
-    line-height: 59px;
-    font-weight: lighter;
-}
-.el-table td>.cell {
-    font-size: 14px;
+div /deep/ .el-dialog__body{
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 }
 </style>
