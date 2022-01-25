@@ -390,7 +390,10 @@ const cn = {
     getReleaseDataFail: '获取体验初始化信息失败',
     getNodePortSuccess: '获取服务节点信息成功',
     uploadFileFailed: '上传应用包失败',
-    distributeFailed: '分发应用失败'
+    distributeFailed: '分发应用失败',
+    getSystemDataFailed: '获取第三方MEAO失败',
+    noSystemMEAO: '不存在可同步的第三方MEAO',
+    synchronizePrompt: '您没有权限，只有管理员可以同步'
   },
   store: {
     appChange: '应用包转换工具',

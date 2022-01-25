@@ -414,7 +414,10 @@ const en = {
     getReleaseDataFail: 'Failed to get experience initialization information',
     getNodePortSuccess: 'Success to obtain service borrowing point information',
     uploadFileFailed: 'Failed to upload the application',
-    distributeFailed: 'Failed to distribute the application'
+    distributeFailed: 'Failed to distribute the application',
+    getSystemDataFailed: 'Failed to get MEAO.',
+    noSystemMEAO: 'No syncable third-party MEAO',
+    synchronizePrompt: 'You do not have permission. Only administrators can synchronize'
   },
   store: {
     appChange: 'Application package conversion tool',
