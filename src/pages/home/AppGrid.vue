@@ -141,7 +141,7 @@ export default {
         box-sizing: border-box;
         text-align: center;
         width: 100%;
-        height: 153px;
+        height: 156px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -161,7 +161,7 @@ export default {
         box-sizing: border-box;
         text-align: center;
         width: 100%;
-        height: 153px;
+        height: 156px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -176,11 +176,13 @@ export default {
         background-image: url(../../assets/images/experienceFlag.png) ;
         background-size: 100% 100%;
         position: relative;
+        border-top-left-radius:8px ;
+        border-top-right-radius: 8px;
         background-color: rgba(250, 250, 250, 0.2);
         box-sizing: border-box;
         text-align: center;
         width: 100%;
-        height: 153px;
+        height: 156px;
         display: flex;
         justify-content: center;
         align-items: center;

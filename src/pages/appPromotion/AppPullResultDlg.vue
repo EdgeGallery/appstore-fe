@@ -17,17 +17,25 @@
 <template>
   <div class="appPullResDlg">
     <el-dialog
-      :title="$t('appPull.pullAppResult')"
       :visible.sync="dialogVisible"
       width="50%"
       :before-close="handleClose"
       :close-on-click-modal="false"
     >
+      <div class="modify_header">
+        <span class="title_icon" />
+        <div
+          slot="title"
+          class="header-title"
+        >
+          {{ $t('appPull.pullAppResult') }}
+        </div>
+      </div>
       <div class="app-pull">
         <el-table
           :data="appPullResultData"
           style="width: 100%"
-          header-cell-class-name="headerStyle"
+          class="common_table"
         >
           <el-table-column
             prop="name"
@@ -71,6 +79,7 @@
         class="dialog-footer"
       >
         <el-button
+          class="footer-button"
           @click="handleCloseDirect"
         >{{
           $t("apppromotion.closePanel")
@@ -167,27 +176,27 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.appPullResDlg {
-  .el-dialog__header{
-    background-color: #688ef3 ;
-    .el-dialog__title {
-      color: #fff;
-    }
-    .el-dialog__close {
-      color: #fff;
-    }
+.modify_header{
+  .title_icon{
+    background: #43F6AD;
+    border-radius: 50%;
+    height: 9px;
+    width: 9px;
+    position: relative;
+    top: 16px;
+    display: block;
   }
+  .header-title{
+    margin-left: 20px;
+    color: #fff;
+    font-size: 16px;
+  }
+}
+.appPullResDlg {
   .app-pull {
     height: 400px;
     overflow:auto;
-    .el-icon-close:before{
-      font-size: 25px;
-      color: #d8363e;
-    }
-  }
-
-  .el-dialog__footer {
-    text-align: center;
+    margin-top: 20px;
   }
   .el-icon-loading {
     color: #607B36;

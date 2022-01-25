@@ -164,7 +164,7 @@
           </div>
           <el-button
             slot="reference"
-            style="border: none; box-shadow: none; padding:0"
+            style="border: none; box-shadow: none; padding:0;background:none;"
           >
             <el-tooltip
               class="item"
@@ -428,7 +428,7 @@ export default ({
 
 <style lang='less'>
 .header_img{
-  margin-top: 4px;
+  margin-top: 7px;
   cursor: pointer;
 }
 .el-dropdown-menu{

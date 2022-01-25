@@ -48,7 +48,7 @@
                   :class="{'oneSelect': activeIndex === '5' }"
                 >
                   <img
-                    :src="activeIndex === '5' ? require('@/assets/images/docGuideSelect.png'): require('@/assets/images/docGuideUnselect.png')"
+                    :src="activeIndex === '5' ? require('@/assets/images/docGuideUnselect.png'): require('@/assets/images/docGuideUnselect.png')"
                     alt=""
                   >
                   {{ $t('docs.userGuide') }}
