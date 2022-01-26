@@ -31,11 +31,14 @@
         trigger="click"
       >
         <el-button
+          @click="checkSyncPackage"
           type="primary"
+          :disabled="noSync"
         >
           {{ $t('system.synchronizeToMEAO') }}
         </el-button>
         <el-dropdown-menu
+          v-if="syncBtn"
           slot="dropdown"
           @change="synchronizePackage"
         >
@@ -159,6 +162,7 @@ export default {
   },
   data () {
     return {
+      syncBtn: false,
       MEAO: MEAO,
       language: localStorage.getItem('language'),
       total: 0,
@@ -169,7 +173,8 @@ export default {
       testColor: [],
       systemNameData: [],
       tableData: [],
-      timer: null
+      timer: null,
+      noSync: this.currentData.deployMode === 'container'
     }
   },
   methods: {
@@ -214,9 +219,16 @@ export default {
     getThirdSystemByType () {
       getThirdSystemByType(this.type).then(res => {
         this.systemData = res.data
+        if (this.systemData.length !== 0) {
+          this.syncBtn = true
+        }
         this.addSystemNameData()
       }, () => {
-        this.showFaileMessage()
+        this.$message({
+          duration: 2000,
+          type: 'warning',
+          message: this.$t('promptMessage.getSystemDataFailed')
+        })
       })
     },
     getProgressByPackageId () {
@@ -243,6 +255,13 @@ export default {
         object.text = item.systemName
         object.value = item.id
         this.systemNameData.push(object)
+      }
+    },
+    checkSyncPackage () {
+      if (this.systemData.length === 0) {
+        this.$message.success(this.$t('promptMessage.noSystemMEAO'))
+      } else if (sessionStorage.getItem('userNameRole') !== 'admin') {
+        this.$message.warning(this.$t('promptMessage.synchronizePrompt'))
       }
     },
     synchronizePackage (item) {
