@@ -161,8 +161,10 @@ export default {
         box-sizing: border-box;
         text-align: center;
         width: 100%;
-        height: 156px;
+        height: 129px;
         display: flex;
+        border-top-left-radius:8px;
+        border-top-right-radius: 8px;
         justify-content: center;
         align-items: center;
         img {
@@ -176,13 +178,13 @@ export default {
         background-image: url(../../assets/images/experienceFlag.png) ;
         background-size: 100% 100%;
         position: relative;
-        border-top-left-radius:8px ;
+        border-top-left-radius:8px;
         border-top-right-radius: 8px;
         background-color: rgba(250, 250, 250, 0.2);
         box-sizing: border-box;
         text-align: center;
         width: 100%;
-        height: 156px;
+        height: 129px;
         display: flex;
         justify-content: center;
         align-items: center;

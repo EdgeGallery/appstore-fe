@@ -450,6 +450,7 @@ const cn = {
     appRecommend: '应用推荐',
     hotApp: '热门应用',
     senceCase: '场景案例',
+    senceApp: '应用场景',
     introduct: '简介：',
     tag: '标签',
     reapp: '相关应用',

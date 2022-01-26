@@ -470,6 +470,7 @@ const en = {
     appRecommend: 'App Recommend',
     hotApp: 'Hot App',
     senceCase: 'Sence Case',
+    senceApp: 'Applications Sence',
     introduct: 'Introduct:',
     tag: 'Tag',
     reapp: 'Related applications',

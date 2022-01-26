@@ -62,7 +62,6 @@
     <div v-show="uploadDiaVis">
       <uploadPackage
         v-model="uploadDiaVis"
-        @getAppData="getAppData"
       />
     </div>
   </div>
@@ -136,12 +135,12 @@ export default {
       position: absolute;
       top: 50px;
       left: 150px;
-        .img_words{
-      width:90%;
-      margin-top:180px;
-      margin-left:80px;
-      display:block;
-  }
+      .img_words{
+        width:100%;
+        margin-top: 123px;
+        margin-left: -26px;
+        display:block;
+      }
     }
     .home_text.none{
       display: none;
@@ -159,7 +158,9 @@ export default {
       font-size: 20px;
       text-align: center;
       border: none;
-      margin: 80px 0px 0px 95px;
+      position: relative;
+      top: 120px;
+      left: -18px;
     }
   }
   img{
@@ -167,8 +168,8 @@ export default {
   }
   .el-carousel__indicators--outside {
     position: relative;
-    top: -100px;
-    left: -660px;
+    top: -160px;
+    left: -657px;
   }
   .el-carousel__indicator--horizontal.is-active .el-carousel__button  {
     width: 60px !important;
@@ -189,7 +190,7 @@ export default {
 }
 
  @media (max-width: 1688px) and (min-width: 1200px){
-   .wrapper {
+  .wrapper {
     .img_words{
         width:80%;
         margin-top:200px;
@@ -201,9 +202,6 @@ export default {
       top: -60px;
       left: 40px;
     }
-    }
-      .el-carousel__indicators--outside {
-        left: -470px !important;
-    }
   }
+}
 </style>
