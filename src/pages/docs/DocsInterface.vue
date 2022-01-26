@@ -17,8 +17,9 @@
 <template>
   <div class="docBackground">
     <div class="docTop">
-      <p>{{ $t("nav.docs") }}</p>
-      <p />
+      <p class="defaultFontBlod">
+        {{ $t("nav.docs") }}
+      </p>
     </div>
     <eg-bread-crumb
       :data="breadCrumbData"
@@ -47,7 +48,7 @@
                   :class="{'oneSelect': activeIndex === '5' }"
                 >
                   <img
-                    :src="activeIndex === '5' ? require('@/assets/images/docGuideSelect.png'): require('@/assets/images/docGuideUnselect.png')"
+                    :src="activeIndex === '5' ? require('@/assets/images/docGuideUnselect.png'): require('@/assets/images/docGuideUnselect.png')"
                     alt=""
                   >
                   {{ $t('docs.userGuide') }}
@@ -66,7 +67,7 @@
                   :class="{'oneSelect': (activeIndex === '4' ||activeIndex === '4-1'|| activeIndex === '4-2' ||activeIndex === '4-3'|| activeIndex === '4-4' || activeIndex === '4-5' )}"
                 >
                   <img
-                    :src="activeIndex === '4' ||activeIndex === '4-1'|| activeIndex === '4-2' ||activeIndex === '4-3'|| activeIndex === '4-4' || activeIndex === '4-5' ? require('@/assets/images/docAppSelect.png'): require('@/assets/images/docAppUnselect.png')"
+                    :src="activeIndex === '4' ||activeIndex === '4-1'|| activeIndex === '4-2' ||activeIndex === '4-3'|| activeIndex === '4-4' || activeIndex === '4-5' ? require('@/assets/images/docAppUnselect.png'): require('@/assets/images/docAppUnselect.png')"
                     alt=""
                   >
                   {{ $t('docs.appFolderStar') }}
@@ -100,7 +101,7 @@
                   :class="{'oneSelect': (activeIndex === '1' ||activeIndex === '1-2'|| activeIndex === '1-2-1' ||activeIndex === '1-2-2'|| activeIndex === '1-2-3' || activeIndex === '1-2-4'|| activeIndex === '1-2-5' || activeIndex === '1-3'|| activeIndex === '1-3-1' || activeIndex === '1-3-2' )}"
                 >
                   <img
-                    :src="activeIndex === '1' ||activeIndex === '1-2'|| activeIndex === '1-2-1' ||activeIndex === '1-2-2'|| activeIndex === '1-2-3' || activeIndex === '1-2-4'|| activeIndex === '1-2-5' || activeIndex === '1-3'|| activeIndex === '1-3-1' || activeIndex === '1-3-2' ? require('@/assets/images/docTextSelect.png'): require('@/assets/images/docTextUnselect.png')"
+                    :src="activeIndex === '1' ||activeIndex === '1-2'|| activeIndex === '1-2-1' ||activeIndex === '1-2-2'|| activeIndex === '1-2-3' || activeIndex === '1-2-4'|| activeIndex === '1-2-5' || activeIndex === '1-3'|| activeIndex === '1-3-1' || activeIndex === '1-3-2' ? require('@/assets/images/docTextUnselect.png'): require('@/assets/images/docTextUnselect.png')"
                     alt=""
                   >
                   {{ $t('docs.interfaceStar') }}
@@ -348,31 +349,18 @@ export default {
 </script>
 <style lang='less'>
 .docBackground{
-  background-color: #f6f5f8;
-  padding-top:20px ;
+  background-color: #3e279b;
   margin-bottom: -100px;
 }
 .docTop{
-  padding-top:40px;
-  padding-left:20.42% ;
+  padding:54px;
+  padding-left:13.18% ;
   width: 100%;
   height: 314px;
-  background-image: url(../../assets/images/docBackground.png);
-  background-size:100% 100%;
-  background-repeat: no-repeat;
   p:first-child{
     font-size: 30px;
-    font-family: HarmonyOS Sans SC, sans-serif;
-    font-weight: bold;
-    color: #5D3DA0;
-  }
-  p:nth-child(2){
-    width: 88px;
-    margin-top: 20px;
-    height: 7px;
-    background: #9E7BCD;
-    opacity: 0.2;
-    border-radius: 4px;
+    letter-spacing: 4px;
+    color: #fff;
   }
 }
 .docContent{
@@ -391,7 +379,7 @@ p{
     font-size: 14px;
     min-width: 1200px;
     padding: 55px;
-    background-color: #FBFBFB;
+    background-color: #2E147C;
   .el-tabs--left .el-tabs__item.is-left {
     font-size: 15px;
     text-align: left;
@@ -403,9 +391,6 @@ p{
   }
   .test-editors{
     width: 260px;
-    li{
-      margin: 10px 0px;
-    }
     .el-submenu__title {
       font-size: 20px;
     }
@@ -422,19 +407,19 @@ p{
       box-sizing: border-box;
       text-align: left;
       margin-right: 10px;
-      background-color: #FBFBFB !important;
+      background-color:#2E147C !important;
       .el-submenu__title{
         line-height: 44px;
-        color: #C9C5D0;
+        color: #fff;
         height: 44px;
-        background-color: #FBFBFB !important;
+        background-color: #351B89 !important;
       }
-      .el-submenu.is-opened .el-submenu__title{
-        background-color: #FBFBFB !important;
-      }
-       .el-submenu.is-opened .el-menu-item{
-        background-color: #FBFBFB !important;
-      }
+      // .el-submenu.is-opened .el-submenu__title{
+      //   background-color: #FBFBFB !important;
+      // }
+      //  .el-submenu.is-opened .el-menu-item{
+      //   background-color: #FBFBFB !important;
+      // }
       .el-submenu.is-opened{
         box-shadow: 0px 0px 13px 0px rgba(40, 12, 128, 0.1);
         border-radius: 20px;
@@ -442,12 +427,14 @@ p{
       .el-menu-item{
         line-height: 44px;
         height: 44px;
+        background: #351B89 !important;
+        color: #fff;
       }
       .el-menu-item:hover, .el-menu-item.is-active{
-        background: #fff !important;
-        background: linear-gradient(90deg, #E6E7F3, #F0F0F7) !important;
+        background: #4e3494 !important;
+        background: #4e3494!important;
         border-radius: 0px 8px 8px 0px;
-        color: #5E40C8;
+        color: #fff;
       }
     }
   }
@@ -457,6 +444,7 @@ p{
       border-radius: 16px;
       padding: 10px 30px 15px !important;
       width: 100%;
+      background-color: #2E147C !important;
     }
     .novice{
       box-shadow: inset 4px 4px 25px 5px rgba(36, 20, 119, 0.1) !important;
@@ -470,7 +458,7 @@ p{
         font-size: 25px;
         font-family: HarmonyHeiTi, sans-serif;
         font-weight: 600;
-        color: #5D3DA0;
+        color: #fff;
       }
       .cutLline{
         width: 100%;
@@ -526,6 +514,23 @@ p{
         }
       }
     }
+    .markdown-body{
+      color: #fff;
+      pre{
+        background-color: #3A218B !important ;
+        color: #fff;
+      }
+      table th{
+        background-color: #3A218B;
+      }
+      table td{
+        background-color: #3A218B;
+      }
+    }
+    .v-note-wrapper{
+      background-color: #2E147C !important;
+      border: none !important;
+    }
   }
 }
 div /deep/ .el-menu{
@@ -534,10 +539,13 @@ div /deep/ .el-menu{
 .title1{
   font-size: 20px !important;
 }
+div /deep/ .el-menu{
+  background-color: #2E147C !important;
+}
 .oneTitles.oneSelect{
-  background: #fff !important;
+  background: none !important;
   border-radius: 0px 8px 8px 0px;
-  color: #5E40C8;
+  color: #fff;
   height: 40px;
   width: 230px;
 }

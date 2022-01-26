@@ -17,15 +17,15 @@
 <template>
   <div class="appChange">
     <div class="appChangeTop">
-      <p class="appChangeTool">
+      <p class="appChangeTool defaultFontBlod">
         {{ $t('store.appChange') }}
       </p>
-      <button
+      <el-button
         class="backAppStore"
         @click="jumpToIndex()"
       >
         {{ $t('store.backAppStore') }}
-      </button>
+      </el-button>
     </div>
     <iframe
       class="appChangeContent"
@@ -90,25 +90,22 @@ export default ({
     justify-content: space-between;
     .appChangeTool{
       font-size: 30px;
-      font-family: HarmonyOS Sans SC, sans-serif;
-      font-weight: bold;
-      color: #5D3DA0;
+      color: #fff;
       line-height: 50px;
       margin-bottom:0px ;
       text-align: left;
     }
     .backAppStore{
-      width: 222px;
-      height: 50px;
-      background: linear-gradient(122deg, #4444D0, #6724CB);
-      border-radius: 25px;
-      padding: 4px 10px;
+      background: #3E279B;
+      border: 1px solid rgba(51, 26, 133, 0.5);
+      color: #fff;
+      padding: 13px 49px;
+      border-radius: 16px;
       font-size: 20px;
-      font-family: HarmonyHeiTi, sans-serif;
-      font-weight: 300;
-      color: #FFFFFF;
-      border: 1px solid #6724CB;
-      box-shadow: 0px 16px 8px rgba(94, 44, 204, 0.3);
+      box-shadow: inset 0px 0px 1px 1px rgba(255 ,255 ,255,0.5);
+    }
+    .backAppStore:hover{
+      font-weight: bold;
     }
   }
   .appChangeContent{

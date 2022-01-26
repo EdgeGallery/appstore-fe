@@ -15,12 +15,13 @@
   -->
 
 <template>
-  <div class="myApp padding56">
-    <div class="title_top title_left defaultFontBlod clear">
-      {{ $t('nav.myApp') }}
-      <span class="line_bot1" />
+  <div class="myApp">
+    <div class="defaultFontBlod myApp_top defaultFontBold">
+      <p class="myApp_title">
+        {{ $t('nav.myApp') }}
+      </p>
       <el-button
-        class="checkTestTask_btn linearGradient"
+        class="common_button defaultFontLight"
         id="myapp_checktest"
         @click="jumpTo"
       >
@@ -41,7 +42,7 @@
         <el-table
           v-loading="dataLoading"
           :data="currentPageData"
-          class="tableStyle"
+          class="common_table"
           :default-sort="{ prop: 'createTime', order: 'descending' }"
           @sort-change="sortChange"
           @filter-change="filterChange"
@@ -176,7 +177,7 @@
             <template slot-scope="scope">
               <div>
                 <el-button
-                  class="operation_button"
+                  class="common_operationBtn"
                   :disabled="scope.row.status == 'Published'"
                   @click="testMessage(scope.row)"
                   type="text"
@@ -184,7 +185,7 @@
                   {{ $t('myApp.test') }}
                 </el-button>
                 <el-button
-                  class="operation_button"
+                  class="common_operationBtn"
                   :disabled="scope.row.status !== 'Test_success'"
                   @click="beforePublishPackage(scope.row)"
                   type="text"
@@ -193,8 +194,9 @@
                 </el-button>
                 <el-dropdown>
                   <el-button
-                    class="operation_button"
+                    class="common_operationBtn"
                     type="text"
+                    style="margin:10px;"
                   >
                     {{ $t('myApp.more') }}
                   </el-button>
@@ -204,21 +206,21 @@
                     size="mini"
                   >
                     <el-dropdown-item
-                      class="operation_button"
+                      class="common_operationBtn"
                       @click.native="getDetail(scope.row)"
                       type="text"
                     >
                       {{ $t('common.detail') }}
                     </el-dropdown-item>
                     <el-dropdown-item
-                      class="operation_button"
+                      class="common_operationBtn"
                       @click.native="appModify(scope.row)"
                       type="text"
                     >
                       {{ $t('common.appModify') }}
                     </el-dropdown-item>
                     <el-dropdown-item
-                      class="operation_button"
+                      class="common_operationBtn"
                       :disabled="scope.row.status == 'Test_running' || scope.row.status == 'Test_waiting'"
                       @click.native="getDelete(scope.row)"
                       type="text"
@@ -757,11 +759,22 @@ export default {
 }
 </script>
 <style lang='less'>
-
 a:hover{
 cursor:pointer
 }
 .myApp {
+  width: 73.64%;
+  margin: 0 auto;
+  .myApp_top{
+    padding: 54px 0 54px !important;
+    display: flex;
+    justify-content: space-between;
+    .myApp_title{
+      color: #fff;
+      letter-spacing: 4px;
+      font-size: 30px;
+    }
+  }
   .checkTestTask_btn{
     position: absolute;
     right: 0;
@@ -774,7 +787,7 @@ cursor:pointer
     box-shadow: 0px 16px 10px  rgba(83,201,208,0.3);
   }
   .myApp-content {
-    background: #ffffff;
+    background: #2E147C;
     border-radius: 20px;
     padding: 30px 60px;
     min-height: 500px;
@@ -790,14 +803,6 @@ cursor:pointer
         height: 60px;
         max-height: 60px;
         line-height: 60px;
-      }
-      .operation_button{
-        background: #efefef;
-        border: none;
-        color: #7a6e8a;
-        border-radius: 5px;
-        padding: 6px 12px !important;
-        margin-left: 5px;
       }
       em {
         display: inline-block;

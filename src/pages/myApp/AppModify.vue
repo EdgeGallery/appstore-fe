@@ -147,8 +147,7 @@
             <el-button
               slot="trigger"
               size="big"
-              type="primary"
-              class="app-upload"
+              class="app_upload"
               plain
             >
               {{ $t('store.uploadVideo') }}
@@ -183,8 +182,7 @@
             <el-button
               slot="trigger"
               size="big"
-              type="primary"
-              class="app-upload"
+              class="app_upload"
               plain
             >
               {{ $t('store.uploadDetail') }}
@@ -663,11 +661,18 @@ export default {
 </script>
 <style lang="less" >
 .appModify {
+  .app_upload{
+    background: #4E3494;
+    border: none;
+    color: #FFFFFF;
+  }
+  .app_upload:hover{
+    color:#4E3494 ;
+  }
   .el-dialog{
     width: 911px;
     max-height: 745px;
     border-radius: 20px;
-    background: #EFEFEF;
   }
   .app-icon{
     float: left;
@@ -764,60 +769,26 @@ export default {
     display: inline-flex;
     margin-bottom: 20px;
     .title_icon{
-      padding: 0 8px;
-      margin: 7px 5px 0px;
-      height: 16px;
-      background-image: linear-gradient(127deg, #54aaf3, #53dabd);
+      position: relative;
+      top: 6px;
+      height: 9px;
+      width: 9px;
+      background:#43F6AD;
+      border-radius: 50%;
     }
     .header-title{
-      background: #EFEFEF;
       margin-left: 10px;
-      color: #380879;
-      font-size: 20px;
+      color: #fff;
+      font-size: 16px;
     }
   }
   .el-icon-warning{
-    color: #5844BE;
+    color: #fff;
     margin-right: 5px;
     font-size: 12px;
   }
-  .el-dialog__header {
-    background: #EFEFEF !important;
-    border-radius: 20px;
-  }
-  .el-form-item__label{
-    font-size: 16px;
-    color: #380879;
-  }
-  .el-form-item {
-    margin-bottom: 8px;
-    .app-upload{
-      background: #59508f;
-      border: none;
-      color: #FFFFFF;
-      width: 169px;
-      height: 36px;
-    }
-    .el-input__inner {
-      border-radius: 10px;
-      width: 95%;
-      color: #380879;
-    }
-    .el-input__suffix{
-      right: 79px;
-    }
-    .desc-input{
-      width: 95%;
-      .el-textarea__inner {
-        height: 80px;
-        border-radius: 10px;
-        width: 100%;
-        color: #380879;
-      }
-    }
-  }
   .warning-tip{
-    color: #380879;
+    color: #fff;
     font-size: 12px;
   }
   .footer-button{
@@ -831,8 +802,5 @@ export default {
      background: #5844BE;
      color: #fff;
    }
-  .el-dialog__body{
-    padding: 0px 20px 0 !important;
-  }
 }
 </style>

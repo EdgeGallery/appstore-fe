@@ -117,30 +117,81 @@ export default {
 </script>
 <style lang="less">
 .my-paginations{
-  padding: 40px 30px;
-  .el-pagination .el-select .el-input .el-input__inner {
-    padding-right: 20px;
-    border-radius: 8px;
-    background: #2E147C 70%;
-    color: #fff;
-}
-  .el-input--mini .el-input__inner,.el-pager li,.el-pagination button, .el-pagination span:not([class*=suffix]),.el-pagination__editor.el-input .el-input__inner{
-    height: 24px;
-    line-height: 24px;
-    margin-left: 2px;
-    margin-right: 8px;
-  }
-  .el-pagination.is-background .btn-next{
-    margin: 0 0 0 5px;
-  }
+  padding: 46px 79px;
   .page-small{
     display: none;
   }
-  .el-pagination.is-background .el-pager .number:not(.disabled).active {
-    background-color: #5E40C8 !important;
-    min-height: 20px;
-    min-width: 25px;
-}
+  .el-pagination__total{
+    color:#fff;
+    margin-left: 10px;
+  }
+  .el-pagination__jump{
+    color: #fff;
+    margin: 0;
+  }
+  .el-pagination__sizes{
+    margin: 0;
+  }
+  .el-pagination__editor.el-input{
+    width: 32px;
+    margin:0 6px ;
+  }
+  .el-pagination__editor.el-input .el-input__inner {
+    height: 24px;
+    background: none;
+    color: #fff;
+  }
+   .btn-prev .el-icon, .el-pagination .btn-next .el-icon {
+    color: #fff !important;
+    font-weight: lighter;
+  }
+  .el-pagination.is-background .el-pager li{
+    background:none ;
+    color: #fff;
+    font-size: 14px;
+    min-width: 20px !important;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 4px;
+  }
+  .el-pagination.is-background .el-pager .number:not(.disabled).active{
+    background-color: #fff ;
+    color: #4D2DA8;
+  }
+  .el-select .el-input--suffix .el-input__inner{
+    height: 24px;
+    line-height: 24px;
+    color: #fff !important;
+  }
+  .el-select .el-icon-arrow-up:before {
+    position: relative;
+    top: 0px;
+    background:none !important ;
+    color: #fff !important;
+  }
+//   .el-pagination .el-select .el-input .el-input__inner {
+//     padding-right: 20px;
+//     border-radius: 8px;
+//     background: #2E147C 70%;
+//     color: #fff;
+// }
+//   .el-input--mini .el-input__inner,.el-pager li,.el-pagination button, .el-pagination span:not([class*=suffix]),.el-pagination__editor.el-input .el-input__inner{
+//     height: 24px;
+//     line-height: 24px;
+//     margin-left: 2px;
+//     margin-right: 8px;
+//   }
+//   .el-pagination.is-background .btn-next{
+//     margin: 0 0 0 5px;
+//   }
+//   .page-small{
+//     display: none;
+//   }
+//   .el-pagination.is-background .el-pager .number:not(.disabled).active {
+//     background-color: #5E40C8 !important;
+//     min-height: 20px;
+//     min-width: 25px;
+// }
   @media screen and (max-width: 767px){
     .page{
       display: none;

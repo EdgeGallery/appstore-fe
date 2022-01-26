@@ -398,9 +398,10 @@ export default {
 
     }
     .push_default2{
-      background: #4E3494;
+      background: #2E147C;
       border-radius: 0 16px 0 0;
       span{
+        background: #4E3494;
         border-radius: 0 16px 0 16px;
       }
     }

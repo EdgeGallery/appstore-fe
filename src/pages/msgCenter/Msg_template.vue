@@ -302,7 +302,7 @@ export default {
   }
   .message{
     width: 73.64%;
-    margin: auto;
+    margin:0 auto;
     min-width: 1200px;
     min-height: 380px;
     margin-top: 10px;
@@ -310,7 +310,7 @@ export default {
     .timeSelect{
       width: 160px;
       position: absolute;
-      right: 0;
+      right:0;
     }
     .messageContent{
       width: 100%;

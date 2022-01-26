@@ -22,55 +22,57 @@
     <div class="banner">
       <home-swiper />
     </div>
-    <div class="sence_app common_background">
-      <div class="sence">
-        <p
-          class="sence_title defaultFontBlod"
-          :class="{'sence_title_en': language === 'en' }"
-        >
-          {{ $t('store.senceCase') }}
-        </p>
-        <p class="sence_line" />
-        <div class="sence_case">
-          <div
-            class="oneCase"
-            v-for="(item ,index) in senceCaseData"
-            :key="index"
+    <div class="sence_app">
+      <div class="sence_background">
+        <div class="sence">
+          <p
+            class="sence_title defaultFontBlod"
+            :class="{'sence_title_en': language === 'en' }"
           >
-            <img
-              class="oneCase_img hover_pointer"
-              :src="item.imgSrc"
-              @click="senceDetail(item)"
-              alt=""
+            {{ $t('store.senceCase') }}
+          </p>
+          <p class="sence_line" />
+          <div class="sence_case">
+            <div
+              class="oneCase"
+              v-for="(item ,index) in senceCaseData"
+              :key="index"
             >
-            <div class="oneCase_content">
-              <p class="oneCase_content_name">
-                {{ item.nameCn }}
-              </p>
-              <div class="oneCase_content_labels">
-                <div
-                  v-for="(label,i ) in item.label"
-                  :key="i"
-                  class="oneLabel"
-                >
-                  <p class="oneLabel_spot" />
-                  <p class="oneLabel_name">
-                    {{ label.labelCn }}
-                  </p>
+              <img
+                class="oneCase_img hover_pointer"
+                :src="item.imgSrc"
+                @click="senceDetail(item)"
+                alt=""
+              >
+              <div class="oneCase_content">
+                <p class="oneCase_content_name">
+                  {{ item.nameCn }}
+                </p>
+                <div class="oneCase_content_labels">
+                  <div
+                    v-for="(label,i ) in item.label"
+                    :key="i"
+                    class="oneLabel"
+                  >
+                    <p class="oneLabel_spot" />
+                    <p class="oneLabel_name">
+                      {{ label.labelCn }}
+                    </p>
+                  </div>
                 </div>
+                <p class="oneCase_content_desc">
+                  {{ item.describtionCn }}
+                </p>
               </div>
-              <p class="oneCase_content_desc">
-                {{ item.describtionCn }}
-              </p>
             </div>
           </div>
+          <p
+            class="more defaultFontLight"
+            @click="jumpToAppList"
+          >
+            {{ $t('store.viewMore') }}
+          </p>
         </div>
-        <p
-          class="more defaultFontLight"
-          @click="jumpToAppList"
-        >
-          {{ $t('store.viewMore') }}
-        </p>
       </div>
       <div class="app_recommend">
         <p
@@ -798,80 +800,84 @@ export default {
     background: rgba(250,250,250,0.3);
   }
   .sence_app{
-    width: 76.08%;
-    border-radius: 24px;
+    width: 100%;
+    min-width: 1200px;
     z-index: 1000;
-    margin: 0 auto;
-    .sence{
-      width: 100%;
-      height: 1000px;
-      padding: 0 2%;
-      padding-bottom:30px;
-      .sence_case{
-        width: 100%;
-        height: 85.4%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: wrap;
-        .oneCase{
-          width:28%;
-          height: 43%;
-          .oneCase_img{
-            width: 100%;
-            height: 60%;
-            border-radius: 10px;
-          }
-          .oneCase_content{
-            border-radius: 10px;
-            width: 100%;
-            height: 50%;
-            position: relative;
-            top: -10%;
-            left: 0;
-            background: #4e3494;
-            .oneCase_content_name{
-              width: 85%;
-              margin: 2% auto;
-              font-size: 24px;
-              height: 48px;
-              line-height: 60px;
+    margin-top: -54px;
+    .sence_background{
+      background:rgba(46,20,124,0.7) ;
+      .sence{
+        width: 73.64%;
+        margin: 0 auto;
+        height: 1000px;
+        padding: 0 2%;
+        padding-bottom:30px;
+        .sence_case{
+          width: 100%;
+          height: 85.4%;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          flex-wrap: wrap;
+          .oneCase{
+            width:28%;
+            height: 43%;
+            .oneCase_img{
+              width: 100%;
+              height: 60%;
+              border-radius: 10px;
             }
-            .oneCase_content_labels{
-              width: 85%;
-              margin: 0 auto;
-              display: flex;
-              .oneLabel{
+            .oneCase_content{
+              border-radius: 10px;
+              width: 100%;
+              height: 50%;
+              position: relative;
+              top: -10%;
+              left: 0;
+              background: #4e3494;
+              .oneCase_content_name{
+                width: 85%;
+                margin: 2% auto;
+                font-size: 24px;
+                height: 48px;
+                line-height: 60px;
+              }
+              .oneCase_content_labels{
+                width: 85%;
+                margin: 0 auto;
                 display: flex;
-                width: 140px;
-                .oneLabel_spot{
-                  width: 10px;
-                  height: 10px;
-                  position: relative;
-                  top:4px;
-                  left: 0;
-                  border-radius: 50%;
-                  background: #43F6AD;
-                  margin: 2% 8% 2% 0;
-                }
-                .oneLabel_name{
-                  font-size: 18px;
+                .oneLabel{
+                  display: flex;
+                  width: 140px;
+                  .oneLabel_spot{
+                    width: 10px;
+                    height: 10px;
+                    position: relative;
+                    top:4px;
+                    left: 0;
+                    border-radius: 50%;
+                    background: #43F6AD;
+                    margin: 2% 8% 2% 0;
+                  }
+                  .oneLabel_name{
+                    font-size: 18px;
+                  }
                 }
               }
-            }
-            .oneCase_content_desc{
-              width: 85%;
-              margin: 2% auto;
-              font-size: 16px;
-              color:#fff;
-              text-indent: 2em;
-              line-height: 26px;
-              text-overflow: -o-ellipsis-lastline;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              display: -webkit-box;
-              -webkit-line-clamp: 3;
-              -webkit-box-orient: vertical;
+              .oneCase_content_desc{
+                width: 85%;
+                margin: 2% auto;
+                font-size: 16px;
+                color:#fff;
+                text-indent: 2em;
+                line-height: 26px;
+                text-overflow: -o-ellipsis-lastline;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+              }
             }
           }
         }
@@ -882,7 +888,7 @@ export default {
       height:80px;
       padding: 0 2%;
       .app_tab{
-        margin: 20px 3.2% 0;
+        margin: 20px 13.18% 0;
         display: flex;
         .app_tab_title{
           font-size:20px;
@@ -910,12 +916,13 @@ export default {
       }
     }
     .hotApp{
-      width: 100%;
+      width: 73.64%;
+      margin: 0 auto;
       padding-top: 2%;
       display: flex;
       justify-content: flex-start;
       flex-wrap: wrap;
-      padding-left: 4%;
+      padding-left: 3%;
       padding-bottom: 80px;
       .oneAppStyle{
         width: 14.3%;

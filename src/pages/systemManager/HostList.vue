@@ -284,7 +284,6 @@
             slot="footer"
             class="dialog-footer"
           >
-
             <el-button
               type="primary"
               @click="confirmData"
@@ -803,6 +802,7 @@ export default {
       height: 32px;
       line-height: 32px;
       margin: 0 10px;
+      color:#fff;
     }
     .el-icon-delete{
       color: #ccc;

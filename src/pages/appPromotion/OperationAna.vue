@@ -16,11 +16,8 @@
 
 <template>
   <div class="my-app">
-    <div class="title">
-      <p class="title_left">
-        {{ $t("nav.operAna") }}
-      </p>
-      <span class="line_bot1 title_line" />
+    <div class="common_title">
+      {{ $t("nav.operAna") }}
     </div>
     <div class="chart-content">
       <div
@@ -99,7 +96,7 @@
           :default-sort="{prop: 'time', order: 'descending'}"
           @sort-change="sortChanged"
           style="width: 100%"
-          header-cell-class-name="headerStyle"
+          class="common_table"
         >
           <el-table-column
             prop="name"
@@ -173,13 +170,12 @@
             width="180"
           >
             <template slot-scope="scope">
-              <p
-                class="loolReport"
+              <el-button
+                class="common_operationBtn"
                 @click="showDrawer(scope.row)"
-                type="text"
               >
                 {{ $t('apppromotion.checkDetail') }}
-              </p>
+              </el-button>
             </template>
           </el-table-column>
           <template slot="empty">
@@ -1158,22 +1154,6 @@ export default {
 <style lang="less" scoped>
 .my-app {
   width: 100%;
-  .loolReport{
-    background: #EFEFEF;
-    border-radius: 5px;
-    font-size: 14px;
-    font-family: HarmonyHeiTi, sans-serif;
-    font-weight: 200;
-    width: 62px;
-    height: 24px;
-    line-height: 24px;
-    color: #7A6E8A;
-    text-align: center;
-  }
-  .lookReport:hover{
-    background: #5E40C8;
-    color: #fff;
-  }
   .title{
     margin: 61px 13.18%;
     .title_line{
@@ -1270,10 +1250,6 @@ export default {
   }
 }
 .app-list {
-  .el-table {
-    font-size: 14px;
-  }
-  padding: 20px 0;
   .pagination {
     margin: 20px;
   }
@@ -1301,6 +1277,7 @@ export default {
   margin: 75px 0 15px;
   position: relative;
   z-index: 888;
+  color: #fff;
   padding-left: 15px;
   border-bottom: 1px solid #e7ebf5;
 }
@@ -1321,6 +1298,7 @@ export default {
   z-index: 888;
   padding-left: 15px;
   border-bottom: 1px solid #e7ebf5;
+  color: #fff;
 }
 .title2::before{
   content: '';
@@ -1336,29 +1314,16 @@ export default {
   font-size: 13px;
   margin-bottom: 10px;
   line-height: 25px;
+  color: #fff;
   span{
     float: left;
     width: 100px;
     margin-left: 30px;
-    color: #999;
+    color: #fff;
   }
   span:last-child{
     text-align: left;
     padding-right: 10px;
   }
-}
-div /deep/ .headerStyle {
-  border-right: none !important;
-  background: #4E3494 !important;
-}
-div /deep/.el-table th  .cell {
-  font-size: 20px;
-  font-weight: 400;
-  color: #62517A;
-}
-div /deep/.el-table td  .cell {
-  font-size: 14px;
-  font-weight: 300;
-  color: #7A6E8A;
 }
 </style>
