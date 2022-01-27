@@ -21,7 +21,7 @@
       slot="tip"
     >
       <em class="el-icon-warning" />
-      <span class="warning-tip">
+      <span class="warning-tip defaultFontLight">
         {{ $t('store.syncTitleTip') }}
       </span>
     </div>
@@ -31,8 +31,8 @@
         trigger="click"
       >
         <el-button
+          class="defaultFontLight syncBtn"
           @click="checkSyncPackage"
-          type="primary"
           :disabled="noSync"
         >
           {{ $t('system.synchronizeToMEAO') }}
@@ -56,7 +56,7 @@
       <el-table
         :data="tableData"
         :key="reflush"
-        class="tableStyle"
+        class="common_table"
         style="width: 100%"
         @filter-change="filterTagTable"
       >
@@ -352,7 +352,7 @@ export default {
 </script>
 <style lang='less'>
 .app-list{
-  background: #fff;
+  background: #2E147C;
   .el-upload__tip {
       margin-left: 52px;
       padding-top: 55px;
@@ -364,10 +364,8 @@ export default {
     font-size: 16px;
   }
   .warning-tip{
-    color: #5E40C8;
+    color: #fff;
     font-size: 12px;
-    font-family: HarmonyHeiTi, sans-serif;
-
   }
   .el-pagination {
     margin-bottom: 30px;
@@ -430,16 +428,18 @@ export default {
     position: relative;
     top: -60px;
     left: 79%;
-    .el-button--primary {
-      width: 160px;
-      background: linear-gradient(122deg, #4444D0, #6724CB);
-      color: #FFFFFF;
-      font-size: 16px;
-      font-family: HarmonyHeiTi, sans-serif;
-      height: 40px;
+    .syncBtn{
+      font-size: 14px;
+      padding: 6px 17px;
+      color: #5E40C8;
+      background:#fff ;
       border-radius: 12px;
-      font-weight: 300;
-      padding: 0px;
+      border: none;
+    }
+    .syncBtn:hover{
+      color: #fff;
+      background:#5E40C8 ;
+      cursor: pointer;
     }
     .el-popper .popper__arrow::after {
       top: 1px;

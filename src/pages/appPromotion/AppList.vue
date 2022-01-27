@@ -523,13 +523,6 @@ div /deep/ .headerStyle {
  div /deep/ .el-select-dropdown__list {
      padding: 20px !important;
 }
-div /deep/  .el-input--suffix .el-input__inner {
-      height: 30px  !important;
-      line-height: 30px !important;
-      border: 1px solid rgba(250, 250, 250, 0.6) !important;
-      background: rgba(46, 20, 124, 0.7) !important;
-      color: rgba(250, 250, 250, 0.6) !important;
-}
 div /deep/ .el-tag.el-tag--info {
      background: rgba(250, 250, 250, 0.2) !important;
     border: none !important;

@@ -385,7 +385,7 @@ export default {
       width: 200px;
     }
     .orderTable {
-      margin: 50px 0;
+      margin: 50px 0 86px 0;
       .activeStyle{
         margin-left: -24px;
       }
@@ -494,6 +494,9 @@ export default {
       }
     }
   }
+}
+.pageBar{
+  margin-top: 40px;
 }
 .activatingBtn {
   border: none !important;

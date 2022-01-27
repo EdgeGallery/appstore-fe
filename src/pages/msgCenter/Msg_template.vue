@@ -341,14 +341,14 @@ export default {
   }
 }
 .messagePage{
-  height: 70px;
+  height: 120px;
   width: 100%;
   background-color: #2E147C;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   .paginationStyle{
     float: right;
-    margin: 20px 20px 0 0;
+    margin: 40px 50px 0 0;
   }
 }
 div /deep/ .el-table::before {

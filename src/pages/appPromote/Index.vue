@@ -662,15 +662,15 @@ export default {
       }
     }
     .pagination {
-      border-top-left-radius: 0px;
-      border-top-right-radius: 0px;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
       background-color: rgba(46,20,124,0.7);
       float: right;
       justify-content: flex-end;
       display: flex;
       width: 100%;
-      padding-right: 20px;
-      padding-bottom: 20px;
+      padding-right: 64px;
+      padding-bottom: 48px;
     }
   }
   .space>div{
@@ -701,9 +701,6 @@ export default {
     Helvetica,
     sans-serif !important;
   }
-}
-div /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active {
-  background-color: #5E40C8 !important;
 }
 div /deep/ .el-dialog__title {
   color: #5E40C8 !important;

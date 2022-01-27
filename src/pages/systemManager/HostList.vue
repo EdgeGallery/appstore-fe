@@ -958,4 +958,8 @@ export default {
   font-size: 23px !important;
   right: -650px;
 }
+.pagebar{
+  position: relative;
+  right: -55px;
+}
 </style>

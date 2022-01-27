@@ -270,7 +270,7 @@ export default {
     margin-top: -40px;
     position: absoulue;
     min-height: 750px;
-    padding-bottom: 40px;
+    padding-bottom: 8px;
     background:#2E147C;
     border-radius: 16px;
     .title{
@@ -300,7 +300,9 @@ export default {
     .paginationStyle{
      display: flex;
      justify-content: flex-end;
-     margin-right: 40px;
+     position: relative;
+     top: -40px;
+     right: 40px;
     }
   }
 }

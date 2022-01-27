@@ -15,97 +15,99 @@
   -->
 
 <template>
-  <div class="pushAppManager">
-    <div class="clearbtAndSearch">
-      <el-input
-        suffix-icon="el-icon-search"
-        v-model="nameQueryVal"
-        @change="queryApp"
-        :placeholder="$t('common.appName')"
-        class="search_input"
-      />
-    </div>
-    <div class="pushAppManagerTable">
-      <el-table
-        v-loading="dataLoading"
-        :data="currentPageData"
-        class="common_table"
-        :default-sort="{ prop: 'createTime', order: 'descending' }"
-        @sort-change="sortChange"
-        @filter-change="filterChange"
-        ref="multipleTable"
-      >
-        <el-table-column
-          prop="name"
-          :label="$t('common.appName')"
-          sortable="custom"
-          width="210"
-          :cell-class-name="hiddenClass"
+  <div>
+    <div class="pushAppManager">
+      <div class="clearbtAndSearch">
+        <el-input
+          suffix-icon="el-icon-search"
+          v-model="nameQueryVal"
+          @change="queryApp"
+          :placeholder="$t('common.appName')"
+          class="search_input"
+        />
+      </div>
+      <div class="pushAppManagerTable">
+        <el-table
+          v-loading="dataLoading"
+          :data="currentPageData"
+          class="common_table"
+          :default-sort="{ prop: 'createTime', order: 'descending' }"
+          @sort-change="sortChange"
+          @filter-change="filterChange"
+          ref="multipleTable"
         >
-          <template slot-scope="scope">
-            <el-popover
-              placement="bottom"
-              trigger="hover"
-              v-if="scope.row.name.length>20"
-            >
-              <div>{{ scope.row.name }}</div>
-              <div slot="reference">
+          <el-table-column
+            prop="name"
+            :label="$t('common.appName')"
+            sortable="custom"
+            width="210"
+            :cell-class-name="hiddenClass"
+          >
+            <template slot-scope="scope">
+              <el-popover
+                placement="bottom"
+                trigger="hover"
+                v-if="scope.row.name.length>20"
+              >
+                <div>{{ scope.row.name }}</div>
+                <div slot="reference">
+                  {{ scope.row.name }}
+                </div>
+              </el-popover>
+              <div v-else>
                 {{ scope.row.name }}
               </div>
-            </el-popover>
-            <div v-else>
-              {{ scope.row.name }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="provider"
+            :label="$t('common.provider')"
+          />
+          <el-table-column
+            prop="version"
+            :label="$t('common.version')"
+          />
+          <el-table-column
+            prop="industry"
+            :label="$t('store.industry')"
+          />
+          <el-table-column
+            prop="type"
+            :label="$t('store.type')"
+          />
+          <el-table-column
+            prop="createTime"
+            :label="$t('appManager.appCreateTime')"
+            width="220"
+            sortable="custom"
+          />
+          <el-table-column
+            :label="$t('appManager.pushSwitch')"
+            width="120"
+          >
+            <template slot-scope="scope">
+              <el-switch
+                v-model="scope.row.selectStatus"
+                :active-value="1"
+                :inactive-value="0"
+                @change="switchChange($event, scope.$index, scope.row)"
+                active-color="#55D8BF"
+                inactive-color="#CECCDC"
+              />
+            </template>
+          </el-table-column>
+          <template slot="empty">
+            <div>
+              <img
+                src="../../assets/images/empty.png"
+                alt=""
+                style="padding: 10px;"
+              >
+              <p>{{ $t('common.noData') }}</p>
             </div>
           </template>
-        </el-table-column>
-        <el-table-column
-          prop="provider"
-          :label="$t('common.provider')"
-        />
-        <el-table-column
-          prop="version"
-          :label="$t('common.version')"
-        />
-        <el-table-column
-          prop="industry"
-          :label="$t('store.industry')"
-        />
-        <el-table-column
-          prop="type"
-          :label="$t('store.type')"
-        />
-        <el-table-column
-          prop="createTime"
-          :label="$t('appManager.appCreateTime')"
-          width="220"
-          sortable="custom"
-        />
-        <el-table-column
-          :label="$t('appManager.pushSwitch')"
-          width="120"
-        >
-          <template slot-scope="scope">
-            <el-switch
-              v-model="scope.row.selectStatus"
-              :active-value="1"
-              :inactive-value="0"
-              @change="switchChange($event, scope.$index, scope.row)"
-              active-color="#55D8BF"
-              inactive-color="#CECCDC"
-            />
-          </template>
-        </el-table-column>
-        <template slot="empty">
-          <div>
-            <img
-              src="../../assets/images/empty.png"
-              alt=""
-              style="padding: 10px;"
-            >
-            <p>{{ $t('common.noData') }}</p>
-          </div>
-        </template>
-      </el-table>
+        </el-table>
+      </div>
     </div>
     <eg-pagination
       class="paginationStyle"
@@ -250,10 +252,10 @@ export default {
 </script>
 <style lang="less">
 .pushAppManager {
-  width: 1416px;
+  min-width: 1200px;
   margin: auto;
   background: #2E147C;
-  border-radius: 16px;
+  border-radius:16px 16px  0 0 ;
   padding: 31px 0px 0px 31px;
   .clearbtAndSearch{
     height: 40px;
@@ -266,12 +268,6 @@ export default {
   }
   .pushAppManagerTable{
     margin-right: 30px;
-    .el-table td{
-      padding: 0;
-      height: 60px;
-      max-height: 60px;
-      line-height: 60px;
-    }
     .buttonRight{
       padding: 0 1px;
       margin: 0 5px;
@@ -279,9 +275,13 @@ export default {
     }
   }
   .paginationStyle{
-    float: right;
-    margin-top: 20px;
-    margin-right: 30px;
+    width: 100%;
+    padding: 40px 50px;
+    height: 100px;
+    background:#2E147C ;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 0 0 16px 16px;
   }
 }
 </style>

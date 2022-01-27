@@ -90,7 +90,6 @@
       <div class="app_score">
         <p class="score_btn">
           <el-button
-            type="primary"
             class="batchProButton"
             @click="download(currentData)"
           >
@@ -102,7 +101,6 @@
           v-show="ifSubscribe"
         >
           <el-button
-            type="primary"
             class="subscribeButton"
             @click="beforeBuyIt()"
           >
@@ -953,9 +951,10 @@ export default {
           height: 40px !important;
           width: 183px !important;
           border-radius: 25px !important;
-          color: #0F0D87;
+          color: #5E40C8;
           font-size: 18px;
           background:#fff;
+          border: none;
           .el-button--primary{
             font-size: 20px;
             background-color: #fff;
@@ -966,12 +965,12 @@ export default {
         .batchProButton:hover{
           color: #fff;
           font-size: 18px;
-          background:#0F0D87;
+          background:#5E40C8;
         }
         .subscribeButton:hover{
           color: #fff;
           font-size: 18px;
-          background:#0F0D87;
+          background:#5E40C8;
         }
         .subscribeButton{
           padding: 0px;
@@ -980,7 +979,8 @@ export default {
           height: 40px !important;
           width: 183px !important;
           border-radius: 25px !important;
-          color: #0F0D87;
+          border: none;
+          color: #5E40C8;
           font-size: 18px;
           background: #fff;
       }

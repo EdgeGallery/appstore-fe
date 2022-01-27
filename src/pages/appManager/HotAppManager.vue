@@ -15,93 +15,95 @@
   -->
 
 <template>
-  <div class="hotAppManager">
-    <div class="clearbtAndSearch">
-      <el-input
-        suffix-icon="el-icon-search"
-        v-model="nameQueryVal"
-        @change="queryApp"
-        :placeholder="$t('common.appName')"
-        class="search_input"
-      />
-    </div>
-    <div class="hotAppManagerTable">
-      <el-table
-        v-loading="dataLoading"
-        :data="currentPageData"
-        :default-sort="{ prop: 'createTime', order: 'descending' }"
-        @sort-change="sortChange"
-        @filter-change="filterChange"
-        ref="multipleTable"
-        class="common_table"
-      >
-        <el-table-column
-          prop="name"
-          :label="$t('common.appName')"
-          sortable="custom"
-          width="210"
-          :cell-class-name="hiddenClass"
+  <div>
+    <div class="hotAppManager">
+      <div class="clearbtAndSearch">
+        <el-input
+          suffix-icon="el-icon-search"
+          v-model="nameQueryVal"
+          @change="queryApp"
+          :placeholder="$t('common.appName')"
+          class="search_input"
+        />
+      </div>
+      <div class="hotAppManagerTable">
+        <el-table
+          v-loading="dataLoading"
+          :data="currentPageData"
+          :default-sort="{ prop: 'createTime', order: 'descending' }"
+          @sort-change="sortChange"
+          @filter-change="filterChange"
+          ref="multipleTable"
+          class="common_table"
         >
-          <template slot-scope="scope">
-            <el-popover
-              placement="bottom"
-              trigger="hover"
-              v-if="scope.row.name.length>20"
-            >
-              <div>{{ scope.row.name }}</div>
-              <div slot="reference">
+          <el-table-column
+            prop="name"
+            :label="$t('common.appName')"
+            sortable="custom"
+            width="210"
+            :cell-class-name="hiddenClass"
+          >
+            <template slot-scope="scope">
+              <el-popover
+                placement="bottom"
+                trigger="hover"
+                v-if="scope.row.name.length>20"
+              >
+                <div>{{ scope.row.name }}</div>
+                <div slot="reference">
+                  {{ scope.row.name }}
+                </div>
+              </el-popover>
+              <div v-else>
                 {{ scope.row.name }}
               </div>
-            </el-popover>
-            <div v-else>
-              {{ scope.row.name }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="provider"
+            :label="$t('common.provider')"
+          />
+          <el-table-column
+            prop="industry"
+            :label="$t('store.industry')"
+          />
+          <el-table-column
+            prop="type"
+            :label="$t('store.type')"
+          />
+          <el-table-column
+            prop="createTime"
+            :label="$t('appManager.appCreateTime')"
+            width="220"
+            sortable="custom"
+          />
+          <el-table-column
+            :label="$t('appManager.hotSwitch')"
+            width="120"
+          >
+            <template slot-scope="scope">
+              <el-switch
+                v-model="scope.row.selectStatus"
+                :active-value="1"
+                :inactive-value="0"
+                @change="switchChange($event, scope.$index, scope.row)"
+                active-color="#55D8BF"
+                inactive-color="#CECCDC"
+              />
+            </template>
+          </el-table-column>
+          <template slot="empty">
+            <div>
+              <img
+                src="../../assets/images/empty.png"
+                alt=""
+                style="padding: 10px;"
+              >
+              <p>{{ $t('common.noData') }}</p>
             </div>
           </template>
-        </el-table-column>
-        <el-table-column
-          prop="provider"
-          :label="$t('common.provider')"
-        />
-        <el-table-column
-          prop="industry"
-          :label="$t('store.industry')"
-        />
-        <el-table-column
-          prop="type"
-          :label="$t('store.type')"
-        />
-        <el-table-column
-          prop="createTime"
-          :label="$t('appManager.appCreateTime')"
-          width="220"
-          sortable="custom"
-        />
-        <el-table-column
-          :label="$t('appManager.hotSwitch')"
-          width="120"
-        >
-          <template slot-scope="scope">
-            <el-switch
-              v-model="scope.row.selectStatus"
-              :active-value="1"
-              :inactive-value="0"
-              @change="switchChange($event, scope.$index, scope.row)"
-              active-color="#55D8BF"
-              inactive-color="#CECCDC"
-            />
-          </template>
-        </el-table-column>
-        <template slot="empty">
-          <div>
-            <img
-              src="../../assets/images/empty.png"
-              alt=""
-              style="padding: 10px;"
-            >
-            <p>{{ $t('common.noData') }}</p>
-          </div>
-        </template>
-      </el-table>
+        </el-table>
+      </div>
     </div>
     <eg-pagination
       class="paginationStyle"
@@ -274,10 +276,14 @@ export default {
       background: #dfe1e6;
     }
   }
-  .paginationStyle{
-    float: right;
-    margin-top: 20px;
-    margin-right: 30px;
-  }
+}
+.paginationStyle{
+  width: 100%;
+  padding: 40px 50px;
+  height: 100px;
+  background:#2E147C ;
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 0 0 16px 16px;
 }
 </style>

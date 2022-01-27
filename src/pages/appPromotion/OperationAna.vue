@@ -1235,16 +1235,16 @@ export default {
   }
   .paginations {
     width:73.64%;
-    height: 60px;
+    height: 100px;
     margin: auto;
     min-width: 1200px;
     background: #2E147C 70%;
     position: relative;
+    border-radius: 0 0 16px 16px;
     .pagination{
     position: absolute;
-    right: 20px;
-    bottom: 20px;
-    border-radius: 0 0 16px 16px;
+    right: 50px;
+    bottom: 40px;
     background: #2E147C 70%;
     }
   }

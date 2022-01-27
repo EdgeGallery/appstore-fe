@@ -304,13 +304,13 @@ export default {
     },
     loadingUploadByProgress (_isCn, circleX, circleY, ctx) {
       if (_isCn) {
-        this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingTip)
-        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTip)
-        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
+        this.loadImage(circleX / 3 - 10, circleY + 65, ctx, this.pkgUploadingTip)
+        this.loadImage(circleX + 18, circleY / 6 + 18, ctx, this.pkgInstatiateTip)
+        this.loadImage(circleX + 200, circleY + 60, ctx, this.pkgGetStatusTip)
       } else {
-        this.loadImage(circleX / 3 - 50, circleY + 88, ctx, this.pkgUploadingTipEn)
-        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTipEn)
-        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTipEn)
+        this.loadImage(circleX / 3 - 10, circleY + 65, ctx, this.pkgUploadingTipEn)
+        this.loadImage(circleX + 18, circleY / 6 + 18, ctx, this.pkgInstatiateTipEn)
+        this.loadImage(circleX + 200, circleY + 60, ctx, this.pkgGetStatusTipEn)
       }
       this.loadImage(circleX - 190, circleY + 50, ctx, this.pkgUploadingNone)
       this.loadImage(circleX - 25, circleY - 205, ctx, this.pkgInstatiateNone)
@@ -319,13 +319,13 @@ export default {
     },
     loadingInstatiateByProgress (_isCn, circleX, circleY, ctx) {
       if (_isCn) {
-        this.loadImage(circleX / 3 - 17, circleY + 88, ctx, this.pkgUploadingEndTip)
-        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTip)
-        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTip)
+        this.loadImage(circleX / 3 - 10, circleY + 65, ctx, this.pkgUploadingEndTip)
+        this.loadImage(circleX + 18, circleY / 6 + 18, ctx, this.pkgInstatiateTip)
+        this.loadImage(circleX + 200, circleY + 60, ctx, this.pkgGetStatusTip)
       } else {
-        this.loadImage(circleX / 3 - 50, circleY + 88, ctx, this.pkgUploadingEndTipEn)
-        this.loadImage(circleX + 15, circleY / 6, ctx, this.pkgInstatiateTipEn)
-        this.loadImage(circleX + 190, circleY + 83, ctx, this.pkgGetStatusTipEn)
+        this.loadImage(circleX / 3 - 10, circleY + 65, ctx, this.pkgUploadingEndTipEn)
+        this.loadImage(circleX + 18, circleY / 6 + 18, ctx, this.pkgInstatiateTipEn)
+        this.loadImage(circleX + 200, circleY + 60, ctx, this.pkgGetStatusTipEn)
       }
       this.loadImage(circleX - 190, circleY + 50, ctx, this.showEnd)
       this.loadImage(circleX - 25, circleY - 205, ctx, this.pkgInstatiateNone)
@@ -403,8 +403,8 @@ export default {
       this.loadWords(this.progress, _circleX, _circleY, _context)
       _context.fillStyle = '#999'
       _context.clearRect(_circleX - 103, _circleY + 10, _canvas.width / 2, _canvas.height / 4)
-      this.drawText(this.fillText, _circleX, _circleY + 50, 198, _context)
       this.drawCanvasWithGray('circle', '#E6EAED', 0)
+      this.drawText(this.fillText, _circleX, _circleY + 50, 198, _context)
       this.drawLeftCircle(
         this.cradius + Math.cos(((2 * Math.PI) / 60) * 120) * _radius,
         this.cradius + Math.sin(((2 * Math.PI) / 30) * 130) * _radius,
@@ -437,7 +437,7 @@ export default {
     circle (circleX, circleY, radius, lineWidth, ctx) {
       ctx.beginPath()
       ctx.lineWidth = lineWidth
-      ctx.strokeStyle = '#E6EAED'
+      ctx.strokeStyle = '#917BD6'
       ctx.arc(circleX, circleY, radius, (Math.PI * 2) / 3, (Math.PI * 1) / 3)
       ctx.stroke()
     },
@@ -451,7 +451,7 @@ export default {
         circleY
       )
       linGrad.addColorStop(0.0, this.progress === 0 ? '#53DABD' : '#4444D0')
-      linGrad.addColorStop(1.0, '#6724CB')
+      linGrad.addColorStop(1.0, '#3DE2EE')
       ctx.strokeStyle = linGrad
       ctx.fillRect(0, 0, 175, 50)
       ctx.lineCap = 'round'
@@ -481,8 +481,10 @@ export default {
       function circle (cx, cy, r) {
         _context.beginPath()
         _context.lineWidth = _lineWidth
-        _context.strokeStyle = '#E6EAED'
+        _context.strokeStyle = '#917BD6'
         _context.arc(cx, cy, r, 100, 0, (Math.PI * 1) / 3)
+        _context.fillStyle = '#4E3494'
+        _context.fill()
         _context.stroke()
       }
       function sector (cx, cy, r, startAngle, endAngle) {
@@ -686,7 +688,6 @@ export default {
     },
     initCanvas () {
       this.drawCanvas('circle', this.color, this.progress)
-      this.drawCanvasWithGray('circle', '#E6EAED', 0)
     }
   },
   computed: {
@@ -727,7 +728,7 @@ export default {
 <style lang="less" scoped>
 .appShowOnline {
   margin: auto;
-  background: #fff;
+  background: #2E147C;
   border-radius: 16px;
   .show_app {
     height: 550px;
@@ -744,7 +745,7 @@ export default {
         font-size: 20px;
         font-family: HarmonyHeiTi, sans-serif;
         font-weight: 600;
-        color: #5844BE;
+        color: #fff;
         line-height: 15px;
         margin-bottom: 50px;
         margin-left: 40px;
@@ -778,9 +779,7 @@ export default {
           width: 245px;
           text-align: left;
         }
-
       }
-
       .stepTitle{
         margin-top: 11px;
         height: 15px;
@@ -799,7 +798,7 @@ export default {
         font-size: 20px;
         font-family: HarmonyHeiTi, sans-serif;
         font-weight: 600;
-        color: #5844BE;
+        color: #fff;
         line-height: 15px;
       }
     .circle-progress {
@@ -834,7 +833,6 @@ export default {
             margin-top: 10px;
           }
         }
-
       .experienceData{
         flex-direction: column;
         margin-top: 30px;
@@ -856,6 +854,13 @@ export default {
       padding: 0px;
       width:120px;
       height:35px;
+      border-radius: 12px;
+      border:none;
+      color: #5F45BE;
+      background-color: #fff;
+    }
+    .batchProButtonTry:hover{
+      color: #fff;
       background-color: #5F45BE;
       cursor: pointer;
     }
@@ -878,6 +883,5 @@ export default {
       padding: 0 0 0 6px;
     }
   }
-
 }
 </style>
