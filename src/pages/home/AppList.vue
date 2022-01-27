@@ -120,7 +120,6 @@
           </el-button>
           <el-button
             id="applist_delete"
-            :disabled="!isDelete || userId === scope.row.userId ? false : true"
             @click="deleteRow(scope.row)"
             class="common_operationBtn"
           >
@@ -155,7 +154,6 @@ export default {
   data () {
     return {
       language: localStorage.getItem('language'),
-      isDelete: false,
       userId: sessionStorage.getItem('userId')
     }
   },
@@ -194,13 +192,6 @@ export default {
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
-    }
-  },
-  mounted () {
-    if ((sessionStorage.getItem('userNameRole') === 'guest') || (sessionStorage.getItem('userNameRole') === 'tenant')) {
-      this.isDelete = false
-    } else {
-      this.isDelete = true
     }
   }
 }
