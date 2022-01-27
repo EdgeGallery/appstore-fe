@@ -21,39 +21,28 @@
     <div class="senceDetail_top">
       <img
         class="senceImg"
-        :src="senceContents.imgSrc"
+        :src="senceContent.imgSrc"
         alt=""
       >
       <div class="senceContent">
-        <p class="senceTitle defaultFontLight">
-          {{ senceContents.nameCn }}
+        <p
+          v-if="language === 'cn'"
+          class="senceTitle defaultFontLight"
+        >
+          {{ senceContent.nameCn }}
         </p>
-        <div class="senceLabel">
-          <div
-            class="oneLabel"
-            v-for="(label,i ) in senceContents.label"
-            :key="i"
-          >
-            <p class="oneLabel_line" />
-            <p class="oneLabel_name defaultFontLight">
-              {{ label.labelCn }}
-            </p>
-          </div>
-        </div>
+        <p
+          v-else
+          class="senceTitle defaultFontLight"
+        >
+          {{ senceContent.nameEn }}
+        </p>
         <div class="senceImgs">
           <img
             class="oneImg"
-            :src="senceContents.imgSrc"
-            alt=""
-          >
-          <img
-            class="oneImg"
-            :src="senceContents.imgSrc"
-            alt=""
-          >
-          <img
-            class="oneImg"
-            :src="senceContents.imgSrc"
+            v-for="(item,index) in senceContent.imgData"
+            :key="index"
+            :src="item"
             alt=""
           >
         </div>
@@ -61,41 +50,74 @@
     </div>
     <div class="senceDetail_bottom common_background">
       <div class="introduce">
-        <p class="title defaultFontLight">
-          {{ senceContents.nameCn }}
+        <p
+          v-if="language === 'cn'"
+          class="title defaultFontLight"
+        >
+          {{ senceContent.nameCn }}
         </p>
-        <p class="content defaultFontLight">
-          {{ introduce }}
+        <p
+          v-else
+          class="title defaultFontLight"
+        >
+          {{ senceContent.nameEn }}
+        </p>
+        <p
+          v-if="language === 'cn'"
+          class="content defaultFontLight"
+        >
+          {{ senceContent.describtionCn }}
+        </p>
+        <p
+          v-else
+          class="content defaultFontLight"
+        >
+          {{ senceContent.describtionEn }}
         </p>
       </div>
       <div class="introduce">
         <p class="title sence_title defaultFontLight">
-          应用场景
+          {{ $t('store.senceApp') }}
         </p>
-        <p class="sence_content defaultFontLight">
-          {{ appSence }}
-        </p>
+        <div v-if="language === 'cn'">
+          <p
+            v-for="(item,index) in senceContent.appSenceCn"
+            :key="index"
+            class="sence_content defaultFontLight"
+          >
+            {{ item }}
+          </p>
+        </div>
+        <div v-else>
+          <p
+            v-for="(item,index) in senceContent.appSenceEn"
+            :key="index"
+            class="sence_content defaultFontLight"
+          >
+            {{ item }}
+          </p>
+        </div>
       </div>
       <div class="relevantApp">
         <p class="relevantApp_name defaultFontLight">
-          相关应用
+          {{ $t('store.reapp') }}
         </p>
         <div class="relevantApp_content">
           <div
             class="oneApp"
-            v-for="(item ,index) in 3"
+            v-for="(item ,index) in relevantAppData"
             :key="index"
           >
             <img
               class="oneApp_img"
-              :src="senceContents.imgSrc"
+              :src="getImageUrl(item.appId)"
               alt=""
             >
             <p
               class="oneApp_title"
               defaultFontLight
             >
-              {{ appName }}
+              {{ item.name }}
             </p>
           </div>
         </div>
@@ -105,40 +127,51 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { eventBus } from '../../tools/bus.js'
+import { queryApp, URL_PREFIX } from '../../tools/api.js'
+import { SenceCaseData } from '../../tools/constant.js'
 export default {
   name: 'SenceDetail',
   components: {
   },
   data () {
     return {
-      senceContents: {
-        imgSrc: require('../../assets/images/senceCase1.png'),
-        nameCn: '5G移动',
-        nameEn: '5G Mobile',
-        label: [
-          {
-            labelCn: '生态环境',
-            labelEn: 'Ecological environment'
-          },
-          {
-            labelCn: '智慧工地',
-            labelEn: 'Smart site'
-          }
-        ],
-        describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
-        describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
-      },
-      appName: '测试应用',
-      introduce: '为解决小米智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为，客户提出工地智慧化建设诉求。5G智慧工地方案搭载人工智能、大数据、AR、VR等技术，通过定制化5G网络保障数据传输的实时、可靠，高清视频监控、AI安全管控、双360塔吊立体监控、人员定位、钢结构区块链、职业健康分析等功能模块助力工地提升管理效率与水平。',
-      appSence: '1.定制化5G网络：搭建专属基站满足施工全生命周期各区域的网络覆盖，解决工地通信痛点难点问题<br> 2.双360塔吊立体监控：利用5G+高清摄像头+AI眼镜，实现720度监控，引入物联网传感器，实现塔吊防碰撞、数据异常及时预警等功能；<br> 3.5G移动巡检：巡检人员通过佩戴AI眼镜，实现核查现场工人信息、现场安全检查、问题抓怕等功能；<br> 4.5G远程协作：工作人员通过佩戴AI眼镜，可远程连线专家，进行语音、文字、视频交互，及时解决施工技术难题;<br> 5.AI安全预警：通过丰富的AI算法对工地内的监控画面进行实时分析，包括火焰和烟雾报警、周界防护、未戴安全帽、未穿反光衣等；<br> 6.钢结构区块链：搭建钢结构区块链信息管理平台，实现全生命周期各环节信息可信监管；<br> 7.人员定位：实现工地复杂环境下室内人员实时精准定位、轨迹追溯、危险预警等。'
+      senceCaseData: SenceCaseData,
+      senceContent: {},
+      relevantAppData: [],
+      searchCondition: {
+        type: [],
+        affinity: [],
+        industry: [],
+        deployMode: [],
+        workloadType: [],
+        userId: '',
+        queryCtrl: {
+          status: ['Published'],
+          appName: '',
+          offset: 0,
+          limit: 100,
+          sortItem: 'createTime',
+          sortType: 'asc'
+        }
+      }
     }
   },
   methods: {
     getSenceContent () {
-      eventBus.$on('senceContent', function (val) {
-        console.log(typeof (val))
+      this.senceCaseData.forEach(item => {
+        if (item.type === this.$route.query.type) {
+          this.senceContent = item
+          this.searchCondition.industry.push(item.nameEn)
+          queryApp(this.searchCondition).then(res => {
+            if (res.data.results.length >= 3) {
+              this.relevantAppData = res.data.results.slice(0, 3)
+            }
+          })
+        }
       })
+    },
+    getImageUrl (appId) {
+      return URL_PREFIX + 'apps/' + appId + '/icon'
     }
   },
   computed: {
@@ -169,39 +202,19 @@ export default {
       display: flex;
       .senceImg{
         border-radius: 12px;
-        width: 24.61%;
+        width: 28.61%;
         margin-right: 3.3%;
       }
       .senceContent{
-        width: 40.2%;
+        width: 46%;
         .senceTitle{
-          font-size: 28px;
-          line-height: 60px;
-        }
-        .senceLabel{
-          display: flex;
-          .oneLabel{
-            display: flex;
-            width: 140px;
-            margin-bottom: 10px;
-            .oneLabel_line{
-              width: 10px;
-              height: 10px;
-              position: relative;
-              top:4px;
-              left: 0;
-              border-radius: 50%;
-              background: #43F6AD;
-              margin: 2% 8% 2% 0;
-            }
-            .oneLabel_name{
-              font-size: 18px;
-            }
-          }
+          font-size: 30px;
+          line-height: 44px;
+          margin-bottom: 40px;
         }
         .senceImgs{
           display: flex;
-          height: 144px;
+          height: 171px;
           .oneImg{
             width: 32%;
             height: 100%;
@@ -267,21 +280,6 @@ export default {
           .senceTitle{
             font-size: 18px;
             line-height: 40px;
-          }
-          .senceLabel{
-            .oneLabel{
-              width: 100px;
-              .oneLabel_line{
-                width: 5px;
-                height: 5px;
-                position: relative;
-                left: 0;
-                top: 5px;
-              }
-              .oneLabel_name{
-                font-size: 14px;
-              }
-            }
           }
           .senceImgs{
             height: 100px;

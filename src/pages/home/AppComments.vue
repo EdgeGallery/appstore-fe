@@ -17,7 +17,7 @@
 <template>
   <div class="appComments">
     <div class="submit_comment clearfix">
-      <span class="score_span">{{ $t('store.score') }}</span>
+      <span class="score_span defaultFontLight">{{ $t('store.score') }}</span>
       <el-rate
         v-model="comments.score"
         allow-half
@@ -38,13 +38,11 @@
           :placeholder="$t('store.commentInfo')"
         />
       </div>
-      <p class="submit_btn">
-        <el-button
-          type="primary"
-          @click="submitComment"
-        >
-          {{ $t('myApp.publish') }}
-        </el-button>
+      <p
+        class="submit_btn"
+        @click="submitComment"
+      >
+        {{ $t('myApp.publish') }}
       </p>
     </div>
     <div
@@ -55,7 +53,7 @@
         :src="noCommentIcon"
         alt=""
       >
-      <p>
+      <p class="defaultFontLight">
         {{ $t('store.noComment') }}
       </p>
     </div>
@@ -64,10 +62,10 @@
       v-if="historyComentsList.length!==0"
     >
       <div class="div_comment_total">
-        <p class="p_count_Title">
+        <p class="p_count_Title defaultFontLight">
           {{ $t('store.allComments') }}
         </p>
-        <p class="p_total">
+        <p class="p_total defaultFontLight">
           {{ this.total }}
         </p>
       </div>
@@ -89,10 +87,10 @@
             >
           </div>
           <div class="user_info">
-            <p class="p_userName">
+            <p class="p_userName defaultFontLight">
               {{ item.user.userName }}
             </p>
-            <p class="commentTime">
+            <p class="commentTime defaultFontLight">
               {{ item.commentTime }}
             </p>
           </div>
@@ -135,8 +133,8 @@ export default {
       appName: '',
       limit: 100,
       offset: 0,
-      userIconUrl: require('../../assets/images/app_detail_user.jpg'),
-      noCommentIcon: require('../../assets/images/app_detail_info_icon.png'),
+      userIconUrl: require('../../assets/images/app_detail_user.png'),
+      noCommentIcon: require('../../assets/images/no_info.png'),
       comments: {
         score: 0,
         message: ''
@@ -215,21 +213,24 @@ export default {
 <style lang="less">
 .appComments {
   margin: auto;
-  background: #fff;
+  background: #2E147C;
   border-radius: 16px;
+  padding: 32px 59px ;
+  p{
+    margin: 0;
+  }
   .submit_comment{
-    padding: 20px;
     .score_span{
       float: left;
-      font-size: 20px;
-      font-weight: bold;
-      color: #8F859B;
+      font-size: 16px;
+      color: #fff;
     }
     .el-rate{
       float: left;
+      height: 17px;
       margin: 3px 0 0 10px;
       .el-rate__icon{
-        font-size: 22px;
+        font-size: 12px;
       }
     }
     .comment_input{
@@ -245,26 +246,35 @@ export default {
       }
       .el-textarea__inner{
         height: 80px;
-        box-shadow: inset 4px 4px 25px 5px rgba(36, 20, 119, 0.1) !important;
+        box-shadow: inset 14px 9px 17px 0px rgba(51, 26, 134, 0.3) !important;
         border-radius: 12px;
+        background: #4E3494;
         padding: 10px 30px 15px !important;
+      }
+      .el-textarea .el-input__count{
+        background:none ;
       }
     }
     .submit_btn{
-      float: left;
-      width: 100%;
-      text-align: right;
-      .el-button{
-        font-size: 16px;
-        background-color:  #8278B7;
-        color: #FFFFFF;
-        border-radius: 8pt;
-      }
+      float: right;
+      padding: 2px 30px;
+      font-size: 16px;
+      background-color:  #fff;
+      color: #5944C0;
+      border-radius: 12px;
+    }
+    .submit_btn:hover{
+      background-color:  #5944C0;
+      color: #fff;
+      cursor: pointer;
     }
   }
   .show_comment{
     padding: 0 0 50px 20px;
     margin-top: -40px;
+    li{
+      border-bottom:1px solid #fff ;
+    }
     .div_comment_total{
       position: relative;
       top: -11px;
@@ -273,17 +283,13 @@ export default {
       .p_count_Title {
         float: left;
         margin-right: 20px;
-        font-size: 16px;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: 300;
-        color: #8F859B;
+        font-size: 14px;
+        color: #fff;
       }
       .p_total {
         float: left;
-        font-size: 16px;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: 300;
-        color: #CAC1D4;
+        font-size: 14px;
+        color: #fff;
       }
     }
     .user_icon {
@@ -294,19 +300,16 @@ export default {
     .user_info {
       display: flex;
       .p_userName {
-        height: 16px;
-        font-size: 16px;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: 300;
-        color: #675E71;
+        height: 24px;
+        font-size: 14px;
+        color: #fff;
         line-height: 24px;
+        margin-right: 30px;
       }
       .commentTime {
-        height: 16px;
-        font-size: 16px;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: 300;
-        color: #CAC1D4;
+        height: 24px;
+        font-size: 14px;
+        color: #fff;
         line-height: 24px;
       }
       p{
@@ -317,10 +320,8 @@ export default {
     .comment_content {
       width: 100%;
       max-height: 150px;
-      font-size: 16px;
-      font-family: HarmonyHeiTi, sans-serif;
-      font-weight: 200;
-      color: #8F859B;
+      font-size: 14px;
+      color: #fff;
       line-height: 45px;
       padding: 0px 20px 0 100px;
       margin-top: 11px;
@@ -331,10 +332,11 @@ export default {
     }
   }
   .no_comment{
-    color: #bbb;
+    color: #fff;
     text-align: center;
     p{
       margin: 10px 0 30px;
+      font-size: 14px;
     }
   }
 }

@@ -36,7 +36,7 @@
             <div
               class="oneCase"
               v-for="(item ,index) in senceCaseData"
-              :key="index"
+              :key="('sence'+index)"
             >
               <img
                 class="oneCase_img hover_pointer"
@@ -45,22 +45,28 @@
                 alt=""
               >
               <div class="oneCase_content">
-                <p class="oneCase_content_name">
+                <p
+                  v-if="language === 'en'"
+                  class="oneCase_content_name"
+                >
+                  {{ item.nameEn }}
+                </p>
+                <p
+                  v-else
+                  class="oneCase_content_name"
+                >
                   {{ item.nameCn }}
                 </p>
-                <div class="oneCase_content_labels">
-                  <div
-                    v-for="(label,i ) in item.label"
-                    :key="i"
-                    class="oneLabel"
-                  >
-                    <p class="oneLabel_spot" />
-                    <p class="oneLabel_name">
-                      {{ label.labelCn }}
-                    </p>
-                  </div>
-                </div>
-                <p class="oneCase_content_desc">
+                <p
+                  v-if="language === 'en'"
+                  class="oneCase_content_desc"
+                >
+                  {{ item.describtionEn }}
+                </p>
+                <p
+                  v-else
+                  class="oneCase_content_desc"
+                >
                   {{ item.describtionCn }}
                 </p>
               </div>
@@ -95,8 +101,8 @@
             />
           </p>
           <p
-            class="app_tab_title hover_pointer scoreApp_title"
-            :class="{'scoreApp_title_en': language === 'en', 'app_tab_title_click': hotappType === false}"
+            class="app_tab_title hover_pointer"
+            :class="{'scoreApp_title2_en': language === 'en', 'app_tab_title_click': hotappType === false}"
             @click="showScoreApp"
           >
             {{ $t('store.higherScore') }}
@@ -114,7 +120,7 @@
       >
         <div
           v-for="(item,index) in newAppData"
-          :key="index"
+          :key="('newApp'+index)"
           class="oneAppStyle"
           v-show="showDefaultData"
         >
@@ -130,7 +136,7 @@
         </div>
         <div
           v-for="(item,index) in newAppDataBe"
-          :key="index"
+          :key="('newAppBe'+index)"
           class="oneAppStyle"
           v-show="!showDefaultData"
         >
@@ -152,7 +158,7 @@
       >
         <div
           v-for="(item,index) in scoreHighestData"
-          :key="index"
+          :key="('score'+index)"
           class="oneAppStyle"
           v-show="showDefaultData"
         >
@@ -174,7 +180,7 @@
         </div>
         <div
           v-for="(item,index) in scoreHighestDataBe"
-          :key="index"
+          :key="('scoreHighest'+index)"
           class="oneAppStyle"
           v-show="!showDefaultData"
         >
@@ -211,12 +217,10 @@
 </template>
 <script>
 import { queryApp, URL_PREFIX } from '../../tools/api.js'
-import { INDUSTRY, TYPES, AFFINITY, SORTITEM } from '../../tools/constant.js'
+import { INDUSTRY, TYPES, AFFINITY, SORTITEM, SenceCaseData } from '../../tools/constant.js'
 import HomeSwiper from '../../components/common/Swipers.vue'
 import uploadPackage from '../home/UploadPackage.vue'
-import { mapState } from 'vuex'
 import commonUtil from '../../tools/commonUtil.js'
-import { eventBus } from '../../tools/bus.js'
 export default {
   name: 'Home',
   components: {
@@ -242,110 +246,7 @@ export default {
           prevEl: '.swiper-button-prev'
         }
       },
-      senceCaseData: [
-        {
-          imgSrc: require('../../assets/images/senceCase1.png'),
-          nameCn: '5G移动',
-          nameEn: '5G Mobile',
-          label: [
-            {
-              labelCn: '生态环境',
-              labelEn: 'Ecological environment'
-            },
-            {
-              labelCn: '智慧工地',
-              labelEn: 'Smart site'
-            }
-          ],
-          describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
-          describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
-        },
-        {
-          imgSrc: require('../../assets/images/senceCase2.png'),
-          nameCn: '5G移动',
-          nameEn: '5G Mobile',
-          label: [
-            {
-              labelCn: '生态环境',
-              labelEn: 'Ecological environment'
-            },
-            {
-              labelCn: '智慧工地',
-              labelEn: 'Smart site'
-            }
-          ],
-          describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
-          describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
-        },
-        {
-          imgSrc: require('../../assets/images/senceCase3.png'),
-          nameCn: '5G移动',
-          nameEn: '5G Mobile',
-          label: [
-            {
-              labelCn: '生态环境',
-              labelEn: 'Ecological environment'
-            },
-            {
-              labelCn: '智慧工地',
-              labelEn: 'Smart site'
-            }
-          ],
-          describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
-          describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
-        },
-        {
-          imgSrc: require('../../assets/images/senceCase4.png'),
-          nameCn: '5G移动',
-          nameEn: '5G Mobile',
-          label: [
-            {
-              labelCn: '生态环境',
-              labelEn: 'Ecological environment'
-            },
-            {
-              labelCn: '智慧工地',
-              labelEn: 'Smart site'
-            }
-          ],
-          describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
-          describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
-        },
-        {
-          imgSrc: require('../../assets/images/senceCase5.png'),
-          nameCn: '5G移动',
-          nameEn: '5G Mobile',
-          label: [
-            {
-              labelCn: '生态环境',
-              labelEn: 'Ecological environment'
-            },
-            {
-              labelCn: '智慧工地',
-              labelEn: 'Smart site'
-            }
-          ],
-          describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
-          describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
-        },
-        {
-          imgSrc: require('../../assets/images/senceCase6.png'),
-          nameCn: '5G移动',
-          nameEn: '5G Mobile',
-          label: [
-            {
-              labelCn: '生态环境',
-              labelEn: 'Ecological environment'
-            },
-            {
-              labelCn: '智慧工地',
-              labelEn: 'Smart site'
-            }
-          ],
-          describtionCn: '为解决智慧园区工地内网络差、通信难，加强施工现场质量与安全管理、降低事故发生频率、杜绝各种违规操作和不文明施工行为',
-          describtionEn: 'In order to solve the poor network and difficult communication in the construction site of the smart Park, strengthen the quality and safety management of the construction site, reduce the frequency of accidents, and eliminate all kinds of illegal operations and uncivilized construction'
-        }
-      ],
+      senceCaseData: SenceCaseData,
       newAppData: [
         {
           imgSrc: require('../../assets/images/hotApp1.jpg'),
@@ -482,25 +383,6 @@ export default {
       scoreHighestDataBe: [],
       dialog_datas: {},
       dialog_type: '',
-      parkcn: [ { title: '高效' },
-        { title: '5G' },
-        { title: '安全' }],
-      parken: [ { title: 'Efficient' },
-        { title: '5G' },
-        { title: 'Safety' }],
-      industrialcn: [ { title: '数字' },
-        { title: '智能化' },
-        { title: '感知' }],
-      industrialen: [ { title: 'Digitizing' },
-        { title: 'Intelligent' },
-        { title: 'Perceive' }],
-      logisticscn: [{ title: '分析' },
-        { title: 'AI' },
-        { title: '预测' }],
-      logisticsen: [
-        { title: 'Analyze' },
-        { title: 'AI' },
-        { title: 'Predict' }],
       searchCondition: {
         type: [],
         affinity: [],
@@ -524,44 +406,12 @@ export default {
       document.querySelector(idName).scrollIntoView(true)
     },
     senceDetail (data) {
-      this.$router.push({ name: 'senceDetail' })
-      eventBus.$emit('senceContent', data)
-    },
-    dialogDetil (item) {
-      this.appData = []
-      this.apps = []
-      this.dialogVisible = true
-      this.dialog_datas = item
-      this.dialog_type = item.industry
-      this.getDialogApp()
-      if (this.dialog_type === 'Smart Park' && this.language === 'cn') {
-        this.floor = this.parkcn
-        this.apps = this.relateApp1
-      } else if (this.dialog_type === 'Smart Park' && this.language === 'en') {
-        this.floor = this.parken
-        this.apps = this.relateApp1
-      } else if (this.dialog_type === 'Industrial Manufacturing' && this.language === 'cn') {
-        this.floor = this.floor = this.industrialcn
-        this.apps = this.relateApp2
-      } else if (this.dialog_type === 'Industrial Manufacturing' && this.language === 'en') {
-        this.floor = this.industrialen
-        this.apps = this.relateApp2
-      } else if (this.dialog_type === 'logistics' && this.language === 'cn') {
-        this.floor = this.logisticscn
-        this.apps = this.relateApp3
-      } else if (this.dialog_type === 'logistics' && this.language === 'en') {
-        this.floor = this.logisticsen
-        this.apps = this.relateApp3
-      }
-    },
-    randomRgb () {
-      let R = Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 130 + 60)
-      let G = Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 130 + 80)
-      let B = Math.floor(window.crypto.getRandomValues(new Uint8Array(1)) * 0.001 * 130 + 100)
-      return {
-        color: 'rgb(' + R + ',' + G + ',' + B + ')',
-        background: 'rgba(' + R + ',' + G + ',' + B + ',0.25)'
-      }
+      this.$router.push({
+        path: '/senceDetail',
+        query: {
+          type: data.type
+        }
+      })
     },
     selectedCondition (type, index) {
       this[type][index].selected = !this[type][index].selected
@@ -717,9 +567,6 @@ export default {
       sessionStorage.setItem('pathSource', 'index')
     }
   },
-  computed: {
-    ...mapState(['language'])
-  },
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
@@ -792,6 +639,9 @@ export default {
   .scoreApp_title_en{
     width: 110px;
   }
+  .scoreApp_title_en{
+    width: 130px;
+  }
   .sence_line{
     width: 80px;
     height: 6px;
@@ -805,12 +655,12 @@ export default {
     z-index: 1000;
     margin-top: -54px;
     .sence_background{
+      padding-top: 51px;
       background:rgba(46,20,124,0.7) ;
       .sence{
         width: 73.64%;
         margin: 0 auto;
-        height: 1000px;
-        padding: 0 2%;
+        height: 900px;
         padding-bottom:30px;
         .sence_case{
           width: 100%;
@@ -821,61 +671,39 @@ export default {
           flex-wrap: wrap;
           .oneCase{
             width:28%;
-            height: 43%;
+            height: 300px;
             .oneCase_img{
               width: 100%;
-              height: 60%;
+              height: 190px;
               border-radius: 10px;
             }
             .oneCase_content{
               border-radius: 10px;
               width: 100%;
-              height: 50%;
+              height:130px;
               position: relative;
-              top: -10%;
+              top: -20px;
               left: 0;
               background: #4e3494;
               .oneCase_content_name{
                 width: 85%;
-                margin: 2% auto;
-                font-size: 24px;
+                margin:0 auto;
+                font-size: 20px;
                 height: 48px;
-                line-height: 60px;
-              }
-              .oneCase_content_labels{
-                width: 85%;
-                margin: 0 auto;
-                display: flex;
-                .oneLabel{
-                  display: flex;
-                  width: 140px;
-                  .oneLabel_spot{
-                    width: 10px;
-                    height: 10px;
-                    position: relative;
-                    top:4px;
-                    left: 0;
-                    border-radius: 50%;
-                    background: #43F6AD;
-                    margin: 2% 8% 2% 0;
-                  }
-                  .oneLabel_name{
-                    font-size: 18px;
-                  }
-                }
+                line-height: 50px;
               }
               .oneCase_content_desc{
                 width: 85%;
-                margin: 2% auto;
-                font-size: 16px;
+                margin: 0 auto;
+                font-size: 14px;
                 color:#fff;
                 text-indent: 2em;
-                line-height: 26px;
+                line-height: 18px;
                 text-overflow: -o-ellipsis-lastline;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
-                -webkit-line-clamp: 3;
+                -webkit-line-clamp: 4;
                 -webkit-box-orient: vertical;
               }
             }
@@ -905,7 +733,7 @@ export default {
           }
         }
         .scoreApp_title{
-          width: 152px;
+          width: 95px;
         }
         .app_tab_title_click{
           font-size: 22px;
@@ -931,7 +759,7 @@ export default {
         margin: 5% 4% 0 1.5%;
         display: flex;
         justify-content: center;
-        background: #4e3494;
+        background: #2E147C;
         flex-direction: column;
         .oneApp_img{
           width: 55.56%;
@@ -993,7 +821,7 @@ export default {
       width: 58px;
     }
     .scoreApp_title_en{
-      width: 110px;
+      width: 91px;
     }
     .sence_line{
       width: 40px;
@@ -1014,18 +842,6 @@ export default {
                 font-size: 16px;
                 height: 36px;
                 line-height: 48px;
-              }
-              .oneCase_content_labels{
-                .oneLabel{
-                  width: 100px;
-                  .oneLabel_spot{
-                    width: 5px;
-                    height: 5px;
-                  }
-                  .oneLabel_name{
-                    font-size: 14px;
-                  }
-                }
               }
               .oneCase_content_desc{
                 font-size: 12px;

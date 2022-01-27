@@ -187,7 +187,7 @@
             </p>
             <div class="cutLline">
               <p class="cutLline1">
-                . . . .
+                . . .
               </p>
               <p class="cutLline2" />
             </div>
@@ -205,7 +205,7 @@
             </p>
             <div class="cutLline">
               <p class="cutLline1">
-                . . . .
+                . . .
               </p>
               <p class="cutLline2" />
             </div>
