@@ -203,6 +203,8 @@ export default {
     getAppData (searchCondition) {
       let searchParam = null
       if (typeof searchCondition !== 'undefined' && !searchCondition.queryCtrl.sortItem) {
+        searchCondition.queryCtrl.limit = 15
+        searchCondition.queryCtrl.offsetPage = sessionStorage.getItem('offsetRepo') || 0
         searchCondition.queryCtrl.sortItem = 'createTime'
         searchCondition.queryCtrl.sortType = 'desc'
         searchParam = searchCondition
