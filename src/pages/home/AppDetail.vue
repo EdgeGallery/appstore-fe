@@ -989,7 +989,6 @@ export default {
   }
   .app_content{
     border-radius: 0 16px 16px 16px;
-    background: #fff;
     margin-top: 38px;
     .horizontal-cell{
         padding: 12px 0;
@@ -1306,7 +1305,7 @@ export default {
         }
       }
       .meao_default_vedio_appShow{
-        background: #3e279b;
+        background: #2E147C;
         border-radius: 0 16px 0 0;
         span{
           background: #4E3494;

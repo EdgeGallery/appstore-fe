@@ -473,6 +473,7 @@ const en = {
     senceApp: 'Applications Sence',
     introduct: 'Introduct:',
     tag: 'Tag',
+    introductionTip: 'No details are available for this app!',
     reapp: 'Related applications',
     viewMore: 'View More',
     clickViewMore: 'Click to view more >>',

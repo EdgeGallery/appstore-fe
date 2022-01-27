@@ -21,10 +21,11 @@
       v-show="playerOptions.sources.length===0"
     >
       <img
+        class="dedio_img"
         :src="videoIconUrl"
         alt=""
       >
-      <p>
+      <p class="defaultFontLight">
         {{ $t('store.hasNotVideo') }}
       </p>
     </div>
@@ -49,7 +50,7 @@ export default {
   },
   data () {
     return {
-      videoIconUrl: require('../../assets/images/app_detail_video.png'),
+      videoIconUrl: require('../../assets/images/no_info.png'),
       userId: sessionStorage.getItem('userId')
     }
   }
@@ -57,14 +58,19 @@ export default {
 </script>
 <style lang="less">
 .appVedio {
-  background: #fff;
+  background: #2E147C;
   border-radius: 16px ;
   padding: 20px;
   .vedio{
-    color: #fff;
+    color: #2E147C;
     text-align: center;
+    .dedio_img{
+      margin-top: 10px;
+    }
     p{
-      margin: 10px 0 30px;
+      margin: -10px 0 20px;
+      color: #fff;
+      font-size: 14px;
     }
   }
 }

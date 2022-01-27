@@ -41,7 +41,25 @@ export default {
 <style lang="less">
 .appIntroduction {
   margin: auto;
-  background: #fff;
   border-radius: 16px;
+}
+.v-note-wrapper{
+  border: none !important;
+  background: #3e279b !important ;
+}
+.v-note-wrapper .v-note-panel{
+  border-radius:0 16px 16px 16px !important ;
+}
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content, .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html{
+  color: #fff;
+  font-family: defaultFontLight,
+    Arial,
+    Helvetica,
+    sans-serif !important;
+   padding: 32px 59px !important;
+}
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content {
+  background: #2E147C !important;
+  padding: 40px;
 }
 </style>
