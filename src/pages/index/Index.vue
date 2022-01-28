@@ -91,32 +91,42 @@
         <div class="app_tab">
           <p
             class="app_tab_title hover_pointer"
-            :class="{'hotApp_title_en': language === 'en', 'app_tab_title_click': hotappType === true}"
+            :class="{'hotApp_title_en': language === 'en', 'app_tab_title_click': showApp ==='hot' }"
             @click="showHotApp"
           >
             {{ $t('store.hotApp') }}
             <span
-              v-if="hotappType"
+              v-if="showApp==='hot'"
               class="title_line"
             />
           </p>
           <p
             class="app_tab_title hover_pointer"
-            :class="{'scoreApp_title2_en': language === 'en', 'app_tab_title_click': hotappType === false}"
+            :class="{'hotApp_title_en': language === 'en', 'app_tab_title_click': showApp === 'new'}"
+            @click="showNewApp"
+          >
+            {{ $t('store.newApp') }}
+            <span
+              v-if="showApp==='new'"
+              class="title_line"
+            />
+          </p>
+          <p
+            class="app_tab_title hover_pointer"
+            :class="{'scoreApp_title2_en': language === 'en', 'app_tab_title_click': showApp === 'score'}"
             @click="showScoreApp"
           >
             {{ $t('store.higherScore') }}
             <span
-              v-if="!hotappType"
+              v-if="showApp==='score'"
               class="title_line"
             />
           </p>
         </div>
       </div>
       <div
-        v-show="hotappType"
+        v-show="showApp==='hot'"
         class="hotApp"
-        v-loading="newAppDataLoading"
       >
         <div
           v-for="(item,index) in newAppData"
@@ -152,15 +162,51 @@
         </div>
       </div>
       <div
-        v-show="!hotappType"
+        v-show="showApp==='new'"
         class="hotApp"
-        v-loading="scoreHighDataLoading"
+      >
+        <div
+          v-for="(item,index) in newestData"
+          :key="('newestApp'+index)"
+          class="oneAppStyle"
+          v-show="showDefaultNewestData"
+        >
+          <img
+            :src="item.imgSrc"
+            class="oneApp_img hover_pointer"
+            alt=""
+            @click="jumpToAppList"
+          >
+          <p class="oneApp_name defaultFontLight">
+            {{ item.name }}
+          </p>
+        </div>
+        <div
+          v-for="(item,index) in newestDataBe"
+          :key="('newAppBe'+index)"
+          class="oneAppStyle"
+          v-show="!showDefaultNewestData"
+        >
+          <img
+            :src="getImageUrl(item.appId)"
+            class="oneApp_img hover_pointer"
+            alt=""
+            @click="jumpToDetai(item)"
+          >
+          <p class="oneApp_name defaultFontLight">
+            {{ item.name }}
+          </p>
+        </div>
+      </div>
+      <div
+        v-show="showApp==='score'"
+        class="hotApp"
       >
         <div
           v-for="(item,index) in scoreHighestData"
           :key="('score'+index)"
           class="oneAppStyle"
-          v-show="showDefaultData"
+          v-show="showDefaultScoreData"
         >
           <img
             :src="item.imgSrc"
@@ -168,7 +214,7 @@
             class="oneApp_img hover_pointer"
             @click="jumpToAppList"
           >
-          <p class="oneApp_name">
+          <p class="oneApp_name defaultFontLight">
             {{ item.name }}
           </p>
           <el-rate
@@ -182,7 +228,7 @@
           v-for="(item,index) in scoreHighestDataBe"
           :key="('scoreHighest'+index)"
           class="oneAppStyle"
-          v-show="!showDefaultData"
+          v-show="!showDefaultScoreData"
         >
           <img
             :src="getImageUrl(item.appId)"
@@ -190,7 +236,7 @@
             class="oneApp_img hover_pointer"
             @click="jumpToDetai(item)"
           >
-          <p class="oneApp_name">
+          <p class="oneApp_name defaultFontLight">
             {{ item.name }}
           </p>
           <el-rate
@@ -230,7 +276,7 @@ export default {
   data () {
     return {
       dialogVisible: false,
-      hotappType: true,
+      showApp: 'hot',
       appData: [],
       apps: [],
       selectedConditions: [],
@@ -369,20 +415,39 @@ export default {
           score: 4.7
         }
       ],
+      newestData: [ {
+        name: 'zoneminder',
+        imgSrc: require('../../assets/images/zoneminder.jpg')
+      },
+      {
+        name: 'Anheng-WAF',
+        imgSrc: require('../../assets/images/anheng-WAF.jpg')
+      }, {
+        name: 'Kingsoftcloud',
+        imgSrc: require('../../assets/images/kingsoftcloud.jpg')
+      }, {
+        name: 'CloudVR',
+        imgSrc: require('../../assets/images/cloudVR.png')
+      },
+      {
+        name: 'Edge_VR教育平台',
+        imgSrc: require('../../assets/images/edge_VR.jpg')
+      },
+      {
+        name: 'ktmedia',
+        imgSrc: require('../../assets/images/ktmedia.jpg')
+      }],
+      newestDataBe: [],
+      showDefaultNewestData: true,
       industry: INDUSTRY,
       types: TYPES,
       affinity: AFFINITY,
       sortItem: SORTITEM,
       language: localStorage.getItem('language'),
-      showDefaultData: false,
-      showApp: true,
-      newAppDataLoading: true,
+      showDefaultData: true,
       newAppDataBe: [],
-      showDefaultScoreData: false,
-      scoreHighDataLoading: true,
+      showDefaultScoreData: true,
       scoreHighestDataBe: [],
-      dialog_datas: {},
-      dialog_type: '',
       searchCondition: {
         type: [],
         affinity: [],
@@ -489,61 +554,30 @@ export default {
           } else {
             this.showDefaultData = true
           }
-          this.newAppDataLoading = false
         }).catch((error) => {
           let defaultMsg = this.$t('appManager.queryHotAppFailed')
           commonUtil.showTipMsg(this.language, error, defaultMsg)
         })
     },
-    getDialogApp () {
-      let queryParam = {
-        queryCtrl: {
-          status: ['Published'],
-          appName: '',
-          offset: 0,
-          limit: 1000,
-          sortItem: '',
-          sortType: ''
-        },
-        industry: [this.dialog_type],
-        showType: ['inner-public', 'public']
-      }
-      queryApp(queryParam)
-        .then(res => {
-          this.appData = res.data.results
-          if (this.appData.length === 0) {
-            this.showApp = true
-          } else if (this.appData.length > 0 && this.appData.length < 15) {
-            this.showApp = false
-            this.appData = this.getRandomArrayElements(this.appData, this.appData.length)
-          } else {
-            this.showApp = false
-            this.appData = this.getRandomArrayElements(this.appData, 15)
-          }
-        })
-    },
     getAppData () {
       queryApp(this.searchCondition).then(
         (res) => {
-          let data = res.data.results
-          data.sort(function (a, b) {
-            return a.score < b.score ? 1 : -1
-          })
-          this.scoreHighestDataBe = []
-          if (data.length >= 15) {
-            for (let i = 0; i <= 14; i++) {
-              this.scoreHighestDataBe.push(data[i])
-            }
-          } else {
-            this.showDefaultScoreData = true
+          if (res.data.results.length > 0) {
+            let data = res.data.results
+            data.sort(function (a, b) {
+              return a.score < b.score ? 1 : -1
+            })
+            this.scoreHighestDataBe = []
+            data.forEach(item => {
+              this.scoreHighestDataBe.push(item)
+            })
+            this.newestDataBe = res.data.results.splice(0, 15)
+            this.showDefaultScoreData = false
+            this.showDefaultNewestData = false
           }
-          this.scoreHighDataLoading = false
         },
         () => {
-          this.showDefaultData = true
           this.showDefaultScoreData = true
-          this.newAppDataLoading = false
-          this.scoreHighDataLoading = false
           this.$message({
             duration: 2000,
             type: 'warning',
@@ -553,10 +587,13 @@ export default {
       )
     },
     showHotApp () {
-      this.hotappType = true
+      this.showApp = 'hot'
     },
     showScoreApp () {
-      this.hotappType = false
+      this.showApp = 'score'
+    },
+    showNewApp () {
+      this.showApp = 'new'
     },
     getImageUrl (appId) {
       return URL_PREFIX + 'apps/' + appId + '/icon'
@@ -721,7 +758,7 @@ export default {
         .app_tab_title{
           font-size:20px;
           margin-right: 20px;
-          min-width: 80px;
+          min-width: 94px;
           line-height: 20px;
           .title_line{
             display: block;
@@ -775,9 +812,10 @@ export default {
           text-align: center;
           text-overflow:ellipsis;
           white-space: nowrap;
+          overflow: hidden;
         }
         .el-rate{
-          margin:0 auto;
+          margin:10px auto;
         }
         .el-rate__icon{
           font-size: 14px;
