@@ -185,7 +185,7 @@ export default {
         box-sizing: border-box;
         text-align: center;
         width: 100%;
-        height: 129px;
+        height: 156px;
         display: flex;
         justify-content: center;
         align-items: center;

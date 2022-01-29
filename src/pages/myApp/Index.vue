@@ -797,7 +797,7 @@ cursor:pointer
       width: 200px;
     }
     .packageTable{
-      margin: 50px 0;
+      margin: 50px 0 86px 0;
       .el-table td{
         padding: 0;
         height: 60px;
@@ -848,13 +848,12 @@ cursor:pointer
     }
   }
 }
-
 .eg_pagination{
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: 40px;
+  right: 50px;
 }
-.tableStyle.el-table td .cell {
-    font-size: 14px !important;
+.el-select-dropdown__item.selected {
+  color: #fff !important;
 }
 </style>

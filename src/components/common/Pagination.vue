@@ -117,7 +117,7 @@ export default {
 </script>
 <style lang="less">
 .my-paginations{
-  padding: 46px 79px;
+  padding: 40px 50px;
   .page-small{
     display: none;
   }
@@ -169,29 +169,6 @@ export default {
     background:none !important ;
     color: #fff !important;
   }
-//   .el-pagination .el-select .el-input .el-input__inner {
-//     padding-right: 20px;
-//     border-radius: 8px;
-//     background: #2E147C 70%;
-//     color: #fff;
-// }
-//   .el-input--mini .el-input__inner,.el-pager li,.el-pagination button, .el-pagination span:not([class*=suffix]),.el-pagination__editor.el-input .el-input__inner{
-//     height: 24px;
-//     line-height: 24px;
-//     margin-left: 2px;
-//     margin-right: 8px;
-//   }
-//   .el-pagination.is-background .btn-next{
-//     margin: 0 0 0 5px;
-//   }
-//   .page-small{
-//     display: none;
-//   }
-//   .el-pagination.is-background .el-pager .number:not(.disabled).active {
-//     background-color: #5E40C8 !important;
-//     min-height: 20px;
-//     min-width: 25px;
-// }
   @media screen and (max-width: 767px){
     .page{
       display: none;

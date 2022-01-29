@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="myApp padding56 minHeight">
+  <div class="myApp  minHeight">
     <div class="common_title">
       {{ $t('nav.appMgmt') }}
     </div>
@@ -130,6 +130,8 @@ export default {
 <style lang='less'>
 .myApp {
   border: none;
+  width: 73.64%;
+  margin: 0 auto;
   .horizontal-cell{
     padding: 12px 0;
     float: left;

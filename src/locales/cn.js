@@ -452,6 +452,7 @@ const cn = {
     hasNotVideo: '当前应用还没有可演示的视频！',
     appRecommend: '应用推荐',
     hotApp: '热门应用',
+    newApp: '最新应用',
     senceCase: '场景案例',
     senceApp: '应用场景',
     introduct: '简介：',

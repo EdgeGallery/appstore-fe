@@ -344,7 +344,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   border-radius: 50%;
 }
 .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next {
-  background: #2E147C 70%;
+  background: none ;
 }
 .appPull{
   height: 30px!important;
@@ -357,23 +357,83 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 .apppull:hover{
   font-weight: bold;
 }
-
+.el-pagination__total{
+  color:#fff;
+  margin-left: 10px;
+}
+.el-pagination__jump{
+  color: #fff;
+  margin: 0;
+}
+.el-pagination__sizes{
+  margin: 0;
+}
+.el-pagination__editor.el-input{
+  width: 32px;
+  margin:0 6px ;
+}
+.el-pagination__editor.el-input .el-input__inner {
+  height: 24px;
+  background: none;
+  color: #fff;
+}
+.btn-prev .el-icon, .el-pagination .btn-next .el-icon {
+  color: #fff !important;
+  font-weight: lighter;
+}
+.el-pagination.is-background .el-pager li{
+  background:none ;
+  color: #fff;
+  font-size: 14px;
+  min-width: 20px !important;
+  height: 20px;
+  line-height: 20px;
+  margin-top: 4px;
+}
+.el-pagination.is-background .el-pager .number:not(.disabled).active{
+  background-color: #fff ;
+  color: #4D2DA8;
+}
+.pagination .el-select .el-input--suffix .el-input__inner{
+  height: 24px;
+  line-height: 24px;
+  color: #fff !important;
+}
+.el-select .el-icon-arrow-up:before {
+  position: relative;
+  top: 0px;
+  background:none !important ;
+  color: #fff !important;
+}
+.el-pagination__sizes .el-input .el-input__inner:hover{
+  border: 1px solid #fff !important;
+}
+::-webkit-scrollbar {
+  width : 10px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2) !important;
+  background: #2A126C !important;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 10px;
+  background: #fff !important;
+}
 ol,ul {
     list-style: none;
 }
-
 blockquote,q {
     quotes: none;
 }
-
 blockquote:before,blockquote:after,q:before,q:after {
     content: '';
 }
-
 textarea {
     resize: none;
 }
-
 div,div:before,div:after,button,button:before,button:after,input,
 input:before,input:after,ul,ul:before,ul:after,li,li:before,li:after,a,a:before,a:after,
 span,span:before,span:after,label,label:before,label:after,textarea,textarea:before,textarea:after,fieldset,

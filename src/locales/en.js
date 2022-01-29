@@ -472,6 +472,7 @@ const en = {
     hasNotVideo: 'There is no demo video for the current application!',
     appRecommend: 'App Recommend',
     hotApp: 'Hot App',
+    newApp: 'New App',
     senceCase: 'Sence Case',
     senceApp: 'Applications Sence',
     introduct: 'Introduct:',
