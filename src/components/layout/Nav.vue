@@ -736,6 +736,7 @@ export default {
       }
       .el-menu--horizontal {
         border: none;
+        letter-spacing: 1px;
         background: #3e279b !important;
       }
       .el-menu--horizontal>.el-menu-item {
@@ -753,6 +754,7 @@ export default {
       .el-menu--horizontal>.el-menu-item.is-active {
          color: #fff !important;
          border-bottom: 2px solid #43f6ad !important;
+         font-weight: bold !important;
       }
       .el-submenu__title {
         font-size: 14px;
@@ -785,6 +787,10 @@ export default {
       justify-content: center;
       align-items: center;
       margin-right: -3px;
+      font-family: defaultFontLight,
+      Arial,
+      Helvetica,
+      sans-serif !important;
     }
     .menu{
       display: none;

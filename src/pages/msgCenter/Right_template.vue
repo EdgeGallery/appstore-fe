@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="myApp">
+  <div class="myAppMessage">
     <ul class="list_top clear">
       <li
         @click="click1()"
@@ -243,8 +243,9 @@ export default {
 }
 </script>
 <style lang='less' scoped>
-.myApp {
+.myAppMessage {
   border: none;
+  width: 100%;
   .list_top{
     li{
       float: left;

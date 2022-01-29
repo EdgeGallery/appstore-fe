@@ -24,12 +24,11 @@
       >
     </div>
     <div class="introduceApp">
-      <div class="part1">
+      <div class="part1 style1">
         <div class="introduce_words">
           <p class="introduce_name">
             {{ $t("appShare.manager") }}
           </p>
-          <p class="introduce_line" />
           <p class="introduce_content">
             {{ $t("appShare.appstoreManager") }}
           </p>
@@ -58,7 +57,6 @@
           <p class="introduce_name">
             {{ $t("nav.appPush") }}
           </p>
-          <p class="introduce_line" />
           <p class="introduce_content">
             {{ $t("appShare.appstorePush") }}
           </p>
@@ -70,12 +68,11 @@
           </p>
         </div>
       </div>
-      <div class="part1">
+      <div class="part1 style3">
         <div class="introduce_words">
           <p class="introduce_name">
             {{ $t("nav.appPull") }}
           </p>
-          <p class="introduce_line" />
           <p class="introduce_content">
             {{ $t("appShare.appstorePull") }}
           </p>
@@ -93,7 +90,7 @@
           >
         </div>
       </div>
-      <div class="part1 style3">
+      <div class="part1 style4">
         <div class="intronduce_img">
           <img
             src="../../assets/images/operateApp.png"
@@ -104,7 +101,6 @@
           <p class="introduce_name">
             {{ $t("nav.operAna") }}
           </p>
-          <p class="introduce_line" />
           <p class="introduce_content">
             {{ $t("appShare.appstoreOperAna") }}
           </p>
@@ -183,17 +179,13 @@ export default {
     padding-left: 13.2%;
     .share_words{
       width: 36.1%;
-
     }
-  }
-  .introduceApp{
-    width: 100%;
-    padding: 0 13.23%;
-    min-width: 1200px;
   }
   .part1{
     width: 100%;
-    height: 520px ;
+    padding: 0 13.18%;
+    min-width: 1200px;
+    height: 660px ;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -202,43 +194,38 @@ export default {
       height: 520px;
       padding: 106px 5.6% ;
       .introduce_name{
+        font-family:defaultFontBlod, Arial, Helvetica, sans-serif;
         height: 40px;
-        font-size: 36px;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: bold;
-        color: #5D3DA0;
-      }
-      .introduce_line{
-        width: 88px;
-        height: 7px;
-        background: #9E7BCD;
-        opacity: 0.2;
-        border-radius: 4px;
-        margin-top: 25px;
-        margin-bottom: 40px;
+        font-size: 40px;
+        color: #fff;
+        margin-bottom: 50px;
       }
       .introduce_content{
-        font-size: 22px;
-        font-family: HarmonyOS Sans SC, sans-serif;
-        font-weight: 400;
-        color: #666666;
+        font-size: 24px;
+        color: #fff;
         line-height: 40px;
-        margin-bottom: 90px;
+        margin-bottom: 50px;
+        .defaultFontLight {
+          font-family: defaultFontLight,
+            Arial,
+            Helvetica,
+            sans-serif !important;
+        }
       }
       .introduce_button{
         width: 148px;
-        font-size: 16px;
-        font-family: HarmonyOS Sans SC, sans-serif;
-        font-weight: 300;
-        color: #5D3DA0;
+        font-size: 18px;
+        color: #5944c0;
+        background:#fff ;
         text-align: center;
         line-height: 40px;
-        border: 1px solid #5D3DA0;
-        border-radius: 4px;
+        border: none;
+        border-radius: 50px;
       }
       .introduce_button:hover{
         cursor: pointer;
-        background-color: rgb(239, 230, 240);
+        color:#fff ;
+        background: #5944c0;
       }
     }
     .intronduce_img{
@@ -254,7 +241,11 @@ export default {
       }
     }
   }
+  .style1{
+    background: #331a85;
+  }
   .style2{
+    background: #3e279b;
     .intronduce_img{
       margin-left: -10%;
       img{
@@ -263,6 +254,10 @@ export default {
     }
   }
   .style3{
+    background: #331a85;
+  }
+  .style4{
+    background: #3e279b;
     .intronduce_img{
       margin-left: -10%;
     }

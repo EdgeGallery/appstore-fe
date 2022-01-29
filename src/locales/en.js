@@ -479,6 +479,7 @@ const en = {
     tag: 'Tag',
     introductionTip: 'No details are available for this app!',
     reapp: 'Related applications',
+    noApp: 'No relevant application',
     viewMore: 'View More',
     clickViewMore: 'Click to view more >>',
     moreInfo: 'More Information >>',

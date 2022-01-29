@@ -459,6 +459,7 @@ const cn = {
     tag: '标签',
     introductionTip: '本应用暂无详情信息！',
     reapp: '相关应用',
+    noApp: '暂无相关应用',
     viewMore: '查看更多',
     clickViewMore: '点击查看更多 >>',
     moreInfo: '更多信息 >>',
