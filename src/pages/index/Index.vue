@@ -636,6 +636,7 @@ export default {
     background: #5944C0;
   }
   .sence_title{
+    text-align: center;
     font-size: 36px;
     margin: 20px auto 6px;
     width: 174px;

@@ -661,6 +661,15 @@ export default {
 </script>
 <style lang="less" >
 .appModify {
+  .el-dialog__body{
+    padding: 0 40px !important;
+  }
+  .el-form-item__content{
+    padding: 0 !important;
+  }
+  .el-form-item__label{
+    line-height: 36px !important;
+  }
   .app_upload{
     background: #4E3494;
     border: none;

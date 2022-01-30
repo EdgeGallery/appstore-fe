@@ -24,7 +24,9 @@
         class="analyseAnaNoData"
         v-if="appPackageDataChart.length < 1"
       >
-        <p>{{ $t('apppromotion.haveNoAnaData') }}</p>
+        <p style="color:#fff">
+          {{ $t('apppromotion.haveNoAnaData') }}
+        </p>
         <img
           src="../../assets/images/construct.png"
           alt="a"
@@ -138,13 +140,13 @@
           <el-table-column
             prop="description"
             :label="$t('apppromotion.description')"
-            width="280"
+            width="320"
             :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
                 placement="bottom"
-                width="280"
+                width="320"
                 trigger="hover"
                 v-if="scope.row.description.length>20"
               >
@@ -161,13 +163,13 @@
           <el-table-column
             prop="time"
             :label="$t('apppromotion.dateTime')"
-            width="180"
+            width="200"
             sortable="custom"
           />
           <el-table-column
             prop="detailInfo"
             :label="$t('apppromotion.mesOperation')"
-            width="180"
+            width="120"
           >
             <template slot-scope="scope">
               <el-button
@@ -630,7 +632,6 @@ export default {
           }
         }
       )
-
       if (industryArr < 1) {
         let defaultData = {
           value: 0,
@@ -644,11 +645,16 @@ export default {
         title: {
           text: this.$t('apppromotion.hotIndustry'),
           align: 'left',
+          subtextStyle: {
+            color: '#fff', // 主标题文字的颜色。
+            fontSize: 18 // 字体大小
+          },
           textStyle: {
             color: '#fff',
             fontWeight: 'normal',
             fontSize: 14
-          }
+          },
+          padding: 20
         },
         tooltip: {
           trigger: 'item',
@@ -808,7 +814,8 @@ export default {
             fontWeight: 'normal',
             fontStyle: 'normal',
             fontSize: 14
-          }
+          },
+          padding: 20
         },
         tooltip: {
           trigger: 'axis',
@@ -818,6 +825,7 @@ export default {
         },
         grid: {
           left: '6%',
+          top: '24%',
           right: '4%',
           bottom: '3%',
           containLabel: true
@@ -939,7 +947,8 @@ export default {
             fontWeight: 'normal',
             fontStyle: 'normal',
             fontSize: 14
-          }
+          },
+          padding: 20
         },
         tooltip: {
           trigger: 'axis',
@@ -949,6 +958,7 @@ export default {
         },
         grid: {
           left: '6%',
+          top: '24%',
           right: '4%',
           bottom: '3%',
           containLabel: true
@@ -1063,7 +1073,8 @@ export default {
             fontWeight: 'normal',
             fontStyle: 'normal',
             fontSize: 14
-          }
+          },
+          padding: 20
         },
         tooltip: {
           trigger: 'axis'
@@ -1079,6 +1090,7 @@ export default {
         },
         grid: {
           left: '6%',
+          top: '24%',
           right: '5%',
           bottom: '3%',
           containLabel: true
@@ -1164,7 +1176,6 @@ export default {
     width: 73.64%;
     margin: auto;
     min-width: 1200px;
-    background: #F2F3F5;
     .analyseAna{
       width: 100%;
       background: #F2F3F5;
@@ -1194,7 +1205,11 @@ export default {
         margin-top: 10px;
         .desc-font{
           font-size: 14px;
-          color: #B2B2B2;
+          color: #fff;
+          font-family: defaultFontLight,
+          Arial,
+          Helvetica,
+          sans-serif !important;
         }
       }
       .mychartDiv1{

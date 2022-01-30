@@ -207,6 +207,9 @@ export default {
 <style lang="less">
 .promTask {
   position: absolute;
+  .el-dialog__body{
+    padding:20px 40px 40px 40px !important;
+  }
   .modify_header{
     position: absolute;
     top: 40px;
@@ -217,17 +220,16 @@ export default {
       height: 9px;
       width: 9px;
       position: relative;
-      top: 10px;
+      top: 8px;
     }
     .header-title{
       margin-left: 10px;
       color: #fff;
-      font-size: 16px;
+      font-size: 18px;
     }
   }
   .app-prom {
     margin-top: 40px;
-    height: 400px;
     overflow:auto;
   }
   .el-icon-loading {

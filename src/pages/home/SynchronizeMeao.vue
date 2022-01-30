@@ -502,9 +502,6 @@ export default {
     }
   }
 }
-.tableStyle.el-table td .cell {
-  font-size: 14px !important;
-}
 .el-table-filter .el-table-filter__list{
   background-color: #EDEEF8;
 }

@@ -18,7 +18,7 @@
   <div class="upload-package">
     <el-dialog
       :visible.sync="dialogVisible"
-      width="63%"
+      width="53%"
       :before-close="handleClose"
       :close-on-click-modal="false"
       @close="clearForm"
@@ -224,7 +224,6 @@
             <el-button
               slot="trigger"
               size="small"
-              type="primary"
               class="app-upload"
               plain
             >
@@ -311,7 +310,6 @@
           class="footer-button"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
-          type="primary"
           class="footer-button"
           :loading="uploadBtnLoading"
           @click="submitPackage"
@@ -854,29 +852,35 @@ export default {
   .el-dialog__footer{
     margin-top: -20px;
   }
+  .el-dialog__body{
+    padding-left:40px !important ;
+  }
   .modify_header{
     display: inline-flex;
     margin-bottom: 20px;
-    margin-left: 20px;
     .title_icon{
       background: #43F6AD;
       border-radius: 50%;
       height: 9px;
       width: 9px;
       position: relative;
-      top: 10px;
+      top: 7px;
     }
     .header-title{
       margin-left: 10px;
       color: #fff;
-      font-size: 16px;
+      font-size: 18px;
+      letter-spacing: 1px;
     }
   }
   .el-form-item__label{
     font-size: 14px;
     color: #fff;
+    line-height: 36px !important;
   }
-
+  .el-form-item .el-form-item__content {
+    padding:0 !important;
+  }
   .el-form-item {
     margin-bottom: 17px;
     .app-upload{
@@ -932,13 +936,6 @@ export default {
   .el-radio__label{
     color: #fff;
     font-size: 12px;
-  }
-  .el-radio__input.is-checked + .el-radio__label {
-    color: #fff;
-}
-  .el-radio__input.is-checked .el-radio__inner {
-    border-color: #54C3D7;
-    background-color:#54C3D7;
   }
   .el-checkbox__input.is-checked + .el-checkbox__label {
     color: #fff;

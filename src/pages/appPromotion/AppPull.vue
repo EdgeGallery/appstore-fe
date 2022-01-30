@@ -204,7 +204,6 @@ export default {
     min-width: 1200px;
     .pull_container {
       border-radius:16px ;
-      background: white;
       margin-top:74px;
       .selectStyle{
         z-index: 10;

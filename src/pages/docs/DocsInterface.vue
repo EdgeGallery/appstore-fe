@@ -396,6 +396,10 @@ p{
     }
     .el-menu-item {
       font-size: 16px;
+      font-family: defaultFontLight,
+      Arial,
+      Helvetica,
+      sans-serif !important;
     }
     .threeMenu{
       font-size: 14px !important;
@@ -455,10 +459,12 @@ p{
       margin-left: 40px;
       .noviceTitle{
         padding-left: 41px;
-        font-size: 25px;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: 600;
+        font-size: 26px;
         color: #fff;
+        font-family: defaultFontLight,
+        Arial,
+        Helvetica,
+        sans-serif !important;
       }
       .cutLline{
         width: 100%;
@@ -482,10 +488,12 @@ p{
       .noviceContent1{
         margin: 39px 0 0 63px;
         font-size: 16px;
-        font-family: HarmonyHeiTi, sans-serif;
-        font-weight: 300;
-        color: #8F859B;
+        color: #fff;
         line-height: 24px;
+        font-family: defaultFontLight,
+        Arial,
+        Helvetica,
+        sans-serif !important;
       }
       .docImg{
         width: 100%;
@@ -516,9 +524,19 @@ p{
     }
     .markdown-body{
       color: #fff;
+      font-family: defaultFontLight,
+        Arial,
+        Helvetica,
+        sans-serif !important;
       pre{
         background-color: #3A218B !important ;
         color: #fff;
+        code{
+          font-family: defaultFontLight,
+          Arial,
+          Helvetica,
+          sans-serif !important;
+        }
       }
       table th{
         background-color: #3A218B;
@@ -542,6 +560,17 @@ div /deep/ .el-menu{
 div /deep/ .el-menu{
   background-color: #2E147C !important;
 }
+.oneTitles{
+  font-size: 20px;
+  font-family: defaultFontLight,
+    Arial,
+    Helvetica,
+    sans-serif !important;
+  img{
+    position: relative;
+    top: -2px;
+  }
+}
 .oneTitles.oneSelect{
   background: none !important;
   border-radius: 0px 8px 8px 0px;
@@ -551,6 +580,10 @@ div /deep/ .el-menu{
 }
 .twoTitle{
   font-size: 16px;
+  font-family: defaultFontLight,
+    Arial,
+    Helvetica,
+    sans-serif !important;
 }
 .twoTitle.twoSelect{
   color: #5E40C8;

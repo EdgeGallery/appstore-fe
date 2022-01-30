@@ -19,7 +19,7 @@
     class="msgDialog"
     ref="msgDialog"
   >
-    <div class="msgStatis">
+    <div class="msgStatis defaultFontLight">
       {{ $t('apppromotion.msgNum') }}(<span class="numStyle">
         {{ this.msgs.length }}
       </span>)
@@ -32,24 +32,27 @@
         @click="jumpToMsgDialog(item)"
       >
         <div
-          class="tipTitleNo"
+          class="tipTitleNo defaultFontLight"
         >
           {{ item.sourceAppStore }}
           <span
-            class="msgTime"
+            class="msgTime defaultFontLight"
           >
             {{ item.time.split(' ')[1] }}
           </span>
         </div>
         <div
-          class="tipDescNo"
+          class="tipDescNo defaultFontLight"
         >
           {{ item.description }}
         </div>
       </div>
     </div>
     <div class="checkAll">
-      <span @click="jumpToMsgDialog()">{{ $t('apppromotion.checkAllMsg') }}</span>
+      <span
+        @click="jumpToMsgDialog()"
+        class="defaultFontLight"
+      >{{ $t('apppromotion.checkAllMsg') }}</span>
     </div>
   </div>
 </template>
@@ -136,12 +139,11 @@ export default {
 .msgDialog{
   width: 350px;
   height: 315px;
-  background-color: #404348;
+  background: #2E147C;
 }
-
 .msgTime{
   font-size: 12px;
-  color:#FFFFFF;
+  color:#fff;
   margin-left:15px;
   float:right;
   padding-right:10px;
@@ -153,21 +155,21 @@ export default {
     border-radius: 2px;
   .tipTitleNo{
     font-weight:solid;
-    color:#FFFFFF;
+    color:#fff;
     font-size: 15px;
   }
   .tipDescNo{
     font-weight: solid;
-    color:#A0A0A0;
+    color:#fff;
     font-size: 12px;
     margin-top: 7px;
   }
   .msgTime{
-    color:#A0A0A0;
+    color:#fff;
   }
 }
   .msgBody:hover{
-    background:#282B33;
+    background:#4E3494;
   }
 .msgStatis{
   height: 20px;

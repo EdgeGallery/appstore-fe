@@ -269,7 +269,6 @@ export default {
   .contents{
     margin-top: -40px;
     position: absoulue;
-    min-height: 750px;
     padding-bottom: 8px;
     background:#2E147C;
     border-radius: 16px;

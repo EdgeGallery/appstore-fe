@@ -823,7 +823,6 @@ export default {
   .popUp{
     width: 350px;
     height: 300px;
-    background-color: #404348;
     z-index: 998;
     right: 10px;
     float: right;

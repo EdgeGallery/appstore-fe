@@ -183,7 +183,7 @@ export default {
 .detailContent{
   width: 911px;
   height: 560px;
-  padding: 39px 42px;
+  padding: 40px 40px;
   background:#2E147C;
   border-radius: 12px;
   p{
@@ -196,11 +196,11 @@ export default {
       display: flex;
       .title{
         color: #fff;
-        font-size: 16px;
+        font-size: 18px;
       }
       .title_line{
         position: relative;
-        top: 8px;
+        top: 10px;
         width: 9px;
         height: 9px;
         margin-right: 10px;

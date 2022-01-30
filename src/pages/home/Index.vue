@@ -16,7 +16,9 @@
 
 <template>
   <div class="appStoreHome">
-    <div class="common_title defaultFontBlod clear">
+    <div
+      class="common_title defaultFontBlod clear"
+    >
       {{ $t('nav.appstore') }}
       <el-button
         class="uploadApp_btn common_button defaultFontLight"
@@ -293,7 +295,7 @@ export default {
   .appMainContent {
     box-sizing: border-box;
     .app-content {
-      padding: 30px 0px 0px 30px;
+      padding: 30px 30px 0px 30px;
       box-sizing: border-box;
       width: 73.64%;
       min-width: 1200px;

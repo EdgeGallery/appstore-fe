@@ -81,7 +81,7 @@
               v-model="searchCondition.industry"
             >
               <label style="height:20px;width:65px;position: relative;font-size:14px;top: 7px;">
-                {{ $t('common.industry') }}
+                {{ $t('common.industry2') }}
               </label>
               <el-checkbox-button
                 v-for="(item, index) in appIndustry"
@@ -98,7 +98,7 @@
               v-model=" searchCondition.types"
             >
               <label style="height:20px;width:65px;position: relative;font-size:14px;top: 7px;">
-                {{ $t('common.type') }}
+                {{ $t('common.type2') }}
               </label>
               <el-checkbox-button
                 v-for="(item, index) in appTypes"
@@ -115,7 +115,7 @@
               v-model="searchCondition.affinity"
             >
               <label style="height:20px;width:65px;position: relative;font-size:14px;top: 7px;">
-                {{ $t('common.architecture') }}
+                {{ $t('common.architecture2') }}
               </label>
               <el-checkbox-button
                 v-for="(item, index) in appAffinity"
@@ -465,10 +465,6 @@ export default ({
     border: 1.5px solid #5E40C8;
     border-radius: 4px;
   }
-  .el-button--primary {
-    color: #0e0d0d;
-    background-color: #fff;
-  }
   .menuStyle{
     border: 0px;
     -webkit-box-shadow:0px 3px 3px #c8c8c8 ;
@@ -499,6 +495,7 @@ export default ({
     background: #FFFFFF;
     color: #5F45BE;
     border: 1px solid #5F45BE;
+    border-radius: 10px;
   }
   .el-button:hover{
     background: #5F45BE;

@@ -384,7 +384,7 @@ export default {
       span{
         background: #2E147C;
         border-radius: 16px 16px 0 0;
-        color: #5e40c8;
+        color: #fff;
         transition: all 0.5s;
       }
     }

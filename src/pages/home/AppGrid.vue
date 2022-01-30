@@ -40,7 +40,7 @@
           class="scoreMode"
         >
           <p
-            class="appNameStyle"
+            class="appNameStyle defaultFontLight"
           >
             {{ item.name }}
           </p>
@@ -50,12 +50,12 @@
                 :src="require('@/assets/images/scoreIcon.png')"
                 alt
               >
-              <span class="core">
+              <span class="core defaultFontLight">
                 {{ item.score }}
               </span>
             </div>
             <p
-              class="deployMode"
+              class="deployMode defaultFontLight"
             >
               {{ item.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
             </p>

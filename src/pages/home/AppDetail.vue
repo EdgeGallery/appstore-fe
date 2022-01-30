@@ -15,8 +15,11 @@
   -->
 
 <template>
-  <div class="app_detail padding56">
-    <div class="common_title">
+  <div class="app_detail">
+    <div
+      class="common_title"
+      style="width:100%"
+    >
       {{ $t('store.introduction') }}
     </div>
     <div class="app_info_div">
@@ -361,7 +364,7 @@
           class="cancle_btn"
         >{{ $t('atp.cancel') }}</el-button>
         <el-button
-          type="primary"
+          class="cancle_btn"
           @click="confirmImage(currentData)"
         >{{ $t('atp.confirm') }}</el-button>
       </span>
@@ -377,7 +380,7 @@
         slot="title"
         class="el-dialog__title"
       >
-        <em class="title_icon" />
+        <em class="title_icon defaultFontLight" />
         {{ $t('myApp.subscribe') }}
       </div>
       <div class="buy_content">
@@ -805,6 +808,7 @@ export default {
 
 <style lang="less">
 .app_detail{
+  padding: 0 13.18%;
   color: #fff;
   .title_top{
     padding: 60px 0 20px !important;
@@ -820,8 +824,8 @@ export default {
     width: 535px;
   }
   .el-dialog__header{
+    padding: 40px;
     border-bottom: 2px solid #e0e0e0;
-    background: transparent !important;
   }
   .down_radio{
     padding: 18px 25px;
@@ -830,25 +834,35 @@ export default {
     .el-radio{
       width: 350px;
       .el-radio__label{
-        font-size: 20px;
+        font-size: 14px;
       }
       .el-radio__input.is-checked + .el-radio__label{
-        color: #606266;
+        color: #fff;
       }
     }
     .p_bot{
       width: 360px;
       margin:0 0 30px 0px;
-      color: #aaa;
+      color: #fff;
       font-size: 14px;
     }
   }
   .dialog-footer {
     text-align: right;
     .cancle_btn{
-      background: #d0dbf7;
-      color: #587fe7;
-      margin-right: 30px !important;
+      padding: 4px 20px !important;
+      margin-bottom: 25px;
+      background: #fff;
+      color: #5944C0;
+      border-radius: 10px;
+      border: none;
+      float: right;
+      font-size: 14px;
+      text-align: center;
+    }
+    .cancle_btn:hover{
+      background: #5944C0;
+      color: #fff;
     }
   }
   .app_info_div{
