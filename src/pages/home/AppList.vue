@@ -48,17 +48,17 @@
       <el-table-column
         prop="provider"
         :label="$t('common.provider')"
-        width="130"
+        width="100"
       />
       <el-table-column
         prop="type"
         :label="$t('store.type')"
-        width="130"
+        width="90"
       />
       <el-table-column
         prop="affinity"
         :label="$t('system.architecture')"
-        width="105"
+        width="115"
       />
       <el-table-column
         prop="deployMode"
@@ -72,12 +72,12 @@
       <el-table-column
         prop="createTime"
         :label="$t('common.uploadTime')"
-        width="145"
+        width="175"
       />
       <el-table-column
         prop="shortDesc"
         :label="$t('common.description')"
-        width="230"
+        width="220"
       >
         <template slot-scope="scope">
           <el-popover
@@ -108,7 +108,7 @@
       />
       <el-table-column
         :label="$t('common.operation')"
-        width="130"
+        width="170"
       >
         <template slot-scope="scope">
           <el-button

@@ -333,7 +333,7 @@ export default {
     width: 100%;
     height: 100%;
     top: 0;
-    background: #4A4D54;
+    background: #3e279b;
     opacity: 0.8;
   }
   .rightMsg{

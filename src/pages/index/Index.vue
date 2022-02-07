@@ -313,10 +313,6 @@ export default {
         {
           imgSrc: require('../../assets/images/hotApp5.jpg'),
           name: 'cras'
-        },
-        {
-          imgSrc: require('../../assets/images/hotApp6.jpg'),
-          name: 'position_service'
         }
       ],
       scoreData: [
@@ -397,22 +393,7 @@ export default {
         {
           imgSrc: require('../../assets/images/anheng-WAF.jpg'),
           name: 'Anheng-WAF',
-          score: 4.7
-        },
-        {
-          imgSrc: require('../../assets/images/factorywording.jpg'),
-          name: 'factorywording',
-          score: 4.7
-        },
-        {
-          imgSrc: require('../../assets/images/edge_VR.jpg'),
-          name: 'Edge_VR教育平台',
-          score: 4.7
-        },
-        {
-          imgSrc: require('../../assets/images/pcb_defect_detection.png'),
-          name: 'PCB_defet_detection',
-          score: 4.7
+          score: 4.5
         }
       ],
       newestData: [ {
@@ -432,10 +413,6 @@ export default {
       {
         name: 'Edge_VR教育平台',
         imgSrc: require('../../assets/images/edge_VR.jpg')
-      },
-      {
-        name: 'ktmedia',
-        imgSrc: require('../../assets/images/ktmedia.jpg')
       }],
       newestDataBe: [],
       showDefaultNewestData: true,
@@ -635,17 +612,17 @@ export default {
   }
   .more{
     margin: 0px auto;
-    font-size: 18px;
+    font-size: 14px;
     color:#5944C0;
-    width: 120px;
-    height: 40px;
+    width: 100px;
+    height: 26px;
     position: relative;
-    top: 8px;
+    top: 4px;
     left: 0;
     text-align: center;
-    line-height: 40px;
+    line-height: 26px;
     background: #fff;
-    border-radius: 28px;
+    border-radius: 13px;
     margin-top: 10px;
   }
   .scoreMore{
@@ -659,6 +636,7 @@ export default {
     background: #5944C0;
   }
   .sence_title{
+    text-align: center;
     font-size: 36px;
     margin: 20px auto 6px;
     width: 174px;
@@ -728,9 +706,11 @@ export default {
                 font-size: 20px;
                 height: 48px;
                 line-height: 50px;
+                letter-spacing: 1px;
               }
               .oneCase_content_desc{
                 width: 85%;
+                letter-spacing: 0.5px;
                 margin: 0 auto;
                 font-size: 14px;
                 color:#fff;
@@ -756,15 +736,16 @@ export default {
         margin: 20px 13.18% 0;
         display: flex;
         .app_tab_title{
-          font-size:20px;
+          font-size:16px;
           margin-right: 20px;
-          min-width: 94px;
-          line-height: 20px;
+          min-width: 90px;
+          line-height: 16px;
+          letter-spacing: 1px;
           .title_line{
             display: block;
-            width: 40px;
+            width: 35px;
             height: 8px;
-            margin: 8px auto;
+            margin: 6px auto;
             text-align: center;
             border-bottom: 2px solid #43F6AD;
           }
@@ -773,10 +754,10 @@ export default {
           width: 95px;
         }
         .app_tab_title_click{
-          font-size: 22px;
+          font-size: 20px;
         }
         .app_tab_title:hover{
-          font-size: 22px;
+          font-size: 20px;
         }
       }
     }
@@ -787,13 +768,13 @@ export default {
       display: flex;
       justify-content: flex-start;
       flex-wrap: wrap;
-      padding-left: 3%;
+      padding-left: 1%;
       padding-bottom: 80px;
       .oneAppStyle{
-        width: 14.3%;
+        width: 16.3%;
         border-radius: 8px;
         height: 220px;
-        margin: 5% 4% 0 1.5%;
+        margin: 5% 2% 0 1.5%;
         display: flex;
         justify-content: center;
         background: #2E147C;
@@ -805,7 +786,7 @@ export default {
           margin: 10px auto;
         }
         .oneApp_name{
-          font-size: 20px;
+          font-size: 16px;
           width: 80%;
           height: 24px;
           margin: 0 auto;
@@ -830,12 +811,12 @@ export default {
     .more{
       font-size: 14px;
       width: 100px;
-      height: 28px;
+      height: 26px;
       position: relative;
-      top: 8px;
+      top: 4px;
       left: 0;
-      line-height: 24px;
-      border-radius: 28px;
+      line-height: 26px;
+      border-radius: 26px;
       margin-top: 10px;
     }
     .scoreMore{

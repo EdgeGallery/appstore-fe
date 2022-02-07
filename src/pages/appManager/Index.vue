@@ -16,7 +16,7 @@
 
 <template>
   <div class="myApp  minHeight">
-    <div class="common_title">
+    <div class="common_title aooMgmtTitle">
       {{ $t('nav.appMgmt') }}
     </div>
     <ul class="list_top clear">
@@ -138,6 +138,9 @@ export default {
     width: 2px;
     height: 50px;
     background-color: #4E3494;
+  }
+  .aooMgmtTitle{
+    width: 100% !important;
   }
   .list_top{
     li{

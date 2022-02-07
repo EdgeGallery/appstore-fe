@@ -75,19 +75,19 @@
             <el-table-column
               type="selection"
               :reserve-selection="true"
-              width="70"
+              width="80"
             />
             <el-table-column
               prop="name"
               :label="$t('apppromotion.appName')"
               sortable="custom"
-              width="220"
+              width="260"
               :cell-class-name="hiddenClass"
             >
               <template slot-scope="scope">
                 <el-popover
                   placement="bottom"
-                  width="220"
+                  width="260"
                   trigger="hover"
                   v-if="scope.row.name.length>20"
                 >
@@ -104,12 +104,12 @@
             <el-table-column
               prop="provider"
               :label="$t('apppromotion.provider')"
-              width="120"
+              width="160"
             />
             <el-table-column
               prop="version"
               :label="$t('apppromotion.version')"
-              width="80"
+              width="140"
             />
             <el-table-column
               prop="deployMode"
@@ -122,7 +122,7 @@
             </el-table-column>
             <el-table-column
               prop="latestPushTime"
-              width="160"
+              width="220"
               :label="$t('apppromotion.lastProTime')"
               sortable="custom"
             />
@@ -130,6 +130,7 @@
               prop="pushTimes"
               :label="$t('apppromotion.proTimes')"
               sortable="custom"
+              width="160"
             />
             <template slot="empty">
               <div>

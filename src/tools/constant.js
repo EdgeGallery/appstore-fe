@@ -388,9 +388,9 @@ const SenceCaseData = [
   {
     imgSrc: require('../assets/images/senceCase4.png'),
     imgData: [
-      require('../assets/images/senceLogistics1.png'),
-      require('../assets/images/senceLogistics2.png'),
-      require('../assets/images/senceLogistics3.png')
+      require('../assets/images/senceEnergy1.png'),
+      require('../assets/images/senceEnergy2.png'),
+      require('../assets/images/senceEnergy3.png')
     ],
     nameCn: '智慧能源',
     nameEn: 'Smart Energy',

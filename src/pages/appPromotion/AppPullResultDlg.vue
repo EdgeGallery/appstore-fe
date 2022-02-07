@@ -26,7 +26,7 @@
         <span class="title_icon" />
         <div
           slot="title"
-          class="header-title"
+          class="header-title defaultFontLight"
         >
           {{ $t('appPull.pullAppResult') }}
         </div>
@@ -183,18 +183,17 @@ export default {
     height: 9px;
     width: 9px;
     position: relative;
-    top: 16px;
+    top: 18px;
     display: block;
   }
   .header-title{
     margin-left: 20px;
     color: #fff;
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 .appPullResDlg {
   .app-pull {
-    height: 400px;
     overflow:auto;
     margin-top: 20px;
   }
@@ -216,5 +215,7 @@ export default {
     max-width: 100%;
   }
 }
-
+div /deep/  .el-dialog__body{
+  padding: 0 40px 40px 40px !important;
+}
 </style>

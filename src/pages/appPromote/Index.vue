@@ -169,9 +169,9 @@
         :close-on-click-modal="false"
         @close="clearForm"
       >
-        <div class="dialogTitle">
-          <p class="dialogTitle1" />
-          <p class="dialogTitle2">
+        <div class="dialogTitle ">
+          <p class="dialogTitle1 " />
+          <p class="dialogTitle2 defaultFontLight">
             {{ this.title }}
           </p>
         </div>
@@ -183,7 +183,8 @@
               :model="form"
               ref="form"
               :rules="rules"
-              label-width="160px"
+              label-width="140px"
+              style="padding:10px 40px 40px 40px"
             >
               <el-form-item
                 :label="$t('common.appStoreName')"
@@ -681,26 +682,27 @@ export default {
 .dialogTitle{
   border-radius: 8px 8px 0 0;
   display: flex;
-  margin-left:30px ;
+  margin-left:40px ;
   .dialogTitle1{
     width:9px;
     height:9px;
     border-radius: 50%;
     background-color:#43F6AD;
     margin-right: 14px;
-    margin-top: 8px;
+    margin-top: 10px;
   }
   .dialogTitle2{
     margin-bottom: 16px;
-    font-size: 20px;
-    font-weight: 300;
+    font-size: 18px;
     color: #fff;
     letter-spacing:2px;
-    font-family: defaultFontLight,
-    Arial,
-    Helvetica,
-    sans-serif !important;
   }
+}
+.el-form-item__content .el-input{
+  width: 95% !important;
+}
+.el-form-item__content .el-select{
+  width: 100% !important;
 }
 div /deep/ .el-dialog__title {
   color: #5E40C8 !important;
@@ -719,7 +721,7 @@ div /deep/ .el-icon-close:before {
   display: none;
 }
 div /deep/ .el-form-item .el-form-item__content {
-  padding: 0 20px;
+  padding: 0px;
 }
 .dialogSelect{
   border: none !important;
@@ -735,7 +737,9 @@ div /deep/ .el-form-item .el-form-item__content {
 .el-button{
   background: #fff;
   color: #5E40C8;
-  border: 1px solid #5E40C8;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 24px;
 }
 .el-button:hover{
   background: #5E40C8;

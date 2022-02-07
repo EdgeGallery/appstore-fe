@@ -102,20 +102,51 @@
         <p class="relevantApp_name defaultFontLight">
           {{ $t('store.reapp') }}
         </p>
-        <div class="relevantApp_content">
+        <div
+          class="relevantApp_content"
+          v-if="showDefaultAppData"
+        >
           <div
             class="oneApp"
             v-for="(item ,index) in relevantAppData"
             :key="index"
           >
             <img
-              class="oneApp_img"
+              class="oneApp_img hover_pointer"
               :src="getImageUrl(item.appId)"
               alt=""
             >
             <p
-              class="oneApp_title"
-              defaultFontLight
+              class="oneApp_title defaultFontLight"
+            >
+              {{ item.name }}
+            </p>
+          </div>
+        </div>
+        <div
+          class="relevantApp_content"
+          v-else
+        >
+          <p
+            v-if="noData"
+            class="noData defaultFontLight"
+          >
+            {{ $t('store.noApp') }}
+          </p>
+          <div
+            v-else
+            class="oneApp"
+            v-for="(item ,index) in relevantAppDataBe"
+            :key="('app'+index)"
+          >
+            <img
+              class="oneApp_img hover_pointer"
+              :src="item.imgSrc"
+              @click="jumpToAppList"
+              alt=""
+            >
+            <p
+              class="oneApp_title defaultFontLight"
             >
               {{ item.name }}
             </p>
@@ -138,6 +169,36 @@ export default {
       senceCaseData: SenceCaseData,
       senceContent: {},
       relevantAppData: [],
+      relevantAppDatas: [
+        {
+          imgSrc: require('../../assets/images/hotApp4.jpg'),
+          name: 'AnanMeeting',
+          industry: 'park'
+        },
+        {
+          imgSrc: require('../../assets/images/zoneminder.jpg'),
+          name: 'zoneminder',
+          industry: 'park'
+        },
+        {
+          imgSrc: require('../../assets/images/game2048.jpg'),
+          name: 'game2048',
+          industry: 'park'
+        },
+        {
+          imgSrc: require('../../assets/images/pcb_defect_detection.png'),
+          name: 'PCB_Defect_Detection',
+          industry: 'internet'
+        },
+        {
+          imgSrc: require('../../assets/images/yunex.jpg'),
+          name: 'yunex',
+          industry: 'logistics'
+        }
+      ],
+      noData: true,
+      relevantAppDataBe: [],
+      showDefaultAppData: false,
       searchCondition: {
         type: [],
         affinity: [],
@@ -163,8 +224,19 @@ export default {
           this.senceContent = item
           this.searchCondition.industry.push(item.nameEn)
           queryApp(this.searchCondition).then(res => {
-            if (res.data.results.length >= 3) {
+            if (res.data.results.length > 0) {
+              this.showDefaultAppData = true
               this.relevantAppData = res.data.results.slice(0, 3)
+              console.log(this.relevantAppData)
+            } else {
+              this.showDefaultAppData = false
+              this.relevantAppDatas.forEach(data => {
+                if (data.industry === this.$route.query.type) {
+                  this.relevantAppDataBe.push(data)
+                  console.log(this.relevantAppDataBe)
+                  this.noData = !(this.relevantAppDataBe.length > 0)
+                }
+              })
             }
           })
         }
@@ -172,6 +244,9 @@ export default {
     },
     getImageUrl (appId) {
       return URL_PREFIX + 'apps/' + appId + '/icon'
+    },
+    jumpToAppList () {
+      this.$router.push('/index')
     }
   },
   computed: {
@@ -228,7 +303,6 @@ export default {
       }
     }
     .senceDetail_bottom{
-      height: 800px;
       width: 76.08%;
       margin: 30px auto;
       padding: 50px 50px;
@@ -257,6 +331,10 @@ export default {
         }
         .relevantApp_content{
           display: flex;
+          .noData{
+            margin-left: 50px;
+            color: gray;
+          }
           .oneApp{
             margin-right: 40px;
             .oneApp_img{
@@ -267,6 +345,10 @@ export default {
             .oneApp_title{
               text-align: center;
               line-height: 48px;
+              width: 100px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
             }
           }
         }
@@ -293,7 +375,6 @@ export default {
         }
       }
       .senceDetail_bottom{
-        height: 640px;
         padding: 30px 30px;
         border-radius: 18px;
         .introduce{

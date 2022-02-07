@@ -75,17 +75,17 @@
           <el-table-column
             prop="provider"
             :label="$t('common.provider')"
-            width="146"
+            width="106"
           />
           <el-table-column
             prop="version"
             :label="$t('common.version')"
-            width="110"
+            width="80"
           />
           <el-table-column
             prop="deployMode"
             :label="$t('store.workloadType')"
-            width="160"
+            width="140"
           >
             <template slot-scope="scope">
               {{ scope.row.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
@@ -94,12 +94,12 @@
           <el-table-column
             prop="userName"
             :label="$t('myApp.uploader')"
-            width="110"
+            width="100"
           />
           <el-table-column
             prop="createTime"
             :label="$t('common.uploadTime')"
-            width="186"
+            width="166"
             sortable="custom"
           />
           <el-table-column

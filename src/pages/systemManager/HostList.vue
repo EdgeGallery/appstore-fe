@@ -787,6 +787,12 @@ export default {
   .el-dialog .el-icon-close:before {
     display: none;
   }
+  .el-dialog__header{
+    padding: 40px 40px 20px 40px;
+  }
+  .el-dialog__body{
+    padding: 0px 40px 40px 40px !important;
+  }
 }
 .innerVisible_div{
   margin-bottom: 20px;
@@ -821,6 +827,22 @@ export default {
 }
 .hostManagement {
   margin: 0 13.18%;
+  .el-dialog__body{
+    padding: 0 40px 40px 40px !important;
+  }
+  .el-dialog__header{
+    padding: 40px 40px 20px 40px;
+  }
+  .el-form-item .el-form-item__content{
+    padding: 0 !important;
+  }
+  .el-form-item__label{
+    padding: 0;
+    line-height: 36px;
+  }
+  .el-radio-group{
+    margin-top: 10px;
+  }
   .sandboxTop{
     display: flex;
     justify-content: space-between;
@@ -847,6 +869,7 @@ export default {
   .uploadFile{
     background: #4E3494;
     color: #fff;
+    border: none;
   }
   .uploadFile:hover{
     background: #fff;
@@ -928,7 +951,7 @@ export default {
     }
     .title_name{
       color: #fff !important;
-      font-size: 16px;
+      font-size: 18px;
     }
   }
 .cancle_btn{
@@ -956,7 +979,7 @@ export default {
   color: #fff;
   position: relative;
   font-size: 23px !important;
-  right: -650px;
+  right: -760px;
 }
 .pagebar{
   position: relative;

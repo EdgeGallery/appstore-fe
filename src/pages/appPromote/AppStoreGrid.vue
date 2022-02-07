@@ -223,12 +223,15 @@ p{
           }
           .size{
             font-size: 14px;
-
             color: #fff;
             line-height: 35px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            font-family: defaultFontLight,
+            Arial,
+            Helvetica,
+            sans-serif !important;
           }
         }
       }
