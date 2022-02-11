@@ -344,7 +344,7 @@ const cn = {
     repeatEnter: '输入信息有误，请重新输入。',
     userResistedSuccess: '用户注册成功！！',
     userResistedFaile: '注册用户失败',
-    deletePrompt: '该操作将永久删除应用程序。你想继续吗?',
+    deletePrompt: '该操作将永久删除应用程序，你想继续吗?',
     deleteAppStore: '该操作将永久删除外部仓库。你想继续吗?',
     prompt: '提示',
     checkUploadProgress: '立即检查上传进度?',

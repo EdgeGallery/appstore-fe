@@ -72,7 +72,7 @@
               :data="msgcontents"
               :row-style="{height: '120px'}"
               :show-header="false"
-              class="allContent common_background"
+              class="allContent"
             >
               <el-table-column class="width:90%">
                 <template slot-scope="scope">
@@ -292,14 +292,14 @@ export default {
       border-radius: 16px 0 0 0;
       transition: all 0.5s;
       span{
-        background: #2E147C;
+        background: rgba(46, 20, 124, 0.7);
         border-radius: 16px 16px 0 0;
         color: #fff;
         transition: all 0.5s;
       }
     }
     .container_default{
-      background: #2E147C;
+      background: rgba(46, 20, 124, 0.7);
       border-radius: 16px 0 0 0;
       transition: all 0.5s;
       span{
@@ -309,7 +309,7 @@ export default {
       }
     }
     .container_default2{
-      background: #2E147C;
+      background: rgba(46, 20, 124, 0.7);
       border-radius: 16px 0 0 0;
       span{
         border-radius: 16px 0 0 0;
@@ -321,7 +321,7 @@ export default {
       border-radius: 0 0 0 0;
       transition: all 0.5s;
       span{
-        background: #2E147C;
+        background: rgba(46, 20, 124, 0.7);
         border-radius: 0 0 0 0;
         transition: all 0.5s;
       }
@@ -331,14 +331,14 @@ export default {
       background: #4E3494;
       transition: all 0.5s;
       span{
-        background: #2E147C;
+        background: rgba(46, 20, 124, 0.7);
         border-radius: 16px 16px 0 0;
         color: #fff;
         transition: all 0.5s;
       }
     }
     .vm_default{
-      background: #2E147C;
+      background: rgba(46, 20, 124, 0.7);
       border-radius: 0 16px 0 0;
       transition: all 0.5s;
       span{
@@ -348,7 +348,7 @@ export default {
       }
     }
     .vm_default2{
-      background: #2E147C;
+      background: rgba(46, 20, 124, 0.7);
       span{
         background: #4E3494;
         border-radius: 0 0 16px 0;
@@ -362,18 +362,19 @@ export default {
       }
     }
     .last_li.last_default{
-      background: #4E3494;
+      background: transparent;
       span{
-        background: #3e279b;
+        background: transparent;
         border-radius: 0 0 0 16px;
         transition: all 0.5s;
       }
     }
     .last_li.last_default2{
-      background: #2E147C;
+      background:transparent;
+      border-radius: 0 16px 0 16px;
       span{
-        background: #3e279b;
-        border-radius: 0 0 0 16px;
+        background:transparent;
+        border-radius: 0 16px 0 0;
         transition: all 0.5s;
       }
     }
@@ -382,7 +383,7 @@ export default {
       border-radius: 0 16px 0 0;
       transition: all 0.5s;
       span{
-        background: #2E147C;
+        background: rgba(46, 20, 124, 0.7);
         border-radius: 16px 16px 0 0;
         color: #fff;
         transition: all 0.5s;
@@ -399,7 +400,7 @@ export default {
 
     }
     .push_default2{
-      background: #2E147C;
+      background: rgba(46, 20, 124, 0.7);
       border-radius: 0 16px 0 0;
       span{
         background: #4E3494;
@@ -408,13 +409,9 @@ export default {
     }
   }
   .container_div{
-    background: #2E147C;
-    border-radius: 0 16px 16px 16px;
+    background-color: transparent;
     transition: all 0.5s;
-    box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);
-  }
-  .container_div_active{
-     background: #4E3494;
+    border-radius:16px 16px 0 0 ;
   }
   .vm_div{
     background: #d4d1ec;
@@ -440,12 +437,18 @@ export default {
 .tables{
   width: 100%;
   min-height: 16px;
-  background-color:#2E147C!important;
-  border-radius: 16px 0 0 0 ;
+  background:rgba(46, 20, 124, 0.7) !important;
+  border-radius: 0px 0 0 0 ;
   border-top-right-radius:16px !important;
+}
+.table-content{
+  background: rgba(46, 20, 124, 0.7);
 }
 div /deep/ .el-table__body-wrapper {
     margin-top: -10px !important;
+}
+div /deep/ .el-table tr{
+  background: none !important;
 }
 .imgContent{
   display: flex;
@@ -505,5 +508,6 @@ div /deep/ .el-table__body-wrapper {
 }
 .allContent{
   min-height: 400px;
+  background: transparent;
 }
 </style>

@@ -99,7 +99,7 @@
           <el-table-column
             prop="createTime"
             :label="$t('common.uploadTime')"
-            width="166"
+            width="175"
             sortable="custom"
           />
           <el-table-column
@@ -317,6 +317,11 @@
         >{{ $t('common.confirm') }}</el-button>
       </span>
     </el-dialog>
+    <img
+      class="common_bg"
+      src="../../assets/images/common_bg.png"
+      alt=""
+    >
   </div>
 </template>
 
@@ -787,7 +792,7 @@ cursor:pointer
     box-shadow: 0px 16px 10px  rgba(83,201,208,0.3);
   }
   .myApp-content {
-    background: #2E147C;
+    background: rgba(46,20,124,0.7);
     border-radius: 20px;
     padding: 30px 60px;
     min-height: 500px;

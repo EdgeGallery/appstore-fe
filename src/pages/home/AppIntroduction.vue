@@ -45,7 +45,9 @@ export default {
 }
 .v-note-wrapper{
   border: none !important;
-  background: #3e279b !important ;
+}
+.markdown-body{
+  background: transparent !important;
 }
 .v-note-wrapper .v-note-panel{
   border-radius:0 16px 16px 16px !important ;
@@ -59,7 +61,7 @@ export default {
    padding: 32px 59px !important;
 }
 .v-note-wrapper .v-note-panel .v-note-show .v-show-content {
-  background: #2E147C !important;
+  background: transparent !important;
   padding: 40px;
 }
 </style>

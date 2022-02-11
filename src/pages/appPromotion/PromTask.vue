@@ -76,7 +76,7 @@
       </div>
       <span
         slot="footer"
-        class="dialog-footer"
+        class="btns"
       >
         <el-button
           class="footer-button"
@@ -210,9 +210,16 @@ export default {
   .el-dialog__body{
     padding:20px 40px 40px 40px !important;
   }
+  .el-dialog__footer{
+    padding:0;
+  }
+  .btns{
+    position: relative;
+    right: 40px;
+  }
   .modify_header{
     position: absolute;
-    top: 40px;
+    top: 8px;
     display: inline-flex;
     .title_icon{
       background: #43F6AD;

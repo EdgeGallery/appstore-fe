@@ -254,6 +254,11 @@
         @currentChange="currentChange"
       />
     </div>
+    <img
+      class="common_bg"
+      src="../../assets/images/common_bg.png"
+      alt=""
+    >
   </div>
 </template>
 
@@ -684,7 +689,7 @@ export default {
             emphasis: {
               label: {
                 show: true,
-                fontSize: '30',
+                fontSize: '20',
                 fontWeight: 'bold'
               }
             },
@@ -1178,7 +1183,6 @@ export default {
     min-width: 1200px;
     .analyseAna{
       width: 100%;
-      background: #F2F3F5;
       display: inline-block;
       display: flex;
       justify-content: space-around;
@@ -1188,14 +1192,12 @@ export default {
         height: 375px;
         display: flex;
         justify-content: space-between;
-        background: #3E279B;
       }
       .levelBottom{
         width: 100% ;
         height: 375px;
         display: flex;
         justify-content: space-between;
-        background: #3E279B;
       }
       .chartDesc{
         width: 100%;
@@ -1218,8 +1220,8 @@ export default {
         .mychart{
           width: 100%;
           height: 325px;
-          background: #2E147C 70%;
           border-radius: 16px;
+          background: rgba(46,20,124,0.7);
         }
       }
       .mychartDiv2{
@@ -1228,8 +1230,8 @@ export default {
         .mychart{
           width: 100%;
           height: 100%;
-          background: #2E147C 70%;
           border-radius: 16px;
+          background: rgba(46,20,124,0.7);
         }
       }
     }
@@ -1241,7 +1243,7 @@ export default {
     }
   }
   .my-app-content {
-    background: #2E147C 70%;
+    background: rgba(46,20,124,0.7);
     padding: 20px;
     width: 73.64%;
     margin: auto;
@@ -1253,14 +1255,14 @@ export default {
     height: 100px;
     margin: auto;
     min-width: 1200px;
-    background: #2E147C 70%;
+    background: rgba(46,20,124,0.7);
     position: relative;
     border-radius: 0 0 16px 16px;
     .pagination{
-    position: absolute;
-    right: 50px;
-    bottom: 40px;
-    background: #2E147C 70%;
+      position: absolute;
+      right: 50px;
+      bottom: 40px;
+      background: transparent;
     }
   }
 }
@@ -1299,11 +1301,13 @@ export default {
 .title1::before{
   content: '';
   display: inline-block;
-  width: 3px;
-  height: 18px;
+  width: 9px;
+  height: 9px;
   position: relative;
-  top: 4px;
-  background: #409EFF;
+  top: -1px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: #43F6AD;
 }
 .title2{
   height: 36px;
@@ -1318,11 +1322,13 @@ export default {
 .title2::before{
   content: '';
   display: inline-block;
-  width: 3px;
-  height: 18px;
+  width: 9px;
+  height: 9px;
   position: relative;
-  top: 4px;
-  background: #409EFF;
+  top: -1px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: #43F6AD;
 }
 .basic_p{
   padding: 2px;

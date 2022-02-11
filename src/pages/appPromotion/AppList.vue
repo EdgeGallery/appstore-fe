@@ -122,15 +122,15 @@
             </el-table-column>
             <el-table-column
               prop="latestPushTime"
-              width="220"
+              width="200"
               :label="$t('apppromotion.lastProTime')"
               sortable="custom"
             />
             <el-table-column
               prop="pushTimes"
+              width="160"
               :label="$t('apppromotion.proTimes')"
               sortable="custom"
-              width="160"
             />
             <template slot="empty">
               <div>
@@ -144,7 +144,7 @@
             </template>
             <el-table-column
               :label="$t('apppromotion.testRepo')"
-              width="160"
+              width="190"
             >
               <template slot-scope="scope">
                 <a
@@ -174,6 +174,11 @@
         />
       </div>
     </div>
+    <img
+      class="common_bg"
+      src="../../assets/images/common_bg.png"
+      alt=""
+    >
   </div>
 </template>
 
@@ -453,15 +458,17 @@ export default {
     }
   }
   .paginationStyle{
-    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    height: 80px;
     right: 20px;
-    bottom: 20px;
+    bottom: -8px;
   }
 }
-
 .app-list {
   background:rgba(46, 20, 124, 0.7);
-  padding: 31px;
+  padding: 31px 31px 0 31px;
   position: relative;
   border-radius:16px ;
   .el-table {
@@ -520,6 +527,10 @@ div /deep/ .headerStyle {
   padding: 4px 12px;
   background: #4E3494;
   border-radius: 5px;
+}
+.lookReport:hover{
+  color: #4E3494;
+  background: #fff;
 }
  div /deep/ .el-select-dropdown__list {
      padding: 20px !important;

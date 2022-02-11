@@ -21,7 +21,7 @@
         {{ $t('nav.systemHost') }}
       </p>
       <p
-        class="addSandbox_btn hover_pointer"
+        class="addSandbox_btn hover_pointer defaultFontLight"
         @click="handleShowForm(defaultForm)"
       >
         {{ $t('system.addHost') }}
@@ -31,6 +31,7 @@
       :close-on-click-modal="false"
       :visible.sync="visible"
       @close="onClose"
+      class="dialogTop"
     >
       <div
         slot="title"
@@ -240,18 +241,21 @@
           :visible.sync="innerVisible"
           :close-on-click-modal="false"
           append-to-body
-          class="other_setting"
+          class="other_setting dialogTop2"
         >
           <div
             slot="title"
-            class="title_content"
+            class="title_content title_content2"
           >
-            <p class="title_line" />
-            <p class="defaultFontLight title_name">
-              {{ $t('system.networkConfig') }}
-            </p>
+            <div class="internetTitle">
+              <p class="title_line" />
+              <p class="defaultFontLight title_name">
+                {{ $t('system.networkConfig') }}
+              </p>
+            </div>
             <em
               v-if="true"
+              style="float:right"
               class="el-icon-circle-plus-outline rt editBtn"
               @click="addListData"
             />
@@ -282,7 +286,7 @@
           </div>
           <span
             slot="footer"
-            class="dialog-footer"
+            class="btn2"
           >
             <el-button
               type="primary"
@@ -299,7 +303,7 @@
       <div
         v-show="visible"
         slot="footer"
-        class="dialog-footer"
+        class="btns"
       >
         <el-button
           type="primary"
@@ -416,6 +420,11 @@
         />
       </div>
     </div>
+    <img
+      class="common_bg"
+      src="../../assets/images/common_bg.png"
+      alt=""
+    >
   </div>
 </template>
 
@@ -788,10 +797,18 @@ export default {
     display: none;
   }
   .el-dialog__header{
-    padding: 40px 40px 20px 40px;
+    padding: 40px 40px 0px 40px;
   }
   .el-dialog__body{
-    padding: 0px 40px 40px 40px !important;
+    padding: 0px 40px 0px 40px !important;
+  }
+  .el-dialog__footer{
+    height: 80px;
+    .btn2{
+      position: relative;
+      right: 30px;
+      top: 16px;
+    }
   }
 }
 .innerVisible_div{
@@ -860,7 +877,7 @@ export default {
       padding: 16px 49px;
       border-radius: 16px;
       font-size: 20px;
-      box-shadow: inset 0px 0px 1px 1px rgba(255, 255 ,255 ,0.5);
+      box-shadow: inset 0px 0px 6px 0.4px rgba(255, 255 ,255 ,0.5);
     }
     .addSandbox_btn:hover{
       font-weight: bold;
@@ -927,9 +944,8 @@ export default {
   }
   .list {
     border-radius: 16px;
-    background: #2E147C;
+    background: rgba(46, 20, 124, 0.7);
     padding: 30px 60px;
-    box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);
     .title{
       display: flex;
       align-items: center;
@@ -949,11 +965,18 @@ export default {
       border-radius: 50%;
       background: #43F6AD;
     }
+    .internetTitle{
+      width: 100%;
+      display: flex;
+    }
     .title_name{
       color: #fff !important;
       font-size: 18px;
     }
   }
+.title_content2{
+  justify-content: space-between;
+}
 .cancle_btn{
   padding: 8px 21px;
   margin-bottom: 25px;
@@ -972,14 +995,30 @@ export default {
 .btnMargin{
   margin-right: 15px !important;
 }
+.dialogTop .el-dialog__footer{
+  margin-top: 0 !important;
+}
+.btns{
+  margin-top: -40px !important;
+  margin-right: 20px;
+}
+.btn2{
+  margin-top: -60px !important;
+  margin-right: 40px;
+}
 .zZindex {
   z-index: 3000 !important;
+}
+.el-radio__label{
+  color:#fff;
+}
+.el-radio__input.is-checked + .el-radio__label{
+  color:#fff;
 }
 .el-icon-circle-plus-outline:before{
   color: #fff;
   position: relative;
   font-size: 23px !important;
-  right: -760px;
 }
 .pagebar{
   position: relative;

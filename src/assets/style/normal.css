@@ -94,7 +94,12 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   cursor: pointer;
 }
 .common_background{
-  background: #2E147C;
+  background: rgba(46, 20, 124, 0.7);
+}
+.common_bg{
+  position:fixed;
+  bottom: 100px;
+  left: 0;
 }
 .common_title{
   padding: 54px 0 54px !important;
@@ -113,7 +118,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   padding: 16px 49px;
   border-radius: 16px;
   font-size: 20px;
-  box-shadow: inset 0px 0px 1px 1px  rgba(256, 256, 256, 0.5 );
+  box-shadow: inset 0px 0px 6px 0.4px  rgba(256, 256, 256, 0.5 );
 }
 .common_button.el-button:hover{
   font-weight: bold;
@@ -135,12 +140,13 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   color: rgba(250, 250, 250, 0.6);
 }
 .el-dropdown-menu{
-  background:#2E147C ;
+  background:rgba(46, 20, 124, 0.7);
   border: none !important;
-  color: rgba(250, 250, 250, 0.6);
+  color: #fff;
+  backdrop-filter: blur(4px);
 }
 .el-dropdown-menu__item{
-  color: rgba(250, 250, 250, 0.6);
+  color: #fff !important;
   border: none;
 }
 .el-popper .popper__arrow{
@@ -149,12 +155,18 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 .el-dropdown-menu__item:hover{
  background-color: rgba(96, 86, 154, 0.5) !important;
  border: none !important;
+ color: #fff !important;
+}
+.el-dropdown-menu__item.common_operationBtn:hover{
+  color: #fff !important; 
 }
 .el-checkbox-button__inner{
   border: 0px;
+  padding:12px 12px !important;
   border-left: 0px;
+  letter-spacing: 0.2px;
   text-indent : 0px;
-  background:rgba(46, 20, 124, 0.7) !important;
+  background:none !important;
   color: #fff;
   font-family: defaultFontLight,
   Arial,
@@ -164,14 +176,72 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 .el-checkbox-button__inner:hover{
   color: #fff !important;
 }
-.el-popover{
-  background: #2E147C !important;
+.el-message-box__wrapper{
+  background: rgba(63, 18, 243, 0.1) ;
+  backdrop-filter: blur(4px);
+}
+.el-message-box{
+  background: rgba(76, 49, 161, 0.7) !important;
   border: none;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+.el-message-box__title{
+  color: #fff;
+  font-family: defaultFontLight,
+  Arial,
+  Helvetica,
+  sans-serif !important;
+  display: none;
+}
+.el-message-box__headerbtn .el-message-box__close{
+  display: none;
+}
+.el-message-box .el-icon-warning:before{
+  font-size: 74px;
+  position: relative;
+  top: -80px;
+  left:150px;
+}
+.el-message-box__status.el-icon-warning{
+  color: #5844BE;
+}
+.el-message-box__message p{
+  margin-top: 100px;
+  width: 290px;
+  text-align: center;
+  margin-left: 10px;
+  color: #fff;
+  font-family: defaultFontLight,
+  Arial,
+  Helvetica,
+  sans-serif !important;
+}
+.el-message-box__btns{
+  margin: 10px 120px 20px 0px !important;
+}
+.el-message-box__btns .el-button{
+  border-radius: 10px !important;
+  color:#5944C0 ;
+  background: #fff;
+  border: none;
+}
+.el-message-box__btns .el-button:hover{
+  color:#fff !important;
+  background: #5944C0 !important;
+}
+.el-popover{
+  border: none;
+  padding: 20px;
   border-radius: 6px;
+  background: rgba(46,20,124,0.7) !important;
   color: rgba(250, 250, 250, 0.6);
+  position: relative;
+  backdrop-filter: blur(4px);
+  box-shadow: 14px 18px 10px  rgba(52, 23, 138, 0.6);
 }
 .common_table.el-table{
-  background: none;
+  background-color: transparent !important;
 }
 .common_table.el-table th{
   background: #4E3494;
@@ -179,12 +249,11 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 }
 .common_table.el-table tbody td{
   border-bottom:2px solid #4E3494;
-  background: none !important;
   height: 60px;
   padding: none;
 }
 .common_table.el-table tr {
-  background: none;
+  background-color: transparent !important;
 }
 .common_table.el-table th.is-leaf, .el-table td {
    border-bottom: none;
@@ -222,8 +291,8 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   font-size: 14px !important;
 }
 .el-table--enable-row-transition .el-table__body td {
-  background: #2E147C;
   height: 51px;
+  background-color: transparent !important;
   line-height: 51px;
   font-size: 16px;
   font-family: defaultFontLight,
@@ -233,7 +302,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   border-bottom:2px solid #4E3494;
 }
 .el-table--enable-row-transition .el-table__body tr:hover td {
-  background: #2E147C !important;
+  background-color: transparent !important;
 }
 .common_operationBtn.el-button{
   background: #4E3494;
@@ -249,9 +318,13 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   color: #fff;
   border-radius: 5px; 
 }
+.common_operationBtn.el-button.is-disabled:hover{
+  background: #4E3494;
+  color: #fff !important;
+}
 .common_operationBtn:hover{
   background: #fff;
-  color: #4E3494;
+  color: #4E3494 !important;
 }
 .common_table .el-checkbox__input.is-checked .el-checkbox__inner{
   background: #7ED4A9 !important;
@@ -275,27 +348,34 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 .el-dialog .el-icon-close:before{
   display: none;
 }
+.el-dialog__wrapper{
+  background-color:rgba(63,18,243,0.1);
+  backdrop-filter:blur(4px);
+}
 .el-dialog__header{
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
-  background: #2E147C !important;
+  background: rgba(46, 20, 124, 0.7) !important;
+  backdrop-filter: blur(4px); 
 }
 .el-dialog__body{
-  background: #2E147C;
+  background: rgba(46, 20, 124, 0.7) !important;
+  backdrop-filter: blur(4px); 
   padding: 0 !important;
 }
 .el-dialog__footer{
   margin-top: -20px;
-  height: 91px;
-  background: #2E147C;
+  background: rgba(46, 20, 124, 0.7) !important;
+  backdrop-filter: blur(4px); 
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
-  padding-top: 38px;
-  padding-right: 36px;
 }
 .el-textarea .el-input__count{
   color: #fff;
-  background: #2E147C;
+  background: none;
+}
+.el-select-dropdown__list{
+  width: 95%;
 }
 .footer-button{
   margin-bottom: 25px;
@@ -343,9 +423,15 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 }
 .el-select .el-input--suffix .el-input__inner {
   height: 30px;
-  border: 1px solid rgba(250, 250, 250, 0.6);
+  border: none;
   background: rgba(46, 20, 124, 0.7) ;
   color: rgba(250, 250, 250, 0.6) ;
+  border: 1px solid rgba(250, 250, 250, 0.6) !important;
+}
+.pageBar .el-select .el-input--suffix .el-input__inner {
+  background: rgba(46, 20, 124, 0.7) ;
+  border: 1px solid #4D2DA8;
+  height: 24px;
 }
 .el-form-item__label{
   font-size: 14px;
@@ -359,12 +445,13 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   padding: 7px 20px 0 !important;
 }
 .el-input--small .el-input__inner {
-  border: 1px solid rgba(250, 250, 250, 0.6);
-  background: rgba(46, 20, 124, 0.7);
+  border: none;
+  background: #4E3494;
   color: rgba(250, 250, 250, 0.6);
 }
 .el-textarea__inner{
-  background: rgba(46, 20, 124, 0.7);
+  border: none;
+  background: #4E3494;
   color: rgba(250, 250, 250, 0.6);
 }
 .el-drawer__body{
@@ -406,6 +493,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   height: 24px;
   background: none;
   color: #fff;
+  border: 1px solid #4D2DA8;
 }
 .btn-prev .el-icon, .el-pagination .btn-next .el-icon {
   color: #fff !important;
@@ -428,6 +516,8 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   height: 24px;
   line-height: 24px;
   color: #fff !important;
+  background: rgba(46, 20, 124, 0.7) ;
+  border: 1px solid #4D2DA8;
 }
 .el-select .el-icon-arrow-up:before {
   position: relative;
@@ -602,16 +692,11 @@ a{
   border-radius: 8px;
 }
 .el-checkbox-button.is-checked .el-checkbox-button__inner {
-  background-color: #fff;
-  letter-spacing: 1px;
-  border-left: 0px;
-  border: 0px;
-  font-size: 16px;
   box-shadow: 0px 0 0 0 #a4bbf8;
-  font-family: defaultFontBold,
-  Arial,
-  Helvetica,
-  sans-serif !important;
+  color: #43F6AD;
+}
+.el-checkbox-button.is-checked .el-checkbox-button__inner:hover{
+  color: #43F6AD !important;
 }
 .el-icon-arrow-up:before{
   background: url('../images/selectTop.png') 50% no-repeat !important;

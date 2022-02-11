@@ -129,10 +129,10 @@
         class="hotApp"
       >
         <div
-          v-for="(item,index) in newAppData"
+          v-for="(item,index) in hotAppData"
           :key="('newApp'+index)"
           class="oneAppStyle"
-          v-show="showDefaultData"
+          v-show="showDefaultHotData"
         >
           <img
             :src="item.imgSrc"
@@ -145,10 +145,10 @@
           </p>
         </div>
         <div
-          v-for="(item,index) in newAppDataBe"
+          v-for="(item,index) in hotAppDataBe"
           :key="('newAppBe'+index)"
           class="oneAppStyle"
-          v-show="!showDefaultData"
+          v-show="!showDefaultHotData"
         >
           <img
             :src="getImageUrl(item.appId)"
@@ -166,10 +166,10 @@
         class="hotApp"
       >
         <div
-          v-for="(item,index) in newestData"
+          v-for="(item,index) in newAppData"
           :key="('newestApp'+index)"
           class="oneAppStyle"
-          v-show="showDefaultNewestData"
+          v-show="showDefaultNewData"
         >
           <img
             :src="item.imgSrc"
@@ -182,10 +182,10 @@
           </p>
         </div>
         <div
-          v-for="(item,index) in newestDataBe"
+          v-for="(item,index) in newAppDataBe"
           :key="('newAppBe'+index)"
           class="oneAppStyle"
-          v-show="!showDefaultNewestData"
+          v-show="!showDefaultNewData"
         >
           <img
             :src="getImageUrl(item.appId)"
@@ -293,7 +293,7 @@ export default {
         }
       },
       senceCaseData: SenceCaseData,
-      newAppData: [
+      hotAppData: [
         {
           imgSrc: require('../../assets/images/hotApp1.jpg'),
           name: 'kingsoftcloud'
@@ -313,60 +313,6 @@ export default {
         {
           imgSrc: require('../../assets/images/hotApp5.jpg'),
           name: 'cras'
-        }
-      ],
-      scoreData: [
-        {
-          type: 'sortItem',
-          index: 2
-        }],
-      floor: [],
-      relateApp1: [
-        {
-          name: 'zoneminder',
-          appId: require('../../assets/images/zoneminder.jpg')
-        },
-        {
-          name: 'Anheng-WAF',
-          appId: require('../../assets/images/anheng-WAF.jpg')
-        }, {
-          name: 'Kingsoftcloud',
-          appId: require('../../assets/images/kingsoftcloud.jpg')
-        }, {
-          name: 'CloudVR',
-          appId: require('../../assets/images/cloudVR.png')
-        },
-        {
-          name: 'Edge_VR教育平台',
-          appId: require('../../assets/images/edge_VR.jpg')
-        },
-        {
-          name: 'ktmedia',
-          appId: require('../../assets/images/ktmedia.jpg')
-        }
-      ],
-      relateApp2: [
-        {
-          name: 'factorywording',
-          appId: require('../../assets/images/factorywording.jpg')
-        },
-        {
-          name: 'PCB_defet_detection',
-          appId: require('../../assets/images/pcb_defect_detection.png')
-        }
-      ],
-      relateApp3: [
-        {
-          name: 'TcsaeAnalysis',
-          appId: require('../../assets/images/hotApp3.jpg')
-        },
-        {
-          name: 'Yunex',
-          appId: require('../../assets/images/yunex.jpg')
-        },
-        {
-          name: 'roadSideUnit',
-          appId: require('../../assets/images/roadSideUnit.jpg')
         }
       ],
       scoreHighestData: [
@@ -396,7 +342,7 @@ export default {
           score: 4.5
         }
       ],
-      newestData: [ {
+      newAppData: [ {
         name: 'zoneminder',
         imgSrc: require('../../assets/images/zoneminder.jpg')
       },
@@ -414,15 +360,15 @@ export default {
         name: 'Edge_VR教育平台',
         imgSrc: require('../../assets/images/edge_VR.jpg')
       }],
-      newestDataBe: [],
-      showDefaultNewestData: true,
+      newAppDataBe: [],
+      showDefaultNewData: true,
       industry: INDUSTRY,
       types: TYPES,
       affinity: AFFINITY,
       sortItem: SORTITEM,
       language: localStorage.getItem('language'),
-      showDefaultData: true,
-      newAppDataBe: [],
+      showDefaultHotData: true,
+      hotAppDataBe: [],
       showDefaultScoreData: true,
       scoreHighestDataBe: [],
       searchCondition: {
@@ -505,32 +451,15 @@ export default {
       }
       queryApp(queryParam)
         .then(res => {
-          let resDatas = res.data.results
-          if (resDatas.length >= 15) {
-            let tempPopularApp = []
-            let tempDisplayApp = []
-            for (let item of resDatas) {
-              if (item.hotApp) {
-                tempPopularApp.push(item)
-              } else {
-                tempDisplayApp.push(item)
-              }
+          console.log(typeof (res.data.results))
+          let hotApps = []
+          res.data.results.forEach(item => {
+            if (item.hotApp === true) {
+              hotApps.push(item)
             }
-            if (tempPopularApp.length >= 15) {
-              this.newAppDataBe = this.getRandomArrayElements(tempPopularApp, 15)
-            } else {
-              if (tempPopularApp.length > 0) {
-                let part1 = this.getRandomArrayElements(tempPopularApp, tempPopularApp.length)
-                let part2 = this.getRandomArrayElements(tempDisplayApp, 15 - tempPopularApp.length)
-                this.newAppDataBe = part1.concat(part2)
-              } else {
-                this.newAppDataBe = this.getRandomArrayElements(tempDisplayApp, 15)
-              }
-            }
-            this.showDefaultData = false
-          } else {
-            this.showDefaultData = true
-          }
+          })
+          this.hotAppDataBe = hotApps.splice(0, 25)
+          this.showDefaultHotData = !(this.hotAppDataBe.length > 0)
         }).catch((error) => {
           let defaultMsg = this.$t('appManager.queryHotAppFailed')
           commonUtil.showTipMsg(this.language, error, defaultMsg)
@@ -548,9 +477,10 @@ export default {
             data.forEach(item => {
               this.scoreHighestDataBe.push(item)
             })
-            this.newestDataBe = res.data.results.splice(0, 15)
+            this.scoreHighestDataBe = this.scoreHighestDataBe.splice(0, 25)
+            this.newAppDataBe = res.data.results.splice(0, 25)
             this.showDefaultScoreData = false
-            this.showDefaultNewestData = false
+            this.showDefaultNewData = false
           }
         },
         () => {
@@ -715,13 +645,20 @@ export default {
                 font-size: 14px;
                 color:#fff;
                 text-indent: 2em;
-                line-height: 18px;
+                line-height: 20px;
                 text-overflow: -o-ellipsis-lastline;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
-                -webkit-line-clamp: 4;
+                -webkit-line-clamp: 3;
                 -webkit-box-orient: vertical;
+              }
+            }
+            .oneCase_content:hover{
+              height:180px ;
+              transform: translateY(-50px);
+              .oneCase_content_desc{
+                -webkit-line-clamp: 6;
               }
             }
           }
@@ -771,10 +708,10 @@ export default {
       padding-left: 1%;
       padding-bottom: 80px;
       .oneAppStyle{
-        width: 16.3%;
+        width: 15.3%;
         border-radius: 8px;
         height: 220px;
-        margin: 5% 2% 0 1.5%;
+        margin: 5% 2.2% 0 1.5%;
         display: flex;
         justify-content: center;
         background: #2E147C;

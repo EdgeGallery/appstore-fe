@@ -16,43 +16,43 @@
 
 <template>
   <div class="app-list">
-    <div
-      class="el-upload__tip"
-      slot="tip"
-    >
-      <em class="el-icon-warning" />
-      <span class="warning-tip defaultFontLight">
-        {{ $t('store.syncTitleTip') }}
-      </span>
-    </div>
-    <div class="app_synchronize">
-      <el-dropdown
-        @command="synchronizePackage"
-        trigger="click"
-      >
-        <el-button
-          class="defaultFontLight syncBtn"
-          @click="checkSyncPackage"
-          :disabled="noSync"
-        >
-          {{ $t('system.synchronizeToMEAO') }}
-        </el-button>
-        <el-dropdown-menu
-          v-if="syncBtn"
-          slot="dropdown"
-          @change="synchronizePackage"
-        >
-          <el-dropdown-item
-            v-for="(item) in this.systemData"
-            :key="item"
-            :command="item"
-          >
-            {{ item.systemName }}
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
     <div class="packageTable">
+      <div
+        class="el-upload__tip"
+        slot="tip"
+      >
+        <em class="el-icon-warning" />
+        <span class="warning-tip defaultFontLight">
+          {{ $t('store.syncTitleTip') }}
+        </span>
+        <div class="app_synchronize">
+          <el-dropdown
+            @command="synchronizePackage"
+            trigger="click"
+          >
+            <el-button
+              class="defaultFontLight syncBtn"
+              @click="checkSyncPackage"
+              :disabled="noSync"
+            >
+              {{ $t('system.synchronizeToMEAO') }}
+            </el-button>
+            <el-dropdown-menu
+              v-if="syncBtn"
+              slot="dropdown"
+              @change="synchronizePackage"
+            >
+              <el-dropdown-item
+                v-for="(item) in this.systemData"
+                :key="item"
+                :command="item"
+              >
+                {{ item.systemName }}
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </div>
       <el-table
         :data="tableData"
         :key="reflush"
@@ -354,9 +354,9 @@ export default {
 .app-list{
   background: #2E147C;
   .el-upload__tip {
-      margin-left: 52px;
-      padding-top: 55px;
-      width: 72%;
+    height: 110px;
+    padding-top: 55px;
+    width:100%;
   }
   .el-icon-warning{
     color: #b6a9f7;
@@ -377,7 +377,7 @@ export default {
   }
   .packageTable {
     font-size: 16px;
-    margin: -15px 63px;
+    margin: 0px 63px;
     .el-table td{
       padding: 0;
       height: 60px;
@@ -425,9 +425,7 @@ export default {
     }
   }
   .app_synchronize {
-    position: relative;
-    top: -60px;
-    left: 79%;
+    float: right;
     .syncBtn{
       font-size: 14px;
       padding: 6px 17px;

@@ -330,11 +330,16 @@
       </div>
     </div>
     <el-dialog
-      :title="$t('store.downloadImage')"
       :visible.sync="isShowDownload"
       :show-close="false"
       center
     >
+      <div class="appDownload_top">
+        <p class="appDownload_top_circle" />
+        <p class="appDownload_top_title">
+          {{ $t('store.downloadImage') }}
+        </p>
+      </div>
       <el-radio-group
         v-model="isDownloadImage"
         @change="handleSlect()"
@@ -360,13 +365,14 @@
         class="dialog-footer"
       >
         <el-button
-          @click="cancelImage(currentData)"
-          class="cancle_btn"
-        >{{ $t('atp.cancel') }}</el-button>
-        <el-button
           class="cancle_btn"
           @click="confirmImage(currentData)"
         >{{ $t('atp.confirm') }}</el-button>
+        <el-button
+          @click="cancelImage(currentData)"
+          class="cancle_btn cancleRight"
+        >{{ $t('atp.cancel') }}</el-button>
+
       </span>
     </el-dialog>
     <!-- 订购弹框 -->
@@ -432,6 +438,11 @@
         >{{ $t('common.confirm') }}</el-button>
       </span>
     </el-dialog>
+    <img
+      class="common_bg"
+      src="../../assets/images/common_bg.png"
+      alt=""
+    >
   </div>
 </template>
 
@@ -820,21 +831,37 @@ export default {
   }
   .el-dialog{
     text-align: left;
-    box-shadow: 2px 5px 23px 10px rgba(104, 142, 243, 0.2) inset;
     width: 535px;
   }
   .el-dialog__header{
-    padding: 40px;
-    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: -20px;
+  }
+  .appDownload_top{
+    display: flex;
+    margin: 20px 20px 10px;
+    .appDownload_top_circle{
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      margin-top: 6px;
+      margin-right: 10px;
+      background: #43F6AD ;
+    }
+    .appDownload_top_title{
+      font-size: 16px;
+      color: #fff;
+    }
   }
   .down_radio{
-    padding: 18px 25px;
+    padding: -10px 40px;
     width: 400px;
     text-align: left;
     .el-radio{
       width: 350px;
+      margin-bottom: 10px;
       .el-radio__label{
         font-size: 14px;
+        color: #fff;
       }
       .el-radio__input.is-checked + .el-radio__label{
         color: #fff;
@@ -842,13 +869,17 @@ export default {
     }
     .p_bot{
       width: 360px;
-      margin:0 0 30px 0px;
+      margin:0 0 20px 0px;
       color: #fff;
-      font-size: 14px;
+      line-height: 20px;
+      font-size: 12px;
     }
   }
   .dialog-footer {
     text-align: right;
+    background:rgba(46,20,124,0.7) ;
+    height: 60px;
+    padding: 20px 20px 0 0 !important;
     .cancle_btn{
       padding: 4px 20px !important;
       margin-bottom: 25px;
@@ -860,6 +891,9 @@ export default {
       font-size: 14px;
       text-align: center;
     }
+    .cancleRight{
+      margin-right: 20px !important;
+    }
     .cancle_btn:hover{
       background: #5944C0;
       color: #fff;
@@ -867,7 +901,7 @@ export default {
   }
   .app_info_div{
     border-radius: 16px;
-    background: #2E147C;
+    background: rgba(46,20,124,0.7);
     padding: 20px 0 20px 70px;
     display: flex;
     align-items: center;
@@ -888,7 +922,7 @@ export default {
           font-size: 36px;
           color: #fff;
           font-weight: bold;
-          width: 193px;
+          max-width: 212px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -1059,14 +1093,14 @@ export default {
         border-radius: 16px 0 0 0;
         transition: all 0.1s;
         span{
-          background: #2E147C;
+          background: rgba(46,20,124,0.7);
           border-radius: 16px 16px 0 0;
           color: #fff;
           transition: all 0.1s;
         }
       }
       .appDetail_comment{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         border-radius: 16px 0 0 0;
         span{
           background: #4E3494;
@@ -1084,7 +1118,7 @@ export default {
         }
       }
       .appDetail_vedio{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         border-radius: 16px 0 0 0;
         span{
           background: #4E3494;
@@ -1096,14 +1130,14 @@ export default {
         background: #4E3494;
         transition: all 0.1s;
         span{
-          background: #2E147C;
+          background: rgba(46,20,124,0.7);
           border-radius: 16px 16px 0 0;
           color: #fff;
           transition: all 0.1s;
         }
       }
       .comment_default{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1113,7 +1147,7 @@ export default {
         }
       }
       .comment_default_appShow_meao{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         span{
           background: #4E3494;
           border-radius: 0 0 16px 0;
@@ -1129,7 +1163,7 @@ export default {
         }
       }
       .comment_default_meao_noAppShow{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         span{
           background: #4E3494;
           border-radius: 0 0 0 0;
@@ -1144,7 +1178,7 @@ export default {
         }
       }
       .comment_default_vedio_noAppShow{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         span{
           background: #4E3494;
           border-radius: 0 0 16px 0;
@@ -1180,7 +1214,7 @@ export default {
         }
       }
       .last_li.last_default2{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         span{
           background: #3e279b;
           border-radius: 0 0 0 16px;
@@ -1208,14 +1242,14 @@ export default {
         border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
-          background: #2E147C;
+          background: rgba(46,20,124,0.7);
           border-radius: 16px 16px 0 0;
           color: #fff;
           transition: all 0.1s;
         }
       }
       .appShow_no_active{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
@@ -1225,7 +1259,7 @@ export default {
         }
       }
       .appShow_default{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         span{
           background: #4E3494;
           border-radius: 0 0 0 16px;
@@ -1233,7 +1267,7 @@ export default {
         }
       }
       .appShow_default_meao{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         span{
           background: #4E3494;
           border-radius: 0 0 16px 0;
@@ -1263,7 +1297,7 @@ export default {
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: #2E147C;
+          background: rgba(46,20,124,0.7);
           border-radius: 16px 16px 0 0;
           color: #fff;
           transition: all 0.1s;
@@ -1290,7 +1324,7 @@ export default {
         }
       }
       .vedio_default_appshow_meao{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1319,7 +1353,7 @@ export default {
         }
       }
       .meao_default_vedio_appShow{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         border-radius: 0 16px 0 0;
         span{
           background: #4E3494;
@@ -1340,7 +1374,7 @@ export default {
         border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
-          background: #2E147C;
+          background: rgba(46,20,124,0.7);
           border-radius: 16px 16px 0 0;
           color: #fff;
           transition: all 0.1s;
@@ -1358,7 +1392,7 @@ export default {
         }
       }
       .vedio_default{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         transition: all 0.1s;
         span{
           background: #4E3494;
@@ -1395,7 +1429,7 @@ export default {
         }
       }
       .vedio_default2_appShow_meao{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
@@ -1425,7 +1459,7 @@ export default {
         }
       }
       .vedio_default2_meao_no_Appshow{
-       background: #2E147C;
+       background: rgba(46,20,124,0.7);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1435,7 +1469,7 @@ export default {
         }
       }
       .vedio_default2_comment_no_Appshow{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1456,7 +1490,7 @@ export default {
     padding-left: 71px;
   }
   .container_div{
-    background: #fff;
+    background: rgba(46,20,124,0.7);
     border-radius: 0 16px 16px 16px;
     transition: all 0.1s;
     box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);

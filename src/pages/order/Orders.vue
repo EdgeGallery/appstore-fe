@@ -41,7 +41,7 @@
           </template>
           <el-table-column
             prop="orderNum"
-            width="140"
+            width="160"
             :label="$t('order.orderNum')"
           />
           <el-table-column
@@ -52,33 +52,32 @@
           />
           <el-table-column
             prop="appName"
-            width="130"
+            width="180"
             :label="$t('order.appName')"
           />
           <el-table-column
             prop="mecHostIp"
-            width="140"
+            width="180"
             :label="$t('order.nodeIp')"
           />
           <el-table-column
             prop="mecHostCity"
-            width="180"
+            width="200"
             :label="$t('order.nodeAddress')"
           />
           <el-table-column
             prop="orderTime"
-            width="180"
+            width="200"
             :label="$t('order.orderTime')"
           />
           <el-table-column
             prop="status"
-            width="130"
+            width="140"
             :label="$t('order.status')"
           >
             <template slot-scope="scope">
               <span
                 v-if="
-
                   scope.row.status === 'ACTIVATING' ||
                     scope.row.status === 'DEACTIVATING'
                 "
@@ -102,7 +101,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('myApp.operation')"
-            width="220"
+            width="226"
           >
             <template slot-scope="scope">
               <div>
@@ -206,6 +205,11 @@
       </div>
       <div class="clearfix" />
     </div>
+    <img
+      class="common_bg"
+      src="../../assets/images/common_bg.png"
+      alt=""
+    >
   </div>
 </template>
 
@@ -375,9 +379,9 @@ export default {
     font-size: 30px;
   }
   .content {
-    background: #2E147C;
+    background: rgba(46,20,127,0.7);
     border-radius: 20px;
-    padding: 30px 60px;
+    padding: 1px 60px 30px;
     min-height: 500px;
     position: relative;
     .search_input {
@@ -417,15 +421,15 @@ export default {
         .recordTitle{
           display: flex;
           width: 90%;
-          margin-top: -20px;
-          margin-left: 20px;
+          margin-top: 0px;
+          margin-left: 30px;
           .recordTitle-circle{
             width: 9px;
             height: 9px;
             background: #55D8BF;
             border-radius: 50%;
             margin-right: 9px;
-            margin-top: 6px;
+            margin-top: 8px;
           }
           .recordTitle-content{
             color:#fff;
@@ -459,9 +463,9 @@ export default {
             }
           }
           .recordContent-lines .lines:last-child{
-              .lines-line{
-                display: none;
-              }
+            .lines-line{
+              display: none;
+            }
           }
           .recordContent-item{
             color: #fff;
@@ -470,7 +474,7 @@ export default {
             p{
               margin: -10px 0 0 10px;
               height: 61px;
-              font-size: 16px;
+              font-size: 14px;
             }
           }
           .stateStyle{
@@ -480,7 +484,7 @@ export default {
         .recordBtns{
           display: flex;
           justify-content: flex-end;
-          margin-right: 20px;
+          margin-right: 40px;
           .el-button{
             background: #fff;
             color: #5e40c8;
