@@ -84,6 +84,11 @@
         ref="pushAppManager"
       />
     </div>
+    <img
+      class="common_bg"
+      src="../../assets/images/common_bg.png"
+      alt=""
+    >
   </div>
 </template>
 
@@ -175,14 +180,14 @@ export default {
       border-radius: 16px 0 0 0;
       transition: all 0.5s;
       span{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         border-radius: 16px 16px 0 0;
         color: #fff;
         transition: all 0.5s;
       }
     }
     .container_default{
-      background: #2E147C;
+      background: rgba(46,20,124,0.7);
       border-radius: 16px 0 0 0;
       transition: all 0.5s;
       span{
@@ -192,7 +197,7 @@ export default {
       }
     }
     .container_default2{
-      background: #2E147C;
+      background: rgba(46,20,124,0.7);
       border-radius: 16px 0 0 0;
       span{
         background: #4E3494;
@@ -214,14 +219,14 @@ export default {
       background: #4E3494;
       transition: all 0.5s;
       span{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         border-radius: 16px 16px 0 0;
         color: #fff;
         transition: all 0.5s;
       }
     }
     .vm_default{
-      background: #2E147C;
+      background: rgba(46,20,124,0.7);
       border-radius: 0 16px 0 0;
       transition: all 0.5s;
       span{
@@ -231,7 +236,7 @@ export default {
       }
     }
     .vm_default2{
-      background: #2E147C;
+      background: rgba(46,20,124,0.7);
       span{
         background: #4E3494;
         border-radius: 0 0 16px 0;
@@ -245,17 +250,17 @@ export default {
       }
     }
     .last_li.last_default{
-      background: #4E3494;
+      background: transparent;
       span{
-        background: #3e279b;
+        background: transparent;
         border-radius: 0 0 0 16px;
         transition: all 0.5s;
       }
     }
     .last_li.last_default2{
-      background: #2E147C;
+      background: transparent;
       span{
-        background: #3e279b;
+        background: transparent;
         border-radius: 0 0 0 16px;
         transition: all 0.5s;
       }
@@ -265,7 +270,7 @@ export default {
       border-radius: 0 16px 0 0;
       transition: all 0.5s;
       span{
-        background: #2E147C;
+        background: rgba(46,20,124,0.7);
         border-radius: 16px 16px 0 0;
         color: #fff;
         transition: all 0.5s;
@@ -274,6 +279,7 @@ export default {
     .push_default{
       background: #3e279b;
       transition: all 0.5s;
+      border-radius: 0 16px 0 0px;
       span{
         background: #4E3494;
         border-radius: 0 16px 0 0px;
@@ -292,13 +298,11 @@ export default {
   }
   .container_div{
     margin-top: 0px;
-    background: #2E147C;
     border-radius: 0 16px 16px 16px;
     transition: all 0.5s;
     box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);
   }
   .container_div_active{
-    background: #4E3494;
   }
   .vm_div{
     background: #d4d1ec;

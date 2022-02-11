@@ -251,8 +251,7 @@ export default {
 <style lang="less">
 .storeAppManager {
   margin: auto;
-  background: #2E147C;
-  border-radius: 16px 16px 0 0 ;
+  background: rgba(46, 20, 124, 0.7);
   padding: 31px 0px 0px 31px ;
   .clearbtAndSearch{
     height: 40px;
@@ -282,7 +281,7 @@ export default {
   width: 100%;
   padding: 40px 50px;
   height: 100px;
-  background:#2E147C ;
+  background:rgba(46, 20, 124, 0.7);
   display: flex;
   justify-content: flex-end;
   border-radius: 0 0 16px 16px !important;

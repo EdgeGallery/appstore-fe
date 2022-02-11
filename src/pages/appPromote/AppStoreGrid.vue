@@ -50,8 +50,13 @@
         >
       </div>
       <div class="intr">
-        <div class="type-size">
-          <div class="type">
+        <div
+          class="type-size"
+        >
+          <div
+            class="type"
+            :class="language === 'cn'?'typeCn':'typeEn'"
+          >
             {{ $t('common.appStoreName') }}:
           </div>
           <div class="size">
@@ -59,7 +64,10 @@
           </div>
         </div>
         <p class="type-size">
-          <span class="type">
+          <span
+            class="type"
+            :class="language === 'cn'?'typeCn':'typeEn'"
+          >
             {{ $t('common.appStoreVersion') }}:
           </span>
           <span class="size">
@@ -67,15 +75,10 @@
           </span>
         </p>
         <p class="type-size">
-          <span class="type">
-            {{ $t('common.company') }}:
-          </span>
-          <span class="size">
-            {{ item.company?item.company:'' }}
-          </span>
-        </p>
-        <p class="type-size">
-          <span class="type">
+          <span
+            class="type"
+            :class="language === 'cn'?'typeCn':'typeEn'"
+          >
             {{ $t('common.appdTransId') }}:
           </span>
           <span class="size">
@@ -83,7 +86,21 @@
           </span>
         </p>
         <p class="type-size">
-          <span class="type">
+          <span
+            class="type"
+            :class="language === 'cn'?'typeCn':'typeEn'"
+          >
+            {{ $t('common.company') }}:
+          </span>
+          <span class="size">
+            {{ item.company?item.company:'' }}
+          </span>
+        </p>
+        <p class="type-size">
+          <span
+            class="type"
+            :class="language === 'cn'?'typeCn':'typeEn'"
+          >
             {{ $t('common.description') }}:
           </span>
           <el-tooltip
@@ -101,7 +118,7 @@
             {{ item.description?item.description:'' }}
           </span>
         </p>
-        <div class="btns">
+        <div class="img-box-btn">
           <el-button
             type="primary"
             plain
@@ -167,101 +184,111 @@ p{
   width: 100%;
   padding-left: 3.04%;
   .application:hover .intr{
-        transform: translateY(0px);
-        cursor: pointer;
-        overflow: visible;
-        height: 280px;
-        z-index: 100;
-        padding-top: 30px;
-        border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: translateY(0px);
+    cursor: pointer;
+    overflow: visible;
+    height: 280px;
+    z-index: 100;
+    padding-top: 8px;
+    border-radius: 8px;
   }
-    .application:hover .img-box{
-      border-radius: 8px 8px 0 0;
-      display: none;
+  .application:hover .img-box{
+    border-radius: 8px 8px 0 0;
+    display: none;
   }
-    .application {
-     border-radius: 8px ;
-      height: 280px;
-      width: 22.2%;
-      margin-top: 40px;
+  .application {
+    border-radius: 8px ;
+    height: 280px;
+    width: 22.2%;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(250,250,250,0.3);
+    margin-right: 2.5%;
+    .img-box{
+      border-top-left-radius:8px ;
+      border-top-right-radius:8px ;
+      height: 170px;
+      width: 100%;
+      img{
+        width: 51%;
+        height:75px;
+        margin: 50px  24.5%;
+      }
+    }
+    .intr{
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-around;
-      background: rgba(250,250,250,0.3);
-      margin-right: 2.5%;
-      .img-box{
-        border-top-left-radius:8px ;
-        border-top-right-radius:8px ;
-        height: 170px;
-        width: 100%;
-        img{
-          width: 51%;
-          height:75px;
-          margin: 50px  24.5%;
-        }
-      }
-      .intr{
-        width: 100%;
-        padding: 0 30px;
-        overflow:hidden;
-        background-color: #4E3494;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
-        .type-size{
-          display: flex;
-          .type{
-            font-size: 14px;
-            color: #fff;
-            line-height: 35px;
-            margin-right: 20px;
-            min-width: 70px;
-            font-family: defaultFontLight,
-              Arial,
-              Helvetica,
-              sans-serif !important;
-          }
-          .size{
-            font-size: 14px;
-            color: #fff;
-            line-height: 35px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-family: defaultFontLight,
+      padding: 0 10px;
+      overflow:hidden;
+      background-color: #4E3494;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      .type-size{
+        display: flex;
+        .type{
+          font-size: 14px;
+          color: #fff;
+          line-height: 35px;
+          margin-right: 10px;
+          font-family: defaultFontLight,
             Arial,
             Helvetica,
             sans-serif !important;
-          }
+        }
+        .size{
+          font-size: 14px;
+          color: #fff;
+          line-height: 35px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-family: defaultFontLight,
+          Arial,
+          Helvetica,
+          sans-serif !important;
         }
       }
-      .btns {
-        width: 100%;
-        display: flex;
-        justify-content:center;
-        margin-top: 20px;
-        .el-button {
-          width: 31%;
-          color: #5944C0;
-          background: #fff;
-          border: none;
-          height: 25px;
-          padding: 0;
-        }
-        .el-button:hover{
-          color: #fff;
-          background: #5944C0;
-        }
-        .el-button.is-plain:focus {
-          color: #fff;
-        }
-      }
+      // .typeCn{
+      //   width: 80px !important;
+      // }
+      // .typeEn{
+      //   width: 118px !important;
+      // }
     }
-    .application:hover{
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      background-color: #fff;
+    .img-box-btn {
+      width: 100%;
+      display: flex;
+      justify-content:center;
+      margin-top: 10px;
+      .el-button {
+        width: 31%;
+        color: #5944C0;
+        background: #fff;
+        border: none;
+        height: 25px;
+        padding: 0;
+      }
+      .el-button:hover{
+        color: #fff;
+        background: #5944C0;
+      }
+      .el-button.is-plain:focus {
+        color: #fff;
+      }
     }
   }
+  .application:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+}
 @media screen and (max-width:1890px) {
   .content{
     width: calc(33.33% - 30px)!important;

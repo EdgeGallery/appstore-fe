@@ -28,14 +28,14 @@
           slot="title"
           class="header-title"
         >
-          {{ $t('myApp.appModify') + appModifyInfo.name }}
+          {{ $t('myApp.appModify') +'  '+ appModifyInfo.name }}
         </div>
       </div>
 
       <el-form
         :model="appModifyInfo"
         ref="form"
-        label-width="140px"
+        :label-width="language === 'cn'?'80px':'110px'"
       >
         <el-form-item
           :label="$t('store.industry')"
@@ -274,7 +274,7 @@
       </el-form>
       <span
         slot="footer"
-        class="el-dialog__footer"
+        class="btns"
       >
         <el-button
           @click="handleClose"
@@ -661,6 +661,10 @@ export default {
 </script>
 <style lang="less" >
 .appModify {
+  .el-dialog__wrapper{
+    background-color:rgba(63,18,243,0.1);
+    backdrop-filter:blur(4px);
+  }
   .el-dialog__body{
     padding: 0 40px !important;
   }
@@ -669,6 +673,10 @@ export default {
   }
   .el-form-item__label{
     line-height: 36px !important;
+  }
+  .btns{
+    position: relative;
+    right: 40px;
   }
   .app_upload{
     background: #4E3494;

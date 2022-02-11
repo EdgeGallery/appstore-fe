@@ -376,7 +376,7 @@ const en = {
     repeatEnter: 'The input information is wrong, please re-enter it.',
     userResistedSuccess: 'User is registered successfully!!',
     userResistedFaile: 'Failed to register user',
-    deletePrompt: 'This operation will delete the app permanently. Do you want to continue?',
+    deletePrompt: 'This operation will delete the app permanently, Do you want to continue?',
     prompt: 'Prompt',
     checkUploadProgress: 'Check upload progress immediately?',
     browserAdvise: 'For sure some functions work well, please use Chrome',

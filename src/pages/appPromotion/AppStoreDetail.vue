@@ -270,7 +270,7 @@ export default {
     margin-top: -40px;
     position: absoulue;
     padding-bottom: 8px;
-    background:#2E147C;
+    background:rgba(46, 20, 124, 0.7);
     border-radius: 16px;
     .title{
       position: relative;
@@ -282,7 +282,7 @@ export default {
       letter-spacing: 4px;
     }
     .packageTable{
-      padding: 31px;
+      padding: 31px 31px 0 31px;
       position: relative;
       top: -60px;
       .search_pull {
@@ -297,11 +297,12 @@ export default {
       }
     }
     .paginationStyle{
-     display: flex;
-     justify-content: flex-end;
-     position: relative;
-     top: -40px;
-     right: 40px;
+      padding: 0 50px 40px 0;
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+      top: 0px;
+      right: 40px;
     }
   }
 }

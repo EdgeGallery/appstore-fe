@@ -443,7 +443,6 @@ export default {
     },
     sector (circleX, circleY, radius, endAngle, lineWidth, ctx) {
       ctx.beginPath()
-      // ctx.lineWidth = lineWidth
       let linGrad = ctx.createLinearGradient(
         circleX - radius - lineWidth,
         circleY,
@@ -453,7 +452,6 @@ export default {
       linGrad.addColorStop(0.0, this.progress === 0 ? '#53DABD' : '#4444D0')
       linGrad.addColorStop(1.0, '#3DE2EE')
       ctx.strokeStyle = linGrad
-      ctx.fillRect(0, 0, 175, 50)
       ctx.lineCap = 'round'
       ctx.arc(
         circleX,

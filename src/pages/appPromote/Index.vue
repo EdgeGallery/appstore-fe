@@ -151,7 +151,7 @@
         />
         <div class="clearfix" />
       </div>
-      <div class="paginationStyle">
+      <div>
         <eg-pagination
           :page-num="pageNumCache"
           :page-size="curPageSize"
@@ -183,7 +183,7 @@
               :model="form"
               ref="form"
               :rules="rules"
-              label-width="140px"
+              :label-width="language === 'cn'?'110px':'130px'"
               style="padding:10px 40px 40px 40px"
             >
               <el-form-item
@@ -255,7 +255,7 @@
         </el-row>
         <span
           slot="footer"
-          class="dialog-footer"
+          class="btns"
         >
           <el-button
             @click="handleClose"
@@ -267,6 +267,11 @@
         </span>
       </el-dialog>
     </div>
+    <img
+      class="common_bg"
+      src="../../assets/images/common_bg.png"
+      alt=""
+    >
   </div>
 </template>
 
@@ -622,7 +627,7 @@ export default {
       padding: 16px 49px;
       border-radius: 16px;
       font-size: 20px;
-      box-shadow: inset 0px 0px 1px 1px rgba(255,255,255,0.5) !important;
+      box-shadow: inset 0px 0px 6px 0.4px rgba(255,255,255,0.5) !important;
       font-family: defaultFontLight,
         Arial,
         Helvetica,
@@ -679,6 +684,11 @@ export default {
     height: 300px;
   }
 }
+.btns{
+  position: relative;
+  right: 40px;
+  top: -20px;
+}
 .dialogTitle{
   border-radius: 8px 8px 0 0;
   display: flex;
@@ -702,7 +712,7 @@ export default {
   width: 95% !important;
 }
 .el-form-item__content .el-select{
-  width: 100% !important;
+  width: 95% !important;
 }
 div /deep/ .el-dialog__title {
   color: #5E40C8 !important;
@@ -721,7 +731,7 @@ div /deep/ .el-icon-close:before {
   display: none;
 }
 div /deep/ .el-form-item .el-form-item__content {
-  padding: 0px;
+  padding: 7px 10px 0 !important;
 }
 .dialogSelect{
   border: none !important;

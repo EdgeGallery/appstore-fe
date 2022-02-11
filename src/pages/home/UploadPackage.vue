@@ -303,7 +303,7 @@
       </el-form>
       <span
         slot="footer"
-        class="dialog-footer"
+        class="dialog-footer btns"
       >
         <el-button
           @click="handleClose"
@@ -851,6 +851,10 @@ export default {
   }
   .el-dialog__footer{
     margin-top: -20px;
+  }
+  .btns{
+    position: relative;
+    right: 40px;
   }
   .el-dialog__body{
     padding-left:40px !important ;

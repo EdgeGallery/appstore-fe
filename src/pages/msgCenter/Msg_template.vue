@@ -75,6 +75,11 @@
         />
       </div>
     </div>
+    <img
+      class="common_bg"
+      src="../../assets/images/common_bg.png"
+      alt=""
+    >
   </div>
 </template>
 
@@ -333,8 +338,8 @@ export default {
     width: 100%;
     height: 100%;
     top: 0;
-    background: #3e279b;
-    opacity: 0.8;
+    background:rgba(63,18,243,0.1);
+    backdrop-filter:blur(4px);
   }
   .rightMsg{
     z-index: 10;
@@ -343,12 +348,14 @@ export default {
 .messagePage{
   height: 120px;
   width: 100%;
-  background-color: #2E147C;
+  background-color: rgba(46, 20, 124, 0.7);
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   .paginationStyle{
     float: right;
     margin: 40px 50px 0 0;
+    position: relative;
+    top: -20px;
   }
 }
 div /deep/ .el-table::before {

@@ -184,7 +184,7 @@ export default {
   width: 911px;
   height: 560px;
   padding: 40px 40px;
-  background:#2E147C;
+  background:rgba(46, 20, 124, 0.7);
   border-radius: 12px;
   p{
     margin: 0;

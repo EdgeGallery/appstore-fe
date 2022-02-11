@@ -140,7 +140,6 @@
     </el-table>
   </div>
 </template>
-
 <script>
 import { deleteAppApi } from '../../tools/api.js'
 import commonUtil from '../../tools/commonUtil.js'
@@ -199,7 +198,8 @@ export default {
 </script>
 <style lang='less'>
 .app-list{
-  background: #2E147C !important;
+  // background: rgba(46, 20, 124, 0.7) !important;
+  border-radius:16px ;
   .detailStyle{
     background-color: #EFEFEF;
     color: #7A6E8A;

@@ -249,9 +249,9 @@ export default {
 </script>
 <style lang="less">
 .hotAppManager {
+  background: rgba(46, 20, 124, 0.7);
   margin: auto;
-  background: #2E147C;
-  border-radius: 16px;
+  border-radius: 0 ;
   padding: 31px 0 0 31px;
   .clearbtAndSearch{
     height: 40px;
@@ -281,7 +281,7 @@ export default {
   width: 100%;
   padding: 40px 50px;
   height: 100px;
-  background:#2E147C ;
+  background:transparent;
   display: flex;
   justify-content: flex-end;
   border-radius: 0 0 16px 16px;

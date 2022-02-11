@@ -136,10 +136,15 @@ export default {
     width: 32px;
     margin:0 6px ;
   }
+  .el-select .el-input--suffix .el-input__inner{
+    background: rgba(46, 20, 124, 0.7);
+    border: 1px solid #4D2DA8;
+  }
   .el-pagination__editor.el-input .el-input__inner {
     height: 24px;
     background: none;
     color: #fff;
+    border: 1px solid #4D2DA8;
   }
    .btn-prev .el-icon, .el-pagination .btn-next .el-icon {
     color: #fff !important;

@@ -71,7 +71,7 @@
       >
         <el-popover
           placement="bottom"
-          width="67.2%"
+          width="60.2%"
           trigger="click"
           transition="fade-in-linear"
           v-model="isShowFilterDialog"
@@ -80,7 +80,7 @@
             <el-checkbox-group
               v-model="searchCondition.industry"
             >
-              <label style="height:20px;width:65px;position: relative;font-size:14px;top: 7px;">
+              <label :class="language ==='cn'?'labelcn':'labelen'">
                 {{ $t('common.industry2') }}
               </label>
               <el-checkbox-button
@@ -97,7 +97,7 @@
             <el-checkbox-group
               v-model=" searchCondition.types"
             >
-              <label style="height:20px;width:65px;position: relative;font-size:14px;top: 7px;">
+              <label :class="language ==='cn'?'labelcn':'labelen'">
                 {{ $t('common.type2') }}
               </label>
               <el-checkbox-button
@@ -114,7 +114,7 @@
             <el-checkbox-group
               v-model="searchCondition.affinity"
             >
-              <label style="height:20px;width:65px;position: relative;font-size:14px;top: 7px;">
+              <label :class="language ==='cn'?'labelcn':'labelen'">
                 {{ $t('common.architecture2') }}
               </label>
               <el-checkbox-button
@@ -131,7 +131,7 @@
             <el-checkbox-group
               v-model="searchCondition.workloadType"
             >
-              <label style="height:20px;width:65px;position: relative;font-size:14px;top: 7px;">
+              <label :class="language ==='cn'?'labelcn':'labelen'">
                 {{ $t('common.workloadType') }}
               </label>
               <el-checkbox-button
@@ -487,7 +487,7 @@ export default ({
 .el-popover.el-popper{
   position: absolute;
   top: 90px;
-  width: 67.2%;
+  width: 60.2%;
   left: 16% !important;
   transform-origin: center bottom;
   z-index: 2007;
@@ -501,6 +501,19 @@ export default ({
     background: #5F45BE;
     color: #fff;
   }
+}
+.labelcn{
+  height:20px;
+  position: relative;
+  font-size:14px;
+  text-align: right;
+  top: 6px;
+}
+.labelen{
+  height:20px;
+  position: relative;
+  font-size:14px;
+  top: 6px;
 }
 @media (max-width: 1800px) and (min-width: 1400px) {
   .el-popover.el-popper{

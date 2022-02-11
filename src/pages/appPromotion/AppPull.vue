@@ -79,6 +79,11 @@
         />
       </div>
     </div>
+    <img
+      class="common_bg"
+      src="../../assets/images/common_bg.png"
+      alt=""
+    >
   </div>
 </template>
 
@@ -187,9 +192,7 @@ export default {
     this.getProviders()
   }
 }
-
 </script>
-
 <style lang="less" scoped>
 .pullApp {
   width: 100%;
@@ -262,6 +265,7 @@ export default {
           text-align: center;
           margin: 60px 0 30px;
           font-size: 17px;
+          color: #fff;
           .noData-prompt-alink {
             cursor: pointer;
           }
