@@ -583,8 +583,8 @@ const en = {
     imageFolder: 'Image Directory',
     artifactsFolder: 'Artifacts Directory',
     manifestFile: 'Manifest File',
-    APPDStandard: 'APP Folder Standard',
-    appFolderStar: 'APP Folder Standard',
+    APPDStandard: 'APP Package Requirement',
+    appFolderStar: 'APP Package Requirement',
     interfaceStar: 'Interface Specification',
     characteristic: 'Characteristic',
     moreDetail: 'start more detail...',
@@ -595,8 +595,8 @@ const en = {
     titleContent: 'Quickly help you familiarize yourself with the core functions of the edgegallery warehouse',
     titleContentAPPD: 'Quickly help you familiarize yourself with how to define an application package',
     titleContentinter: 'Quickly help you realize application sharing between warehouses',
-    beginnerPart1: 'Hello, welcome to use Edgegallery application warehouse panorama。',
-    beginnerPart2: 'Using this warehouse, you can evaluate and download applications, upload and publish applications, share applications, etc.',
+    beginnerPart1: 'Hello, welcome! This is an overview of Edge Gallery Application Warehouse.',
+    beginnerPart2: 'In our warehouse, you will be able to upload, release an app as a developer. You are also welcome to download or make comments over an app as a user. Other features like sharing an app from or to external repositories are also supported by our EdgeGallery Application Warehouse.',
     appPublishdoc: 'Application Publish'
   },
   myApp: {
