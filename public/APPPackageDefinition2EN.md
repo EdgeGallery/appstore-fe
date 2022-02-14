@@ -1,6 +1,6 @@
 ### TOSCA-Metadata catalog
 The TOSCA-Metadata directory contains a fixed file named TOSCA.meta.
-The TOSCA.meta file is a text file that describes the information of the entire CSAR file. The content of the file includes TOSCA-Meta-File-Version, CSAR-Version, Created-by, Entry-Definitions, Name and Content-Type. For details, please refer to TOSCA v1.0 Specification,
+The TOSCA.meta file is a text file that describes the information of the entire CSAR file, which includes TOSCA-Meta-File-Version, CSAR-Version, Created-by, Entry-Definitions, Name and Content-Type. For details, please refer to TOSCA v1.0 Specification,
 TOSCA Simple profile YAML v1.1.
 Example of TOSCA.meta:
 
