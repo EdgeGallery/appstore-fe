@@ -2,7 +2,7 @@
 
 ### /mec/appstore/v2/packages/{packageId}/pullable
 ### GET
-Get a list of all available applications in this warehouse
+Get a list of all available applications in this warehouse.
 ### Request
 #### Request parameters
 |Parameter |Position | Required or not | Type |Description|
@@ -41,9 +41,9 @@ Get a list of all available applications in this warehouse
 |name | Name |
 |provider | Provider |
 |version | Version |
-|atpTestStatus | atp test status |
-|atpTestTaskId | atp test task id |
-|atpTestReportUrl | atp test url |
+|atpTestStatus | Atp test status |
+|atpTestTaskId | Atp test task id |
+|atpTestReportUrl | Atp test url |
 |latestPushTime | Last push time |
 |pushTimes | Push Time |
 |sourcePlatform | Original platform |
@@ -53,10 +53,10 @@ Get a list of all available applications in this warehouse
 |industry | Industry |
 |type | Application Type |
 |createTime | Creation time |
-|resCode | response code |
-|params | response parameter |
-|errMsg | response error message |
-|messge | response message |
+|resCode | Response code |
+|params | Response parameter |
+|errMsg | Response error message |
+|messge | Response message |
 
 #### Example response
 ```

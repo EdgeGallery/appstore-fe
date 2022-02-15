@@ -9,9 +9,9 @@ Get the application package list by application ID.
 |-----|-----|----|------|-----|
 |limit | path |Y| String | app limit |
 |offset | path |Y| String | app offset |
-|userId | path |N| String | userId|
-|appId | path |Y| String | appId|
-|request | path |N| String | 请求提|
+|userId | path |N| String | user id|
+|appId | path |Y| String | app id|
+|request | path |N| String | request body|
 
 #### Example request
 ```
@@ -34,25 +34,25 @@ Get the application package list by application ID.
 
 |Back to Field   |Description|
 |-----|-----|
-|appId | app id |
-|packageId | packageid |
-|name | appname|
-|provider | provider |
-|version | version |
-|affinity | affinity |
-|shortDesc | shortDesc |
-|industry | industry |
-|type | type |
-|createTime | createTime |
-|details | details |
-|downloadCount |downloadCount |
-|contact | contact |
-|testTaskId | testTaskId |
-|userId | userId |
-|userName | userName |
-|status | status |
-|demoVideoName | demoVideoName |
-|deployMode | deployMode |
+|appId | App Id |
+|packageId | App Package Id |
+|name | App Name|
+|provider | Provider |
+|version | Version |
+|affinity | Affinity |
+|shortDesc | Short Desc |
+|industry | Industry |
+|type | Type |
+|createTime | Create Time |
+|details | Details |
+|downloadCount |Download Count |
+|contact | Contact |
+|testTaskId | Test Task Id |
+|userId | User Id |
+|userName | User Name |
+|status | Status |
+|demoVideoName | Demo Video Name |
+|deployMode | Deploy Mode |
 
 #### Example response
 ```

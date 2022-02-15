@@ -2,16 +2,16 @@
 
 ### /mec/appstore/v2/apps/{appId}/packages
 ###  GET
-通过应用ID获取应用包列表。
+通过应用ID获取应用包列表
 ### 请求
 #### 请求参数
 |参数 |位置 | 是否必选 | 类型 |说明|
 |-----|-----|----|------|-----|
-|limit | path |Y| String | app limit |
-|offset | path |Y| String | app offset |
-|userId | path |N| String | userId|
-|appId | path |Y| String | appId|
-|request | path |N| String | 请求提|
+|limit | path |Y| String | 应用限制 |
+|offset | path |Y| String | 应用 offset |
+|userId | path |N| String | 用户 id|
+|appId | path |Y| String | 应用 id|
+|request | path |N| String | 请求体|
 
 #### 请求示例
 ```

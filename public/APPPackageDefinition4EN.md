@@ -1,27 +1,27 @@
 ### Image directory
-This directory contains one or more image attachment files and one or more description files.
-For virtual machine applications, the replacement file is qcow2, and for container use, it is replaced by a replacement tar file for container replacement.
+This directory contains one or more image attachment files and one description file. The image file is placed in the Image directory in the form of a compressed package.
+For applications deployed on virtual machines, the image files are using qcow2 image format. For applications deployed on containers, the images files are tar archive exported from containers.
 The Image directory contains a SwImageDesc.json file to describe the image information. The definition of SwImageDesc.json file is shown in the following table. For details, please refer to ETSI ISG NFV IFA011.
 
 
 
 | Parameter name | Parameter type | Description | Is it required |
 |---------|---------|----------|----------|
-|id | Identifier| Image file ID, used as a serial number, unique in the APP package, if you use the name to distinguish, you don’t need to use this parameter | O |
-|name | String | Mirror name, which is used when VIM is registered to distinguish different mirrors. When it is a container scene, it is named "container image name: version" here | M |
-|version | String | Mirror file version number | M |
+|id | Identifier| Image file ID, which is used as a serial number and is unique in an APP package. If you use file names to distinguish app packages, you don’t need to use this parameter | O |
+|name | String | Image name. For apps deployed on VM, the name can be the one used when VIM is registered. For apps deployed on containers, the name should written in the format of "container image name: version". | M |
+|version | String | Image file version number | M |
 |checksum | String | Image file check code | O |
-|architecture | String | Value aarch64 in the ARM scenario, and no need for this parameter in the X86 scenario | O |
-|containerFormat | String | Software image container format | M |
+|architecture | String | In the ARM scenario, the architecture is "aarch64". In the X86 scenario, no need for this parameter. | O |
+|containerFormat | String | Software container image format | M |
 |diskFormat | String | Software Disk Format | M |
 |minDisk | Number | Minimum disk space required for mirroring, unit: GB| M|
 |minRam | Number | Minimum RAM required for mirroring, unit: MB | M |
 |size |Number | Image file size, unit: MB | O |
-|swImage | Indentifier(Reference to a SwImage) | Image file address, which is the root directory address of the image file relative to the APP package | M |
+|swImage | Indentifier(Reference to a SwImage) | Image file address, which is the path relative to the App package root directory. | M |
 |operatingSystem |String| Operating system used by the image| O|
-|supportedVirtualisationEnvironment |String | Mirrored virtualization environment | O |
+|supportedVirtualisationEnvironment |String | Image virtualization environment | O |
 
-Sample of SwImageDesc.json file:
+Example of SwImageDesc.json file:
 
 ```
 [

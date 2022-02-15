@@ -34,13 +34,13 @@ Download application package by application ID and application package ID
 
 ### /mec/appstore/v1/packages/{packageId}/action/download-package
 ### GET
-Download application package by application package ID
+Download application package by application package ID.
 ### Request
 #### Request parameters
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
-|packageId | path |Y| String | package Id |
-|targetAppstore | path |Y| String | target Appstore |
+|packageId | path |Y| String | Package Id |
+|targetAppstore | path |Y| String | Target App Warehouse |
 
 #### 请求示例
 ```

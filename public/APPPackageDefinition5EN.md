@@ -1,6 +1,6 @@
   ### Manifest File
 The manifest file MEAO is parsed to verify the integrity of the APP package. The file extension is .mf.
-The manifest file format is in the form of key-value pairs. It mainly defines the metadata information and integrity protection related information of the APP package. For specific definitions, refer to the relevant specifications of ETSI NFV SOL004.
+The manifest file is taking key-value pairs as its format. It mainly defines the metadata information and integrity protection related information of one APP package. For specific definitions, please refer to relevant specifications of ETSI NFV SOL004.
 The metadata mainly contains the following parameters:
 
 | Parameter name | Parameter value | Is it required |
@@ -8,13 +8,13 @@ The metadata mainly contains the following parameters:
 |app_provider_id | The app provider, the value should be consistent with the Provider of the VNF node in the APPD description file | Yes |
 |app_product_name | app name | yes|
 |app_release_data_time | app release time | yes |
-|app_package_version | A string separated by ".", the value must be consistent with the vnfd_version under metadata in the APPD description file |Yes |
-|app_type | App type, the value should be consistent with vnfd_id under the metadata of the UEFA Champions League in the APPD description file | No|
+|app_package_version | A string separated by ".", the value must be consistent with the "vnfd_version" of metadata described in the APPD description file |Yes |
+|app_type | App type, the value should be consistent with "vnfd_id" of the UEFA Champions League metadata described in the APPD description file | No|
 |app_package_description| APP description information | No |
 
-Integrity protection mainly includes 3 parameters. For specific definitions, please refer to ETSI NFV SOL004.
+Integrity protection info mainly includes 3 parameters. For specific definitions, please refer to ETSI NFV SOL004.
 * Source: the identification of the file to be protected, the directory address of the file in the CSAR
-* Algorithm: hash calculation method, uniformly use SHA-256
+* Algorithm: hash generation method, SHA-256
 * Hash: hash value
 
 Example of manifest file:
