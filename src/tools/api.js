@@ -200,6 +200,11 @@ function deleteAppApi (appId, userId, userName) {
   return DELETE(url)
 }
 
+function offShellAppApi (appId, packageId) {
+  let url = 'apps/' + appId + '/packages/' + packageId + '/action/offShelf'
+  return POST(url)
+}
+
 function deleteAppPackageApi (appId, csarId, userId, userName) {
   let url = 'apps/' + appId + '/packages/' + csarId + '?userId=' + userId + '&userName=' + userName
   return DELETE(url)
@@ -590,6 +595,7 @@ export {
   submitAppCommentApi,
   uploadAppTaskApi,
   deleteAppApi,
+  offShellAppApi,
   deleteAppPackageApi,
   getDocsApi,
   getAppByAppstoreIdV1,

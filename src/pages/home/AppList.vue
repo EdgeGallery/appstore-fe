@@ -120,10 +120,10 @@
           </el-button>
           <el-button
             id="applist_delete"
-            @click="deleteRow(scope.row)"
+            @click="offShelfPackage(scope.row)"
             class="common_operationBtn"
           >
-            {{ $t('common.delete') }}
+            {{ $t('common.offShell') }}
           </el-button>
         </template>
       </el-table-column>
@@ -141,7 +141,7 @@
   </div>
 </template>
 <script>
-import { deleteAppApi } from '../../tools/api.js'
+import { offShellAppApi } from '../../tools/api.js'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
   props: {
@@ -162,20 +162,18 @@ export default {
       sessionStorage.setItem('appstordetail', JSON.stringify(item))
       sessionStorage.setItem('pathSource', 'index')
     },
-    deleteRow (row) {
+    offShelfPackage (row) {
       if (sessionStorage.getItem('userId') === row.userId || sessionStorage.getItem('userNameRole') === 'admin') {
-        this.$confirm(this.$t('promptMessage.deletePrompt'), this.$t('promptMessage.prompt'), {
+        this.$confirm(this.$t('promptMessage.offShellPrompt'), this.$t('promptMessage.prompt'), {
           confirmButtonText: this.$t('common.confirm'),
           cancelButtonText: this.$t('common.cancel'),
           type: 'warning'
         }).then(() => {
-          let userId = sessionStorage.getItem('userId')
-          let userName = sessionStorage.getItem('userName')
-          deleteAppApi(row.appId, userId, userName).then(res => {
+          offShellAppApi(row.appId, row.packageId).then(res => {
             this.$emit('getAppData')
             this.$message({
               duration: 2000,
-              message: this.$t('promptMessage.deleteSuccess'),
+              message: this.$t('promptMessage.offShellSuccess'),
               type: 'success'
             })
           }).catch((error) => {
@@ -184,7 +182,7 @@ export default {
           })
         })
       } else {
-        this.$message.warning(this.$t('system.downloadDelete'))
+        this.$message.warning(this.$t('system.offShellNoPrompt'))
       }
     }
   },
