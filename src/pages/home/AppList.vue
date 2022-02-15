@@ -123,7 +123,7 @@
             @click="offShelfPackage(scope.row)"
             class="common_operationBtn"
           >
-            {{ $t('common.offShell') }}
+            {{ $t('common.offShelf') }}
           </el-button>
         </template>
       </el-table-column>
@@ -141,7 +141,7 @@
   </div>
 </template>
 <script>
-import { offShellAppApi } from '../../tools/api.js'
+import { offShelfAppApi } from '../../tools/api.js'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
   props: {
@@ -164,16 +164,16 @@ export default {
     },
     offShelfPackage (row) {
       if (sessionStorage.getItem('userId') === row.userId || sessionStorage.getItem('userNameRole') === 'admin') {
-        this.$confirm(this.$t('promptMessage.offShellPrompt'), this.$t('promptMessage.prompt'), {
+        this.$confirm(this.$t('promptMessage.offShelfPrompt'), this.$t('promptMessage.prompt'), {
           confirmButtonText: this.$t('common.confirm'),
           cancelButtonText: this.$t('common.cancel'),
           type: 'warning'
         }).then(() => {
-          offShellAppApi(row.appId, row.packageId).then(res => {
+          offShelfAppApi(row.appId, row.packageId).then(res => {
             this.$emit('getAppData')
             this.$message({
               duration: 2000,
-              message: this.$t('promptMessage.offShellSuccess'),
+              message: this.$t('promptMessage.offShelfSuccess'),
               type: 'success'
             })
           }).catch((error) => {
@@ -182,7 +182,7 @@ export default {
           })
         })
       } else {
-        this.$message.warning(this.$t('system.offShellNoPrompt'))
+        this.$message.warning(this.$t('system.offShelfNoPrompt'))
       }
     }
   },

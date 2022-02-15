@@ -200,7 +200,7 @@ function deleteAppApi (appId, userId, userName) {
   return DELETE(url)
 }
 
-function offShellAppApi (appId, packageId) {
+function offShelfAppApi (appId, packageId) {
   let url = 'apps/' + appId + '/packages/' + packageId + '/action/offShelf'
   return POST(url)
 }
@@ -595,7 +595,7 @@ export {
   submitAppCommentApi,
   uploadAppTaskApi,
   deleteAppApi,
-  offShellAppApi,
+  offShelfAppApi,
   deleteAppPackageApi,
   getDocsApi,
   getAppByAppstoreIdV1,
