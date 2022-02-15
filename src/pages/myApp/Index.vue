@@ -724,7 +724,7 @@ export default {
           })
         })
       } else {
-        this.$message.warning(this.$t('system.offShelfNoPrompt'))
+        this.$message.warning(this.$t('system.noPermissionOffShelf'))
       }
     },
     jumpTo () {

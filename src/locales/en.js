@@ -185,7 +185,7 @@ const en = {
     guestPrompt: 'The guest user has no right to operate, please log in first!',
     downloadPrompt: 'You do not have permission to download!',
     downloadDelete: 'You do not have permission to delete!',
-    offShelfNoPrompt: 'You do not have permission to take off shelf!',
+    noPermissionOffShelf: 'You do not have permission to take off shelf!',
     synchronizePrompt: 'You do not have permission. Only administrators can synchronize',
     synchronizeToMEAO: 'Create Sync Task',
     modify: 'Modify',

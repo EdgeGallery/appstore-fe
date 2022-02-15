@@ -150,7 +150,7 @@ const cn = {
     guestPrompt: 'Guest用户无权操作，请先登录！',
     downloadPrompt: '您没有权限下载！',
     downloadDelete: '您没有权限删除！',
-    offShelfNoPrompt: '您没有权限下架！',
+    noPermissionOffShelf: '您没有权限下架！',
     synchronizePrompt: '您没有权限，只有管理员可以同步',
     synchronizeToMEAO: '创建同步任务',
     modify: '修改',
