@@ -2,13 +2,13 @@
 
 ### /mec/appstore/v2/apps/{appId}/packages/{packageId}
 ###  GET
-通过应用ID和应用包ID获取应用包。
+通过应用ID和应用包ID获取应用包
 ### 请求
 #### 请求参数
 |参数 |位置 | 是否必选 | 类型 |说明|
 |-----|-----|----|------|-----|
-|appId | path |N| String | 应用Id|
-|packageId | path |N| String | 应用包id|
+|appId | path |N| String | 应用 id|
+|packageId | path |N| String | 应用包 id|
 
 #### 请求示例
 ```

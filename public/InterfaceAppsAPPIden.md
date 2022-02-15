@@ -2,7 +2,7 @@
 
 ### /mec/appstore/v2/apps/{appId}
 ###  GET
-get app detail
+Get app detail.
 ### Request
 #### Request parameters
 
@@ -31,22 +31,22 @@ get app detail
 |appId | Application id |
 |name | Name |
 |provider | Provider |
-|iconUrl | iconUrl |
+|iconUrl | Icon Url |
 |version | Version |
 |affinity | Affinity |
 |shortDesc | Description |
 |industry | Industry |
 |type | Application Type |
-|showType | show Type |
+|showType | Show Type |
 |createTime | Creation time |
-|details | details |
-|downloadCount | app download Count |
-|contact | contact |
-|score | score |
-|userId | userId |
-|userName | userName |
-|status | status |
-|deployMode | workloadType |
+|details | Details |
+|downloadCount | App download Counts |
+|contact | Contact |
+|score | Score |
+|userId | User Id |
+|userName | User Name |
+|status | Status |
+|deployMode | Workload Type |
 
 #### Example response
 ```

@@ -2,13 +2,13 @@
 
 ### /mec/appstore/v2/apps/{appId}/packages/{packageId}
 ###  GET
-Get the application package list by application ID.
+Get the application package list by application Id and application package Id.
 ### Request
 #### Request parameters
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
-|appId | path |N| String | appId|
-|packageId | path |N| String | packageId|
+|appId | path |N| String | App Id|
+|packageId | path |N| String | Package Id|
 
 #### Example request
 ```
@@ -29,25 +29,25 @@ Get the application package list by application ID.
 
 |Back to Field   |Description|
 |-----|-----|
-|appId | app id |
-|packageId | packageid |
-|name | appname|
-|provider | provider |
-|version | version |
-|affinity | affinity |
-|shortDesc | shortDesc |
-|industry | industry |
-|type | type |
-|createTime | createTime |
-|details | details |
-|downloadCount |downloadCount |
-|contact | contact |
-|testTaskId | testTaskId |
-|userId | userId |
-|userName | userName |
-|status | status |
-|demoVideoName | demoVideoName |
-|deployMode | deployMode |
+|appId | App Id |
+|packageId | Package Id |
+|name | App Name|
+|provider | Provider |
+|version | Version |
+|affinity | Affinity |
+|shortDesc | Short Desc |
+|industry | Industry |
+|type | Type |
+|createTime | Create Time |
+|details | Details |
+|downloadCount |Download Counts |
+|contact | Contact |
+|testTaskId | Test Task Id |
+|userId | User Id |
+|userName | User Name |
+|status | Status |
+|demoVideoName | Demo Video Name |
+|deployMode | Deploy Mode |
 
 #### Example response
 ```

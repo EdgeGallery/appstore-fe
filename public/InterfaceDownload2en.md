@@ -2,7 +2,7 @@
 
 ### /mec/appstore/v1/packages/{packageId}/action/download-icon
 ### GET
-Download application icons by application package ID
+Download application icons by application package ID.
 ### Request
 #### Request parameters
 |Parameter |Position | Required or not | Type |Description|

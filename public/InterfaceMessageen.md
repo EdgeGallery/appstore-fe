@@ -13,11 +13,11 @@ Add message
 |Parameter |Position | Required or not | Type |Description|
 |-----|-----|----|------|-----|
 |BasicMessageInfo | path |Y| Object | Basic Information |
-|sourceAppStore | path |Y| String | source app store |
+|sourceAppStore | path |Y| String | Source app store |
 |targetAppStore | path |Y| String | Target app store |
-|atpTestStatus | path |Y| String | atp test status |
-|atpTestTaskId | path |Y| String | atp test task id |
-|atpTestReportUrl | path |Y| String | atp test path |
+|atpTestStatus | path |Y| String | Atp test status |
+|atpTestTaskId | path |Y| String | Atp test task id |
+|atpTestReportUrl | path |Y| String | Atp test path |
 |packageDownloadUrl | path |Y| String | Application package download path |
 |iconDownloadUrl | path |Y| String | Icon download path |
 
@@ -32,7 +32,7 @@ Add message
 |industry | path |Y| String | Industry |
 |type | path |Y| String | Type |
 
-#### Example request
+#### Request Example
 ```
 {
     "BasicMessageInfo": {
@@ -61,7 +61,7 @@ Add message
 |200 | Success |
 |500 | Resource grant error |
 
-#### Example response
+#### Response Example
 ```
 {
     "data": "string",
