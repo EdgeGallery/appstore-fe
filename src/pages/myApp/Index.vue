@@ -227,6 +227,14 @@
                     >
                       {{ $t('common.delete') }}
                     </el-dropdown-item>
+                    <el-dropdown-item
+                      class="common_operationBtn"
+                      :disabled="scope.row.status == 'Test_running' || scope.row.status == 'Test_waiting'"
+                      @click.native="offShelfPackage(scope.row)"
+                      type="text"
+                    >
+                      {{ $t('common.offShelf') }}
+                    </el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </div>
@@ -326,7 +334,7 @@
 </template>
 
 <script>
-import { myApp, deleteAppPackageApi } from '../../tools/api.js'
+import { myApp, deleteAppPackageApi, offShelfAppApi } from '../../tools/api.js'
 import { common } from '../../tools/comon.js'
 import { PLATFORMNAME_ATP } from '../../tools/constant.js'
 import timeFormatTools from '../../tools/timeFormatTools.js'
@@ -695,6 +703,29 @@ export default {
       }).catch(() => {
         // cancel
       })
+    },
+    offShelfPackage (row) {
+      if (sessionStorage.getItem('userId') === row.userId || sessionStorage.getItem('userNameRole') === 'admin') {
+        this.$confirm(this.$t('promptMessage.offShelfPrompt'), this.$t('promptMessage.prompt'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
+          type: 'warning'
+        }).then(() => {
+          offShelfAppApi(row.appId, row.packageId).then(res => {
+            this.$emit('getAppData')
+            this.$message({
+              duration: 2000,
+              message: this.$t('promptMessage.offShelfSuccess'),
+              type: 'success'
+            })
+          }).catch((error) => {
+            let defaultMsg = this.$t('promptMessage.operationFailed')
+            commonUtil.showTipMsg(this.language, error, defaultMsg)
+          })
+        })
+      } else {
+        this.$message.warning(this.$t('system.offShelfNoPrompt'))
+      }
     },
     jumpTo () {
       this.$router.push('/app/test/task')
