@@ -200,8 +200,8 @@ function deleteAppApi (appId, userId, userName) {
   return DELETE(url)
 }
 
-function offShelfAppApi (appId, packageId) {
-  let url = 'apps/' + appId + '/packages/' + packageId + '/action/offShelf'
+function offShelfAppApi (appId, packageId, userId, userName) {
+  let url = 'apps/' + appId + '/packages/' + packageId + '/action/offShelf?userId=' + userId + '&userName=' + userName
   return POST(url)
 }
 

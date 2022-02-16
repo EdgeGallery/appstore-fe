@@ -169,7 +169,9 @@ export default {
           cancelButtonText: this.$t('common.cancel'),
           type: 'warning'
         }).then(() => {
-          offShelfAppApi(row.appId, row.packageId).then(res => {
+          let userId = sessionStorage.getItem('userId')
+          let userName = sessionStorage.getItem('userName')
+          offShelfAppApi(row.appId, row.packageId, userId, userName).then(res => {
             this.$emit('getAppData')
             this.$message({
               duration: 2000,
