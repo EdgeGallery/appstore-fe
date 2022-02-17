@@ -129,7 +129,7 @@
             :column-key="'status'"
             width="125"
             :label="$t('myApp.status')"
-            :filters="[{text: 'Upload', value: 'Upload'}, {text: 'Test_created', value: 'Test_created'}, {text: 'Test_running', value: 'Test_running'}, {text: 'Test_waiting', value: 'Test_waiting'},{text: 'Test_failed', value: 'Test_failed'}, {text: 'Test_success', value: 'Test_success'}, {text: 'Published', value: 'Published'}]"
+            :filters="[{text: 'Upload', value: 'Upload'}, {text: 'Test_created', value: 'Test_created'}, {text: 'Test_running', value: 'Test_running'}, {text: 'Test_waiting', value: 'Test_waiting'},{text: 'Test_failed', value: 'Test_failed'}, {text: 'Test_success', value: 'Test_success'}, {text: 'Published', value: 'Published'}, {text: 'OffShelf', value: 'OffShelf'}]"
             :filtered-value="filterValue.status"
           >
             <template slot-scope="scope">
@@ -161,6 +161,10 @@
                 v-if="scope.row.status==='Published'"
                 class="published"
               />
+              <em
+                v-if="scope.row.status==='OffShelf'"
+                class="upload"
+              />
               <span v-if="scope.row.status==='Upload'">Upload</span>
               <span v-if="scope.row.status==='Test_created'">Test_created</span>
               <span v-if="scope.row.status==='Test_running'">Test_running</span>
@@ -168,6 +172,7 @@
               <span v-if="scope.row.status==='Test_failed'">Test_failed</span>
               <span v-if="scope.row.status==='Test_success'">Test_success</span>
               <span v-if="scope.row.status==='Published'">Published</span>
+              <span v-if="scope.row.status==='OffShelf'">OffShelf</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -186,7 +191,12 @@
                 </el-button>
                 <el-button
                   class="common_operationBtn"
-                  :disabled="scope.row.status !== 'Test_success'"
+                  :disabled="scope.row.status == 'Upload'
+                    || scope.row.status == 'Test_created'
+                    || scope.row.status == 'Test_running'
+                    || scope.row.status == 'Test_waiting'
+                    || scope.row.status == 'Test_failed'
+                    || scope.row.status == 'Published'"
                   @click="beforePublishPackage(scope.row)"
                   type="text"
                 >
