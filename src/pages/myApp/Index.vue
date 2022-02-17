@@ -730,6 +730,7 @@ export default {
               message: this.$t('promptMessage.offShelfSuccess'),
               type: 'success'
             })
+            this.getAppData()
           }).catch((error) => {
             let defaultMsg = this.$t('promptMessage.operationFailed')
             commonUtil.showTipMsg(this.language, error, defaultMsg)
