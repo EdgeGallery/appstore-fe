@@ -16,7 +16,7 @@
 
 <template>
   <div
-    class="orders"
+    class="orders common_bg"
     v-loading="loading"
     :element-loading-text="$t('common.loading')"
   >
@@ -205,11 +205,6 @@
       </div>
       <div class="clearfix" />
     </div>
-    <img
-      class="common_bg"
-      src="../../assets/images/common_bg.png"
-      alt=""
-    >
   </div>
 </template>
 
@@ -370,8 +365,8 @@ export default {
 
 <style lang="less" scoped>
 .orders {
-  width: 73.64%;
-  margin: 0 auto;
+  width: 100%;
+  padding: 0 13.14%;
   .order_title{
     padding: 54px 0 54px !important;
     color: #fff;

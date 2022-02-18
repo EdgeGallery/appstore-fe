@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="myApp  minHeight">
+  <div class="myApp  minHeight common_bg">
     <div class="common_title aooMgmtTitle">
       {{ $t('nav.appMgmt') }}
     </div>
@@ -32,7 +32,7 @@
         v-if="activeName==='push'"
         class="horizontal-cell"
       >
-        <link-right
+        <p
           class="link-right"
         />
       </div>
@@ -48,7 +48,7 @@
         v-if="activeName==='hot'"
         class="horizontal-cell"
       >
-        <link-right
+        <p
           class="link-right"
         />
       </div>
@@ -84,11 +84,6 @@
         ref="pushAppManager"
       />
     </div>
-    <img
-      class="common_bg"
-      src="../../assets/images/common_bg.png"
-      alt=""
-    >
   </div>
 </template>
 
@@ -135,8 +130,8 @@ export default {
 <style lang='less'>
 .myApp {
   border: none;
-  width: 73.64%;
-  margin: 0 auto;
+  width: 100%;
+  padding: 0 13.18%;
   .horizontal-cell{
     padding: 12px 0;
     float: left;
@@ -159,9 +154,13 @@ export default {
         width: 100%;
         height: 100%;
         padding: 0 30px;
-        font-size: 20px;
+        font-size: 14px;
         color: #fff;
         transition: all 0.5s;
+        font-family: defaultFontLight,
+          Arial,
+          Helvetica,
+          sans-serif !important;
       }
     }
     .last_li{
@@ -180,14 +179,15 @@ export default {
       border-radius: 16px 0 0 0;
       transition: all 0.5s;
       span{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         border-radius: 16px 16px 0 0;
         color: #fff;
+        font-size: 16px;
         transition: all 0.5s;
       }
     }
     .container_default{
-      background: rgba(46,20,124,0.7);
+      background: rgba(46,20,124,0.8);
       border-radius: 16px 0 0 0;
       transition: all 0.5s;
       span{
@@ -197,7 +197,7 @@ export default {
       }
     }
     .container_default2{
-      background: rgba(46,20,124,0.7);
+      background: rgba(46,20,124,0.8);
       border-radius: 16px 0 0 0;
       span{
         background: #4E3494;
@@ -219,14 +219,15 @@ export default {
       background: #4E3494;
       transition: all 0.5s;
       span{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         border-radius: 16px 16px 0 0;
         color: #fff;
+        font-size: 16px;
         transition: all 0.5s;
       }
     }
     .vm_default{
-      background: rgba(46,20,124,0.7);
+      background: rgba(46,20,124,0.8);
       border-radius: 0 16px 0 0;
       transition: all 0.5s;
       span{
@@ -236,7 +237,7 @@ export default {
       }
     }
     .vm_default2{
-      background: rgba(46,20,124,0.7);
+      background: rgba(46,20,124,0.8);
       span{
         background: #4E3494;
         border-radius: 0 0 16px 0;
@@ -270,9 +271,10 @@ export default {
       border-radius: 0 16px 0 0;
       transition: all 0.5s;
       span{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         border-radius: 16px 16px 0 0;
         color: #fff;
+        font-size: 16px;
         transition: all 0.5s;
       }
     }
@@ -288,7 +290,7 @@ export default {
 
     }
     .push_default2{
-      background: #2E147C;
+      background: rgba(46,20,124,0.8);
       border-radius: 0 16px 0 0;
       span{
         background: #4E3494;
@@ -301,8 +303,6 @@ export default {
     border-radius: 0 16px 16px 16px;
     transition: all 0.5s;
     box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);
-  }
-  .container_div_active{
   }
   .vm_div{
     background: #d4d1ec;
@@ -319,8 +319,8 @@ export default {
     border-left:2px solid #331A85 ;
   }
   .link-right {
-    width: 3px;
-    height: 10px;
+    width: 0px;
+    height: 25px;
     border-right:2px solid #331A85 ;
   }
 }

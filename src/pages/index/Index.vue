@@ -744,7 +744,7 @@ export default {
       margin: 20px auto 30px ;
     }
   }
-  @media (max-width: 1600px) and (min-width: 1200px) {
+  @media (max-width: 1600px) and (min-width: 1400px) {
     .more{
       font-size: 14px;
       width: 100px;
@@ -813,7 +813,7 @@ export default {
         height:80px;
         padding: 0 2%;
         .app_tab{
-          margin: 20px 3.2% 0;
+          margin: 20px 13.18% 0;
           .app_tab_title{
             font-size:14px;
             margin-right: 20px;
@@ -834,13 +834,10 @@ export default {
         }
       }
       .hotApp{
-        width: 100%;
-        padding-top: 2%;
-        padding-left: 4%;
         .oneAppStyle{
           width: 14.3%;
           border-radius: 8px;
-          height: 160px;
+          height: 170px;
           margin: 5% 4% 0 1.5%;
           .oneApp_img{
             width: 55.56%;
@@ -862,6 +859,11 @@ export default {
         margin: 20px auto 30px ;
       }
     }
+  }
+}
+@media (max-width: 1399px) and (min-width: 1100px) {
+.apphome .sence_app .hotApp .oneAppStyle{
+    height: 148px;
   }
 }
 

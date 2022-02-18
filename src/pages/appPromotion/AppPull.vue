@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="app-pull pullApp">
+  <div class="app-pull pullApp common_bg">
     <div class="app-pull-content ">
       <div class="pull_container">
         <div
@@ -79,11 +79,6 @@
         />
       </div>
     </div>
-    <img
-      class="common_bg"
-      src="../../assets/images/common_bg.png"
-      alt=""
-    >
   </div>
 </template>
 
@@ -197,7 +192,6 @@ export default {
 .pullApp {
   width: 100%;
   margin-top:48px;
-  margin-bottom: -100px;
   display: flex;
   justify-content: center;
   min-height: 800px;

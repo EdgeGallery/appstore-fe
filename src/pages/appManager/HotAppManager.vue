@@ -32,7 +32,6 @@
           :data="currentPageData"
           :default-sort="{ prop: 'createTime', order: 'descending' }"
           @sort-change="sortChange"
-          @filter-change="filterChange"
           ref="multipleTable"
           class="common_table"
         >
@@ -41,7 +40,6 @@
             :label="$t('common.appName')"
             sortable="custom"
             width="210"
-            :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
@@ -122,12 +120,6 @@ import timeFormatTools from '../../tools/timeFormatTools.js'
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
-  props: {
-    hotAppListInfo: {
-      required: true,
-      type: Object
-    }
-  },
   components: {
     EgPagination
   },

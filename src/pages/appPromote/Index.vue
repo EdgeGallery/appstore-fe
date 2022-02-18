@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="my-app outHouse">
+  <div class="my-app outHouse common_bg">
     <div class="outHouseTop">
       <div class="title">
         {{ $t("nav.externalAppManagement") }}
@@ -50,7 +50,6 @@
               prop="appStoreName"
               :label="$t('common.appStoreName')"
               width="300"
-              :cell-class-name="hiddenClass"
             >
               <template slot-scope="scope">
                 <el-popover
@@ -89,7 +88,6 @@
               prop="description"
               :label="$t('common.description')"
               width="300"
-              :cell-class-name="hiddenClass"
             >
               <template slot-scope="scope">
                 <el-popover
@@ -267,11 +265,6 @@
         </span>
       </el-dialog>
     </div>
-    <img
-      class="common_bg"
-      src="../../assets/images/common_bg.png"
-      alt=""
-    >
   </div>
 </template>
 
@@ -396,11 +389,6 @@ export default {
       this.offsetPage = this.curPageSize * (this.pageNumCache - 1)
       sessionStorage.setItem('offsetAppstore', this.offsetPage)
       this.getAppPackageData()
-    },
-    hiddenClass (row) {
-      if (row.columnIndex === 5 || row.columnIndex === 0) {
-        return 'hiddenClass'
-      }
     },
     handleClose () {
       this.$emit('input', false)

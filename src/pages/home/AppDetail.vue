@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="app_detail">
+  <div class="app_detail common_bg">
     <div
       class="common_title"
       style="width:100%"
@@ -38,12 +38,11 @@
             placement="right-start"
           >
             <p
-              class="app_title"
+              class="app_title defaultFontLight"
             >
               {{ currentData.name }}
             </p>
           </el-tooltip>
-
           <el-rate
             v-model="score"
             disabled
@@ -67,25 +66,25 @@
             </option>
           </select>
           <span v-show="pathSource==='myapp'">{{ currentData.version }}</span>
+          <span class="fg " />
+          <span class="defaultFontLight">{{ currentData.provider }}</span>
           <span class="fg" />
-          {{ currentData.provider }}
-          <span class="fg" />
-          {{ downloadNum }}{{ this.$t('store.downloadNum') }}
+          <span class="defaultFontLight">{{ downloadNum }}{{ this.$t('store.downloadNum') }}</span>
         </div>
-        <p class="app_desc">
+        <p class="app_desc defaultFontLight">
           {{ currentData.shortDesc }}
         </p>
         <p class="app_tag clearfix">
-          <span class="industry">
+          <span class="industry defaultFontLight">
             {{ currentData.industry }}
           </span>
-          <span class="architecture">
+          <span class="architecture defaultFontLight">
             {{ currentData.affinity }}
           </span>
-          <span class="type">
+          <span class="type defaultFontLight">
             {{ currentData.type }}
           </span>
-          <span class="deployMode">
+          <span class="deployMode defaultFontLight">
             {{ currentData.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
           </span>
         </p>
@@ -93,7 +92,7 @@
       <div class="app_score">
         <p class="score_btn">
           <el-button
-            class="batchProButton"
+            class="batchProButton defaultFontLight"
             @click="download(currentData)"
           >
             {{ $t('store.download') }}{{ currentData.size }} {{ ')' }}
@@ -104,7 +103,7 @@
           v-show="ifSubscribe"
         >
           <el-button
-            class="subscribeButton"
+            class="subscribeButton defaultFontLight"
             @click="beforeBuyIt()"
           >
             {{ $t('order.subscribe') }}{{ this.price }}{{ $t('order.price') }}
@@ -112,7 +111,6 @@
         </p>
       </div>
     </div>
-
     <div
       class="app_content"
     >
@@ -132,7 +130,7 @@
             v-if="activeName !=='appDetail' && activeName !== 'comment'"
             class="horizontal-cell"
           >
-            <link-right
+            <p
               class="link-right"
             />
           </div>
@@ -155,7 +153,7 @@
             v-if="activeName!=='appShow'&& ifSynchronize===false && ifExperience===true && activeName !=='comment'"
             class="horizontal-cell"
           >
-            <link-right
+            <p
               class="link-right"
             />
           </div>
@@ -163,7 +161,7 @@
             v-if="activeName!=='appShow'&& ifSynchronize===false && ifExperience===false && activeName ==='appDetail'"
             class="horizontal-cell"
           >
-            <link-right
+            <p
               class="link-right"
             />
           </div>
@@ -171,7 +169,7 @@
             v-if="activeName!=='appShow'&& ifExperience === true && ifSynchronize===true && activeName !=='comment'"
             class="horizontal-cell"
           >
-            <link-right
+            <p
               class="link-right"
             />
           </div>
@@ -195,7 +193,7 @@
             v-if="activeName!=='meao'&& ifExperience === true && ifSynchronize===true && activeName !=='appShow'&& activeName !=='vedio'"
             class="horizontal-cell"
           >
-            <link-right
+            <p
               class="link-right"
             />
           </div>
@@ -203,7 +201,7 @@
             v-if="activeName ==='meao'&& ifExperience === true && ifSynchronize===true && activeName !=='appShow'&& activeName !=='vedio'"
             class="horizontal-cell"
           >
-            <link-right
+            <p
               class="link-right"
             />
           </div>
@@ -211,7 +209,7 @@
             v-if="activeName ==='appDetail'&& ifExperience === true && ifSynchronize===false"
             class="horizontal-cell"
           >
-            <link-right
+            <p
               class="link-right"
             />
           </div>
@@ -219,7 +217,7 @@
             v-if="activeName ==='comment'&& ifExperience === true && ifSynchronize===false"
             class="horizontal-cell"
           >
-            <link-right
+            <p
               class="link-right"
             />
           </div>
@@ -227,7 +225,7 @@
             v-if="ifSynchronize===true && ifExperience===false && activeName !=='comment' && activeName !=='vedio'"
             class="horizontal-cell"
           >
-            <link-right
+            <p
               class="link-right"
             />
           </div>
@@ -255,7 +253,7 @@
             v-if="ifSynchronize===true && ifExperience === true && activeName !=='vedio' && activeName !=='meao'"
             class="horizontal-cell"
           >
-            <link-right
+            <p
               class="link-right"
             />
           </div>
@@ -263,7 +261,7 @@
             v-if="ifSynchronize===true && ifExperience===false && activeName !=='vedio'&& activeName !=='meao'"
             class="horizontal-cell"
           >
-            <link-right
+            <p
               class="link-right"
             />
           </div>
@@ -438,11 +436,6 @@
         >{{ $t('common.confirm') }}</el-button>
       </span>
     </el-dialog>
-    <img
-      class="common_bg"
-      src="../../assets/images/common_bg.png"
-      alt=""
-    >
   </div>
 </template>
 
@@ -825,8 +818,6 @@ export default {
     padding: 60px 0 20px !important;
     position: relative;
     font-size: 26px;
-    font-family: HarmonyOS Sans SC, sans-serif;
-    font-weight: bold;
     color: #5D3DA0;
   }
   .el-dialog{
@@ -877,7 +868,7 @@ export default {
   }
   .dialog-footer {
     text-align: right;
-    background:rgba(46,20,124,0.7) ;
+    background:rgba(46,20,124,0.7);
     height: 60px;
     padding: 20px 20px 0 0 !important;
     .cancle_btn{
@@ -1058,23 +1049,25 @@ export default {
       width:0;
     }
     .list_top{
-      background-color: #3e279b;
       margin-top: 58px;
       li{
         float: left;
         height: 50px;
         line-height: 50px;
         cursor: pointer;
-        background: #2E147C;
         span{
           display: block;
+          background: #4E3494;
           width: 100%;
           height: 100%;
           padding: 0 26px;
-          font-size: 16px;
+          font-size: 14px;
           color: #fff;
           transition: all 0.1s;
-          background: #4E3494;
+          font-family: defaultFontLight,
+          Arial,
+          Helvetica,
+          sans-serif !important;
         }
       }
       .last_li{
@@ -1093,14 +1086,15 @@ export default {
         border-radius: 16px 0 0 0;
         transition: all 0.1s;
         span{
-          background: rgba(46,20,124,0.7);
+          background: rgba(46,20,124,0.8);
           border-radius: 16px 16px 0 0;
           color: #fff;
+                  font-size: 16px;
           transition: all 0.1s;
         }
       }
       .appDetail_comment{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         border-radius: 16px 0 0 0;
         span{
           background: #4E3494;
@@ -1118,7 +1112,7 @@ export default {
         }
       }
       .appDetail_vedio{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         border-radius: 16px 0 0 0;
         span{
           background: #4E3494;
@@ -1130,14 +1124,15 @@ export default {
         background: #4E3494;
         transition: all 0.1s;
         span{
-          background: rgba(46,20,124,0.7);
+          background: rgba(46,20,124,0.8);
           border-radius: 16px 16px 0 0;
           color: #fff;
+          font-size: 16px;
           transition: all 0.1s;
         }
       }
       .comment_default{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1147,7 +1142,7 @@ export default {
         }
       }
       .comment_default_appShow_meao{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         span{
           background: #4E3494;
           border-radius: 0 0 16px 0;
@@ -1163,7 +1158,7 @@ export default {
         }
       }
       .comment_default_meao_noAppShow{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         span{
           background: #4E3494;
           border-radius: 0 0 0 0;
@@ -1178,7 +1173,7 @@ export default {
         }
       }
       .comment_default_vedio_noAppShow{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         span{
           background: #4E3494;
           border-radius: 0 0 16px 0;
@@ -1206,17 +1201,17 @@ export default {
         }
       }
       .last_li.last_default{
-        background: #4E3494;
+        background: transparent;
         span{
-          background: #3e279b;
+          background: transparent;
           border-radius: 0 0 0 16px;
           transition: all 0.1s;
         }
       }
       .last_li.last_default2{
-        background: rgba(46,20,124,0.7);
+        background: transparent;
         span{
-          background: #3e279b;
+          background: transparent;
           border-radius: 0 0 0 16px;
           transition: all 0.1s;
         }
@@ -1242,14 +1237,15 @@ export default {
         border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
-          background: rgba(46,20,124,0.7);
+          background: rgba(46,20,124,0.8);
           border-radius: 16px 16px 0 0;
           color: #fff;
+          font-size: 16px;
           transition: all 0.1s;
         }
       }
       .appShow_no_active{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
@@ -1259,7 +1255,7 @@ export default {
         }
       }
       .appShow_default{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         span{
           background: #4E3494;
           border-radius: 0 0 0 16px;
@@ -1267,7 +1263,7 @@ export default {
         }
       }
       .appShow_default_meao{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         span{
           background: #4E3494;
           border-radius: 0 0 16px 0;
@@ -1297,9 +1293,10 @@ export default {
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: rgba(46,20,124,0.7);
+          background: rgba(46,20,124,0.8);
           border-radius: 16px 16px 0 0;
           color: #fff;
+          font-size: 16px;
           transition: all 0.1s;
         }
       }
@@ -1324,7 +1321,7 @@ export default {
         }
       }
       .vedio_default_appshow_meao{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1353,7 +1350,7 @@ export default {
         }
       }
       .meao_default_vedio_appShow{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         border-radius: 0 16px 0 0;
         span{
           background: #4E3494;
@@ -1374,9 +1371,10 @@ export default {
         border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
-          background: rgba(46,20,124,0.7);
+          background: rgba(46,20,124,0.8);
           border-radius: 16px 16px 0 0;
           color: #fff;
+          font-size: 16px;
           transition: all 0.1s;
         }
       }
@@ -1392,7 +1390,7 @@ export default {
         }
       }
       .vedio_default{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         transition: all 0.1s;
         span{
           background: #4E3494;
@@ -1429,7 +1427,7 @@ export default {
         }
       }
       .vedio_default2_appShow_meao{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         border-radius: 0 0 0 0;
         transition: all 0.1s;
         span{
@@ -1459,7 +1457,7 @@ export default {
         }
       }
       .vedio_default2_meao_no_Appshow{
-       background: rgba(46,20,124,0.7);
+       background: rgba(46,20,124,0.8);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1469,7 +1467,7 @@ export default {
         }
       }
       .vedio_default2_comment_no_Appshow{
-        background: rgba(46,20,124,0.7);
+        background: rgba(46,20,124,0.8);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1480,8 +1478,8 @@ export default {
       }
     }
     .link-right {
-      width: 3px;
-      height: 10px;
+      width: 0px;
+      height: 25px;
       border-right: solid #331A85 2px;
     }
   }
@@ -1494,10 +1492,6 @@ export default {
     border-radius: 0 16px 16px 16px;
     transition: all 0.1s;
     box-shadow: 0 0 68px 5px rgba(94,24,200,0.06);
-  }
-  .container_div_active{
-    background: #4E3494;
-    border-radius: 0 16px 16px 16px;
   }
 }
 </style>

@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="appStoreHome">
+  <div class="appStoreHome common_bg">
     <div
       class="common_title defaultFontBlod clear"
     >
@@ -49,6 +49,7 @@
           <component
             :is="appShowType"
             :app-data="currentPageData"
+            :current="currentPage"
             @getAppData="getAppData"
             v-if="isShowComponent"
           />
@@ -70,11 +71,6 @@
         @input="input"
       />
     </div>
-    <img
-      class="common_bg"
-      src="../../assets/images/common_bg.png"
-      alt=""
-    >
   </div>
 </template>
 

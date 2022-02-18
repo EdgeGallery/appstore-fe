@@ -17,8 +17,13 @@
 <template>
   <div class="myAppMessage">
     <ul class="list_top clear">
+      <p
+        class="tab_title_line"
+        :class="{'unRead_select':activeName==='unReadedMsg','all_select':activeName==='allMsg'}"
+      />
       <li
-        @click="click1()"
+        @click="
+        click1()"
         :class="{'container_active':activeName==='unReadedMsg','container_default':activeName==='readedMsg','container_default2':activeName==='allMsg',}"
       >
         <span>
@@ -30,11 +35,9 @@
         :class="{'vm_active':activeName==='readedMsg','vm_default':activeName==='unReadedMsg','vm_default2':activeName==='allMsg'}"
       >
         <span>
-          <link-right
+          <p
+            class="tab_title"
             v-if="activeName==='allMsg'"
-            padding-right="5px"
-            margin="5px"
-            class="link-right"
           />
           {{ $t('messageCenter.readedMsg') }}
         </span>
@@ -44,11 +47,9 @@
         :class="{'push_active':activeName==='allMsg','push_default':activeName!=='allMsg','push_default2':activeName==='readedMsg'}"
       >
         <span>
-          <link-right
+          <p
+            class="tab_title"
             v-if="activeName==='unReadedMsg'"
-            padding-right="5px"
-            margin="5px"
-            class="link-right"
           />
           {{ $t('messageCenter.allMsg') }}
         </span>
@@ -257,7 +258,7 @@ export default {
         display: block;
         width: 100%;
         height: 100%;
-        font-size: 16px;
+        font-size: 14px;
         padding: 0 50px;
         color: #fff;
         transition: all 0.5s;
@@ -287,19 +288,42 @@ export default {
     span{
       text-align: center;
     }
+    .tab_title{
+      margin-bottom: 0 !important;
+    }
+    .tab_title_line{
+      margin-top: -25px;
+      height: 25px;
+      width: 2px;
+      border-right: 2px solid #331A85;
+      opacity: 0;
+    }
+    .unRead_select{
+      position: relative;
+      top: 54px;
+      left: 260px;
+      opacity: 1;
+    }
+    .all_select{
+      opacity: 1;
+      position: relative;
+      top: 54px;
+      left: 120px;
+    }
     .container_active{
       background: #4E3494;
       border-radius: 16px 0 0 0;
       transition: all 0.5s;
       span{
-        background: rgba(46, 20, 124, 0.7);
+        background: rgba(46, 20, 124, 0.8);
         border-radius: 16px 16px 0 0;
+        font-size: 16px;
         color: #fff;
         transition: all 0.5s;
       }
     }
     .container_default{
-      background: rgba(46, 20, 124, 0.7);
+      background: rgba(46, 20, 124, 0.8);
       border-radius: 16px 0 0 0;
       transition: all 0.5s;
       span{
@@ -309,7 +333,7 @@ export default {
       }
     }
     .container_default2{
-      background: rgba(46, 20, 124, 0.7);
+      background: rgba(46, 20, 124, 0.8);
       border-radius: 16px 0 0 0;
       span{
         border-radius: 16px 0 0 0;
@@ -321,7 +345,7 @@ export default {
       border-radius: 0 0 0 0;
       transition: all 0.5s;
       span{
-        background: rgba(46, 20, 124, 0.7);
+        background: rgba(46, 20, 124, 0.8);
         border-radius: 0 0 0 0;
         transition: all 0.5s;
       }
@@ -331,14 +355,15 @@ export default {
       background: #4E3494;
       transition: all 0.5s;
       span{
-        background: rgba(46, 20, 124, 0.7);
+        background: rgba(46, 20, 124, 0.8);
         border-radius: 16px 16px 0 0;
         color: #fff;
+        font-size: 16px;
         transition: all 0.5s;
       }
     }
     .vm_default{
-      background: rgba(46, 20, 124, 0.7);
+      background: rgba(46, 20, 124, 0.8);
       border-radius: 0 16px 0 0;
       transition: all 0.5s;
       span{
@@ -348,7 +373,7 @@ export default {
       }
     }
     .vm_default2{
-      background: rgba(46, 20, 124, 0.7);
+      background: rgba(46, 20, 124, 0.8);
       span{
         background: #4E3494;
         border-radius: 0 0 16px 0;
@@ -383,9 +408,10 @@ export default {
       border-radius: 0 16px 0 0;
       transition: all 0.5s;
       span{
-        background: rgba(46, 20, 124, 0.7);
+        background: rgba(46, 20, 124, 0.8);
         border-radius: 16px 16px 0 0;
         color: #fff;
+        font-size: 16px;
         transition: all 0.5s;
       }
     }
@@ -400,7 +426,7 @@ export default {
 
     }
     .push_default2{
-      background: rgba(46, 20, 124, 0.7);
+      background: rgba(46, 20, 124, 0.8);
       border-radius: 0 16px 0 0;
       span{
         background: #4E3494;
@@ -421,17 +447,6 @@ export default {
   .view_image_dialog .el-dialog{
     width: 40%;
     min-width: 600px;
-  }
-  .link-left {
-    width: 3px;
-    height: 10px;
-    border-left:2px solid #331A85 ;
-  }
-  .link-right {
-    width: 3px;
-    height: 10px;
-    margin-right: 10px;
-    border-right:2px solid #331A85 ;
   }
 }
 .tables{
