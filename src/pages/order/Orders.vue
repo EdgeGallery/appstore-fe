@@ -41,38 +41,39 @@
           </template>
           <el-table-column
             prop="orderNum"
-            width="160"
+            min-width="11.38%"
             :label="$t('order.orderNum')"
           />
           <el-table-column
             v-if="isAdmin"
             prop="userName"
-            width="120"
+            min-width="8.53%"
             :label="$t('order.orderUserName')"
           />
           <el-table-column
             prop="appName"
-            width="180"
+            min-width="12.8%"
             :label="$t('order.appName')"
           />
           <el-table-column
             prop="mecHostIp"
             width="180"
+            min-width="12.8%"
             :label="$t('order.nodeIp')"
           />
           <el-table-column
             prop="mecHostCity"
-            width="200"
+            min-width="14.22%"
             :label="$t('order.nodeAddress')"
           />
           <el-table-column
             prop="orderTime"
-            width="200"
+            min-width="14.22%"
             :label="$t('order.orderTime')"
           />
           <el-table-column
             prop="status"
-            width="140"
+            min-width="9.96%"
             :label="$t('order.status')"
           >
             <template slot-scope="scope">
@@ -101,7 +102,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('myApp.operation')"
-            width="226"
+            min-width="16.07%"
           >
             <template slot-scope="scope">
               <div>
