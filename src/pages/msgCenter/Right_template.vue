@@ -258,7 +258,7 @@ export default {
         display: block;
         width: 100%;
         height: 100%;
-        font-size: 14px;
+        font-size: 16px;
         padding: 0 50px;
         color: #fff;
         transition: all 0.5s;
@@ -317,7 +317,7 @@ export default {
       span{
         background: rgba(46, 20, 124, 0.8);
         border-radius: 16px 16px 0 0;
-        font-size: 16px;
+        font-size: 18px;
         color: #fff;
         transition: all 0.5s;
       }
@@ -358,7 +358,7 @@ export default {
         background: rgba(46, 20, 124, 0.8);
         border-radius: 16px 16px 0 0;
         color: #fff;
-        font-size: 16px;
+        font-size: 18px;
         transition: all 0.5s;
       }
     }
@@ -411,7 +411,7 @@ export default {
         background: rgba(46, 20, 124, 0.8);
         border-radius: 16px 16px 0 0;
         color: #fff;
-        font-size: 16px;
+        font-size: 18px;
         transition: all 0.5s;
       }
     }

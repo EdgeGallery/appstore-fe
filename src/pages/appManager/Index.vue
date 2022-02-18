@@ -154,7 +154,7 @@ export default {
         width: 100%;
         height: 100%;
         padding: 0 30px;
-        font-size: 14px;
+        font-size: 16px;
         color: #fff;
         transition: all 0.5s;
         font-family: defaultFontLight,
@@ -182,7 +182,7 @@ export default {
         background: rgba(46,20,124,0.8);
         border-radius: 16px 16px 0 0;
         color: #fff;
-        font-size: 16px;
+        font-size: 18px;
         transition: all 0.5s;
       }
     }
@@ -222,7 +222,7 @@ export default {
         background: rgba(46,20,124,0.8);
         border-radius: 16px 16px 0 0;
         color: #fff;
-        font-size: 16px;
+        font-size: 18px;
         transition: all 0.5s;
       }
     }
@@ -274,7 +274,7 @@ export default {
         background: rgba(46,20,124,0.8);
         border-radius: 16px 16px 0 0;
         color: #fff;
-        font-size: 16px;
+        font-size: 18px;
         transition: all 0.5s;
       }
     }
