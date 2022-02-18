@@ -959,6 +959,15 @@ export default {
   }
   .uploadMin{
     float: left;
+    .uploader-file-name{
+      color: rgb(161, 159, 159);
+    }
+    .uploader-file-size {
+      color: rgb(179, 174, 174);
+    }
+    .uploader-file-status{
+      color: rgb(179, 174, 174);
+    }
     .el-button--primary.is-plain {
       background: #4E3494;
       border: none;
@@ -980,7 +989,7 @@ export default {
     .uploader-drop{
       padding: 0;
       border: 0;
-      background-color: #fff;
+      background-color: rgba(46,20,124,0.7)!important;
     }
   }
   .tipFile{
