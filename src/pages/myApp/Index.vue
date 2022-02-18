@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="myApp">
+  <div class="myApp common_bg">
     <div class="defaultFontBlod myApp_top defaultFontBold">
       <p class="myApp_title">
         {{ $t('nav.myApp') }}
@@ -52,7 +52,6 @@
             :label="$t('common.appName')"
             sortable="custom"
             width="180"
-            :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
@@ -105,7 +104,6 @@
           <el-table-column
             prop="shortDesc"
             :label="$t('common.description')"
-            :cell-class-name="hiddenClass"
             width="160"
           >
             <template slot-scope="scope">
@@ -335,11 +333,6 @@
         >{{ $t('common.confirm') }}</el-button>
       </span>
     </el-dialog>
-    <img
-      class="common_bg"
-      src="../../assets/images/common_bg.png"
-      alt=""
-    >
   </div>
 </template>
 
@@ -747,11 +740,6 @@ export default {
       clearTimeout(this.interval)
       this.interval = null
     },
-    hiddenClass (row) {
-      if (row.columnIndex === 5 || row.columnIndex === 0) {
-        return 'hiddenClass'
-      }
-    },
     changeLanguege () {
       // translate to English
       let curLabelKey = 'labelCn'
@@ -812,8 +800,8 @@ a:hover{
 cursor:pointer
 }
 .myApp {
-  width: 73.64%;
-  margin: 0 auto;
+  width: 100%;
+  padding: 0 13.18%;
   .myApp_top{
     padding: 54px 0 54px !important;
     display: flex;

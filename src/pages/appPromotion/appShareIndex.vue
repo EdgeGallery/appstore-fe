@@ -190,7 +190,7 @@ export default {
     justify-content: center;
     align-items: center;
     .introduce_words{
-      width: 100%;
+      width: 57.77%;
       height: 520px;
       padding: 106px 5.6% ;
       .introduce_name{
@@ -229,38 +229,40 @@ export default {
       }
     }
     .intronduce_img{
-      width: 50%;
-      height: 520px;
+      width: 42.36%;
+      height: 471px;
       display: flex;
       justify-content: center;
       align-items: center;
       img{
-        width: 55%;
-        height: 60%;
-        min-width: 360px;
+        width: 100%;
+        height: 100%;
       }
     }
   }
   .style1{
-    background: #331a85;
+    background: #2E147C;
   }
   .style2{
     background: #3e279b;
     .intronduce_img{
       margin-left: -10%;
-      img{
-        height: 60%;
-      }
     }
   }
   .style3{
-    background: #331a85;
+     background: #2E147C;
   }
   .style4{
     background: #3e279b;
     .intronduce_img{
       margin-left: -10%;
     }
+  }
+}
+@media (max-width: 1600px) and (min-width: 1200px) {
+  .app-share .part1 .intronduce_img{
+    width: 42.36%;
+    height: 380px;
   }
 }
 </style>

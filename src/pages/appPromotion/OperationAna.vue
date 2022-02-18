@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="my-app">
+  <div class="my-app common_bg">
     <div class="common_title">
       {{ $t("nav.operAna") }}
     </div>
@@ -105,7 +105,6 @@
             :label="$t('apppromotion.appName')"
             width="200"
             sortable="custom"
-            :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
@@ -141,7 +140,6 @@
             prop="description"
             :label="$t('apppromotion.description')"
             width="320"
-            :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
@@ -254,11 +252,6 @@
         @currentChange="currentChange"
       />
     </div>
-    <img
-      class="common_bg"
-      src="../../assets/images/common_bg.png"
-      alt=""
-    >
   </div>
 </template>
 
@@ -301,11 +294,6 @@ export default {
   computed: {
   },
   methods: {
-    hiddenClass (row) {
-      if (row.columnIndex === 7 || row.columnIndex === 0) {
-        return 'hiddenClass'
-      }
-    },
     showDrawer (row) {
       this.middleData = JSON.parse(JSON.stringify(row))
       this.visible = true
@@ -1171,6 +1159,7 @@ export default {
 <style lang="less" scoped>
 .my-app {
   width: 100%;
+  background-size: 100% 180px !important;
   .title{
     margin: 61px 13.18%;
     .title_line{

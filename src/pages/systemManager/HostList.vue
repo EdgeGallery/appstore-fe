@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="hostManagement">
+  <div class="hostManagement common_bg">
     <div class="sandboxTop">
       <p class="sandebox_title defaultFontBlod">
         {{ $t('nav.systemHost') }}
@@ -420,11 +420,6 @@
         />
       </div>
     </div>
-    <img
-      class="common_bg"
-      src="../../assets/images/common_bg.png"
-      alt=""
-    >
   </div>
 </template>
 
@@ -843,7 +838,9 @@ export default {
 
 }
 .hostManagement {
-  margin: 0 13.18%;
+  width: 100%;
+  padding: 0 13.18%;
+  background-size: 100% 180px !important;
   .el-dialog__body{
     padding: 0 40px 40px 40px !important;
   }

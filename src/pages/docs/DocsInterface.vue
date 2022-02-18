@@ -529,6 +529,15 @@ p{
         Arial,
         Helvetica,
         sans-serif !important;
+      h2{
+        font-weight: lighter;
+      }
+      h3{
+        font-weight: lighter;
+      }
+      h4{
+        font-weight: lighter;
+      }
       pre{
         background-color: #3A218B !important ;
         color: #fff;
@@ -541,6 +550,7 @@ p{
       }
       table th{
         background-color: #3A218B;
+        font-weight: lighter;
       }
       table td{
         background-color: #3A218B;
@@ -587,6 +597,6 @@ div /deep/ .el-menu{
     sans-serif !important;
 }
 .twoTitle.twoSelect{
-  color: #5E40C8;
+  color: #fff;
 }
 </style>

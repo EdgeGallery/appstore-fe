@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="my-app pushApp">
+  <div class="my-app pushApp common_bg">
     <div class="my-app-content">
       <div class="title">
         {{ $t("nav.appPush") }}
@@ -82,7 +82,6 @@
               :label="$t('apppromotion.appName')"
               sortable="custom"
               width="260"
-              :cell-class-name="hiddenClass"
             >
               <template slot-scope="scope">
                 <el-popover
@@ -174,11 +173,6 @@
         />
       </div>
     </div>
-    <img
-      class="common_bg"
-      src="../../assets/images/common_bg.png"
-      alt=""
-    >
   </div>
 </template>
 
@@ -232,11 +226,6 @@ export default {
       this.offsetPage = this.curPageSize * (this.pageNum - 1)
       sessionStorage.setItem('offsetAppPush', this.offsetPage)
       this.getTableData()
-    },
-    hiddenClass (row) {
-      if (row.columnIndex === 0) {
-        return 'hiddenClass'
-      }
     },
     getRowKeys (row) {
       return row.packageId
@@ -441,7 +430,6 @@ export default {
 <style lang="less" scoped>
 .pushApp {
   width: 100%;
-  margin-bottom: -100px;
   display: flex;
   justify-content: center;
   .my-app-content {

@@ -29,7 +29,8 @@
         @mouseout="activeIndex=-1"
       >
         <div
-          :class="[item.experienceAble===false? 'img-box': (language==='cn'?'img-boxcn':'img-boxen')]"
+          class="img-box"
+          :class="[item.experienceAble ? (language==='cn'?'img-boxcn':'img-boxen'): '',(index==0 && offsetPage==1) ? (language==='cn'?'new-boxcn':'new-boxen'): '']"
         >
           <img
             :src="getAppIcon(item)"
@@ -87,15 +88,23 @@ export default {
     dataLoading: {
       type: Boolean,
       default: true
+    },
+    current: {
+      type: Number,
+      required: true
     }
   },
   data () {
     return {
       language: localStorage.getItem('language'),
-      activeIndex: -1
+      activeIndex: -1,
+      offsetPage: this.current
     }
   },
   methods: {
+    aaa () {
+      console.log(this.offsetPage)
+    },
     hoverAppList (index) {
       this.activeIndex = index
     },
@@ -107,6 +116,9 @@ export default {
     getAppIcon (item) {
       return URL_PREFIX + 'apps/' + item.appId + '/packages/' + item.packageId + '/icon'
     }
+  },
+  mounted () {
+    this.aaa()
   },
   watch: {
     '$i18n.locale': function () {
@@ -137,7 +149,7 @@ export default {
       position: relative;
       .img-box {
         position: relative;
-        background-color: rgba(250, 250, 250, 0.2);
+        background: rgba(250, 250, 250, 0.2);
         box-sizing: border-box;
         text-align: center;
         width: 100%;
@@ -146,6 +158,9 @@ export default {
         justify-content: center;
         align-items: center;
         border-radius: 8px 8px 0 0;
+        background-size: 40%;
+        background-repeat: no-repeat;
+        background-position-x: right;
         img {
           overflow: hidden;
           height: 68px;
@@ -154,48 +169,16 @@ export default {
         }
       }
       .img-boxen {
-        background-image: url(../../assets/images/experienceFlagen.png) ;
-        background-size: 100% 100%;
-        position: relative;
-        background-color: rgba(250, 250, 250, 0.2);
-        box-sizing: border-box;
-        text-align: center;
-        width: 100%;
-        height: 156px;
-        display: flex;
-        border-top-left-radius:8px;
-        border-top-right-radius: 8px;
-        justify-content: center;
-        align-items: center;
-        border-radius: 8px 8px 0 0;
-        img {
-          overflow: hidden;
-          height: 68px;
-          width: 68px;
-          border-radius: 10%;
-        }
+        background-image: url(../../assets/images/experienceFlagen.png);
       }
       .img-boxcn {
-        background-image: url(../../assets/images/experienceFlag.png) ;
-        background-size: 100% 100%;
-        position: relative;
-        border-top-left-radius:8px;
-        border-top-right-radius: 8px;
-        background-color: rgba(250, 250, 250, 0.2);
-        box-sizing: border-box;
-        text-align: center;
-        width: 100%;
-        height: 156px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 8px 8px 0 0;
-        img {
-          overflow: hidden;
-          height: 68px;
-          width: 68px;
-          border-radius: 10%;
-        }
+        background-image: url(../../assets/images/experienceFlag.png);
+      }
+      .new-boxcn{
+        background-image:url(../../assets/images/newApp.png);
+      }
+      .new-boxen{
+        background-image: url(../../assets/images/newAppen.png);
       }
       .scoreMode{
         border-radius: 0 0 8px 8px;
@@ -204,15 +187,6 @@ export default {
         position: absolute;
         bottom: 0;
         color: #fff;
-        .appName{
-          font-size: 20px;
-          font-family: HarmonyOS Sans SC, sans-serif;
-          font-weight: 400;
-          padding-top: 4px;
-          padding-left: 10px;
-          line-height: 36px;
-          position: relative;
-        }
         .appNameStyle {
           overflow: hidden;
           width: 100%;
@@ -235,19 +209,16 @@ export default {
             img{
               width: 14px;
               height: 14px;
-              margin:2px 6px 0 0 ;
+              margin:3px 6px 0 0 ;
             }
             .core{
               display: block;
               font-size: 14px;
-              font-family: HarmonyOS Sans SC, sans-serif;
-              font-weight: 300;
             }
           }
           .deployMode{
             margin-right: 15px;
             font-size: 14px;
-            font-family: HarmonyOS Sans SC, sans-serif;
             font-weight: 300;
           }
         }

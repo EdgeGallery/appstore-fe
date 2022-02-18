@@ -15,7 +15,7 @@
   -->
 <template>
   <div
-    class="box"
+    class="box common_bg"
     ref="box"
   >
     <div>
@@ -75,11 +75,6 @@
         />
       </div>
     </div>
-    <img
-      class="common_bg"
-      src="../../assets/images/common_bg.png"
-      alt=""
-    >
   </div>
 </template>
 
@@ -296,6 +291,7 @@ export default {
   width: 100%;
   min-width: 1200px;
   min-height:660px;
+  background-size: 100% 180px !important;
   .title{
     min-width: 1200px;
     margin: 51px auto;

@@ -33,7 +33,6 @@
           class="common_table"
           :default-sort="{ prop: 'createTime', order: 'descending' }"
           @sort-change="sortChange"
-          @filter-change="filterChange"
           ref="multipleTable"
         >
           <el-table-column
@@ -41,7 +40,6 @@
             :label="$t('common.appName')"
             sortable="custom"
             width="210"
-            :cell-class-name="hiddenClass"
           >
             <template slot-scope="scope">
               <el-popover
@@ -126,12 +124,6 @@ import { myApp } from '../../tools/api.js'
 import timeFormatTools from '../../tools/timeFormatTools.js'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
-  props: {
-    storeAppListInfo: {
-      required: true,
-      type: Object
-    }
-  },
   components: {
     EgPagination
   },

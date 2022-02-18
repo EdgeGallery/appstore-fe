@@ -188,8 +188,12 @@ export default {
     border-radius: 5px !important;
   }
 }
-
- @media (max-width: 1688px) and (min-width: 1200px){
+ @media (max-width: 1688px) and (min-width: 1100px){
+  .wrapper .el-carousel__indicators--outside {
+    position: relative;
+    top: -114px;
+    left: -428px;
+  }
   .wrapper {
     .img_words{
         width:80%;

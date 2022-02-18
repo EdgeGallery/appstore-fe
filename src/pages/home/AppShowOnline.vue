@@ -262,8 +262,8 @@ export default {
       var chr = text.split('')
       var temp = ''
       var rows = []
-      ctx.font = '20px Arial'
-      ctx.fillStyle = 'black'
+      ctx.font = '14px Arial'
+      ctx.fillStyle = '#fff'
       ctx.textBaseline = 'middle'
       for (let a of chr) {
         if (ctx.measureText(temp).width < width) {
