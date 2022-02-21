@@ -234,7 +234,7 @@ export default {
                 if (data.industry === this.$route.query.type) {
                   this.relevantAppDataBe.push(data)
                   console.log(this.relevantAppDataBe)
-                  this.noData = !(this.relevantAppDataBe.length > 0)
+                  this.noData = (this.relevantAppDataBe.length <= 0)
                 }
               })
             }

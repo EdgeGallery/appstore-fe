@@ -459,7 +459,7 @@ export default {
             }
           })
           this.hotAppDataBe = hotApps.splice(0, 25)
-          this.showDefaultHotData = !(this.hotAppDataBe.length > 0)
+          this.showDefaultHotData = (this.hotAppDataBe.length <= 0)
         }).catch((error) => {
           let defaultMsg = this.$t('appManager.queryHotAppFailed')
           commonUtil.showTipMsg(this.language, error, defaultMsg)
@@ -580,12 +580,6 @@ export default {
   }
   .hotApp_title_en{
     width: 58px;
-  }
-  .scoreApp_title_en{
-    width: 110px;
-  }
-  .scoreApp_title_en{
-    width: 130px;
   }
   .sence_line{
     width: 80px;
@@ -774,9 +768,6 @@ export default {
     }
     .hotApp_title_en{
       width: 58px;
-    }
-    .scoreApp_title_en{
-      width: 91px;
     }
     .sence_line{
       width: 40px;

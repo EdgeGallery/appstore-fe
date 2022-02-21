@@ -139,6 +139,9 @@ export default {
   .el-select .el-input--suffix .el-input__inner{
     background: rgba(46, 20, 124, 0.7);
     border: 1px solid #4D2DA8;
+    height: 24px;
+    line-height: 24px;
+    color: #fff !important;
   }
   .el-pagination__editor.el-input .el-input__inner {
     height: 24px;
@@ -146,7 +149,7 @@ export default {
     color: #fff;
     border: 1px solid #4D2DA8;
   }
-   .btn-prev .el-icon, .el-pagination .btn-next .el-icon {
+  .btn-prev .el-icon, .el-pagination .btn-next .el-icon {
     color: #fff !important;
     font-weight: lighter;
   }
@@ -162,11 +165,6 @@ export default {
   .el-pagination.is-background .el-pager .number:not(.disabled).active{
     background-color: #fff ;
     color: #4D2DA8;
-  }
-  .el-select .el-input--suffix .el-input__inner{
-    height: 24px;
-    line-height: 24px;
-    color: #fff !important;
   }
   .el-select .el-icon-arrow-up:before {
     position: relative;
