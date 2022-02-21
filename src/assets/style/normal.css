@@ -47,7 +47,7 @@ ul{
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,acronym,
 address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,b,
 sup,tt,var,u,i,center,dl,dt,dd,ol,ul,li,form,label,legend,table,caption,
-tbody,tfoot,thead,tr,th,td,article,asideHarmonyHeiTi,canvas,details,embed,figure,figcaption,footer,header,hgroup,
+tbody,tfoot,thead,tr,th,td,article,canvas,details,embed,figure,figcaption,footer,header,hgroup,
 menu,nav,output,ruby,section,summary,time,mark,audio,video {
     border: 0;
     vertical-align: baseline;
@@ -181,7 +181,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 }
 .el-message-box{
   background: rgba(76, 49, 161, 0.7) !important;
-  border: none;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
@@ -422,7 +421,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 }
 .el-select .el-input--suffix .el-input__inner {
   height: 30px;
-  border: none;
   background: rgba(46, 20, 124, 0.7) ;
   color: rgba(250, 250, 250, 0.6) ;
   border: 1px solid rgba(250, 250, 250, 0.6) !important;

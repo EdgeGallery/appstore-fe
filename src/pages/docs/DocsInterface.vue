@@ -419,12 +419,6 @@ p{
         height: 44px;
         background-color: #351B89 !important;
       }
-      // .el-submenu.is-opened .el-submenu__title{
-      //   background-color: #FBFBFB !important;
-      // }
-      //  .el-submenu.is-opened .el-menu-item{
-      //   background-color: #FBFBFB !important;
-      // }
       .el-submenu.is-opened{
         box-shadow: 0px 0px 13px 0px rgba(40, 12, 128, 0.1);
         border-radius: 20px;
@@ -437,7 +431,6 @@ p{
       }
       .el-menu-item:hover, .el-menu-item.is-active{
         background: #4e3494 !important;
-        background: #4e3494!important;
         border-radius: 0px 8px 8px 0px;
         color: #fff;
       }
