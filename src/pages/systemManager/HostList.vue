@@ -936,9 +936,6 @@ export default {
   .port_input{
     width: calc(50% - 15px);
   }
-  .el-form-item__label {
-    padding: 0 20px 0 0
-  }
   .list {
     border-radius: 16px;
     background: rgba(46, 20, 124, 0.7);

@@ -555,9 +555,6 @@ p{
     }
   }
 }
-div /deep/ .el-menu{
-  background-color: none !important;
-}
 .title1{
   font-size: 20px !important;
 }

@@ -416,9 +416,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   background: #fff;
   color: #0F0D87;
 }
-.el-dialog__title {
-  color: #fff;
-}
 .el-select .el-input--suffix .el-input__inner {
   height: 30px;
   background: rgba(46, 20, 124, 0.7) ;

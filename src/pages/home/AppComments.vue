@@ -272,9 +272,6 @@ export default {
   .show_comment{
     padding: 0 0 50px 20px;
     margin-top: -40px;
-    li{
-      border-bottom:1px solid #fff ;
-    }
     .div_comment_total{
       position: relative;
       top: -11px;
@@ -329,6 +326,7 @@ export default {
     li{
       margin-left: 80px;
       padding: 34px 0;
+      border-bottom:1px solid #fff ;
     }
   }
   .no_comment{
