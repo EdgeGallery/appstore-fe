@@ -646,7 +646,6 @@ export default {
                 color:#fff;
                 text-indent: 2em;
                 line-height: 20px;
-                text-overflow: -o-ellipsis-lastline;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
