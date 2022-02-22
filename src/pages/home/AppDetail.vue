@@ -1166,9 +1166,8 @@ export default {
         }
       }
       .comment_default_no_appShow_meao{
-        background: #fff;
+        background: rgba(46,20,124,0.8);
         span{
-          background: #d4d1ec;
           border-radius: 0 0 16px 0;
         }
       }
@@ -1217,17 +1216,17 @@ export default {
         }
       }
       .last_li.last_default_vedio{
-        background: #d4d1ec;
+        background: transparent;
         span{
-          background: linear-gradient(to bottom, #f5f4f8, #f1edf6);
+          background: transparent;
           border-radius: 0 0 0 16px;
           transition: all 0.1s;
         }
       }
       .last_li.last_default2_vedio{
-        background: #fff;
+        background: transparent;
         span{
-          background: linear-gradient(to bottom, #f5f4f8, #f1edf6);
+          background: transparent;
           border-radius: 0 0 0 16px;
           transition: all 0.1s;
         }
@@ -1379,13 +1378,13 @@ export default {
         }
       }
       .vedio_active_no_Meao{
-        background: #d4d1ec;
+        background: #4E3494;
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: #fff;
+          background: rgba(46,20,124,0.8);
           border-radius: 16px 16px 0 0;
-          color: #5e40c8;
+          color: #fff;
           transition: all 0.1s;
         }
       }
@@ -1408,10 +1407,10 @@ export default {
         }
       }
       .vedio_default_no_AppshowMeao{
-        background: #f4f3f7;
+        background: transparent;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
@@ -1437,11 +1436,11 @@ export default {
         }
       }
       .vedio_default2_no_AppshowMeao{
-        background: #fff;
+        background: rgba(46,20,124,0.8);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 16px 0 16px;
           transition: all 0.1s;
         }
