@@ -953,7 +953,7 @@ export default {
     font-size: 12px;
 }
   .el-icon-warning{
-    color: #5844BE;
+    color: #fff;
     margin-right: 5px;
     font-size: 12px;
   }

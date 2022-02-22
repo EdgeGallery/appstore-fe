@@ -236,7 +236,7 @@ export default {
 .el-icon-warning {
   position: relative;
   left: -2px;
-  color: #ff9700;
+  color: #fff;
 }
 
 .icon-wrapper-warning {

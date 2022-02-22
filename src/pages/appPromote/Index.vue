@@ -148,8 +148,6 @@
           @deleteApp="getDelete"
         />
         <div class="clearfix" />
-      </div>
-      <div>
         <eg-pagination
           :page-num="pageNumCache"
           :page-size="curPageSize"
@@ -627,14 +625,13 @@ export default {
   }
   .contents {
     width: 73.64%;
-    margin: 23px  auto;
+    margin: 23px auto 0px;
     min-width: 1200px;
     .formLeft{
       margin-left: 20px;
     }
     .my-app-content {
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
+      border-radius: 16px;
       position: relative;
       min-height: 568px;
       background:rgba(46,20,124,0.7);
@@ -656,15 +653,13 @@ export default {
       }
     }
     .pagination {
-      border-bottom-left-radius: 16px;
-      border-bottom-right-radius: 16px;
-      background-color: rgba(46,20,124,0.7);
       float: right;
       justify-content: flex-end;
       display: flex;
       width: 100%;
       padding-right: 64px;
-      padding-bottom: 48px;
+      position:absolute;
+      bottom: 30px;
     }
   }
   .space>div{

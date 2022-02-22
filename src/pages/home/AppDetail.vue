@@ -860,7 +860,7 @@ export default {
     }
     .p_bot{
       width: 360px;
-      margin:0 0 20px 0px;
+      margin:0 0 20px 28px;
       color: #fff;
       line-height: 20px;
       font-size: 12px;
