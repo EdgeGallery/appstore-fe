@@ -25,7 +25,7 @@
         :specific-bg="specificBg"
         :specific-bg-color="bgColor"
         :footer-bgcolor-prop="footerBgColor"
-        :footer-paddingtop-prop="100"
+        :footer-paddingtop-prop="foterPadding"
       />
     </el-main>
   </div>
@@ -63,6 +63,7 @@ export default {
       showFullFooterPage: true,
       specificBg: true,
       bgColor: '#3e279b',
+      foterPadding: 0,
       footerBgColor: 'rgba(46,20,124,0.7)'
     }
   },

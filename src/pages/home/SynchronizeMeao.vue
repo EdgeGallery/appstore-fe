@@ -359,7 +359,7 @@ export default {
     width:100%;
   }
   .el-icon-warning{
-    color: #b6a9f7;
+    color: #fff;
     margin-right: 5px;
     font-size: 16px;
   }

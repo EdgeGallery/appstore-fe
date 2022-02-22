@@ -896,7 +896,7 @@ export default {
     }
     .el-input__inner {
       border-radius: 10px;
-      width: 95%;
+      width: 90%;
       color: #C9BDF3;
       border: none;
       background: #4E3494;
@@ -953,7 +953,7 @@ export default {
     font-size: 12px;
 }
   .el-icon-warning{
-    color: #5844BE;
+    color: #fff;
     margin-right: 5px;
     font-size: 12px;
   }

@@ -183,6 +183,7 @@ p{
   flex-wrap: wrap;
   width: 100%;
   padding-left: 3.04%;
+  padding-bottom: 100px;
   .application:hover .intr{
     display: flex;
     flex-direction: column;
@@ -256,12 +257,6 @@ p{
           sans-serif !important;
         }
       }
-      // .typeCn{
-      //   width: 80px !important;
-      // }
-      // .typeEn{
-      //   width: 118px !important;
-      // }
     }
     .img-box-btn {
       width: 100%;

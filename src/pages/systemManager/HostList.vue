@@ -342,6 +342,7 @@
         row-key="hostId"
         :data="allListData"
         class="common_table"
+        style="min-height:340px;"
       >
         <el-table-column
           prop="name"
@@ -848,7 +849,7 @@ export default {
     padding: 40px 40px 20px 40px;
   }
   .el-form-item .el-form-item__content{
-    padding: 0 !important;
+    padding: 0px 20px 0 !important;
   }
   .el-form-item__label{
     padding: 0;

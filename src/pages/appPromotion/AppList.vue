@@ -435,7 +435,7 @@ export default {
   .my-app-content {
     min-height: 500px;
     width: 73.64%;
-    margin: 51px 13.18%;
+    margin: 51px 13.18% 0px;
     min-width: 1200px;
     .title{
       font-size: 30px;

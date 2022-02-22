@@ -727,9 +727,9 @@ a{
   height: 16px;
   line-height: 14px;
   text-align: center;
-  color: #ffffff;
+  color: rgb(82, 78, 78);
   font-size: 12px;
-  background: #5844be;
+  background: #fff;
   border-radius: 50%;
   margin-left: 10px;
 }

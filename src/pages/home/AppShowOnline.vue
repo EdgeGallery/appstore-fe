@@ -240,7 +240,6 @@ export default {
       nodePort: '',
       progress: 0,
       cradius: 185
-
     }
   },
   methods: {
