@@ -97,7 +97,6 @@ export default {
   },
   data () {
     return {
-      getUserInfo: getUserInfo,
       jsonData: [],
       loginPage: '',
       userCenterPage: '',
