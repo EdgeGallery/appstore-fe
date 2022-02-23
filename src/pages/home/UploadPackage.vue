@@ -303,7 +303,7 @@
       </el-form>
       <span
         slot="footer"
-        class="dialog-footer btns"
+        class="btns"
       >
         <el-button
           @click="handleClose"
@@ -896,7 +896,7 @@ export default {
     }
     .el-input__inner {
       border-radius: 10px;
-      width: 90%;
+      width: 92%;
       color: #C9BDF3;
       border: none;
       background: #4E3494;

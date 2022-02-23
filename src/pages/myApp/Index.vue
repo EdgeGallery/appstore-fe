@@ -283,17 +283,17 @@
       :close-on-click-modal="false"
       width="30%"
       :show-close="false"
-      class="dialog_host default_dialog"
     >
       <div
-        slot="title"
-        class="el-dialog__title"
+        class="buyTitle"
       >
-        <em class="title_icon" />
-        {{ $t('myApp.priceTitle') }}
+        <p class="title_icon" />
+        <p class="title defaultFontLight">
+          {{ $t('myApp.priceTitle') }}
+        </p>
       </div>
-      <div style="margin-top:25px;">
-        <el-form>
+      <div>
+        <el-form class="priceForm">
           <el-form-item>
             <div>
               <el-radio
@@ -320,16 +320,16 @@
       </div>
       <span
         slot="footer"
-        class="dialog-footer dialogPadding"
+        class="btnRightPadding"
       >
         <el-button
           @click="setPriceDialog = false"
-          class="bgBtn"
+          class="footer-button"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
           type="primary"
           @click="publishPackage()"
-          class="bgBtn"
+          class="footer-button"
         >{{ $t('common.confirm') }}</el-button>
       </span>
     </el-dialog>
@@ -889,6 +889,45 @@ cursor:pointer
   position: absolute;
   bottom: 40px;
   right: 50px;
+}
+.buyTitle{
+  display: flex;
+  padding: 0px 0 0 40px;
+  .title_icon{
+    position: relative;
+    top: 8px;
+    height: 9px;
+    width: 9px;
+    background: #43F6AD;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .title{
+    color: #fff;
+    font-size: 16px;
+  }
+}
+.priceForm{
+  padding-left: 100px;
+  .el-radio__input.is-checked + .el-radio__label{
+    color: #fff;
+  }
+  .el-radio__label{
+    color: #fff;
+    font-family: defaultFontLight,
+    Arial,
+    Helvetica,
+    sans-serif !important;
+  }
+  .el-input__inner{
+    height: 25px;
+    background:#4E3494;
+    border: none;
+    color: #fff;
+  }
+}
+.btnRightPadding{
+  padding-right: 20px;
 }
 .el-select-dropdown__item.selected {
   color: #fff !important;

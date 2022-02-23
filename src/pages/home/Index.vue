@@ -288,10 +288,6 @@ export default {
     .el-dialog__body{
       font-size: 20px;
     }
-    .dialog-footer{
-      text-align: center;
-      margin-top: 2%;
-    }
   }
   .appMainContent {
     box-sizing: border-box;

@@ -43,24 +43,21 @@ html,body,p,h1,h2,h3,h4,h5,h6{
 ul{
   margin-bottom: 0 !important;
 }
-
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,acronym,
 address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,b,
 sup,tt,var,u,i,center,dl,dt,dd,ol,ul,li,form,label,legend,table,caption,
 tbody,tfoot,thead,tr,th,td,article,canvas,details,embed,figure,figcaption,footer,header,hgroup,
 menu,nav,output,ruby,section,summary,time,mark,audio,video {
-    border: 0;
-    vertical-align: baseline;
+  border: 0;
+  vertical-align: baseline;
 }
-
 body,div,p,a,h1,h2,h3,h4,h5,ul,li,span {
-    padding: 0;
-    margin: 0;
-    outline: 0 none;
+  padding: 0;
+  margin: 0;
+  outline: 0 none;
 }
-
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
-    display: block;
+  display: block;
 }
 .defaultFont button{
   font-family:defaultFont, Arial, Helvetica, sans-serif;
@@ -107,7 +104,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   letter-spacing: 4px;
   width: 73.64%;
   min-width: 1200px;
-  margin:0 auto ;
+  margin:0 auto;
   font-size: 30px;
 }
 .common_button.el-button{
@@ -684,21 +681,6 @@ a{
   background-image: linear-gradient(127deg, #4444d0, #6724cb);
   border: none;
 }
-.default_dialog .el-dialog .el-dialog__title{
-  color: #380879 !important;
-  font-size: 20px;
-}
-
-.default_dialog .title_icon{
-  display: inline-block;
-  width: 17px;
-  height: 17px;
-  border-radius: 3px;
-  background-image: linear-gradient(45deg, #72dcc8, #c0e8e0);
-  margin-right: 20px;
-  position: relative;
-  top: 2px;
-}
 .el-button.bgBtn{
   background-color: #5844be;
   border: none;
@@ -733,31 +715,12 @@ a{
   border-radius: 50%;
   margin-left: 10px;
 }
-.default_dialog .el-dialog .el-form-item__label{
-  height: 32px !important;
-  line-height: 32px !important;
-  color: #380879;
-  font-size: 16px;
-}
-.default_dialog .el-dialog__header{
-  background: #2E147C 70%;
-  border-radius: 12px 12px 0 0;
-  padding: 40px 40px 20px 40px;
-}
-.default_dialog .el-dialog__body{
-  padding: 0 80px 0 !important;
-}
-.default_dialog .el-dialog{
-  background: #2E147C 70%;
-  border-radius: 12px;
-}
 .top .el-input__inner{
   border: none !important;
   border-bottom: 1px solid #dddddd !important;
   border-radius: 0!important;
   background: #2E147C 70%;
 }
-
 .el-progress-bar__inner{
   border-radius: 6px!important;
 }
@@ -770,7 +733,6 @@ a{
 .el-progress{
   width:100%;
 }
-
 .bills .el-progress__text{
   color: #78335f;
   font-size: 14px!important;
@@ -785,7 +747,6 @@ a{
   background-color:transparent;
   border-radius: 6px!important;
 }
-
 /* 渐变进度条 */
 .el-bg-inner-count .el-progress-bar__inner{
   background-color: unset;
@@ -794,7 +755,6 @@ a{
 .el-bg-inner-amount .el-progress-bar__inner{
   background-image: linear-gradient(to right, #fd8241 , #fde166);
 }
-
 .el-switch__label{
   color: #FFFFFF!important;
 }
