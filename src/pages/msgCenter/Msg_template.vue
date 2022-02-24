@@ -342,7 +342,7 @@ export default {
   }
 }
 .messagePage{
-  height: 120px;
+  height: 85px;
   width: 100%;
   background-color: rgba(46, 20, 124, 0.7);
   border-bottom-left-radius: 16px;

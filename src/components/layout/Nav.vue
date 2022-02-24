@@ -798,6 +798,7 @@ export default {
     .el-icon-bell{
       font-size: 22px;
       margin-top: 22px;
+      height: 51px;
       right: 15px;
       position: relative;
     }
@@ -824,7 +825,8 @@ export default {
     width: 350px;
     height: 300px;
     z-index: 998;
-    right: 10px;
+    top:75px;
+    right: 214px;
     float: right;
     position:absolute;
   }

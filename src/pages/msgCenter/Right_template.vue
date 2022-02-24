@@ -522,7 +522,7 @@ div /deep/ .el-table tr{
   }
 }
 .allContent{
-  min-height: 420px;
+  min-height: 460px;
   background: transparent;
 }
 </style>
