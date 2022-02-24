@@ -112,7 +112,7 @@ export default {
       wsSocketConn: null,
       wsMsgSendInterval: null,
       manualLoggout: false,
-      navMenuFontsize: 16,
+      navMenuFontsize: 18,
       seen: false,
       unReadMsgCount: 0,
       isCheckAllMsg: false,
@@ -153,7 +153,7 @@ export default {
       localStorage.setItem('language', language)
     },
     enterLoginPage () {
-      let _lang = this.language === 'En' ? 'cn' : 'en'
+      let _lang = localStorage.getItem('language')
       window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER + '&lang=' + _lang
     },
     loginFun () {
@@ -390,12 +390,14 @@ export default {
     z-index: 998;
     right: 10px;
     float: right;
+    top:75px;
+    right: 214px;
     position:absolute;
 
 }
 .el-icon-bell{
       font-size: 22px;
-      // margin-top: 5px;
+      height: 51px;
       right: 15px;
       position: relative;
 

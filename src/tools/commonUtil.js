@@ -56,6 +56,7 @@ function getTipMsg (resMap, retCode, params) {
       if (msg.indexOf('%s') !== -1 && params !== null) {
         for (let param of params) {
           msgTip = msg.replace('%s', param)
+          msg = msgTip
         }
       } else {
         msgTip = msg
