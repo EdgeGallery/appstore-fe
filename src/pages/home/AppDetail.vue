@@ -1126,9 +1126,9 @@ export default {
         }
       }
       .comment_default_appShow_nomeao{
-        background: #fff;
+        background: rgba(46,20,124,0.8);;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 16px 0;
           transition: all 0.1s;
         }
@@ -1254,11 +1254,11 @@ export default {
         }
       }
       .appShow_default3{
-        background: #fff;
+        background: rgba(46,20,124,0.8);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 16px 0;
           transition: all 0.1s;
         }
@@ -1286,7 +1286,7 @@ export default {
         }
       }
       .vedio_default_appshow{
-        background: #fff;
+        background: rgba(46,20,124,0.8);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1374,10 +1374,10 @@ export default {
         }
       }
       .vedio_default_noMeao{
-        background: #f4f3f7;
+        background: transparent;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
@@ -1422,11 +1422,11 @@ export default {
         }
       }
       .vedio_default2_comment_no_Meao{
-        background: #fff;
+        background: rgba(46,20,124,0.8);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
