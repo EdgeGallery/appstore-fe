@@ -342,7 +342,7 @@
         row-key="hostId"
         :data="allListData"
         class="common_table"
-        style="min-height:340px;"
+        style="min-height:410px;"
       >
         <el-table-column
           prop="name"

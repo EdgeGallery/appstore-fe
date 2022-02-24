@@ -360,17 +360,16 @@
       </el-radio-group>
       <span
         slot="footer"
-        class="dialog-footer"
+        class="downloadAppBtn"
       >
         <el-button
-          class="cancle_btn"
+          @click="cancelImage(currentData)"
+          class="footer-button"
+        >{{ $t('atp.cancel') }}</el-button>
+        <el-button
+          class="footer-button"
           @click="confirmImage(currentData)"
         >{{ $t('atp.confirm') }}</el-button>
-        <el-button
-          @click="cancelImage(currentData)"
-          class="cancle_btn cancleRight"
-        >{{ $t('atp.cancel') }}</el-button>
-
       </span>
     </el-dialog>
     <!-- 订购弹框 -->
@@ -378,28 +377,28 @@
       width="30%"
       :visible.sync="showSubDialog"
       :show-close="false"
-      class="dialog_host default_dialog"
     >
       <div
-        slot="title"
-        class="el-dialog__title"
+        class="buyTitle"
       >
-        <em class="title_icon defaultFontLight" />
-        {{ $t('myApp.subscribe') }}
+        <p class="title_icon" />
+        <p class="title defaultFontLight">
+          {{ $t('myApp.subscribe') }}
+        </p>
       </div>
       <div class="buy_content">
         <el-form>
           <el-form-item
             :label="$t('order.appNameLabel')"
           >
-            <p class="val_span">
+            <p class="val_span defaultFontLight">
               {{ currentData.name }}
             </p>
           </el-form-item>
           <el-form-item
             :label="$t('order.subPrice')"
           >
-            <p class="val_span">
+            <p class="val_span defaultFontLight">
               {{ price }}{{ $t('myApp.price') }}
             </p>
           </el-form-item>
@@ -423,15 +422,15 @@
       </div>
       <span
         slot="footer"
-        class="dialog-footer dialogPadding"
+        class="btnRigthPadding"
       >
         <el-button
           @click="showSubDialog = false,btnLoading = false"
-          class="bgBtn"
+          class="footer-button"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
           @click="confirmToBuy"
-          class="bgBtn"
+          class="footer-button"
           :loading="btnLoading"
         >{{ $t('common.confirm') }}</el-button>
       </span>
@@ -829,7 +828,7 @@ export default {
   }
   .appDownload_top{
     display: flex;
-    margin: 20px 20px 10px;
+    margin: 20px 40px 10px;
     .appDownload_top_circle{
       width: 9px;
       height: 9px;
@@ -866,30 +865,6 @@ export default {
       font-size: 12px;
     }
   }
-  .dialog-footer {
-    text-align: right;
-    background:rgba(46,20,124,0.7);
-    height: 60px;
-    padding: 20px 20px 0 0 !important;
-    .cancle_btn{
-      padding: 4px 20px !important;
-      margin-bottom: 25px;
-      background: #fff;
-      color: #5944C0;
-      border-radius: 10px;
-      border: none;
-      float: right;
-      font-size: 14px;
-      text-align: center;
-    }
-    .cancleRight{
-      margin-right: 20px !important;
-    }
-    .cancle_btn:hover{
-      background: #5944C0;
-      color: #fff;
-    }
-  }
   .app_info_div{
     border-radius: 16px;
     background: rgba(46,20,124,0.7);
@@ -900,6 +875,7 @@ export default {
       width: 130px;
       img{
         width: 100%;
+        border-radius: 10px;
       }
     }
     .app_info{
@@ -1150,9 +1126,9 @@ export default {
         }
       }
       .comment_default_appShow_nomeao{
-        background: #fff;
+        background: rgba(46,20,124,0.8);;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 16px 0;
           transition: all 0.1s;
         }
@@ -1278,11 +1254,11 @@ export default {
         }
       }
       .appShow_default3{
-        background: #fff;
+        background: rgba(46,20,124,0.8);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 0 16px 0;
           transition: all 0.1s;
         }
@@ -1310,7 +1286,7 @@ export default {
         }
       }
       .vedio_default_appshow{
-        background: #fff;
+        background: rgba(46,20,124,0.8);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
@@ -1398,10 +1374,10 @@ export default {
         }
       }
       .vedio_default_noMeao{
-        background: #f4f3f7;
+        background: transparent;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
@@ -1446,11 +1422,11 @@ export default {
         }
       }
       .vedio_default2_comment_no_Meao{
-        background: #fff;
+        background: rgba(46,20,124,0.8);
         border-radius: 0 16px 0 0;
         transition: all 0.1s;
         span{
-          background: #d4d1ec;
+          background: #4E3494;
           border-radius: 0 16px 0 0;
           transition: all 0.1s;
         }
@@ -1482,9 +1458,41 @@ export default {
       border-right: solid #331A85 2px;
     }
   }
+  .buyTitle{
+    display: flex;
+    padding: 30px 0 0 40px;
+    .title_icon{
+      position: relative;
+      top: 8px;
+      height: 9px;
+      width: 9px;
+      background: #43F6AD;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .title{
+      color: #fff;
+      font-size: 16px;
+    }
+  }
+  .buy_content{
+    .el-form{
+      background: rgba(46,20,124,0.7);
+      padding-left: 100px;
+    }
+  }
+  .downloadAppBtn{
+    display: flex;
+    justify-content: flex-end;
+    padding:20px 20px 0 0;
+  }
+  .btnRigthPadding{
+    padding-right: 20px;
+  }
   .val_span {
-    line-height: 32px;
+    line-height: 24px;
     padding-left: 71px;
+    color: #fff;
   }
   .container_div{
     background: rgba(46,20,124,0.7);

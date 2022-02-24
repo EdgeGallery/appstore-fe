@@ -76,7 +76,6 @@
       </div>
       <span
         slot="footer"
-        class="dialog-footer"
       >
         <el-button
           class="footer-button"
