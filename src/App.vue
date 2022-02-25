@@ -388,7 +388,6 @@ export default {
     width: 350px;
     height: 300px;
     z-index: 998;
-    right: 10px;
     float: right;
     top:75px;
     right: 214px;
