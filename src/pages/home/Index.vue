@@ -187,7 +187,6 @@ export default {
       }
       return this.searchCondition
     },
-
     getCurrentPageData (data, pageSize, start) {
       this.limitSize = pageSize
       this.offsetPage = start

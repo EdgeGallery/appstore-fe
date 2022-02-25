@@ -30,7 +30,7 @@
       >
         <div
           class="img-box"
-          :class="[item.experienceAble ? (language==='cn'?'img-boxcn':'img-boxen'): '',(index==0 && offsetPage==1) ? (language==='cn'?'new-boxcn':'new-boxen'): '']"
+          :class="[item.experienceAble ? (language==='cn'?'img-boxcn':'img-boxen'): '',(item.appId === newAppId) ? (language==='cn'?'new-boxcn':'new-boxen'): '']"
         >
           <img
             :src="getAppIcon(item)"
@@ -68,7 +68,8 @@
 </template>
 
 <script>
-import { URL_PREFIX } from '../../tools/api.js'
+import { URL_PREFIX, queryApp } from '../../tools/api.js'
+import commonUtil from '../../tools/commonUtil.js'
 export default {
   props: {
     appData: {
@@ -98,12 +99,35 @@ export default {
     return {
       language: localStorage.getItem('language'),
       activeIndex: -1,
-      offsetPage: this.current
+      offsetPage: this.current,
+      newAppId: '',
+      searchCondition: {
+        types: [],
+        affinity: [],
+        industry: [],
+        showType: ['public', 'inner-public'],
+        workloadType: [],
+        userId: '',
+        experienceAble: false,
+        queryCtrl: {
+          status: ['Published'],
+          appName: '',
+          offset: 0,
+          limit: 1,
+          sortItem: 'createTime',
+          sortType: 'desc'
+        }
+      }
     }
   },
   methods: {
-    aaa () {
-      console.log(this.offsetPage)
+    getNewAppId () {
+      queryApp(this.searchCondition).then((res) => {
+        this.newAppId = res.data.results[0].appId
+      }).catch(error => {
+        let defaultMsg = this.$t('promptMessage.getAppFail')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
+      })
     },
     hoverAppList (index) {
       this.activeIndex = index
@@ -118,7 +142,7 @@ export default {
     }
   },
   mounted () {
-    this.aaa()
+    this.getNewAppId()
   },
   watch: {
     '$i18n.locale': function () {
