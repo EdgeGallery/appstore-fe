@@ -87,10 +87,10 @@
                       class="appIcon"
                     >
                     <div>
-                      <div class="appName defaultFontLight">
+                      <div class="appName">
                         <span :class="!scope.row.readed?'fontStyle':''"> {{ scope.row.basicInfo.name }} </span>
                       </div>
-                      <div class="appDesc defaultFontLight">
+                      <div class="appDesc">
                         <span :class="!scope.row.readed?'fontStyle':''"> {{ scope.row.description }} </span>
                       </div>
                     </div>
@@ -104,19 +104,19 @@
                     class="timeContent"
                   >
                     <div>
-                      <div class="timeLine defaultFontLight">
+                      <div class="timeLine">
                         <span> {{ scope.row.time }} </span>
                       </div>
                       <div class="opeLine">
                         <p
                           @click.stop="handleAccept(scope.row.messageId)"
-                          class="acceptMsg defaultFontLight"
+                          class="acceptMsg"
                         >
                           {{ $t('messageCenter.acceptMsg') }}
                         </p>
                         <p
                           @click.stop="handleDelete(scope.$index, scope.row.messageId)"
-                          class="deleteMsg defaultFontLight"
+                          class="deleteMsg"
                         >
                           {{ $t('messageCenter.deleteMsg') }}
                         </p>
@@ -262,10 +262,6 @@ export default {
         padding: 0 50px;
         color: #fff;
         transition: all 0.5s;
-        font-family: defaultFontLight,
-        Arial,
-        Helvetica,
-        sans-serif !important;
       }
     }
     .last_li{

@@ -21,7 +21,7 @@
         {{ $t('nav.myApp') }}
       </p>
       <el-button
-        class="common_button defaultFontLight"
+        class="common_button"
         id="myapp_checktest"
         @click="jumpTo"
       >
@@ -288,14 +288,14 @@
         class="buyTitle"
       >
         <p class="title_icon" />
-        <p class="title defaultFontLight">
+        <p class="title">
           {{ $t('myApp.priceTitle') }}
         </p>
       </div>
       <div>
         <el-form class="priceForm">
           <el-form-item>
-            <div>
+            <div class="priceRadio">
               <el-radio
                 v-model="price"
                 label="1"
@@ -304,7 +304,7 @@
                 {{ $t('myApp.free') }}
               </el-radio>
             </div>
-            <div>
+            <div class="priceRadio">
               <el-radio
                 v-model="price"
                 label="2"
@@ -892,7 +892,7 @@ cursor:pointer
 }
 .buyTitle{
   display: flex;
-  padding: 0px 0 0 40px;
+  padding: 24px 0 0 40px;
   .title_icon{
     position: relative;
     top: 8px;
@@ -904,20 +904,22 @@ cursor:pointer
   }
   .title{
     color: #fff;
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 .priceForm{
-  padding-left: 100px;
+  padding-left: 70px;
+  .priceRadio{
+    margin-bottom:16px;
+    .el-radio__label{
+      font-size: 16px;
+    }
+  }
   .el-radio__input.is-checked + .el-radio__label{
     color: #fff;
   }
   .el-radio__label{
     color: #fff;
-    font-family: defaultFontLight,
-    Arial,
-    Helvetica,
-    sans-serif !important;
   }
   .el-input__inner{
     height: 25px;
@@ -928,6 +930,7 @@ cursor:pointer
 }
 .btnRightPadding{
   padding-right: 20px;
+  margin-right: 14px;
 }
 .el-select-dropdown__item.selected {
   color: #fff !important;

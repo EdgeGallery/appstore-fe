@@ -21,7 +21,7 @@
         {{ $t('nav.systemHost') }}
       </p>
       <p
-        class="addSandbox_btn hover_pointer defaultFontLight"
+        class="addSandbox_btn hover_pointer"
         @click="handleShowForm(defaultForm)"
       >
         {{ $t('system.addHost') }}
@@ -38,7 +38,7 @@
         class="title_content"
       >
         <p class="title_line" />
-        <p class="defaultFontLight title_name">
+        <p class="title_name">
           {{ form.hostId ? $t('system.modify') : $t('system.addHost') }}
         </p>
       </div>
@@ -249,7 +249,7 @@
           >
             <div class="internetTitle">
               <p class="title_line" />
-              <p class="defaultFontLight title_name">
+              <p class="title_name">
                 {{ $t('system.networkConfig') }}
               </p>
             </div>
@@ -793,7 +793,7 @@ export default {
     display: none;
   }
   .el-dialog__header{
-    padding: 40px 40px 0px 40px;
+    padding: 40px 40px 0px 40px !important;
   }
   .el-dialog__body{
     padding: 0px 40px 0px 40px !important;
@@ -846,7 +846,7 @@ export default {
     padding: 0 40px 40px 40px !important;
   }
   .el-dialog__header{
-    padding: 40px 40px 20px 40px;
+    padding: 40px 40px 10px 40px;
   }
   .el-form-item .el-form-item__content{
     padding: 0px 20px 0 !important;
@@ -854,6 +854,7 @@ export default {
   .el-form-item__label{
     padding: 0;
     line-height: 36px;
+    font-size: 16px;
   }
   .el-radio-group{
     margin-top: 10px;
@@ -967,6 +968,10 @@ export default {
     .title_name{
       color: #fff !important;
       font-size: 18px;
+      font-family: defaultFontLight,
+      Arial,
+      Helvetica,
+      sans-serif !important;
     }
   }
 .title_content2{
@@ -994,8 +999,8 @@ export default {
   margin-top: 0 !important;
 }
 .btns{
-  margin-top: -40px !important;
-  margin-right: 20px;
+  margin-top: -54px !important;
+  margin-right: 40px;
 }
 .btn2{
   margin-top: -60px !important;

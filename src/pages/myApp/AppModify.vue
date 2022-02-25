@@ -21,6 +21,7 @@
       :before-close="handleClose"
       :close-on-click-modal="false"
       @close="clearForm"
+      :width="language==='cn'?'':'60%'"
     >
       <div class="modify_header">
         <span class="title_icon" />
@@ -35,7 +36,7 @@
       <el-form
         :model="appModifyInfo"
         ref="form"
-        :label-width="language === 'cn'?'80px':'110px'"
+        :label-width="language === 'cn'?'80px':'130px'"
       >
         <el-form-item
           :label="$t('store.industry')"
@@ -673,6 +674,7 @@ export default {
   }
   .el-form-item__label{
     line-height: 36px !important;
+    font-size: 16px;
   }
   .btns{
     position: relative;
@@ -787,7 +789,7 @@ export default {
     margin-bottom: 20px;
     .title_icon{
       position: relative;
-      top: 6px;
+      top: 10px;
       height: 9px;
       width: 9px;
       background:#43F6AD;
@@ -796,7 +798,7 @@ export default {
     .header-title{
       margin-left: 10px;
       color: #fff;
-      font-size: 16px;
+      font-size: 18px;
     }
   }
   .el-icon-warning{

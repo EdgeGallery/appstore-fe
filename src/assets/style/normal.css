@@ -130,6 +130,9 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 .el-radio__inner{
   background: url(../images/radio_unselect.png) 50% 50% no-repeat;
 }
+.el-radio__input.is-checked + .el-radio__label {
+  color: #fff;
+}
 .common_input .el-input__inner{
   border: 1px solid rgba(250, 250, 250, 0.6) !important;
   background: rgba(46, 20, 124, 0.7);
@@ -164,10 +167,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   text-indent : 0px;
   background:none !important;
   color: #fff;
-  font-family: defaultFontLight,
-  Arial,
-  Helvetica,
-  sans-serif !important;
 }
 .el-checkbox-button__inner:hover{
   color: #fff !important;
@@ -183,10 +182,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 }
 .el-message-box__title{
   color: #fff;
-  font-family: defaultFontLight,
-  Arial,
-  Helvetica,
-  sans-serif !important;
   display: none;
 }
 .el-message-box__headerbtn .el-message-box__close{
@@ -207,10 +202,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   text-align: center;
   margin-left: 10px;
   color: #fff;
-  font-family: defaultFontLight,
-  Arial,
-  Helvetica,
-  sans-serif !important;
 }
 .el-message-box__btns{
   margin: 10px 120px 20px 0px !important;
@@ -258,20 +249,13 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   height: 51px;
   line-height: 51px;
   font-size: 16px !important;
-  font-family: defaultFontLight,
-    Arial,
-    Helvetica,
-    sans-serif !important;
 }
 .common_table.el-table .cell{
   height: 60px;
   color: #fff;
   font-size: 14px !important;
   line-height: 60px;
-  font-family: defaultFontLight,
-  Arial,
-  Helvetica,
-  sans-serif !important;
+  text-align: center;
   word-wrap : break-word ;
   word-break:keep-all;
   max-height: 60px;
@@ -290,10 +274,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   background-color: transparent !important;
   line-height: 51px;
   font-size: 16px;
-  font-family: defaultFontLight,
-    Arial,
-    Helvetica,
-    sans-serif !important;
   border-bottom:2px solid #4E3494;
 }
 .el-table--enable-row-transition .el-table__body tr:hover td {
@@ -393,10 +373,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected {
   background: #60569A;
   color: #fff;
-  font-family: defaultFontLight,
-  Arial,
-  Helvetica,
-  sans-serif ;
 }
 .el-select-dropdown__item{
   color: #fff;
@@ -404,10 +380,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
   background-color: #60569A !important;
   color: #fff;
-  font-family: defaultFontLight,
-    Arial,
-    Helvetica,
-    sans-serif ;
 }
 .commonBtnDisabled.el-button.is-disabled{
   background: #fff;
@@ -427,10 +399,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 .el-form-item__label{
   font-size: 14px;
   color: #fff;
-  font-family: defaultFontLight,
-  Arial,
-  Helvetica,
-  sans-serif ;
 }
 .el-form-item .el-form-item__content {
   padding: 7px 20px 0 !important;

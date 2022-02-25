@@ -26,7 +26,7 @@
         <span class="title_icon" />
         <div
           slot="title"
-          class="header-title defaultFontLight"
+          class="header-title"
         >
           {{ $t('appPull.pullAppResult') }}
         </div>
@@ -76,6 +76,7 @@
       </div>
       <span
         slot="footer"
+        style="margin-right:40px;"
       >
         <el-button
           class="footer-button"
@@ -194,7 +195,8 @@ export default {
 .appPullResDlg {
   .app-pull {
     overflow:auto;
-    margin-top: 20px;
+    margin-top: 30px;
+    padding: 0 20px;
   }
   .el-icon-loading {
     color: #607B36;

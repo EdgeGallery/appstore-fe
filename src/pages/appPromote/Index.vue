@@ -167,7 +167,7 @@
       >
         <div class="dialogTitle ">
           <p class="dialogTitle1 " />
-          <p class="dialogTitle2 defaultFontLight">
+          <p class="dialogTitle2">
             {{ this.title }}
           </p>
         </div>
@@ -614,10 +614,6 @@ export default {
       border-radius: 16px;
       font-size: 20px;
       box-shadow: inset 0px 0px 6px 0.4px rgba(255,255,255,0.5) !important;
-      font-family: defaultFontLight,
-        Arial,
-        Helvetica,
-        sans-serif !important;
     }
     .addOutStore:hover{
       font-weight: bold;
@@ -705,10 +701,6 @@ div /deep/.el-form-item__label {
   font-size: 14px !important;
   height: 25px;
   line-height: 25px;
-  font-family: defaultFontLight,
-    Arial,
-    Helvetica,
-    sans-serif !important;
 }
 div /deep/ .el-icon-close:before {
   display: none;

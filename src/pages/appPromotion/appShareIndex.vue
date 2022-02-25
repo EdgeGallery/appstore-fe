@@ -205,12 +205,6 @@ export default {
         color: #fff;
         line-height: 40px;
         margin-bottom: 50px;
-        .defaultFontLight {
-          font-family: defaultFontLight,
-            Arial,
-            Helvetica,
-            sans-serif !important;
-        }
       }
       .introduce_button{
         width: 148px;

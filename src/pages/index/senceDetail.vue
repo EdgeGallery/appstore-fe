@@ -27,13 +27,13 @@
       <div class="senceContent">
         <p
           v-if="language === 'cn'"
-          class="senceTitle defaultFontLight"
+          class="senceTitle"
         >
           {{ senceContent.nameCn }}
         </p>
         <p
           v-else
-          class="senceTitle defaultFontLight"
+          class="senceTitle"
         >
           {{ senceContent.nameEn }}
         </p>
@@ -52,38 +52,38 @@
       <div class="introduce">
         <p
           v-if="language === 'cn'"
-          class="title defaultFontLight"
+          class="title"
         >
           {{ senceContent.nameCn }}
         </p>
         <p
           v-else
-          class="title defaultFontLight"
+          class="title"
         >
           {{ senceContent.nameEn }}
         </p>
         <p
           v-if="language === 'cn'"
-          class="content defaultFontLight"
+          class="content"
         >
           {{ senceContent.describtionCn }}
         </p>
         <p
           v-else
-          class="content defaultFontLight"
+          class="content"
         >
           {{ senceContent.describtionEn }}
         </p>
       </div>
       <div class="introduce">
-        <p class="title sence_title defaultFontLight">
+        <p class="title sence_title">
           {{ $t('store.senceApp') }}
         </p>
         <div v-if="language === 'cn'">
           <p
             v-for="(item,index) in senceContent.appSenceCn"
             :key="index"
-            class="sence_content defaultFontLight"
+            class="sence_content"
           >
             {{ item }}
           </p>
@@ -92,14 +92,14 @@
           <p
             v-for="(item,index) in senceContent.appSenceEn"
             :key="index"
-            class="sence_content defaultFontLight"
+            class="sence_content"
           >
             {{ item }}
           </p>
         </div>
       </div>
       <div class="relevantApp">
-        <p class="relevantApp_name defaultFontLight">
+        <p class="relevantApp_name">
           {{ $t('store.reapp') }}
         </p>
         <div
@@ -117,7 +117,7 @@
               alt=""
             >
             <p
-              class="oneApp_title defaultFontLight"
+              class="oneApp_title"
             >
               {{ item.name }}
             </p>
@@ -129,7 +129,7 @@
         >
           <p
             v-if="noData"
-            class="noData defaultFontLight"
+            class="noData"
           >
             {{ $t('store.noApp') }}
           </p>
@@ -146,7 +146,7 @@
               alt=""
             >
             <p
-              class="oneApp_title defaultFontLight"
+              class="oneApp_title"
             >
               {{ item.name }}
             </p>

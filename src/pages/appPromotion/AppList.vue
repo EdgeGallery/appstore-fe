@@ -23,7 +23,7 @@
       <div class="app-list">
         <div class="batchProm">
           <el-button
-            class="appPull commonBtnDisabled defaultFontLight"
+            class="appPull commonBtnDisabled"
             :disabled="btnChangeEnable"
             @click="showPushAppDialog"
           >

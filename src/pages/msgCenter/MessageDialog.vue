@@ -19,7 +19,7 @@
     class="msgDialog"
     ref="msgDialog"
   >
-    <div class="msgStatis defaultFontLight">
+    <div class="msgStatis">
       {{ $t('apppromotion.msgNum') }}(<span class="numStyle">
         {{ this.msgs.length }}
       </span>)
@@ -32,17 +32,17 @@
         @click="jumpToMsgDialog(item)"
       >
         <div
-          class="tipTitleNo defaultFontLight"
+          class="tipTitleNo"
         >
           {{ item.sourceAppStore }}
           <span
-            class="msgTime defaultFontLight"
+            class="msgTime"
           >
             {{ item.time.split(' ')[1] }}
           </span>
         </div>
         <div
-          class="tipDescNo defaultFontLight"
+          class="tipDescNo"
         >
           {{ item.description }}
         </div>
@@ -51,7 +51,6 @@
     <div class="checkAll">
       <span
         @click="jumpToMsgDialog()"
-        class="defaultFontLight"
       >{{ $t('apppromotion.checkAllMsg') }}</span>
     </div>
   </div>
