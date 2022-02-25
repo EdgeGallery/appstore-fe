@@ -211,11 +211,11 @@ export default {
     padding:20px 40px 40px 40px !important;
   }
   .el-dialog__footer{
-    padding:0;
+    padding:20px 0 20px 0;
   }
   .btns{
     position: relative;
-    right: 40px;
+    right: 58px;
   }
   .modify_header{
     position: absolute;
@@ -236,8 +236,9 @@ export default {
     }
   }
   .app-prom {
-    margin-top: 40px;
+    margin-top: 50px;
     overflow:auto;
+    padding: 0 20px;
   }
   .el-icon-loading {
     color: #607B36;

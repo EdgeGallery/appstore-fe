@@ -878,7 +878,7 @@ export default {
     }
   }
   .el-form-item__label{
-    font-size: 14px;
+    font-size: 16px;
     color: #fff;
     line-height: 36px !important;
   }
@@ -890,9 +890,9 @@ export default {
     .app-upload{
       background: #4E3494;
       border: none;
-      color: #FFFFFF;
-      width: 169px;
-      height: 36px;
+      color: #fff;
+      font-size: 14px;
+      padding: 8px 20px;
     }
     .el-input__inner {
       border-radius: 10px;
@@ -969,11 +969,12 @@ export default {
       color: rgb(179, 174, 174);
     }
     .el-button--primary.is-plain {
+      margin-top:4px;
       background: #4E3494;
       border: none;
       color: #fff;
-      width: 169px;
-      height: 36px;
+      font-size: 14px;
+      padding: 8px 20px;
     }
     .uploader-btn {
       background: #4E3494;

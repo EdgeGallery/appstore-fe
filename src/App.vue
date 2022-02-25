@@ -380,6 +380,10 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  font-family: defaultFontLight,
+    Arial,
+    Helvetica,
+    sans-serif !important;
   min-width: 1200px;
   background: #3E279B;
   overflow: auto;

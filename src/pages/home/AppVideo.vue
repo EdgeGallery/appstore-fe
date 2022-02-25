@@ -25,7 +25,7 @@
         :src="videoIconUrl"
         alt=""
       >
-      <p class="defaultFontLight">
+      <p>
         {{ $t('store.hasNotVideo') }}
       </p>
     </div>

@@ -19,12 +19,12 @@
     <div class="messageTop">
       <div class="messageDetile">
         <p class="title_line" />
-        <p class="title defaultFontLight">
+        <p class="title">
           {{ $t("messageCenter.msgDetailInfo") }}
         </p>
       </div>
       <p
-        class="messageClose defaultFontLight"
+        class="messageClose"
         @click="returnToList"
       >
         ×
@@ -36,7 +36,7 @@
           src="../../assets/images/messageAppInfo.png"
           alt=""
         >
-        <p class="defaultFontLight">
+        <p>
           {{ $t("messageCenter.appBasicInfo") }}
         </p>
       </div>
@@ -48,18 +48,18 @@
           >
         </div>
         <div class="appInfo1">
-          <p><span class="defaultFontLight">{{ $t('messageCenter.appLabel') }}</span><span class="defaultFontLight">{{ data.basicInfo.name }}</span></p>
-          <p><span class="defaultFontLight">{{ $t('messageCenter.appStruct') }}</span><span class="defaultFontLight">{{ data.basicInfo.affinity }}</span></p>
-          <p><span class="defaultFontLight">{{ $t('messageCenter.appVersion') }}</span><span class="defaultFontLight">{{ data.basicInfo.version }}</span></p>
+          <p><span>{{ $t('messageCenter.appLabel') }}</span><span>{{ data.basicInfo.name }}</span></p>
+          <p><span>{{ $t('messageCenter.appStruct') }}</span><span>{{ data.basicInfo.affinity }}</span></p>
+          <p><span>{{ $t('messageCenter.appVersion') }}</span><span>{{ data.basicInfo.version }}</span></p>
         </div>
         <div class="appInfo1 appInfo2">
-          <p><span class="defaultFontLight">{{ $t('messageCenter.appProvider') }}</span><span class="defaultFontLight"> {{ data.basicInfo.provider }}</span></p>
-          <p><span class="defaultFontLight">{{ $t('messageCenter.appType') }}</span><span class="defaultFontLight">  {{ data.basicInfo.type }}</span></p>
-          <p><span class="defaultFontLight">{{ $t('messageCenter.appIndustry') }}</span><span class="defaultFontLight">{{ data.basicInfo.industry }}</span></p>
+          <p><span>{{ $t('messageCenter.appProvider') }}</span><span>{{ data.basicInfo.provider }}</span></p>
+          <p><span>{{ $t('messageCenter.appType') }}</span><span>{{ data.basicInfo.type }}</span></p>
+          <p><span>{{ $t('messageCenter.appIndustry') }}</span><span>{{ data.basicInfo.industry }}</span></p>
         </div>
       </div>
       <p class="desc">
-        <span class="defaultFontLight">{{ $t('messageCenter.appShortDes') }}</span><span class="defaultFontLight">{{ data.basicInfo.shortDesc }}</span>
+        <span>{{ $t('messageCenter.appShortDes') }}</span><span>{{ data.basicInfo.shortDesc }}</span>
       </p>
       <div class="appTestReport">
         <div class="appTestReportTop">
@@ -67,7 +67,7 @@
             src="../../assets/images/messageAppInfo.png"
             alt=""
           >
-          <p class="defaultFontLight">
+          <p>
             {{ $t("messageCenter.appTestRepo") }}
           </p>
         </div>
@@ -79,13 +79,13 @@
             >
           </div>
           <div class="testInfo">
-            <p><span class="defaultFontLight">{{ $t('messageCenter.appStoreName') }}</span><span class="defaultFontLight">{{ data.sourceAppStore }}</span></p>
-            <p><span>{{ $t('messageCenter.appTestPlatform') }}</span><span class="defaultFontLight">{{ $t("messageCenter.atpTestPlatform") }}</span></p>
+            <p><span>{{ $t('messageCenter.appStoreName') }}</span><span>{{ data.sourceAppStore }}</span></p>
+            <p><span>{{ $t('messageCenter.appTestPlatform') }}</span><span>{{ $t("messageCenter.atpTestPlatform") }}</span></p>
           </div>
           <div class="testInfo">
-            <p><span class="defaultFontLight">{{ $t('messageCenter.atpTestStatus') }}</span><span class="defaultFontLight"> {{ data.atpTestStatus }}</span></p>
+            <p><span>{{ $t('messageCenter.atpTestStatus') }}</span><span> {{ data.atpTestStatus }}</span></p>
             <p>
-              <span class="defaultFontLight">{{ $t('messageCenter.testRepoKey') }}</span><span class="seeTestReport defaultFontLight"> <a
+              <span>{{ $t('messageCenter.testRepoKey') }}</span><span class="seeTestReport"> <a
                 :href="atpRepoUrl"
                 target="_blank"
               >{{ $t("messageCenter.clickToCheckRepo") }}</a></span>
@@ -96,13 +96,11 @@
       <div class="btns ">
         <p
           @click="handleDelete"
-          class="defaultFontLight"
         >
           {{ $t("system.delete") }}
         </p>
         <p
           @click.stop="handleAccept"
-          class="defaultFontLight"
         >
           {{ $t("apppromotion.accept") }}
         </p>

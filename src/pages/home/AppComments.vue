@@ -17,7 +17,7 @@
 <template>
   <div class="appComments">
     <div class="submit_comment clearfix">
-      <span class="score_span defaultFontLight">{{ $t('store.score') }}</span>
+      <span class="score_span">{{ $t('store.score') }}</span>
       <el-rate
         v-model="comments.score"
         allow-half
@@ -53,7 +53,7 @@
         :src="noCommentIcon"
         alt=""
       >
-      <p class="defaultFontLight">
+      <p>
         {{ $t('store.noComment') }}
       </p>
     </div>
@@ -62,10 +62,10 @@
       v-if="historyComentsList.length!==0"
     >
       <div class="div_comment_total">
-        <p class="p_count_Title defaultFontLight">
+        <p class="p_count_Title">
           {{ $t('store.allComments') }}
         </p>
-        <p class="p_total defaultFontLight">
+        <p class="p_total">
           {{ this.total }}
         </p>
       </div>
@@ -87,10 +87,10 @@
             >
           </div>
           <div class="user_info">
-            <p class="p_userName defaultFontLight">
+            <p class="p_userName">
               {{ item.user.userName }}
             </p>
-            <p class="commentTime defaultFontLight">
+            <p class="commentTime">
               {{ item.commentTime }}
             </p>
           </div>

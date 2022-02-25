@@ -38,7 +38,7 @@
             placement="right-start"
           >
             <p
-              class="app_title defaultFontLight"
+              class="app_title"
             >
               {{ currentData.name }}
             </p>
@@ -67,24 +67,24 @@
           </select>
           <span v-show="pathSource==='myapp'">{{ currentData.version }}</span>
           <span class="fg " />
-          <span class="defaultFontLight">{{ currentData.provider }}</span>
+          <span>{{ currentData.provider }}</span>
           <span class="fg" />
-          <span class="defaultFontLight">{{ downloadNum }}{{ this.$t('store.downloadNum') }}</span>
+          <span>{{ downloadNum }}{{ this.$t('store.downloadNum') }}</span>
         </div>
-        <p class="app_desc defaultFontLight">
+        <p class="app_desc">
           {{ currentData.shortDesc }}
         </p>
         <p class="app_tag clearfix">
-          <span class="industry defaultFontLight">
+          <span class="industry">
             {{ currentData.industry }}
           </span>
-          <span class="architecture defaultFontLight">
+          <span class="architecture">
             {{ currentData.affinity }}
           </span>
-          <span class="type defaultFontLight">
+          <span class="type">
             {{ currentData.type }}
           </span>
-          <span class="deployMode defaultFontLight">
+          <span class="deployMode">
             {{ currentData.deployMode==='container'?$t('store.deployContainer'):$t('store.deployVM') }}
           </span>
         </p>
@@ -92,7 +92,7 @@
       <div class="app_score">
         <p class="score_btn">
           <el-button
-            class="batchProButton defaultFontLight"
+            class="batchProButton"
             @click="download(currentData)"
           >
             {{ $t('store.download') }}{{ currentData.size }} {{ ')' }}
@@ -103,7 +103,7 @@
           v-show="ifSubscribe"
         >
           <el-button
-            class="subscribeButton defaultFontLight"
+            class="subscribeButton"
             @click="beforeBuyIt()"
           >
             {{ $t('order.subscribe') }}{{ this.price }}{{ $t('order.price') }}
@@ -382,7 +382,7 @@
         class="buyTitle"
       >
         <p class="title_icon" />
-        <p class="title defaultFontLight">
+        <p class="title">
           {{ $t('myApp.subscribe') }}
         </p>
       </div>
@@ -391,14 +391,14 @@
           <el-form-item
             :label="$t('order.appNameLabel')"
           >
-            <p class="val_span defaultFontLight">
+            <p class="val_span">
               {{ currentData.name }}
             </p>
           </el-form-item>
           <el-form-item
             :label="$t('order.subPrice')"
           >
-            <p class="val_span defaultFontLight">
+            <p class="val_span">
               {{ price }}{{ $t('myApp.price') }}
             </p>
           </el-form-item>
@@ -813,6 +813,9 @@ export default {
 .app_detail{
   padding: 0 13.18%;
   color: #fff;
+  p{
+    margin-bottom: 0;
+  }
   .title_top{
     padding: 60px 0 20px !important;
     position: relative;
@@ -824,21 +827,26 @@ export default {
     width: 535px;
   }
   .el-dialog__header{
-    margin-bottom: -20px;
+    padding:10px;
+  }
+  .el-dialog__footer{
+    margin-top: 0;
+    padding-top:23px;
+    padding-right: 36px;
   }
   .appDownload_top{
     display: flex;
-    margin: 20px 40px 10px;
+    padding: 12px 40px 28px;
     .appDownload_top_circle{
       width: 9px;
       height: 9px;
       border-radius: 50%;
-      margin-top: 6px;
+      margin-top: 10px;
       margin-right: 10px;
       background: #43F6AD ;
     }
     .appDownload_top_title{
-      font-size: 16px;
+      font-size: 18px;
       color: #fff;
     }
   }
@@ -848,9 +856,9 @@ export default {
     text-align: left;
     .el-radio{
       width: 350px;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       .el-radio__label{
-        font-size: 14px;
+        font-size: 16px;
         color: #fff;
       }
       .el-radio__input.is-checked + .el-radio__label{
@@ -1006,15 +1014,15 @@ export default {
     border-radius: 0 16px 16px 16px;
     margin-top: 38px;
     .horizontal-cell{
-        padding: 12px 0;
-        float: left;
-        width: 2px;
-        height: 50px;
-        background-color: #4E3494;
+      padding: 12px 0;
+      float: left;
+      width: 2px;
+      height: 50px;
+      background-color: #4E3494;
     }
     .separator{
-        position: relative;
-        height: 100%;
+      position: relative;
+      height: 100%;
     }
     .separator:after{
       position: absolute;
@@ -1040,10 +1048,6 @@ export default {
           font-size: 16px;
           color: #fff;
           transition: all 0.1s;
-          font-family: defaultFontLight,
-          Arial,
-          Helvetica,
-          sans-serif !important;
         }
       }
       .last_li{
@@ -1126,7 +1130,7 @@ export default {
         }
       }
       .comment_default_appShow_nomeao{
-        background: rgba(46,20,124,0.8);;
+        background: rgba(46,20,124,0.8);
         span{
           background: #4E3494;
           border-radius: 0 0 16px 0;
@@ -1460,10 +1464,10 @@ export default {
   }
   .buyTitle{
     display: flex;
-    padding: 30px 0 0 40px;
+    padding: 15px 0 16px 40px;
     .title_icon{
       position: relative;
-      top: 8px;
+      top: 10px;
       height: 9px;
       width: 9px;
       background: #43F6AD;
@@ -1472,27 +1476,32 @@ export default {
     }
     .title{
       color: #fff;
-      font-size: 16px;
+      font-size: 18px;
     }
   }
   .buy_content{
     .el-form{
       background: rgba(46,20,124,0.7);
-      padding-left: 100px;
+      padding-left: 70px;
+    }
+    .el-form-item__label{
+      font-size: 16px;
     }
   }
   .downloadAppBtn{
     display: flex;
     justify-content: flex-end;
-    padding:20px 20px 0 0;
+    padding:0px 20px 0 0;
+    margin-top: -10px;
   }
   .btnRigthPadding{
     padding-right: 20px;
   }
   .val_span {
-    line-height: 24px;
+    line-height: 26px;
     padding-left: 71px;
     color: #fff;
+    font-size: 16px;
   }
   .container_div{
     background: rgba(46,20,124,0.7);

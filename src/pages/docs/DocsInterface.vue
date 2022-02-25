@@ -397,10 +397,6 @@ p{
     }
     .el-menu-item {
       font-size: 16px;
-      font-family: defaultFontLight,
-      Arial,
-      Helvetica,
-      sans-serif !important;
     }
     .threeMenu{
       font-size: 14px !important;
@@ -455,10 +451,6 @@ p{
         padding-left: 41px;
         font-size: 26px;
         color: #fff;
-        font-family: defaultFontLight,
-        Arial,
-        Helvetica,
-        sans-serif !important;
       }
       .cutLline{
         width: 100%;
@@ -484,10 +476,6 @@ p{
         font-size: 16px;
         color: #fff;
         line-height: 24px;
-        font-family: defaultFontLight,
-        Arial,
-        Helvetica,
-        sans-serif !important;
       }
       .docImg{
         width: 100%;

@@ -21,7 +21,7 @@
     >
       {{ $t('nav.appstore') }}
       <el-button
-        class="uploadApp_btn common_button defaultFontLight"
+        class="uploadApp_btn common_button"
         id="myapp_checktest"
         @click="uploadPackage"
       >
@@ -187,7 +187,6 @@ export default {
       }
       return this.searchCondition
     },
-
     getCurrentPageData (data, pageSize, start) {
       this.limitSize = pageSize
       this.offsetPage = start

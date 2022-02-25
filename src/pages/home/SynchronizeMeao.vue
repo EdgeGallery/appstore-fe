@@ -22,7 +22,7 @@
         slot="tip"
       >
         <em class="el-icon-warning" />
-        <span class="warning-tip defaultFontLight">
+        <span class="warning-tip">
           {{ $t('store.syncTitleTip') }}
         </span>
         <div class="app_synchronize">
@@ -31,7 +31,7 @@
             trigger="click"
           >
             <el-button
-              class="defaultFontLight syncBtn"
+              class="syncBtn"
               @click="checkSyncPackage"
               :disabled="noSync"
             >

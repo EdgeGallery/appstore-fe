@@ -157,10 +157,6 @@ export default {
         font-size: 16px;
         color: #fff;
         transition: all 0.5s;
-        font-family: defaultFontLight,
-          Arial,
-          Helvetica,
-          sans-serif !important;
       }
     }
     .last_li{

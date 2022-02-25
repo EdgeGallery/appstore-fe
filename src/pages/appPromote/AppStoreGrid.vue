@@ -239,10 +239,6 @@ p{
           color: #fff;
           line-height: 35px;
           margin-right: 10px;
-          font-family: defaultFontLight,
-            Arial,
-            Helvetica,
-            sans-serif !important;
         }
         .size{
           font-size: 14px;
@@ -251,10 +247,6 @@ p{
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          font-family: defaultFontLight,
-          Arial,
-          Helvetica,
-          sans-serif !important;
         }
       }
     }

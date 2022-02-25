@@ -1197,10 +1197,6 @@ export default {
         .desc-font{
           font-size: 14px;
           color: #fff;
-          font-family: defaultFontLight,
-          Arial,
-          Helvetica,
-          sans-serif !important;
         }
       }
       .mychartDiv1{

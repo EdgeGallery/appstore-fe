@@ -143,7 +143,7 @@
         >
           <div class="recordTitle">
             <p class="recordTitle-circle" />
-            <p class="recordTitle-content defaultFontLight">
+            <p class="recordTitle-content">
               {{ $t('order.OrderOperation') }}
             </p>
           </div>
@@ -157,7 +157,7 @@
                 <span class="lines-circle" /><span class="lines-line" />
               </p>
             </div>
-            <div class="recordContent-item defaultFontLight">
+            <div class="recordContent-item">
               <p
                 v-for="(item,index) in recordTime"
                 :key="index"
@@ -165,7 +165,7 @@
                 {{ item }}
               </p>
             </div>
-            <div class="recordContent-item stateStyle defaultFontLight">
+            <div class="recordContent-item stateStyle">
               <p
                 v-for="(item,index) in recordOperation"
                 :key="index"
@@ -386,9 +386,6 @@ export default {
     }
     .orderTable {
       margin: 50px 0 86px 0;
-      .activeStyle{
-        margin-left: -24px;
-      }
       .el-table td {
         padding: 0;
         height: 60px;
@@ -418,24 +415,24 @@ export default {
           display: flex;
           width: 90%;
           margin-top: 0px;
-          margin-left: 30px;
+          margin-left: 40px;
           .recordTitle-circle{
             width: 9px;
             height: 9px;
             background: #55D8BF;
             border-radius: 50%;
             margin-right: 9px;
-            margin-top: 8px;
+            margin-top: 10px;
           }
           .recordTitle-content{
             color:#fff;
-            font-Size:16px;
+            font-Size:18px;
           }
         }
         .recordContent{
           display: flex;
           justify-content: flex-start;
-          margin-left: 46px;
+          margin-left: 56px;
           margin-top: 20px;
           .recordContent-lines{
             margin-right: 10px;
@@ -470,7 +467,7 @@ export default {
             p{
               margin: -10px 0 0 10px;
               height: 61px;
-              font-size: 14px;
+              font-size: 16px;
             }
           }
           .stateStyle{
@@ -480,7 +477,8 @@ export default {
         .recordBtns{
           display: flex;
           justify-content: flex-end;
-          margin-right: 40px;
+          margin-right: 50px;
+          padding-bottom: 16px;
           .el-button{
             background: #fff;
             color: #5e40c8;
@@ -500,7 +498,10 @@ export default {
 }
 .activatingBtn {
   border: none !important;
-  color: #409eff;
+  color: #fff;
+  padding: 4px 12px;
+  background: none !important;
+  border-radius: 10px;
 }
 div /deep/ .el-dialog__body{
   border-bottom-left-radius: 16px;

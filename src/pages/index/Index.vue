@@ -73,7 +73,7 @@
             </div>
           </div>
           <p
-            class="more defaultFontLight"
+            class="more"
             @click="jumpToAppList"
           >
             {{ $t('store.viewMore') }}
@@ -140,7 +140,7 @@
             alt=""
             @click="jumpToAppList"
           >
-          <p class="oneApp_name defaultFontLight">
+          <p class="oneApp_name">
             {{ item.name }}
           </p>
         </div>
@@ -156,7 +156,7 @@
             alt=""
             @click="jumpToDetai(item)"
           >
-          <p class="oneApp_name defaultFontLight">
+          <p class="oneApp_name">
             {{ item.name }}
           </p>
         </div>
@@ -177,7 +177,7 @@
             alt=""
             @click="jumpToAppList"
           >
-          <p class="oneApp_name defaultFontLight">
+          <p class="oneApp_name">
             {{ item.name }}
           </p>
         </div>
@@ -193,7 +193,7 @@
             alt=""
             @click="jumpToDetai(item)"
           >
-          <p class="oneApp_name defaultFontLight">
+          <p class="oneApp_name">
             {{ item.name }}
           </p>
         </div>
@@ -214,7 +214,7 @@
             class="oneApp_img hover_pointer"
             @click="jumpToAppList"
           >
-          <p class="oneApp_name defaultFontLight">
+          <p class="oneApp_name">
             {{ item.name }}
           </p>
           <el-rate
@@ -236,7 +236,7 @@
             class="oneApp_img hover_pointer"
             @click="jumpToDetai(item)"
           >
-          <p class="oneApp_name defaultFontLight">
+          <p class="oneApp_name">
             {{ item.name }}
           </p>
           <el-rate
@@ -248,7 +248,7 @@
         </div>
       </div>
       <p
-        class="more defaultFontLight hotAppMore scoreMore"
+        class="more hotAppMore scoreMore"
         @click="jumpToAppList"
       >
         {{ $t('store.viewMore') }}

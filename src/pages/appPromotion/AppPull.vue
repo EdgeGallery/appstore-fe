@@ -39,7 +39,7 @@
             v-if="appStoreList.length > 0"
           >
             <el-button
-              class="pullBtn appPull commonBtnDisabled defaultFontLight"
+              class="pullBtn appPull commonBtnDisabled"
               :disabled="btnChangeEnable"
               @click="showPullAppDialog"
             >
