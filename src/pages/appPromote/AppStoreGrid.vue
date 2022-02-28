@@ -29,7 +29,7 @@
           v-if="item.appdTransId.indexOf('联通') > -1"
         >
         <img
-          :src="require(`@/assets/images/logo.png`)"
+          :src="require(`@/assets/images/sotreLogo.png`)"
           alt
           v-else-if="item.appdTransId.indexOf('社区') > -1"
         >
@@ -55,7 +55,7 @@
         >
           <div
             class="type"
-            :class="language === 'cn'?'typeCn':'typeEn'"
+            :class="language ==='cn'?'typeCn':'typeEn'"
           >
             {{ $t('common.appStoreName') }}:
           </div>
@@ -66,7 +66,7 @@
         <p class="type-size">
           <span
             class="type"
-            :class="language === 'cn'?'typeCn':'typeEn'"
+            :class="language ==='cn'?'typeCn':'typeEn'"
           >
             {{ $t('common.appStoreVersion') }}:
           </span>
@@ -77,7 +77,7 @@
         <p class="type-size">
           <span
             class="type"
-            :class="language === 'cn'?'typeCn':'typeEn'"
+            :class="language ==='cn'?'typeCn':'typeEn'"
           >
             {{ $t('common.appdTransId') }}:
           </span>
@@ -88,7 +88,7 @@
         <p class="type-size">
           <span
             class="type"
-            :class="language === 'cn'?'typeCn':'typeEn'"
+            :class="language ==='cn'?'typeCn':'typeEn'"
           >
             {{ $t('common.company') }}:
           </span>
@@ -99,7 +99,7 @@
         <p class="type-size">
           <span
             class="type"
-            :class="language === 'cn'?'typeCn':'typeEn'"
+            :class="language ==='cn'?'typeCn':'typeEn'"
           >
             {{ $t('common.description') }}:
           </span>
@@ -156,6 +156,7 @@ export default {
   },
   data () {
     return {
+      language: localStorage.getItem('language')
     }
   },
   methods: {
@@ -164,6 +165,11 @@ export default {
     },
     handleDelete (param) {
       this.$emit('deleteApp', param)
+    }
+  },
+  watch: {
+    '$i18n.locale': function () {
+      this.language = localStorage.getItem('language')
     }
   }
 }
@@ -216,17 +222,15 @@ p{
       border-top-right-radius:8px ;
       height: 170px;
       width: 100%;
-      img{
-        width: 51%;
-        height:75px;
-        margin: 50px  24.5%;
-      }
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .intr{
       width: 100%;
+      padding: 20px 0  0 20px !important;
       display: flex;
       flex-direction: column;
-      align-items: center;
       padding: 0 10px;
       overflow:hidden;
       background-color: #4E3494;
@@ -239,6 +243,13 @@ p{
           color: #fff;
           line-height: 35px;
           margin-right: 10px;
+          text-align: right;
+        }
+        .typeEn{
+          min-width: 112px;
+        }
+        .typeCn{
+          min-width: 68px;
         }
         .size{
           font-size: 14px;

@@ -414,8 +414,7 @@ export default {
         .recordTitle{
           display: flex;
           width: 90%;
-          margin-top: 0px;
-          margin-left: 40px;
+          margin: 0px 0 26px 40px;
           .recordTitle-circle{
             width: 9px;
             height: 9px;

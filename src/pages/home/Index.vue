@@ -17,9 +17,11 @@
 <template>
   <div class="appStoreHome common_bg">
     <div
-      class="common_title defaultFontBlod clear"
+      class="common_title clear"
     >
-      {{ $t('nav.appstore') }}
+      <p class="defaultFontBlod">
+        {{ $t('nav.appstore') }}
+      </p>
       <el-button
         class="uploadApp_btn common_button"
         id="myapp_checktest"

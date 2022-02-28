@@ -265,7 +265,6 @@
               class="link-right"
             />
           </div>
-
           <li
             v-if="ifSynchronize"
             @click="activeName='meao'"
@@ -830,7 +829,6 @@ export default {
     padding:10px;
   }
   .el-dialog__footer{
-    margin-top: 0;
     padding-top:23px;
     padding-right: 36px;
   }
@@ -881,6 +879,8 @@ export default {
     align-items: center;
     .app_icon{
       width: 130px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.8);
       img{
         width: 100%;
         border-radius: 10px;
@@ -1464,7 +1464,7 @@ export default {
   }
   .buyTitle{
     display: flex;
-    padding: 15px 0 16px 40px;
+    padding: 15px 0 30px 40px;
     .title_icon{
       position: relative;
       top: 10px;
@@ -1486,6 +1486,10 @@ export default {
     }
     .el-form-item__label{
       font-size: 16px;
+    }
+    .el-form-item{
+      margin-bottom: 10px;
+      margin-top: -10px;
     }
   }
   .downloadAppBtn{

@@ -939,11 +939,11 @@ export default {
   }
   .el-radio__label{
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
   }
   .el-checkbox__input.is-checked + .el-checkbox__label {
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
   }
   .el-checkbox__label {
     display: inline-block;

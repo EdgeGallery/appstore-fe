@@ -892,7 +892,7 @@ cursor:pointer
 }
 .buyTitle{
   display: flex;
-  padding: 24px 0 0 40px;
+  padding: 3px 0 20px 40px;
   .title_icon{
     position: relative;
     top: 8px;
