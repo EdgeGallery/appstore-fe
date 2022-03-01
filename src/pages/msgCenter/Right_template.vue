@@ -465,13 +465,14 @@ div /deep/ .el-table tr{
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-left:10.5% ;
+  padding-left:5.1% ;
 }
 .timeContent{
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding-right:10.5% ;
+  padding-right:2% ;
+  width: 90%;
 }
 .appIcon{
   width: 60px;
@@ -520,5 +521,9 @@ div /deep/ .el-table tr{
 .allContent{
   min-height: 460px;
   background: transparent;
+}
+div /deep/ .el-table__body-wrapper{
+  width: 98% !important;
+  padding-left: 3%;
 }
 </style>

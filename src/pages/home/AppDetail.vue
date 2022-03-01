@@ -879,11 +879,14 @@ export default {
     align-items: center;
     .app_icon{
       width: 130px;
-      border-radius: 12px;
+      border-radius: 8px;
+      padding: 2%;
+      display: flex;
+      justify-content: center;
       background: rgba(255,255,255,0.8);
       img{
         width: 100%;
-        border-radius: 10px;
+        border-radius: 12px;
       }
     }
     .app_info{
@@ -896,6 +899,7 @@ export default {
         .app_title{
           font-size: 36px;
           color: #fff;
+          margin-bottom: 4px;
           font-weight: bold;
           max-width: 212px;
           white-space: nowrap;
@@ -917,6 +921,10 @@ export default {
         .drop-down{
           top:-2px;
           margin-right: 5px;
+          border-radius: 4px;
+          background:rgba(255,255,255,0.3) ;
+          border: none;
+          color: #fff;
         }
         .fg{
           display: inline-block;
@@ -930,7 +938,7 @@ export default {
       }
       .app_desc{
         margin: 15px 0;
-        line-height: 23px;
+        line-height: 12px;
       }
       .app_tag{
         span{
