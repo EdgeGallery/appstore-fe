@@ -20,7 +20,7 @@
     v-loading="loading"
     :element-loading-text="$t('common.loading')"
   >
-    <div class="order_title">
+    <div class="order_title defaultFontBlod">
       {{ $t('order.orderMana') }}
     </div>
     <div class="content">
