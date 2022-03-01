@@ -231,7 +231,6 @@ p{
       padding: 20px 0  0 20px !important;
       display: flex;
       flex-direction: column;
-      padding: 0 10px;
       overflow:hidden;
       background-color: #4E3494;
       border-bottom-left-radius: 8px;
