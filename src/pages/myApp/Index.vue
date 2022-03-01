@@ -16,8 +16,8 @@
 
 <template>
   <div class="myApp common_bg">
-    <div class="defaultFontBlod myApp_top defaultFontBold">
-      <p class="myApp_title">
+    <div class="myApp_top">
+      <p class="myApp_title defaultFontBlod">
         {{ $t('nav.myApp') }}
       </p>
       <el-button
@@ -362,6 +362,7 @@ export default {
       pageNum: 1,
       status: [],
       offsetPage: 0,
+      total: 0,
       language: localStorage.getItem('language'),
       filterValue: { status: [] },
       nameQueryVal: '',
@@ -892,7 +893,7 @@ cursor:pointer
 }
 .buyTitle{
   display: flex;
-  padding: 24px 0 0 40px;
+  padding: 3px 0 20px 40px;
   .title_icon{
     position: relative;
     top: 8px;

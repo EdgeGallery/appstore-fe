@@ -173,7 +173,7 @@ export default {
       position: relative;
       .img-box {
         position: relative;
-        background: rgba(250, 250, 250, 0.2);
+        background: rgba(255, 255, 255, 0.8);
         box-sizing: border-box;
         text-align: center;
         width: 100%;

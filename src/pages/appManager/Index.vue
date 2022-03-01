@@ -16,7 +16,7 @@
 
 <template>
   <div class="myApp  minHeight common_bg">
-    <div class="common_title aooMgmtTitle">
+    <div class="common_title aooMgmtTitle defaultFontBlod">
       {{ $t('nav.appMgmt') }}
     </div>
     <ul class="list_top clear">

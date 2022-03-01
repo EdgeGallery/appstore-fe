@@ -16,7 +16,7 @@
 
 <template>
   <div class="my-app common_bg">
-    <div class="common_title">
+    <div class="common_title defaultFontBlod">
       {{ $t("nav.operAna") }}
     </div>
     <div class="chart-content">

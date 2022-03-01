@@ -90,6 +90,7 @@ export default ({
     justify-content: space-between;
     .appChangeTool{
       font-size: 30px;
+      letter-spacing: 4px;
       color: #fff;
       line-height: 50px;
       margin-bottom:0px ;

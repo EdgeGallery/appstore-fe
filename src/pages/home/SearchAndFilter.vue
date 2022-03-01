@@ -464,6 +464,7 @@ export default ({
   .el-input--small .el-input__inner {
     border: 1.5px solid #5E40C8;
     border-radius: 4px;
+    background: rgba(46,20,124,0.7);
   }
   .menuStyle{
     border: 0px;
