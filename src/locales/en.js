@@ -501,6 +501,7 @@ const en = {
     downloadNum: ' Downloads',
     workloadType: 'Workload Type',
     deployContainer: 'Container',
+    noPush: 'No data',
     deployVM: 'VM',
     downloadImage: 'Application package download',
     downloadImageTip: 'Image download link is included in the package',

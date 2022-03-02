@@ -124,7 +124,11 @@
               width="200"
               :label="$t('apppromotion.lastProTime')"
               sortable="custom"
-            />
+            >
+              <template slot-scope="scope">
+                {{ scope.row.latestPushTime===null?$t('store.noPush'):scope.row.latestPushTime }}
+              </template>
+            </el-table-column>
             <el-table-column
               prop="pushTimes"
               width="160"

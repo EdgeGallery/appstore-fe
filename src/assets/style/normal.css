@@ -74,7 +74,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
     Helvetica,
     sans-serif !important;
 }
-
 .defaultFontLight {
   font-family: defaultFontLight,
     Arial,
@@ -150,6 +149,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 }
 .el-popper .popper__arrow{
   display: none;
+  background: rgba(46, 20, 124, 0.7);
 }
 .el-dropdown-menu__item:hover{
  background-color: rgba(96, 86, 154, 0.5) !important;
@@ -170,6 +170,27 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 }
 .el-checkbox-button__inner:hover{
   color: #fff !important;
+}
+.el-table-filter{
+  background: rgba(46, 20, 124, 0.7);
+  backdrop-filter:blur(4px);
+  border: none;
+}
+.el-table-filter__checkbox-group label.el-checkbox{
+  color: #fff;
+  font-family: defaultFontLight,
+    Arial,
+    Helvetica,
+    sans-serif !important;
+}
+.el-table-filter__bottom button{
+  color: #fff;
+}
+.el-table-filter__bottom button.is-disabled{
+  color: #fff;
+}
+.el-checkbox__input.is-checked + .el-checkbox__label{
+color: #fff;
 }
 .el-message-box__wrapper{
   background: rgba(63, 18, 243, 0.1) ;
@@ -221,7 +242,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   padding: 20px;
   border-radius: 6px;
   background: rgba(46,20,124,0.7) !important;
-  color: rgba(250, 250, 250, 0.6);
+  color: #fff;
   position: relative;
   backdrop-filter: blur(4px);
   box-shadow: 14px 18px 10px  rgba(52, 23, 138, 0.6);
@@ -255,7 +276,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   color: #fff;
   font-size: 14px !important;
   line-height: 60px;
-  text-align: center;
   word-wrap : break-word ;
   word-break:keep-all;
   max-height: 60px;
@@ -263,7 +283,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
   overflow: hidden;
   font-weight: lighter !important;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
 .common_table.el-table tbody td.cell{
@@ -605,9 +625,15 @@ a{
 .el-checkbox-button.is-checked .el-checkbox-button__inner:hover{
   color: #43F6AD !important;
 }
-.el-icon-arrow-up:before{
-  background: url('../images/selectTop.png') 50% no-repeat !important;
+.el-icon-arrow-down:before{
   color: #61cdd0 !important;
+}
+.el-icon-arrow-up:before{
+  color: #61cdd0 !important;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner{
+  border-color: #7ED4A9;
+  background-color:#7ED4A9;
 }
 .el-table .caret-wrapper{
   height: 20px;
