@@ -455,9 +455,6 @@ export default {
 .table-content{
   background: rgba(46, 20, 124, 0.7);
 }
-div /deep/ .el-table__body-wrapper {
-  margin-top: -10px !important;
-}
 div /deep/ .el-table tr{
   background: none !important;
 }
