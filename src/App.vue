@@ -316,6 +316,17 @@ export default {
             })
           }
         })
+      } else if (this.userName === 'tenant') {
+        jsonData.forEach(item => {
+          if (item.children) {
+            item.children.forEach((subItem, subIndex) => {
+              if (subItem.name === '应用共享' || subItem.name === 'App Share' ||
+              subItem.name === '系统' || subItem.name === 'System') {
+                item.children.splice(subIndex, 2)
+              }
+            })
+          }
+        })
       }
     },
     getResCodeInfo () {
