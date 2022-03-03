@@ -107,17 +107,18 @@
             width="160"
           >
             <template slot-scope="scope">
-              <el-popover
-                placement="bottom"
-                width="260"
-                trigger="hover"
+              <el-tooltip
+                placement="top"
+                width="160"
+                effect="dark"
+                :content="scope.row.shortDesc"
                 v-if="scope.row.shortDesc.length>20"
               >
                 <div>{{ scope.row.shortDesc }}</div>
                 <div slot="reference">
                   {{ scope.row.shortDesc }}
                 </div>
-              </el-popover>
+              </el-tooltip>
               <div v-else>
                 {{ scope.row.shortDesc }}
               </div>
@@ -935,5 +936,20 @@ cursor:pointer
 }
 .el-select-dropdown__item.selected {
   color: #fff !important;
+}
+.el-tooltip__popper.is-dark{
+  background: #4E3494;
+  backdrop-filter: blur(4px);
+  font-size: 12px;
+  line-height: 18px;
+  max-width: 30%;
+  font-family: defaultFontUltraLight,
+  Arial,
+  Helvetica,
+  sans-serif !important;
+  margin-bottom: -10px;
+}
+.el-tooltip__popper .popper__arrow::after{
+  border-top-color:#4E3494 !important;
 }
 </style>

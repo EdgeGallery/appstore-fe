@@ -481,6 +481,7 @@ const cn = {
     downloadNum: '次下载',
     workloadType: '负载类型',
     deployContainer: '容器',
+    noPush: '暂无数据',
     deployVM: '虚拟机',
     downloadImage: '应用包下载',
     downloadImageTip: ' 应用包内有镜像下载链接',

@@ -103,13 +103,13 @@
           <el-table-column
             prop="name"
             :label="$t('apppromotion.appName')"
-            width="200"
+            width="180"
             sortable="custom"
           >
             <template slot-scope="scope">
               <el-popover
                 placement="bottom"
-                width="200"
+                width="180"
                 trigger="hover"
                 v-if="scope.row.name.length>20"
               >
@@ -125,6 +125,7 @@
           </el-table-column>
           <el-table-column
             prop="provider"
+            width="120"
             :label="$t('apppromotion.provider')"
           />
           <el-table-column
@@ -140,24 +141,7 @@
             prop="description"
             :label="$t('apppromotion.description')"
             width="320"
-          >
-            <template slot-scope="scope">
-              <el-popover
-                placement="bottom"
-                width="320"
-                trigger="hover"
-                v-if="scope.row.description.length>20"
-              >
-                <div>{{ scope.row.description }}</div>
-                <div slot="reference">
-                  {{ scope.row.description }}
-                </div>
-              </el-popover>
-              <div v-else>
-                {{ scope.row.description }}
-              </div>
-            </template>
-          </el-table-column>
+          />
           <el-table-column
             prop="time"
             :label="$t('apppromotion.dateTime')"

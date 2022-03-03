@@ -920,8 +920,8 @@ export default {
       margin-top: 11px;
     }
     .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
-      border-color: #54C3D7;
-      background-color:#54C3D7;
+      border-color: #7ED4A9;
+      background-color:#7ED4A9;
       .warning-tip{
         color: #fff;
         font-size: 12px;
