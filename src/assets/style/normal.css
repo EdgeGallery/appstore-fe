@@ -132,6 +132,21 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 .el-radio__input.is-checked + .el-radio__label {
   color: #fff;
 }
+.el-tooltip__popper.is-dark{
+  background: #4E3494;
+  backdrop-filter: blur(4px);
+  font-size: 12px;
+  line-height: 18px;
+  max-width: 30%;
+  font-family: defaultFontUltraLight,
+  Arial,
+  Helvetica,
+  sans-serif !important;
+  margin-bottom: -10px;
+}
+.el-tooltip__popper .popper__arrow::after{
+  border-top-color:#4E3494 !important;
+}
 .common_input .el-input__inner{
   border: 1px solid rgba(250, 250, 250, 0.6) !important;
   background: rgba(46, 20, 124, 0.7);

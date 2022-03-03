@@ -50,20 +50,21 @@
           <el-table-column
             prop="name"
             :label="$t('common.appName')"
-            sortable="custom"
-            width="180"
+            width="160"
           >
             <template slot-scope="scope">
-              <el-popover
-                placement="bottom"
-                trigger="hover"
+              <el-tooltip
+                placement="top"
+                width="160"
+                effect="dark"
+                :content="scope.row.name"
                 v-if="scope.row.name.length>20"
               >
                 <div>{{ scope.row.name }}</div>
                 <div slot="reference">
                   {{ scope.row.name }}
                 </div>
-              </el-popover>
+              </el-tooltip>
               <div v-else>
                 <a
                   @click="getDetail(scope.row) "
@@ -936,20 +937,5 @@ cursor:pointer
 }
 .el-select-dropdown__item.selected {
   color: #fff !important;
-}
-.el-tooltip__popper.is-dark{
-  background: #4E3494;
-  backdrop-filter: blur(4px);
-  font-size: 12px;
-  line-height: 18px;
-  max-width: 30%;
-  font-family: defaultFontUltraLight,
-  Arial,
-  Helvetica,
-  sans-serif !important;
-  margin-bottom: -10px;
-}
-.el-tooltip__popper .popper__arrow::after{
-  border-top-color:#4E3494 !important;
 }
 </style>
