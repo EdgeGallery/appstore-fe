@@ -196,7 +196,7 @@
             </p>
             <div class="docImg">
               <img
-                :src="language === 'cn' ? require('@/assets/images/docImgcn1.png'): require('@/assets/images/docImgen1.png')"
+                :src="language === 'cn' ? require('@/assets/images/docImgcn1.jpg'): require('@/assets/images/docImgen1.jpg')"
                 alt=""
               >
             </div>
@@ -487,7 +487,7 @@ p{
         img{
           width: 90.4%;
           height: 100%;
-          border-radius: 8px;
+          border-radius: 12px;
         }
       }
       .docImg2{
@@ -500,7 +500,7 @@ p{
           width: 90.4%;
           margin: 31px 0px;
           height: 100%;
-          border-radius: 8px;
+          border-radius: 12px;
         }
       }
     }

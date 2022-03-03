@@ -19,6 +19,7 @@
     <el-form
       label-position="center"
       class="clear"
+      style="margin-left: -20px;"
       @submit.native.prevent
     >
       <el-form-item

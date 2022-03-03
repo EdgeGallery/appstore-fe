@@ -26,20 +26,21 @@
       <el-table-column
         prop="name"
         :label="$t('common.appName')"
-        width="200"
+        width="160"
       >
         <template slot-scope="scope">
-          <el-popover
-            placement="bottom"
-            width="230"
-            trigger="hover"
+          <el-tooltip
+            placement="top"
+            width="160"
+            effect="dark"
+            :content="scope.row.name"
             v-if="scope.row.name.length>20"
           >
             <div>{{ scope.row.name }}</div>
             <div slot="reference">
               {{ scope.row.name }}
             </div>
-          </el-popover>
+          </el-tooltip>
           <div v-else>
             {{ scope.row.name }}
           </div>
@@ -53,7 +54,7 @@
       <el-table-column
         prop="type"
         :label="$t('store.type')"
-        width="90"
+        width="180"
       />
       <el-table-column
         prop="affinity"
@@ -80,17 +81,18 @@
         width="220"
       >
         <template slot-scope="scope">
-          <el-popover
-            placement="bottom"
+          <el-tooltip
+            placement="top"
             width="300"
-            trigger="hover"
+            effect="dark"
+            :content="scope.row.shortDesc"
             v-if="scope.row.shortDesc.length>20"
           >
             <div>{{ scope.row.shortDesc }}</div>
             <div slot="reference">
               {{ scope.row.shortDesc }}
             </div>
-          </el-popover>
+          </el-tooltip>
           <div v-else>
             {{ scope.row.shortDesc }}
           </div>
@@ -198,7 +200,6 @@ export default {
 </script>
 <style lang='less'>
 .app-list{
-  // background: rgba(46, 20, 124, 0.7) !important;
   border-radius:16px ;
   .detailStyle{
     background-color: #EFEFEF;

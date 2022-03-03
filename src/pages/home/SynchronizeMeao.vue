@@ -352,7 +352,6 @@ export default {
 </script>
 <style lang='less'>
 .app-list{
-  background: #2E147C;
   .el-upload__tip {
     height: 110px;
     padding-top: 55px;
