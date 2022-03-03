@@ -303,7 +303,7 @@ export default {
       sessionStorage.removeItem('userId')
     },
     showToolchain (jsonData) {
-      this.userName = sessionStorage.getItem('userName')
+      this.userName = sessionStorage.getItem('userNameRole')
       if (this.userName === 'guest') {
         jsonData.forEach(item => {
           if (item.children) {
