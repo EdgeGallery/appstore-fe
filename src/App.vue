@@ -310,6 +310,10 @@ export default {
             item.children.forEach((subItem, subIndex) => {
               if (subItem.name === '个人中心' || subItem.name === 'User Center') {
                 item.children.splice(subIndex, 1)
+              } else if (subItem.name === '应用共享' || subItem.name === 'App Share') {
+                item.children.splice(subIndex, 1)
+              } else if (subItem.name === '系统' || subItem.name === 'System') {
+                item.children.splice(subIndex, 1)
               }
             })
           }

@@ -129,7 +129,7 @@
             :column-key="'status'"
             width="125"
             :label="$t('myApp.status')"
-            :filters="[{text: 'Upload', value: 'Upload'}, {text: 'Test_created', value: 'Test_created'}, {text: 'Test_running', value: 'Test_running'}, {text: 'Test_waiting', value: 'Test_waiting'},{text: 'Test_failed', value: 'Test_failed'}, {text: 'Test_success', value: 'Test_success'}, {text: 'Published', value: 'Published'}, {text: 'OffShelf', value: 'OffShelf'}]"
+            :filters="[{text: 'Upload', value: 'Upload'}, {text: 'Test_created', value: 'Test_created'}, {text: 'Test_running', value: 'Test_running'}, {text: 'Test_waiting', value: 'Test_waiting'},{text: 'Test_failed', value: 'Test_failed'}, {text: 'Test_success', value: 'Test_success'}, {text: 'Published', value: 'Published'}, {text: 'Unpublished', value: 'Unpublished'}]"
             :filtered-value="filterValue.status"
           >
             <template slot-scope="scope">
@@ -162,7 +162,7 @@
                 class="published"
               />
               <em
-                v-if="scope.row.status==='OffShelf'"
+                v-if="scope.row.status==='Unpublished'"
                 class="upload"
               />
               <span v-if="scope.row.status==='Upload'">Upload</span>
@@ -172,7 +172,7 @@
               <span v-if="scope.row.status==='Test_failed'">Test_failed</span>
               <span v-if="scope.row.status==='Test_success'">Test_success</span>
               <span v-if="scope.row.status==='Published'">Published</span>
-              <span v-if="scope.row.status==='OffShelf'">OffShelf</span>
+              <span v-if="scope.row.status==='Unpublished'">Unpublished</span>
             </template>
           </el-table-column>
           <el-table-column
