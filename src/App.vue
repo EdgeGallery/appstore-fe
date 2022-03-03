@@ -303,31 +303,37 @@ export default {
       sessionStorage.removeItem('userId')
     },
     showToolchain (jsonData) {
-      this.userName = sessionStorage.getItem('userNameRole')
-      if (this.userName === 'guest') {
-        jsonData.forEach(item => {
-          if (item.children) {
-            item.children.forEach((subItem, subIndex) => {
-              if (subItem.name === '个人中心' || subItem.name === 'User Center' ||
+      let _userRole = sessionStorage.getItem('userNameRole')
+      if (_userRole === 'guest') {
+        this.filterGuestData(jsonData)
+      } else if (_userRole === 'tenant') {
+        this.filterTenantData(jsonData)
+      }
+    },
+    filterGuestData (jsonData) {
+      jsonData.forEach(item => {
+        if (item.children) {
+          item.children.forEach((subItem, subIndex) => {
+            if (subItem.name === '个人中心' || subItem.name === 'User Center' ||
               subItem.name === '应用共享' || subItem.name === 'App Share' ||
               subItem.name === '系统' || subItem.name === 'System') {
-                item.children.splice(subIndex, 1)
-              }
-            })
-          }
-        })
-      } else if (this.userName === 'tenant') {
-        jsonData.forEach(item => {
-          if (item.children) {
-            item.children.forEach((subItem, subIndex) => {
-              if (subItem.name === '应用共享' || subItem.name === 'App Share' ||
+              item.children.splice(subIndex, 1)
+            }
+          })
+        }
+      })
+    },
+    filterTenantData (jsonData) {
+      jsonData.forEach(item => {
+        if (item.children) {
+          item.children.forEach((subItem, subIndex) => {
+            if (subItem.name === '应用共享' || subItem.name === 'App Share' ||
               subItem.name === '系统' || subItem.name === 'System') {
-                item.children.splice(subIndex, 2)
-              }
-            })
-          }
-        })
-      }
+              item.children.splice(subIndex, 2)
+            }
+          })
+        }
+      })
     },
     getResCodeInfo () {
       let datas = '[appstore,atp]'
@@ -342,6 +348,7 @@ export default {
   mounted () {
     this.getResCodeInfo()
     this.loginFun()
+    this.userName = sessionStorage.getItem('userName')
     let historyRoute = sessionStorage.getItem('historyRoute')
     if (historyRoute) {
       this.$router.push(historyRoute)
