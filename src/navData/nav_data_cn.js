@@ -59,6 +59,7 @@ const mecAppstore = [
     name: '应用共享',
     path: '/appShare',
     display: true,
+    authority: ['ROLE_APPSTORE_ADMIN', 'ROLE_APPSTORE_TENANT'],
     index: '5',
     children: [
       {
@@ -103,6 +104,7 @@ const mecAppstore = [
     name: '系统',
     display: true,
     path: '/appManager',
+    authority: ['ROLE_APPSTORE_ADMIN', 'ROLE_APPSTORE_TENANT'],
     index: '6',
     children: [
       {

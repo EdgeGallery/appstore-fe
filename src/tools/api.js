@@ -201,7 +201,7 @@ function deleteAppApi (appId, userId, userName) {
 }
 
 function offShelfAppApi (appId, packageId, userId, userName) {
-  let url = 'apps/' + appId + '/packages/' + packageId + '/action/offShelf?userId=' + userId + '&userName=' + userName
+  let url = 'apps/' + appId + '/packages/' + packageId + '/action/unpublish?userId=' + userId + '&userName=' + userName
   return POST(url)
 }
 
