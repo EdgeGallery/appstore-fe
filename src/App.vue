@@ -160,6 +160,7 @@ export default {
       getUserInfo().then(res => {
         sessionStorage.setItem('userId', res.data.userId)
         sessionStorage.setItem('userName', res.data.userName)
+        this.userName = sessionStorage.getItem('userName')
         sessionStorage.setItem('accessToken', res.data.accessToken)
         this.loginPage = res.data.loginPage
         let _lang = localStorage.getItem('language')
@@ -348,7 +349,6 @@ export default {
   mounted () {
     this.getResCodeInfo()
     this.loginFun()
-    this.userName = sessionStorage.getItem('userName')
     let historyRoute = sessionStorage.getItem('historyRoute')
     if (historyRoute) {
       this.$router.push(historyRoute)
