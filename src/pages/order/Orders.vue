@@ -102,7 +102,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('myApp.operation')"
-            min-width="16.07%"
+            width="200"
           >
             <template slot-scope="scope">
               <div>

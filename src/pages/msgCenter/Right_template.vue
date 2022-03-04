@@ -296,14 +296,14 @@ export default {
     }
     .unRead_select{
       position: relative;
-      top: 54px;
+      top: 40px;
       left: 260px;
       opacity: 1;
     }
     .all_select{
       opacity: 1;
       position: relative;
-      top: 54px;
+      top: 40px;
       left: 120px;
     }
     .container_active{
@@ -516,7 +516,7 @@ div /deep/ .el-table tr{
   }
 }
 .allContent{
-  min-height: 460px;
+  min-height: 500px;
   background: transparent;
 }
 div /deep/ .el-table__body-wrapper{
