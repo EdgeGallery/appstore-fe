@@ -268,7 +268,6 @@
 
 <script>
 import { TTYPES } from '../../tools/constant.js'
-import { common } from '../../tools/comon.js'
 import { myAppStore } from '../../tools/api.js'
 import appStoreGrid from './AppStoreGrid.vue'
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
@@ -376,9 +375,6 @@ export default {
     }
   },
   methods: {
-    setDivHeight () {
-      common.setDivHeightFun(document.body.clientHeight, 'contents', 616)
-    },
     sizeChange (val) {
       this.curPageSize = val
     },
@@ -547,7 +543,6 @@ export default {
     }
   },
   mounted () {
-    this.setDivHeight()
     this.userId = sessionStorage.getItem('userId')
     this.getAppPackageData()
     this.updateBreadCrumbData()

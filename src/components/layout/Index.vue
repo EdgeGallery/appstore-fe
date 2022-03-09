@@ -17,7 +17,7 @@
 <template>
   <div class="layout">
     <el-main>
-      <router-view />
+      <router-view class="contentInfo" />
       <EgFooter
         v-if="platformData[0].url!==''"
         :platform-data="platformData"
@@ -25,7 +25,7 @@
         :specific-bg="specificBg"
         :specific-bg-color="bgColor"
         :footer-bgcolor-prop="footerBgColor"
-        :footer-paddingtop-prop="foterPadding"
+        :footer-paddingtop-prop="footerPadding"
       />
     </el-main>
   </div>
@@ -63,7 +63,9 @@ export default {
       showFullFooterPage: true,
       specificBg: true,
       bgColor: '#3e279b',
-      foterPadding: 0,
+      otherHeight: 0,
+      screenHeight: 0,
+      footerPadding: 0,
       footerBgColor: 'rgba(46,20,124,0.7)'
     }
   },
@@ -79,9 +81,17 @@ export default {
     getPagePath (path) {
       if (path === '/home') {
         this.showFullFooterPage = true
+        this.otherHeight = 377
+        this.footerPadding = 0
       } else {
         this.showFullFooterPage = false
+        this.otherHeight = 100
+        this.footerPadding = 100
       }
+    },
+    setDivHeight () {
+      this.screenHeight = document.body.clientHeight
+      common.setDivHeightFun(this.screenHeight, 'contentInfo', this.otherHeight)
     },
     getScrollTop () {
       this.scrollTop = this.$refs.app.getBoundingClientRect().top
@@ -104,6 +114,11 @@ export default {
   mounted () {
     this.getPagePath(this.$route.path)
     this.getPlatformUrl()
+    var _this = this
+    _this.setDivHeight()
+    window.onresize = function () {
+      _this.setDivHeight()
+    }
   }
 }
 </script>
@@ -115,7 +130,6 @@ export default {
       margin-top:25px;
       float:right;
     }
-
     /* Edit md file scroll bar */
     .editormd-preview-container, .editormd-html-preview{
       margin:0;
@@ -168,6 +182,9 @@ export default {
     }
     .el-menu.el-menu--horizontal{
       border-bottom: none;
+    }
+    .hiddenFooter{
+      display: none;
     }
 }
 .el-icon-close{

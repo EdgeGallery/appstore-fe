@@ -81,6 +81,7 @@ const en = {
     canceled: 'Canceled!',
     confirmToUnsub: 'Are you sure to cancel order: ',
     unsubSuccess: 'Unsubscribe Successfully',
+    getOrderListmsg: 'Failed to get order list',
     orderStatus: {
       activating: 'Activating',
       activateFailed: 'Activate Failed',

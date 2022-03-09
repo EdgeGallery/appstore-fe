@@ -428,7 +428,6 @@
 import pagination from '../../components/common/Pagination.vue'
 import { Workspace, System } from '@/tools/api.js'
 import { Architecture } from '@/tools/constant.js'
-import { common } from '../../tools/comon.js'
 
 export default {
   name: 'HostList',
@@ -588,7 +587,6 @@ export default {
     }
   },
   mounted () {
-    this.setDivHeight()
     this.getListData()
   },
   watch: {
@@ -617,9 +615,6 @@ export default {
     },
     showMoreBtnFun (index) {
       this.currentIndex = index
-    },
-    setDivHeight () {
-      common.setDivHeightFun(this.screenHeight, 'hostManagement', 261)
     },
     addMore () {
       this.innerVisible = true

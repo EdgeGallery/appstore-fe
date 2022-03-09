@@ -183,7 +183,6 @@
 <script>
 import { getAppPromTableApi, promProviderInfo } from '../../tools/api.js'
 import promTask from './PromTask.vue'
-import { common } from '../../tools/comon.js'
 import EgPagination from 'eg-view/src/components/EgPagination.vue'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
@@ -193,7 +192,6 @@ export default {
   },
   data () {
     return {
-      screenHeight: document.body.clientHeight,
       dataonLineListSelections: [],
       uploadDiaVis: false,
       appData: [],
@@ -219,9 +217,6 @@ export default {
     }
   },
   methods: {
-    setDivHeight () {
-      common.setDivHeightFun(this.screenHeight, 'app-list', 332)
-    },
     sizeChange (val) {
       this.curPageSize = val
     },
@@ -409,7 +404,6 @@ export default {
     sessionStorage.removeItem('offsetAppPush')
   },
   mounted () {
-    this.setDivHeight()
     this.getTableData()
     this.getProviders()
     this.defaultSort()
