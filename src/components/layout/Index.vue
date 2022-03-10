@@ -93,9 +93,6 @@ export default {
       this.screenHeight = document.body.clientHeight
       common.setDivHeightFun(this.screenHeight, 'contentInfo', this.otherHeight)
     },
-    getScrollTop () {
-      this.scrollTop = this.$refs.app.getBoundingClientRect().top
-    },
     getPlatformUrl () {
       this.developerUrl = common.getPlatformUrlPrefix(PLATFORMNAME_DEVELOPER)
       this.atpUrl = common.getPlatformUrlPrefix(PLATFORMNAME_ATP)

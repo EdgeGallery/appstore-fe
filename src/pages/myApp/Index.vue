@@ -183,7 +183,7 @@
               <div>
                 <el-button
                   class="common_operationBtn"
-                  :disabled="scope.row.status == 'Published'"
+                  :disabled="scope.row.status == 'Published' || scope.row.status == 'Unpublished'"
                   @click="testMessage(scope.row)"
                   type="text"
                 >
