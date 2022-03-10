@@ -83,6 +83,7 @@ const cn = {
     canceled: '已取消！',
     confirmToUnsub: '是否要取消订单： ',
     unsubSuccess: '退订成功！',
+    getOrderListmsg: '获取订单列表失败',
     orderStatus: {
       activating: '正在激活',
       activateFailed: '激活失败',

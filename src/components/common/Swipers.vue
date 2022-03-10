@@ -82,7 +82,7 @@ export default {
     return {
       uploadDiaVis: false,
       language: localStorage.getItem('language'),
-      screenHeight: document.body.clientHeight,
+      screenHeight: 0,
       SwiperList: [
         {
           id: '0001',
@@ -104,11 +104,9 @@ export default {
     }
 
   },
-  mounted () {
-    this.setDivHeight()
-  },
   methods: {
     setDivHeight () {
+      this.screenHeight = document.body.clientHeight
       common.setDivHeightFun(this.screenHeight, 'el-carousel__container', 65)
     },
     uploadPackage () {
@@ -118,6 +116,13 @@ export default {
       } else {
         this.uploadDiaVis = true
       }
+    }
+  },
+  mounted () {
+    var _this = this
+    _this.setDivHeight()
+    window.onresize = function () {
+      _this.setDivHeight()
     }
   }
 }

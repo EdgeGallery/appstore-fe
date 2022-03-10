@@ -85,7 +85,6 @@
 <script>
 import appPullResultDlg from './AppPullResultDlg.vue'
 import AppStoreDetail from './AppStoreDetail'
-import { common } from '../../tools/comon.js'
 import { promProviderInfo } from '../../tools/api.js'
 import commonUtil from '../../tools/commonUtil.js'
 export default {
@@ -95,7 +94,6 @@ export default {
   },
   data () {
     return {
-      screenHeight: document.body.clientHeight,
       allSelectionsApp: [],
       isShowDialog: false,
       appPullResultData: [],
@@ -115,9 +113,6 @@ export default {
     }
   },
   methods: {
-    setDivHeight () {
-      common.setDivHeightFun(this.screenHeight, 'pull_container', 332)
-    },
     jumpToApppromote () {
       this.$router.push('/apppromote')
     },
@@ -183,7 +178,6 @@ export default {
     }
   },
   mounted () {
-    this.setDivHeight()
     this.getProviders()
   }
 }

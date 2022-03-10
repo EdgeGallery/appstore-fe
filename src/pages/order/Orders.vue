@@ -17,7 +17,6 @@
 <template>
   <div
     class="orders common_bg"
-    v-loading="loading"
     :element-loading-text="$t('common.loading')"
   >
     <div class="order_title defaultFontBlod">
@@ -246,7 +245,6 @@ export default {
           label: this.$t('order.orderStatus.deactivated')
         }
       ],
-      loading: true,
       dialogVisible: false,
       recordInfo: [],
       recordTime: [],
@@ -288,9 +286,9 @@ export default {
       subscribe.getOrderList(_queryParam).then(res => {
         this.orderList = res.data.results
         this.pageCtrl.totalNum = res.data.total
-        this.loading = false
       }).catch((error) => {
-        commonUtil.showTipMsg(this.language, error, error.response.data.message)
+        let defaultMsg = this.$t('order.getOrderListmsg')
+        commonUtil.showTipMsg(this.language, error, defaultMsg)
       })
     },
     activate (row) {
@@ -305,7 +303,6 @@ export default {
       ).then(() => {
         subscribe.activateApp(row.orderId).then(res => {
           this.$message.success(this.$t('order.success'))
-          this.loading = true
           this.timer = setInterval(() => {
             this.getOrderList()
           }, 3000)
@@ -326,7 +323,6 @@ export default {
       ).then(() => {
         subscribe.deactivateApp(row.orderId).then(res => {
           this.$message.success(this.$t('order.unsubSuccess'))
-          this.loading = true
           this.getOrderList()
         }).catch((error) => {
           commonUtil.showTipMsg(this.language, error, error.response.data.message)

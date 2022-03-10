@@ -88,7 +88,6 @@ import uploadAppLogo from '@/assets/images/upload.png'
 import appgridLogo from '@/assets/images/appgrid.png'
 import applistLogo from '@/assets/images/applist.png'
 import HomeSwiper from '../../components/common/Swipers.vue'
-import { common } from '../../tools/comon.js'
 import commonUtil from '../../tools/commonUtil.js'
 import timeFormatTools from '../../tools/timeFormatTools.js'
 export default {
@@ -145,10 +144,6 @@ export default {
     }
   },
   methods: {
-    setDivHeight () {
-      let screenHeight = document.body.clientHeight
-      common.setDivHeightFun(screenHeight, 'home', 332)
-    },
     checkFromDetail () {
       let fromPath = sessionStorage.getItem('fromPath') || ''
       sessionStorage.removeItem('fromPath')
@@ -251,7 +246,6 @@ export default {
   mounted () {
     sessionStorage.removeItem('sortType')
     sessionStorage.removeItem('sortItem')
-    this.setDivHeight()
     this.sortItems.forEach((item) => {
       item.selected = false
       if (item.value === 'UploadTime') {

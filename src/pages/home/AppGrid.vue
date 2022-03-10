@@ -248,6 +248,22 @@ export default {
         }
       }
     }
+    .application:hover{
+      animation-name: appAnimation;
+      animation-duration: 1.5s;
+      animation-timing-function: ease-in;
+    }
+    @keyframes appAnimation {
+      0% {
+         transform: translateY(-10px) ;
+      }
+      50% {
+         transform: translateY(0px) ;
+      }
+      100% {
+         transform: translateY(-10px) ;
+      }
+    }
   }
   @media screen and (max-width: 1800px) and (min-width: 1200px){
     .content {
