@@ -259,7 +259,7 @@ export default {
     },
     checkSyncPackage () {
       if (this.systemData.length === 0) {
-        this.$message.success(this.$t('promptMessage.noSystemMEAO'))
+        this.$message.warning(this.$t('promptMessage.noSystemMEAO'))
       } else if (sessionStorage.getItem('userNameRole') !== 'admin') {
         this.$message.warning(this.$t('promptMessage.synchronizePrompt'))
       }
