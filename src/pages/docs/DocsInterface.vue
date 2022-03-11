@@ -506,10 +506,7 @@ p{
     }
     .markdown-body{
       color: #fff;
-      font-family: defaultFontLight,
-        Arial,
-        Helvetica,
-        sans-serif !important;
+      font-family: defaultFont, Arial, Helvetica, sans-serif;
       h2{
         font-weight: lighter;
       }
@@ -523,10 +520,7 @@ p{
         background-color: #3A218B !important ;
         color: #fff;
         code{
-          font-family: defaultFontLight,
-          Arial,
-          Helvetica,
-          sans-serif !important;
+          font-family: defaultFont, Arial, Helvetica, sans-serif;
         }
       }
       table th{
@@ -551,10 +545,7 @@ div /deep/ .el-menu{
 }
 .oneTitles{
   font-size: 20px;
-  font-family: defaultFontLight,
-    Arial,
-    Helvetica,
-    sans-serif !important;
+  font-family: defaultFont, Arial, Helvetica, sans-serif;
   img{
     position: relative;
     top: -2px;
@@ -569,10 +560,7 @@ div /deep/ .el-menu{
 }
 .twoTitle{
   font-size: 16px;
-  font-family: defaultFontLight,
-    Arial,
-    Helvetica,
-    sans-serif !important;
+  font-family: defaultFont, Arial, Helvetica, sans-serif;
 }
 .twoTitle.twoSelect{
   color: #fff;

@@ -54,11 +54,7 @@ export default {
 }
 .v-note-wrapper .v-note-panel .v-note-show .v-show-content, .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html{
   color: #fff;
-  font-family: defaultFontLight,
-    Arial,
-    Helvetica,
-    sans-serif !important;
-   padding: 32px 59px !important;
+  font-family: defaultFont, Arial, Helvetica, sans-serif;
 }
 .v-note-wrapper .v-note-panel .v-note-show .v-show-content {
   background: transparent !important;
