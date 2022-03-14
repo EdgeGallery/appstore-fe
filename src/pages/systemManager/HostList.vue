@@ -963,10 +963,7 @@ export default {
     .title_name{
       color: #fff !important;
       font-size: 18px;
-      font-family: defaultFontLight,
-      Arial,
-      Helvetica,
-      sans-serif !important;
+      font-family: defaultFont, Arial, Helvetica, sans-serif;
     }
   }
 .title_content2{

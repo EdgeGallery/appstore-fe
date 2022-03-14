@@ -127,7 +127,7 @@
           </el-table-column>
           <el-table-column
             :column-key="'status'"
-            width="125"
+            width="150"
             :label="$t('myApp.status')"
             :filters="[{text: 'Upload', value: 'Upload'}, {text: 'Test_created', value: 'Test_created'}, {text: 'Test_running', value: 'Test_running'}, {text: 'Test_waiting', value: 'Test_waiting'},{text: 'Test_failed', value: 'Test_failed'}, {text: 'Test_success', value: 'Test_success'}, {text: 'Published', value: 'Published'}, {text: 'Unpublished', value: 'Unpublished'}]"
             :filtered-value="filterValue.status"
