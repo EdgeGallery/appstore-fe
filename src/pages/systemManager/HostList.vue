@@ -145,23 +145,6 @@
           </el-select>
         </el-form-item>
         <el-form-item
-          :label="$t('system.portRange')"
-          prop="portRangeMin"
-          class="w50"
-        >
-          <el-input
-            size="small"
-            v-model="form.portRangeMin"
-            class="port_input"
-          />
-          <span class="port_span">-</span>
-          <el-input
-            size="small"
-            v-model="form.portRangeMax"
-            class="port_input"
-          />
-        </el-form-item>
-        <el-form-item
           :label="$t('nav.system')"
           prop="os"
         >
@@ -495,6 +478,8 @@ export default {
         callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.inPort')}`))
       } else if (!reg.test(value)) {
         callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.correct')}${this.$t('system.inPort')}`))
+      } else if (Number(value)  >32000 || Number(value) < 30000) {
+        callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.correct')}${this.$t('system.portRange')}`))
       } else {
         callback()
       }
