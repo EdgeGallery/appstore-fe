@@ -478,7 +478,7 @@ export default {
         callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.inPort')}`))
       } else if (!reg.test(value)) {
         callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.correct')}${this.$t('system.inPort')}`))
-      } else if (Number(value)  >32000 || Number(value) < 30000) {
+      } else if (Number(value) > 32000 || Number(value) < 30000) {
         callback(new Error(`${this.$t('system.pleaseInput')}${this.$t('system.correct')}${this.$t('system.portRange')}`))
       } else {
         callback()
