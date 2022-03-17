@@ -811,6 +811,7 @@ const en = {
     pullSuccess: 'pull success, please check in my app',
     getAppStoreException: 'get Appstore Exception',
     getPullAppException: 'get pull App Exception',
+    externalAppStoreInfo: 'Error in external warehouse URL information',
     viewTestRepo: 'view report',
     haveNoPullData: 'There is no External AppStore to pull apps,Please ',
     addApppromote: 'add an External AppStore first'

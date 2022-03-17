@@ -236,8 +236,13 @@ export default {
         this.dataLoading = false
       }).catch((error) => {
         this.dataLoading = false
-        let defaultMsg = this.$t('appPull.getPullAppException')
-        commonUtil.showTipMsg(this.language, error, defaultMsg)
+        if (error.response.data.code === 400) {
+          let errorUrl = this.$t('appPull.externalAppStoreInfo')
+          this.$message.error(errorUrl)
+        } else {
+          let defaultMsg = this.$t('appPull.getPullAppException')
+          commonUtil.showTipMsg(this.language, error, defaultMsg)
+        }
       })
     },
     currentChange (val) {
