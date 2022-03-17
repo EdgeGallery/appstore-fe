@@ -72,7 +72,7 @@
           />
           <el-table-column
             prop="status"
-            min-width="9.96%"
+            min-width="11%"
             :label="$t('order.status')"
           >
             <template slot-scope="scope">

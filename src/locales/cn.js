@@ -799,6 +799,7 @@ const cn = {
     pullSuccess: '拉取成功，请在我的应用中查看',
     getAppStoreException: '获取appStore异常',
     getPullAppException: '获取拉取app信息异常',
+    externalAppStoreInfo: '外部仓库URL信息有误',
     viewTestRepo: '查看报告',
     haveNoPullData: '暂无可拉取应用的外部仓库，请先',
     addApppromote: '添加外部仓库'
